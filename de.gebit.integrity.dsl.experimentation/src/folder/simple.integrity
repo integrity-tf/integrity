@@ -48,7 +48,7 @@ packagedef mypackage with
 	
 	suiteend
 	
-	suitedef csuite with
+	single-run suitedef csuite with
 	
 		test echo echo: "test" = weirdstuff_001barcode
 	

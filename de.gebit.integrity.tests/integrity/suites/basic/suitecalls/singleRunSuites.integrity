@@ -1,0 +1,47 @@
+packagedef integrity.basic.suitecalls with
+
+	suitedef simpleSingleRunSuite with	
+		suite singleRunSuite
+		
+		// This second call is skipped because it was already executed
+		suite singleRunSuite
+	suiteend
+	
+	suitedef dependentSingleRunSuite with	
+		suite dependingSubSuite
+		
+		// This second call should not trigger the dependency anymore
+		suite dependingSubSuite
+	suiteend
+	
+	suitedef teardownSingleRunSuite with	
+		suite dependingSubSuiteWithTeardown
+		
+		// This second call should not trigger the teardown anymore
+		suite dependingSubSuiteWithTeardown
+	suiteend
+	
+	
+	// The following suites are helpers
+	
+	single-run suitedef singleRunSuite with		
+		call integrity.fixtures.basic.noop.echoString string: "Echo this!"
+	suiteend
+	
+	single-run suitedef singleRunSuiteWithTeardown concludedby subSuite with		
+		call integrity.fixtures.basic.noop.echoString string: "Echo this!"
+	suiteend
+	
+	suitedef subSuite concludedby singleRunSuite with
+		suite singleRunSuite
+	suiteend
+	
+	suitedef dependingSubSuite requires singleRunSuiteWithTeardown with
+		// nothing here
+	suiteend
+	
+	suitedef dependingSubSuiteWithTeardown requires subSuite with
+		// nothing here
+	suiteend
+	
+packageend

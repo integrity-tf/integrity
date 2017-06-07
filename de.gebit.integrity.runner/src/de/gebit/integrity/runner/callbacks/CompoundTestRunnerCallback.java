@@ -135,9 +135,23 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
+	public void onSuiteSkipped(Suite aSuite, SuiteSkipReason aReason) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onSuiteSkipped(aSuite, aReason);
+		}
+	}
+
+	@Override
 	public void onSetupStart(SuiteDefinition aSetupSuite) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onSetupStart(aSetupSuite);
+		}
+	}
+
+	@Override
+	public void onSetupSkipped(SuiteDefinition aSetupSuite, SuiteSkipReason aReason) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onSetupSkipped(aSetupSuite, aReason);
 		}
 	}
 
@@ -180,6 +194,13 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
 		for (TestRunnerCallback tempCallback : callbacks) {
 			tempCallback.onTearDownStart(aTearDownSuite);
+		}
+	}
+
+	@Override
+	public void onTearDownSkipped(SuiteDefinition aTearDownSuite, SuiteSkipReason aReason) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onTearDownSkipped(aTearDownSuite, aReason);
 		}
 	}
 

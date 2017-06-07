@@ -97,6 +97,7 @@ import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.IntegrityRunnerModule;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.SuiteSkipReason;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.console.intercept.ConsoleInterceptionAggregator;
 import de.gebit.integrity.runner.console.intercept.Intercept;
@@ -2540,5 +2541,20 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 
 		return null;
+	}
+
+	@Override
+	public void onSuiteSkipped(Suite aSuite, SuiteSkipReason aReason) {
+		// Doing nothing here.
+	}
+
+	@Override
+	public void onSetupSkipped(SuiteDefinition aSetupSuite, SuiteSkipReason aReason) {
+		// Doing nothing here.
+	}
+
+	@Override
+	public void onTearDownSkipped(SuiteDefinition aTearDownSuite, SuiteSkipReason aReason) {
+		// Doing nothing here.
 	}
 }

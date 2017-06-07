@@ -24,8 +24,8 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	protected AbstractElementAlias match_ParameterTableHeader_VerticalLineKeyword_2_q;
 	protected AbstractElementAlias match_ParameterTableValue_VerticalLineKeyword_2_q;
 	protected AbstractElementAlias match_ResultTableHeader_VerticalLineKeyword_3_q;
-	protected AbstractElementAlias match_SuiteDefinition___ConcludedbyKeyword_8_0_NLParserRuleCall_8_1__q;
-	protected AbstractElementAlias match_SuiteDefinition___RequiresKeyword_7_0_NLParserRuleCall_7_1__q;
+	protected AbstractElementAlias match_SuiteDefinition___ConcludedbyKeyword_9_0_NLParserRuleCall_9_1__q;
+	protected AbstractElementAlias match_SuiteDefinition___RequiresKeyword_8_0_NLParserRuleCall_8_1__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -33,8 +33,8 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 		match_ParameterTableHeader_VerticalLineKeyword_2_q = new TokenAlias(false, true, grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_2());
 		match_ParameterTableValue_VerticalLineKeyword_2_q = new TokenAlias(false, true, grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_2());
 		match_ResultTableHeader_VerticalLineKeyword_3_q = new TokenAlias(false, true, grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_3());
-		match_SuiteDefinition___ConcludedbyKeyword_8_0_NLParserRuleCall_8_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_8_1()));
-		match_SuiteDefinition___RequiresKeyword_7_0_NLParserRuleCall_7_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_1()));
+		match_SuiteDefinition___ConcludedbyKeyword_9_0_NLParserRuleCall_9_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_9_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_9_1()));
+		match_SuiteDefinition___RequiresKeyword_8_0_NLParserRuleCall_8_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_8_1()));
 	}
 	
 	@Override
@@ -78,10 +78,10 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 				emit_ParameterTableValue_VerticalLineKeyword_2_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_ResultTableHeader_VerticalLineKeyword_3_q.equals(syntax))
 				emit_ResultTableHeader_VerticalLineKeyword_3_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_SuiteDefinition___ConcludedbyKeyword_8_0_NLParserRuleCall_8_1__q.equals(syntax))
-				emit_SuiteDefinition___ConcludedbyKeyword_8_0_NLParserRuleCall_8_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_SuiteDefinition___RequiresKeyword_7_0_NLParserRuleCall_7_1__q.equals(syntax))
-				emit_SuiteDefinition___RequiresKeyword_7_0_NLParserRuleCall_7_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_SuiteDefinition___ConcludedbyKeyword_9_0_NLParserRuleCall_9_1__q.equals(syntax))
+				emit_SuiteDefinition___ConcludedbyKeyword_9_0_NLParserRuleCall_9_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_SuiteDefinition___RequiresKeyword_8_0_NLParserRuleCall_8_1__q.equals(syntax))
+				emit_SuiteDefinition___RequiresKeyword_8_0_NLParserRuleCall_8_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -133,7 +133,7 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	 *     return+=SuiteReturnDefinition NL ('requires' NL)? (ambiguity) 'with' NL 'suiteend' NL (rule end)
 	 *     return+=SuiteReturnDefinition NL ('requires' NL)? (ambiguity) 'with' NL statements+=SuiteStatement
 	 */
-	protected void emit_SuiteDefinition___ConcludedbyKeyword_8_0_NLParserRuleCall_8_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_SuiteDefinition___ConcludedbyKeyword_9_0_NLParserRuleCall_9_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -152,7 +152,7 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	 *     return+=SuiteReturnDefinition NL (ambiguity) ('concludedby' NL)? 'with' NL 'suiteend' NL (rule end)
 	 *     return+=SuiteReturnDefinition NL (ambiguity) ('concludedby' NL)? 'with' NL statements+=SuiteStatement
 	 */
-	protected void emit_SuiteDefinition___RequiresKeyword_7_0_NLParserRuleCall_7_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_SuiteDefinition___RequiresKeyword_8_0_NLParserRuleCall_8_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -21,7 +21,7 @@
 'by default'=50
 'call'=62
 'calldef'=43
-'checkpoint'=80
+'checkpoint'=81
 'concludedby'=49
 'constant'=54
 'forkdef'=38
@@ -34,10 +34,11 @@
 'operationdef'=51
 'packagedef'=34
 'packageend'=36
-'parameterized'=79
+'parameterized'=80
 'private'=78
 'requires'=48
 'returns'=47
+'single-run'=79
 'suite'=63
 'suitedef'=44
 'suiteend'=45
@@ -128,3 +129,4 @@ T__77=77
 T__78=78
 T__79=79
 T__80=80
+T__81=81

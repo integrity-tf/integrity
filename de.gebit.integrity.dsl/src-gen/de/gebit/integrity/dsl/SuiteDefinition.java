@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getPrivate <em>Private</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getSingleRun <em>Single Run</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getReturn <em>Return</em>}</li>
@@ -53,6 +54,32 @@ public interface SuiteDefinition extends PackageStatement
    * @generated
    */
   void setPrivate(String value);
+
+  /**
+   * Returns the value of the '<em><b>Single Run</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Single Run</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Single Run</em>' attribute.
+   * @see #setSingleRun(String)
+   * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_SingleRun()
+   * @model
+   * @generated
+   */
+  String getSingleRun();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.SuiteDefinition#getSingleRun <em>Single Run</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Single Run</em>' attribute.
+   * @see #getSingleRun()
+   * @generated
+   */
+  void setSingleRun(String value);
 
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

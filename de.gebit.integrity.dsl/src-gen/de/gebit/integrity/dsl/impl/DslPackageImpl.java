@@ -1187,7 +1187,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSuiteDefinition_Name()
+  public EAttribute getSuiteDefinition_SingleRun()
   {
     return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(1);
   }
@@ -1197,9 +1197,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Parameters()
+  public EAttribute getSuiteDefinition_Name()
   {
-    return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1207,7 +1207,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Return()
+  public EReference getSuiteDefinition_Parameters()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(3);
   }
@@ -1217,7 +1217,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Dependencies()
+  public EReference getSuiteDefinition_Return()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(4);
   }
@@ -1227,7 +1227,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Finalizers()
+  public EReference getSuiteDefinition_Dependencies()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(5);
   }
@@ -1237,9 +1237,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Statements()
+  public EReference getSuiteDefinition_Finalizers()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSuiteDefinition_Statements()
+  {
+    return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -2939,6 +2949,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     suiteDefinitionEClass = createEClass(SUITE_DEFINITION);
     createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__PRIVATE);
+    createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__SINGLE_RUN);
     createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__NAME);
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__PARAMETERS);
     createEReference(suiteDefinitionEClass, SUITE_DEFINITION__RETURN);
@@ -3334,6 +3345,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(suiteDefinitionEClass, SuiteDefinition.class, "SuiteDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSuiteDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getSuiteDefinition_SingleRun(), ecorePackage.getEString(), "singleRun", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSuiteDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Parameters(), this.getSuiteParameterDefinition(), null, "parameters", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuiteDefinition_Return(), this.getSuiteReturnDefinition(), null, "return", null, 0, -1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

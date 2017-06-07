@@ -41,6 +41,7 @@ import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.SuiteSkipReason;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
@@ -254,6 +255,12 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
+	public void onSuiteSkipped(Suite aSuite, SuiteSkipReason aReason) {
+		println("Skipping suite " + IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()) + " - "
+				+ resolveSuiteSkipReasonToText(aReason));
+	}
+
+	@Override
 	public void onSuiteFinish(Suite aSuite, SuiteSummaryResult aResult) {
 		println("Now leaving suite " + suiteNumbers.remove(aSuite) + ": "
 				+ IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
@@ -323,6 +330,12 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
+	public void onSetupSkipped(SuiteDefinition aSetupSuite, SuiteSkipReason aReason) {
+		println("Skipping setup suite " + IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite) + " - "
+				+ resolveSuiteSkipReasonToText(aReason));
+	}
+
+	@Override
 	public void onSetupFinish(SuiteDefinition aSetupSuite, SuiteResult aResult) {
 		println("Now leaving setup suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
 	}
@@ -330,6 +343,12 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTearDownStart(SuiteDefinition aTearDownSuite) {
 		println("Now entering teardown suite: " + IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
+	}
+
+	@Override
+	public void onTearDownSkipped(SuiteDefinition aTearDownSuite, SuiteSkipReason aReason) {
+		println("Skipping teardown suite " + IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite) + " - "
+				+ resolveSuiteSkipReasonToText(aReason));
 	}
 
 	@Override
@@ -426,6 +445,24 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	protected void println(String aString) {
 		if (!isDryRun()) {
 			System.out.println(aString);
+		}
+	}
+
+	/**
+	 * Turns a {@link SuiteSkipReason} into understandable text.
+	 * 
+	 * @param aReason
+	 *            the reason
+	 * @return the textual reason
+	 */
+	protected String resolveSuiteSkipReasonToText(SuiteSkipReason aReason) {
+		switch (aReason) {
+		case VARIANT_MISMATCH:
+			return "current variant does not match list of variants that this suite call is eligible for";
+		case SINGLE_RUN_EXECUTED:
+			return "this single-run suite has already been executed";
+		default:
+			return "unknown reason";
 		}
 	}
 }

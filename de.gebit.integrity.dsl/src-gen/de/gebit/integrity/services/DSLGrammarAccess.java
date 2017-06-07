@@ -692,57 +692,59 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cPrivateAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final Keyword cPrivatePrivateKeyword_0_0 = (Keyword)cPrivateAssignment_0.eContents().get(0);
-		private final Keyword cSuitedefKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cNameQualifiedNameParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cGetsKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Group cGroup_5_1 = (Group)cGroup_5.eContents().get(1);
-		private final Assignment cParametersAssignment_5_1_0 = (Assignment)cGroup_5_1.eContents().get(0);
-		private final RuleCall cParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0 = (RuleCall)cParametersAssignment_5_1_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5_1_1 = (RuleCall)cGroup_5_1.eContents().get(1);
+		private final Assignment cSingleRunAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Keyword cSingleRunSingleRunKeyword_1_0 = (Keyword)cSingleRunAssignment_1.eContents().get(0);
+		private final Keyword cSuitedefKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNameQualifiedNameParserRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cReturnsKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Keyword cGetsKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final Group cGroup_6_1 = (Group)cGroup_6.eContents().get(1);
-		private final Assignment cReturnAssignment_6_1_0 = (Assignment)cGroup_6_1.eContents().get(0);
-		private final RuleCall cReturnSuiteReturnDefinitionParserRuleCall_6_1_0_0 = (RuleCall)cReturnAssignment_6_1_0.eContents().get(0);
+		private final Assignment cParametersAssignment_6_1_0 = (Assignment)cGroup_6_1.eContents().get(0);
+		private final RuleCall cParametersSuiteParameterDefinitionParserRuleCall_6_1_0_0 = (RuleCall)cParametersAssignment_6_1_0.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_6_1_1 = (RuleCall)cGroup_6_1.eContents().get(1);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cRequiresKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_7_1 = (RuleCall)cGroup_7.eContents().get(1);
-		private final Group cGroup_7_2 = (Group)cGroup_7.eContents().get(2);
-		private final Assignment cDependenciesAssignment_7_2_0 = (Assignment)cGroup_7_2.eContents().get(0);
-		private final CrossReference cDependenciesSuiteDefinitionCrossReference_7_2_0_0 = (CrossReference)cDependenciesAssignment_7_2_0.eContents().get(0);
-		private final RuleCall cDependenciesSuiteDefinitionQualifiedNameParserRuleCall_7_2_0_0_1 = (RuleCall)cDependenciesSuiteDefinitionCrossReference_7_2_0_0.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_7_2_1 = (RuleCall)cGroup_7_2.eContents().get(1);
+		private final Keyword cReturnsKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Group cGroup_7_1 = (Group)cGroup_7.eContents().get(1);
+		private final Assignment cReturnAssignment_7_1_0 = (Assignment)cGroup_7_1.eContents().get(0);
+		private final RuleCall cReturnSuiteReturnDefinitionParserRuleCall_7_1_0_0 = (RuleCall)cReturnAssignment_7_1_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_7_1_1 = (RuleCall)cGroup_7_1.eContents().get(1);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
-		private final Keyword cConcludedbyKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
+		private final Keyword cRequiresKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_8_1 = (RuleCall)cGroup_8.eContents().get(1);
 		private final Group cGroup_8_2 = (Group)cGroup_8.eContents().get(2);
-		private final Assignment cFinalizersAssignment_8_2_0 = (Assignment)cGroup_8_2.eContents().get(0);
-		private final CrossReference cFinalizersSuiteDefinitionCrossReference_8_2_0_0 = (CrossReference)cFinalizersAssignment_8_2_0.eContents().get(0);
-		private final RuleCall cFinalizersSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1 = (RuleCall)cFinalizersSuiteDefinitionCrossReference_8_2_0_0.eContents().get(1);
+		private final Assignment cDependenciesAssignment_8_2_0 = (Assignment)cGroup_8_2.eContents().get(0);
+		private final CrossReference cDependenciesSuiteDefinitionCrossReference_8_2_0_0 = (CrossReference)cDependenciesAssignment_8_2_0.eContents().get(0);
+		private final RuleCall cDependenciesSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1 = (RuleCall)cDependenciesSuiteDefinitionCrossReference_8_2_0_0.eContents().get(1);
 		private final RuleCall cNLParserRuleCall_8_2_1 = (RuleCall)cGroup_8_2.eContents().get(1);
-		private final Keyword cWithKeyword_9 = (Keyword)cGroup.eContents().get(9);
-		private final RuleCall cNLParserRuleCall_10 = (RuleCall)cGroup.eContents().get(10);
-		private final Assignment cStatementsAssignment_11 = (Assignment)cGroup.eContents().get(11);
-		private final RuleCall cStatementsSuiteStatementParserRuleCall_11_0 = (RuleCall)cStatementsAssignment_11.eContents().get(0);
-		private final Keyword cSuiteendKeyword_12 = (Keyword)cGroup.eContents().get(12);
-		private final RuleCall cNLParserRuleCall_13 = (RuleCall)cGroup.eContents().get(13);
+		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
+		private final Keyword cConcludedbyKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_9_1 = (RuleCall)cGroup_9.eContents().get(1);
+		private final Group cGroup_9_2 = (Group)cGroup_9.eContents().get(2);
+		private final Assignment cFinalizersAssignment_9_2_0 = (Assignment)cGroup_9_2.eContents().get(0);
+		private final CrossReference cFinalizersSuiteDefinitionCrossReference_9_2_0_0 = (CrossReference)cFinalizersAssignment_9_2_0.eContents().get(0);
+		private final RuleCall cFinalizersSuiteDefinitionQualifiedNameParserRuleCall_9_2_0_0_1 = (RuleCall)cFinalizersSuiteDefinitionCrossReference_9_2_0_0.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_9_2_1 = (RuleCall)cGroup_9_2.eContents().get(1);
+		private final Keyword cWithKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final RuleCall cNLParserRuleCall_11 = (RuleCall)cGroup.eContents().get(11);
+		private final Assignment cStatementsAssignment_12 = (Assignment)cGroup.eContents().get(12);
+		private final RuleCall cStatementsSuiteStatementParserRuleCall_12_0 = (RuleCall)cStatementsAssignment_12.eContents().get(0);
+		private final Keyword cSuiteendKeyword_13 = (Keyword)cGroup.eContents().get(13);
+		private final RuleCall cNLParserRuleCall_14 = (RuleCall)cGroup.eContents().get(14);
 		
 		//SuiteDefinition:
-		//	private='private'? 'suitedef' NL name=QualifiedName NL ('gets' (parameters+=SuiteParameterDefinition NL)+)?
-		//	('returns' (return+=SuiteReturnDefinition NL)+)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)?
-		//	('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL statements+=SuiteStatement*
-		//	'suiteend' NL;
+		//	private='private'? singleRun='single-run'? 'suitedef' NL name=QualifiedName NL ('gets'
+		//	(parameters+=SuiteParameterDefinition NL)+)? ('returns' (return+=SuiteReturnDefinition NL)+)? ('requires' NL
+		//	(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName]
+		//	NL)*)? 'with' NL statements+=SuiteStatement* 'suiteend' NL;
 		@Override public ParserRule getRule() { return rule; }
 
-		//private='private'? 'suitedef' NL name=QualifiedName NL ('gets' (parameters+=SuiteParameterDefinition NL)+)? ('returns'
-		//(return+=SuiteReturnDefinition NL)+)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)?
-		//('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL statements+=SuiteStatement* 'suiteend'
-		//NL
+		//private='private'? singleRun='single-run'? 'suitedef' NL name=QualifiedName NL ('gets'
+		//(parameters+=SuiteParameterDefinition NL)+)? ('returns' (return+=SuiteReturnDefinition NL)+)? ('requires' NL
+		//(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName]
+		//NL)*)? 'with' NL statements+=SuiteStatement* 'suiteend' NL
 		public Group getGroup() { return cGroup; }
 
 		//private='private'?
@@ -751,122 +753,128 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//'private'
 		public Keyword getPrivatePrivateKeyword_0_0() { return cPrivatePrivateKeyword_0_0; }
 
+		//singleRun='single-run'?
+		public Assignment getSingleRunAssignment_1() { return cSingleRunAssignment_1; }
+
+		//'single-run'
+		public Keyword getSingleRunSingleRunKeyword_1_0() { return cSingleRunSingleRunKeyword_1_0; }
+
 		//'suitedef'
-		public Keyword getSuitedefKeyword_1() { return cSuitedefKeyword_1; }
+		public Keyword getSuitedefKeyword_2() { return cSuitedefKeyword_2; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
+		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
 
 		//name=QualifiedName
-		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
+		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
 
 		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_3_0() { return cNameQualifiedNameParserRuleCall_3_0; }
+		public RuleCall getNameQualifiedNameParserRuleCall_4_0() { return cNameQualifiedNameParserRuleCall_4_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
+		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 
 		//('gets' (parameters+=SuiteParameterDefinition NL)+)?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//'gets'
-		public Keyword getGetsKeyword_5_0() { return cGetsKeyword_5_0; }
-
-		//(parameters+=SuiteParameterDefinition NL)+
-		public Group getGroup_5_1() { return cGroup_5_1; }
-
-		//parameters+=SuiteParameterDefinition
-		public Assignment getParametersAssignment_5_1_0() { return cParametersAssignment_5_1_0; }
-
-		//SuiteParameterDefinition
-		public RuleCall getParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0() { return cParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_5_1_1() { return cNLParserRuleCall_5_1_1; }
-
-		//('returns' (return+=SuiteReturnDefinition NL)+)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//'returns'
-		public Keyword getReturnsKeyword_6_0() { return cReturnsKeyword_6_0; }
+		//'gets'
+		public Keyword getGetsKeyword_6_0() { return cGetsKeyword_6_0; }
 
-		//(return+=SuiteReturnDefinition NL)+
+		//(parameters+=SuiteParameterDefinition NL)+
 		public Group getGroup_6_1() { return cGroup_6_1; }
 
-		//return+=SuiteReturnDefinition
-		public Assignment getReturnAssignment_6_1_0() { return cReturnAssignment_6_1_0; }
+		//parameters+=SuiteParameterDefinition
+		public Assignment getParametersAssignment_6_1_0() { return cParametersAssignment_6_1_0; }
 
-		//SuiteReturnDefinition
-		public RuleCall getReturnSuiteReturnDefinitionParserRuleCall_6_1_0_0() { return cReturnSuiteReturnDefinitionParserRuleCall_6_1_0_0; }
+		//SuiteParameterDefinition
+		public RuleCall getParametersSuiteParameterDefinitionParserRuleCall_6_1_0_0() { return cParametersSuiteParameterDefinitionParserRuleCall_6_1_0_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_6_1_1() { return cNLParserRuleCall_6_1_1; }
 
-		//('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)?
+		//('returns' (return+=SuiteReturnDefinition NL)+)?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//'requires'
-		public Keyword getRequiresKeyword_7_0() { return cRequiresKeyword_7_0; }
+		//'returns'
+		public Keyword getReturnsKeyword_7_0() { return cReturnsKeyword_7_0; }
+
+		//(return+=SuiteReturnDefinition NL)+
+		public Group getGroup_7_1() { return cGroup_7_1; }
+
+		//return+=SuiteReturnDefinition
+		public Assignment getReturnAssignment_7_1_0() { return cReturnAssignment_7_1_0; }
+
+		//SuiteReturnDefinition
+		public RuleCall getReturnSuiteReturnDefinitionParserRuleCall_7_1_0_0() { return cReturnSuiteReturnDefinitionParserRuleCall_7_1_0_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_7_1() { return cNLParserRuleCall_7_1; }
+		public RuleCall getNLParserRuleCall_7_1_1() { return cNLParserRuleCall_7_1_1; }
 
-		//(dependencies+=[SuiteDefinition|QualifiedName] NL)*
-		public Group getGroup_7_2() { return cGroup_7_2; }
-
-		//dependencies+=[SuiteDefinition|QualifiedName]
-		public Assignment getDependenciesAssignment_7_2_0() { return cDependenciesAssignment_7_2_0; }
-
-		//[SuiteDefinition|QualifiedName]
-		public CrossReference getDependenciesSuiteDefinitionCrossReference_7_2_0_0() { return cDependenciesSuiteDefinitionCrossReference_7_2_0_0; }
-
-		//QualifiedName
-		public RuleCall getDependenciesSuiteDefinitionQualifiedNameParserRuleCall_7_2_0_0_1() { return cDependenciesSuiteDefinitionQualifiedNameParserRuleCall_7_2_0_0_1; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_7_2_1() { return cNLParserRuleCall_7_2_1; }
-
-		//('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)?
+		//('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//'concludedby'
-		public Keyword getConcludedbyKeyword_8_0() { return cConcludedbyKeyword_8_0; }
+		//'requires'
+		public Keyword getRequiresKeyword_8_0() { return cRequiresKeyword_8_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_8_1() { return cNLParserRuleCall_8_1; }
 
-		//(finalizers+=[SuiteDefinition|QualifiedName] NL)*
+		//(dependencies+=[SuiteDefinition|QualifiedName] NL)*
 		public Group getGroup_8_2() { return cGroup_8_2; }
 
-		//finalizers+=[SuiteDefinition|QualifiedName]
-		public Assignment getFinalizersAssignment_8_2_0() { return cFinalizersAssignment_8_2_0; }
+		//dependencies+=[SuiteDefinition|QualifiedName]
+		public Assignment getDependenciesAssignment_8_2_0() { return cDependenciesAssignment_8_2_0; }
 
 		//[SuiteDefinition|QualifiedName]
-		public CrossReference getFinalizersSuiteDefinitionCrossReference_8_2_0_0() { return cFinalizersSuiteDefinitionCrossReference_8_2_0_0; }
+		public CrossReference getDependenciesSuiteDefinitionCrossReference_8_2_0_0() { return cDependenciesSuiteDefinitionCrossReference_8_2_0_0; }
 
 		//QualifiedName
-		public RuleCall getFinalizersSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1() { return cFinalizersSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1; }
+		public RuleCall getDependenciesSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1() { return cDependenciesSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_8_2_1() { return cNLParserRuleCall_8_2_1; }
 
-		//'with'
-		public Keyword getWithKeyword_9() { return cWithKeyword_9; }
+		//('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)?
+		public Group getGroup_9() { return cGroup_9; }
+
+		//'concludedby'
+		public Keyword getConcludedbyKeyword_9_0() { return cConcludedbyKeyword_9_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_10() { return cNLParserRuleCall_10; }
+		public RuleCall getNLParserRuleCall_9_1() { return cNLParserRuleCall_9_1; }
+
+		//(finalizers+=[SuiteDefinition|QualifiedName] NL)*
+		public Group getGroup_9_2() { return cGroup_9_2; }
+
+		//finalizers+=[SuiteDefinition|QualifiedName]
+		public Assignment getFinalizersAssignment_9_2_0() { return cFinalizersAssignment_9_2_0; }
+
+		//[SuiteDefinition|QualifiedName]
+		public CrossReference getFinalizersSuiteDefinitionCrossReference_9_2_0_0() { return cFinalizersSuiteDefinitionCrossReference_9_2_0_0; }
+
+		//QualifiedName
+		public RuleCall getFinalizersSuiteDefinitionQualifiedNameParserRuleCall_9_2_0_0_1() { return cFinalizersSuiteDefinitionQualifiedNameParserRuleCall_9_2_0_0_1; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_9_2_1() { return cNLParserRuleCall_9_2_1; }
+
+		//'with'
+		public Keyword getWithKeyword_10() { return cWithKeyword_10; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_11() { return cNLParserRuleCall_11; }
 
 		//statements+=SuiteStatement*
-		public Assignment getStatementsAssignment_11() { return cStatementsAssignment_11; }
+		public Assignment getStatementsAssignment_12() { return cStatementsAssignment_12; }
 
 		//SuiteStatement
-		public RuleCall getStatementsSuiteStatementParserRuleCall_11_0() { return cStatementsSuiteStatementParserRuleCall_11_0; }
+		public RuleCall getStatementsSuiteStatementParserRuleCall_12_0() { return cStatementsSuiteStatementParserRuleCall_12_0; }
 
 		//'suiteend'
-		public Keyword getSuiteendKeyword_12() { return cSuiteendKeyword_12; }
+		public Keyword getSuiteendKeyword_13() { return cSuiteendKeyword_13; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_13() { return cNLParserRuleCall_13; }
+		public RuleCall getNLParserRuleCall_14() { return cNLParserRuleCall_14; }
 	}
 
 	public class SuiteParameterDefinitionElements extends AbstractParserRuleElementFinder {
@@ -3970,10 +3978,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteDefinition:
-	//	private='private'? 'suitedef' NL name=QualifiedName NL ('gets' (parameters+=SuiteParameterDefinition NL)+)?
-	//	('returns' (return+=SuiteReturnDefinition NL)+)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)?
-	//	('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL statements+=SuiteStatement*
-	//	'suiteend' NL;
+	//	private='private'? singleRun='single-run'? 'suitedef' NL name=QualifiedName NL ('gets'
+	//	(parameters+=SuiteParameterDefinition NL)+)? ('returns' (return+=SuiteReturnDefinition NL)+)? ('requires' NL
+	//	(dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName]
+	//	NL)*)? 'with' NL statements+=SuiteStatement* 'suiteend' NL;
 	public SuiteDefinitionElements getSuiteDefinitionAccess() {
 		return pSuiteDefinition;
 	}

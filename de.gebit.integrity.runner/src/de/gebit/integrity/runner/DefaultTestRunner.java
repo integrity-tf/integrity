@@ -122,6 +122,7 @@ import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.SuiteSkipReason;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.remoting.SetListCallback;
@@ -486,6 +487,11 @@ public class DefaultTestRunner implements TestRunner {
 	 * The setup suites that have been executed.
 	 */
 	protected Map<ForkDefinition, Set<SuiteDefinition>> setupSuitesExecuted = new HashMap<ForkDefinition, Set<SuiteDefinition>>();
+
+	/**
+	 * The single-run suites that have already been executed.
+	 */
+	protected Set<SuiteDefinition> singleRunSuitesExecuted = new HashSet<>();
 
 	/**
 	 * In case of an {@link AbortExecutionException} aborting the test execution, this exception is stored here
@@ -956,7 +962,9 @@ public class DefaultTestRunner implements TestRunner {
 					}
 				});
 
-				for (Pair<String, Runnable> tempInvocation : tempInvocationList) {
+				for (
+
+				Pair<String, Runnable> tempInvocation : tempInvocationList) {
 					tempInvocation.getSecond().run();
 				}
 			}
@@ -975,6 +983,7 @@ public class DefaultTestRunner implements TestRunner {
 		// Soft reset doesn't clear constants
 		variableManager.clear(!aSoftResetFlag);
 		setupSuitesExecuted.clear();
+		singleRunSuitesExecuted.clear();
 	}
 
 	/**
@@ -1080,6 +1089,12 @@ public class DefaultTestRunner implements TestRunner {
 				// should never happen, since constant values are not allowed to be unexecuted operations
 				throw new ThisShouldNeverHappenException(exc);
 			}
+		}
+
+		if (aSuiteCall.getDefinition().getSingleRun() != null) {
+			// Special handling for single-run suites -> just run them once, regardless of multipliers
+			// We assume that it has not yet run when we arrive here -> all callers have to check that!
+			tempCount = 1;
 		}
 
 		List<SuiteSummaryResult> tempResults = new ArrayList<SuiteSummaryResult>();
@@ -1337,36 +1352,46 @@ public class DefaultTestRunner implements TestRunner {
 		}
 		for (SuiteDefinition tempSetupSuite : aSuite.getDependencies()) {
 			if (!tempSetupsAlreadyRun.contains(tempSetupSuite)) {
-				if (currentCallback != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onSetupStart(tempSetupSuite);
-					currentCallback.onCallbackProcessingEnd();
-				}
+				if (tempSetupSuite.getSingleRun() != null && singleRunSuitesExecuted.contains(tempSetupSuite)) {
+					if (currentCallback != null) {
+						currentCallback.onCallbackProcessingStart();
+						currentCallback.onSetupSkipped(tempSetupSuite, SuiteSkipReason.SINGLE_RUN_EXECUTED);
+						currentCallback.onCallbackProcessingEnd();
+					}
+				} else {
+					if (currentCallback != null) {
+						currentCallback.onCallbackProcessingStart();
+						currentCallback.onSetupStart(tempSetupSuite);
+						currentCallback.onCallbackProcessingEnd();
+					}
 
-				// This setup suite might have setup suites itself (issue #11)
-				tempSetupSuitesExecuted.addAll(executeSetupSuites(tempSetupSuite, aSetupResultMap));
-				if (tempSetupsAlreadyRun.contains(tempSetupSuite)) {
-					// A circle has been created. This is a hard error -> abort before the stack inevitably explodes.
-					throw new IllegalStateException(
-							"A setup suite circle has been detected (" + tempSetupSuite.getName() + " called from "
-									+ aSuite.getName() + "). Please break the circle!");
-				}
+					// This setup suite might have setup suites itself (issue #11)
+					tempSetupSuitesExecuted.addAll(executeSetupSuites(tempSetupSuite, aSetupResultMap));
+					if (tempSetupsAlreadyRun.contains(tempSetupSuite)) {
+						// A circle has been created. This is a hard error -> abort before the stack inevitably
+						// explodes.
+						throw new IllegalStateException(
+								"A setup suite circle has been detected (" + tempSetupSuite.getName() + " called from "
+										+ aSuite.getName() + "). Please break the circle!");
+					}
 
-				long tempStart = System.nanoTime();
-				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(tempSetupSuite);
-				SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null
-						: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
-				aSetupResultMap.put(tempSetupSuite, tempSetupResult);
+					long tempStart = System.nanoTime();
+					Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(
+							tempSetupSuite);
+					SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null
+							: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
+					aSetupResultMap.put(tempSetupSuite, tempSetupResult);
 
-				if (!checkForAbortion()) {
-					tempSetupsAlreadyRun.add(tempSetupSuite);
-					tempSetupSuitesExecuted.add(tempSetupSuite);
-				}
+					if (!checkForAbortion()) {
+						tempSetupsAlreadyRun.add(tempSetupSuite);
+						tempSetupSuitesExecuted.add(tempSetupSuite);
+					}
 
-				if (currentCallback != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onSetupFinish(tempSetupSuite, tempSetupResult);
-					currentCallback.onCallbackProcessingEnd();
+					if (currentCallback != null) {
+						currentCallback.onCallbackProcessingStart();
+						currentCallback.onSetupFinish(tempSetupSuite, tempSetupResult);
+						currentCallback.onCallbackProcessingEnd();
+					}
 				}
 			}
 
@@ -1393,23 +1418,31 @@ public class DefaultTestRunner implements TestRunner {
 		for (int i = aSetupSuitesList.size() - 1; i >= 0; i--) {
 			SuiteDefinition tempSetupSuite = aSetupSuitesList.get(i);
 			for (SuiteDefinition tempTearDownSuite : tempSetupSuite.getFinalizers()) {
-				if (currentCallback != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onTearDownStart(tempTearDownSuite);
-					currentCallback.onCallbackProcessingEnd();
-				}
+				if (tempTearDownSuite.getSingleRun() != null && singleRunSuitesExecuted.contains(tempTearDownSuite)) {
+					if (currentCallback != null) {
+						currentCallback.onCallbackProcessingStart();
+						currentCallback.onTearDownSkipped(tempTearDownSuite, SuiteSkipReason.SINGLE_RUN_EXECUTED);
+						currentCallback.onCallbackProcessingEnd();
+					}
+				} else {
+					if (currentCallback != null) {
+						currentCallback.onCallbackProcessingStart();
+						currentCallback.onTearDownStart(tempTearDownSuite);
+						currentCallback.onCallbackProcessingEnd();
+					}
 
-				long tempStart = System.nanoTime();
-				Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(
-						tempTearDownSuite);
-				SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null
-						: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
-				aTearDownResultMap.put(tempTearDownSuite, tempTearDownResult);
+					long tempStart = System.nanoTime();
+					Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(
+							tempTearDownSuite);
+					SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null
+							: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
+					aTearDownResultMap.put(tempTearDownSuite, tempTearDownResult);
 
-				if (currentCallback != null) {
-					currentCallback.onCallbackProcessingStart();
-					currentCallback.onTearDownFinish(tempTearDownSuite, tempTearDownResult);
-					currentCallback.onCallbackProcessingEnd();
+					if (currentCallback != null) {
+						currentCallback.onCallbackProcessingStart();
+						currentCallback.onTearDownFinish(tempTearDownSuite, tempTearDownResult);
+						currentCallback.onCallbackProcessingEnd();
+					}
 				}
 			}
 
@@ -1429,20 +1462,41 @@ public class DefaultTestRunner implements TestRunner {
 
 		List<VariableOrConstantEntity> tempDefinedVariables = new ArrayList<VariableOrConstantEntity>();
 
+		if (aSuite.getSingleRun() != null) {
+			singleRunSuitesExecuted.add(aSuite);
+		}
+
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			checkForValidationError(tempStatement);
 			if (tempStatement instanceof Suite) {
 				Suite tempSuite = (Suite) tempStatement;
 				boolean tempExecute = false;
-				if (tempSuite.getVariants().size() > 0) {
-					for (VariantDefinition tempVariant : tempSuite.getVariants()) {
-						if (tempVariant == variantInExecution) {
-							tempExecute = true;
-							break;
-						}
+				if (tempSuite.getDefinition().getSingleRun() != null
+						&& singleRunSuitesExecuted.contains(tempSuite.getDefinition())) {
+					if (currentCallback != null) {
+						currentCallback.onCallbackProcessingStart();
+						currentCallback.onSuiteSkipped(tempSuite, SuiteSkipReason.SINGLE_RUN_EXECUTED);
+						currentCallback.onCallbackProcessingEnd();
 					}
 				} else {
-					tempExecute = true;
+					// Single-run suites that have already run have been filtered out now
+					if (tempSuite.getVariants().size() > 0) {
+						for (VariantDefinition tempVariant : tempSuite.getVariants()) {
+							if (tempVariant == variantInExecution) {
+								tempExecute = true;
+								break;
+							}
+						}
+						if (!tempExecute) {
+							if (currentCallback != null) {
+								currentCallback.onCallbackProcessingStart();
+								currentCallback.onSuiteSkipped(tempSuite, SuiteSkipReason.VARIANT_MISMATCH);
+								currentCallback.onCallbackProcessingEnd();
+							}
+						}
+					} else {
+						tempExecute = true;
+					}
 				}
 
 				if (tempExecute) {
@@ -1504,7 +1558,9 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
-		for (VariableOrConstantEntity tempEntity : tempDefinedVariables) {
+		for (
+
+		VariableOrConstantEntity tempEntity : tempDefinedVariables) {
 			variableManager.unset(tempEntity);
 		}
 

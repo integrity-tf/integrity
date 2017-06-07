@@ -1342,13 +1342,28 @@ ruleSuiteDefinition returns [EObject current=null]
 	    }
 
 )
-)?	otherlv_1='suitedef' 
+)?(
+(
+		lv_singleRun_1_0=	'single-run' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getSuiteDefinitionAccess().getSuitedefKeyword_1());
+        newLeafNode(lv_singleRun_1_0, grammarAccess.getSuiteDefinitionAccess().getSingleRunSingleRunKeyword_1_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSuiteDefinitionRule());
+	        }
+       		setWithLastConsumed($current, "singleRun", lv_singleRun_1_0, "single-run");
+	    }
+
+)
+)?	otherlv_2='suitedef' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getSuiteDefinitionAccess().getSuitedefKeyword_2());
     }
 
     { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_3()); 
     }
 ruleNL
     { 
@@ -1357,16 +1372,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNameQualifiedNameParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNameQualifiedNameParserRuleCall_4_0()); 
 	    }
-		lv_name_3_0=ruleQualifiedName		{
+		lv_name_4_0=ruleQualifiedName		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_3_0, 
+        		lv_name_4_0, 
         		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1374,60 +1389,30 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_5()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-(	otherlv_5='gets' 
+(	otherlv_6='gets' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_5_0());
+    	newLeafNode(otherlv_6, grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_6_0());
     }
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0()); 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getParametersSuiteParameterDefinitionParserRuleCall_6_1_0_0()); 
 	    }
-		lv_parameters_6_0=ruleSuiteParameterDefinition		{
+		lv_parameters_7_0=ruleSuiteParameterDefinition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
 	        }
        		add(
        			$current, 
        			"parameters",
-        		lv_parameters_6_0, 
+        		lv_parameters_7_0, 
         		"de.gebit.integrity.DSL.SuiteParameterDefinition");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-    { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_5_1_1()); 
-    }
-ruleNL
-    { 
-        afterParserOrEnumRuleCall();
-    }
-)+)?(	otherlv_8='returns' 
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getSuiteDefinitionAccess().getReturnsKeyword_6_0());
-    }
-((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getReturnSuiteReturnDefinitionParserRuleCall_6_1_0_0()); 
-	    }
-		lv_return_9_0=ruleSuiteReturnDefinition		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
-	        }
-       		add(
-       			$current, 
-       			"return",
-        		lv_return_9_0, 
-        		"de.gebit.integrity.DSL.SuiteReturnDefinition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1440,44 +1425,39 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)+)?(	otherlv_11='requires' 
+)+)?(	otherlv_9='returns' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_7_0());
-    }
-
-    { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_1()); 
-    }
-ruleNL
-    { 
-        afterParserOrEnumRuleCall();
+    	newLeafNode(otherlv_9, grammarAccess.getSuiteDefinitionAccess().getReturnsKeyword_7_0());
     }
 ((
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getSuiteDefinitionRule());
-	        }
-        }
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionCrossReference_7_2_0_0()); 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getReturnSuiteReturnDefinitionParserRuleCall_7_1_0_0()); 
 	    }
-		ruleQualifiedName		{ 
+		lv_return_10_0=ruleSuiteReturnDefinition		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
+	        }
+       		add(
+       			$current, 
+       			"return",
+        		lv_return_10_0, 
+        		"de.gebit.integrity.DSL.SuiteReturnDefinition");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )
     { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_2_1()); 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_1_1()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)*)?(	otherlv_15='concludedby' 
+)+)?(	otherlv_12='requires' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_8_0());
+    	newLeafNode(otherlv_12, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_8_0());
     }
 
     { 
@@ -1495,7 +1475,7 @@ ruleNL
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_8_2_0_0()); 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionCrossReference_8_2_0_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1510,13 +1490,48 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)*)?	otherlv_19='with' 
+)*)?(	otherlv_16='concludedby' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getSuiteDefinitionAccess().getWithKeyword_9());
+    	newLeafNode(otherlv_16, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_9_0());
     }
 
     { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_10()); 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_9_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSuiteDefinitionRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_9_2_0_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_9_2_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)*)?	otherlv_20='with' 
+    {
+    	newLeafNode(otherlv_20, grammarAccess.getSuiteDefinitionAccess().getWithKeyword_10());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11()); 
     }
 ruleNL
     { 
@@ -1525,28 +1540,28 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_11_0()); 
+	        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_12_0()); 
 	    }
-		lv_statements_21_0=ruleSuiteStatement		{
+		lv_statements_22_0=ruleSuiteStatement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSuiteDefinitionRule());
 	        }
        		add(
        			$current, 
        			"statements",
-        		lv_statements_21_0, 
+        		lv_statements_22_0, 
         		"de.gebit.integrity.DSL.SuiteStatement");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_22='suiteend' 
+)*	otherlv_23='suiteend' 
     {
-    	newLeafNode(otherlv_22, grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_12());
+    	newLeafNode(otherlv_23, grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_13());
     }
 
     { 
-        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_13()); 
+        newCompositeNode(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_14()); 
     }
 ruleNL
     { 

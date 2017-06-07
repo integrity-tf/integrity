@@ -65,6 +65,7 @@ import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
+import de.gebit.integrity.runner.callbacks.SuiteSkipReason;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
 import de.gebit.integrity.runner.results.SuiteResult;
@@ -814,5 +815,20 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			anEntry.setAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA,
 					tempTargetList.toArray(new Object[tempTargetList.size()]));
 		}
+	}
+
+	@Override
+	public void onSuiteSkipped(Suite aSuite, SuiteSkipReason aReason) {
+		// Doing nothing here.
+	}
+
+	@Override
+	public void onSetupSkipped(SuiteDefinition aSetupSuite, SuiteSkipReason aReason) {
+		// Doing nothing here.
+	}
+
+	@Override
+	public void onTearDownSkipped(SuiteDefinition aTearDownSuite, SuiteSkipReason aReason) {
+		// Doing nothing here.
 	}
 }

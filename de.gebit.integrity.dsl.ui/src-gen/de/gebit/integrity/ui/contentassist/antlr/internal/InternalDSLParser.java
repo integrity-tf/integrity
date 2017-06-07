@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_BOOLEAN_TRUE", "RULE_BOOLEAN_FALSE", "RULE_ID", "RULE_UPPERCASE_ID", "RULE_NEWLINE", "RULE_WS", "RULE_SL_VISIBLE_COMMENT", "RULE_SL_VISIBLE_TITLE_COMMENT", "RULE_ML_VISIBLE_COMMENT", "RULE_ML_VISIBLE_TITLE_COMMENT", "RULE_DIVIDER", "RULE_STRING", "RULE_INTEGER", "RULE_DECIMAL", "RULE_ISODATE", "RULE_EURODATE", "RULE_USDATE", "RULE_ISOTIME", "RULE_TWENTYFOURHRSTIME", "RULE_TWELVEHRSTIME", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ISOTIMEZONE", "RULE_ANY_OTHER", "'+'", "'-'", "'*'", "'/'", "'%'", "'..'", "'packagedef'", "'with'", "'packageend'", "'import'", "'forkdef'", "'uses'", "':'", "'variantdef'", "'testdef'", "'calldef'", "'suitedef'", "'suiteend'", "'gets'", "'returns'", "'requires'", "'concludedby'", "'by default'", "'operationdef'", "'variable'", "'initially'", "'constant'", "'assign'", "'->'", "'in'", "'test'", "'='", "'tabletest'", "'|'", "'call'", "'suite'", "'on'", "'('", "')'", "'['", "']'", "','", "'<'", "'>'", "'#'", "'null'", "'{'", "'}'", "'.'", "'.*'", "'private'", "'parameterized'", "'checkpoint'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_BOOLEAN_TRUE", "RULE_BOOLEAN_FALSE", "RULE_ID", "RULE_UPPERCASE_ID", "RULE_NEWLINE", "RULE_WS", "RULE_SL_VISIBLE_COMMENT", "RULE_SL_VISIBLE_TITLE_COMMENT", "RULE_ML_VISIBLE_COMMENT", "RULE_ML_VISIBLE_TITLE_COMMENT", "RULE_DIVIDER", "RULE_STRING", "RULE_INTEGER", "RULE_DECIMAL", "RULE_ISODATE", "RULE_EURODATE", "RULE_USDATE", "RULE_ISOTIME", "RULE_TWENTYFOURHRSTIME", "RULE_TWELVEHRSTIME", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ISOTIMEZONE", "RULE_ANY_OTHER", "'+'", "'-'", "'*'", "'/'", "'%'", "'..'", "'packagedef'", "'with'", "'packageend'", "'import'", "'forkdef'", "'uses'", "':'", "'variantdef'", "'testdef'", "'calldef'", "'suitedef'", "'suiteend'", "'gets'", "'returns'", "'requires'", "'concludedby'", "'by default'", "'operationdef'", "'variable'", "'initially'", "'constant'", "'assign'", "'->'", "'in'", "'test'", "'='", "'tabletest'", "'|'", "'call'", "'suite'", "'on'", "'('", "')'", "'['", "']'", "','", "'<'", "'>'", "'#'", "'null'", "'{'", "'}'", "'.'", "'.*'", "'private'", "'single-run'", "'parameterized'", "'checkpoint'"
     };
     public static final int T__68=68;
     public static final int T__69=69;
@@ -63,6 +63,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final int T__41=41;
     public static final int T__80=80;
     public static final int T__46=46;
+    public static final int T__81=81;
     public static final int T__47=47;
     public static final int RULE_ISOTIMEZONE=26;
     public static final int RULE_ISOTIME=21;
@@ -7747,7 +7748,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             case 60:
             case 62:
             case 63:
-            case 80:
+            case 81:
                 {
                 alt7=1;
                 }
@@ -7756,11 +7757,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                 {
                 int LA7_2 = input.LA(2);
 
-                if ( (LA7_2==52) ) {
-                    alt7=2;
-                }
-                else if ( (LA7_2==54) ) {
+                if ( (LA7_2==54) ) {
                     alt7=3;
+                }
+                else if ( (LA7_2==52) ) {
+                    alt7=2;
                 }
                 else {
                     NoViableAltException nvae =
@@ -7953,7 +7954,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                 }
                 break;
             case 58:
-            case 80:
+            case 81:
                 {
                 alt8=2;
                 }
@@ -11034,7 +11035,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                 int alt24=2;
                 int LA24_0 = input.LA(1);
 
-                if ( ((LA24_0>=37 && LA24_0<=38)||(LA24_0>=41 && LA24_0<=44)||(LA24_0>=51 && LA24_0<=52)||LA24_0==54||LA24_0==78) ) {
+                if ( ((LA24_0>=37 && LA24_0<=38)||(LA24_0>=41 && LA24_0<=44)||(LA24_0>=51 && LA24_0<=52)||LA24_0==54||(LA24_0>=78 && LA24_0<=79)) ) {
                     alt24=1;
                 }
 
@@ -15210,7 +15211,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             // InternalDSL.g:5466:1: ( rule__SuiteDefinition__Group__1__Impl rule__SuiteDefinition__Group__2 )
             // InternalDSL.g:5467:2: rule__SuiteDefinition__Group__1__Impl rule__SuiteDefinition__Group__2
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_18);
             rule__SuiteDefinition__Group__1__Impl();
 
             state._fsp--;
@@ -15239,21 +15240,42 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__1__Impl"
-    // InternalDSL.g:5474:1: rule__SuiteDefinition__Group__1__Impl : ( 'suitedef' ) ;
+    // InternalDSL.g:5474:1: rule__SuiteDefinition__Group__1__Impl : ( ( rule__SuiteDefinition__SingleRunAssignment_1 )? ) ;
     public final void rule__SuiteDefinition__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5478:1: ( ( 'suitedef' ) )
-            // InternalDSL.g:5479:1: ( 'suitedef' )
+            // InternalDSL.g:5478:1: ( ( ( rule__SuiteDefinition__SingleRunAssignment_1 )? ) )
+            // InternalDSL.g:5479:1: ( ( rule__SuiteDefinition__SingleRunAssignment_1 )? )
             {
-            // InternalDSL.g:5479:1: ( 'suitedef' )
-            // InternalDSL.g:5480:1: 'suitedef'
+            // InternalDSL.g:5479:1: ( ( rule__SuiteDefinition__SingleRunAssignment_1 )? )
+            // InternalDSL.g:5480:1: ( rule__SuiteDefinition__SingleRunAssignment_1 )?
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getSuitedefKeyword_1()); 
-            match(input,44,FOLLOW_2); 
-             after(grammarAccess.getSuiteDefinitionAccess().getSuitedefKeyword_1()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getSingleRunAssignment_1()); 
+            // InternalDSL.g:5481:1: ( rule__SuiteDefinition__SingleRunAssignment_1 )?
+            int alt31=2;
+            int LA31_0 = input.LA(1);
+
+            if ( (LA31_0==79) ) {
+                alt31=1;
+            }
+            switch (alt31) {
+                case 1 :
+                    // InternalDSL.g:5481:2: rule__SuiteDefinition__SingleRunAssignment_1
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__SuiteDefinition__SingleRunAssignment_1();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getSuiteDefinitionAccess().getSingleRunAssignment_1()); 
 
             }
 
@@ -15276,16 +15298,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__2"
-    // InternalDSL.g:5493:1: rule__SuiteDefinition__Group__2 : rule__SuiteDefinition__Group__2__Impl rule__SuiteDefinition__Group__3 ;
+    // InternalDSL.g:5491:1: rule__SuiteDefinition__Group__2 : rule__SuiteDefinition__Group__2__Impl rule__SuiteDefinition__Group__3 ;
     public final void rule__SuiteDefinition__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5497:1: ( rule__SuiteDefinition__Group__2__Impl rule__SuiteDefinition__Group__3 )
-            // InternalDSL.g:5498:2: rule__SuiteDefinition__Group__2__Impl rule__SuiteDefinition__Group__3
+            // InternalDSL.g:5495:1: ( rule__SuiteDefinition__Group__2__Impl rule__SuiteDefinition__Group__3 )
+            // InternalDSL.g:5496:2: rule__SuiteDefinition__Group__2__Impl rule__SuiteDefinition__Group__3
             {
-            pushFollow(FOLLOW_7);
+            pushFollow(FOLLOW_4);
             rule__SuiteDefinition__Group__2__Impl();
 
             state._fsp--;
@@ -15314,25 +15336,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__2__Impl"
-    // InternalDSL.g:5505:1: rule__SuiteDefinition__Group__2__Impl : ( ruleNL ) ;
+    // InternalDSL.g:5503:1: rule__SuiteDefinition__Group__2__Impl : ( 'suitedef' ) ;
     public final void rule__SuiteDefinition__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5509:1: ( ( ruleNL ) )
-            // InternalDSL.g:5510:1: ( ruleNL )
+            // InternalDSL.g:5507:1: ( ( 'suitedef' ) )
+            // InternalDSL.g:5508:1: ( 'suitedef' )
             {
-            // InternalDSL.g:5510:1: ( ruleNL )
-            // InternalDSL.g:5511:1: ruleNL
+            // InternalDSL.g:5508:1: ( 'suitedef' )
+            // InternalDSL.g:5509:1: 'suitedef'
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_2()); 
-            pushFollow(FOLLOW_2);
-            ruleNL();
-
-            state._fsp--;
-
-             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_2()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getSuitedefKeyword_2()); 
+            match(input,44,FOLLOW_2); 
+             after(grammarAccess.getSuiteDefinitionAccess().getSuitedefKeyword_2()); 
 
             }
 
@@ -15364,7 +15382,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             // InternalDSL.g:5526:1: ( rule__SuiteDefinition__Group__3__Impl rule__SuiteDefinition__Group__4 )
             // InternalDSL.g:5527:2: rule__SuiteDefinition__Group__3__Impl rule__SuiteDefinition__Group__4
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_7);
             rule__SuiteDefinition__Group__3__Impl();
 
             state._fsp--;
@@ -15393,31 +15411,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__3__Impl"
-    // InternalDSL.g:5534:1: rule__SuiteDefinition__Group__3__Impl : ( ( rule__SuiteDefinition__NameAssignment_3 ) ) ;
+    // InternalDSL.g:5534:1: rule__SuiteDefinition__Group__3__Impl : ( ruleNL ) ;
     public final void rule__SuiteDefinition__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5538:1: ( ( ( rule__SuiteDefinition__NameAssignment_3 ) ) )
-            // InternalDSL.g:5539:1: ( ( rule__SuiteDefinition__NameAssignment_3 ) )
+            // InternalDSL.g:5538:1: ( ( ruleNL ) )
+            // InternalDSL.g:5539:1: ( ruleNL )
             {
-            // InternalDSL.g:5539:1: ( ( rule__SuiteDefinition__NameAssignment_3 ) )
-            // InternalDSL.g:5540:1: ( rule__SuiteDefinition__NameAssignment_3 )
+            // InternalDSL.g:5539:1: ( ruleNL )
+            // InternalDSL.g:5540:1: ruleNL
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getNameAssignment_3()); 
-            // InternalDSL.g:5541:1: ( rule__SuiteDefinition__NameAssignment_3 )
-            // InternalDSL.g:5541:2: rule__SuiteDefinition__NameAssignment_3
-            {
+             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__NameAssignment_3();
+            ruleNL();
 
             state._fsp--;
 
-
-            }
-
-             after(grammarAccess.getSuiteDefinitionAccess().getNameAssignment_3()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_3()); 
 
             }
 
@@ -15449,7 +15461,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             // InternalDSL.g:5555:1: ( rule__SuiteDefinition__Group__4__Impl rule__SuiteDefinition__Group__5 )
             // InternalDSL.g:5556:2: rule__SuiteDefinition__Group__4__Impl rule__SuiteDefinition__Group__5
             {
-            pushFollow(FOLLOW_19);
+            pushFollow(FOLLOW_4);
             rule__SuiteDefinition__Group__4__Impl();
 
             state._fsp--;
@@ -15478,25 +15490,31 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__4__Impl"
-    // InternalDSL.g:5563:1: rule__SuiteDefinition__Group__4__Impl : ( ruleNL ) ;
+    // InternalDSL.g:5563:1: rule__SuiteDefinition__Group__4__Impl : ( ( rule__SuiteDefinition__NameAssignment_4 ) ) ;
     public final void rule__SuiteDefinition__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5567:1: ( ( ruleNL ) )
-            // InternalDSL.g:5568:1: ( ruleNL )
+            // InternalDSL.g:5567:1: ( ( ( rule__SuiteDefinition__NameAssignment_4 ) ) )
+            // InternalDSL.g:5568:1: ( ( rule__SuiteDefinition__NameAssignment_4 ) )
             {
-            // InternalDSL.g:5568:1: ( ruleNL )
-            // InternalDSL.g:5569:1: ruleNL
+            // InternalDSL.g:5568:1: ( ( rule__SuiteDefinition__NameAssignment_4 ) )
+            // InternalDSL.g:5569:1: ( rule__SuiteDefinition__NameAssignment_4 )
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_4()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getNameAssignment_4()); 
+            // InternalDSL.g:5570:1: ( rule__SuiteDefinition__NameAssignment_4 )
+            // InternalDSL.g:5570:2: rule__SuiteDefinition__NameAssignment_4
+            {
             pushFollow(FOLLOW_2);
-            ruleNL();
+            rule__SuiteDefinition__NameAssignment_4();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_4()); 
+
+            }
+
+             after(grammarAccess.getSuiteDefinitionAccess().getNameAssignment_4()); 
 
             }
 
@@ -15557,42 +15575,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__5__Impl"
-    // InternalDSL.g:5592:1: rule__SuiteDefinition__Group__5__Impl : ( ( rule__SuiteDefinition__Group_5__0 )? ) ;
+    // InternalDSL.g:5592:1: rule__SuiteDefinition__Group__5__Impl : ( ruleNL ) ;
     public final void rule__SuiteDefinition__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5596:1: ( ( ( rule__SuiteDefinition__Group_5__0 )? ) )
-            // InternalDSL.g:5597:1: ( ( rule__SuiteDefinition__Group_5__0 )? )
+            // InternalDSL.g:5596:1: ( ( ruleNL ) )
+            // InternalDSL.g:5597:1: ( ruleNL )
             {
-            // InternalDSL.g:5597:1: ( ( rule__SuiteDefinition__Group_5__0 )? )
-            // InternalDSL.g:5598:1: ( rule__SuiteDefinition__Group_5__0 )?
+            // InternalDSL.g:5597:1: ( ruleNL )
+            // InternalDSL.g:5598:1: ruleNL
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getGroup_5()); 
-            // InternalDSL.g:5599:1: ( rule__SuiteDefinition__Group_5__0 )?
-            int alt31=2;
-            int LA31_0 = input.LA(1);
+             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_5()); 
+            pushFollow(FOLLOW_2);
+            ruleNL();
 
-            if ( (LA31_0==46) ) {
-                alt31=1;
-            }
-            switch (alt31) {
-                case 1 :
-                    // InternalDSL.g:5599:2: rule__SuiteDefinition__Group_5__0
-                    {
-                    pushFollow(FOLLOW_2);
-                    rule__SuiteDefinition__Group_5__0();
+            state._fsp--;
 
-                    state._fsp--;
-
-
-                    }
-                    break;
-
-            }
-
-             after(grammarAccess.getSuiteDefinitionAccess().getGroup_5()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_5()); 
 
             }
 
@@ -15670,7 +15671,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             int alt32=2;
             int LA32_0 = input.LA(1);
 
-            if ( (LA32_0==47) ) {
+            if ( (LA32_0==46) ) {
                 alt32=1;
             }
             switch (alt32) {
@@ -15766,7 +15767,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             int alt33=2;
             int LA33_0 = input.LA(1);
 
-            if ( (LA33_0==48) ) {
+            if ( (LA33_0==47) ) {
                 alt33=1;
             }
             switch (alt33) {
@@ -15862,7 +15863,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             int alt34=2;
             int LA34_0 = input.LA(1);
 
-            if ( (LA34_0==49) ) {
+            if ( (LA34_0==48) ) {
                 alt34=1;
             }
             switch (alt34) {
@@ -15912,7 +15913,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             // InternalDSL.g:5700:1: ( rule__SuiteDefinition__Group__9__Impl rule__SuiteDefinition__Group__10 )
             // InternalDSL.g:5701:2: rule__SuiteDefinition__Group__9__Impl rule__SuiteDefinition__Group__10
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_19);
             rule__SuiteDefinition__Group__9__Impl();
 
             state._fsp--;
@@ -15941,21 +15942,42 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__9__Impl"
-    // InternalDSL.g:5708:1: rule__SuiteDefinition__Group__9__Impl : ( 'with' ) ;
+    // InternalDSL.g:5708:1: rule__SuiteDefinition__Group__9__Impl : ( ( rule__SuiteDefinition__Group_9__0 )? ) ;
     public final void rule__SuiteDefinition__Group__9__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5712:1: ( ( 'with' ) )
-            // InternalDSL.g:5713:1: ( 'with' )
+            // InternalDSL.g:5712:1: ( ( ( rule__SuiteDefinition__Group_9__0 )? ) )
+            // InternalDSL.g:5713:1: ( ( rule__SuiteDefinition__Group_9__0 )? )
             {
-            // InternalDSL.g:5713:1: ( 'with' )
-            // InternalDSL.g:5714:1: 'with'
+            // InternalDSL.g:5713:1: ( ( rule__SuiteDefinition__Group_9__0 )? )
+            // InternalDSL.g:5714:1: ( rule__SuiteDefinition__Group_9__0 )?
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getWithKeyword_9()); 
-            match(input,35,FOLLOW_2); 
-             after(grammarAccess.getSuiteDefinitionAccess().getWithKeyword_9()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getGroup_9()); 
+            // InternalDSL.g:5715:1: ( rule__SuiteDefinition__Group_9__0 )?
+            int alt35=2;
+            int LA35_0 = input.LA(1);
+
+            if ( (LA35_0==49) ) {
+                alt35=1;
+            }
+            switch (alt35) {
+                case 1 :
+                    // InternalDSL.g:5715:2: rule__SuiteDefinition__Group_9__0
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__SuiteDefinition__Group_9__0();
+
+                    state._fsp--;
+
+
+                    }
+                    break;
+
+            }
+
+             after(grammarAccess.getSuiteDefinitionAccess().getGroup_9()); 
 
             }
 
@@ -15978,16 +16000,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__10"
-    // InternalDSL.g:5727:1: rule__SuiteDefinition__Group__10 : rule__SuiteDefinition__Group__10__Impl rule__SuiteDefinition__Group__11 ;
+    // InternalDSL.g:5725:1: rule__SuiteDefinition__Group__10 : rule__SuiteDefinition__Group__10__Impl rule__SuiteDefinition__Group__11 ;
     public final void rule__SuiteDefinition__Group__10() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5731:1: ( rule__SuiteDefinition__Group__10__Impl rule__SuiteDefinition__Group__11 )
-            // InternalDSL.g:5732:2: rule__SuiteDefinition__Group__10__Impl rule__SuiteDefinition__Group__11
+            // InternalDSL.g:5729:1: ( rule__SuiteDefinition__Group__10__Impl rule__SuiteDefinition__Group__11 )
+            // InternalDSL.g:5730:2: rule__SuiteDefinition__Group__10__Impl rule__SuiteDefinition__Group__11
             {
-            pushFollow(FOLLOW_20);
+            pushFollow(FOLLOW_4);
             rule__SuiteDefinition__Group__10__Impl();
 
             state._fsp--;
@@ -16016,25 +16038,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__10__Impl"
-    // InternalDSL.g:5739:1: rule__SuiteDefinition__Group__10__Impl : ( ruleNL ) ;
+    // InternalDSL.g:5737:1: rule__SuiteDefinition__Group__10__Impl : ( 'with' ) ;
     public final void rule__SuiteDefinition__Group__10__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5743:1: ( ( ruleNL ) )
-            // InternalDSL.g:5744:1: ( ruleNL )
+            // InternalDSL.g:5741:1: ( ( 'with' ) )
+            // InternalDSL.g:5742:1: ( 'with' )
             {
-            // InternalDSL.g:5744:1: ( ruleNL )
-            // InternalDSL.g:5745:1: ruleNL
+            // InternalDSL.g:5742:1: ( 'with' )
+            // InternalDSL.g:5743:1: 'with'
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_10()); 
-            pushFollow(FOLLOW_2);
-            ruleNL();
-
-            state._fsp--;
-
-             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_10()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getWithKeyword_10()); 
+            match(input,35,FOLLOW_2); 
+             after(grammarAccess.getSuiteDefinitionAccess().getWithKeyword_10()); 
 
             }
 
@@ -16095,49 +16113,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__11__Impl"
-    // InternalDSL.g:5768:1: rule__SuiteDefinition__Group__11__Impl : ( ( rule__SuiteDefinition__StatementsAssignment_11 )* ) ;
+    // InternalDSL.g:5768:1: rule__SuiteDefinition__Group__11__Impl : ( ruleNL ) ;
     public final void rule__SuiteDefinition__Group__11__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5772:1: ( ( ( rule__SuiteDefinition__StatementsAssignment_11 )* ) )
-            // InternalDSL.g:5773:1: ( ( rule__SuiteDefinition__StatementsAssignment_11 )* )
+            // InternalDSL.g:5772:1: ( ( ruleNL ) )
+            // InternalDSL.g:5773:1: ( ruleNL )
             {
-            // InternalDSL.g:5773:1: ( ( rule__SuiteDefinition__StatementsAssignment_11 )* )
-            // InternalDSL.g:5774:1: ( rule__SuiteDefinition__StatementsAssignment_11 )*
+            // InternalDSL.g:5773:1: ( ruleNL )
+            // InternalDSL.g:5774:1: ruleNL
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getStatementsAssignment_11()); 
-            // InternalDSL.g:5775:1: ( rule__SuiteDefinition__StatementsAssignment_11 )*
-            loop35:
-            do {
-                int alt35=2;
-                int LA35_0 = input.LA(1);
+             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11()); 
+            pushFollow(FOLLOW_2);
+            ruleNL();
 
-                if ( ((LA35_0>=RULE_SL_VISIBLE_COMMENT && LA35_0<=RULE_DIVIDER)||LA35_0==52||(LA35_0>=54 && LA35_0<=55)||LA35_0==58||LA35_0==60||(LA35_0>=62 && LA35_0<=63)||LA35_0==78||LA35_0==80) ) {
-                    alt35=1;
-                }
+            state._fsp--;
 
-
-                switch (alt35) {
-            	case 1 :
-            	    // InternalDSL.g:5775:2: rule__SuiteDefinition__StatementsAssignment_11
-            	    {
-            	    pushFollow(FOLLOW_21);
-            	    rule__SuiteDefinition__StatementsAssignment_11();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop35;
-                }
-            } while (true);
-
-             after(grammarAccess.getSuiteDefinitionAccess().getStatementsAssignment_11()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11()); 
 
             }
 
@@ -16169,7 +16163,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             // InternalDSL.g:5789:1: ( rule__SuiteDefinition__Group__12__Impl rule__SuiteDefinition__Group__13 )
             // InternalDSL.g:5790:2: rule__SuiteDefinition__Group__12__Impl rule__SuiteDefinition__Group__13
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_20);
             rule__SuiteDefinition__Group__12__Impl();
 
             state._fsp--;
@@ -16198,21 +16192,49 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__12__Impl"
-    // InternalDSL.g:5797:1: rule__SuiteDefinition__Group__12__Impl : ( 'suiteend' ) ;
+    // InternalDSL.g:5797:1: rule__SuiteDefinition__Group__12__Impl : ( ( rule__SuiteDefinition__StatementsAssignment_12 )* ) ;
     public final void rule__SuiteDefinition__Group__12__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5801:1: ( ( 'suiteend' ) )
-            // InternalDSL.g:5802:1: ( 'suiteend' )
+            // InternalDSL.g:5801:1: ( ( ( rule__SuiteDefinition__StatementsAssignment_12 )* ) )
+            // InternalDSL.g:5802:1: ( ( rule__SuiteDefinition__StatementsAssignment_12 )* )
             {
-            // InternalDSL.g:5802:1: ( 'suiteend' )
-            // InternalDSL.g:5803:1: 'suiteend'
+            // InternalDSL.g:5802:1: ( ( rule__SuiteDefinition__StatementsAssignment_12 )* )
+            // InternalDSL.g:5803:1: ( rule__SuiteDefinition__StatementsAssignment_12 )*
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_12()); 
-            match(input,45,FOLLOW_2); 
-             after(grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_12()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getStatementsAssignment_12()); 
+            // InternalDSL.g:5804:1: ( rule__SuiteDefinition__StatementsAssignment_12 )*
+            loop36:
+            do {
+                int alt36=2;
+                int LA36_0 = input.LA(1);
+
+                if ( ((LA36_0>=RULE_SL_VISIBLE_COMMENT && LA36_0<=RULE_DIVIDER)||LA36_0==52||(LA36_0>=54 && LA36_0<=55)||LA36_0==58||LA36_0==60||(LA36_0>=62 && LA36_0<=63)||LA36_0==78||LA36_0==81) ) {
+                    alt36=1;
+                }
+
+
+                switch (alt36) {
+            	case 1 :
+            	    // InternalDSL.g:5804:2: rule__SuiteDefinition__StatementsAssignment_12
+            	    {
+            	    pushFollow(FOLLOW_21);
+            	    rule__SuiteDefinition__StatementsAssignment_12();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop36;
+                }
+            } while (true);
+
+             after(grammarAccess.getSuiteDefinitionAccess().getStatementsAssignment_12()); 
 
             }
 
@@ -16235,17 +16257,22 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__13"
-    // InternalDSL.g:5816:1: rule__SuiteDefinition__Group__13 : rule__SuiteDefinition__Group__13__Impl ;
+    // InternalDSL.g:5814:1: rule__SuiteDefinition__Group__13 : rule__SuiteDefinition__Group__13__Impl rule__SuiteDefinition__Group__14 ;
     public final void rule__SuiteDefinition__Group__13() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5820:1: ( rule__SuiteDefinition__Group__13__Impl )
-            // InternalDSL.g:5821:2: rule__SuiteDefinition__Group__13__Impl
+            // InternalDSL.g:5818:1: ( rule__SuiteDefinition__Group__13__Impl rule__SuiteDefinition__Group__14 )
+            // InternalDSL.g:5819:2: rule__SuiteDefinition__Group__13__Impl rule__SuiteDefinition__Group__14
             {
-            pushFollow(FOLLOW_2);
+            pushFollow(FOLLOW_4);
             rule__SuiteDefinition__Group__13__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__SuiteDefinition__Group__14();
 
             state._fsp--;
 
@@ -16268,25 +16295,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group__13__Impl"
-    // InternalDSL.g:5827:1: rule__SuiteDefinition__Group__13__Impl : ( ruleNL ) ;
+    // InternalDSL.g:5826:1: rule__SuiteDefinition__Group__13__Impl : ( 'suiteend' ) ;
     public final void rule__SuiteDefinition__Group__13__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5831:1: ( ( ruleNL ) )
-            // InternalDSL.g:5832:1: ( ruleNL )
+            // InternalDSL.g:5830:1: ( ( 'suiteend' ) )
+            // InternalDSL.g:5831:1: ( 'suiteend' )
             {
-            // InternalDSL.g:5832:1: ( ruleNL )
-            // InternalDSL.g:5833:1: ruleNL
+            // InternalDSL.g:5831:1: ( 'suiteend' )
+            // InternalDSL.g:5832:1: 'suiteend'
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_13()); 
-            pushFollow(FOLLOW_2);
-            ruleNL();
-
-            state._fsp--;
-
-             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_13()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_13()); 
+            match(input,45,FOLLOW_2); 
+             after(grammarAccess.getSuiteDefinitionAccess().getSuiteendKeyword_13()); 
 
             }
 
@@ -16308,93 +16331,18 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__SuiteDefinition__Group__13__Impl"
 
 
-    // $ANTLR start "rule__SuiteDefinition__Group_5__0"
-    // InternalDSL.g:5872:1: rule__SuiteDefinition__Group_5__0 : rule__SuiteDefinition__Group_5__0__Impl rule__SuiteDefinition__Group_5__1 ;
-    public final void rule__SuiteDefinition__Group_5__0() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__Group__14"
+    // InternalDSL.g:5845:1: rule__SuiteDefinition__Group__14 : rule__SuiteDefinition__Group__14__Impl ;
+    public final void rule__SuiteDefinition__Group__14() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5876:1: ( rule__SuiteDefinition__Group_5__0__Impl rule__SuiteDefinition__Group_5__1 )
-            // InternalDSL.g:5877:2: rule__SuiteDefinition__Group_5__0__Impl rule__SuiteDefinition__Group_5__1
-            {
-            pushFollow(FOLLOW_7);
-            rule__SuiteDefinition__Group_5__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__Group_5__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__SuiteDefinition__Group_5__0"
-
-
-    // $ANTLR start "rule__SuiteDefinition__Group_5__0__Impl"
-    // InternalDSL.g:5884:1: rule__SuiteDefinition__Group_5__0__Impl : ( 'gets' ) ;
-    public final void rule__SuiteDefinition__Group_5__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // InternalDSL.g:5888:1: ( ( 'gets' ) )
-            // InternalDSL.g:5889:1: ( 'gets' )
-            {
-            // InternalDSL.g:5889:1: ( 'gets' )
-            // InternalDSL.g:5890:1: 'gets'
-            {
-             before(grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_5_0()); 
-            match(input,46,FOLLOW_2); 
-             after(grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_5_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__SuiteDefinition__Group_5__0__Impl"
-
-
-    // $ANTLR start "rule__SuiteDefinition__Group_5__1"
-    // InternalDSL.g:5903:1: rule__SuiteDefinition__Group_5__1 : rule__SuiteDefinition__Group_5__1__Impl ;
-    public final void rule__SuiteDefinition__Group_5__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // InternalDSL.g:5907:1: ( rule__SuiteDefinition__Group_5__1__Impl )
-            // InternalDSL.g:5908:2: rule__SuiteDefinition__Group_5__1__Impl
+            // InternalDSL.g:5849:1: ( rule__SuiteDefinition__Group__14__Impl )
+            // InternalDSL.g:5850:2: rule__SuiteDefinition__Group__14__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__Group_5__1__Impl();
+            rule__SuiteDefinition__Group__14__Impl();
 
             state._fsp--;
 
@@ -16413,237 +16361,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__Group_5__1"
+    // $ANTLR end "rule__SuiteDefinition__Group__14"
 
 
-    // $ANTLR start "rule__SuiteDefinition__Group_5__1__Impl"
-    // InternalDSL.g:5914:1: rule__SuiteDefinition__Group_5__1__Impl : ( ( ( rule__SuiteDefinition__Group_5_1__0 ) ) ( ( rule__SuiteDefinition__Group_5_1__0 )* ) ) ;
-    public final void rule__SuiteDefinition__Group_5__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // InternalDSL.g:5918:1: ( ( ( ( rule__SuiteDefinition__Group_5_1__0 ) ) ( ( rule__SuiteDefinition__Group_5_1__0 )* ) ) )
-            // InternalDSL.g:5919:1: ( ( ( rule__SuiteDefinition__Group_5_1__0 ) ) ( ( rule__SuiteDefinition__Group_5_1__0 )* ) )
-            {
-            // InternalDSL.g:5919:1: ( ( ( rule__SuiteDefinition__Group_5_1__0 ) ) ( ( rule__SuiteDefinition__Group_5_1__0 )* ) )
-            // InternalDSL.g:5920:1: ( ( rule__SuiteDefinition__Group_5_1__0 ) ) ( ( rule__SuiteDefinition__Group_5_1__0 )* )
-            {
-            // InternalDSL.g:5920:1: ( ( rule__SuiteDefinition__Group_5_1__0 ) )
-            // InternalDSL.g:5921:1: ( rule__SuiteDefinition__Group_5_1__0 )
-            {
-             before(grammarAccess.getSuiteDefinitionAccess().getGroup_5_1()); 
-            // InternalDSL.g:5922:1: ( rule__SuiteDefinition__Group_5_1__0 )
-            // InternalDSL.g:5922:2: rule__SuiteDefinition__Group_5_1__0
-            {
-            pushFollow(FOLLOW_13);
-            rule__SuiteDefinition__Group_5_1__0();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getSuiteDefinitionAccess().getGroup_5_1()); 
-
-            }
-
-            // InternalDSL.g:5925:1: ( ( rule__SuiteDefinition__Group_5_1__0 )* )
-            // InternalDSL.g:5926:1: ( rule__SuiteDefinition__Group_5_1__0 )*
-            {
-             before(grammarAccess.getSuiteDefinitionAccess().getGroup_5_1()); 
-            // InternalDSL.g:5927:1: ( rule__SuiteDefinition__Group_5_1__0 )*
-            loop36:
-            do {
-                int alt36=2;
-                int LA36_0 = input.LA(1);
-
-                if ( (LA36_0==RULE_ID) ) {
-                    alt36=1;
-                }
-
-
-                switch (alt36) {
-            	case 1 :
-            	    // InternalDSL.g:5927:2: rule__SuiteDefinition__Group_5_1__0
-            	    {
-            	    pushFollow(FOLLOW_13);
-            	    rule__SuiteDefinition__Group_5_1__0();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop36;
-                }
-            } while (true);
-
-             after(grammarAccess.getSuiteDefinitionAccess().getGroup_5_1()); 
-
-            }
-
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__SuiteDefinition__Group_5__1__Impl"
-
-
-    // $ANTLR start "rule__SuiteDefinition__Group_5_1__0"
-    // InternalDSL.g:5942:1: rule__SuiteDefinition__Group_5_1__0 : rule__SuiteDefinition__Group_5_1__0__Impl rule__SuiteDefinition__Group_5_1__1 ;
-    public final void rule__SuiteDefinition__Group_5_1__0() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__Group__14__Impl"
+    // InternalDSL.g:5856:1: rule__SuiteDefinition__Group__14__Impl : ( ruleNL ) ;
+    public final void rule__SuiteDefinition__Group__14__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:5946:1: ( rule__SuiteDefinition__Group_5_1__0__Impl rule__SuiteDefinition__Group_5_1__1 )
-            // InternalDSL.g:5947:2: rule__SuiteDefinition__Group_5_1__0__Impl rule__SuiteDefinition__Group_5_1__1
+            // InternalDSL.g:5860:1: ( ( ruleNL ) )
+            // InternalDSL.g:5861:1: ( ruleNL )
             {
-            pushFollow(FOLLOW_4);
-            rule__SuiteDefinition__Group_5_1__0__Impl();
-
-            state._fsp--;
-
-            pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__Group_5_1__1();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__SuiteDefinition__Group_5_1__0"
-
-
-    // $ANTLR start "rule__SuiteDefinition__Group_5_1__0__Impl"
-    // InternalDSL.g:5954:1: rule__SuiteDefinition__Group_5_1__0__Impl : ( ( rule__SuiteDefinition__ParametersAssignment_5_1_0 ) ) ;
-    public final void rule__SuiteDefinition__Group_5_1__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // InternalDSL.g:5958:1: ( ( ( rule__SuiteDefinition__ParametersAssignment_5_1_0 ) ) )
-            // InternalDSL.g:5959:1: ( ( rule__SuiteDefinition__ParametersAssignment_5_1_0 ) )
+            // InternalDSL.g:5861:1: ( ruleNL )
+            // InternalDSL.g:5862:1: ruleNL
             {
-            // InternalDSL.g:5959:1: ( ( rule__SuiteDefinition__ParametersAssignment_5_1_0 ) )
-            // InternalDSL.g:5960:1: ( rule__SuiteDefinition__ParametersAssignment_5_1_0 )
-            {
-             before(grammarAccess.getSuiteDefinitionAccess().getParametersAssignment_5_1_0()); 
-            // InternalDSL.g:5961:1: ( rule__SuiteDefinition__ParametersAssignment_5_1_0 )
-            // InternalDSL.g:5961:2: rule__SuiteDefinition__ParametersAssignment_5_1_0
-            {
-            pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__ParametersAssignment_5_1_0();
-
-            state._fsp--;
-
-
-            }
-
-             after(grammarAccess.getSuiteDefinitionAccess().getParametersAssignment_5_1_0()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__SuiteDefinition__Group_5_1__0__Impl"
-
-
-    // $ANTLR start "rule__SuiteDefinition__Group_5_1__1"
-    // InternalDSL.g:5971:1: rule__SuiteDefinition__Group_5_1__1 : rule__SuiteDefinition__Group_5_1__1__Impl ;
-    public final void rule__SuiteDefinition__Group_5_1__1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // InternalDSL.g:5975:1: ( rule__SuiteDefinition__Group_5_1__1__Impl )
-            // InternalDSL.g:5976:2: rule__SuiteDefinition__Group_5_1__1__Impl
-            {
-            pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__Group_5_1__1__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__SuiteDefinition__Group_5_1__1"
-
-
-    // $ANTLR start "rule__SuiteDefinition__Group_5_1__1__Impl"
-    // InternalDSL.g:5982:1: rule__SuiteDefinition__Group_5_1__1__Impl : ( ruleNL ) ;
-    public final void rule__SuiteDefinition__Group_5_1__1__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // InternalDSL.g:5986:1: ( ( ruleNL ) )
-            // InternalDSL.g:5987:1: ( ruleNL )
-            {
-            // InternalDSL.g:5987:1: ( ruleNL )
-            // InternalDSL.g:5988:1: ruleNL
-            {
-             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_5_1_1()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_14()); 
             pushFollow(FOLLOW_2);
             ruleNL();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_5_1_1()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_14()); 
 
             }
 
@@ -16662,18 +16402,18 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__Group_5_1__1__Impl"
+    // $ANTLR end "rule__SuiteDefinition__Group__14__Impl"
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_6__0"
-    // InternalDSL.g:6003:1: rule__SuiteDefinition__Group_6__0 : rule__SuiteDefinition__Group_6__0__Impl rule__SuiteDefinition__Group_6__1 ;
+    // InternalDSL.g:5903:1: rule__SuiteDefinition__Group_6__0 : rule__SuiteDefinition__Group_6__0__Impl rule__SuiteDefinition__Group_6__1 ;
     public final void rule__SuiteDefinition__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6007:1: ( rule__SuiteDefinition__Group_6__0__Impl rule__SuiteDefinition__Group_6__1 )
-            // InternalDSL.g:6008:2: rule__SuiteDefinition__Group_6__0__Impl rule__SuiteDefinition__Group_6__1
+            // InternalDSL.g:5907:1: ( rule__SuiteDefinition__Group_6__0__Impl rule__SuiteDefinition__Group_6__1 )
+            // InternalDSL.g:5908:2: rule__SuiteDefinition__Group_6__0__Impl rule__SuiteDefinition__Group_6__1
             {
             pushFollow(FOLLOW_7);
             rule__SuiteDefinition__Group_6__0__Impl();
@@ -16704,21 +16444,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_6__0__Impl"
-    // InternalDSL.g:6015:1: rule__SuiteDefinition__Group_6__0__Impl : ( 'returns' ) ;
+    // InternalDSL.g:5915:1: rule__SuiteDefinition__Group_6__0__Impl : ( 'gets' ) ;
     public final void rule__SuiteDefinition__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6019:1: ( ( 'returns' ) )
-            // InternalDSL.g:6020:1: ( 'returns' )
+            // InternalDSL.g:5919:1: ( ( 'gets' ) )
+            // InternalDSL.g:5920:1: ( 'gets' )
             {
-            // InternalDSL.g:6020:1: ( 'returns' )
-            // InternalDSL.g:6021:1: 'returns'
+            // InternalDSL.g:5920:1: ( 'gets' )
+            // InternalDSL.g:5921:1: 'gets'
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getReturnsKeyword_6_0()); 
-            match(input,47,FOLLOW_2); 
-             after(grammarAccess.getSuiteDefinitionAccess().getReturnsKeyword_6_0()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_6_0()); 
+            match(input,46,FOLLOW_2); 
+             after(grammarAccess.getSuiteDefinitionAccess().getGetsKeyword_6_0()); 
 
             }
 
@@ -16741,14 +16481,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_6__1"
-    // InternalDSL.g:6034:1: rule__SuiteDefinition__Group_6__1 : rule__SuiteDefinition__Group_6__1__Impl ;
+    // InternalDSL.g:5934:1: rule__SuiteDefinition__Group_6__1 : rule__SuiteDefinition__Group_6__1__Impl ;
     public final void rule__SuiteDefinition__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6038:1: ( rule__SuiteDefinition__Group_6__1__Impl )
-            // InternalDSL.g:6039:2: rule__SuiteDefinition__Group_6__1__Impl
+            // InternalDSL.g:5938:1: ( rule__SuiteDefinition__Group_6__1__Impl )
+            // InternalDSL.g:5939:2: rule__SuiteDefinition__Group_6__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SuiteDefinition__Group_6__1__Impl();
@@ -16774,24 +16514,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_6__1__Impl"
-    // InternalDSL.g:6045:1: rule__SuiteDefinition__Group_6__1__Impl : ( ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* ) ) ;
+    // InternalDSL.g:5945:1: rule__SuiteDefinition__Group_6__1__Impl : ( ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* ) ) ;
     public final void rule__SuiteDefinition__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6049:1: ( ( ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* ) ) )
-            // InternalDSL.g:6050:1: ( ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* ) )
+            // InternalDSL.g:5949:1: ( ( ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* ) ) )
+            // InternalDSL.g:5950:1: ( ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* ) )
             {
-            // InternalDSL.g:6050:1: ( ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* ) )
-            // InternalDSL.g:6051:1: ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* )
+            // InternalDSL.g:5950:1: ( ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* ) )
+            // InternalDSL.g:5951:1: ( ( rule__SuiteDefinition__Group_6_1__0 ) ) ( ( rule__SuiteDefinition__Group_6_1__0 )* )
             {
-            // InternalDSL.g:6051:1: ( ( rule__SuiteDefinition__Group_6_1__0 ) )
-            // InternalDSL.g:6052:1: ( rule__SuiteDefinition__Group_6_1__0 )
+            // InternalDSL.g:5951:1: ( ( rule__SuiteDefinition__Group_6_1__0 ) )
+            // InternalDSL.g:5952:1: ( rule__SuiteDefinition__Group_6_1__0 )
             {
              before(grammarAccess.getSuiteDefinitionAccess().getGroup_6_1()); 
-            // InternalDSL.g:6053:1: ( rule__SuiteDefinition__Group_6_1__0 )
-            // InternalDSL.g:6053:2: rule__SuiteDefinition__Group_6_1__0
+            // InternalDSL.g:5953:1: ( rule__SuiteDefinition__Group_6_1__0 )
+            // InternalDSL.g:5953:2: rule__SuiteDefinition__Group_6_1__0
             {
             pushFollow(FOLLOW_13);
             rule__SuiteDefinition__Group_6_1__0();
@@ -16805,11 +16545,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalDSL.g:6056:1: ( ( rule__SuiteDefinition__Group_6_1__0 )* )
-            // InternalDSL.g:6057:1: ( rule__SuiteDefinition__Group_6_1__0 )*
+            // InternalDSL.g:5956:1: ( ( rule__SuiteDefinition__Group_6_1__0 )* )
+            // InternalDSL.g:5957:1: ( rule__SuiteDefinition__Group_6_1__0 )*
             {
              before(grammarAccess.getSuiteDefinitionAccess().getGroup_6_1()); 
-            // InternalDSL.g:6058:1: ( rule__SuiteDefinition__Group_6_1__0 )*
+            // InternalDSL.g:5958:1: ( rule__SuiteDefinition__Group_6_1__0 )*
             loop37:
             do {
                 int alt37=2;
@@ -16822,7 +16562,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
                 switch (alt37) {
             	case 1 :
-            	    // InternalDSL.g:6058:2: rule__SuiteDefinition__Group_6_1__0
+            	    // InternalDSL.g:5958:2: rule__SuiteDefinition__Group_6_1__0
             	    {
             	    pushFollow(FOLLOW_13);
             	    rule__SuiteDefinition__Group_6_1__0();
@@ -16864,14 +16604,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_6_1__0"
-    // InternalDSL.g:6073:1: rule__SuiteDefinition__Group_6_1__0 : rule__SuiteDefinition__Group_6_1__0__Impl rule__SuiteDefinition__Group_6_1__1 ;
+    // InternalDSL.g:5973:1: rule__SuiteDefinition__Group_6_1__0 : rule__SuiteDefinition__Group_6_1__0__Impl rule__SuiteDefinition__Group_6_1__1 ;
     public final void rule__SuiteDefinition__Group_6_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6077:1: ( rule__SuiteDefinition__Group_6_1__0__Impl rule__SuiteDefinition__Group_6_1__1 )
-            // InternalDSL.g:6078:2: rule__SuiteDefinition__Group_6_1__0__Impl rule__SuiteDefinition__Group_6_1__1
+            // InternalDSL.g:5977:1: ( rule__SuiteDefinition__Group_6_1__0__Impl rule__SuiteDefinition__Group_6_1__1 )
+            // InternalDSL.g:5978:2: rule__SuiteDefinition__Group_6_1__0__Impl rule__SuiteDefinition__Group_6_1__1
             {
             pushFollow(FOLLOW_4);
             rule__SuiteDefinition__Group_6_1__0__Impl();
@@ -16902,31 +16642,31 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_6_1__0__Impl"
-    // InternalDSL.g:6085:1: rule__SuiteDefinition__Group_6_1__0__Impl : ( ( rule__SuiteDefinition__ReturnAssignment_6_1_0 ) ) ;
+    // InternalDSL.g:5985:1: rule__SuiteDefinition__Group_6_1__0__Impl : ( ( rule__SuiteDefinition__ParametersAssignment_6_1_0 ) ) ;
     public final void rule__SuiteDefinition__Group_6_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6089:1: ( ( ( rule__SuiteDefinition__ReturnAssignment_6_1_0 ) ) )
-            // InternalDSL.g:6090:1: ( ( rule__SuiteDefinition__ReturnAssignment_6_1_0 ) )
+            // InternalDSL.g:5989:1: ( ( ( rule__SuiteDefinition__ParametersAssignment_6_1_0 ) ) )
+            // InternalDSL.g:5990:1: ( ( rule__SuiteDefinition__ParametersAssignment_6_1_0 ) )
             {
-            // InternalDSL.g:6090:1: ( ( rule__SuiteDefinition__ReturnAssignment_6_1_0 ) )
-            // InternalDSL.g:6091:1: ( rule__SuiteDefinition__ReturnAssignment_6_1_0 )
+            // InternalDSL.g:5990:1: ( ( rule__SuiteDefinition__ParametersAssignment_6_1_0 ) )
+            // InternalDSL.g:5991:1: ( rule__SuiteDefinition__ParametersAssignment_6_1_0 )
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getReturnAssignment_6_1_0()); 
-            // InternalDSL.g:6092:1: ( rule__SuiteDefinition__ReturnAssignment_6_1_0 )
-            // InternalDSL.g:6092:2: rule__SuiteDefinition__ReturnAssignment_6_1_0
+             before(grammarAccess.getSuiteDefinitionAccess().getParametersAssignment_6_1_0()); 
+            // InternalDSL.g:5992:1: ( rule__SuiteDefinition__ParametersAssignment_6_1_0 )
+            // InternalDSL.g:5992:2: rule__SuiteDefinition__ParametersAssignment_6_1_0
             {
             pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__ReturnAssignment_6_1_0();
+            rule__SuiteDefinition__ParametersAssignment_6_1_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getSuiteDefinitionAccess().getReturnAssignment_6_1_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getParametersAssignment_6_1_0()); 
 
             }
 
@@ -16949,14 +16689,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_6_1__1"
-    // InternalDSL.g:6102:1: rule__SuiteDefinition__Group_6_1__1 : rule__SuiteDefinition__Group_6_1__1__Impl ;
+    // InternalDSL.g:6002:1: rule__SuiteDefinition__Group_6_1__1 : rule__SuiteDefinition__Group_6_1__1__Impl ;
     public final void rule__SuiteDefinition__Group_6_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6106:1: ( rule__SuiteDefinition__Group_6_1__1__Impl )
-            // InternalDSL.g:6107:2: rule__SuiteDefinition__Group_6_1__1__Impl
+            // InternalDSL.g:6006:1: ( rule__SuiteDefinition__Group_6_1__1__Impl )
+            // InternalDSL.g:6007:2: rule__SuiteDefinition__Group_6_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SuiteDefinition__Group_6_1__1__Impl();
@@ -16982,17 +16722,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_6_1__1__Impl"
-    // InternalDSL.g:6113:1: rule__SuiteDefinition__Group_6_1__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6013:1: rule__SuiteDefinition__Group_6_1__1__Impl : ( ruleNL ) ;
     public final void rule__SuiteDefinition__Group_6_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6117:1: ( ( ruleNL ) )
-            // InternalDSL.g:6118:1: ( ruleNL )
+            // InternalDSL.g:6017:1: ( ( ruleNL ) )
+            // InternalDSL.g:6018:1: ( ruleNL )
             {
-            // InternalDSL.g:6118:1: ( ruleNL )
-            // InternalDSL.g:6119:1: ruleNL
+            // InternalDSL.g:6018:1: ( ruleNL )
+            // InternalDSL.g:6019:1: ruleNL
             {
              before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_6_1_1()); 
             pushFollow(FOLLOW_2);
@@ -17023,16 +16763,16 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_7__0"
-    // InternalDSL.g:6134:1: rule__SuiteDefinition__Group_7__0 : rule__SuiteDefinition__Group_7__0__Impl rule__SuiteDefinition__Group_7__1 ;
+    // InternalDSL.g:6034:1: rule__SuiteDefinition__Group_7__0 : rule__SuiteDefinition__Group_7__0__Impl rule__SuiteDefinition__Group_7__1 ;
     public final void rule__SuiteDefinition__Group_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6138:1: ( rule__SuiteDefinition__Group_7__0__Impl rule__SuiteDefinition__Group_7__1 )
-            // InternalDSL.g:6139:2: rule__SuiteDefinition__Group_7__0__Impl rule__SuiteDefinition__Group_7__1
+            // InternalDSL.g:6038:1: ( rule__SuiteDefinition__Group_7__0__Impl rule__SuiteDefinition__Group_7__1 )
+            // InternalDSL.g:6039:2: rule__SuiteDefinition__Group_7__0__Impl rule__SuiteDefinition__Group_7__1
             {
-            pushFollow(FOLLOW_4);
+            pushFollow(FOLLOW_7);
             rule__SuiteDefinition__Group_7__0__Impl();
 
             state._fsp--;
@@ -17061,21 +16801,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_7__0__Impl"
-    // InternalDSL.g:6146:1: rule__SuiteDefinition__Group_7__0__Impl : ( 'requires' ) ;
+    // InternalDSL.g:6046:1: rule__SuiteDefinition__Group_7__0__Impl : ( 'returns' ) ;
     public final void rule__SuiteDefinition__Group_7__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6150:1: ( ( 'requires' ) )
-            // InternalDSL.g:6151:1: ( 'requires' )
+            // InternalDSL.g:6050:1: ( ( 'returns' ) )
+            // InternalDSL.g:6051:1: ( 'returns' )
             {
-            // InternalDSL.g:6151:1: ( 'requires' )
-            // InternalDSL.g:6152:1: 'requires'
+            // InternalDSL.g:6051:1: ( 'returns' )
+            // InternalDSL.g:6052:1: 'returns'
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_7_0()); 
-            match(input,48,FOLLOW_2); 
-             after(grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_7_0()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getReturnsKeyword_7_0()); 
+            match(input,47,FOLLOW_2); 
+             after(grammarAccess.getSuiteDefinitionAccess().getReturnsKeyword_7_0()); 
 
             }
 
@@ -17098,22 +16838,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_7__1"
-    // InternalDSL.g:6165:1: rule__SuiteDefinition__Group_7__1 : rule__SuiteDefinition__Group_7__1__Impl rule__SuiteDefinition__Group_7__2 ;
+    // InternalDSL.g:6065:1: rule__SuiteDefinition__Group_7__1 : rule__SuiteDefinition__Group_7__1__Impl ;
     public final void rule__SuiteDefinition__Group_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6169:1: ( rule__SuiteDefinition__Group_7__1__Impl rule__SuiteDefinition__Group_7__2 )
-            // InternalDSL.g:6170:2: rule__SuiteDefinition__Group_7__1__Impl rule__SuiteDefinition__Group_7__2
+            // InternalDSL.g:6069:1: ( rule__SuiteDefinition__Group_7__1__Impl )
+            // InternalDSL.g:6070:2: rule__SuiteDefinition__Group_7__1__Impl
             {
-            pushFollow(FOLLOW_7);
-            rule__SuiteDefinition__Group_7__1__Impl();
-
-            state._fsp--;
-
             pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__Group_7__2();
+            rule__SuiteDefinition__Group_7__1__Impl();
 
             state._fsp--;
 
@@ -17136,25 +16871,74 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_7__1__Impl"
-    // InternalDSL.g:6177:1: rule__SuiteDefinition__Group_7__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6076:1: rule__SuiteDefinition__Group_7__1__Impl : ( ( ( rule__SuiteDefinition__Group_7_1__0 ) ) ( ( rule__SuiteDefinition__Group_7_1__0 )* ) ) ;
     public final void rule__SuiteDefinition__Group_7__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6181:1: ( ( ruleNL ) )
-            // InternalDSL.g:6182:1: ( ruleNL )
+            // InternalDSL.g:6080:1: ( ( ( ( rule__SuiteDefinition__Group_7_1__0 ) ) ( ( rule__SuiteDefinition__Group_7_1__0 )* ) ) )
+            // InternalDSL.g:6081:1: ( ( ( rule__SuiteDefinition__Group_7_1__0 ) ) ( ( rule__SuiteDefinition__Group_7_1__0 )* ) )
             {
-            // InternalDSL.g:6182:1: ( ruleNL )
-            // InternalDSL.g:6183:1: ruleNL
+            // InternalDSL.g:6081:1: ( ( ( rule__SuiteDefinition__Group_7_1__0 ) ) ( ( rule__SuiteDefinition__Group_7_1__0 )* ) )
+            // InternalDSL.g:6082:1: ( ( rule__SuiteDefinition__Group_7_1__0 ) ) ( ( rule__SuiteDefinition__Group_7_1__0 )* )
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_1()); 
-            pushFollow(FOLLOW_2);
-            ruleNL();
+            // InternalDSL.g:6082:1: ( ( rule__SuiteDefinition__Group_7_1__0 ) )
+            // InternalDSL.g:6083:1: ( rule__SuiteDefinition__Group_7_1__0 )
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getGroup_7_1()); 
+            // InternalDSL.g:6084:1: ( rule__SuiteDefinition__Group_7_1__0 )
+            // InternalDSL.g:6084:2: rule__SuiteDefinition__Group_7_1__0
+            {
+            pushFollow(FOLLOW_13);
+            rule__SuiteDefinition__Group_7_1__0();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_1()); 
+
+            }
+
+             after(grammarAccess.getSuiteDefinitionAccess().getGroup_7_1()); 
+
+            }
+
+            // InternalDSL.g:6087:1: ( ( rule__SuiteDefinition__Group_7_1__0 )* )
+            // InternalDSL.g:6088:1: ( rule__SuiteDefinition__Group_7_1__0 )*
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getGroup_7_1()); 
+            // InternalDSL.g:6089:1: ( rule__SuiteDefinition__Group_7_1__0 )*
+            loop38:
+            do {
+                int alt38=2;
+                int LA38_0 = input.LA(1);
+
+                if ( (LA38_0==RULE_ID) ) {
+                    alt38=1;
+                }
+
+
+                switch (alt38) {
+            	case 1 :
+            	    // InternalDSL.g:6089:2: rule__SuiteDefinition__Group_7_1__0
+            	    {
+            	    pushFollow(FOLLOW_13);
+            	    rule__SuiteDefinition__Group_7_1__0();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop38;
+                }
+            } while (true);
+
+             after(grammarAccess.getSuiteDefinitionAccess().getGroup_7_1()); 
+
+            }
+
 
             }
 
@@ -17176,121 +16960,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__SuiteDefinition__Group_7__1__Impl"
 
 
-    // $ANTLR start "rule__SuiteDefinition__Group_7__2"
-    // InternalDSL.g:6194:1: rule__SuiteDefinition__Group_7__2 : rule__SuiteDefinition__Group_7__2__Impl ;
-    public final void rule__SuiteDefinition__Group_7__2() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__Group_7_1__0"
+    // InternalDSL.g:6104:1: rule__SuiteDefinition__Group_7_1__0 : rule__SuiteDefinition__Group_7_1__0__Impl rule__SuiteDefinition__Group_7_1__1 ;
+    public final void rule__SuiteDefinition__Group_7_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6198:1: ( rule__SuiteDefinition__Group_7__2__Impl )
-            // InternalDSL.g:6199:2: rule__SuiteDefinition__Group_7__2__Impl
-            {
-            pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__Group_7__2__Impl();
-
-            state._fsp--;
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__SuiteDefinition__Group_7__2"
-
-
-    // $ANTLR start "rule__SuiteDefinition__Group_7__2__Impl"
-    // InternalDSL.g:6205:1: rule__SuiteDefinition__Group_7__2__Impl : ( ( rule__SuiteDefinition__Group_7_2__0 )* ) ;
-    public final void rule__SuiteDefinition__Group_7__2__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // InternalDSL.g:6209:1: ( ( ( rule__SuiteDefinition__Group_7_2__0 )* ) )
-            // InternalDSL.g:6210:1: ( ( rule__SuiteDefinition__Group_7_2__0 )* )
-            {
-            // InternalDSL.g:6210:1: ( ( rule__SuiteDefinition__Group_7_2__0 )* )
-            // InternalDSL.g:6211:1: ( rule__SuiteDefinition__Group_7_2__0 )*
-            {
-             before(grammarAccess.getSuiteDefinitionAccess().getGroup_7_2()); 
-            // InternalDSL.g:6212:1: ( rule__SuiteDefinition__Group_7_2__0 )*
-            loop38:
-            do {
-                int alt38=2;
-                int LA38_0 = input.LA(1);
-
-                if ( (LA38_0==RULE_ID) ) {
-                    alt38=1;
-                }
-
-
-                switch (alt38) {
-            	case 1 :
-            	    // InternalDSL.g:6212:2: rule__SuiteDefinition__Group_7_2__0
-            	    {
-            	    pushFollow(FOLLOW_13);
-            	    rule__SuiteDefinition__Group_7_2__0();
-
-            	    state._fsp--;
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop38;
-                }
-            } while (true);
-
-             after(grammarAccess.getSuiteDefinitionAccess().getGroup_7_2()); 
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__SuiteDefinition__Group_7__2__Impl"
-
-
-    // $ANTLR start "rule__SuiteDefinition__Group_7_2__0"
-    // InternalDSL.g:6228:1: rule__SuiteDefinition__Group_7_2__0 : rule__SuiteDefinition__Group_7_2__0__Impl rule__SuiteDefinition__Group_7_2__1 ;
-    public final void rule__SuiteDefinition__Group_7_2__0() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // InternalDSL.g:6232:1: ( rule__SuiteDefinition__Group_7_2__0__Impl rule__SuiteDefinition__Group_7_2__1 )
-            // InternalDSL.g:6233:2: rule__SuiteDefinition__Group_7_2__0__Impl rule__SuiteDefinition__Group_7_2__1
+            // InternalDSL.g:6108:1: ( rule__SuiteDefinition__Group_7_1__0__Impl rule__SuiteDefinition__Group_7_1__1 )
+            // InternalDSL.g:6109:2: rule__SuiteDefinition__Group_7_1__0__Impl rule__SuiteDefinition__Group_7_1__1
             {
             pushFollow(FOLLOW_4);
-            rule__SuiteDefinition__Group_7_2__0__Impl();
+            rule__SuiteDefinition__Group_7_1__0__Impl();
 
             state._fsp--;
 
             pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__Group_7_2__1();
+            rule__SuiteDefinition__Group_7_1__1();
 
             state._fsp--;
 
@@ -17309,35 +16995,35 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__Group_7_2__0"
+    // $ANTLR end "rule__SuiteDefinition__Group_7_1__0"
 
 
-    // $ANTLR start "rule__SuiteDefinition__Group_7_2__0__Impl"
-    // InternalDSL.g:6240:1: rule__SuiteDefinition__Group_7_2__0__Impl : ( ( rule__SuiteDefinition__DependenciesAssignment_7_2_0 ) ) ;
-    public final void rule__SuiteDefinition__Group_7_2__0__Impl() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__Group_7_1__0__Impl"
+    // InternalDSL.g:6116:1: rule__SuiteDefinition__Group_7_1__0__Impl : ( ( rule__SuiteDefinition__ReturnAssignment_7_1_0 ) ) ;
+    public final void rule__SuiteDefinition__Group_7_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6244:1: ( ( ( rule__SuiteDefinition__DependenciesAssignment_7_2_0 ) ) )
-            // InternalDSL.g:6245:1: ( ( rule__SuiteDefinition__DependenciesAssignment_7_2_0 ) )
+            // InternalDSL.g:6120:1: ( ( ( rule__SuiteDefinition__ReturnAssignment_7_1_0 ) ) )
+            // InternalDSL.g:6121:1: ( ( rule__SuiteDefinition__ReturnAssignment_7_1_0 ) )
             {
-            // InternalDSL.g:6245:1: ( ( rule__SuiteDefinition__DependenciesAssignment_7_2_0 ) )
-            // InternalDSL.g:6246:1: ( rule__SuiteDefinition__DependenciesAssignment_7_2_0 )
+            // InternalDSL.g:6121:1: ( ( rule__SuiteDefinition__ReturnAssignment_7_1_0 ) )
+            // InternalDSL.g:6122:1: ( rule__SuiteDefinition__ReturnAssignment_7_1_0 )
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getDependenciesAssignment_7_2_0()); 
-            // InternalDSL.g:6247:1: ( rule__SuiteDefinition__DependenciesAssignment_7_2_0 )
-            // InternalDSL.g:6247:2: rule__SuiteDefinition__DependenciesAssignment_7_2_0
+             before(grammarAccess.getSuiteDefinitionAccess().getReturnAssignment_7_1_0()); 
+            // InternalDSL.g:6123:1: ( rule__SuiteDefinition__ReturnAssignment_7_1_0 )
+            // InternalDSL.g:6123:2: rule__SuiteDefinition__ReturnAssignment_7_1_0
             {
             pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__DependenciesAssignment_7_2_0();
+            rule__SuiteDefinition__ReturnAssignment_7_1_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getSuiteDefinitionAccess().getDependenciesAssignment_7_2_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getReturnAssignment_7_1_0()); 
 
             }
 
@@ -17356,21 +17042,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__Group_7_2__0__Impl"
+    // $ANTLR end "rule__SuiteDefinition__Group_7_1__0__Impl"
 
 
-    // $ANTLR start "rule__SuiteDefinition__Group_7_2__1"
-    // InternalDSL.g:6257:1: rule__SuiteDefinition__Group_7_2__1 : rule__SuiteDefinition__Group_7_2__1__Impl ;
-    public final void rule__SuiteDefinition__Group_7_2__1() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__Group_7_1__1"
+    // InternalDSL.g:6133:1: rule__SuiteDefinition__Group_7_1__1 : rule__SuiteDefinition__Group_7_1__1__Impl ;
+    public final void rule__SuiteDefinition__Group_7_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6261:1: ( rule__SuiteDefinition__Group_7_2__1__Impl )
-            // InternalDSL.g:6262:2: rule__SuiteDefinition__Group_7_2__1__Impl
+            // InternalDSL.g:6137:1: ( rule__SuiteDefinition__Group_7_1__1__Impl )
+            // InternalDSL.g:6138:2: rule__SuiteDefinition__Group_7_1__1__Impl
             {
             pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__Group_7_2__1__Impl();
+            rule__SuiteDefinition__Group_7_1__1__Impl();
 
             state._fsp--;
 
@@ -17389,29 +17075,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__Group_7_2__1"
+    // $ANTLR end "rule__SuiteDefinition__Group_7_1__1"
 
 
-    // $ANTLR start "rule__SuiteDefinition__Group_7_2__1__Impl"
-    // InternalDSL.g:6268:1: rule__SuiteDefinition__Group_7_2__1__Impl : ( ruleNL ) ;
-    public final void rule__SuiteDefinition__Group_7_2__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__Group_7_1__1__Impl"
+    // InternalDSL.g:6144:1: rule__SuiteDefinition__Group_7_1__1__Impl : ( ruleNL ) ;
+    public final void rule__SuiteDefinition__Group_7_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6272:1: ( ( ruleNL ) )
-            // InternalDSL.g:6273:1: ( ruleNL )
+            // InternalDSL.g:6148:1: ( ( ruleNL ) )
+            // InternalDSL.g:6149:1: ( ruleNL )
             {
-            // InternalDSL.g:6273:1: ( ruleNL )
-            // InternalDSL.g:6274:1: ruleNL
+            // InternalDSL.g:6149:1: ( ruleNL )
+            // InternalDSL.g:6150:1: ruleNL
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_2_1()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_1_1()); 
             pushFollow(FOLLOW_2);
             ruleNL();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_2_1()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_7_1_1()); 
 
             }
 
@@ -17430,18 +17116,18 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__Group_7_2__1__Impl"
+    // $ANTLR end "rule__SuiteDefinition__Group_7_1__1__Impl"
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8__0"
-    // InternalDSL.g:6289:1: rule__SuiteDefinition__Group_8__0 : rule__SuiteDefinition__Group_8__0__Impl rule__SuiteDefinition__Group_8__1 ;
+    // InternalDSL.g:6165:1: rule__SuiteDefinition__Group_8__0 : rule__SuiteDefinition__Group_8__0__Impl rule__SuiteDefinition__Group_8__1 ;
     public final void rule__SuiteDefinition__Group_8__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6293:1: ( rule__SuiteDefinition__Group_8__0__Impl rule__SuiteDefinition__Group_8__1 )
-            // InternalDSL.g:6294:2: rule__SuiteDefinition__Group_8__0__Impl rule__SuiteDefinition__Group_8__1
+            // InternalDSL.g:6169:1: ( rule__SuiteDefinition__Group_8__0__Impl rule__SuiteDefinition__Group_8__1 )
+            // InternalDSL.g:6170:2: rule__SuiteDefinition__Group_8__0__Impl rule__SuiteDefinition__Group_8__1
             {
             pushFollow(FOLLOW_4);
             rule__SuiteDefinition__Group_8__0__Impl();
@@ -17472,21 +17158,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8__0__Impl"
-    // InternalDSL.g:6301:1: rule__SuiteDefinition__Group_8__0__Impl : ( 'concludedby' ) ;
+    // InternalDSL.g:6177:1: rule__SuiteDefinition__Group_8__0__Impl : ( 'requires' ) ;
     public final void rule__SuiteDefinition__Group_8__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6305:1: ( ( 'concludedby' ) )
-            // InternalDSL.g:6306:1: ( 'concludedby' )
+            // InternalDSL.g:6181:1: ( ( 'requires' ) )
+            // InternalDSL.g:6182:1: ( 'requires' )
             {
-            // InternalDSL.g:6306:1: ( 'concludedby' )
-            // InternalDSL.g:6307:1: 'concludedby'
+            // InternalDSL.g:6182:1: ( 'requires' )
+            // InternalDSL.g:6183:1: 'requires'
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_8_0()); 
-            match(input,49,FOLLOW_2); 
-             after(grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_8_0()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_8_0()); 
+            match(input,48,FOLLOW_2); 
+             after(grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_8_0()); 
 
             }
 
@@ -17509,14 +17195,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8__1"
-    // InternalDSL.g:6320:1: rule__SuiteDefinition__Group_8__1 : rule__SuiteDefinition__Group_8__1__Impl rule__SuiteDefinition__Group_8__2 ;
+    // InternalDSL.g:6196:1: rule__SuiteDefinition__Group_8__1 : rule__SuiteDefinition__Group_8__1__Impl rule__SuiteDefinition__Group_8__2 ;
     public final void rule__SuiteDefinition__Group_8__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6324:1: ( rule__SuiteDefinition__Group_8__1__Impl rule__SuiteDefinition__Group_8__2 )
-            // InternalDSL.g:6325:2: rule__SuiteDefinition__Group_8__1__Impl rule__SuiteDefinition__Group_8__2
+            // InternalDSL.g:6200:1: ( rule__SuiteDefinition__Group_8__1__Impl rule__SuiteDefinition__Group_8__2 )
+            // InternalDSL.g:6201:2: rule__SuiteDefinition__Group_8__1__Impl rule__SuiteDefinition__Group_8__2
             {
             pushFollow(FOLLOW_7);
             rule__SuiteDefinition__Group_8__1__Impl();
@@ -17547,17 +17233,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8__1__Impl"
-    // InternalDSL.g:6332:1: rule__SuiteDefinition__Group_8__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6208:1: rule__SuiteDefinition__Group_8__1__Impl : ( ruleNL ) ;
     public final void rule__SuiteDefinition__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6336:1: ( ( ruleNL ) )
-            // InternalDSL.g:6337:1: ( ruleNL )
+            // InternalDSL.g:6212:1: ( ( ruleNL ) )
+            // InternalDSL.g:6213:1: ( ruleNL )
             {
-            // InternalDSL.g:6337:1: ( ruleNL )
-            // InternalDSL.g:6338:1: ruleNL
+            // InternalDSL.g:6213:1: ( ruleNL )
+            // InternalDSL.g:6214:1: ruleNL
             {
              before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_8_1()); 
             pushFollow(FOLLOW_2);
@@ -17588,14 +17274,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8__2"
-    // InternalDSL.g:6349:1: rule__SuiteDefinition__Group_8__2 : rule__SuiteDefinition__Group_8__2__Impl ;
+    // InternalDSL.g:6225:1: rule__SuiteDefinition__Group_8__2 : rule__SuiteDefinition__Group_8__2__Impl ;
     public final void rule__SuiteDefinition__Group_8__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6353:1: ( rule__SuiteDefinition__Group_8__2__Impl )
-            // InternalDSL.g:6354:2: rule__SuiteDefinition__Group_8__2__Impl
+            // InternalDSL.g:6229:1: ( rule__SuiteDefinition__Group_8__2__Impl )
+            // InternalDSL.g:6230:2: rule__SuiteDefinition__Group_8__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SuiteDefinition__Group_8__2__Impl();
@@ -17621,20 +17307,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8__2__Impl"
-    // InternalDSL.g:6360:1: rule__SuiteDefinition__Group_8__2__Impl : ( ( rule__SuiteDefinition__Group_8_2__0 )* ) ;
+    // InternalDSL.g:6236:1: rule__SuiteDefinition__Group_8__2__Impl : ( ( rule__SuiteDefinition__Group_8_2__0 )* ) ;
     public final void rule__SuiteDefinition__Group_8__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6364:1: ( ( ( rule__SuiteDefinition__Group_8_2__0 )* ) )
-            // InternalDSL.g:6365:1: ( ( rule__SuiteDefinition__Group_8_2__0 )* )
+            // InternalDSL.g:6240:1: ( ( ( rule__SuiteDefinition__Group_8_2__0 )* ) )
+            // InternalDSL.g:6241:1: ( ( rule__SuiteDefinition__Group_8_2__0 )* )
             {
-            // InternalDSL.g:6365:1: ( ( rule__SuiteDefinition__Group_8_2__0 )* )
-            // InternalDSL.g:6366:1: ( rule__SuiteDefinition__Group_8_2__0 )*
+            // InternalDSL.g:6241:1: ( ( rule__SuiteDefinition__Group_8_2__0 )* )
+            // InternalDSL.g:6242:1: ( rule__SuiteDefinition__Group_8_2__0 )*
             {
              before(grammarAccess.getSuiteDefinitionAccess().getGroup_8_2()); 
-            // InternalDSL.g:6367:1: ( rule__SuiteDefinition__Group_8_2__0 )*
+            // InternalDSL.g:6243:1: ( rule__SuiteDefinition__Group_8_2__0 )*
             loop39:
             do {
                 int alt39=2;
@@ -17647,7 +17333,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
                 switch (alt39) {
             	case 1 :
-            	    // InternalDSL.g:6367:2: rule__SuiteDefinition__Group_8_2__0
+            	    // InternalDSL.g:6243:2: rule__SuiteDefinition__Group_8_2__0
             	    {
             	    pushFollow(FOLLOW_13);
             	    rule__SuiteDefinition__Group_8_2__0();
@@ -17686,14 +17372,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8_2__0"
-    // InternalDSL.g:6383:1: rule__SuiteDefinition__Group_8_2__0 : rule__SuiteDefinition__Group_8_2__0__Impl rule__SuiteDefinition__Group_8_2__1 ;
+    // InternalDSL.g:6259:1: rule__SuiteDefinition__Group_8_2__0 : rule__SuiteDefinition__Group_8_2__0__Impl rule__SuiteDefinition__Group_8_2__1 ;
     public final void rule__SuiteDefinition__Group_8_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6387:1: ( rule__SuiteDefinition__Group_8_2__0__Impl rule__SuiteDefinition__Group_8_2__1 )
-            // InternalDSL.g:6388:2: rule__SuiteDefinition__Group_8_2__0__Impl rule__SuiteDefinition__Group_8_2__1
+            // InternalDSL.g:6263:1: ( rule__SuiteDefinition__Group_8_2__0__Impl rule__SuiteDefinition__Group_8_2__1 )
+            // InternalDSL.g:6264:2: rule__SuiteDefinition__Group_8_2__0__Impl rule__SuiteDefinition__Group_8_2__1
             {
             pushFollow(FOLLOW_4);
             rule__SuiteDefinition__Group_8_2__0__Impl();
@@ -17724,31 +17410,31 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8_2__0__Impl"
-    // InternalDSL.g:6395:1: rule__SuiteDefinition__Group_8_2__0__Impl : ( ( rule__SuiteDefinition__FinalizersAssignment_8_2_0 ) ) ;
+    // InternalDSL.g:6271:1: rule__SuiteDefinition__Group_8_2__0__Impl : ( ( rule__SuiteDefinition__DependenciesAssignment_8_2_0 ) ) ;
     public final void rule__SuiteDefinition__Group_8_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6399:1: ( ( ( rule__SuiteDefinition__FinalizersAssignment_8_2_0 ) ) )
-            // InternalDSL.g:6400:1: ( ( rule__SuiteDefinition__FinalizersAssignment_8_2_0 ) )
+            // InternalDSL.g:6275:1: ( ( ( rule__SuiteDefinition__DependenciesAssignment_8_2_0 ) ) )
+            // InternalDSL.g:6276:1: ( ( rule__SuiteDefinition__DependenciesAssignment_8_2_0 ) )
             {
-            // InternalDSL.g:6400:1: ( ( rule__SuiteDefinition__FinalizersAssignment_8_2_0 ) )
-            // InternalDSL.g:6401:1: ( rule__SuiteDefinition__FinalizersAssignment_8_2_0 )
+            // InternalDSL.g:6276:1: ( ( rule__SuiteDefinition__DependenciesAssignment_8_2_0 ) )
+            // InternalDSL.g:6277:1: ( rule__SuiteDefinition__DependenciesAssignment_8_2_0 )
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getFinalizersAssignment_8_2_0()); 
-            // InternalDSL.g:6402:1: ( rule__SuiteDefinition__FinalizersAssignment_8_2_0 )
-            // InternalDSL.g:6402:2: rule__SuiteDefinition__FinalizersAssignment_8_2_0
+             before(grammarAccess.getSuiteDefinitionAccess().getDependenciesAssignment_8_2_0()); 
+            // InternalDSL.g:6278:1: ( rule__SuiteDefinition__DependenciesAssignment_8_2_0 )
+            // InternalDSL.g:6278:2: rule__SuiteDefinition__DependenciesAssignment_8_2_0
             {
             pushFollow(FOLLOW_2);
-            rule__SuiteDefinition__FinalizersAssignment_8_2_0();
+            rule__SuiteDefinition__DependenciesAssignment_8_2_0();
 
             state._fsp--;
 
 
             }
 
-             after(grammarAccess.getSuiteDefinitionAccess().getFinalizersAssignment_8_2_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getDependenciesAssignment_8_2_0()); 
 
             }
 
@@ -17771,14 +17457,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8_2__1"
-    // InternalDSL.g:6412:1: rule__SuiteDefinition__Group_8_2__1 : rule__SuiteDefinition__Group_8_2__1__Impl ;
+    // InternalDSL.g:6288:1: rule__SuiteDefinition__Group_8_2__1 : rule__SuiteDefinition__Group_8_2__1__Impl ;
     public final void rule__SuiteDefinition__Group_8_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6416:1: ( rule__SuiteDefinition__Group_8_2__1__Impl )
-            // InternalDSL.g:6417:2: rule__SuiteDefinition__Group_8_2__1__Impl
+            // InternalDSL.g:6292:1: ( rule__SuiteDefinition__Group_8_2__1__Impl )
+            // InternalDSL.g:6293:2: rule__SuiteDefinition__Group_8_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SuiteDefinition__Group_8_2__1__Impl();
@@ -17804,17 +17490,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__Group_8_2__1__Impl"
-    // InternalDSL.g:6423:1: rule__SuiteDefinition__Group_8_2__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6299:1: rule__SuiteDefinition__Group_8_2__1__Impl : ( ruleNL ) ;
     public final void rule__SuiteDefinition__Group_8_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6427:1: ( ( ruleNL ) )
-            // InternalDSL.g:6428:1: ( ruleNL )
+            // InternalDSL.g:6303:1: ( ( ruleNL ) )
+            // InternalDSL.g:6304:1: ( ruleNL )
             {
-            // InternalDSL.g:6428:1: ( ruleNL )
-            // InternalDSL.g:6429:1: ruleNL
+            // InternalDSL.g:6304:1: ( ruleNL )
+            // InternalDSL.g:6305:1: ruleNL
             {
              before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_8_2_1()); 
             pushFollow(FOLLOW_2);
@@ -17844,15 +17530,426 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__SuiteDefinition__Group_8_2__1__Impl"
 
 
+    // $ANTLR start "rule__SuiteDefinition__Group_9__0"
+    // InternalDSL.g:6320:1: rule__SuiteDefinition__Group_9__0 : rule__SuiteDefinition__Group_9__0__Impl rule__SuiteDefinition__Group_9__1 ;
+    public final void rule__SuiteDefinition__Group_9__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6324:1: ( rule__SuiteDefinition__Group_9__0__Impl rule__SuiteDefinition__Group_9__1 )
+            // InternalDSL.g:6325:2: rule__SuiteDefinition__Group_9__0__Impl rule__SuiteDefinition__Group_9__1
+            {
+            pushFollow(FOLLOW_4);
+            rule__SuiteDefinition__Group_9__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__SuiteDefinition__Group_9__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9__0"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9__0__Impl"
+    // InternalDSL.g:6332:1: rule__SuiteDefinition__Group_9__0__Impl : ( 'concludedby' ) ;
+    public final void rule__SuiteDefinition__Group_9__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6336:1: ( ( 'concludedby' ) )
+            // InternalDSL.g:6337:1: ( 'concludedby' )
+            {
+            // InternalDSL.g:6337:1: ( 'concludedby' )
+            // InternalDSL.g:6338:1: 'concludedby'
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_9_0()); 
+            match(input,49,FOLLOW_2); 
+             after(grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_9_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9__0__Impl"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9__1"
+    // InternalDSL.g:6351:1: rule__SuiteDefinition__Group_9__1 : rule__SuiteDefinition__Group_9__1__Impl rule__SuiteDefinition__Group_9__2 ;
+    public final void rule__SuiteDefinition__Group_9__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6355:1: ( rule__SuiteDefinition__Group_9__1__Impl rule__SuiteDefinition__Group_9__2 )
+            // InternalDSL.g:6356:2: rule__SuiteDefinition__Group_9__1__Impl rule__SuiteDefinition__Group_9__2
+            {
+            pushFollow(FOLLOW_7);
+            rule__SuiteDefinition__Group_9__1__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__SuiteDefinition__Group_9__2();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9__1"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9__1__Impl"
+    // InternalDSL.g:6363:1: rule__SuiteDefinition__Group_9__1__Impl : ( ruleNL ) ;
+    public final void rule__SuiteDefinition__Group_9__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6367:1: ( ( ruleNL ) )
+            // InternalDSL.g:6368:1: ( ruleNL )
+            {
+            // InternalDSL.g:6368:1: ( ruleNL )
+            // InternalDSL.g:6369:1: ruleNL
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_9_1()); 
+            pushFollow(FOLLOW_2);
+            ruleNL();
+
+            state._fsp--;
+
+             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_9_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9__1__Impl"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9__2"
+    // InternalDSL.g:6380:1: rule__SuiteDefinition__Group_9__2 : rule__SuiteDefinition__Group_9__2__Impl ;
+    public final void rule__SuiteDefinition__Group_9__2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6384:1: ( rule__SuiteDefinition__Group_9__2__Impl )
+            // InternalDSL.g:6385:2: rule__SuiteDefinition__Group_9__2__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__SuiteDefinition__Group_9__2__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9__2"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9__2__Impl"
+    // InternalDSL.g:6391:1: rule__SuiteDefinition__Group_9__2__Impl : ( ( rule__SuiteDefinition__Group_9_2__0 )* ) ;
+    public final void rule__SuiteDefinition__Group_9__2__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6395:1: ( ( ( rule__SuiteDefinition__Group_9_2__0 )* ) )
+            // InternalDSL.g:6396:1: ( ( rule__SuiteDefinition__Group_9_2__0 )* )
+            {
+            // InternalDSL.g:6396:1: ( ( rule__SuiteDefinition__Group_9_2__0 )* )
+            // InternalDSL.g:6397:1: ( rule__SuiteDefinition__Group_9_2__0 )*
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getGroup_9_2()); 
+            // InternalDSL.g:6398:1: ( rule__SuiteDefinition__Group_9_2__0 )*
+            loop40:
+            do {
+                int alt40=2;
+                int LA40_0 = input.LA(1);
+
+                if ( (LA40_0==RULE_ID) ) {
+                    alt40=1;
+                }
+
+
+                switch (alt40) {
+            	case 1 :
+            	    // InternalDSL.g:6398:2: rule__SuiteDefinition__Group_9_2__0
+            	    {
+            	    pushFollow(FOLLOW_13);
+            	    rule__SuiteDefinition__Group_9_2__0();
+
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop40;
+                }
+            } while (true);
+
+             after(grammarAccess.getSuiteDefinitionAccess().getGroup_9_2()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9__2__Impl"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9_2__0"
+    // InternalDSL.g:6414:1: rule__SuiteDefinition__Group_9_2__0 : rule__SuiteDefinition__Group_9_2__0__Impl rule__SuiteDefinition__Group_9_2__1 ;
+    public final void rule__SuiteDefinition__Group_9_2__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6418:1: ( rule__SuiteDefinition__Group_9_2__0__Impl rule__SuiteDefinition__Group_9_2__1 )
+            // InternalDSL.g:6419:2: rule__SuiteDefinition__Group_9_2__0__Impl rule__SuiteDefinition__Group_9_2__1
+            {
+            pushFollow(FOLLOW_4);
+            rule__SuiteDefinition__Group_9_2__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_2);
+            rule__SuiteDefinition__Group_9_2__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9_2__0"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9_2__0__Impl"
+    // InternalDSL.g:6426:1: rule__SuiteDefinition__Group_9_2__0__Impl : ( ( rule__SuiteDefinition__FinalizersAssignment_9_2_0 ) ) ;
+    public final void rule__SuiteDefinition__Group_9_2__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6430:1: ( ( ( rule__SuiteDefinition__FinalizersAssignment_9_2_0 ) ) )
+            // InternalDSL.g:6431:1: ( ( rule__SuiteDefinition__FinalizersAssignment_9_2_0 ) )
+            {
+            // InternalDSL.g:6431:1: ( ( rule__SuiteDefinition__FinalizersAssignment_9_2_0 ) )
+            // InternalDSL.g:6432:1: ( rule__SuiteDefinition__FinalizersAssignment_9_2_0 )
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getFinalizersAssignment_9_2_0()); 
+            // InternalDSL.g:6433:1: ( rule__SuiteDefinition__FinalizersAssignment_9_2_0 )
+            // InternalDSL.g:6433:2: rule__SuiteDefinition__FinalizersAssignment_9_2_0
+            {
+            pushFollow(FOLLOW_2);
+            rule__SuiteDefinition__FinalizersAssignment_9_2_0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getSuiteDefinitionAccess().getFinalizersAssignment_9_2_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9_2__0__Impl"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9_2__1"
+    // InternalDSL.g:6443:1: rule__SuiteDefinition__Group_9_2__1 : rule__SuiteDefinition__Group_9_2__1__Impl ;
+    public final void rule__SuiteDefinition__Group_9_2__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6447:1: ( rule__SuiteDefinition__Group_9_2__1__Impl )
+            // InternalDSL.g:6448:2: rule__SuiteDefinition__Group_9_2__1__Impl
+            {
+            pushFollow(FOLLOW_2);
+            rule__SuiteDefinition__Group_9_2__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9_2__1"
+
+
+    // $ANTLR start "rule__SuiteDefinition__Group_9_2__1__Impl"
+    // InternalDSL.g:6454:1: rule__SuiteDefinition__Group_9_2__1__Impl : ( ruleNL ) ;
+    public final void rule__SuiteDefinition__Group_9_2__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:6458:1: ( ( ruleNL ) )
+            // InternalDSL.g:6459:1: ( ruleNL )
+            {
+            // InternalDSL.g:6459:1: ( ruleNL )
+            // InternalDSL.g:6460:1: ruleNL
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_9_2_1()); 
+            pushFollow(FOLLOW_2);
+            ruleNL();
+
+            state._fsp--;
+
+             after(grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_9_2_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__Group_9_2__1__Impl"
+
+
     // $ANTLR start "rule__SuiteParameterDefinition__Group__0"
-    // InternalDSL.g:6444:1: rule__SuiteParameterDefinition__Group__0 : rule__SuiteParameterDefinition__Group__0__Impl rule__SuiteParameterDefinition__Group__1 ;
+    // InternalDSL.g:6475:1: rule__SuiteParameterDefinition__Group__0 : rule__SuiteParameterDefinition__Group__0__Impl rule__SuiteParameterDefinition__Group__1 ;
     public final void rule__SuiteParameterDefinition__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6448:1: ( rule__SuiteParameterDefinition__Group__0__Impl rule__SuiteParameterDefinition__Group__1 )
-            // InternalDSL.g:6449:2: rule__SuiteParameterDefinition__Group__0__Impl rule__SuiteParameterDefinition__Group__1
+            // InternalDSL.g:6479:1: ( rule__SuiteParameterDefinition__Group__0__Impl rule__SuiteParameterDefinition__Group__1 )
+            // InternalDSL.g:6480:2: rule__SuiteParameterDefinition__Group__0__Impl rule__SuiteParameterDefinition__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__SuiteParameterDefinition__Group__0__Impl();
@@ -17883,21 +17980,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group__0__Impl"
-    // InternalDSL.g:6456:1: rule__SuiteParameterDefinition__Group__0__Impl : ( ( rule__SuiteParameterDefinition__NameAssignment_0 ) ) ;
+    // InternalDSL.g:6487:1: rule__SuiteParameterDefinition__Group__0__Impl : ( ( rule__SuiteParameterDefinition__NameAssignment_0 ) ) ;
     public final void rule__SuiteParameterDefinition__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6460:1: ( ( ( rule__SuiteParameterDefinition__NameAssignment_0 ) ) )
-            // InternalDSL.g:6461:1: ( ( rule__SuiteParameterDefinition__NameAssignment_0 ) )
+            // InternalDSL.g:6491:1: ( ( ( rule__SuiteParameterDefinition__NameAssignment_0 ) ) )
+            // InternalDSL.g:6492:1: ( ( rule__SuiteParameterDefinition__NameAssignment_0 ) )
             {
-            // InternalDSL.g:6461:1: ( ( rule__SuiteParameterDefinition__NameAssignment_0 ) )
-            // InternalDSL.g:6462:1: ( rule__SuiteParameterDefinition__NameAssignment_0 )
+            // InternalDSL.g:6492:1: ( ( rule__SuiteParameterDefinition__NameAssignment_0 ) )
+            // InternalDSL.g:6493:1: ( rule__SuiteParameterDefinition__NameAssignment_0 )
             {
              before(grammarAccess.getSuiteParameterDefinitionAccess().getNameAssignment_0()); 
-            // InternalDSL.g:6463:1: ( rule__SuiteParameterDefinition__NameAssignment_0 )
-            // InternalDSL.g:6463:2: rule__SuiteParameterDefinition__NameAssignment_0
+            // InternalDSL.g:6494:1: ( rule__SuiteParameterDefinition__NameAssignment_0 )
+            // InternalDSL.g:6494:2: rule__SuiteParameterDefinition__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__SuiteParameterDefinition__NameAssignment_0();
@@ -17930,14 +18027,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group__1"
-    // InternalDSL.g:6473:1: rule__SuiteParameterDefinition__Group__1 : rule__SuiteParameterDefinition__Group__1__Impl ;
+    // InternalDSL.g:6504:1: rule__SuiteParameterDefinition__Group__1 : rule__SuiteParameterDefinition__Group__1__Impl ;
     public final void rule__SuiteParameterDefinition__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6477:1: ( rule__SuiteParameterDefinition__Group__1__Impl )
-            // InternalDSL.g:6478:2: rule__SuiteParameterDefinition__Group__1__Impl
+            // InternalDSL.g:6508:1: ( rule__SuiteParameterDefinition__Group__1__Impl )
+            // InternalDSL.g:6509:2: rule__SuiteParameterDefinition__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SuiteParameterDefinition__Group__1__Impl();
@@ -17963,25 +18060,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group__1__Impl"
-    // InternalDSL.g:6484:1: rule__SuiteParameterDefinition__Group__1__Impl : ( ( rule__SuiteParameterDefinition__Group_1__0 )? ) ;
+    // InternalDSL.g:6515:1: rule__SuiteParameterDefinition__Group__1__Impl : ( ( rule__SuiteParameterDefinition__Group_1__0 )? ) ;
     public final void rule__SuiteParameterDefinition__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6488:1: ( ( ( rule__SuiteParameterDefinition__Group_1__0 )? ) )
-            // InternalDSL.g:6489:1: ( ( rule__SuiteParameterDefinition__Group_1__0 )? )
+            // InternalDSL.g:6519:1: ( ( ( rule__SuiteParameterDefinition__Group_1__0 )? ) )
+            // InternalDSL.g:6520:1: ( ( rule__SuiteParameterDefinition__Group_1__0 )? )
             {
-            // InternalDSL.g:6489:1: ( ( rule__SuiteParameterDefinition__Group_1__0 )? )
-            // InternalDSL.g:6490:1: ( rule__SuiteParameterDefinition__Group_1__0 )?
+            // InternalDSL.g:6520:1: ( ( rule__SuiteParameterDefinition__Group_1__0 )? )
+            // InternalDSL.g:6521:1: ( rule__SuiteParameterDefinition__Group_1__0 )?
             {
              before(grammarAccess.getSuiteParameterDefinitionAccess().getGroup_1()); 
-            // InternalDSL.g:6491:1: ( rule__SuiteParameterDefinition__Group_1__0 )?
-            int alt40=2;
-            alt40 = dfa40.predict(input);
-            switch (alt40) {
+            // InternalDSL.g:6522:1: ( rule__SuiteParameterDefinition__Group_1__0 )?
+            int alt41=2;
+            alt41 = dfa41.predict(input);
+            switch (alt41) {
                 case 1 :
-                    // InternalDSL.g:6491:2: rule__SuiteParameterDefinition__Group_1__0
+                    // InternalDSL.g:6522:2: rule__SuiteParameterDefinition__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__SuiteParameterDefinition__Group_1__0();
@@ -18017,14 +18114,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group_1__0"
-    // InternalDSL.g:6505:1: rule__SuiteParameterDefinition__Group_1__0 : rule__SuiteParameterDefinition__Group_1__0__Impl rule__SuiteParameterDefinition__Group_1__1 ;
+    // InternalDSL.g:6536:1: rule__SuiteParameterDefinition__Group_1__0 : rule__SuiteParameterDefinition__Group_1__0__Impl rule__SuiteParameterDefinition__Group_1__1 ;
     public final void rule__SuiteParameterDefinition__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6509:1: ( rule__SuiteParameterDefinition__Group_1__0__Impl rule__SuiteParameterDefinition__Group_1__1 )
-            // InternalDSL.g:6510:2: rule__SuiteParameterDefinition__Group_1__0__Impl rule__SuiteParameterDefinition__Group_1__1
+            // InternalDSL.g:6540:1: ( rule__SuiteParameterDefinition__Group_1__0__Impl rule__SuiteParameterDefinition__Group_1__1 )
+            // InternalDSL.g:6541:2: rule__SuiteParameterDefinition__Group_1__0__Impl rule__SuiteParameterDefinition__Group_1__1
             {
             pushFollow(FOLLOW_22);
             rule__SuiteParameterDefinition__Group_1__0__Impl();
@@ -18055,17 +18152,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group_1__0__Impl"
-    // InternalDSL.g:6517:1: rule__SuiteParameterDefinition__Group_1__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6548:1: rule__SuiteParameterDefinition__Group_1__0__Impl : ( ruleNL ) ;
     public final void rule__SuiteParameterDefinition__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6521:1: ( ( ruleNL ) )
-            // InternalDSL.g:6522:1: ( ruleNL )
+            // InternalDSL.g:6552:1: ( ( ruleNL ) )
+            // InternalDSL.g:6553:1: ( ruleNL )
             {
-            // InternalDSL.g:6522:1: ( ruleNL )
-            // InternalDSL.g:6523:1: ruleNL
+            // InternalDSL.g:6553:1: ( ruleNL )
+            // InternalDSL.g:6554:1: ruleNL
             {
              before(grammarAccess.getSuiteParameterDefinitionAccess().getNLParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -18096,14 +18193,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group_1__1"
-    // InternalDSL.g:6534:1: rule__SuiteParameterDefinition__Group_1__1 : rule__SuiteParameterDefinition__Group_1__1__Impl rule__SuiteParameterDefinition__Group_1__2 ;
+    // InternalDSL.g:6565:1: rule__SuiteParameterDefinition__Group_1__1 : rule__SuiteParameterDefinition__Group_1__1__Impl rule__SuiteParameterDefinition__Group_1__2 ;
     public final void rule__SuiteParameterDefinition__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6538:1: ( rule__SuiteParameterDefinition__Group_1__1__Impl rule__SuiteParameterDefinition__Group_1__2 )
-            // InternalDSL.g:6539:2: rule__SuiteParameterDefinition__Group_1__1__Impl rule__SuiteParameterDefinition__Group_1__2
+            // InternalDSL.g:6569:1: ( rule__SuiteParameterDefinition__Group_1__1__Impl rule__SuiteParameterDefinition__Group_1__2 )
+            // InternalDSL.g:6570:2: rule__SuiteParameterDefinition__Group_1__1__Impl rule__SuiteParameterDefinition__Group_1__2
             {
             pushFollow(FOLLOW_15);
             rule__SuiteParameterDefinition__Group_1__1__Impl();
@@ -18134,17 +18231,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group_1__1__Impl"
-    // InternalDSL.g:6546:1: rule__SuiteParameterDefinition__Group_1__1__Impl : ( 'by default' ) ;
+    // InternalDSL.g:6577:1: rule__SuiteParameterDefinition__Group_1__1__Impl : ( 'by default' ) ;
     public final void rule__SuiteParameterDefinition__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6550:1: ( ( 'by default' ) )
-            // InternalDSL.g:6551:1: ( 'by default' )
+            // InternalDSL.g:6581:1: ( ( 'by default' ) )
+            // InternalDSL.g:6582:1: ( 'by default' )
             {
-            // InternalDSL.g:6551:1: ( 'by default' )
-            // InternalDSL.g:6552:1: 'by default'
+            // InternalDSL.g:6582:1: ( 'by default' )
+            // InternalDSL.g:6583:1: 'by default'
             {
              before(grammarAccess.getSuiteParameterDefinitionAccess().getByDefaultKeyword_1_1()); 
             match(input,50,FOLLOW_2); 
@@ -18171,14 +18268,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group_1__2"
-    // InternalDSL.g:6565:1: rule__SuiteParameterDefinition__Group_1__2 : rule__SuiteParameterDefinition__Group_1__2__Impl ;
+    // InternalDSL.g:6596:1: rule__SuiteParameterDefinition__Group_1__2 : rule__SuiteParameterDefinition__Group_1__2__Impl ;
     public final void rule__SuiteParameterDefinition__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6569:1: ( rule__SuiteParameterDefinition__Group_1__2__Impl )
-            // InternalDSL.g:6570:2: rule__SuiteParameterDefinition__Group_1__2__Impl
+            // InternalDSL.g:6600:1: ( rule__SuiteParameterDefinition__Group_1__2__Impl )
+            // InternalDSL.g:6601:2: rule__SuiteParameterDefinition__Group_1__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SuiteParameterDefinition__Group_1__2__Impl();
@@ -18204,21 +18301,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__Group_1__2__Impl"
-    // InternalDSL.g:6576:1: rule__SuiteParameterDefinition__Group_1__2__Impl : ( ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 ) ) ;
+    // InternalDSL.g:6607:1: rule__SuiteParameterDefinition__Group_1__2__Impl : ( ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 ) ) ;
     public final void rule__SuiteParameterDefinition__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6580:1: ( ( ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 ) ) )
-            // InternalDSL.g:6581:1: ( ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 ) )
+            // InternalDSL.g:6611:1: ( ( ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 ) ) )
+            // InternalDSL.g:6612:1: ( ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 ) )
             {
-            // InternalDSL.g:6581:1: ( ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 ) )
-            // InternalDSL.g:6582:1: ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 )
+            // InternalDSL.g:6612:1: ( ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 ) )
+            // InternalDSL.g:6613:1: ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 )
             {
              before(grammarAccess.getSuiteParameterDefinitionAccess().getDefaultAssignment_1_2()); 
-            // InternalDSL.g:6583:1: ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 )
-            // InternalDSL.g:6583:2: rule__SuiteParameterDefinition__DefaultAssignment_1_2
+            // InternalDSL.g:6614:1: ( rule__SuiteParameterDefinition__DefaultAssignment_1_2 )
+            // InternalDSL.g:6614:2: rule__SuiteParameterDefinition__DefaultAssignment_1_2
             {
             pushFollow(FOLLOW_2);
             rule__SuiteParameterDefinition__DefaultAssignment_1_2();
@@ -18251,14 +18348,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__0"
-    // InternalDSL.g:6599:1: rule__OperationDefinition__Group__0 : rule__OperationDefinition__Group__0__Impl rule__OperationDefinition__Group__1 ;
+    // InternalDSL.g:6630:1: rule__OperationDefinition__Group__0 : rule__OperationDefinition__Group__0__Impl rule__OperationDefinition__Group__1 ;
     public final void rule__OperationDefinition__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6603:1: ( rule__OperationDefinition__Group__0__Impl rule__OperationDefinition__Group__1 )
-            // InternalDSL.g:6604:2: rule__OperationDefinition__Group__0__Impl rule__OperationDefinition__Group__1
+            // InternalDSL.g:6634:1: ( rule__OperationDefinition__Group__0__Impl rule__OperationDefinition__Group__1 )
+            // InternalDSL.g:6635:2: rule__OperationDefinition__Group__0__Impl rule__OperationDefinition__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__OperationDefinition__Group__0__Impl();
@@ -18289,17 +18386,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__0__Impl"
-    // InternalDSL.g:6611:1: rule__OperationDefinition__Group__0__Impl : ( 'operationdef' ) ;
+    // InternalDSL.g:6642:1: rule__OperationDefinition__Group__0__Impl : ( 'operationdef' ) ;
     public final void rule__OperationDefinition__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6615:1: ( ( 'operationdef' ) )
-            // InternalDSL.g:6616:1: ( 'operationdef' )
+            // InternalDSL.g:6646:1: ( ( 'operationdef' ) )
+            // InternalDSL.g:6647:1: ( 'operationdef' )
             {
-            // InternalDSL.g:6616:1: ( 'operationdef' )
-            // InternalDSL.g:6617:1: 'operationdef'
+            // InternalDSL.g:6647:1: ( 'operationdef' )
+            // InternalDSL.g:6648:1: 'operationdef'
             {
              before(grammarAccess.getOperationDefinitionAccess().getOperationdefKeyword_0()); 
             match(input,51,FOLLOW_2); 
@@ -18326,14 +18423,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__1"
-    // InternalDSL.g:6630:1: rule__OperationDefinition__Group__1 : rule__OperationDefinition__Group__1__Impl rule__OperationDefinition__Group__2 ;
+    // InternalDSL.g:6661:1: rule__OperationDefinition__Group__1 : rule__OperationDefinition__Group__1__Impl rule__OperationDefinition__Group__2 ;
     public final void rule__OperationDefinition__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6634:1: ( rule__OperationDefinition__Group__1__Impl rule__OperationDefinition__Group__2 )
-            // InternalDSL.g:6635:2: rule__OperationDefinition__Group__1__Impl rule__OperationDefinition__Group__2
+            // InternalDSL.g:6665:1: ( rule__OperationDefinition__Group__1__Impl rule__OperationDefinition__Group__2 )
+            // InternalDSL.g:6666:2: rule__OperationDefinition__Group__1__Impl rule__OperationDefinition__Group__2
             {
             pushFollow(FOLLOW_7);
             rule__OperationDefinition__Group__1__Impl();
@@ -18364,17 +18461,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__1__Impl"
-    // InternalDSL.g:6642:1: rule__OperationDefinition__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6673:1: rule__OperationDefinition__Group__1__Impl : ( ruleNL ) ;
     public final void rule__OperationDefinition__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6646:1: ( ( ruleNL ) )
-            // InternalDSL.g:6647:1: ( ruleNL )
+            // InternalDSL.g:6677:1: ( ( ruleNL ) )
+            // InternalDSL.g:6678:1: ( ruleNL )
             {
-            // InternalDSL.g:6647:1: ( ruleNL )
-            // InternalDSL.g:6648:1: ruleNL
+            // InternalDSL.g:6678:1: ( ruleNL )
+            // InternalDSL.g:6679:1: ruleNL
             {
              before(grammarAccess.getOperationDefinitionAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -18405,14 +18502,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__2"
-    // InternalDSL.g:6659:1: rule__OperationDefinition__Group__2 : rule__OperationDefinition__Group__2__Impl rule__OperationDefinition__Group__3 ;
+    // InternalDSL.g:6690:1: rule__OperationDefinition__Group__2 : rule__OperationDefinition__Group__2__Impl rule__OperationDefinition__Group__3 ;
     public final void rule__OperationDefinition__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6663:1: ( rule__OperationDefinition__Group__2__Impl rule__OperationDefinition__Group__3 )
-            // InternalDSL.g:6664:2: rule__OperationDefinition__Group__2__Impl rule__OperationDefinition__Group__3
+            // InternalDSL.g:6694:1: ( rule__OperationDefinition__Group__2__Impl rule__OperationDefinition__Group__3 )
+            // InternalDSL.g:6695:2: rule__OperationDefinition__Group__2__Impl rule__OperationDefinition__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__OperationDefinition__Group__2__Impl();
@@ -18443,21 +18540,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__2__Impl"
-    // InternalDSL.g:6671:1: rule__OperationDefinition__Group__2__Impl : ( ( rule__OperationDefinition__NameAssignment_2 ) ) ;
+    // InternalDSL.g:6702:1: rule__OperationDefinition__Group__2__Impl : ( ( rule__OperationDefinition__NameAssignment_2 ) ) ;
     public final void rule__OperationDefinition__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6675:1: ( ( ( rule__OperationDefinition__NameAssignment_2 ) ) )
-            // InternalDSL.g:6676:1: ( ( rule__OperationDefinition__NameAssignment_2 ) )
+            // InternalDSL.g:6706:1: ( ( ( rule__OperationDefinition__NameAssignment_2 ) ) )
+            // InternalDSL.g:6707:1: ( ( rule__OperationDefinition__NameAssignment_2 ) )
             {
-            // InternalDSL.g:6676:1: ( ( rule__OperationDefinition__NameAssignment_2 ) )
-            // InternalDSL.g:6677:1: ( rule__OperationDefinition__NameAssignment_2 )
+            // InternalDSL.g:6707:1: ( ( rule__OperationDefinition__NameAssignment_2 ) )
+            // InternalDSL.g:6708:1: ( rule__OperationDefinition__NameAssignment_2 )
             {
              before(grammarAccess.getOperationDefinitionAccess().getNameAssignment_2()); 
-            // InternalDSL.g:6678:1: ( rule__OperationDefinition__NameAssignment_2 )
-            // InternalDSL.g:6678:2: rule__OperationDefinition__NameAssignment_2
+            // InternalDSL.g:6709:1: ( rule__OperationDefinition__NameAssignment_2 )
+            // InternalDSL.g:6709:2: rule__OperationDefinition__NameAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__OperationDefinition__NameAssignment_2();
@@ -18490,14 +18587,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__3"
-    // InternalDSL.g:6688:1: rule__OperationDefinition__Group__3 : rule__OperationDefinition__Group__3__Impl rule__OperationDefinition__Group__4 ;
+    // InternalDSL.g:6719:1: rule__OperationDefinition__Group__3 : rule__OperationDefinition__Group__3__Impl rule__OperationDefinition__Group__4 ;
     public final void rule__OperationDefinition__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6692:1: ( rule__OperationDefinition__Group__3__Impl rule__OperationDefinition__Group__4 )
-            // InternalDSL.g:6693:2: rule__OperationDefinition__Group__3__Impl rule__OperationDefinition__Group__4
+            // InternalDSL.g:6723:1: ( rule__OperationDefinition__Group__3__Impl rule__OperationDefinition__Group__4 )
+            // InternalDSL.g:6724:2: rule__OperationDefinition__Group__3__Impl rule__OperationDefinition__Group__4
             {
             pushFollow(FOLLOW_17);
             rule__OperationDefinition__Group__3__Impl();
@@ -18528,17 +18625,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__3__Impl"
-    // InternalDSL.g:6700:1: rule__OperationDefinition__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6731:1: rule__OperationDefinition__Group__3__Impl : ( ruleNL ) ;
     public final void rule__OperationDefinition__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6704:1: ( ( ruleNL ) )
-            // InternalDSL.g:6705:1: ( ruleNL )
+            // InternalDSL.g:6735:1: ( ( ruleNL ) )
+            // InternalDSL.g:6736:1: ( ruleNL )
             {
-            // InternalDSL.g:6705:1: ( ruleNL )
-            // InternalDSL.g:6706:1: ruleNL
+            // InternalDSL.g:6736:1: ( ruleNL )
+            // InternalDSL.g:6737:1: ruleNL
             {
              before(grammarAccess.getOperationDefinitionAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -18569,14 +18666,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__4"
-    // InternalDSL.g:6717:1: rule__OperationDefinition__Group__4 : rule__OperationDefinition__Group__4__Impl rule__OperationDefinition__Group__5 ;
+    // InternalDSL.g:6748:1: rule__OperationDefinition__Group__4 : rule__OperationDefinition__Group__4__Impl rule__OperationDefinition__Group__5 ;
     public final void rule__OperationDefinition__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6721:1: ( rule__OperationDefinition__Group__4__Impl rule__OperationDefinition__Group__5 )
-            // InternalDSL.g:6722:2: rule__OperationDefinition__Group__4__Impl rule__OperationDefinition__Group__5
+            // InternalDSL.g:6752:1: ( rule__OperationDefinition__Group__4__Impl rule__OperationDefinition__Group__5 )
+            // InternalDSL.g:6753:2: rule__OperationDefinition__Group__4__Impl rule__OperationDefinition__Group__5
             {
             pushFollow(FOLLOW_4);
             rule__OperationDefinition__Group__4__Impl();
@@ -18607,17 +18704,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__4__Impl"
-    // InternalDSL.g:6729:1: rule__OperationDefinition__Group__4__Impl : ( 'uses' ) ;
+    // InternalDSL.g:6760:1: rule__OperationDefinition__Group__4__Impl : ( 'uses' ) ;
     public final void rule__OperationDefinition__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6733:1: ( ( 'uses' ) )
-            // InternalDSL.g:6734:1: ( 'uses' )
+            // InternalDSL.g:6764:1: ( ( 'uses' ) )
+            // InternalDSL.g:6765:1: ( 'uses' )
             {
-            // InternalDSL.g:6734:1: ( 'uses' )
-            // InternalDSL.g:6735:1: 'uses'
+            // InternalDSL.g:6765:1: ( 'uses' )
+            // InternalDSL.g:6766:1: 'uses'
             {
              before(grammarAccess.getOperationDefinitionAccess().getUsesKeyword_4()); 
             match(input,39,FOLLOW_2); 
@@ -18644,14 +18741,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__5"
-    // InternalDSL.g:6748:1: rule__OperationDefinition__Group__5 : rule__OperationDefinition__Group__5__Impl rule__OperationDefinition__Group__6 ;
+    // InternalDSL.g:6779:1: rule__OperationDefinition__Group__5 : rule__OperationDefinition__Group__5__Impl rule__OperationDefinition__Group__6 ;
     public final void rule__OperationDefinition__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6752:1: ( rule__OperationDefinition__Group__5__Impl rule__OperationDefinition__Group__6 )
-            // InternalDSL.g:6753:2: rule__OperationDefinition__Group__5__Impl rule__OperationDefinition__Group__6
+            // InternalDSL.g:6783:1: ( rule__OperationDefinition__Group__5__Impl rule__OperationDefinition__Group__6 )
+            // InternalDSL.g:6784:2: rule__OperationDefinition__Group__5__Impl rule__OperationDefinition__Group__6
             {
             pushFollow(FOLLOW_7);
             rule__OperationDefinition__Group__5__Impl();
@@ -18682,17 +18779,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__5__Impl"
-    // InternalDSL.g:6760:1: rule__OperationDefinition__Group__5__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6791:1: rule__OperationDefinition__Group__5__Impl : ( ruleNL ) ;
     public final void rule__OperationDefinition__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6764:1: ( ( ruleNL ) )
-            // InternalDSL.g:6765:1: ( ruleNL )
+            // InternalDSL.g:6795:1: ( ( ruleNL ) )
+            // InternalDSL.g:6796:1: ( ruleNL )
             {
-            // InternalDSL.g:6765:1: ( ruleNL )
-            // InternalDSL.g:6766:1: ruleNL
+            // InternalDSL.g:6796:1: ( ruleNL )
+            // InternalDSL.g:6797:1: ruleNL
             {
              before(grammarAccess.getOperationDefinitionAccess().getNLParserRuleCall_5()); 
             pushFollow(FOLLOW_2);
@@ -18723,14 +18820,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__6"
-    // InternalDSL.g:6777:1: rule__OperationDefinition__Group__6 : rule__OperationDefinition__Group__6__Impl rule__OperationDefinition__Group__7 ;
+    // InternalDSL.g:6808:1: rule__OperationDefinition__Group__6 : rule__OperationDefinition__Group__6__Impl rule__OperationDefinition__Group__7 ;
     public final void rule__OperationDefinition__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6781:1: ( rule__OperationDefinition__Group__6__Impl rule__OperationDefinition__Group__7 )
-            // InternalDSL.g:6782:2: rule__OperationDefinition__Group__6__Impl rule__OperationDefinition__Group__7
+            // InternalDSL.g:6812:1: ( rule__OperationDefinition__Group__6__Impl rule__OperationDefinition__Group__7 )
+            // InternalDSL.g:6813:2: rule__OperationDefinition__Group__6__Impl rule__OperationDefinition__Group__7
             {
             pushFollow(FOLLOW_4);
             rule__OperationDefinition__Group__6__Impl();
@@ -18761,21 +18858,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__6__Impl"
-    // InternalDSL.g:6789:1: rule__OperationDefinition__Group__6__Impl : ( ( rule__OperationDefinition__OperationTypeAssignment_6 ) ) ;
+    // InternalDSL.g:6820:1: rule__OperationDefinition__Group__6__Impl : ( ( rule__OperationDefinition__OperationTypeAssignment_6 ) ) ;
     public final void rule__OperationDefinition__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6793:1: ( ( ( rule__OperationDefinition__OperationTypeAssignment_6 ) ) )
-            // InternalDSL.g:6794:1: ( ( rule__OperationDefinition__OperationTypeAssignment_6 ) )
+            // InternalDSL.g:6824:1: ( ( ( rule__OperationDefinition__OperationTypeAssignment_6 ) ) )
+            // InternalDSL.g:6825:1: ( ( rule__OperationDefinition__OperationTypeAssignment_6 ) )
             {
-            // InternalDSL.g:6794:1: ( ( rule__OperationDefinition__OperationTypeAssignment_6 ) )
-            // InternalDSL.g:6795:1: ( rule__OperationDefinition__OperationTypeAssignment_6 )
+            // InternalDSL.g:6825:1: ( ( rule__OperationDefinition__OperationTypeAssignment_6 ) )
+            // InternalDSL.g:6826:1: ( rule__OperationDefinition__OperationTypeAssignment_6 )
             {
              before(grammarAccess.getOperationDefinitionAccess().getOperationTypeAssignment_6()); 
-            // InternalDSL.g:6796:1: ( rule__OperationDefinition__OperationTypeAssignment_6 )
-            // InternalDSL.g:6796:2: rule__OperationDefinition__OperationTypeAssignment_6
+            // InternalDSL.g:6827:1: ( rule__OperationDefinition__OperationTypeAssignment_6 )
+            // InternalDSL.g:6827:2: rule__OperationDefinition__OperationTypeAssignment_6
             {
             pushFollow(FOLLOW_2);
             rule__OperationDefinition__OperationTypeAssignment_6();
@@ -18808,14 +18905,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__7"
-    // InternalDSL.g:6806:1: rule__OperationDefinition__Group__7 : rule__OperationDefinition__Group__7__Impl ;
+    // InternalDSL.g:6837:1: rule__OperationDefinition__Group__7 : rule__OperationDefinition__Group__7__Impl ;
     public final void rule__OperationDefinition__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6810:1: ( rule__OperationDefinition__Group__7__Impl )
-            // InternalDSL.g:6811:2: rule__OperationDefinition__Group__7__Impl
+            // InternalDSL.g:6841:1: ( rule__OperationDefinition__Group__7__Impl )
+            // InternalDSL.g:6842:2: rule__OperationDefinition__Group__7__Impl
             {
             pushFollow(FOLLOW_2);
             rule__OperationDefinition__Group__7__Impl();
@@ -18841,17 +18938,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__Group__7__Impl"
-    // InternalDSL.g:6817:1: rule__OperationDefinition__Group__7__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6848:1: rule__OperationDefinition__Group__7__Impl : ( ruleNL ) ;
     public final void rule__OperationDefinition__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6821:1: ( ( ruleNL ) )
-            // InternalDSL.g:6822:1: ( ruleNL )
+            // InternalDSL.g:6852:1: ( ( ruleNL ) )
+            // InternalDSL.g:6853:1: ( ruleNL )
             {
-            // InternalDSL.g:6822:1: ( ruleNL )
-            // InternalDSL.g:6823:1: ruleNL
+            // InternalDSL.g:6853:1: ( ruleNL )
+            // InternalDSL.g:6854:1: ruleNL
             {
              before(grammarAccess.getOperationDefinitionAccess().getNLParserRuleCall_7()); 
             pushFollow(FOLLOW_2);
@@ -18882,14 +18979,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__0"
-    // InternalDSL.g:6850:1: rule__VariableDefinition__Group__0 : rule__VariableDefinition__Group__0__Impl rule__VariableDefinition__Group__1 ;
+    // InternalDSL.g:6881:1: rule__VariableDefinition__Group__0 : rule__VariableDefinition__Group__0__Impl rule__VariableDefinition__Group__1 ;
     public final void rule__VariableDefinition__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6854:1: ( rule__VariableDefinition__Group__0__Impl rule__VariableDefinition__Group__1 )
-            // InternalDSL.g:6855:2: rule__VariableDefinition__Group__0__Impl rule__VariableDefinition__Group__1
+            // InternalDSL.g:6885:1: ( rule__VariableDefinition__Group__0__Impl rule__VariableDefinition__Group__1 )
+            // InternalDSL.g:6886:2: rule__VariableDefinition__Group__0__Impl rule__VariableDefinition__Group__1
             {
             pushFollow(FOLLOW_23);
             rule__VariableDefinition__Group__0__Impl();
@@ -18920,29 +19017,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__0__Impl"
-    // InternalDSL.g:6862:1: rule__VariableDefinition__Group__0__Impl : ( ( rule__VariableDefinition__PrivateAssignment_0 )? ) ;
+    // InternalDSL.g:6893:1: rule__VariableDefinition__Group__0__Impl : ( ( rule__VariableDefinition__PrivateAssignment_0 )? ) ;
     public final void rule__VariableDefinition__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6866:1: ( ( ( rule__VariableDefinition__PrivateAssignment_0 )? ) )
-            // InternalDSL.g:6867:1: ( ( rule__VariableDefinition__PrivateAssignment_0 )? )
+            // InternalDSL.g:6897:1: ( ( ( rule__VariableDefinition__PrivateAssignment_0 )? ) )
+            // InternalDSL.g:6898:1: ( ( rule__VariableDefinition__PrivateAssignment_0 )? )
             {
-            // InternalDSL.g:6867:1: ( ( rule__VariableDefinition__PrivateAssignment_0 )? )
-            // InternalDSL.g:6868:1: ( rule__VariableDefinition__PrivateAssignment_0 )?
+            // InternalDSL.g:6898:1: ( ( rule__VariableDefinition__PrivateAssignment_0 )? )
+            // InternalDSL.g:6899:1: ( rule__VariableDefinition__PrivateAssignment_0 )?
             {
              before(grammarAccess.getVariableDefinitionAccess().getPrivateAssignment_0()); 
-            // InternalDSL.g:6869:1: ( rule__VariableDefinition__PrivateAssignment_0 )?
-            int alt41=2;
-            int LA41_0 = input.LA(1);
+            // InternalDSL.g:6900:1: ( rule__VariableDefinition__PrivateAssignment_0 )?
+            int alt42=2;
+            int LA42_0 = input.LA(1);
 
-            if ( (LA41_0==78) ) {
-                alt41=1;
+            if ( (LA42_0==78) ) {
+                alt42=1;
             }
-            switch (alt41) {
+            switch (alt42) {
                 case 1 :
-                    // InternalDSL.g:6869:2: rule__VariableDefinition__PrivateAssignment_0
+                    // InternalDSL.g:6900:2: rule__VariableDefinition__PrivateAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__VariableDefinition__PrivateAssignment_0();
@@ -18978,14 +19075,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__1"
-    // InternalDSL.g:6879:1: rule__VariableDefinition__Group__1 : rule__VariableDefinition__Group__1__Impl rule__VariableDefinition__Group__2 ;
+    // InternalDSL.g:6910:1: rule__VariableDefinition__Group__1 : rule__VariableDefinition__Group__1__Impl rule__VariableDefinition__Group__2 ;
     public final void rule__VariableDefinition__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6883:1: ( rule__VariableDefinition__Group__1__Impl rule__VariableDefinition__Group__2 )
-            // InternalDSL.g:6884:2: rule__VariableDefinition__Group__1__Impl rule__VariableDefinition__Group__2
+            // InternalDSL.g:6914:1: ( rule__VariableDefinition__Group__1__Impl rule__VariableDefinition__Group__2 )
+            // InternalDSL.g:6915:2: rule__VariableDefinition__Group__1__Impl rule__VariableDefinition__Group__2
             {
             pushFollow(FOLLOW_4);
             rule__VariableDefinition__Group__1__Impl();
@@ -19016,17 +19113,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__1__Impl"
-    // InternalDSL.g:6891:1: rule__VariableDefinition__Group__1__Impl : ( 'variable' ) ;
+    // InternalDSL.g:6922:1: rule__VariableDefinition__Group__1__Impl : ( 'variable' ) ;
     public final void rule__VariableDefinition__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6895:1: ( ( 'variable' ) )
-            // InternalDSL.g:6896:1: ( 'variable' )
+            // InternalDSL.g:6926:1: ( ( 'variable' ) )
+            // InternalDSL.g:6927:1: ( 'variable' )
             {
-            // InternalDSL.g:6896:1: ( 'variable' )
-            // InternalDSL.g:6897:1: 'variable'
+            // InternalDSL.g:6927:1: ( 'variable' )
+            // InternalDSL.g:6928:1: 'variable'
             {
              before(grammarAccess.getVariableDefinitionAccess().getVariableKeyword_1()); 
             match(input,52,FOLLOW_2); 
@@ -19053,14 +19150,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__2"
-    // InternalDSL.g:6910:1: rule__VariableDefinition__Group__2 : rule__VariableDefinition__Group__2__Impl rule__VariableDefinition__Group__3 ;
+    // InternalDSL.g:6941:1: rule__VariableDefinition__Group__2 : rule__VariableDefinition__Group__2__Impl rule__VariableDefinition__Group__3 ;
     public final void rule__VariableDefinition__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6914:1: ( rule__VariableDefinition__Group__2__Impl rule__VariableDefinition__Group__3 )
-            // InternalDSL.g:6915:2: rule__VariableDefinition__Group__2__Impl rule__VariableDefinition__Group__3
+            // InternalDSL.g:6945:1: ( rule__VariableDefinition__Group__2__Impl rule__VariableDefinition__Group__3 )
+            // InternalDSL.g:6946:2: rule__VariableDefinition__Group__2__Impl rule__VariableDefinition__Group__3
             {
             pushFollow(FOLLOW_7);
             rule__VariableDefinition__Group__2__Impl();
@@ -19091,17 +19188,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__2__Impl"
-    // InternalDSL.g:6922:1: rule__VariableDefinition__Group__2__Impl : ( ruleNL ) ;
+    // InternalDSL.g:6953:1: rule__VariableDefinition__Group__2__Impl : ( ruleNL ) ;
     public final void rule__VariableDefinition__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6926:1: ( ( ruleNL ) )
-            // InternalDSL.g:6927:1: ( ruleNL )
+            // InternalDSL.g:6957:1: ( ( ruleNL ) )
+            // InternalDSL.g:6958:1: ( ruleNL )
             {
-            // InternalDSL.g:6927:1: ( ruleNL )
-            // InternalDSL.g:6928:1: ruleNL
+            // InternalDSL.g:6958:1: ( ruleNL )
+            // InternalDSL.g:6959:1: ruleNL
             {
              before(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_2()); 
             pushFollow(FOLLOW_2);
@@ -19132,14 +19229,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__3"
-    // InternalDSL.g:6939:1: rule__VariableDefinition__Group__3 : rule__VariableDefinition__Group__3__Impl rule__VariableDefinition__Group__4 ;
+    // InternalDSL.g:6970:1: rule__VariableDefinition__Group__3 : rule__VariableDefinition__Group__3__Impl rule__VariableDefinition__Group__4 ;
     public final void rule__VariableDefinition__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6943:1: ( rule__VariableDefinition__Group__3__Impl rule__VariableDefinition__Group__4 )
-            // InternalDSL.g:6944:2: rule__VariableDefinition__Group__3__Impl rule__VariableDefinition__Group__4
+            // InternalDSL.g:6974:1: ( rule__VariableDefinition__Group__3__Impl rule__VariableDefinition__Group__4 )
+            // InternalDSL.g:6975:2: rule__VariableDefinition__Group__3__Impl rule__VariableDefinition__Group__4
             {
             pushFollow(FOLLOW_4);
             rule__VariableDefinition__Group__3__Impl();
@@ -19170,21 +19267,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__3__Impl"
-    // InternalDSL.g:6951:1: rule__VariableDefinition__Group__3__Impl : ( ( rule__VariableDefinition__NameAssignment_3 ) ) ;
+    // InternalDSL.g:6982:1: rule__VariableDefinition__Group__3__Impl : ( ( rule__VariableDefinition__NameAssignment_3 ) ) ;
     public final void rule__VariableDefinition__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6955:1: ( ( ( rule__VariableDefinition__NameAssignment_3 ) ) )
-            // InternalDSL.g:6956:1: ( ( rule__VariableDefinition__NameAssignment_3 ) )
+            // InternalDSL.g:6986:1: ( ( ( rule__VariableDefinition__NameAssignment_3 ) ) )
+            // InternalDSL.g:6987:1: ( ( rule__VariableDefinition__NameAssignment_3 ) )
             {
-            // InternalDSL.g:6956:1: ( ( rule__VariableDefinition__NameAssignment_3 ) )
-            // InternalDSL.g:6957:1: ( rule__VariableDefinition__NameAssignment_3 )
+            // InternalDSL.g:6987:1: ( ( rule__VariableDefinition__NameAssignment_3 ) )
+            // InternalDSL.g:6988:1: ( rule__VariableDefinition__NameAssignment_3 )
             {
              before(grammarAccess.getVariableDefinitionAccess().getNameAssignment_3()); 
-            // InternalDSL.g:6958:1: ( rule__VariableDefinition__NameAssignment_3 )
-            // InternalDSL.g:6958:2: rule__VariableDefinition__NameAssignment_3
+            // InternalDSL.g:6989:1: ( rule__VariableDefinition__NameAssignment_3 )
+            // InternalDSL.g:6989:2: rule__VariableDefinition__NameAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__VariableDefinition__NameAssignment_3();
@@ -19217,14 +19314,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__4"
-    // InternalDSL.g:6968:1: rule__VariableDefinition__Group__4 : rule__VariableDefinition__Group__4__Impl rule__VariableDefinition__Group__5 ;
+    // InternalDSL.g:6999:1: rule__VariableDefinition__Group__4 : rule__VariableDefinition__Group__4__Impl rule__VariableDefinition__Group__5 ;
     public final void rule__VariableDefinition__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6972:1: ( rule__VariableDefinition__Group__4__Impl rule__VariableDefinition__Group__5 )
-            // InternalDSL.g:6973:2: rule__VariableDefinition__Group__4__Impl rule__VariableDefinition__Group__5
+            // InternalDSL.g:7003:1: ( rule__VariableDefinition__Group__4__Impl rule__VariableDefinition__Group__5 )
+            // InternalDSL.g:7004:2: rule__VariableDefinition__Group__4__Impl rule__VariableDefinition__Group__5
             {
             pushFollow(FOLLOW_24);
             rule__VariableDefinition__Group__4__Impl();
@@ -19255,17 +19352,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__4__Impl"
-    // InternalDSL.g:6980:1: rule__VariableDefinition__Group__4__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7011:1: rule__VariableDefinition__Group__4__Impl : ( ruleNL ) ;
     public final void rule__VariableDefinition__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:6984:1: ( ( ruleNL ) )
-            // InternalDSL.g:6985:1: ( ruleNL )
+            // InternalDSL.g:7015:1: ( ( ruleNL ) )
+            // InternalDSL.g:7016:1: ( ruleNL )
             {
-            // InternalDSL.g:6985:1: ( ruleNL )
-            // InternalDSL.g:6986:1: ruleNL
+            // InternalDSL.g:7016:1: ( ruleNL )
+            // InternalDSL.g:7017:1: ruleNL
             {
              before(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_4()); 
             pushFollow(FOLLOW_2);
@@ -19296,14 +19393,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__5"
-    // InternalDSL.g:6997:1: rule__VariableDefinition__Group__5 : rule__VariableDefinition__Group__5__Impl ;
+    // InternalDSL.g:7028:1: rule__VariableDefinition__Group__5 : rule__VariableDefinition__Group__5__Impl ;
     public final void rule__VariableDefinition__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7001:1: ( rule__VariableDefinition__Group__5__Impl )
-            // InternalDSL.g:7002:2: rule__VariableDefinition__Group__5__Impl
+            // InternalDSL.g:7032:1: ( rule__VariableDefinition__Group__5__Impl )
+            // InternalDSL.g:7033:2: rule__VariableDefinition__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__VariableDefinition__Group__5__Impl();
@@ -19329,29 +19426,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group__5__Impl"
-    // InternalDSL.g:7008:1: rule__VariableDefinition__Group__5__Impl : ( ( rule__VariableDefinition__Group_5__0 )? ) ;
+    // InternalDSL.g:7039:1: rule__VariableDefinition__Group__5__Impl : ( ( rule__VariableDefinition__Group_5__0 )? ) ;
     public final void rule__VariableDefinition__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7012:1: ( ( ( rule__VariableDefinition__Group_5__0 )? ) )
-            // InternalDSL.g:7013:1: ( ( rule__VariableDefinition__Group_5__0 )? )
+            // InternalDSL.g:7043:1: ( ( ( rule__VariableDefinition__Group_5__0 )? ) )
+            // InternalDSL.g:7044:1: ( ( rule__VariableDefinition__Group_5__0 )? )
             {
-            // InternalDSL.g:7013:1: ( ( rule__VariableDefinition__Group_5__0 )? )
-            // InternalDSL.g:7014:1: ( rule__VariableDefinition__Group_5__0 )?
+            // InternalDSL.g:7044:1: ( ( rule__VariableDefinition__Group_5__0 )? )
+            // InternalDSL.g:7045:1: ( rule__VariableDefinition__Group_5__0 )?
             {
              before(grammarAccess.getVariableDefinitionAccess().getGroup_5()); 
-            // InternalDSL.g:7015:1: ( rule__VariableDefinition__Group_5__0 )?
-            int alt42=2;
-            int LA42_0 = input.LA(1);
+            // InternalDSL.g:7046:1: ( rule__VariableDefinition__Group_5__0 )?
+            int alt43=2;
+            int LA43_0 = input.LA(1);
 
-            if ( (LA42_0==53) ) {
-                alt42=1;
+            if ( (LA43_0==53) ) {
+                alt43=1;
             }
-            switch (alt42) {
+            switch (alt43) {
                 case 1 :
-                    // InternalDSL.g:7015:2: rule__VariableDefinition__Group_5__0
+                    // InternalDSL.g:7046:2: rule__VariableDefinition__Group_5__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__VariableDefinition__Group_5__0();
@@ -19387,14 +19484,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group_5__0"
-    // InternalDSL.g:7037:1: rule__VariableDefinition__Group_5__0 : rule__VariableDefinition__Group_5__0__Impl rule__VariableDefinition__Group_5__1 ;
+    // InternalDSL.g:7068:1: rule__VariableDefinition__Group_5__0 : rule__VariableDefinition__Group_5__0__Impl rule__VariableDefinition__Group_5__1 ;
     public final void rule__VariableDefinition__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7041:1: ( rule__VariableDefinition__Group_5__0__Impl rule__VariableDefinition__Group_5__1 )
-            // InternalDSL.g:7042:2: rule__VariableDefinition__Group_5__0__Impl rule__VariableDefinition__Group_5__1
+            // InternalDSL.g:7072:1: ( rule__VariableDefinition__Group_5__0__Impl rule__VariableDefinition__Group_5__1 )
+            // InternalDSL.g:7073:2: rule__VariableDefinition__Group_5__0__Impl rule__VariableDefinition__Group_5__1
             {
             pushFollow(FOLLOW_4);
             rule__VariableDefinition__Group_5__0__Impl();
@@ -19425,17 +19522,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group_5__0__Impl"
-    // InternalDSL.g:7049:1: rule__VariableDefinition__Group_5__0__Impl : ( 'initially' ) ;
+    // InternalDSL.g:7080:1: rule__VariableDefinition__Group_5__0__Impl : ( 'initially' ) ;
     public final void rule__VariableDefinition__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7053:1: ( ( 'initially' ) )
-            // InternalDSL.g:7054:1: ( 'initially' )
+            // InternalDSL.g:7084:1: ( ( 'initially' ) )
+            // InternalDSL.g:7085:1: ( 'initially' )
             {
-            // InternalDSL.g:7054:1: ( 'initially' )
-            // InternalDSL.g:7055:1: 'initially'
+            // InternalDSL.g:7085:1: ( 'initially' )
+            // InternalDSL.g:7086:1: 'initially'
             {
              before(grammarAccess.getVariableDefinitionAccess().getInitiallyKeyword_5_0()); 
             match(input,53,FOLLOW_2); 
@@ -19462,14 +19559,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group_5__1"
-    // InternalDSL.g:7068:1: rule__VariableDefinition__Group_5__1 : rule__VariableDefinition__Group_5__1__Impl rule__VariableDefinition__Group_5__2 ;
+    // InternalDSL.g:7099:1: rule__VariableDefinition__Group_5__1 : rule__VariableDefinition__Group_5__1__Impl rule__VariableDefinition__Group_5__2 ;
     public final void rule__VariableDefinition__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7072:1: ( rule__VariableDefinition__Group_5__1__Impl rule__VariableDefinition__Group_5__2 )
-            // InternalDSL.g:7073:2: rule__VariableDefinition__Group_5__1__Impl rule__VariableDefinition__Group_5__2
+            // InternalDSL.g:7103:1: ( rule__VariableDefinition__Group_5__1__Impl rule__VariableDefinition__Group_5__2 )
+            // InternalDSL.g:7104:2: rule__VariableDefinition__Group_5__1__Impl rule__VariableDefinition__Group_5__2
             {
             pushFollow(FOLLOW_15);
             rule__VariableDefinition__Group_5__1__Impl();
@@ -19500,17 +19597,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group_5__1__Impl"
-    // InternalDSL.g:7080:1: rule__VariableDefinition__Group_5__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7111:1: rule__VariableDefinition__Group_5__1__Impl : ( ruleNL ) ;
     public final void rule__VariableDefinition__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7084:1: ( ( ruleNL ) )
-            // InternalDSL.g:7085:1: ( ruleNL )
+            // InternalDSL.g:7115:1: ( ( ruleNL ) )
+            // InternalDSL.g:7116:1: ( ruleNL )
             {
-            // InternalDSL.g:7085:1: ( ruleNL )
-            // InternalDSL.g:7086:1: ruleNL
+            // InternalDSL.g:7116:1: ( ruleNL )
+            // InternalDSL.g:7117:1: ruleNL
             {
              before(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_5_1()); 
             pushFollow(FOLLOW_2);
@@ -19541,14 +19638,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group_5__2"
-    // InternalDSL.g:7097:1: rule__VariableDefinition__Group_5__2 : rule__VariableDefinition__Group_5__2__Impl rule__VariableDefinition__Group_5__3 ;
+    // InternalDSL.g:7128:1: rule__VariableDefinition__Group_5__2 : rule__VariableDefinition__Group_5__2__Impl rule__VariableDefinition__Group_5__3 ;
     public final void rule__VariableDefinition__Group_5__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7101:1: ( rule__VariableDefinition__Group_5__2__Impl rule__VariableDefinition__Group_5__3 )
-            // InternalDSL.g:7102:2: rule__VariableDefinition__Group_5__2__Impl rule__VariableDefinition__Group_5__3
+            // InternalDSL.g:7132:1: ( rule__VariableDefinition__Group_5__2__Impl rule__VariableDefinition__Group_5__3 )
+            // InternalDSL.g:7133:2: rule__VariableDefinition__Group_5__2__Impl rule__VariableDefinition__Group_5__3
             {
             pushFollow(FOLLOW_4);
             rule__VariableDefinition__Group_5__2__Impl();
@@ -19579,21 +19676,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group_5__2__Impl"
-    // InternalDSL.g:7109:1: rule__VariableDefinition__Group_5__2__Impl : ( ( rule__VariableDefinition__InitialValueAssignment_5_2 ) ) ;
+    // InternalDSL.g:7140:1: rule__VariableDefinition__Group_5__2__Impl : ( ( rule__VariableDefinition__InitialValueAssignment_5_2 ) ) ;
     public final void rule__VariableDefinition__Group_5__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7113:1: ( ( ( rule__VariableDefinition__InitialValueAssignment_5_2 ) ) )
-            // InternalDSL.g:7114:1: ( ( rule__VariableDefinition__InitialValueAssignment_5_2 ) )
+            // InternalDSL.g:7144:1: ( ( ( rule__VariableDefinition__InitialValueAssignment_5_2 ) ) )
+            // InternalDSL.g:7145:1: ( ( rule__VariableDefinition__InitialValueAssignment_5_2 ) )
             {
-            // InternalDSL.g:7114:1: ( ( rule__VariableDefinition__InitialValueAssignment_5_2 ) )
-            // InternalDSL.g:7115:1: ( rule__VariableDefinition__InitialValueAssignment_5_2 )
+            // InternalDSL.g:7145:1: ( ( rule__VariableDefinition__InitialValueAssignment_5_2 ) )
+            // InternalDSL.g:7146:1: ( rule__VariableDefinition__InitialValueAssignment_5_2 )
             {
              before(grammarAccess.getVariableDefinitionAccess().getInitialValueAssignment_5_2()); 
-            // InternalDSL.g:7116:1: ( rule__VariableDefinition__InitialValueAssignment_5_2 )
-            // InternalDSL.g:7116:2: rule__VariableDefinition__InitialValueAssignment_5_2
+            // InternalDSL.g:7147:1: ( rule__VariableDefinition__InitialValueAssignment_5_2 )
+            // InternalDSL.g:7147:2: rule__VariableDefinition__InitialValueAssignment_5_2
             {
             pushFollow(FOLLOW_2);
             rule__VariableDefinition__InitialValueAssignment_5_2();
@@ -19626,14 +19723,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group_5__3"
-    // InternalDSL.g:7126:1: rule__VariableDefinition__Group_5__3 : rule__VariableDefinition__Group_5__3__Impl ;
+    // InternalDSL.g:7157:1: rule__VariableDefinition__Group_5__3 : rule__VariableDefinition__Group_5__3__Impl ;
     public final void rule__VariableDefinition__Group_5__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7130:1: ( rule__VariableDefinition__Group_5__3__Impl )
-            // InternalDSL.g:7131:2: rule__VariableDefinition__Group_5__3__Impl
+            // InternalDSL.g:7161:1: ( rule__VariableDefinition__Group_5__3__Impl )
+            // InternalDSL.g:7162:2: rule__VariableDefinition__Group_5__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__VariableDefinition__Group_5__3__Impl();
@@ -19659,17 +19756,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__Group_5__3__Impl"
-    // InternalDSL.g:7137:1: rule__VariableDefinition__Group_5__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7168:1: rule__VariableDefinition__Group_5__3__Impl : ( ruleNL ) ;
     public final void rule__VariableDefinition__Group_5__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7141:1: ( ( ruleNL ) )
-            // InternalDSL.g:7142:1: ( ruleNL )
+            // InternalDSL.g:7172:1: ( ( ruleNL ) )
+            // InternalDSL.g:7173:1: ( ruleNL )
             {
-            // InternalDSL.g:7142:1: ( ruleNL )
-            // InternalDSL.g:7143:1: ruleNL
+            // InternalDSL.g:7173:1: ( ruleNL )
+            // InternalDSL.g:7174:1: ruleNL
             {
              before(grammarAccess.getVariableDefinitionAccess().getNLParserRuleCall_5_3()); 
             pushFollow(FOLLOW_2);
@@ -19700,14 +19797,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__0"
-    // InternalDSL.g:7162:1: rule__ConstantDefinition__Group__0 : rule__ConstantDefinition__Group__0__Impl rule__ConstantDefinition__Group__1 ;
+    // InternalDSL.g:7193:1: rule__ConstantDefinition__Group__0 : rule__ConstantDefinition__Group__0__Impl rule__ConstantDefinition__Group__1 ;
     public final void rule__ConstantDefinition__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7166:1: ( rule__ConstantDefinition__Group__0__Impl rule__ConstantDefinition__Group__1 )
-            // InternalDSL.g:7167:2: rule__ConstantDefinition__Group__0__Impl rule__ConstantDefinition__Group__1
+            // InternalDSL.g:7197:1: ( rule__ConstantDefinition__Group__0__Impl rule__ConstantDefinition__Group__1 )
+            // InternalDSL.g:7198:2: rule__ConstantDefinition__Group__0__Impl rule__ConstantDefinition__Group__1
             {
             pushFollow(FOLLOW_25);
             rule__ConstantDefinition__Group__0__Impl();
@@ -19738,29 +19835,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__0__Impl"
-    // InternalDSL.g:7174:1: rule__ConstantDefinition__Group__0__Impl : ( ( rule__ConstantDefinition__PrivateAssignment_0 )? ) ;
+    // InternalDSL.g:7205:1: rule__ConstantDefinition__Group__0__Impl : ( ( rule__ConstantDefinition__PrivateAssignment_0 )? ) ;
     public final void rule__ConstantDefinition__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7178:1: ( ( ( rule__ConstantDefinition__PrivateAssignment_0 )? ) )
-            // InternalDSL.g:7179:1: ( ( rule__ConstantDefinition__PrivateAssignment_0 )? )
+            // InternalDSL.g:7209:1: ( ( ( rule__ConstantDefinition__PrivateAssignment_0 )? ) )
+            // InternalDSL.g:7210:1: ( ( rule__ConstantDefinition__PrivateAssignment_0 )? )
             {
-            // InternalDSL.g:7179:1: ( ( rule__ConstantDefinition__PrivateAssignment_0 )? )
-            // InternalDSL.g:7180:1: ( rule__ConstantDefinition__PrivateAssignment_0 )?
+            // InternalDSL.g:7210:1: ( ( rule__ConstantDefinition__PrivateAssignment_0 )? )
+            // InternalDSL.g:7211:1: ( rule__ConstantDefinition__PrivateAssignment_0 )?
             {
              before(grammarAccess.getConstantDefinitionAccess().getPrivateAssignment_0()); 
-            // InternalDSL.g:7181:1: ( rule__ConstantDefinition__PrivateAssignment_0 )?
-            int alt43=2;
-            int LA43_0 = input.LA(1);
+            // InternalDSL.g:7212:1: ( rule__ConstantDefinition__PrivateAssignment_0 )?
+            int alt44=2;
+            int LA44_0 = input.LA(1);
 
-            if ( (LA43_0==78) ) {
-                alt43=1;
+            if ( (LA44_0==78) ) {
+                alt44=1;
             }
-            switch (alt43) {
+            switch (alt44) {
                 case 1 :
-                    // InternalDSL.g:7181:2: rule__ConstantDefinition__PrivateAssignment_0
+                    // InternalDSL.g:7212:2: rule__ConstantDefinition__PrivateAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__ConstantDefinition__PrivateAssignment_0();
@@ -19796,14 +19893,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__1"
-    // InternalDSL.g:7191:1: rule__ConstantDefinition__Group__1 : rule__ConstantDefinition__Group__1__Impl rule__ConstantDefinition__Group__2 ;
+    // InternalDSL.g:7222:1: rule__ConstantDefinition__Group__1 : rule__ConstantDefinition__Group__1__Impl rule__ConstantDefinition__Group__2 ;
     public final void rule__ConstantDefinition__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7195:1: ( rule__ConstantDefinition__Group__1__Impl rule__ConstantDefinition__Group__2 )
-            // InternalDSL.g:7196:2: rule__ConstantDefinition__Group__1__Impl rule__ConstantDefinition__Group__2
+            // InternalDSL.g:7226:1: ( rule__ConstantDefinition__Group__1__Impl rule__ConstantDefinition__Group__2 )
+            // InternalDSL.g:7227:2: rule__ConstantDefinition__Group__1__Impl rule__ConstantDefinition__Group__2
             {
             pushFollow(FOLLOW_4);
             rule__ConstantDefinition__Group__1__Impl();
@@ -19834,17 +19931,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__1__Impl"
-    // InternalDSL.g:7203:1: rule__ConstantDefinition__Group__1__Impl : ( 'constant' ) ;
+    // InternalDSL.g:7234:1: rule__ConstantDefinition__Group__1__Impl : ( 'constant' ) ;
     public final void rule__ConstantDefinition__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7207:1: ( ( 'constant' ) )
-            // InternalDSL.g:7208:1: ( 'constant' )
+            // InternalDSL.g:7238:1: ( ( 'constant' ) )
+            // InternalDSL.g:7239:1: ( 'constant' )
             {
-            // InternalDSL.g:7208:1: ( 'constant' )
-            // InternalDSL.g:7209:1: 'constant'
+            // InternalDSL.g:7239:1: ( 'constant' )
+            // InternalDSL.g:7240:1: 'constant'
             {
              before(grammarAccess.getConstantDefinitionAccess().getConstantKeyword_1()); 
             match(input,54,FOLLOW_2); 
@@ -19871,14 +19968,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__2"
-    // InternalDSL.g:7222:1: rule__ConstantDefinition__Group__2 : rule__ConstantDefinition__Group__2__Impl rule__ConstantDefinition__Group__3 ;
+    // InternalDSL.g:7253:1: rule__ConstantDefinition__Group__2 : rule__ConstantDefinition__Group__2__Impl rule__ConstantDefinition__Group__3 ;
     public final void rule__ConstantDefinition__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7226:1: ( rule__ConstantDefinition__Group__2__Impl rule__ConstantDefinition__Group__3 )
-            // InternalDSL.g:7227:2: rule__ConstantDefinition__Group__2__Impl rule__ConstantDefinition__Group__3
+            // InternalDSL.g:7257:1: ( rule__ConstantDefinition__Group__2__Impl rule__ConstantDefinition__Group__3 )
+            // InternalDSL.g:7258:2: rule__ConstantDefinition__Group__2__Impl rule__ConstantDefinition__Group__3
             {
             pushFollow(FOLLOW_7);
             rule__ConstantDefinition__Group__2__Impl();
@@ -19909,17 +20006,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__2__Impl"
-    // InternalDSL.g:7234:1: rule__ConstantDefinition__Group__2__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7265:1: rule__ConstantDefinition__Group__2__Impl : ( ruleNL ) ;
     public final void rule__ConstantDefinition__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7238:1: ( ( ruleNL ) )
-            // InternalDSL.g:7239:1: ( ruleNL )
+            // InternalDSL.g:7269:1: ( ( ruleNL ) )
+            // InternalDSL.g:7270:1: ( ruleNL )
             {
-            // InternalDSL.g:7239:1: ( ruleNL )
-            // InternalDSL.g:7240:1: ruleNL
+            // InternalDSL.g:7270:1: ( ruleNL )
+            // InternalDSL.g:7271:1: ruleNL
             {
              before(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_2()); 
             pushFollow(FOLLOW_2);
@@ -19950,14 +20047,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__3"
-    // InternalDSL.g:7251:1: rule__ConstantDefinition__Group__3 : rule__ConstantDefinition__Group__3__Impl rule__ConstantDefinition__Group__4 ;
+    // InternalDSL.g:7282:1: rule__ConstantDefinition__Group__3 : rule__ConstantDefinition__Group__3__Impl rule__ConstantDefinition__Group__4 ;
     public final void rule__ConstantDefinition__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7255:1: ( rule__ConstantDefinition__Group__3__Impl rule__ConstantDefinition__Group__4 )
-            // InternalDSL.g:7256:2: rule__ConstantDefinition__Group__3__Impl rule__ConstantDefinition__Group__4
+            // InternalDSL.g:7286:1: ( rule__ConstantDefinition__Group__3__Impl rule__ConstantDefinition__Group__4 )
+            // InternalDSL.g:7287:2: rule__ConstantDefinition__Group__3__Impl rule__ConstantDefinition__Group__4
             {
             pushFollow(FOLLOW_4);
             rule__ConstantDefinition__Group__3__Impl();
@@ -19988,21 +20085,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__3__Impl"
-    // InternalDSL.g:7263:1: rule__ConstantDefinition__Group__3__Impl : ( ( rule__ConstantDefinition__NameAssignment_3 ) ) ;
+    // InternalDSL.g:7294:1: rule__ConstantDefinition__Group__3__Impl : ( ( rule__ConstantDefinition__NameAssignment_3 ) ) ;
     public final void rule__ConstantDefinition__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7267:1: ( ( ( rule__ConstantDefinition__NameAssignment_3 ) ) )
-            // InternalDSL.g:7268:1: ( ( rule__ConstantDefinition__NameAssignment_3 ) )
+            // InternalDSL.g:7298:1: ( ( ( rule__ConstantDefinition__NameAssignment_3 ) ) )
+            // InternalDSL.g:7299:1: ( ( rule__ConstantDefinition__NameAssignment_3 ) )
             {
-            // InternalDSL.g:7268:1: ( ( rule__ConstantDefinition__NameAssignment_3 ) )
-            // InternalDSL.g:7269:1: ( rule__ConstantDefinition__NameAssignment_3 )
+            // InternalDSL.g:7299:1: ( ( rule__ConstantDefinition__NameAssignment_3 ) )
+            // InternalDSL.g:7300:1: ( rule__ConstantDefinition__NameAssignment_3 )
             {
              before(grammarAccess.getConstantDefinitionAccess().getNameAssignment_3()); 
-            // InternalDSL.g:7270:1: ( rule__ConstantDefinition__NameAssignment_3 )
-            // InternalDSL.g:7270:2: rule__ConstantDefinition__NameAssignment_3
+            // InternalDSL.g:7301:1: ( rule__ConstantDefinition__NameAssignment_3 )
+            // InternalDSL.g:7301:2: rule__ConstantDefinition__NameAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__NameAssignment_3();
@@ -20035,14 +20132,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__4"
-    // InternalDSL.g:7280:1: rule__ConstantDefinition__Group__4 : rule__ConstantDefinition__Group__4__Impl rule__ConstantDefinition__Group__5 ;
+    // InternalDSL.g:7311:1: rule__ConstantDefinition__Group__4 : rule__ConstantDefinition__Group__4__Impl rule__ConstantDefinition__Group__5 ;
     public final void rule__ConstantDefinition__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7284:1: ( rule__ConstantDefinition__Group__4__Impl rule__ConstantDefinition__Group__5 )
-            // InternalDSL.g:7285:2: rule__ConstantDefinition__Group__4__Impl rule__ConstantDefinition__Group__5
+            // InternalDSL.g:7315:1: ( rule__ConstantDefinition__Group__4__Impl rule__ConstantDefinition__Group__5 )
+            // InternalDSL.g:7316:2: rule__ConstantDefinition__Group__4__Impl rule__ConstantDefinition__Group__5
             {
             pushFollow(FOLLOW_26);
             rule__ConstantDefinition__Group__4__Impl();
@@ -20073,17 +20170,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__4__Impl"
-    // InternalDSL.g:7292:1: rule__ConstantDefinition__Group__4__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7323:1: rule__ConstantDefinition__Group__4__Impl : ( ruleNL ) ;
     public final void rule__ConstantDefinition__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7296:1: ( ( ruleNL ) )
-            // InternalDSL.g:7297:1: ( ruleNL )
+            // InternalDSL.g:7327:1: ( ( ruleNL ) )
+            // InternalDSL.g:7328:1: ( ruleNL )
             {
-            // InternalDSL.g:7297:1: ( ruleNL )
-            // InternalDSL.g:7298:1: ruleNL
+            // InternalDSL.g:7328:1: ( ruleNL )
+            // InternalDSL.g:7329:1: ruleNL
             {
              before(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_4()); 
             pushFollow(FOLLOW_2);
@@ -20114,14 +20211,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__5"
-    // InternalDSL.g:7309:1: rule__ConstantDefinition__Group__5 : rule__ConstantDefinition__Group__5__Impl rule__ConstantDefinition__Group__6 ;
+    // InternalDSL.g:7340:1: rule__ConstantDefinition__Group__5 : rule__ConstantDefinition__Group__5__Impl rule__ConstantDefinition__Group__6 ;
     public final void rule__ConstantDefinition__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7313:1: ( rule__ConstantDefinition__Group__5__Impl rule__ConstantDefinition__Group__6 )
-            // InternalDSL.g:7314:2: rule__ConstantDefinition__Group__5__Impl rule__ConstantDefinition__Group__6
+            // InternalDSL.g:7344:1: ( rule__ConstantDefinition__Group__5__Impl rule__ConstantDefinition__Group__6 )
+            // InternalDSL.g:7345:2: rule__ConstantDefinition__Group__5__Impl rule__ConstantDefinition__Group__6
             {
             pushFollow(FOLLOW_27);
             rule__ConstantDefinition__Group__5__Impl();
@@ -20152,21 +20249,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__5__Impl"
-    // InternalDSL.g:7321:1: rule__ConstantDefinition__Group__5__Impl : ( ( rule__ConstantDefinition__Group_5__0 ) ) ;
+    // InternalDSL.g:7352:1: rule__ConstantDefinition__Group__5__Impl : ( ( rule__ConstantDefinition__Group_5__0 ) ) ;
     public final void rule__ConstantDefinition__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7325:1: ( ( ( rule__ConstantDefinition__Group_5__0 ) ) )
-            // InternalDSL.g:7326:1: ( ( rule__ConstantDefinition__Group_5__0 ) )
+            // InternalDSL.g:7356:1: ( ( ( rule__ConstantDefinition__Group_5__0 ) ) )
+            // InternalDSL.g:7357:1: ( ( rule__ConstantDefinition__Group_5__0 ) )
             {
-            // InternalDSL.g:7326:1: ( ( rule__ConstantDefinition__Group_5__0 ) )
-            // InternalDSL.g:7327:1: ( rule__ConstantDefinition__Group_5__0 )
+            // InternalDSL.g:7357:1: ( ( rule__ConstantDefinition__Group_5__0 ) )
+            // InternalDSL.g:7358:1: ( rule__ConstantDefinition__Group_5__0 )
             {
              before(grammarAccess.getConstantDefinitionAccess().getGroup_5()); 
-            // InternalDSL.g:7328:1: ( rule__ConstantDefinition__Group_5__0 )
-            // InternalDSL.g:7328:2: rule__ConstantDefinition__Group_5__0
+            // InternalDSL.g:7359:1: ( rule__ConstantDefinition__Group_5__0 )
+            // InternalDSL.g:7359:2: rule__ConstantDefinition__Group_5__0
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__Group_5__0();
@@ -20199,14 +20296,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__6"
-    // InternalDSL.g:7338:1: rule__ConstantDefinition__Group__6 : rule__ConstantDefinition__Group__6__Impl ;
+    // InternalDSL.g:7369:1: rule__ConstantDefinition__Group__6 : rule__ConstantDefinition__Group__6__Impl ;
     public final void rule__ConstantDefinition__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7342:1: ( rule__ConstantDefinition__Group__6__Impl )
-            // InternalDSL.g:7343:2: rule__ConstantDefinition__Group__6__Impl
+            // InternalDSL.g:7373:1: ( rule__ConstantDefinition__Group__6__Impl )
+            // InternalDSL.g:7374:2: rule__ConstantDefinition__Group__6__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__Group__6__Impl();
@@ -20232,29 +20329,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group__6__Impl"
-    // InternalDSL.g:7349:1: rule__ConstantDefinition__Group__6__Impl : ( ( rule__ConstantDefinition__Group_6__0 )? ) ;
+    // InternalDSL.g:7380:1: rule__ConstantDefinition__Group__6__Impl : ( ( rule__ConstantDefinition__Group_6__0 )? ) ;
     public final void rule__ConstantDefinition__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7353:1: ( ( ( rule__ConstantDefinition__Group_6__0 )? ) )
-            // InternalDSL.g:7354:1: ( ( rule__ConstantDefinition__Group_6__0 )? )
+            // InternalDSL.g:7384:1: ( ( ( rule__ConstantDefinition__Group_6__0 )? ) )
+            // InternalDSL.g:7385:1: ( ( rule__ConstantDefinition__Group_6__0 )? )
             {
-            // InternalDSL.g:7354:1: ( ( rule__ConstantDefinition__Group_6__0 )? )
-            // InternalDSL.g:7355:1: ( rule__ConstantDefinition__Group_6__0 )?
+            // InternalDSL.g:7385:1: ( ( rule__ConstantDefinition__Group_6__0 )? )
+            // InternalDSL.g:7386:1: ( rule__ConstantDefinition__Group_6__0 )?
             {
              before(grammarAccess.getConstantDefinitionAccess().getGroup_6()); 
-            // InternalDSL.g:7356:1: ( rule__ConstantDefinition__Group_6__0 )?
-            int alt44=2;
-            int LA44_0 = input.LA(1);
+            // InternalDSL.g:7387:1: ( rule__ConstantDefinition__Group_6__0 )?
+            int alt45=2;
+            int LA45_0 = input.LA(1);
 
-            if ( (LA44_0==79) ) {
-                alt44=1;
+            if ( (LA45_0==80) ) {
+                alt45=1;
             }
-            switch (alt44) {
+            switch (alt45) {
                 case 1 :
-                    // InternalDSL.g:7356:2: rule__ConstantDefinition__Group_6__0
+                    // InternalDSL.g:7387:2: rule__ConstantDefinition__Group_6__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__ConstantDefinition__Group_6__0();
@@ -20290,14 +20387,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5__0"
-    // InternalDSL.g:7380:1: rule__ConstantDefinition__Group_5__0 : rule__ConstantDefinition__Group_5__0__Impl rule__ConstantDefinition__Group_5__1 ;
+    // InternalDSL.g:7411:1: rule__ConstantDefinition__Group_5__0 : rule__ConstantDefinition__Group_5__0__Impl rule__ConstantDefinition__Group_5__1 ;
     public final void rule__ConstantDefinition__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7384:1: ( rule__ConstantDefinition__Group_5__0__Impl rule__ConstantDefinition__Group_5__1 )
-            // InternalDSL.g:7385:2: rule__ConstantDefinition__Group_5__0__Impl rule__ConstantDefinition__Group_5__1
+            // InternalDSL.g:7415:1: ( rule__ConstantDefinition__Group_5__0__Impl rule__ConstantDefinition__Group_5__1 )
+            // InternalDSL.g:7416:2: rule__ConstantDefinition__Group_5__0__Impl rule__ConstantDefinition__Group_5__1
             {
             pushFollow(FOLLOW_26);
             rule__ConstantDefinition__Group_5__0__Impl();
@@ -20328,29 +20425,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5__0__Impl"
-    // InternalDSL.g:7392:1: rule__ConstantDefinition__Group_5__0__Impl : ( ( rule__ConstantDefinition__Group_5_0__0 )? ) ;
+    // InternalDSL.g:7423:1: rule__ConstantDefinition__Group_5__0__Impl : ( ( rule__ConstantDefinition__Group_5_0__0 )? ) ;
     public final void rule__ConstantDefinition__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7396:1: ( ( ( rule__ConstantDefinition__Group_5_0__0 )? ) )
-            // InternalDSL.g:7397:1: ( ( rule__ConstantDefinition__Group_5_0__0 )? )
+            // InternalDSL.g:7427:1: ( ( ( rule__ConstantDefinition__Group_5_0__0 )? ) )
+            // InternalDSL.g:7428:1: ( ( rule__ConstantDefinition__Group_5_0__0 )? )
             {
-            // InternalDSL.g:7397:1: ( ( rule__ConstantDefinition__Group_5_0__0 )? )
-            // InternalDSL.g:7398:1: ( rule__ConstantDefinition__Group_5_0__0 )?
+            // InternalDSL.g:7428:1: ( ( rule__ConstantDefinition__Group_5_0__0 )? )
+            // InternalDSL.g:7429:1: ( rule__ConstantDefinition__Group_5_0__0 )?
             {
              before(grammarAccess.getConstantDefinitionAccess().getGroup_5_0()); 
-            // InternalDSL.g:7399:1: ( rule__ConstantDefinition__Group_5_0__0 )?
-            int alt45=2;
-            int LA45_0 = input.LA(1);
+            // InternalDSL.g:7430:1: ( rule__ConstantDefinition__Group_5_0__0 )?
+            int alt46=2;
+            int LA46_0 = input.LA(1);
 
-            if ( ((LA45_0>=RULE_BOOLEAN_TRUE && LA45_0<=RULE_UPPERCASE_ID)||(LA45_0>=RULE_STRING && LA45_0<=RULE_TWELVEHRSTIME)||LA45_0==65||LA45_0==67||LA45_0==70||(LA45_0>=73 && LA45_0<=74)) ) {
-                alt45=1;
+            if ( ((LA46_0>=RULE_BOOLEAN_TRUE && LA46_0<=RULE_UPPERCASE_ID)||(LA46_0>=RULE_STRING && LA46_0<=RULE_TWELVEHRSTIME)||LA46_0==65||LA46_0==67||LA46_0==70||(LA46_0>=73 && LA46_0<=74)) ) {
+                alt46=1;
             }
-            switch (alt45) {
+            switch (alt46) {
                 case 1 :
-                    // InternalDSL.g:7399:2: rule__ConstantDefinition__Group_5_0__0
+                    // InternalDSL.g:7430:2: rule__ConstantDefinition__Group_5_0__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__ConstantDefinition__Group_5_0__0();
@@ -20386,14 +20483,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5__1"
-    // InternalDSL.g:7409:1: rule__ConstantDefinition__Group_5__1 : rule__ConstantDefinition__Group_5__1__Impl ;
+    // InternalDSL.g:7440:1: rule__ConstantDefinition__Group_5__1 : rule__ConstantDefinition__Group_5__1__Impl ;
     public final void rule__ConstantDefinition__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7413:1: ( rule__ConstantDefinition__Group_5__1__Impl )
-            // InternalDSL.g:7414:2: rule__ConstantDefinition__Group_5__1__Impl
+            // InternalDSL.g:7444:1: ( rule__ConstantDefinition__Group_5__1__Impl )
+            // InternalDSL.g:7445:2: rule__ConstantDefinition__Group_5__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__Group_5__1__Impl();
@@ -20419,33 +20516,33 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5__1__Impl"
-    // InternalDSL.g:7420:1: rule__ConstantDefinition__Group_5__1__Impl : ( ( rule__ConstantDefinition__Group_5_1__0 )* ) ;
+    // InternalDSL.g:7451:1: rule__ConstantDefinition__Group_5__1__Impl : ( ( rule__ConstantDefinition__Group_5_1__0 )* ) ;
     public final void rule__ConstantDefinition__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7424:1: ( ( ( rule__ConstantDefinition__Group_5_1__0 )* ) )
-            // InternalDSL.g:7425:1: ( ( rule__ConstantDefinition__Group_5_1__0 )* )
+            // InternalDSL.g:7455:1: ( ( ( rule__ConstantDefinition__Group_5_1__0 )* ) )
+            // InternalDSL.g:7456:1: ( ( rule__ConstantDefinition__Group_5_1__0 )* )
             {
-            // InternalDSL.g:7425:1: ( ( rule__ConstantDefinition__Group_5_1__0 )* )
-            // InternalDSL.g:7426:1: ( rule__ConstantDefinition__Group_5_1__0 )*
+            // InternalDSL.g:7456:1: ( ( rule__ConstantDefinition__Group_5_1__0 )* )
+            // InternalDSL.g:7457:1: ( rule__ConstantDefinition__Group_5_1__0 )*
             {
              before(grammarAccess.getConstantDefinitionAccess().getGroup_5_1()); 
-            // InternalDSL.g:7427:1: ( rule__ConstantDefinition__Group_5_1__0 )*
-            loop46:
+            // InternalDSL.g:7458:1: ( rule__ConstantDefinition__Group_5_1__0 )*
+            loop47:
             do {
-                int alt46=2;
-                int LA46_0 = input.LA(1);
+                int alt47=2;
+                int LA47_0 = input.LA(1);
 
-                if ( (LA46_0==57) ) {
-                    alt46=1;
+                if ( (LA47_0==57) ) {
+                    alt47=1;
                 }
 
 
-                switch (alt46) {
+                switch (alt47) {
             	case 1 :
-            	    // InternalDSL.g:7427:2: rule__ConstantDefinition__Group_5_1__0
+            	    // InternalDSL.g:7458:2: rule__ConstantDefinition__Group_5_1__0
             	    {
             	    pushFollow(FOLLOW_28);
             	    rule__ConstantDefinition__Group_5_1__0();
@@ -20457,7 +20554,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop46;
+            	    break loop47;
                 }
             } while (true);
 
@@ -20484,14 +20581,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5_0__0"
-    // InternalDSL.g:7441:1: rule__ConstantDefinition__Group_5_0__0 : rule__ConstantDefinition__Group_5_0__0__Impl rule__ConstantDefinition__Group_5_0__1 ;
+    // InternalDSL.g:7472:1: rule__ConstantDefinition__Group_5_0__0 : rule__ConstantDefinition__Group_5_0__0__Impl rule__ConstantDefinition__Group_5_0__1 ;
     public final void rule__ConstantDefinition__Group_5_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7445:1: ( rule__ConstantDefinition__Group_5_0__0__Impl rule__ConstantDefinition__Group_5_0__1 )
-            // InternalDSL.g:7446:2: rule__ConstantDefinition__Group_5_0__0__Impl rule__ConstantDefinition__Group_5_0__1
+            // InternalDSL.g:7476:1: ( rule__ConstantDefinition__Group_5_0__0__Impl rule__ConstantDefinition__Group_5_0__1 )
+            // InternalDSL.g:7477:2: rule__ConstantDefinition__Group_5_0__0__Impl rule__ConstantDefinition__Group_5_0__1
             {
             pushFollow(FOLLOW_4);
             rule__ConstantDefinition__Group_5_0__0__Impl();
@@ -20522,21 +20619,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5_0__0__Impl"
-    // InternalDSL.g:7453:1: rule__ConstantDefinition__Group_5_0__0__Impl : ( ( rule__ConstantDefinition__ValueAssignment_5_0_0 ) ) ;
+    // InternalDSL.g:7484:1: rule__ConstantDefinition__Group_5_0__0__Impl : ( ( rule__ConstantDefinition__ValueAssignment_5_0_0 ) ) ;
     public final void rule__ConstantDefinition__Group_5_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7457:1: ( ( ( rule__ConstantDefinition__ValueAssignment_5_0_0 ) ) )
-            // InternalDSL.g:7458:1: ( ( rule__ConstantDefinition__ValueAssignment_5_0_0 ) )
+            // InternalDSL.g:7488:1: ( ( ( rule__ConstantDefinition__ValueAssignment_5_0_0 ) ) )
+            // InternalDSL.g:7489:1: ( ( rule__ConstantDefinition__ValueAssignment_5_0_0 ) )
             {
-            // InternalDSL.g:7458:1: ( ( rule__ConstantDefinition__ValueAssignment_5_0_0 ) )
-            // InternalDSL.g:7459:1: ( rule__ConstantDefinition__ValueAssignment_5_0_0 )
+            // InternalDSL.g:7489:1: ( ( rule__ConstantDefinition__ValueAssignment_5_0_0 ) )
+            // InternalDSL.g:7490:1: ( rule__ConstantDefinition__ValueAssignment_5_0_0 )
             {
              before(grammarAccess.getConstantDefinitionAccess().getValueAssignment_5_0_0()); 
-            // InternalDSL.g:7460:1: ( rule__ConstantDefinition__ValueAssignment_5_0_0 )
-            // InternalDSL.g:7460:2: rule__ConstantDefinition__ValueAssignment_5_0_0
+            // InternalDSL.g:7491:1: ( rule__ConstantDefinition__ValueAssignment_5_0_0 )
+            // InternalDSL.g:7491:2: rule__ConstantDefinition__ValueAssignment_5_0_0
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__ValueAssignment_5_0_0();
@@ -20569,14 +20666,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5_0__1"
-    // InternalDSL.g:7470:1: rule__ConstantDefinition__Group_5_0__1 : rule__ConstantDefinition__Group_5_0__1__Impl ;
+    // InternalDSL.g:7501:1: rule__ConstantDefinition__Group_5_0__1 : rule__ConstantDefinition__Group_5_0__1__Impl ;
     public final void rule__ConstantDefinition__Group_5_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7474:1: ( rule__ConstantDefinition__Group_5_0__1__Impl )
-            // InternalDSL.g:7475:2: rule__ConstantDefinition__Group_5_0__1__Impl
+            // InternalDSL.g:7505:1: ( rule__ConstantDefinition__Group_5_0__1__Impl )
+            // InternalDSL.g:7506:2: rule__ConstantDefinition__Group_5_0__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__Group_5_0__1__Impl();
@@ -20602,17 +20699,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5_0__1__Impl"
-    // InternalDSL.g:7481:1: rule__ConstantDefinition__Group_5_0__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7512:1: rule__ConstantDefinition__Group_5_0__1__Impl : ( ruleNL ) ;
     public final void rule__ConstantDefinition__Group_5_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7485:1: ( ( ruleNL ) )
-            // InternalDSL.g:7486:1: ( ruleNL )
+            // InternalDSL.g:7516:1: ( ( ruleNL ) )
+            // InternalDSL.g:7517:1: ( ruleNL )
             {
-            // InternalDSL.g:7486:1: ( ruleNL )
-            // InternalDSL.g:7487:1: ruleNL
+            // InternalDSL.g:7517:1: ( ruleNL )
+            // InternalDSL.g:7518:1: ruleNL
             {
              before(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_0_1()); 
             pushFollow(FOLLOW_2);
@@ -20643,14 +20740,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5_1__0"
-    // InternalDSL.g:7502:1: rule__ConstantDefinition__Group_5_1__0 : rule__ConstantDefinition__Group_5_1__0__Impl rule__ConstantDefinition__Group_5_1__1 ;
+    // InternalDSL.g:7533:1: rule__ConstantDefinition__Group_5_1__0 : rule__ConstantDefinition__Group_5_1__0__Impl rule__ConstantDefinition__Group_5_1__1 ;
     public final void rule__ConstantDefinition__Group_5_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7506:1: ( rule__ConstantDefinition__Group_5_1__0__Impl rule__ConstantDefinition__Group_5_1__1 )
-            // InternalDSL.g:7507:2: rule__ConstantDefinition__Group_5_1__0__Impl rule__ConstantDefinition__Group_5_1__1
+            // InternalDSL.g:7537:1: ( rule__ConstantDefinition__Group_5_1__0__Impl rule__ConstantDefinition__Group_5_1__1 )
+            // InternalDSL.g:7538:2: rule__ConstantDefinition__Group_5_1__0__Impl rule__ConstantDefinition__Group_5_1__1
             {
             pushFollow(FOLLOW_4);
             rule__ConstantDefinition__Group_5_1__0__Impl();
@@ -20681,21 +20778,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5_1__0__Impl"
-    // InternalDSL.g:7514:1: rule__ConstantDefinition__Group_5_1__0__Impl : ( ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 ) ) ;
+    // InternalDSL.g:7545:1: rule__ConstantDefinition__Group_5_1__0__Impl : ( ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 ) ) ;
     public final void rule__ConstantDefinition__Group_5_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7518:1: ( ( ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 ) ) )
-            // InternalDSL.g:7519:1: ( ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 ) )
+            // InternalDSL.g:7549:1: ( ( ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 ) ) )
+            // InternalDSL.g:7550:1: ( ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 ) )
             {
-            // InternalDSL.g:7519:1: ( ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 ) )
-            // InternalDSL.g:7520:1: ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 )
+            // InternalDSL.g:7550:1: ( ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 ) )
+            // InternalDSL.g:7551:1: ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 )
             {
              before(grammarAccess.getConstantDefinitionAccess().getVariantValuesAssignment_5_1_0()); 
-            // InternalDSL.g:7521:1: ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 )
-            // InternalDSL.g:7521:2: rule__ConstantDefinition__VariantValuesAssignment_5_1_0
+            // InternalDSL.g:7552:1: ( rule__ConstantDefinition__VariantValuesAssignment_5_1_0 )
+            // InternalDSL.g:7552:2: rule__ConstantDefinition__VariantValuesAssignment_5_1_0
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__VariantValuesAssignment_5_1_0();
@@ -20728,14 +20825,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5_1__1"
-    // InternalDSL.g:7531:1: rule__ConstantDefinition__Group_5_1__1 : rule__ConstantDefinition__Group_5_1__1__Impl ;
+    // InternalDSL.g:7562:1: rule__ConstantDefinition__Group_5_1__1 : rule__ConstantDefinition__Group_5_1__1__Impl ;
     public final void rule__ConstantDefinition__Group_5_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7535:1: ( rule__ConstantDefinition__Group_5_1__1__Impl )
-            // InternalDSL.g:7536:2: rule__ConstantDefinition__Group_5_1__1__Impl
+            // InternalDSL.g:7566:1: ( rule__ConstantDefinition__Group_5_1__1__Impl )
+            // InternalDSL.g:7567:2: rule__ConstantDefinition__Group_5_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__Group_5_1__1__Impl();
@@ -20761,17 +20858,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_5_1__1__Impl"
-    // InternalDSL.g:7542:1: rule__ConstantDefinition__Group_5_1__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7573:1: rule__ConstantDefinition__Group_5_1__1__Impl : ( ruleNL ) ;
     public final void rule__ConstantDefinition__Group_5_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7546:1: ( ( ruleNL ) )
-            // InternalDSL.g:7547:1: ( ruleNL )
+            // InternalDSL.g:7577:1: ( ( ruleNL ) )
+            // InternalDSL.g:7578:1: ( ruleNL )
             {
-            // InternalDSL.g:7547:1: ( ruleNL )
-            // InternalDSL.g:7548:1: ruleNL
+            // InternalDSL.g:7578:1: ( ruleNL )
+            // InternalDSL.g:7579:1: ruleNL
             {
              before(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_1_1()); 
             pushFollow(FOLLOW_2);
@@ -20802,14 +20899,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_6__0"
-    // InternalDSL.g:7563:1: rule__ConstantDefinition__Group_6__0 : rule__ConstantDefinition__Group_6__0__Impl rule__ConstantDefinition__Group_6__1 ;
+    // InternalDSL.g:7594:1: rule__ConstantDefinition__Group_6__0 : rule__ConstantDefinition__Group_6__0__Impl rule__ConstantDefinition__Group_6__1 ;
     public final void rule__ConstantDefinition__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7567:1: ( rule__ConstantDefinition__Group_6__0__Impl rule__ConstantDefinition__Group_6__1 )
-            // InternalDSL.g:7568:2: rule__ConstantDefinition__Group_6__0__Impl rule__ConstantDefinition__Group_6__1
+            // InternalDSL.g:7598:1: ( rule__ConstantDefinition__Group_6__0__Impl rule__ConstantDefinition__Group_6__1 )
+            // InternalDSL.g:7599:2: rule__ConstantDefinition__Group_6__0__Impl rule__ConstantDefinition__Group_6__1
             {
             pushFollow(FOLLOW_4);
             rule__ConstantDefinition__Group_6__0__Impl();
@@ -20840,21 +20937,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_6__0__Impl"
-    // InternalDSL.g:7575:1: rule__ConstantDefinition__Group_6__0__Impl : ( ( rule__ConstantDefinition__ParameterizedAssignment_6_0 ) ) ;
+    // InternalDSL.g:7606:1: rule__ConstantDefinition__Group_6__0__Impl : ( ( rule__ConstantDefinition__ParameterizedAssignment_6_0 ) ) ;
     public final void rule__ConstantDefinition__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7579:1: ( ( ( rule__ConstantDefinition__ParameterizedAssignment_6_0 ) ) )
-            // InternalDSL.g:7580:1: ( ( rule__ConstantDefinition__ParameterizedAssignment_6_0 ) )
+            // InternalDSL.g:7610:1: ( ( ( rule__ConstantDefinition__ParameterizedAssignment_6_0 ) ) )
+            // InternalDSL.g:7611:1: ( ( rule__ConstantDefinition__ParameterizedAssignment_6_0 ) )
             {
-            // InternalDSL.g:7580:1: ( ( rule__ConstantDefinition__ParameterizedAssignment_6_0 ) )
-            // InternalDSL.g:7581:1: ( rule__ConstantDefinition__ParameterizedAssignment_6_0 )
+            // InternalDSL.g:7611:1: ( ( rule__ConstantDefinition__ParameterizedAssignment_6_0 ) )
+            // InternalDSL.g:7612:1: ( rule__ConstantDefinition__ParameterizedAssignment_6_0 )
             {
              before(grammarAccess.getConstantDefinitionAccess().getParameterizedAssignment_6_0()); 
-            // InternalDSL.g:7582:1: ( rule__ConstantDefinition__ParameterizedAssignment_6_0 )
-            // InternalDSL.g:7582:2: rule__ConstantDefinition__ParameterizedAssignment_6_0
+            // InternalDSL.g:7613:1: ( rule__ConstantDefinition__ParameterizedAssignment_6_0 )
+            // InternalDSL.g:7613:2: rule__ConstantDefinition__ParameterizedAssignment_6_0
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__ParameterizedAssignment_6_0();
@@ -20887,14 +20984,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_6__1"
-    // InternalDSL.g:7592:1: rule__ConstantDefinition__Group_6__1 : rule__ConstantDefinition__Group_6__1__Impl ;
+    // InternalDSL.g:7623:1: rule__ConstantDefinition__Group_6__1 : rule__ConstantDefinition__Group_6__1__Impl ;
     public final void rule__ConstantDefinition__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7596:1: ( rule__ConstantDefinition__Group_6__1__Impl )
-            // InternalDSL.g:7597:2: rule__ConstantDefinition__Group_6__1__Impl
+            // InternalDSL.g:7627:1: ( rule__ConstantDefinition__Group_6__1__Impl )
+            // InternalDSL.g:7628:2: rule__ConstantDefinition__Group_6__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ConstantDefinition__Group_6__1__Impl();
@@ -20920,17 +21017,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__Group_6__1__Impl"
-    // InternalDSL.g:7603:1: rule__ConstantDefinition__Group_6__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7634:1: rule__ConstantDefinition__Group_6__1__Impl : ( ruleNL ) ;
     public final void rule__ConstantDefinition__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7607:1: ( ( ruleNL ) )
-            // InternalDSL.g:7608:1: ( ruleNL )
+            // InternalDSL.g:7638:1: ( ( ruleNL ) )
+            // InternalDSL.g:7639:1: ( ruleNL )
             {
-            // InternalDSL.g:7608:1: ( ruleNL )
-            // InternalDSL.g:7609:1: ruleNL
+            // InternalDSL.g:7639:1: ( ruleNL )
+            // InternalDSL.g:7640:1: ruleNL
             {
              before(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_6_1()); 
             pushFollow(FOLLOW_2);
@@ -20961,14 +21058,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__0"
-    // InternalDSL.g:7624:1: rule__VariableAssignment__Group__0 : rule__VariableAssignment__Group__0__Impl rule__VariableAssignment__Group__1 ;
+    // InternalDSL.g:7655:1: rule__VariableAssignment__Group__0 : rule__VariableAssignment__Group__0__Impl rule__VariableAssignment__Group__1 ;
     public final void rule__VariableAssignment__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7628:1: ( rule__VariableAssignment__Group__0__Impl rule__VariableAssignment__Group__1 )
-            // InternalDSL.g:7629:2: rule__VariableAssignment__Group__0__Impl rule__VariableAssignment__Group__1
+            // InternalDSL.g:7659:1: ( rule__VariableAssignment__Group__0__Impl rule__VariableAssignment__Group__1 )
+            // InternalDSL.g:7660:2: rule__VariableAssignment__Group__0__Impl rule__VariableAssignment__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__VariableAssignment__Group__0__Impl();
@@ -20999,17 +21096,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__0__Impl"
-    // InternalDSL.g:7636:1: rule__VariableAssignment__Group__0__Impl : ( 'assign' ) ;
+    // InternalDSL.g:7667:1: rule__VariableAssignment__Group__0__Impl : ( 'assign' ) ;
     public final void rule__VariableAssignment__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7640:1: ( ( 'assign' ) )
-            // InternalDSL.g:7641:1: ( 'assign' )
+            // InternalDSL.g:7671:1: ( ( 'assign' ) )
+            // InternalDSL.g:7672:1: ( 'assign' )
             {
-            // InternalDSL.g:7641:1: ( 'assign' )
-            // InternalDSL.g:7642:1: 'assign'
+            // InternalDSL.g:7672:1: ( 'assign' )
+            // InternalDSL.g:7673:1: 'assign'
             {
              before(grammarAccess.getVariableAssignmentAccess().getAssignKeyword_0()); 
             match(input,55,FOLLOW_2); 
@@ -21036,14 +21133,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__1"
-    // InternalDSL.g:7655:1: rule__VariableAssignment__Group__1 : rule__VariableAssignment__Group__1__Impl rule__VariableAssignment__Group__2 ;
+    // InternalDSL.g:7686:1: rule__VariableAssignment__Group__1 : rule__VariableAssignment__Group__1__Impl rule__VariableAssignment__Group__2 ;
     public final void rule__VariableAssignment__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7659:1: ( rule__VariableAssignment__Group__1__Impl rule__VariableAssignment__Group__2 )
-            // InternalDSL.g:7660:2: rule__VariableAssignment__Group__1__Impl rule__VariableAssignment__Group__2
+            // InternalDSL.g:7690:1: ( rule__VariableAssignment__Group__1__Impl rule__VariableAssignment__Group__2 )
+            // InternalDSL.g:7691:2: rule__VariableAssignment__Group__1__Impl rule__VariableAssignment__Group__2
             {
             pushFollow(FOLLOW_15);
             rule__VariableAssignment__Group__1__Impl();
@@ -21074,17 +21171,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__1__Impl"
-    // InternalDSL.g:7667:1: rule__VariableAssignment__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7698:1: rule__VariableAssignment__Group__1__Impl : ( ruleNL ) ;
     public final void rule__VariableAssignment__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7671:1: ( ( ruleNL ) )
-            // InternalDSL.g:7672:1: ( ruleNL )
+            // InternalDSL.g:7702:1: ( ( ruleNL ) )
+            // InternalDSL.g:7703:1: ( ruleNL )
             {
-            // InternalDSL.g:7672:1: ( ruleNL )
-            // InternalDSL.g:7673:1: ruleNL
+            // InternalDSL.g:7703:1: ( ruleNL )
+            // InternalDSL.g:7704:1: ruleNL
             {
              before(grammarAccess.getVariableAssignmentAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -21115,14 +21212,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__2"
-    // InternalDSL.g:7684:1: rule__VariableAssignment__Group__2 : rule__VariableAssignment__Group__2__Impl rule__VariableAssignment__Group__3 ;
+    // InternalDSL.g:7715:1: rule__VariableAssignment__Group__2 : rule__VariableAssignment__Group__2__Impl rule__VariableAssignment__Group__3 ;
     public final void rule__VariableAssignment__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7688:1: ( rule__VariableAssignment__Group__2__Impl rule__VariableAssignment__Group__3 )
-            // InternalDSL.g:7689:2: rule__VariableAssignment__Group__2__Impl rule__VariableAssignment__Group__3
+            // InternalDSL.g:7719:1: ( rule__VariableAssignment__Group__2__Impl rule__VariableAssignment__Group__3 )
+            // InternalDSL.g:7720:2: rule__VariableAssignment__Group__2__Impl rule__VariableAssignment__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__VariableAssignment__Group__2__Impl();
@@ -21153,21 +21250,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__2__Impl"
-    // InternalDSL.g:7696:1: rule__VariableAssignment__Group__2__Impl : ( ( rule__VariableAssignment__ValueAssignment_2 ) ) ;
+    // InternalDSL.g:7727:1: rule__VariableAssignment__Group__2__Impl : ( ( rule__VariableAssignment__ValueAssignment_2 ) ) ;
     public final void rule__VariableAssignment__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7700:1: ( ( ( rule__VariableAssignment__ValueAssignment_2 ) ) )
-            // InternalDSL.g:7701:1: ( ( rule__VariableAssignment__ValueAssignment_2 ) )
+            // InternalDSL.g:7731:1: ( ( ( rule__VariableAssignment__ValueAssignment_2 ) ) )
+            // InternalDSL.g:7732:1: ( ( rule__VariableAssignment__ValueAssignment_2 ) )
             {
-            // InternalDSL.g:7701:1: ( ( rule__VariableAssignment__ValueAssignment_2 ) )
-            // InternalDSL.g:7702:1: ( rule__VariableAssignment__ValueAssignment_2 )
+            // InternalDSL.g:7732:1: ( ( rule__VariableAssignment__ValueAssignment_2 ) )
+            // InternalDSL.g:7733:1: ( rule__VariableAssignment__ValueAssignment_2 )
             {
              before(grammarAccess.getVariableAssignmentAccess().getValueAssignment_2()); 
-            // InternalDSL.g:7703:1: ( rule__VariableAssignment__ValueAssignment_2 )
-            // InternalDSL.g:7703:2: rule__VariableAssignment__ValueAssignment_2
+            // InternalDSL.g:7734:1: ( rule__VariableAssignment__ValueAssignment_2 )
+            // InternalDSL.g:7734:2: rule__VariableAssignment__ValueAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__VariableAssignment__ValueAssignment_2();
@@ -21200,14 +21297,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__3"
-    // InternalDSL.g:7713:1: rule__VariableAssignment__Group__3 : rule__VariableAssignment__Group__3__Impl rule__VariableAssignment__Group__4 ;
+    // InternalDSL.g:7744:1: rule__VariableAssignment__Group__3 : rule__VariableAssignment__Group__3__Impl rule__VariableAssignment__Group__4 ;
     public final void rule__VariableAssignment__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7717:1: ( rule__VariableAssignment__Group__3__Impl rule__VariableAssignment__Group__4 )
-            // InternalDSL.g:7718:2: rule__VariableAssignment__Group__3__Impl rule__VariableAssignment__Group__4
+            // InternalDSL.g:7748:1: ( rule__VariableAssignment__Group__3__Impl rule__VariableAssignment__Group__4 )
+            // InternalDSL.g:7749:2: rule__VariableAssignment__Group__3__Impl rule__VariableAssignment__Group__4
             {
             pushFollow(FOLLOW_29);
             rule__VariableAssignment__Group__3__Impl();
@@ -21238,17 +21335,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__3__Impl"
-    // InternalDSL.g:7725:1: rule__VariableAssignment__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7756:1: rule__VariableAssignment__Group__3__Impl : ( ruleNL ) ;
     public final void rule__VariableAssignment__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7729:1: ( ( ruleNL ) )
-            // InternalDSL.g:7730:1: ( ruleNL )
+            // InternalDSL.g:7760:1: ( ( ruleNL ) )
+            // InternalDSL.g:7761:1: ( ruleNL )
             {
-            // InternalDSL.g:7730:1: ( ruleNL )
-            // InternalDSL.g:7731:1: ruleNL
+            // InternalDSL.g:7761:1: ( ruleNL )
+            // InternalDSL.g:7762:1: ruleNL
             {
              before(grammarAccess.getVariableAssignmentAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -21279,14 +21376,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__4"
-    // InternalDSL.g:7742:1: rule__VariableAssignment__Group__4 : rule__VariableAssignment__Group__4__Impl rule__VariableAssignment__Group__5 ;
+    // InternalDSL.g:7773:1: rule__VariableAssignment__Group__4 : rule__VariableAssignment__Group__4__Impl rule__VariableAssignment__Group__5 ;
     public final void rule__VariableAssignment__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7746:1: ( rule__VariableAssignment__Group__4__Impl rule__VariableAssignment__Group__5 )
-            // InternalDSL.g:7747:2: rule__VariableAssignment__Group__4__Impl rule__VariableAssignment__Group__5
+            // InternalDSL.g:7777:1: ( rule__VariableAssignment__Group__4__Impl rule__VariableAssignment__Group__5 )
+            // InternalDSL.g:7778:2: rule__VariableAssignment__Group__4__Impl rule__VariableAssignment__Group__5
             {
             pushFollow(FOLLOW_4);
             rule__VariableAssignment__Group__4__Impl();
@@ -21317,17 +21414,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__4__Impl"
-    // InternalDSL.g:7754:1: rule__VariableAssignment__Group__4__Impl : ( '->' ) ;
+    // InternalDSL.g:7785:1: rule__VariableAssignment__Group__4__Impl : ( '->' ) ;
     public final void rule__VariableAssignment__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7758:1: ( ( '->' ) )
-            // InternalDSL.g:7759:1: ( '->' )
+            // InternalDSL.g:7789:1: ( ( '->' ) )
+            // InternalDSL.g:7790:1: ( '->' )
             {
-            // InternalDSL.g:7759:1: ( '->' )
-            // InternalDSL.g:7760:1: '->'
+            // InternalDSL.g:7790:1: ( '->' )
+            // InternalDSL.g:7791:1: '->'
             {
              before(grammarAccess.getVariableAssignmentAccess().getHyphenMinusGreaterThanSignKeyword_4()); 
             match(input,56,FOLLOW_2); 
@@ -21354,14 +21451,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__5"
-    // InternalDSL.g:7773:1: rule__VariableAssignment__Group__5 : rule__VariableAssignment__Group__5__Impl rule__VariableAssignment__Group__6 ;
+    // InternalDSL.g:7804:1: rule__VariableAssignment__Group__5 : rule__VariableAssignment__Group__5__Impl rule__VariableAssignment__Group__6 ;
     public final void rule__VariableAssignment__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7777:1: ( rule__VariableAssignment__Group__5__Impl rule__VariableAssignment__Group__6 )
-            // InternalDSL.g:7778:2: rule__VariableAssignment__Group__5__Impl rule__VariableAssignment__Group__6
+            // InternalDSL.g:7808:1: ( rule__VariableAssignment__Group__5__Impl rule__VariableAssignment__Group__6 )
+            // InternalDSL.g:7809:2: rule__VariableAssignment__Group__5__Impl rule__VariableAssignment__Group__6
             {
             pushFollow(FOLLOW_7);
             rule__VariableAssignment__Group__5__Impl();
@@ -21392,17 +21489,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__5__Impl"
-    // InternalDSL.g:7785:1: rule__VariableAssignment__Group__5__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7816:1: rule__VariableAssignment__Group__5__Impl : ( ruleNL ) ;
     public final void rule__VariableAssignment__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7789:1: ( ( ruleNL ) )
-            // InternalDSL.g:7790:1: ( ruleNL )
+            // InternalDSL.g:7820:1: ( ( ruleNL ) )
+            // InternalDSL.g:7821:1: ( ruleNL )
             {
-            // InternalDSL.g:7790:1: ( ruleNL )
-            // InternalDSL.g:7791:1: ruleNL
+            // InternalDSL.g:7821:1: ( ruleNL )
+            // InternalDSL.g:7822:1: ruleNL
             {
              before(grammarAccess.getVariableAssignmentAccess().getNLParserRuleCall_5()); 
             pushFollow(FOLLOW_2);
@@ -21433,14 +21530,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__6"
-    // InternalDSL.g:7802:1: rule__VariableAssignment__Group__6 : rule__VariableAssignment__Group__6__Impl rule__VariableAssignment__Group__7 ;
+    // InternalDSL.g:7833:1: rule__VariableAssignment__Group__6 : rule__VariableAssignment__Group__6__Impl rule__VariableAssignment__Group__7 ;
     public final void rule__VariableAssignment__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7806:1: ( rule__VariableAssignment__Group__6__Impl rule__VariableAssignment__Group__7 )
-            // InternalDSL.g:7807:2: rule__VariableAssignment__Group__6__Impl rule__VariableAssignment__Group__7
+            // InternalDSL.g:7837:1: ( rule__VariableAssignment__Group__6__Impl rule__VariableAssignment__Group__7 )
+            // InternalDSL.g:7838:2: rule__VariableAssignment__Group__6__Impl rule__VariableAssignment__Group__7
             {
             pushFollow(FOLLOW_4);
             rule__VariableAssignment__Group__6__Impl();
@@ -21471,21 +21568,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__6__Impl"
-    // InternalDSL.g:7814:1: rule__VariableAssignment__Group__6__Impl : ( ( rule__VariableAssignment__TargetAssignment_6 ) ) ;
+    // InternalDSL.g:7845:1: rule__VariableAssignment__Group__6__Impl : ( ( rule__VariableAssignment__TargetAssignment_6 ) ) ;
     public final void rule__VariableAssignment__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7818:1: ( ( ( rule__VariableAssignment__TargetAssignment_6 ) ) )
-            // InternalDSL.g:7819:1: ( ( rule__VariableAssignment__TargetAssignment_6 ) )
+            // InternalDSL.g:7849:1: ( ( ( rule__VariableAssignment__TargetAssignment_6 ) ) )
+            // InternalDSL.g:7850:1: ( ( rule__VariableAssignment__TargetAssignment_6 ) )
             {
-            // InternalDSL.g:7819:1: ( ( rule__VariableAssignment__TargetAssignment_6 ) )
-            // InternalDSL.g:7820:1: ( rule__VariableAssignment__TargetAssignment_6 )
+            // InternalDSL.g:7850:1: ( ( rule__VariableAssignment__TargetAssignment_6 ) )
+            // InternalDSL.g:7851:1: ( rule__VariableAssignment__TargetAssignment_6 )
             {
              before(grammarAccess.getVariableAssignmentAccess().getTargetAssignment_6()); 
-            // InternalDSL.g:7821:1: ( rule__VariableAssignment__TargetAssignment_6 )
-            // InternalDSL.g:7821:2: rule__VariableAssignment__TargetAssignment_6
+            // InternalDSL.g:7852:1: ( rule__VariableAssignment__TargetAssignment_6 )
+            // InternalDSL.g:7852:2: rule__VariableAssignment__TargetAssignment_6
             {
             pushFollow(FOLLOW_2);
             rule__VariableAssignment__TargetAssignment_6();
@@ -21518,14 +21615,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__7"
-    // InternalDSL.g:7831:1: rule__VariableAssignment__Group__7 : rule__VariableAssignment__Group__7__Impl ;
+    // InternalDSL.g:7862:1: rule__VariableAssignment__Group__7 : rule__VariableAssignment__Group__7__Impl ;
     public final void rule__VariableAssignment__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7835:1: ( rule__VariableAssignment__Group__7__Impl )
-            // InternalDSL.g:7836:2: rule__VariableAssignment__Group__7__Impl
+            // InternalDSL.g:7866:1: ( rule__VariableAssignment__Group__7__Impl )
+            // InternalDSL.g:7867:2: rule__VariableAssignment__Group__7__Impl
             {
             pushFollow(FOLLOW_2);
             rule__VariableAssignment__Group__7__Impl();
@@ -21551,17 +21648,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__Group__7__Impl"
-    // InternalDSL.g:7842:1: rule__VariableAssignment__Group__7__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7873:1: rule__VariableAssignment__Group__7__Impl : ( ruleNL ) ;
     public final void rule__VariableAssignment__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7846:1: ( ( ruleNL ) )
-            // InternalDSL.g:7847:1: ( ruleNL )
+            // InternalDSL.g:7877:1: ( ( ruleNL ) )
+            // InternalDSL.g:7878:1: ( ruleNL )
             {
-            // InternalDSL.g:7847:1: ( ruleNL )
-            // InternalDSL.g:7848:1: ruleNL
+            // InternalDSL.g:7878:1: ( ruleNL )
+            // InternalDSL.g:7879:1: ruleNL
             {
              before(grammarAccess.getVariableAssignmentAccess().getNLParserRuleCall_7()); 
             pushFollow(FOLLOW_2);
@@ -21592,14 +21689,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__0"
-    // InternalDSL.g:7875:1: rule__VariantValue__Group__0 : rule__VariantValue__Group__0__Impl rule__VariantValue__Group__1 ;
+    // InternalDSL.g:7906:1: rule__VariantValue__Group__0 : rule__VariantValue__Group__0__Impl rule__VariantValue__Group__1 ;
     public final void rule__VariantValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7879:1: ( rule__VariantValue__Group__0__Impl rule__VariantValue__Group__1 )
-            // InternalDSL.g:7880:2: rule__VariantValue__Group__0__Impl rule__VariantValue__Group__1
+            // InternalDSL.g:7910:1: ( rule__VariantValue__Group__0__Impl rule__VariantValue__Group__1 )
+            // InternalDSL.g:7911:2: rule__VariantValue__Group__0__Impl rule__VariantValue__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__VariantValue__Group__0__Impl();
@@ -21630,17 +21727,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__0__Impl"
-    // InternalDSL.g:7887:1: rule__VariantValue__Group__0__Impl : ( 'in' ) ;
+    // InternalDSL.g:7918:1: rule__VariantValue__Group__0__Impl : ( 'in' ) ;
     public final void rule__VariantValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7891:1: ( ( 'in' ) )
-            // InternalDSL.g:7892:1: ( 'in' )
+            // InternalDSL.g:7922:1: ( ( 'in' ) )
+            // InternalDSL.g:7923:1: ( 'in' )
             {
-            // InternalDSL.g:7892:1: ( 'in' )
-            // InternalDSL.g:7893:1: 'in'
+            // InternalDSL.g:7923:1: ( 'in' )
+            // InternalDSL.g:7924:1: 'in'
             {
              before(grammarAccess.getVariantValueAccess().getInKeyword_0()); 
             match(input,57,FOLLOW_2); 
@@ -21667,14 +21764,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__1"
-    // InternalDSL.g:7906:1: rule__VariantValue__Group__1 : rule__VariantValue__Group__1__Impl rule__VariantValue__Group__2 ;
+    // InternalDSL.g:7937:1: rule__VariantValue__Group__1 : rule__VariantValue__Group__1__Impl rule__VariantValue__Group__2 ;
     public final void rule__VariantValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7910:1: ( rule__VariantValue__Group__1__Impl rule__VariantValue__Group__2 )
-            // InternalDSL.g:7911:2: rule__VariantValue__Group__1__Impl rule__VariantValue__Group__2
+            // InternalDSL.g:7941:1: ( rule__VariantValue__Group__1__Impl rule__VariantValue__Group__2 )
+            // InternalDSL.g:7942:2: rule__VariantValue__Group__1__Impl rule__VariantValue__Group__2
             {
             pushFollow(FOLLOW_7);
             rule__VariantValue__Group__1__Impl();
@@ -21705,17 +21802,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__1__Impl"
-    // InternalDSL.g:7918:1: rule__VariantValue__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:7949:1: rule__VariantValue__Group__1__Impl : ( ruleNL ) ;
     public final void rule__VariantValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7922:1: ( ( ruleNL ) )
-            // InternalDSL.g:7923:1: ( ruleNL )
+            // InternalDSL.g:7953:1: ( ( ruleNL ) )
+            // InternalDSL.g:7954:1: ( ruleNL )
             {
-            // InternalDSL.g:7923:1: ( ruleNL )
-            // InternalDSL.g:7924:1: ruleNL
+            // InternalDSL.g:7954:1: ( ruleNL )
+            // InternalDSL.g:7955:1: ruleNL
             {
              before(grammarAccess.getVariantValueAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -21746,14 +21843,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__2"
-    // InternalDSL.g:7935:1: rule__VariantValue__Group__2 : rule__VariantValue__Group__2__Impl rule__VariantValue__Group__3 ;
+    // InternalDSL.g:7966:1: rule__VariantValue__Group__2 : rule__VariantValue__Group__2__Impl rule__VariantValue__Group__3 ;
     public final void rule__VariantValue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7939:1: ( rule__VariantValue__Group__2__Impl rule__VariantValue__Group__3 )
-            // InternalDSL.g:7940:2: rule__VariantValue__Group__2__Impl rule__VariantValue__Group__3
+            // InternalDSL.g:7970:1: ( rule__VariantValue__Group__2__Impl rule__VariantValue__Group__3 )
+            // InternalDSL.g:7971:2: rule__VariantValue__Group__2__Impl rule__VariantValue__Group__3
             {
             pushFollow(FOLLOW_14);
             rule__VariantValue__Group__2__Impl();
@@ -21784,24 +21881,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__2__Impl"
-    // InternalDSL.g:7947:1: rule__VariantValue__Group__2__Impl : ( ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* ) ) ;
+    // InternalDSL.g:7978:1: rule__VariantValue__Group__2__Impl : ( ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* ) ) ;
     public final void rule__VariantValue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7951:1: ( ( ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* ) ) )
-            // InternalDSL.g:7952:1: ( ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* ) )
+            // InternalDSL.g:7982:1: ( ( ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* ) ) )
+            // InternalDSL.g:7983:1: ( ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* ) )
             {
-            // InternalDSL.g:7952:1: ( ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* ) )
-            // InternalDSL.g:7953:1: ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* )
+            // InternalDSL.g:7983:1: ( ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* ) )
+            // InternalDSL.g:7984:1: ( ( rule__VariantValue__Group_2__0 ) ) ( ( rule__VariantValue__Group_2__0 )* )
             {
-            // InternalDSL.g:7953:1: ( ( rule__VariantValue__Group_2__0 ) )
-            // InternalDSL.g:7954:1: ( rule__VariantValue__Group_2__0 )
+            // InternalDSL.g:7984:1: ( ( rule__VariantValue__Group_2__0 ) )
+            // InternalDSL.g:7985:1: ( rule__VariantValue__Group_2__0 )
             {
              before(grammarAccess.getVariantValueAccess().getGroup_2()); 
-            // InternalDSL.g:7955:1: ( rule__VariantValue__Group_2__0 )
-            // InternalDSL.g:7955:2: rule__VariantValue__Group_2__0
+            // InternalDSL.g:7986:1: ( rule__VariantValue__Group_2__0 )
+            // InternalDSL.g:7986:2: rule__VariantValue__Group_2__0
             {
             pushFollow(FOLLOW_13);
             rule__VariantValue__Group_2__0();
@@ -21815,24 +21912,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalDSL.g:7958:1: ( ( rule__VariantValue__Group_2__0 )* )
-            // InternalDSL.g:7959:1: ( rule__VariantValue__Group_2__0 )*
+            // InternalDSL.g:7989:1: ( ( rule__VariantValue__Group_2__0 )* )
+            // InternalDSL.g:7990:1: ( rule__VariantValue__Group_2__0 )*
             {
              before(grammarAccess.getVariantValueAccess().getGroup_2()); 
-            // InternalDSL.g:7960:1: ( rule__VariantValue__Group_2__0 )*
-            loop47:
+            // InternalDSL.g:7991:1: ( rule__VariantValue__Group_2__0 )*
+            loop48:
             do {
-                int alt47=2;
-                int LA47_0 = input.LA(1);
+                int alt48=2;
+                int LA48_0 = input.LA(1);
 
-                if ( (LA47_0==RULE_ID) ) {
-                    alt47=1;
+                if ( (LA48_0==RULE_ID) ) {
+                    alt48=1;
                 }
 
 
-                switch (alt47) {
+                switch (alt48) {
             	case 1 :
-            	    // InternalDSL.g:7960:2: rule__VariantValue__Group_2__0
+            	    // InternalDSL.g:7991:2: rule__VariantValue__Group_2__0
             	    {
             	    pushFollow(FOLLOW_13);
             	    rule__VariantValue__Group_2__0();
@@ -21844,7 +21941,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop47;
+            	    break loop48;
                 }
             } while (true);
 
@@ -21874,14 +21971,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__3"
-    // InternalDSL.g:7971:1: rule__VariantValue__Group__3 : rule__VariantValue__Group__3__Impl rule__VariantValue__Group__4 ;
+    // InternalDSL.g:8002:1: rule__VariantValue__Group__3 : rule__VariantValue__Group__3__Impl rule__VariantValue__Group__4 ;
     public final void rule__VariantValue__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7975:1: ( rule__VariantValue__Group__3__Impl rule__VariantValue__Group__4 )
-            // InternalDSL.g:7976:2: rule__VariantValue__Group__3__Impl rule__VariantValue__Group__4
+            // InternalDSL.g:8006:1: ( rule__VariantValue__Group__3__Impl rule__VariantValue__Group__4 )
+            // InternalDSL.g:8007:2: rule__VariantValue__Group__3__Impl rule__VariantValue__Group__4
             {
             pushFollow(FOLLOW_4);
             rule__VariantValue__Group__3__Impl();
@@ -21912,17 +22009,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__3__Impl"
-    // InternalDSL.g:7983:1: rule__VariantValue__Group__3__Impl : ( ':' ) ;
+    // InternalDSL.g:8014:1: rule__VariantValue__Group__3__Impl : ( ':' ) ;
     public final void rule__VariantValue__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:7987:1: ( ( ':' ) )
-            // InternalDSL.g:7988:1: ( ':' )
+            // InternalDSL.g:8018:1: ( ( ':' ) )
+            // InternalDSL.g:8019:1: ( ':' )
             {
-            // InternalDSL.g:7988:1: ( ':' )
-            // InternalDSL.g:7989:1: ':'
+            // InternalDSL.g:8019:1: ( ':' )
+            // InternalDSL.g:8020:1: ':'
             {
              before(grammarAccess.getVariantValueAccess().getColonKeyword_3()); 
             match(input,40,FOLLOW_2); 
@@ -21949,14 +22046,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__4"
-    // InternalDSL.g:8002:1: rule__VariantValue__Group__4 : rule__VariantValue__Group__4__Impl rule__VariantValue__Group__5 ;
+    // InternalDSL.g:8033:1: rule__VariantValue__Group__4 : rule__VariantValue__Group__4__Impl rule__VariantValue__Group__5 ;
     public final void rule__VariantValue__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8006:1: ( rule__VariantValue__Group__4__Impl rule__VariantValue__Group__5 )
-            // InternalDSL.g:8007:2: rule__VariantValue__Group__4__Impl rule__VariantValue__Group__5
+            // InternalDSL.g:8037:1: ( rule__VariantValue__Group__4__Impl rule__VariantValue__Group__5 )
+            // InternalDSL.g:8038:2: rule__VariantValue__Group__4__Impl rule__VariantValue__Group__5
             {
             pushFollow(FOLLOW_15);
             rule__VariantValue__Group__4__Impl();
@@ -21987,17 +22084,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__4__Impl"
-    // InternalDSL.g:8014:1: rule__VariantValue__Group__4__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8045:1: rule__VariantValue__Group__4__Impl : ( ruleNL ) ;
     public final void rule__VariantValue__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8018:1: ( ( ruleNL ) )
-            // InternalDSL.g:8019:1: ( ruleNL )
+            // InternalDSL.g:8049:1: ( ( ruleNL ) )
+            // InternalDSL.g:8050:1: ( ruleNL )
             {
-            // InternalDSL.g:8019:1: ( ruleNL )
-            // InternalDSL.g:8020:1: ruleNL
+            // InternalDSL.g:8050:1: ( ruleNL )
+            // InternalDSL.g:8051:1: ruleNL
             {
              before(grammarAccess.getVariantValueAccess().getNLParserRuleCall_4()); 
             pushFollow(FOLLOW_2);
@@ -22028,14 +22125,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__5"
-    // InternalDSL.g:8031:1: rule__VariantValue__Group__5 : rule__VariantValue__Group__5__Impl ;
+    // InternalDSL.g:8062:1: rule__VariantValue__Group__5 : rule__VariantValue__Group__5__Impl ;
     public final void rule__VariantValue__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8035:1: ( rule__VariantValue__Group__5__Impl )
-            // InternalDSL.g:8036:2: rule__VariantValue__Group__5__Impl
+            // InternalDSL.g:8066:1: ( rule__VariantValue__Group__5__Impl )
+            // InternalDSL.g:8067:2: rule__VariantValue__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__VariantValue__Group__5__Impl();
@@ -22061,21 +22158,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group__5__Impl"
-    // InternalDSL.g:8042:1: rule__VariantValue__Group__5__Impl : ( ( rule__VariantValue__ValueAssignment_5 ) ) ;
+    // InternalDSL.g:8073:1: rule__VariantValue__Group__5__Impl : ( ( rule__VariantValue__ValueAssignment_5 ) ) ;
     public final void rule__VariantValue__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8046:1: ( ( ( rule__VariantValue__ValueAssignment_5 ) ) )
-            // InternalDSL.g:8047:1: ( ( rule__VariantValue__ValueAssignment_5 ) )
+            // InternalDSL.g:8077:1: ( ( ( rule__VariantValue__ValueAssignment_5 ) ) )
+            // InternalDSL.g:8078:1: ( ( rule__VariantValue__ValueAssignment_5 ) )
             {
-            // InternalDSL.g:8047:1: ( ( rule__VariantValue__ValueAssignment_5 ) )
-            // InternalDSL.g:8048:1: ( rule__VariantValue__ValueAssignment_5 )
+            // InternalDSL.g:8078:1: ( ( rule__VariantValue__ValueAssignment_5 ) )
+            // InternalDSL.g:8079:1: ( rule__VariantValue__ValueAssignment_5 )
             {
              before(grammarAccess.getVariantValueAccess().getValueAssignment_5()); 
-            // InternalDSL.g:8049:1: ( rule__VariantValue__ValueAssignment_5 )
-            // InternalDSL.g:8049:2: rule__VariantValue__ValueAssignment_5
+            // InternalDSL.g:8080:1: ( rule__VariantValue__ValueAssignment_5 )
+            // InternalDSL.g:8080:2: rule__VariantValue__ValueAssignment_5
             {
             pushFollow(FOLLOW_2);
             rule__VariantValue__ValueAssignment_5();
@@ -22108,14 +22205,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group_2__0"
-    // InternalDSL.g:8071:1: rule__VariantValue__Group_2__0 : rule__VariantValue__Group_2__0__Impl rule__VariantValue__Group_2__1 ;
+    // InternalDSL.g:8102:1: rule__VariantValue__Group_2__0 : rule__VariantValue__Group_2__0__Impl rule__VariantValue__Group_2__1 ;
     public final void rule__VariantValue__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8075:1: ( rule__VariantValue__Group_2__0__Impl rule__VariantValue__Group_2__1 )
-            // InternalDSL.g:8076:2: rule__VariantValue__Group_2__0__Impl rule__VariantValue__Group_2__1
+            // InternalDSL.g:8106:1: ( rule__VariantValue__Group_2__0__Impl rule__VariantValue__Group_2__1 )
+            // InternalDSL.g:8107:2: rule__VariantValue__Group_2__0__Impl rule__VariantValue__Group_2__1
             {
             pushFollow(FOLLOW_4);
             rule__VariantValue__Group_2__0__Impl();
@@ -22146,21 +22243,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group_2__0__Impl"
-    // InternalDSL.g:8083:1: rule__VariantValue__Group_2__0__Impl : ( ( rule__VariantValue__NamesAssignment_2_0 ) ) ;
+    // InternalDSL.g:8114:1: rule__VariantValue__Group_2__0__Impl : ( ( rule__VariantValue__NamesAssignment_2_0 ) ) ;
     public final void rule__VariantValue__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8087:1: ( ( ( rule__VariantValue__NamesAssignment_2_0 ) ) )
-            // InternalDSL.g:8088:1: ( ( rule__VariantValue__NamesAssignment_2_0 ) )
+            // InternalDSL.g:8118:1: ( ( ( rule__VariantValue__NamesAssignment_2_0 ) ) )
+            // InternalDSL.g:8119:1: ( ( rule__VariantValue__NamesAssignment_2_0 ) )
             {
-            // InternalDSL.g:8088:1: ( ( rule__VariantValue__NamesAssignment_2_0 ) )
-            // InternalDSL.g:8089:1: ( rule__VariantValue__NamesAssignment_2_0 )
+            // InternalDSL.g:8119:1: ( ( rule__VariantValue__NamesAssignment_2_0 ) )
+            // InternalDSL.g:8120:1: ( rule__VariantValue__NamesAssignment_2_0 )
             {
              before(grammarAccess.getVariantValueAccess().getNamesAssignment_2_0()); 
-            // InternalDSL.g:8090:1: ( rule__VariantValue__NamesAssignment_2_0 )
-            // InternalDSL.g:8090:2: rule__VariantValue__NamesAssignment_2_0
+            // InternalDSL.g:8121:1: ( rule__VariantValue__NamesAssignment_2_0 )
+            // InternalDSL.g:8121:2: rule__VariantValue__NamesAssignment_2_0
             {
             pushFollow(FOLLOW_2);
             rule__VariantValue__NamesAssignment_2_0();
@@ -22193,14 +22290,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group_2__1"
-    // InternalDSL.g:8100:1: rule__VariantValue__Group_2__1 : rule__VariantValue__Group_2__1__Impl ;
+    // InternalDSL.g:8131:1: rule__VariantValue__Group_2__1 : rule__VariantValue__Group_2__1__Impl ;
     public final void rule__VariantValue__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8104:1: ( rule__VariantValue__Group_2__1__Impl )
-            // InternalDSL.g:8105:2: rule__VariantValue__Group_2__1__Impl
+            // InternalDSL.g:8135:1: ( rule__VariantValue__Group_2__1__Impl )
+            // InternalDSL.g:8136:2: rule__VariantValue__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__VariantValue__Group_2__1__Impl();
@@ -22226,17 +22323,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__Group_2__1__Impl"
-    // InternalDSL.g:8111:1: rule__VariantValue__Group_2__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8142:1: rule__VariantValue__Group_2__1__Impl : ( ruleNL ) ;
     public final void rule__VariantValue__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8115:1: ( ( ruleNL ) )
-            // InternalDSL.g:8116:1: ( ruleNL )
+            // InternalDSL.g:8146:1: ( ( ruleNL ) )
+            // InternalDSL.g:8147:1: ( ruleNL )
             {
-            // InternalDSL.g:8116:1: ( ruleNL )
-            // InternalDSL.g:8117:1: ruleNL
+            // InternalDSL.g:8147:1: ( ruleNL )
+            // InternalDSL.g:8148:1: ruleNL
             {
              before(grammarAccess.getVariantValueAccess().getNLParserRuleCall_2_1()); 
             pushFollow(FOLLOW_2);
@@ -22267,14 +22364,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__0"
-    // InternalDSL.g:8132:1: rule__Test__Group__0 : rule__Test__Group__0__Impl rule__Test__Group__1 ;
+    // InternalDSL.g:8163:1: rule__Test__Group__0 : rule__Test__Group__0__Impl rule__Test__Group__1 ;
     public final void rule__Test__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8136:1: ( rule__Test__Group__0__Impl rule__Test__Group__1 )
-            // InternalDSL.g:8137:2: rule__Test__Group__0__Impl rule__Test__Group__1
+            // InternalDSL.g:8167:1: ( rule__Test__Group__0__Impl rule__Test__Group__1 )
+            // InternalDSL.g:8168:2: rule__Test__Group__0__Impl rule__Test__Group__1
             {
             pushFollow(FOLLOW_30);
             rule__Test__Group__0__Impl();
@@ -22305,29 +22402,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__0__Impl"
-    // InternalDSL.g:8144:1: rule__Test__Group__0__Impl : ( ( rule__Test__CheckpointAssignment_0 )? ) ;
+    // InternalDSL.g:8175:1: rule__Test__Group__0__Impl : ( ( rule__Test__CheckpointAssignment_0 )? ) ;
     public final void rule__Test__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8148:1: ( ( ( rule__Test__CheckpointAssignment_0 )? ) )
-            // InternalDSL.g:8149:1: ( ( rule__Test__CheckpointAssignment_0 )? )
+            // InternalDSL.g:8179:1: ( ( ( rule__Test__CheckpointAssignment_0 )? ) )
+            // InternalDSL.g:8180:1: ( ( rule__Test__CheckpointAssignment_0 )? )
             {
-            // InternalDSL.g:8149:1: ( ( rule__Test__CheckpointAssignment_0 )? )
-            // InternalDSL.g:8150:1: ( rule__Test__CheckpointAssignment_0 )?
+            // InternalDSL.g:8180:1: ( ( rule__Test__CheckpointAssignment_0 )? )
+            // InternalDSL.g:8181:1: ( rule__Test__CheckpointAssignment_0 )?
             {
              before(grammarAccess.getTestAccess().getCheckpointAssignment_0()); 
-            // InternalDSL.g:8151:1: ( rule__Test__CheckpointAssignment_0 )?
-            int alt48=2;
-            int LA48_0 = input.LA(1);
+            // InternalDSL.g:8182:1: ( rule__Test__CheckpointAssignment_0 )?
+            int alt49=2;
+            int LA49_0 = input.LA(1);
 
-            if ( (LA48_0==80) ) {
-                alt48=1;
+            if ( (LA49_0==81) ) {
+                alt49=1;
             }
-            switch (alt48) {
+            switch (alt49) {
                 case 1 :
-                    // InternalDSL.g:8151:2: rule__Test__CheckpointAssignment_0
+                    // InternalDSL.g:8182:2: rule__Test__CheckpointAssignment_0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Test__CheckpointAssignment_0();
@@ -22363,14 +22460,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__1"
-    // InternalDSL.g:8161:1: rule__Test__Group__1 : rule__Test__Group__1__Impl rule__Test__Group__2 ;
+    // InternalDSL.g:8192:1: rule__Test__Group__1 : rule__Test__Group__1__Impl rule__Test__Group__2 ;
     public final void rule__Test__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8165:1: ( rule__Test__Group__1__Impl rule__Test__Group__2 )
-            // InternalDSL.g:8166:2: rule__Test__Group__1__Impl rule__Test__Group__2
+            // InternalDSL.g:8196:1: ( rule__Test__Group__1__Impl rule__Test__Group__2 )
+            // InternalDSL.g:8197:2: rule__Test__Group__1__Impl rule__Test__Group__2
             {
             pushFollow(FOLLOW_4);
             rule__Test__Group__1__Impl();
@@ -22401,17 +22498,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__1__Impl"
-    // InternalDSL.g:8173:1: rule__Test__Group__1__Impl : ( 'test' ) ;
+    // InternalDSL.g:8204:1: rule__Test__Group__1__Impl : ( 'test' ) ;
     public final void rule__Test__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8177:1: ( ( 'test' ) )
-            // InternalDSL.g:8178:1: ( 'test' )
+            // InternalDSL.g:8208:1: ( ( 'test' ) )
+            // InternalDSL.g:8209:1: ( 'test' )
             {
-            // InternalDSL.g:8178:1: ( 'test' )
-            // InternalDSL.g:8179:1: 'test'
+            // InternalDSL.g:8209:1: ( 'test' )
+            // InternalDSL.g:8210:1: 'test'
             {
              before(grammarAccess.getTestAccess().getTestKeyword_1()); 
             match(input,58,FOLLOW_2); 
@@ -22438,14 +22535,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__2"
-    // InternalDSL.g:8192:1: rule__Test__Group__2 : rule__Test__Group__2__Impl rule__Test__Group__3 ;
+    // InternalDSL.g:8223:1: rule__Test__Group__2 : rule__Test__Group__2__Impl rule__Test__Group__3 ;
     public final void rule__Test__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8196:1: ( rule__Test__Group__2__Impl rule__Test__Group__3 )
-            // InternalDSL.g:8197:2: rule__Test__Group__2__Impl rule__Test__Group__3
+            // InternalDSL.g:8227:1: ( rule__Test__Group__2__Impl rule__Test__Group__3 )
+            // InternalDSL.g:8228:2: rule__Test__Group__2__Impl rule__Test__Group__3
             {
             pushFollow(FOLLOW_7);
             rule__Test__Group__2__Impl();
@@ -22476,17 +22573,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__2__Impl"
-    // InternalDSL.g:8204:1: rule__Test__Group__2__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8235:1: rule__Test__Group__2__Impl : ( ruleNL ) ;
     public final void rule__Test__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8208:1: ( ( ruleNL ) )
-            // InternalDSL.g:8209:1: ( ruleNL )
+            // InternalDSL.g:8239:1: ( ( ruleNL ) )
+            // InternalDSL.g:8240:1: ( ruleNL )
             {
-            // InternalDSL.g:8209:1: ( ruleNL )
-            // InternalDSL.g:8210:1: ruleNL
+            // InternalDSL.g:8240:1: ( ruleNL )
+            // InternalDSL.g:8241:1: ruleNL
             {
              before(grammarAccess.getTestAccess().getNLParserRuleCall_2()); 
             pushFollow(FOLLOW_2);
@@ -22517,14 +22614,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__3"
-    // InternalDSL.g:8221:1: rule__Test__Group__3 : rule__Test__Group__3__Impl rule__Test__Group__4 ;
+    // InternalDSL.g:8252:1: rule__Test__Group__3 : rule__Test__Group__3__Impl rule__Test__Group__4 ;
     public final void rule__Test__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8225:1: ( rule__Test__Group__3__Impl rule__Test__Group__4 )
-            // InternalDSL.g:8226:2: rule__Test__Group__3__Impl rule__Test__Group__4
+            // InternalDSL.g:8256:1: ( rule__Test__Group__3__Impl rule__Test__Group__4 )
+            // InternalDSL.g:8257:2: rule__Test__Group__3__Impl rule__Test__Group__4
             {
             pushFollow(FOLLOW_4);
             rule__Test__Group__3__Impl();
@@ -22555,21 +22652,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__3__Impl"
-    // InternalDSL.g:8233:1: rule__Test__Group__3__Impl : ( ( rule__Test__DefinitionAssignment_3 ) ) ;
+    // InternalDSL.g:8264:1: rule__Test__Group__3__Impl : ( ( rule__Test__DefinitionAssignment_3 ) ) ;
     public final void rule__Test__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8237:1: ( ( ( rule__Test__DefinitionAssignment_3 ) ) )
-            // InternalDSL.g:8238:1: ( ( rule__Test__DefinitionAssignment_3 ) )
+            // InternalDSL.g:8268:1: ( ( ( rule__Test__DefinitionAssignment_3 ) ) )
+            // InternalDSL.g:8269:1: ( ( rule__Test__DefinitionAssignment_3 ) )
             {
-            // InternalDSL.g:8238:1: ( ( rule__Test__DefinitionAssignment_3 ) )
-            // InternalDSL.g:8239:1: ( rule__Test__DefinitionAssignment_3 )
+            // InternalDSL.g:8269:1: ( ( rule__Test__DefinitionAssignment_3 ) )
+            // InternalDSL.g:8270:1: ( rule__Test__DefinitionAssignment_3 )
             {
              before(grammarAccess.getTestAccess().getDefinitionAssignment_3()); 
-            // InternalDSL.g:8240:1: ( rule__Test__DefinitionAssignment_3 )
-            // InternalDSL.g:8240:2: rule__Test__DefinitionAssignment_3
+            // InternalDSL.g:8271:1: ( rule__Test__DefinitionAssignment_3 )
+            // InternalDSL.g:8271:2: rule__Test__DefinitionAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__Test__DefinitionAssignment_3();
@@ -22602,14 +22699,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__4"
-    // InternalDSL.g:8250:1: rule__Test__Group__4 : rule__Test__Group__4__Impl rule__Test__Group__5 ;
+    // InternalDSL.g:8281:1: rule__Test__Group__4 : rule__Test__Group__4__Impl rule__Test__Group__5 ;
     public final void rule__Test__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8254:1: ( rule__Test__Group__4__Impl rule__Test__Group__5 )
-            // InternalDSL.g:8255:2: rule__Test__Group__4__Impl rule__Test__Group__5
+            // InternalDSL.g:8285:1: ( rule__Test__Group__4__Impl rule__Test__Group__5 )
+            // InternalDSL.g:8286:2: rule__Test__Group__4__Impl rule__Test__Group__5
             {
             pushFollow(FOLLOW_4);
             rule__Test__Group__4__Impl();
@@ -22640,27 +22737,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__4__Impl"
-    // InternalDSL.g:8262:1: rule__Test__Group__4__Impl : ( ( rule__Test__Group_4__0 )* ) ;
+    // InternalDSL.g:8293:1: rule__Test__Group__4__Impl : ( ( rule__Test__Group_4__0 )* ) ;
     public final void rule__Test__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8266:1: ( ( ( rule__Test__Group_4__0 )* ) )
-            // InternalDSL.g:8267:1: ( ( rule__Test__Group_4__0 )* )
+            // InternalDSL.g:8297:1: ( ( ( rule__Test__Group_4__0 )* ) )
+            // InternalDSL.g:8298:1: ( ( rule__Test__Group_4__0 )* )
             {
-            // InternalDSL.g:8267:1: ( ( rule__Test__Group_4__0 )* )
-            // InternalDSL.g:8268:1: ( rule__Test__Group_4__0 )*
+            // InternalDSL.g:8298:1: ( ( rule__Test__Group_4__0 )* )
+            // InternalDSL.g:8299:1: ( rule__Test__Group_4__0 )*
             {
              before(grammarAccess.getTestAccess().getGroup_4()); 
-            // InternalDSL.g:8269:1: ( rule__Test__Group_4__0 )*
-            loop49:
+            // InternalDSL.g:8300:1: ( rule__Test__Group_4__0 )*
+            loop50:
             do {
-                int alt49=2;
-                alt49 = dfa49.predict(input);
-                switch (alt49) {
+                int alt50=2;
+                alt50 = dfa50.predict(input);
+                switch (alt50) {
             	case 1 :
-            	    // InternalDSL.g:8269:2: rule__Test__Group_4__0
+            	    // InternalDSL.g:8300:2: rule__Test__Group_4__0
             	    {
             	    pushFollow(FOLLOW_3);
             	    rule__Test__Group_4__0();
@@ -22672,7 +22769,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop49;
+            	    break loop50;
                 }
             } while (true);
 
@@ -22699,14 +22796,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__5"
-    // InternalDSL.g:8279:1: rule__Test__Group__5 : rule__Test__Group__5__Impl rule__Test__Group__6 ;
+    // InternalDSL.g:8310:1: rule__Test__Group__5 : rule__Test__Group__5__Impl rule__Test__Group__6 ;
     public final void rule__Test__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8283:1: ( rule__Test__Group__5__Impl rule__Test__Group__6 )
-            // InternalDSL.g:8284:2: rule__Test__Group__5__Impl rule__Test__Group__6
+            // InternalDSL.g:8314:1: ( rule__Test__Group__5__Impl rule__Test__Group__6 )
+            // InternalDSL.g:8315:2: rule__Test__Group__5__Impl rule__Test__Group__6
             {
             pushFollow(FOLLOW_4);
             rule__Test__Group__5__Impl();
@@ -22737,27 +22834,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__5__Impl"
-    // InternalDSL.g:8291:1: rule__Test__Group__5__Impl : ( ( rule__Test__Group_5__0 )* ) ;
+    // InternalDSL.g:8322:1: rule__Test__Group__5__Impl : ( ( rule__Test__Group_5__0 )* ) ;
     public final void rule__Test__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8295:1: ( ( ( rule__Test__Group_5__0 )* ) )
-            // InternalDSL.g:8296:1: ( ( rule__Test__Group_5__0 )* )
+            // InternalDSL.g:8326:1: ( ( ( rule__Test__Group_5__0 )* ) )
+            // InternalDSL.g:8327:1: ( ( rule__Test__Group_5__0 )* )
             {
-            // InternalDSL.g:8296:1: ( ( rule__Test__Group_5__0 )* )
-            // InternalDSL.g:8297:1: ( rule__Test__Group_5__0 )*
+            // InternalDSL.g:8327:1: ( ( rule__Test__Group_5__0 )* )
+            // InternalDSL.g:8328:1: ( rule__Test__Group_5__0 )*
             {
              before(grammarAccess.getTestAccess().getGroup_5()); 
-            // InternalDSL.g:8298:1: ( rule__Test__Group_5__0 )*
-            loop50:
+            // InternalDSL.g:8329:1: ( rule__Test__Group_5__0 )*
+            loop51:
             do {
-                int alt50=2;
-                alt50 = dfa50.predict(input);
-                switch (alt50) {
+                int alt51=2;
+                alt51 = dfa51.predict(input);
+                switch (alt51) {
             	case 1 :
-            	    // InternalDSL.g:8298:2: rule__Test__Group_5__0
+            	    // InternalDSL.g:8329:2: rule__Test__Group_5__0
             	    {
             	    pushFollow(FOLLOW_3);
             	    rule__Test__Group_5__0();
@@ -22769,7 +22866,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop50;
+            	    break loop51;
                 }
             } while (true);
 
@@ -22796,14 +22893,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__6"
-    // InternalDSL.g:8308:1: rule__Test__Group__6 : rule__Test__Group__6__Impl rule__Test__Group__7 ;
+    // InternalDSL.g:8339:1: rule__Test__Group__6 : rule__Test__Group__6__Impl rule__Test__Group__7 ;
     public final void rule__Test__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8312:1: ( rule__Test__Group__6__Impl rule__Test__Group__7 )
-            // InternalDSL.g:8313:2: rule__Test__Group__6__Impl rule__Test__Group__7
+            // InternalDSL.g:8343:1: ( rule__Test__Group__6__Impl rule__Test__Group__7 )
+            // InternalDSL.g:8344:2: rule__Test__Group__6__Impl rule__Test__Group__7
             {
             pushFollow(FOLLOW_4);
             rule__Test__Group__6__Impl();
@@ -22834,25 +22931,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__6__Impl"
-    // InternalDSL.g:8320:1: rule__Test__Group__6__Impl : ( ( rule__Test__Group_6__0 )? ) ;
+    // InternalDSL.g:8351:1: rule__Test__Group__6__Impl : ( ( rule__Test__Group_6__0 )? ) ;
     public final void rule__Test__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8324:1: ( ( ( rule__Test__Group_6__0 )? ) )
-            // InternalDSL.g:8325:1: ( ( rule__Test__Group_6__0 )? )
+            // InternalDSL.g:8355:1: ( ( ( rule__Test__Group_6__0 )? ) )
+            // InternalDSL.g:8356:1: ( ( rule__Test__Group_6__0 )? )
             {
-            // InternalDSL.g:8325:1: ( ( rule__Test__Group_6__0 )? )
-            // InternalDSL.g:8326:1: ( rule__Test__Group_6__0 )?
+            // InternalDSL.g:8356:1: ( ( rule__Test__Group_6__0 )? )
+            // InternalDSL.g:8357:1: ( rule__Test__Group_6__0 )?
             {
              before(grammarAccess.getTestAccess().getGroup_6()); 
-            // InternalDSL.g:8327:1: ( rule__Test__Group_6__0 )?
-            int alt51=2;
-            alt51 = dfa51.predict(input);
-            switch (alt51) {
+            // InternalDSL.g:8358:1: ( rule__Test__Group_6__0 )?
+            int alt52=2;
+            alt52 = dfa52.predict(input);
+            switch (alt52) {
                 case 1 :
-                    // InternalDSL.g:8327:2: rule__Test__Group_6__0
+                    // InternalDSL.g:8358:2: rule__Test__Group_6__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Test__Group_6__0();
@@ -22888,14 +22985,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__7"
-    // InternalDSL.g:8337:1: rule__Test__Group__7 : rule__Test__Group__7__Impl ;
+    // InternalDSL.g:8368:1: rule__Test__Group__7 : rule__Test__Group__7__Impl ;
     public final void rule__Test__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8341:1: ( rule__Test__Group__7__Impl )
-            // InternalDSL.g:8342:2: rule__Test__Group__7__Impl
+            // InternalDSL.g:8372:1: ( rule__Test__Group__7__Impl )
+            // InternalDSL.g:8373:2: rule__Test__Group__7__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Test__Group__7__Impl();
@@ -22921,17 +23018,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group__7__Impl"
-    // InternalDSL.g:8348:1: rule__Test__Group__7__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8379:1: rule__Test__Group__7__Impl : ( ruleNL ) ;
     public final void rule__Test__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8352:1: ( ( ruleNL ) )
-            // InternalDSL.g:8353:1: ( ruleNL )
+            // InternalDSL.g:8383:1: ( ( ruleNL ) )
+            // InternalDSL.g:8384:1: ( ruleNL )
             {
-            // InternalDSL.g:8353:1: ( ruleNL )
-            // InternalDSL.g:8354:1: ruleNL
+            // InternalDSL.g:8384:1: ( ruleNL )
+            // InternalDSL.g:8385:1: ruleNL
             {
              before(grammarAccess.getTestAccess().getNLParserRuleCall_7()); 
             pushFollow(FOLLOW_2);
@@ -22962,14 +23059,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_4__0"
-    // InternalDSL.g:8381:1: rule__Test__Group_4__0 : rule__Test__Group_4__0__Impl rule__Test__Group_4__1 ;
+    // InternalDSL.g:8412:1: rule__Test__Group_4__0 : rule__Test__Group_4__0__Impl rule__Test__Group_4__1 ;
     public final void rule__Test__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8385:1: ( rule__Test__Group_4__0__Impl rule__Test__Group_4__1 )
-            // InternalDSL.g:8386:2: rule__Test__Group_4__0__Impl rule__Test__Group_4__1
+            // InternalDSL.g:8416:1: ( rule__Test__Group_4__0__Impl rule__Test__Group_4__1 )
+            // InternalDSL.g:8417:2: rule__Test__Group_4__0__Impl rule__Test__Group_4__1
             {
             pushFollow(FOLLOW_31);
             rule__Test__Group_4__0__Impl();
@@ -23000,17 +23097,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_4__0__Impl"
-    // InternalDSL.g:8393:1: rule__Test__Group_4__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8424:1: rule__Test__Group_4__0__Impl : ( ruleNL ) ;
     public final void rule__Test__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8397:1: ( ( ruleNL ) )
-            // InternalDSL.g:8398:1: ( ruleNL )
+            // InternalDSL.g:8428:1: ( ( ruleNL ) )
+            // InternalDSL.g:8429:1: ( ruleNL )
             {
-            // InternalDSL.g:8398:1: ( ruleNL )
-            // InternalDSL.g:8399:1: ruleNL
+            // InternalDSL.g:8429:1: ( ruleNL )
+            // InternalDSL.g:8430:1: ruleNL
             {
              before(grammarAccess.getTestAccess().getNLParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -23041,14 +23138,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_4__1"
-    // InternalDSL.g:8410:1: rule__Test__Group_4__1 : rule__Test__Group_4__1__Impl ;
+    // InternalDSL.g:8441:1: rule__Test__Group_4__1 : rule__Test__Group_4__1__Impl ;
     public final void rule__Test__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8414:1: ( rule__Test__Group_4__1__Impl )
-            // InternalDSL.g:8415:2: rule__Test__Group_4__1__Impl
+            // InternalDSL.g:8445:1: ( rule__Test__Group_4__1__Impl )
+            // InternalDSL.g:8446:2: rule__Test__Group_4__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Test__Group_4__1__Impl();
@@ -23074,21 +23171,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_4__1__Impl"
-    // InternalDSL.g:8421:1: rule__Test__Group_4__1__Impl : ( ( rule__Test__ParametersAssignment_4_1 ) ) ;
+    // InternalDSL.g:8452:1: rule__Test__Group_4__1__Impl : ( ( rule__Test__ParametersAssignment_4_1 ) ) ;
     public final void rule__Test__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8425:1: ( ( ( rule__Test__ParametersAssignment_4_1 ) ) )
-            // InternalDSL.g:8426:1: ( ( rule__Test__ParametersAssignment_4_1 ) )
+            // InternalDSL.g:8456:1: ( ( ( rule__Test__ParametersAssignment_4_1 ) ) )
+            // InternalDSL.g:8457:1: ( ( rule__Test__ParametersAssignment_4_1 ) )
             {
-            // InternalDSL.g:8426:1: ( ( rule__Test__ParametersAssignment_4_1 ) )
-            // InternalDSL.g:8427:1: ( rule__Test__ParametersAssignment_4_1 )
+            // InternalDSL.g:8457:1: ( ( rule__Test__ParametersAssignment_4_1 ) )
+            // InternalDSL.g:8458:1: ( rule__Test__ParametersAssignment_4_1 )
             {
              before(grammarAccess.getTestAccess().getParametersAssignment_4_1()); 
-            // InternalDSL.g:8428:1: ( rule__Test__ParametersAssignment_4_1 )
-            // InternalDSL.g:8428:2: rule__Test__ParametersAssignment_4_1
+            // InternalDSL.g:8459:1: ( rule__Test__ParametersAssignment_4_1 )
+            // InternalDSL.g:8459:2: rule__Test__ParametersAssignment_4_1
             {
             pushFollow(FOLLOW_2);
             rule__Test__ParametersAssignment_4_1();
@@ -23121,14 +23218,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_5__0"
-    // InternalDSL.g:8442:1: rule__Test__Group_5__0 : rule__Test__Group_5__0__Impl rule__Test__Group_5__1 ;
+    // InternalDSL.g:8473:1: rule__Test__Group_5__0 : rule__Test__Group_5__0__Impl rule__Test__Group_5__1 ;
     public final void rule__Test__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8446:1: ( rule__Test__Group_5__0__Impl rule__Test__Group_5__1 )
-            // InternalDSL.g:8447:2: rule__Test__Group_5__0__Impl rule__Test__Group_5__1
+            // InternalDSL.g:8477:1: ( rule__Test__Group_5__0__Impl rule__Test__Group_5__1 )
+            // InternalDSL.g:8478:2: rule__Test__Group_5__0__Impl rule__Test__Group_5__1
             {
             pushFollow(FOLLOW_31);
             rule__Test__Group_5__0__Impl();
@@ -23159,17 +23256,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_5__0__Impl"
-    // InternalDSL.g:8454:1: rule__Test__Group_5__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8485:1: rule__Test__Group_5__0__Impl : ( ruleNL ) ;
     public final void rule__Test__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8458:1: ( ( ruleNL ) )
-            // InternalDSL.g:8459:1: ( ruleNL )
+            // InternalDSL.g:8489:1: ( ( ruleNL ) )
+            // InternalDSL.g:8490:1: ( ruleNL )
             {
-            // InternalDSL.g:8459:1: ( ruleNL )
-            // InternalDSL.g:8460:1: ruleNL
+            // InternalDSL.g:8490:1: ( ruleNL )
+            // InternalDSL.g:8491:1: ruleNL
             {
              before(grammarAccess.getTestAccess().getNLParserRuleCall_5_0()); 
             pushFollow(FOLLOW_2);
@@ -23200,14 +23297,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_5__1"
-    // InternalDSL.g:8471:1: rule__Test__Group_5__1 : rule__Test__Group_5__1__Impl ;
+    // InternalDSL.g:8502:1: rule__Test__Group_5__1 : rule__Test__Group_5__1__Impl ;
     public final void rule__Test__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8475:1: ( rule__Test__Group_5__1__Impl )
-            // InternalDSL.g:8476:2: rule__Test__Group_5__1__Impl
+            // InternalDSL.g:8506:1: ( rule__Test__Group_5__1__Impl )
+            // InternalDSL.g:8507:2: rule__Test__Group_5__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Test__Group_5__1__Impl();
@@ -23233,21 +23330,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_5__1__Impl"
-    // InternalDSL.g:8482:1: rule__Test__Group_5__1__Impl : ( ( rule__Test__ResultsAssignment_5_1 ) ) ;
+    // InternalDSL.g:8513:1: rule__Test__Group_5__1__Impl : ( ( rule__Test__ResultsAssignment_5_1 ) ) ;
     public final void rule__Test__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8486:1: ( ( ( rule__Test__ResultsAssignment_5_1 ) ) )
-            // InternalDSL.g:8487:1: ( ( rule__Test__ResultsAssignment_5_1 ) )
+            // InternalDSL.g:8517:1: ( ( ( rule__Test__ResultsAssignment_5_1 ) ) )
+            // InternalDSL.g:8518:1: ( ( rule__Test__ResultsAssignment_5_1 ) )
             {
-            // InternalDSL.g:8487:1: ( ( rule__Test__ResultsAssignment_5_1 ) )
-            // InternalDSL.g:8488:1: ( rule__Test__ResultsAssignment_5_1 )
+            // InternalDSL.g:8518:1: ( ( rule__Test__ResultsAssignment_5_1 ) )
+            // InternalDSL.g:8519:1: ( rule__Test__ResultsAssignment_5_1 )
             {
              before(grammarAccess.getTestAccess().getResultsAssignment_5_1()); 
-            // InternalDSL.g:8489:1: ( rule__Test__ResultsAssignment_5_1 )
-            // InternalDSL.g:8489:2: rule__Test__ResultsAssignment_5_1
+            // InternalDSL.g:8520:1: ( rule__Test__ResultsAssignment_5_1 )
+            // InternalDSL.g:8520:2: rule__Test__ResultsAssignment_5_1
             {
             pushFollow(FOLLOW_2);
             rule__Test__ResultsAssignment_5_1();
@@ -23280,14 +23377,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_6__0"
-    // InternalDSL.g:8503:1: rule__Test__Group_6__0 : rule__Test__Group_6__0__Impl rule__Test__Group_6__1 ;
+    // InternalDSL.g:8534:1: rule__Test__Group_6__0 : rule__Test__Group_6__0__Impl rule__Test__Group_6__1 ;
     public final void rule__Test__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8507:1: ( rule__Test__Group_6__0__Impl rule__Test__Group_6__1 )
-            // InternalDSL.g:8508:2: rule__Test__Group_6__0__Impl rule__Test__Group_6__1
+            // InternalDSL.g:8538:1: ( rule__Test__Group_6__0__Impl rule__Test__Group_6__1 )
+            // InternalDSL.g:8539:2: rule__Test__Group_6__0__Impl rule__Test__Group_6__1
             {
             pushFollow(FOLLOW_32);
             rule__Test__Group_6__0__Impl();
@@ -23318,17 +23415,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_6__0__Impl"
-    // InternalDSL.g:8515:1: rule__Test__Group_6__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8546:1: rule__Test__Group_6__0__Impl : ( ruleNL ) ;
     public final void rule__Test__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8519:1: ( ( ruleNL ) )
-            // InternalDSL.g:8520:1: ( ruleNL )
+            // InternalDSL.g:8550:1: ( ( ruleNL ) )
+            // InternalDSL.g:8551:1: ( ruleNL )
             {
-            // InternalDSL.g:8520:1: ( ruleNL )
-            // InternalDSL.g:8521:1: ruleNL
+            // InternalDSL.g:8551:1: ( ruleNL )
+            // InternalDSL.g:8552:1: ruleNL
             {
              before(grammarAccess.getTestAccess().getNLParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
@@ -23359,14 +23456,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_6__1"
-    // InternalDSL.g:8532:1: rule__Test__Group_6__1 : rule__Test__Group_6__1__Impl rule__Test__Group_6__2 ;
+    // InternalDSL.g:8563:1: rule__Test__Group_6__1 : rule__Test__Group_6__1__Impl rule__Test__Group_6__2 ;
     public final void rule__Test__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8536:1: ( rule__Test__Group_6__1__Impl rule__Test__Group_6__2 )
-            // InternalDSL.g:8537:2: rule__Test__Group_6__1__Impl rule__Test__Group_6__2
+            // InternalDSL.g:8567:1: ( rule__Test__Group_6__1__Impl rule__Test__Group_6__2 )
+            // InternalDSL.g:8568:2: rule__Test__Group_6__1__Impl rule__Test__Group_6__2
             {
             pushFollow(FOLLOW_4);
             rule__Test__Group_6__1__Impl();
@@ -23397,17 +23494,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_6__1__Impl"
-    // InternalDSL.g:8544:1: rule__Test__Group_6__1__Impl : ( '=' ) ;
+    // InternalDSL.g:8575:1: rule__Test__Group_6__1__Impl : ( '=' ) ;
     public final void rule__Test__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8548:1: ( ( '=' ) )
-            // InternalDSL.g:8549:1: ( '=' )
+            // InternalDSL.g:8579:1: ( ( '=' ) )
+            // InternalDSL.g:8580:1: ( '=' )
             {
-            // InternalDSL.g:8549:1: ( '=' )
-            // InternalDSL.g:8550:1: '='
+            // InternalDSL.g:8580:1: ( '=' )
+            // InternalDSL.g:8581:1: '='
             {
              before(grammarAccess.getTestAccess().getEqualsSignKeyword_6_1()); 
             match(input,59,FOLLOW_2); 
@@ -23434,14 +23531,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_6__2"
-    // InternalDSL.g:8563:1: rule__Test__Group_6__2 : rule__Test__Group_6__2__Impl rule__Test__Group_6__3 ;
+    // InternalDSL.g:8594:1: rule__Test__Group_6__2 : rule__Test__Group_6__2__Impl rule__Test__Group_6__3 ;
     public final void rule__Test__Group_6__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8567:1: ( rule__Test__Group_6__2__Impl rule__Test__Group_6__3 )
-            // InternalDSL.g:8568:2: rule__Test__Group_6__2__Impl rule__Test__Group_6__3
+            // InternalDSL.g:8598:1: ( rule__Test__Group_6__2__Impl rule__Test__Group_6__3 )
+            // InternalDSL.g:8599:2: rule__Test__Group_6__2__Impl rule__Test__Group_6__3
             {
             pushFollow(FOLLOW_15);
             rule__Test__Group_6__2__Impl();
@@ -23472,17 +23569,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_6__2__Impl"
-    // InternalDSL.g:8575:1: rule__Test__Group_6__2__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8606:1: rule__Test__Group_6__2__Impl : ( ruleNL ) ;
     public final void rule__Test__Group_6__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8579:1: ( ( ruleNL ) )
-            // InternalDSL.g:8580:1: ( ruleNL )
+            // InternalDSL.g:8610:1: ( ( ruleNL ) )
+            // InternalDSL.g:8611:1: ( ruleNL )
             {
-            // InternalDSL.g:8580:1: ( ruleNL )
-            // InternalDSL.g:8581:1: ruleNL
+            // InternalDSL.g:8611:1: ( ruleNL )
+            // InternalDSL.g:8612:1: ruleNL
             {
              before(grammarAccess.getTestAccess().getNLParserRuleCall_6_2()); 
             pushFollow(FOLLOW_2);
@@ -23513,14 +23610,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_6__3"
-    // InternalDSL.g:8592:1: rule__Test__Group_6__3 : rule__Test__Group_6__3__Impl ;
+    // InternalDSL.g:8623:1: rule__Test__Group_6__3 : rule__Test__Group_6__3__Impl ;
     public final void rule__Test__Group_6__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8596:1: ( rule__Test__Group_6__3__Impl )
-            // InternalDSL.g:8597:2: rule__Test__Group_6__3__Impl
+            // InternalDSL.g:8627:1: ( rule__Test__Group_6__3__Impl )
+            // InternalDSL.g:8628:2: rule__Test__Group_6__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Test__Group_6__3__Impl();
@@ -23546,21 +23643,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__Group_6__3__Impl"
-    // InternalDSL.g:8603:1: rule__Test__Group_6__3__Impl : ( ( rule__Test__ResultAssignment_6_3 ) ) ;
+    // InternalDSL.g:8634:1: rule__Test__Group_6__3__Impl : ( ( rule__Test__ResultAssignment_6_3 ) ) ;
     public final void rule__Test__Group_6__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8607:1: ( ( ( rule__Test__ResultAssignment_6_3 ) ) )
-            // InternalDSL.g:8608:1: ( ( rule__Test__ResultAssignment_6_3 ) )
+            // InternalDSL.g:8638:1: ( ( ( rule__Test__ResultAssignment_6_3 ) ) )
+            // InternalDSL.g:8639:1: ( ( rule__Test__ResultAssignment_6_3 ) )
             {
-            // InternalDSL.g:8608:1: ( ( rule__Test__ResultAssignment_6_3 ) )
-            // InternalDSL.g:8609:1: ( rule__Test__ResultAssignment_6_3 )
+            // InternalDSL.g:8639:1: ( ( rule__Test__ResultAssignment_6_3 ) )
+            // InternalDSL.g:8640:1: ( rule__Test__ResultAssignment_6_3 )
             {
              before(grammarAccess.getTestAccess().getResultAssignment_6_3()); 
-            // InternalDSL.g:8610:1: ( rule__Test__ResultAssignment_6_3 )
-            // InternalDSL.g:8610:2: rule__Test__ResultAssignment_6_3
+            // InternalDSL.g:8641:1: ( rule__Test__ResultAssignment_6_3 )
+            // InternalDSL.g:8641:2: rule__Test__ResultAssignment_6_3
             {
             pushFollow(FOLLOW_2);
             rule__Test__ResultAssignment_6_3();
@@ -23593,14 +23690,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__0"
-    // InternalDSL.g:8628:1: rule__TableTest__Group__0 : rule__TableTest__Group__0__Impl rule__TableTest__Group__1 ;
+    // InternalDSL.g:8659:1: rule__TableTest__Group__0 : rule__TableTest__Group__0__Impl rule__TableTest__Group__1 ;
     public final void rule__TableTest__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8632:1: ( rule__TableTest__Group__0__Impl rule__TableTest__Group__1 )
-            // InternalDSL.g:8633:2: rule__TableTest__Group__0__Impl rule__TableTest__Group__1
+            // InternalDSL.g:8663:1: ( rule__TableTest__Group__0__Impl rule__TableTest__Group__1 )
+            // InternalDSL.g:8664:2: rule__TableTest__Group__0__Impl rule__TableTest__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__TableTest__Group__0__Impl();
@@ -23631,17 +23728,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__0__Impl"
-    // InternalDSL.g:8640:1: rule__TableTest__Group__0__Impl : ( 'tabletest' ) ;
+    // InternalDSL.g:8671:1: rule__TableTest__Group__0__Impl : ( 'tabletest' ) ;
     public final void rule__TableTest__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8644:1: ( ( 'tabletest' ) )
-            // InternalDSL.g:8645:1: ( 'tabletest' )
+            // InternalDSL.g:8675:1: ( ( 'tabletest' ) )
+            // InternalDSL.g:8676:1: ( 'tabletest' )
             {
-            // InternalDSL.g:8645:1: ( 'tabletest' )
-            // InternalDSL.g:8646:1: 'tabletest'
+            // InternalDSL.g:8676:1: ( 'tabletest' )
+            // InternalDSL.g:8677:1: 'tabletest'
             {
              before(grammarAccess.getTableTestAccess().getTabletestKeyword_0()); 
             match(input,60,FOLLOW_2); 
@@ -23668,14 +23765,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__1"
-    // InternalDSL.g:8659:1: rule__TableTest__Group__1 : rule__TableTest__Group__1__Impl rule__TableTest__Group__2 ;
+    // InternalDSL.g:8690:1: rule__TableTest__Group__1 : rule__TableTest__Group__1__Impl rule__TableTest__Group__2 ;
     public final void rule__TableTest__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8663:1: ( rule__TableTest__Group__1__Impl rule__TableTest__Group__2 )
-            // InternalDSL.g:8664:2: rule__TableTest__Group__1__Impl rule__TableTest__Group__2
+            // InternalDSL.g:8694:1: ( rule__TableTest__Group__1__Impl rule__TableTest__Group__2 )
+            // InternalDSL.g:8695:2: rule__TableTest__Group__1__Impl rule__TableTest__Group__2
             {
             pushFollow(FOLLOW_7);
             rule__TableTest__Group__1__Impl();
@@ -23706,17 +23803,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__1__Impl"
-    // InternalDSL.g:8671:1: rule__TableTest__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:8702:1: rule__TableTest__Group__1__Impl : ( ruleNL ) ;
     public final void rule__TableTest__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8675:1: ( ( ruleNL ) )
-            // InternalDSL.g:8676:1: ( ruleNL )
+            // InternalDSL.g:8706:1: ( ( ruleNL ) )
+            // InternalDSL.g:8707:1: ( ruleNL )
             {
-            // InternalDSL.g:8676:1: ( ruleNL )
-            // InternalDSL.g:8677:1: ruleNL
+            // InternalDSL.g:8707:1: ( ruleNL )
+            // InternalDSL.g:8708:1: ruleNL
             {
              before(grammarAccess.getTableTestAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -23747,14 +23844,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__2"
-    // InternalDSL.g:8688:1: rule__TableTest__Group__2 : rule__TableTest__Group__2__Impl rule__TableTest__Group__3 ;
+    // InternalDSL.g:8719:1: rule__TableTest__Group__2 : rule__TableTest__Group__2__Impl rule__TableTest__Group__3 ;
     public final void rule__TableTest__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8692:1: ( rule__TableTest__Group__2__Impl rule__TableTest__Group__3 )
-            // InternalDSL.g:8693:2: rule__TableTest__Group__2__Impl rule__TableTest__Group__3
+            // InternalDSL.g:8723:1: ( rule__TableTest__Group__2__Impl rule__TableTest__Group__3 )
+            // InternalDSL.g:8724:2: rule__TableTest__Group__2__Impl rule__TableTest__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__TableTest__Group__2__Impl();
@@ -23785,21 +23882,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__2__Impl"
-    // InternalDSL.g:8700:1: rule__TableTest__Group__2__Impl : ( ( rule__TableTest__DefinitionAssignment_2 ) ) ;
+    // InternalDSL.g:8731:1: rule__TableTest__Group__2__Impl : ( ( rule__TableTest__DefinitionAssignment_2 ) ) ;
     public final void rule__TableTest__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8704:1: ( ( ( rule__TableTest__DefinitionAssignment_2 ) ) )
-            // InternalDSL.g:8705:1: ( ( rule__TableTest__DefinitionAssignment_2 ) )
+            // InternalDSL.g:8735:1: ( ( ( rule__TableTest__DefinitionAssignment_2 ) ) )
+            // InternalDSL.g:8736:1: ( ( rule__TableTest__DefinitionAssignment_2 ) )
             {
-            // InternalDSL.g:8705:1: ( ( rule__TableTest__DefinitionAssignment_2 ) )
-            // InternalDSL.g:8706:1: ( rule__TableTest__DefinitionAssignment_2 )
+            // InternalDSL.g:8736:1: ( ( rule__TableTest__DefinitionAssignment_2 ) )
+            // InternalDSL.g:8737:1: ( rule__TableTest__DefinitionAssignment_2 )
             {
              before(grammarAccess.getTableTestAccess().getDefinitionAssignment_2()); 
-            // InternalDSL.g:8707:1: ( rule__TableTest__DefinitionAssignment_2 )
-            // InternalDSL.g:8707:2: rule__TableTest__DefinitionAssignment_2
+            // InternalDSL.g:8738:1: ( rule__TableTest__DefinitionAssignment_2 )
+            // InternalDSL.g:8738:2: rule__TableTest__DefinitionAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__TableTest__DefinitionAssignment_2();
@@ -23832,14 +23929,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__3"
-    // InternalDSL.g:8717:1: rule__TableTest__Group__3 : rule__TableTest__Group__3__Impl rule__TableTest__Group__4 ;
+    // InternalDSL.g:8748:1: rule__TableTest__Group__3 : rule__TableTest__Group__3__Impl rule__TableTest__Group__4 ;
     public final void rule__TableTest__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8721:1: ( rule__TableTest__Group__3__Impl rule__TableTest__Group__4 )
-            // InternalDSL.g:8722:2: rule__TableTest__Group__3__Impl rule__TableTest__Group__4
+            // InternalDSL.g:8752:1: ( rule__TableTest__Group__3__Impl rule__TableTest__Group__4 )
+            // InternalDSL.g:8753:2: rule__TableTest__Group__3__Impl rule__TableTest__Group__4
             {
             pushFollow(FOLLOW_4);
             rule__TableTest__Group__3__Impl();
@@ -23870,27 +23967,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__3__Impl"
-    // InternalDSL.g:8729:1: rule__TableTest__Group__3__Impl : ( ( rule__TableTest__Group_3__0 )* ) ;
+    // InternalDSL.g:8760:1: rule__TableTest__Group__3__Impl : ( ( rule__TableTest__Group_3__0 )* ) ;
     public final void rule__TableTest__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8733:1: ( ( ( rule__TableTest__Group_3__0 )* ) )
-            // InternalDSL.g:8734:1: ( ( rule__TableTest__Group_3__0 )* )
+            // InternalDSL.g:8764:1: ( ( ( rule__TableTest__Group_3__0 )* ) )
+            // InternalDSL.g:8765:1: ( ( rule__TableTest__Group_3__0 )* )
             {
-            // InternalDSL.g:8734:1: ( ( rule__TableTest__Group_3__0 )* )
-            // InternalDSL.g:8735:1: ( rule__TableTest__Group_3__0 )*
+            // InternalDSL.g:8765:1: ( ( rule__TableTest__Group_3__0 )* )
+            // InternalDSL.g:8766:1: ( rule__TableTest__Group_3__0 )*
             {
              before(grammarAccess.getTableTestAccess().getGroup_3()); 
-            // InternalDSL.g:8736:1: ( rule__TableTest__Group_3__0 )*
-            loop52:
+            // InternalDSL.g:8767:1: ( rule__TableTest__Group_3__0 )*
+            loop53:
             do {
-                int alt52=2;
-                alt52 = dfa52.predict(input);
-                switch (alt52) {
+                int alt53=2;
+                alt53 = dfa53.predict(input);
+                switch (alt53) {
             	case 1 :
-            	    // InternalDSL.g:8736:2: rule__TableTest__Group_3__0
+            	    // InternalDSL.g:8767:2: rule__TableTest__Group_3__0
             	    {
             	    pushFollow(FOLLOW_3);
             	    rule__TableTest__Group_3__0();
@@ -23902,7 +23999,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop52;
+            	    break loop53;
                 }
             } while (true);
 
@@ -23929,14 +24026,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__4"
-    // InternalDSL.g:8746:1: rule__TableTest__Group__4 : rule__TableTest__Group__4__Impl rule__TableTest__Group__5 ;
+    // InternalDSL.g:8777:1: rule__TableTest__Group__4 : rule__TableTest__Group__4__Impl rule__TableTest__Group__5 ;
     public final void rule__TableTest__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8750:1: ( rule__TableTest__Group__4__Impl rule__TableTest__Group__5 )
-            // InternalDSL.g:8751:2: rule__TableTest__Group__4__Impl rule__TableTest__Group__5
+            // InternalDSL.g:8781:1: ( rule__TableTest__Group__4__Impl rule__TableTest__Group__5 )
+            // InternalDSL.g:8782:2: rule__TableTest__Group__4__Impl rule__TableTest__Group__5
             {
             pushFollow(FOLLOW_33);
             rule__TableTest__Group__4__Impl();
@@ -23967,17 +24064,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__4__Impl"
-    // InternalDSL.g:8758:1: rule__TableTest__Group__4__Impl : ( ruleNLFORCED ) ;
+    // InternalDSL.g:8789:1: rule__TableTest__Group__4__Impl : ( ruleNLFORCED ) ;
     public final void rule__TableTest__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8762:1: ( ( ruleNLFORCED ) )
-            // InternalDSL.g:8763:1: ( ruleNLFORCED )
+            // InternalDSL.g:8793:1: ( ( ruleNLFORCED ) )
+            // InternalDSL.g:8794:1: ( ruleNLFORCED )
             {
-            // InternalDSL.g:8763:1: ( ruleNLFORCED )
-            // InternalDSL.g:8764:1: ruleNLFORCED
+            // InternalDSL.g:8794:1: ( ruleNLFORCED )
+            // InternalDSL.g:8795:1: ruleNLFORCED
             {
              before(grammarAccess.getTableTestAccess().getNLFORCEDParserRuleCall_4()); 
             pushFollow(FOLLOW_2);
@@ -24008,14 +24105,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__5"
-    // InternalDSL.g:8775:1: rule__TableTest__Group__5 : rule__TableTest__Group__5__Impl rule__TableTest__Group__6 ;
+    // InternalDSL.g:8806:1: rule__TableTest__Group__5 : rule__TableTest__Group__5__Impl rule__TableTest__Group__6 ;
     public final void rule__TableTest__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8779:1: ( rule__TableTest__Group__5__Impl rule__TableTest__Group__6 )
-            // InternalDSL.g:8780:2: rule__TableTest__Group__5__Impl rule__TableTest__Group__6
+            // InternalDSL.g:8810:1: ( rule__TableTest__Group__5__Impl rule__TableTest__Group__6 )
+            // InternalDSL.g:8811:2: rule__TableTest__Group__5__Impl rule__TableTest__Group__6
             {
             pushFollow(FOLLOW_33);
             rule__TableTest__Group__5__Impl();
@@ -24046,54 +24143,54 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__5__Impl"
-    // InternalDSL.g:8787:1: rule__TableTest__Group__5__Impl : ( ( rule__TableTest__ParameterHeadersAssignment_5 )* ) ;
+    // InternalDSL.g:8818:1: rule__TableTest__Group__5__Impl : ( ( rule__TableTest__ParameterHeadersAssignment_5 )* ) ;
     public final void rule__TableTest__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8791:1: ( ( ( rule__TableTest__ParameterHeadersAssignment_5 )* ) )
-            // InternalDSL.g:8792:1: ( ( rule__TableTest__ParameterHeadersAssignment_5 )* )
+            // InternalDSL.g:8822:1: ( ( ( rule__TableTest__ParameterHeadersAssignment_5 )* ) )
+            // InternalDSL.g:8823:1: ( ( rule__TableTest__ParameterHeadersAssignment_5 )* )
             {
-            // InternalDSL.g:8792:1: ( ( rule__TableTest__ParameterHeadersAssignment_5 )* )
-            // InternalDSL.g:8793:1: ( rule__TableTest__ParameterHeadersAssignment_5 )*
+            // InternalDSL.g:8823:1: ( ( rule__TableTest__ParameterHeadersAssignment_5 )* )
+            // InternalDSL.g:8824:1: ( rule__TableTest__ParameterHeadersAssignment_5 )*
             {
              before(grammarAccess.getTableTestAccess().getParameterHeadersAssignment_5()); 
-            // InternalDSL.g:8794:1: ( rule__TableTest__ParameterHeadersAssignment_5 )*
-            loop53:
+            // InternalDSL.g:8825:1: ( rule__TableTest__ParameterHeadersAssignment_5 )*
+            loop54:
             do {
-                int alt53=2;
-                int LA53_0 = input.LA(1);
+                int alt54=2;
+                int LA54_0 = input.LA(1);
 
-                if ( (LA53_0==61) ) {
-                    int LA53_1 = input.LA(2);
+                if ( (LA54_0==61) ) {
+                    int LA54_1 = input.LA(2);
 
-                    if ( (LA53_1==RULE_ID) ) {
-                        int LA53_2 = input.LA(3);
+                    if ( (LA54_1==RULE_ID) ) {
+                        int LA54_2 = input.LA(3);
 
-                        if ( (LA53_2==61) ) {
-                            alt53=1;
+                        if ( (LA54_2==61) ) {
+                            alt54=1;
                         }
 
 
                     }
-                    else if ( (LA53_1==28) ) {
-                        int LA53_3 = input.LA(3);
+                    else if ( (LA54_1==28) ) {
+                        int LA54_3 = input.LA(3);
 
-                        if ( (LA53_3==RULE_ID) ) {
-                            int LA53_6 = input.LA(4);
+                        if ( (LA54_3==RULE_ID) ) {
+                            int LA54_6 = input.LA(4);
 
-                            if ( (LA53_6==61) ) {
-                                alt53=1;
+                            if ( (LA54_6==61) ) {
+                                alt54=1;
                             }
 
 
                         }
-                        else if ( (LA53_3==RULE_STRING) ) {
-                            int LA53_7 = input.LA(4);
+                        else if ( (LA54_3==RULE_STRING) ) {
+                            int LA54_7 = input.LA(4);
 
-                            if ( (LA53_7==61) ) {
-                                alt53=1;
+                            if ( (LA54_7==61) ) {
+                                alt54=1;
                             }
 
 
@@ -24106,9 +24203,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                 }
 
 
-                switch (alt53) {
+                switch (alt54) {
             	case 1 :
-            	    // InternalDSL.g:8794:2: rule__TableTest__ParameterHeadersAssignment_5
+            	    // InternalDSL.g:8825:2: rule__TableTest__ParameterHeadersAssignment_5
             	    {
             	    pushFollow(FOLLOW_34);
             	    rule__TableTest__ParameterHeadersAssignment_5();
@@ -24120,7 +24217,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop53;
+            	    break loop54;
                 }
             } while (true);
 
@@ -24147,14 +24244,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__6"
-    // InternalDSL.g:8804:1: rule__TableTest__Group__6 : rule__TableTest__Group__6__Impl rule__TableTest__Group__7 ;
+    // InternalDSL.g:8835:1: rule__TableTest__Group__6 : rule__TableTest__Group__6__Impl rule__TableTest__Group__7 ;
     public final void rule__TableTest__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8808:1: ( rule__TableTest__Group__6__Impl rule__TableTest__Group__7 )
-            // InternalDSL.g:8809:2: rule__TableTest__Group__6__Impl rule__TableTest__Group__7
+            // InternalDSL.g:8839:1: ( rule__TableTest__Group__6__Impl rule__TableTest__Group__7 )
+            // InternalDSL.g:8840:2: rule__TableTest__Group__6__Impl rule__TableTest__Group__7
             {
             pushFollow(FOLLOW_33);
             rule__TableTest__Group__6__Impl();
@@ -24185,39 +24282,39 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__6__Impl"
-    // InternalDSL.g:8816:1: rule__TableTest__Group__6__Impl : ( ( rule__TableTest__ResultHeadersAssignment_6 )* ) ;
+    // InternalDSL.g:8847:1: rule__TableTest__Group__6__Impl : ( ( rule__TableTest__ResultHeadersAssignment_6 )* ) ;
     public final void rule__TableTest__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8820:1: ( ( ( rule__TableTest__ResultHeadersAssignment_6 )* ) )
-            // InternalDSL.g:8821:1: ( ( rule__TableTest__ResultHeadersAssignment_6 )* )
+            // InternalDSL.g:8851:1: ( ( ( rule__TableTest__ResultHeadersAssignment_6 )* ) )
+            // InternalDSL.g:8852:1: ( ( rule__TableTest__ResultHeadersAssignment_6 )* )
             {
-            // InternalDSL.g:8821:1: ( ( rule__TableTest__ResultHeadersAssignment_6 )* )
-            // InternalDSL.g:8822:1: ( rule__TableTest__ResultHeadersAssignment_6 )*
+            // InternalDSL.g:8852:1: ( ( rule__TableTest__ResultHeadersAssignment_6 )* )
+            // InternalDSL.g:8853:1: ( rule__TableTest__ResultHeadersAssignment_6 )*
             {
              before(grammarAccess.getTableTestAccess().getResultHeadersAssignment_6()); 
-            // InternalDSL.g:8823:1: ( rule__TableTest__ResultHeadersAssignment_6 )*
-            loop54:
+            // InternalDSL.g:8854:1: ( rule__TableTest__ResultHeadersAssignment_6 )*
+            loop55:
             do {
-                int alt54=2;
-                int LA54_0 = input.LA(1);
+                int alt55=2;
+                int LA55_0 = input.LA(1);
 
-                if ( (LA54_0==61) ) {
-                    int LA54_1 = input.LA(2);
+                if ( (LA55_0==61) ) {
+                    int LA55_1 = input.LA(2);
 
-                    if ( (LA54_1==RULE_ID||LA54_1==28) ) {
-                        alt54=1;
+                    if ( (LA55_1==RULE_ID||LA55_1==28) ) {
+                        alt55=1;
                     }
 
 
                 }
 
 
-                switch (alt54) {
+                switch (alt55) {
             	case 1 :
-            	    // InternalDSL.g:8823:2: rule__TableTest__ResultHeadersAssignment_6
+            	    // InternalDSL.g:8854:2: rule__TableTest__ResultHeadersAssignment_6
             	    {
             	    pushFollow(FOLLOW_34);
             	    rule__TableTest__ResultHeadersAssignment_6();
@@ -24229,7 +24326,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop54;
+            	    break loop55;
                 }
             } while (true);
 
@@ -24256,14 +24353,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__7"
-    // InternalDSL.g:8833:1: rule__TableTest__Group__7 : rule__TableTest__Group__7__Impl rule__TableTest__Group__8 ;
+    // InternalDSL.g:8864:1: rule__TableTest__Group__7 : rule__TableTest__Group__7__Impl rule__TableTest__Group__8 ;
     public final void rule__TableTest__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8837:1: ( rule__TableTest__Group__7__Impl rule__TableTest__Group__8 )
-            // InternalDSL.g:8838:2: rule__TableTest__Group__7__Impl rule__TableTest__Group__8
+            // InternalDSL.g:8868:1: ( rule__TableTest__Group__7__Impl rule__TableTest__Group__8 )
+            // InternalDSL.g:8869:2: rule__TableTest__Group__7__Impl rule__TableTest__Group__8
             {
             pushFollow(FOLLOW_35);
             rule__TableTest__Group__7__Impl();
@@ -24294,17 +24391,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__7__Impl"
-    // InternalDSL.g:8845:1: rule__TableTest__Group__7__Impl : ( '|' ) ;
+    // InternalDSL.g:8876:1: rule__TableTest__Group__7__Impl : ( '|' ) ;
     public final void rule__TableTest__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8849:1: ( ( '|' ) )
-            // InternalDSL.g:8850:1: ( '|' )
+            // InternalDSL.g:8880:1: ( ( '|' ) )
+            // InternalDSL.g:8881:1: ( '|' )
             {
-            // InternalDSL.g:8850:1: ( '|' )
-            // InternalDSL.g:8851:1: '|'
+            // InternalDSL.g:8881:1: ( '|' )
+            // InternalDSL.g:8882:1: '|'
             {
              before(grammarAccess.getTableTestAccess().getVerticalLineKeyword_7()); 
             match(input,61,FOLLOW_2); 
@@ -24331,14 +24428,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__8"
-    // InternalDSL.g:8864:1: rule__TableTest__Group__8 : rule__TableTest__Group__8__Impl rule__TableTest__Group__9 ;
+    // InternalDSL.g:8895:1: rule__TableTest__Group__8 : rule__TableTest__Group__8__Impl rule__TableTest__Group__9 ;
     public final void rule__TableTest__Group__8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8868:1: ( rule__TableTest__Group__8__Impl rule__TableTest__Group__9 )
-            // InternalDSL.g:8869:2: rule__TableTest__Group__8__Impl rule__TableTest__Group__9
+            // InternalDSL.g:8899:1: ( rule__TableTest__Group__8__Impl rule__TableTest__Group__9 )
+            // InternalDSL.g:8900:2: rule__TableTest__Group__8__Impl rule__TableTest__Group__9
             {
             pushFollow(FOLLOW_35);
             rule__TableTest__Group__8__Impl();
@@ -24369,29 +24466,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__8__Impl"
-    // InternalDSL.g:8876:1: rule__TableTest__Group__8__Impl : ( ( rule__TableTest__Group_8__0 )? ) ;
+    // InternalDSL.g:8907:1: rule__TableTest__Group__8__Impl : ( ( rule__TableTest__Group_8__0 )? ) ;
     public final void rule__TableTest__Group__8__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8880:1: ( ( ( rule__TableTest__Group_8__0 )? ) )
-            // InternalDSL.g:8881:1: ( ( rule__TableTest__Group_8__0 )? )
+            // InternalDSL.g:8911:1: ( ( ( rule__TableTest__Group_8__0 )? ) )
+            // InternalDSL.g:8912:1: ( ( rule__TableTest__Group_8__0 )? )
             {
-            // InternalDSL.g:8881:1: ( ( rule__TableTest__Group_8__0 )? )
-            // InternalDSL.g:8882:1: ( rule__TableTest__Group_8__0 )?
+            // InternalDSL.g:8912:1: ( ( rule__TableTest__Group_8__0 )? )
+            // InternalDSL.g:8913:1: ( rule__TableTest__Group_8__0 )?
             {
              before(grammarAccess.getTableTestAccess().getGroup_8()); 
-            // InternalDSL.g:8883:1: ( rule__TableTest__Group_8__0 )?
-            int alt55=2;
-            int LA55_0 = input.LA(1);
+            // InternalDSL.g:8914:1: ( rule__TableTest__Group_8__0 )?
+            int alt56=2;
+            int LA56_0 = input.LA(1);
 
-            if ( (LA55_0==59) ) {
-                alt55=1;
+            if ( (LA56_0==59) ) {
+                alt56=1;
             }
-            switch (alt55) {
+            switch (alt56) {
                 case 1 :
-                    // InternalDSL.g:8883:2: rule__TableTest__Group_8__0
+                    // InternalDSL.g:8914:2: rule__TableTest__Group_8__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__TableTest__Group_8__0();
@@ -24427,14 +24524,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__9"
-    // InternalDSL.g:8893:1: rule__TableTest__Group__9 : rule__TableTest__Group__9__Impl rule__TableTest__Group__10 ;
+    // InternalDSL.g:8924:1: rule__TableTest__Group__9 : rule__TableTest__Group__9__Impl rule__TableTest__Group__10 ;
     public final void rule__TableTest__Group__9() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8897:1: ( rule__TableTest__Group__9__Impl rule__TableTest__Group__10 )
-            // InternalDSL.g:8898:2: rule__TableTest__Group__9__Impl rule__TableTest__Group__10
+            // InternalDSL.g:8928:1: ( rule__TableTest__Group__9__Impl rule__TableTest__Group__10 )
+            // InternalDSL.g:8929:2: rule__TableTest__Group__9__Impl rule__TableTest__Group__10
             {
             pushFollow(FOLLOW_4);
             rule__TableTest__Group__9__Impl();
@@ -24465,24 +24562,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__9__Impl"
-    // InternalDSL.g:8905:1: rule__TableTest__Group__9__Impl : ( ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* ) ) ;
+    // InternalDSL.g:8936:1: rule__TableTest__Group__9__Impl : ( ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* ) ) ;
     public final void rule__TableTest__Group__9__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8909:1: ( ( ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* ) ) )
-            // InternalDSL.g:8910:1: ( ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* ) )
+            // InternalDSL.g:8940:1: ( ( ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* ) ) )
+            // InternalDSL.g:8941:1: ( ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* ) )
             {
-            // InternalDSL.g:8910:1: ( ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* ) )
-            // InternalDSL.g:8911:1: ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* )
+            // InternalDSL.g:8941:1: ( ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* ) )
+            // InternalDSL.g:8942:1: ( ( rule__TableTest__Group_9__0 ) ) ( ( rule__TableTest__Group_9__0 )* )
             {
-            // InternalDSL.g:8911:1: ( ( rule__TableTest__Group_9__0 ) )
-            // InternalDSL.g:8912:1: ( rule__TableTest__Group_9__0 )
+            // InternalDSL.g:8942:1: ( ( rule__TableTest__Group_9__0 ) )
+            // InternalDSL.g:8943:1: ( rule__TableTest__Group_9__0 )
             {
              before(grammarAccess.getTableTestAccess().getGroup_9()); 
-            // InternalDSL.g:8913:1: ( rule__TableTest__Group_9__0 )
-            // InternalDSL.g:8913:2: rule__TableTest__Group_9__0
+            // InternalDSL.g:8944:1: ( rule__TableTest__Group_9__0 )
+            // InternalDSL.g:8944:2: rule__TableTest__Group_9__0
             {
             pushFollow(FOLLOW_36);
             rule__TableTest__Group_9__0();
@@ -24496,18 +24593,18 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalDSL.g:8916:1: ( ( rule__TableTest__Group_9__0 )* )
-            // InternalDSL.g:8917:1: ( rule__TableTest__Group_9__0 )*
+            // InternalDSL.g:8947:1: ( ( rule__TableTest__Group_9__0 )* )
+            // InternalDSL.g:8948:1: ( rule__TableTest__Group_9__0 )*
             {
              before(grammarAccess.getTableTestAccess().getGroup_9()); 
-            // InternalDSL.g:8918:1: ( rule__TableTest__Group_9__0 )*
-            loop56:
+            // InternalDSL.g:8949:1: ( rule__TableTest__Group_9__0 )*
+            loop57:
             do {
-                int alt56=2;
-                alt56 = dfa56.predict(input);
-                switch (alt56) {
+                int alt57=2;
+                alt57 = dfa57.predict(input);
+                switch (alt57) {
             	case 1 :
-            	    // InternalDSL.g:8918:2: rule__TableTest__Group_9__0
+            	    // InternalDSL.g:8949:2: rule__TableTest__Group_9__0
             	    {
             	    pushFollow(FOLLOW_36);
             	    rule__TableTest__Group_9__0();
@@ -24519,7 +24616,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop56;
+            	    break loop57;
                 }
             } while (true);
 
@@ -24549,14 +24646,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__10"
-    // InternalDSL.g:8929:1: rule__TableTest__Group__10 : rule__TableTest__Group__10__Impl ;
+    // InternalDSL.g:8960:1: rule__TableTest__Group__10 : rule__TableTest__Group__10__Impl ;
     public final void rule__TableTest__Group__10() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8933:1: ( rule__TableTest__Group__10__Impl )
-            // InternalDSL.g:8934:2: rule__TableTest__Group__10__Impl
+            // InternalDSL.g:8964:1: ( rule__TableTest__Group__10__Impl )
+            // InternalDSL.g:8965:2: rule__TableTest__Group__10__Impl
             {
             pushFollow(FOLLOW_2);
             rule__TableTest__Group__10__Impl();
@@ -24582,17 +24679,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group__10__Impl"
-    // InternalDSL.g:8940:1: rule__TableTest__Group__10__Impl : ( ruleNLFORCED ) ;
+    // InternalDSL.g:8971:1: rule__TableTest__Group__10__Impl : ( ruleNLFORCED ) ;
     public final void rule__TableTest__Group__10__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8944:1: ( ( ruleNLFORCED ) )
-            // InternalDSL.g:8945:1: ( ruleNLFORCED )
+            // InternalDSL.g:8975:1: ( ( ruleNLFORCED ) )
+            // InternalDSL.g:8976:1: ( ruleNLFORCED )
             {
-            // InternalDSL.g:8945:1: ( ruleNLFORCED )
-            // InternalDSL.g:8946:1: ruleNLFORCED
+            // InternalDSL.g:8976:1: ( ruleNLFORCED )
+            // InternalDSL.g:8977:1: ruleNLFORCED
             {
              before(grammarAccess.getTableTestAccess().getNLFORCEDParserRuleCall_10()); 
             pushFollow(FOLLOW_2);
@@ -24623,14 +24720,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_3__0"
-    // InternalDSL.g:8979:1: rule__TableTest__Group_3__0 : rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1 ;
+    // InternalDSL.g:9010:1: rule__TableTest__Group_3__0 : rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1 ;
     public final void rule__TableTest__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8983:1: ( rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1 )
-            // InternalDSL.g:8984:2: rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1
+            // InternalDSL.g:9014:1: ( rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1 )
+            // InternalDSL.g:9015:2: rule__TableTest__Group_3__0__Impl rule__TableTest__Group_3__1
             {
             pushFollow(FOLLOW_31);
             rule__TableTest__Group_3__0__Impl();
@@ -24661,17 +24758,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_3__0__Impl"
-    // InternalDSL.g:8991:1: rule__TableTest__Group_3__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:9022:1: rule__TableTest__Group_3__0__Impl : ( ruleNL ) ;
     public final void rule__TableTest__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:8995:1: ( ( ruleNL ) )
-            // InternalDSL.g:8996:1: ( ruleNL )
+            // InternalDSL.g:9026:1: ( ( ruleNL ) )
+            // InternalDSL.g:9027:1: ( ruleNL )
             {
-            // InternalDSL.g:8996:1: ( ruleNL )
-            // InternalDSL.g:8997:1: ruleNL
+            // InternalDSL.g:9027:1: ( ruleNL )
+            // InternalDSL.g:9028:1: ruleNL
             {
              before(grammarAccess.getTableTestAccess().getNLParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -24702,14 +24799,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_3__1"
-    // InternalDSL.g:9008:1: rule__TableTest__Group_3__1 : rule__TableTest__Group_3__1__Impl ;
+    // InternalDSL.g:9039:1: rule__TableTest__Group_3__1 : rule__TableTest__Group_3__1__Impl ;
     public final void rule__TableTest__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9012:1: ( rule__TableTest__Group_3__1__Impl )
-            // InternalDSL.g:9013:2: rule__TableTest__Group_3__1__Impl
+            // InternalDSL.g:9043:1: ( rule__TableTest__Group_3__1__Impl )
+            // InternalDSL.g:9044:2: rule__TableTest__Group_3__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__TableTest__Group_3__1__Impl();
@@ -24735,21 +24832,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_3__1__Impl"
-    // InternalDSL.g:9019:1: rule__TableTest__Group_3__1__Impl : ( ( rule__TableTest__ParametersAssignment_3_1 ) ) ;
+    // InternalDSL.g:9050:1: rule__TableTest__Group_3__1__Impl : ( ( rule__TableTest__ParametersAssignment_3_1 ) ) ;
     public final void rule__TableTest__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9023:1: ( ( ( rule__TableTest__ParametersAssignment_3_1 ) ) )
-            // InternalDSL.g:9024:1: ( ( rule__TableTest__ParametersAssignment_3_1 ) )
+            // InternalDSL.g:9054:1: ( ( ( rule__TableTest__ParametersAssignment_3_1 ) ) )
+            // InternalDSL.g:9055:1: ( ( rule__TableTest__ParametersAssignment_3_1 ) )
             {
-            // InternalDSL.g:9024:1: ( ( rule__TableTest__ParametersAssignment_3_1 ) )
-            // InternalDSL.g:9025:1: ( rule__TableTest__ParametersAssignment_3_1 )
+            // InternalDSL.g:9055:1: ( ( rule__TableTest__ParametersAssignment_3_1 ) )
+            // InternalDSL.g:9056:1: ( rule__TableTest__ParametersAssignment_3_1 )
             {
              before(grammarAccess.getTableTestAccess().getParametersAssignment_3_1()); 
-            // InternalDSL.g:9026:1: ( rule__TableTest__ParametersAssignment_3_1 )
-            // InternalDSL.g:9026:2: rule__TableTest__ParametersAssignment_3_1
+            // InternalDSL.g:9057:1: ( rule__TableTest__ParametersAssignment_3_1 )
+            // InternalDSL.g:9057:2: rule__TableTest__ParametersAssignment_3_1
             {
             pushFollow(FOLLOW_2);
             rule__TableTest__ParametersAssignment_3_1();
@@ -24782,14 +24879,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_8__0"
-    // InternalDSL.g:9040:1: rule__TableTest__Group_8__0 : rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1 ;
+    // InternalDSL.g:9071:1: rule__TableTest__Group_8__0 : rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1 ;
     public final void rule__TableTest__Group_8__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9044:1: ( rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1 )
-            // InternalDSL.g:9045:2: rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1
+            // InternalDSL.g:9075:1: ( rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1 )
+            // InternalDSL.g:9076:2: rule__TableTest__Group_8__0__Impl rule__TableTest__Group_8__1
             {
             pushFollow(FOLLOW_33);
             rule__TableTest__Group_8__0__Impl();
@@ -24820,21 +24917,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_8__0__Impl"
-    // InternalDSL.g:9052:1: rule__TableTest__Group_8__0__Impl : ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) ) ;
+    // InternalDSL.g:9083:1: rule__TableTest__Group_8__0__Impl : ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) ) ;
     public final void rule__TableTest__Group_8__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9056:1: ( ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) ) )
-            // InternalDSL.g:9057:1: ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) )
+            // InternalDSL.g:9087:1: ( ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) ) )
+            // InternalDSL.g:9088:1: ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) )
             {
-            // InternalDSL.g:9057:1: ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) )
-            // InternalDSL.g:9058:1: ( rule__TableTest__DefaultResultColumnAssignment_8_0 )
+            // InternalDSL.g:9088:1: ( ( rule__TableTest__DefaultResultColumnAssignment_8_0 ) )
+            // InternalDSL.g:9089:1: ( rule__TableTest__DefaultResultColumnAssignment_8_0 )
             {
              before(grammarAccess.getTableTestAccess().getDefaultResultColumnAssignment_8_0()); 
-            // InternalDSL.g:9059:1: ( rule__TableTest__DefaultResultColumnAssignment_8_0 )
-            // InternalDSL.g:9059:2: rule__TableTest__DefaultResultColumnAssignment_8_0
+            // InternalDSL.g:9090:1: ( rule__TableTest__DefaultResultColumnAssignment_8_0 )
+            // InternalDSL.g:9090:2: rule__TableTest__DefaultResultColumnAssignment_8_0
             {
             pushFollow(FOLLOW_2);
             rule__TableTest__DefaultResultColumnAssignment_8_0();
@@ -24867,14 +24964,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_8__1"
-    // InternalDSL.g:9069:1: rule__TableTest__Group_8__1 : rule__TableTest__Group_8__1__Impl ;
+    // InternalDSL.g:9100:1: rule__TableTest__Group_8__1 : rule__TableTest__Group_8__1__Impl ;
     public final void rule__TableTest__Group_8__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9073:1: ( rule__TableTest__Group_8__1__Impl )
-            // InternalDSL.g:9074:2: rule__TableTest__Group_8__1__Impl
+            // InternalDSL.g:9104:1: ( rule__TableTest__Group_8__1__Impl )
+            // InternalDSL.g:9105:2: rule__TableTest__Group_8__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__TableTest__Group_8__1__Impl();
@@ -24900,17 +24997,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_8__1__Impl"
-    // InternalDSL.g:9080:1: rule__TableTest__Group_8__1__Impl : ( '|' ) ;
+    // InternalDSL.g:9111:1: rule__TableTest__Group_8__1__Impl : ( '|' ) ;
     public final void rule__TableTest__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9084:1: ( ( '|' ) )
-            // InternalDSL.g:9085:1: ( '|' )
+            // InternalDSL.g:9115:1: ( ( '|' ) )
+            // InternalDSL.g:9116:1: ( '|' )
             {
-            // InternalDSL.g:9085:1: ( '|' )
-            // InternalDSL.g:9086:1: '|'
+            // InternalDSL.g:9116:1: ( '|' )
+            // InternalDSL.g:9117:1: '|'
             {
              before(grammarAccess.getTableTestAccess().getVerticalLineKeyword_8_1()); 
             match(input,61,FOLLOW_2); 
@@ -24937,14 +25034,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_9__0"
-    // InternalDSL.g:9103:1: rule__TableTest__Group_9__0 : rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1 ;
+    // InternalDSL.g:9134:1: rule__TableTest__Group_9__0 : rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1 ;
     public final void rule__TableTest__Group_9__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9107:1: ( rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1 )
-            // InternalDSL.g:9108:2: rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1
+            // InternalDSL.g:9138:1: ( rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1 )
+            // InternalDSL.g:9139:2: rule__TableTest__Group_9__0__Impl rule__TableTest__Group_9__1
             {
             pushFollow(FOLLOW_33);
             rule__TableTest__Group_9__0__Impl();
@@ -24975,17 +25072,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_9__0__Impl"
-    // InternalDSL.g:9115:1: rule__TableTest__Group_9__0__Impl : ( ruleNLFORCED ) ;
+    // InternalDSL.g:9146:1: rule__TableTest__Group_9__0__Impl : ( ruleNLFORCED ) ;
     public final void rule__TableTest__Group_9__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9119:1: ( ( ruleNLFORCED ) )
-            // InternalDSL.g:9120:1: ( ruleNLFORCED )
+            // InternalDSL.g:9150:1: ( ( ruleNLFORCED ) )
+            // InternalDSL.g:9151:1: ( ruleNLFORCED )
             {
-            // InternalDSL.g:9120:1: ( ruleNLFORCED )
-            // InternalDSL.g:9121:1: ruleNLFORCED
+            // InternalDSL.g:9151:1: ( ruleNLFORCED )
+            // InternalDSL.g:9152:1: ruleNLFORCED
             {
              before(grammarAccess.getTableTestAccess().getNLFORCEDParserRuleCall_9_0()); 
             pushFollow(FOLLOW_2);
@@ -25016,14 +25113,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_9__1"
-    // InternalDSL.g:9132:1: rule__TableTest__Group_9__1 : rule__TableTest__Group_9__1__Impl ;
+    // InternalDSL.g:9163:1: rule__TableTest__Group_9__1 : rule__TableTest__Group_9__1__Impl ;
     public final void rule__TableTest__Group_9__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9136:1: ( rule__TableTest__Group_9__1__Impl )
-            // InternalDSL.g:9137:2: rule__TableTest__Group_9__1__Impl
+            // InternalDSL.g:9167:1: ( rule__TableTest__Group_9__1__Impl )
+            // InternalDSL.g:9168:2: rule__TableTest__Group_9__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__TableTest__Group_9__1__Impl();
@@ -25049,21 +25146,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__Group_9__1__Impl"
-    // InternalDSL.g:9143:1: rule__TableTest__Group_9__1__Impl : ( ( rule__TableTest__RowsAssignment_9_1 ) ) ;
+    // InternalDSL.g:9174:1: rule__TableTest__Group_9__1__Impl : ( ( rule__TableTest__RowsAssignment_9_1 ) ) ;
     public final void rule__TableTest__Group_9__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9147:1: ( ( ( rule__TableTest__RowsAssignment_9_1 ) ) )
-            // InternalDSL.g:9148:1: ( ( rule__TableTest__RowsAssignment_9_1 ) )
+            // InternalDSL.g:9178:1: ( ( ( rule__TableTest__RowsAssignment_9_1 ) ) )
+            // InternalDSL.g:9179:1: ( ( rule__TableTest__RowsAssignment_9_1 ) )
             {
-            // InternalDSL.g:9148:1: ( ( rule__TableTest__RowsAssignment_9_1 ) )
-            // InternalDSL.g:9149:1: ( rule__TableTest__RowsAssignment_9_1 )
+            // InternalDSL.g:9179:1: ( ( rule__TableTest__RowsAssignment_9_1 ) )
+            // InternalDSL.g:9180:1: ( rule__TableTest__RowsAssignment_9_1 )
             {
              before(grammarAccess.getTableTestAccess().getRowsAssignment_9_1()); 
-            // InternalDSL.g:9150:1: ( rule__TableTest__RowsAssignment_9_1 )
-            // InternalDSL.g:9150:2: rule__TableTest__RowsAssignment_9_1
+            // InternalDSL.g:9181:1: ( rule__TableTest__RowsAssignment_9_1 )
+            // InternalDSL.g:9181:2: rule__TableTest__RowsAssignment_9_1
             {
             pushFollow(FOLLOW_2);
             rule__TableTest__RowsAssignment_9_1();
@@ -25096,14 +25193,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__Group__0"
-    // InternalDSL.g:9164:1: rule__TableTestRow__Group__0 : rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1 ;
+    // InternalDSL.g:9195:1: rule__TableTestRow__Group__0 : rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1 ;
     public final void rule__TableTestRow__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9168:1: ( rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1 )
-            // InternalDSL.g:9169:2: rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1
+            // InternalDSL.g:9199:1: ( rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1 )
+            // InternalDSL.g:9200:2: rule__TableTestRow__Group__0__Impl rule__TableTestRow__Group__1
             {
             pushFollow(FOLLOW_33);
             rule__TableTestRow__Group__0__Impl();
@@ -25134,21 +25231,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__Group__0__Impl"
-    // InternalDSL.g:9176:1: rule__TableTestRow__Group__0__Impl : ( () ) ;
+    // InternalDSL.g:9207:1: rule__TableTestRow__Group__0__Impl : ( () ) ;
     public final void rule__TableTestRow__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9180:1: ( ( () ) )
-            // InternalDSL.g:9181:1: ( () )
+            // InternalDSL.g:9211:1: ( ( () ) )
+            // InternalDSL.g:9212:1: ( () )
             {
-            // InternalDSL.g:9181:1: ( () )
-            // InternalDSL.g:9182:1: ()
+            // InternalDSL.g:9212:1: ( () )
+            // InternalDSL.g:9213:1: ()
             {
              before(grammarAccess.getTableTestRowAccess().getTableTestRowAction_0()); 
-            // InternalDSL.g:9183:1: ()
-            // InternalDSL.g:9185:1: 
+            // InternalDSL.g:9214:1: ()
+            // InternalDSL.g:9216:1: 
             {
             }
 
@@ -25171,14 +25268,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__Group__1"
-    // InternalDSL.g:9195:1: rule__TableTestRow__Group__1 : rule__TableTestRow__Group__1__Impl ;
+    // InternalDSL.g:9226:1: rule__TableTestRow__Group__1 : rule__TableTestRow__Group__1__Impl ;
     public final void rule__TableTestRow__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9199:1: ( rule__TableTestRow__Group__1__Impl )
-            // InternalDSL.g:9200:2: rule__TableTestRow__Group__1__Impl
+            // InternalDSL.g:9230:1: ( rule__TableTestRow__Group__1__Impl )
+            // InternalDSL.g:9231:2: rule__TableTestRow__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__TableTestRow__Group__1__Impl();
@@ -25204,24 +25301,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__Group__1__Impl"
-    // InternalDSL.g:9206:1: rule__TableTestRow__Group__1__Impl : ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) ) ;
+    // InternalDSL.g:9237:1: rule__TableTestRow__Group__1__Impl : ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) ) ;
     public final void rule__TableTestRow__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9210:1: ( ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) ) )
-            // InternalDSL.g:9211:1: ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) )
+            // InternalDSL.g:9241:1: ( ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) ) )
+            // InternalDSL.g:9242:1: ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) )
             {
-            // InternalDSL.g:9211:1: ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) )
-            // InternalDSL.g:9212:1: ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* )
+            // InternalDSL.g:9242:1: ( ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* ) )
+            // InternalDSL.g:9243:1: ( ( rule__TableTestRow__ValuesAssignment_1 ) ) ( ( rule__TableTestRow__ValuesAssignment_1 )* )
             {
-            // InternalDSL.g:9212:1: ( ( rule__TableTestRow__ValuesAssignment_1 ) )
-            // InternalDSL.g:9213:1: ( rule__TableTestRow__ValuesAssignment_1 )
+            // InternalDSL.g:9243:1: ( ( rule__TableTestRow__ValuesAssignment_1 ) )
+            // InternalDSL.g:9244:1: ( rule__TableTestRow__ValuesAssignment_1 )
             {
              before(grammarAccess.getTableTestRowAccess().getValuesAssignment_1()); 
-            // InternalDSL.g:9214:1: ( rule__TableTestRow__ValuesAssignment_1 )
-            // InternalDSL.g:9214:2: rule__TableTestRow__ValuesAssignment_1
+            // InternalDSL.g:9245:1: ( rule__TableTestRow__ValuesAssignment_1 )
+            // InternalDSL.g:9245:2: rule__TableTestRow__ValuesAssignment_1
             {
             pushFollow(FOLLOW_34);
             rule__TableTestRow__ValuesAssignment_1();
@@ -25235,24 +25332,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalDSL.g:9217:1: ( ( rule__TableTestRow__ValuesAssignment_1 )* )
-            // InternalDSL.g:9218:1: ( rule__TableTestRow__ValuesAssignment_1 )*
+            // InternalDSL.g:9248:1: ( ( rule__TableTestRow__ValuesAssignment_1 )* )
+            // InternalDSL.g:9249:1: ( rule__TableTestRow__ValuesAssignment_1 )*
             {
              before(grammarAccess.getTableTestRowAccess().getValuesAssignment_1()); 
-            // InternalDSL.g:9219:1: ( rule__TableTestRow__ValuesAssignment_1 )*
-            loop57:
+            // InternalDSL.g:9250:1: ( rule__TableTestRow__ValuesAssignment_1 )*
+            loop58:
             do {
-                int alt57=2;
-                int LA57_0 = input.LA(1);
+                int alt58=2;
+                int LA58_0 = input.LA(1);
 
-                if ( (LA57_0==61) ) {
-                    alt57=1;
+                if ( (LA58_0==61) ) {
+                    alt58=1;
                 }
 
 
-                switch (alt57) {
+                switch (alt58) {
             	case 1 :
-            	    // InternalDSL.g:9219:2: rule__TableTestRow__ValuesAssignment_1
+            	    // InternalDSL.g:9250:2: rule__TableTestRow__ValuesAssignment_1
             	    {
             	    pushFollow(FOLLOW_34);
             	    rule__TableTestRow__ValuesAssignment_1();
@@ -25264,7 +25361,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop57;
+            	    break loop58;
                 }
             } while (true);
 
@@ -25294,14 +25391,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__0"
-    // InternalDSL.g:9234:1: rule__ParameterTableHeader__Group__0 : rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1 ;
+    // InternalDSL.g:9265:1: rule__ParameterTableHeader__Group__0 : rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1 ;
     public final void rule__ParameterTableHeader__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9238:1: ( rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1 )
-            // InternalDSL.g:9239:2: rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1
+            // InternalDSL.g:9269:1: ( rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1 )
+            // InternalDSL.g:9270:2: rule__ParameterTableHeader__Group__0__Impl rule__ParameterTableHeader__Group__1
             {
             pushFollow(FOLLOW_31);
             rule__ParameterTableHeader__Group__0__Impl();
@@ -25332,17 +25429,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__0__Impl"
-    // InternalDSL.g:9246:1: rule__ParameterTableHeader__Group__0__Impl : ( '|' ) ;
+    // InternalDSL.g:9277:1: rule__ParameterTableHeader__Group__0__Impl : ( '|' ) ;
     public final void rule__ParameterTableHeader__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9250:1: ( ( '|' ) )
-            // InternalDSL.g:9251:1: ( '|' )
+            // InternalDSL.g:9281:1: ( ( '|' ) )
+            // InternalDSL.g:9282:1: ( '|' )
             {
-            // InternalDSL.g:9251:1: ( '|' )
-            // InternalDSL.g:9252:1: '|'
+            // InternalDSL.g:9282:1: ( '|' )
+            // InternalDSL.g:9283:1: '|'
             {
              before(grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_0()); 
             match(input,61,FOLLOW_2); 
@@ -25369,14 +25466,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__1"
-    // InternalDSL.g:9265:1: rule__ParameterTableHeader__Group__1 : rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2 ;
+    // InternalDSL.g:9296:1: rule__ParameterTableHeader__Group__1 : rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2 ;
     public final void rule__ParameterTableHeader__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9269:1: ( rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2 )
-            // InternalDSL.g:9270:2: rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2
+            // InternalDSL.g:9300:1: ( rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2 )
+            // InternalDSL.g:9301:2: rule__ParameterTableHeader__Group__1__Impl rule__ParameterTableHeader__Group__2
             {
             pushFollow(FOLLOW_33);
             rule__ParameterTableHeader__Group__1__Impl();
@@ -25407,21 +25504,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__1__Impl"
-    // InternalDSL.g:9277:1: rule__ParameterTableHeader__Group__1__Impl : ( ( rule__ParameterTableHeader__NameAssignment_1 ) ) ;
+    // InternalDSL.g:9308:1: rule__ParameterTableHeader__Group__1__Impl : ( ( rule__ParameterTableHeader__NameAssignment_1 ) ) ;
     public final void rule__ParameterTableHeader__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9281:1: ( ( ( rule__ParameterTableHeader__NameAssignment_1 ) ) )
-            // InternalDSL.g:9282:1: ( ( rule__ParameterTableHeader__NameAssignment_1 ) )
+            // InternalDSL.g:9312:1: ( ( ( rule__ParameterTableHeader__NameAssignment_1 ) ) )
+            // InternalDSL.g:9313:1: ( ( rule__ParameterTableHeader__NameAssignment_1 ) )
             {
-            // InternalDSL.g:9282:1: ( ( rule__ParameterTableHeader__NameAssignment_1 ) )
-            // InternalDSL.g:9283:1: ( rule__ParameterTableHeader__NameAssignment_1 )
+            // InternalDSL.g:9313:1: ( ( rule__ParameterTableHeader__NameAssignment_1 ) )
+            // InternalDSL.g:9314:1: ( rule__ParameterTableHeader__NameAssignment_1 )
             {
              before(grammarAccess.getParameterTableHeaderAccess().getNameAssignment_1()); 
-            // InternalDSL.g:9284:1: ( rule__ParameterTableHeader__NameAssignment_1 )
-            // InternalDSL.g:9284:2: rule__ParameterTableHeader__NameAssignment_1
+            // InternalDSL.g:9315:1: ( rule__ParameterTableHeader__NameAssignment_1 )
+            // InternalDSL.g:9315:2: rule__ParameterTableHeader__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__ParameterTableHeader__NameAssignment_1();
@@ -25454,14 +25551,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__2"
-    // InternalDSL.g:9294:1: rule__ParameterTableHeader__Group__2 : rule__ParameterTableHeader__Group__2__Impl ;
+    // InternalDSL.g:9325:1: rule__ParameterTableHeader__Group__2 : rule__ParameterTableHeader__Group__2__Impl ;
     public final void rule__ParameterTableHeader__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9298:1: ( rule__ParameterTableHeader__Group__2__Impl )
-            // InternalDSL.g:9299:2: rule__ParameterTableHeader__Group__2__Impl
+            // InternalDSL.g:9329:1: ( rule__ParameterTableHeader__Group__2__Impl )
+            // InternalDSL.g:9330:2: rule__ParameterTableHeader__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ParameterTableHeader__Group__2__Impl();
@@ -25487,33 +25584,33 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__Group__2__Impl"
-    // InternalDSL.g:9305:1: rule__ParameterTableHeader__Group__2__Impl : ( ( '|' )? ) ;
+    // InternalDSL.g:9336:1: rule__ParameterTableHeader__Group__2__Impl : ( ( '|' )? ) ;
     public final void rule__ParameterTableHeader__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9309:1: ( ( ( '|' )? ) )
-            // InternalDSL.g:9310:1: ( ( '|' )? )
+            // InternalDSL.g:9340:1: ( ( ( '|' )? ) )
+            // InternalDSL.g:9341:1: ( ( '|' )? )
             {
-            // InternalDSL.g:9310:1: ( ( '|' )? )
-            // InternalDSL.g:9311:1: ( '|' )?
+            // InternalDSL.g:9341:1: ( ( '|' )? )
+            // InternalDSL.g:9342:1: ( '|' )?
             {
              before(grammarAccess.getParameterTableHeaderAccess().getVerticalLineKeyword_2()); 
-            // InternalDSL.g:9312:1: ( '|' )?
-            int alt58=2;
-            int LA58_0 = input.LA(1);
+            // InternalDSL.g:9343:1: ( '|' )?
+            int alt59=2;
+            int LA59_0 = input.LA(1);
 
-            if ( (LA58_0==61) ) {
-                int LA58_1 = input.LA(2);
+            if ( (LA59_0==61) ) {
+                int LA59_1 = input.LA(2);
 
-                if ( (LA58_1==EOF||LA58_1==61) ) {
-                    alt58=1;
+                if ( (LA59_1==EOF||LA59_1==61) ) {
+                    alt59=1;
                 }
             }
-            switch (alt58) {
+            switch (alt59) {
                 case 1 :
-                    // InternalDSL.g:9313:2: '|'
+                    // InternalDSL.g:9344:2: '|'
                     {
                     match(input,61,FOLLOW_2); 
 
@@ -25545,14 +25642,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__0"
-    // InternalDSL.g:9330:1: rule__ResultTableHeader__Group__0 : rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1 ;
+    // InternalDSL.g:9361:1: rule__ResultTableHeader__Group__0 : rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1 ;
     public final void rule__ResultTableHeader__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9334:1: ( rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1 )
-            // InternalDSL.g:9335:2: rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1
+            // InternalDSL.g:9365:1: ( rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1 )
+            // InternalDSL.g:9366:2: rule__ResultTableHeader__Group__0__Impl rule__ResultTableHeader__Group__1
             {
             pushFollow(FOLLOW_31);
             rule__ResultTableHeader__Group__0__Impl();
@@ -25583,17 +25680,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__0__Impl"
-    // InternalDSL.g:9342:1: rule__ResultTableHeader__Group__0__Impl : ( '|' ) ;
+    // InternalDSL.g:9373:1: rule__ResultTableHeader__Group__0__Impl : ( '|' ) ;
     public final void rule__ResultTableHeader__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9346:1: ( ( '|' ) )
-            // InternalDSL.g:9347:1: ( '|' )
+            // InternalDSL.g:9377:1: ( ( '|' ) )
+            // InternalDSL.g:9378:1: ( '|' )
             {
-            // InternalDSL.g:9347:1: ( '|' )
-            // InternalDSL.g:9348:1: '|'
+            // InternalDSL.g:9378:1: ( '|' )
+            // InternalDSL.g:9379:1: '|'
             {
              before(grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_0()); 
             match(input,61,FOLLOW_2); 
@@ -25620,14 +25717,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__1"
-    // InternalDSL.g:9361:1: rule__ResultTableHeader__Group__1 : rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2 ;
+    // InternalDSL.g:9392:1: rule__ResultTableHeader__Group__1 : rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2 ;
     public final void rule__ResultTableHeader__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9365:1: ( rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2 )
-            // InternalDSL.g:9366:2: rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2
+            // InternalDSL.g:9396:1: ( rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2 )
+            // InternalDSL.g:9397:2: rule__ResultTableHeader__Group__1__Impl rule__ResultTableHeader__Group__2
             {
             pushFollow(FOLLOW_32);
             rule__ResultTableHeader__Group__1__Impl();
@@ -25658,21 +25755,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__1__Impl"
-    // InternalDSL.g:9373:1: rule__ResultTableHeader__Group__1__Impl : ( ( rule__ResultTableHeader__NameAssignment_1 ) ) ;
+    // InternalDSL.g:9404:1: rule__ResultTableHeader__Group__1__Impl : ( ( rule__ResultTableHeader__NameAssignment_1 ) ) ;
     public final void rule__ResultTableHeader__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9377:1: ( ( ( rule__ResultTableHeader__NameAssignment_1 ) ) )
-            // InternalDSL.g:9378:1: ( ( rule__ResultTableHeader__NameAssignment_1 ) )
+            // InternalDSL.g:9408:1: ( ( ( rule__ResultTableHeader__NameAssignment_1 ) ) )
+            // InternalDSL.g:9409:1: ( ( rule__ResultTableHeader__NameAssignment_1 ) )
             {
-            // InternalDSL.g:9378:1: ( ( rule__ResultTableHeader__NameAssignment_1 ) )
-            // InternalDSL.g:9379:1: ( rule__ResultTableHeader__NameAssignment_1 )
+            // InternalDSL.g:9409:1: ( ( rule__ResultTableHeader__NameAssignment_1 ) )
+            // InternalDSL.g:9410:1: ( rule__ResultTableHeader__NameAssignment_1 )
             {
              before(grammarAccess.getResultTableHeaderAccess().getNameAssignment_1()); 
-            // InternalDSL.g:9380:1: ( rule__ResultTableHeader__NameAssignment_1 )
-            // InternalDSL.g:9380:2: rule__ResultTableHeader__NameAssignment_1
+            // InternalDSL.g:9411:1: ( rule__ResultTableHeader__NameAssignment_1 )
+            // InternalDSL.g:9411:2: rule__ResultTableHeader__NameAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__ResultTableHeader__NameAssignment_1();
@@ -25705,14 +25802,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__2"
-    // InternalDSL.g:9390:1: rule__ResultTableHeader__Group__2 : rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3 ;
+    // InternalDSL.g:9421:1: rule__ResultTableHeader__Group__2 : rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3 ;
     public final void rule__ResultTableHeader__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9394:1: ( rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3 )
-            // InternalDSL.g:9395:2: rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3
+            // InternalDSL.g:9425:1: ( rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3 )
+            // InternalDSL.g:9426:2: rule__ResultTableHeader__Group__2__Impl rule__ResultTableHeader__Group__3
             {
             pushFollow(FOLLOW_33);
             rule__ResultTableHeader__Group__2__Impl();
@@ -25743,17 +25840,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__2__Impl"
-    // InternalDSL.g:9402:1: rule__ResultTableHeader__Group__2__Impl : ( '=' ) ;
+    // InternalDSL.g:9433:1: rule__ResultTableHeader__Group__2__Impl : ( '=' ) ;
     public final void rule__ResultTableHeader__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9406:1: ( ( '=' ) )
-            // InternalDSL.g:9407:1: ( '=' )
+            // InternalDSL.g:9437:1: ( ( '=' ) )
+            // InternalDSL.g:9438:1: ( '=' )
             {
-            // InternalDSL.g:9407:1: ( '=' )
-            // InternalDSL.g:9408:1: '='
+            // InternalDSL.g:9438:1: ( '=' )
+            // InternalDSL.g:9439:1: '='
             {
              before(grammarAccess.getResultTableHeaderAccess().getEqualsSignKeyword_2()); 
             match(input,59,FOLLOW_2); 
@@ -25780,14 +25877,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__3"
-    // InternalDSL.g:9421:1: rule__ResultTableHeader__Group__3 : rule__ResultTableHeader__Group__3__Impl ;
+    // InternalDSL.g:9452:1: rule__ResultTableHeader__Group__3 : rule__ResultTableHeader__Group__3__Impl ;
     public final void rule__ResultTableHeader__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9425:1: ( rule__ResultTableHeader__Group__3__Impl )
-            // InternalDSL.g:9426:2: rule__ResultTableHeader__Group__3__Impl
+            // InternalDSL.g:9456:1: ( rule__ResultTableHeader__Group__3__Impl )
+            // InternalDSL.g:9457:2: rule__ResultTableHeader__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ResultTableHeader__Group__3__Impl();
@@ -25813,33 +25910,33 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__Group__3__Impl"
-    // InternalDSL.g:9432:1: rule__ResultTableHeader__Group__3__Impl : ( ( '|' )? ) ;
+    // InternalDSL.g:9463:1: rule__ResultTableHeader__Group__3__Impl : ( ( '|' )? ) ;
     public final void rule__ResultTableHeader__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9436:1: ( ( ( '|' )? ) )
-            // InternalDSL.g:9437:1: ( ( '|' )? )
+            // InternalDSL.g:9467:1: ( ( ( '|' )? ) )
+            // InternalDSL.g:9468:1: ( ( '|' )? )
             {
-            // InternalDSL.g:9437:1: ( ( '|' )? )
-            // InternalDSL.g:9438:1: ( '|' )?
+            // InternalDSL.g:9468:1: ( ( '|' )? )
+            // InternalDSL.g:9469:1: ( '|' )?
             {
              before(grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_3()); 
-            // InternalDSL.g:9439:1: ( '|' )?
-            int alt59=2;
-            int LA59_0 = input.LA(1);
+            // InternalDSL.g:9470:1: ( '|' )?
+            int alt60=2;
+            int LA60_0 = input.LA(1);
 
-            if ( (LA59_0==61) ) {
-                int LA59_1 = input.LA(2);
+            if ( (LA60_0==61) ) {
+                int LA60_1 = input.LA(2);
 
-                if ( (LA59_1==EOF||LA59_1==61) ) {
-                    alt59=1;
+                if ( (LA60_1==EOF||LA60_1==61) ) {
+                    alt60=1;
                 }
             }
-            switch (alt59) {
+            switch (alt60) {
                 case 1 :
-                    // InternalDSL.g:9440:2: '|'
+                    // InternalDSL.g:9471:2: '|'
                     {
                     match(input,61,FOLLOW_2); 
 
@@ -25871,14 +25968,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__0"
-    // InternalDSL.g:9459:1: rule__ParameterTableValue__Group__0 : rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1 ;
+    // InternalDSL.g:9490:1: rule__ParameterTableValue__Group__0 : rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1 ;
     public final void rule__ParameterTableValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9463:1: ( rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1 )
-            // InternalDSL.g:9464:2: rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1
+            // InternalDSL.g:9494:1: ( rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1 )
+            // InternalDSL.g:9495:2: rule__ParameterTableValue__Group__0__Impl rule__ParameterTableValue__Group__1
             {
             pushFollow(FOLLOW_15);
             rule__ParameterTableValue__Group__0__Impl();
@@ -25909,17 +26006,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__0__Impl"
-    // InternalDSL.g:9471:1: rule__ParameterTableValue__Group__0__Impl : ( '|' ) ;
+    // InternalDSL.g:9502:1: rule__ParameterTableValue__Group__0__Impl : ( '|' ) ;
     public final void rule__ParameterTableValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9475:1: ( ( '|' ) )
-            // InternalDSL.g:9476:1: ( '|' )
+            // InternalDSL.g:9506:1: ( ( '|' ) )
+            // InternalDSL.g:9507:1: ( '|' )
             {
-            // InternalDSL.g:9476:1: ( '|' )
-            // InternalDSL.g:9477:1: '|'
+            // InternalDSL.g:9507:1: ( '|' )
+            // InternalDSL.g:9508:1: '|'
             {
              before(grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_0()); 
             match(input,61,FOLLOW_2); 
@@ -25946,14 +26043,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__1"
-    // InternalDSL.g:9490:1: rule__ParameterTableValue__Group__1 : rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2 ;
+    // InternalDSL.g:9521:1: rule__ParameterTableValue__Group__1 : rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2 ;
     public final void rule__ParameterTableValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9494:1: ( rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2 )
-            // InternalDSL.g:9495:2: rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2
+            // InternalDSL.g:9525:1: ( rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2 )
+            // InternalDSL.g:9526:2: rule__ParameterTableValue__Group__1__Impl rule__ParameterTableValue__Group__2
             {
             pushFollow(FOLLOW_33);
             rule__ParameterTableValue__Group__1__Impl();
@@ -25984,21 +26081,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__1__Impl"
-    // InternalDSL.g:9502:1: rule__ParameterTableValue__Group__1__Impl : ( ( rule__ParameterTableValue__ValueAssignment_1 ) ) ;
+    // InternalDSL.g:9533:1: rule__ParameterTableValue__Group__1__Impl : ( ( rule__ParameterTableValue__ValueAssignment_1 ) ) ;
     public final void rule__ParameterTableValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9506:1: ( ( ( rule__ParameterTableValue__ValueAssignment_1 ) ) )
-            // InternalDSL.g:9507:1: ( ( rule__ParameterTableValue__ValueAssignment_1 ) )
+            // InternalDSL.g:9537:1: ( ( ( rule__ParameterTableValue__ValueAssignment_1 ) ) )
+            // InternalDSL.g:9538:1: ( ( rule__ParameterTableValue__ValueAssignment_1 ) )
             {
-            // InternalDSL.g:9507:1: ( ( rule__ParameterTableValue__ValueAssignment_1 ) )
-            // InternalDSL.g:9508:1: ( rule__ParameterTableValue__ValueAssignment_1 )
+            // InternalDSL.g:9538:1: ( ( rule__ParameterTableValue__ValueAssignment_1 ) )
+            // InternalDSL.g:9539:1: ( rule__ParameterTableValue__ValueAssignment_1 )
             {
              before(grammarAccess.getParameterTableValueAccess().getValueAssignment_1()); 
-            // InternalDSL.g:9509:1: ( rule__ParameterTableValue__ValueAssignment_1 )
-            // InternalDSL.g:9509:2: rule__ParameterTableValue__ValueAssignment_1
+            // InternalDSL.g:9540:1: ( rule__ParameterTableValue__ValueAssignment_1 )
+            // InternalDSL.g:9540:2: rule__ParameterTableValue__ValueAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__ParameterTableValue__ValueAssignment_1();
@@ -26031,14 +26128,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__2"
-    // InternalDSL.g:9519:1: rule__ParameterTableValue__Group__2 : rule__ParameterTableValue__Group__2__Impl ;
+    // InternalDSL.g:9550:1: rule__ParameterTableValue__Group__2 : rule__ParameterTableValue__Group__2__Impl ;
     public final void rule__ParameterTableValue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9523:1: ( rule__ParameterTableValue__Group__2__Impl )
-            // InternalDSL.g:9524:2: rule__ParameterTableValue__Group__2__Impl
+            // InternalDSL.g:9554:1: ( rule__ParameterTableValue__Group__2__Impl )
+            // InternalDSL.g:9555:2: rule__ParameterTableValue__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ParameterTableValue__Group__2__Impl();
@@ -26064,33 +26161,33 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__Group__2__Impl"
-    // InternalDSL.g:9530:1: rule__ParameterTableValue__Group__2__Impl : ( ( '|' )? ) ;
+    // InternalDSL.g:9561:1: rule__ParameterTableValue__Group__2__Impl : ( ( '|' )? ) ;
     public final void rule__ParameterTableValue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9534:1: ( ( ( '|' )? ) )
-            // InternalDSL.g:9535:1: ( ( '|' )? )
+            // InternalDSL.g:9565:1: ( ( ( '|' )? ) )
+            // InternalDSL.g:9566:1: ( ( '|' )? )
             {
-            // InternalDSL.g:9535:1: ( ( '|' )? )
-            // InternalDSL.g:9536:1: ( '|' )?
+            // InternalDSL.g:9566:1: ( ( '|' )? )
+            // InternalDSL.g:9567:1: ( '|' )?
             {
              before(grammarAccess.getParameterTableValueAccess().getVerticalLineKeyword_2()); 
-            // InternalDSL.g:9537:1: ( '|' )?
-            int alt60=2;
-            int LA60_0 = input.LA(1);
+            // InternalDSL.g:9568:1: ( '|' )?
+            int alt61=2;
+            int LA61_0 = input.LA(1);
 
-            if ( (LA60_0==61) ) {
-                int LA60_1 = input.LA(2);
+            if ( (LA61_0==61) ) {
+                int LA61_1 = input.LA(2);
 
-                if ( (LA60_1==EOF||LA60_1==RULE_NEWLINE||LA60_1==61) ) {
-                    alt60=1;
+                if ( (LA61_1==EOF||LA61_1==RULE_NEWLINE||LA61_1==61) ) {
+                    alt61=1;
                 }
             }
-            switch (alt60) {
+            switch (alt61) {
                 case 1 :
-                    // InternalDSL.g:9538:2: '|'
+                    // InternalDSL.g:9569:2: '|'
                     {
                     match(input,61,FOLLOW_2); 
 
@@ -26122,14 +26219,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__0"
-    // InternalDSL.g:9555:1: rule__NamedResult__Group__0 : rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1 ;
+    // InternalDSL.g:9586:1: rule__NamedResult__Group__0 : rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1 ;
     public final void rule__NamedResult__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9559:1: ( rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1 )
-            // InternalDSL.g:9560:2: rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1
+            // InternalDSL.g:9590:1: ( rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1 )
+            // InternalDSL.g:9591:2: rule__NamedResult__Group__0__Impl rule__NamedResult__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__NamedResult__Group__0__Impl();
@@ -26160,21 +26257,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__0__Impl"
-    // InternalDSL.g:9567:1: rule__NamedResult__Group__0__Impl : ( ( rule__NamedResult__NameAssignment_0 ) ) ;
+    // InternalDSL.g:9598:1: rule__NamedResult__Group__0__Impl : ( ( rule__NamedResult__NameAssignment_0 ) ) ;
     public final void rule__NamedResult__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9571:1: ( ( ( rule__NamedResult__NameAssignment_0 ) ) )
-            // InternalDSL.g:9572:1: ( ( rule__NamedResult__NameAssignment_0 ) )
+            // InternalDSL.g:9602:1: ( ( ( rule__NamedResult__NameAssignment_0 ) ) )
+            // InternalDSL.g:9603:1: ( ( rule__NamedResult__NameAssignment_0 ) )
             {
-            // InternalDSL.g:9572:1: ( ( rule__NamedResult__NameAssignment_0 ) )
-            // InternalDSL.g:9573:1: ( rule__NamedResult__NameAssignment_0 )
+            // InternalDSL.g:9603:1: ( ( rule__NamedResult__NameAssignment_0 ) )
+            // InternalDSL.g:9604:1: ( rule__NamedResult__NameAssignment_0 )
             {
              before(grammarAccess.getNamedResultAccess().getNameAssignment_0()); 
-            // InternalDSL.g:9574:1: ( rule__NamedResult__NameAssignment_0 )
-            // InternalDSL.g:9574:2: rule__NamedResult__NameAssignment_0
+            // InternalDSL.g:9605:1: ( rule__NamedResult__NameAssignment_0 )
+            // InternalDSL.g:9605:2: rule__NamedResult__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__NamedResult__NameAssignment_0();
@@ -26207,14 +26304,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__1"
-    // InternalDSL.g:9584:1: rule__NamedResult__Group__1 : rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2 ;
+    // InternalDSL.g:9615:1: rule__NamedResult__Group__1 : rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2 ;
     public final void rule__NamedResult__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9588:1: ( rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2 )
-            // InternalDSL.g:9589:2: rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2
+            // InternalDSL.g:9619:1: ( rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2 )
+            // InternalDSL.g:9620:2: rule__NamedResult__Group__1__Impl rule__NamedResult__Group__2
             {
             pushFollow(FOLLOW_32);
             rule__NamedResult__Group__1__Impl();
@@ -26245,17 +26342,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__1__Impl"
-    // InternalDSL.g:9596:1: rule__NamedResult__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:9627:1: rule__NamedResult__Group__1__Impl : ( ruleNL ) ;
     public final void rule__NamedResult__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9600:1: ( ( ruleNL ) )
-            // InternalDSL.g:9601:1: ( ruleNL )
+            // InternalDSL.g:9631:1: ( ( ruleNL ) )
+            // InternalDSL.g:9632:1: ( ruleNL )
             {
-            // InternalDSL.g:9601:1: ( ruleNL )
-            // InternalDSL.g:9602:1: ruleNL
+            // InternalDSL.g:9632:1: ( ruleNL )
+            // InternalDSL.g:9633:1: ruleNL
             {
              before(grammarAccess.getNamedResultAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -26286,14 +26383,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__2"
-    // InternalDSL.g:9613:1: rule__NamedResult__Group__2 : rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3 ;
+    // InternalDSL.g:9644:1: rule__NamedResult__Group__2 : rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3 ;
     public final void rule__NamedResult__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9617:1: ( rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3 )
-            // InternalDSL.g:9618:2: rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3
+            // InternalDSL.g:9648:1: ( rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3 )
+            // InternalDSL.g:9649:2: rule__NamedResult__Group__2__Impl rule__NamedResult__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__NamedResult__Group__2__Impl();
@@ -26324,17 +26421,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__2__Impl"
-    // InternalDSL.g:9625:1: rule__NamedResult__Group__2__Impl : ( '=' ) ;
+    // InternalDSL.g:9656:1: rule__NamedResult__Group__2__Impl : ( '=' ) ;
     public final void rule__NamedResult__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9629:1: ( ( '=' ) )
-            // InternalDSL.g:9630:1: ( '=' )
+            // InternalDSL.g:9660:1: ( ( '=' ) )
+            // InternalDSL.g:9661:1: ( '=' )
             {
-            // InternalDSL.g:9630:1: ( '=' )
-            // InternalDSL.g:9631:1: '='
+            // InternalDSL.g:9661:1: ( '=' )
+            // InternalDSL.g:9662:1: '='
             {
              before(grammarAccess.getNamedResultAccess().getEqualsSignKeyword_2()); 
             match(input,59,FOLLOW_2); 
@@ -26361,14 +26458,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__3"
-    // InternalDSL.g:9644:1: rule__NamedResult__Group__3 : rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4 ;
+    // InternalDSL.g:9675:1: rule__NamedResult__Group__3 : rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4 ;
     public final void rule__NamedResult__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9648:1: ( rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4 )
-            // InternalDSL.g:9649:2: rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4
+            // InternalDSL.g:9679:1: ( rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4 )
+            // InternalDSL.g:9680:2: rule__NamedResult__Group__3__Impl rule__NamedResult__Group__4
             {
             pushFollow(FOLLOW_15);
             rule__NamedResult__Group__3__Impl();
@@ -26399,17 +26496,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__3__Impl"
-    // InternalDSL.g:9656:1: rule__NamedResult__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:9687:1: rule__NamedResult__Group__3__Impl : ( ruleNL ) ;
     public final void rule__NamedResult__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9660:1: ( ( ruleNL ) )
-            // InternalDSL.g:9661:1: ( ruleNL )
+            // InternalDSL.g:9691:1: ( ( ruleNL ) )
+            // InternalDSL.g:9692:1: ( ruleNL )
             {
-            // InternalDSL.g:9661:1: ( ruleNL )
-            // InternalDSL.g:9662:1: ruleNL
+            // InternalDSL.g:9692:1: ( ruleNL )
+            // InternalDSL.g:9693:1: ruleNL
             {
              before(grammarAccess.getNamedResultAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -26440,14 +26537,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__4"
-    // InternalDSL.g:9673:1: rule__NamedResult__Group__4 : rule__NamedResult__Group__4__Impl ;
+    // InternalDSL.g:9704:1: rule__NamedResult__Group__4 : rule__NamedResult__Group__4__Impl ;
     public final void rule__NamedResult__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9677:1: ( rule__NamedResult__Group__4__Impl )
-            // InternalDSL.g:9678:2: rule__NamedResult__Group__4__Impl
+            // InternalDSL.g:9708:1: ( rule__NamedResult__Group__4__Impl )
+            // InternalDSL.g:9709:2: rule__NamedResult__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__NamedResult__Group__4__Impl();
@@ -26473,21 +26570,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__Group__4__Impl"
-    // InternalDSL.g:9684:1: rule__NamedResult__Group__4__Impl : ( ( rule__NamedResult__ValueAssignment_4 ) ) ;
+    // InternalDSL.g:9715:1: rule__NamedResult__Group__4__Impl : ( ( rule__NamedResult__ValueAssignment_4 ) ) ;
     public final void rule__NamedResult__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9688:1: ( ( ( rule__NamedResult__ValueAssignment_4 ) ) )
-            // InternalDSL.g:9689:1: ( ( rule__NamedResult__ValueAssignment_4 ) )
+            // InternalDSL.g:9719:1: ( ( ( rule__NamedResult__ValueAssignment_4 ) ) )
+            // InternalDSL.g:9720:1: ( ( rule__NamedResult__ValueAssignment_4 ) )
             {
-            // InternalDSL.g:9689:1: ( ( rule__NamedResult__ValueAssignment_4 ) )
-            // InternalDSL.g:9690:1: ( rule__NamedResult__ValueAssignment_4 )
+            // InternalDSL.g:9720:1: ( ( rule__NamedResult__ValueAssignment_4 ) )
+            // InternalDSL.g:9721:1: ( rule__NamedResult__ValueAssignment_4 )
             {
              before(grammarAccess.getNamedResultAccess().getValueAssignment_4()); 
-            // InternalDSL.g:9691:1: ( rule__NamedResult__ValueAssignment_4 )
-            // InternalDSL.g:9691:2: rule__NamedResult__ValueAssignment_4
+            // InternalDSL.g:9722:1: ( rule__NamedResult__ValueAssignment_4 )
+            // InternalDSL.g:9722:2: rule__NamedResult__ValueAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__NamedResult__ValueAssignment_4();
@@ -26520,14 +26617,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__0"
-    // InternalDSL.g:9711:1: rule__Call__Group__0 : rule__Call__Group__0__Impl rule__Call__Group__1 ;
+    // InternalDSL.g:9742:1: rule__Call__Group__0 : rule__Call__Group__0__Impl rule__Call__Group__1 ;
     public final void rule__Call__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9715:1: ( rule__Call__Group__0__Impl rule__Call__Group__1 )
-            // InternalDSL.g:9716:2: rule__Call__Group__0__Impl rule__Call__Group__1
+            // InternalDSL.g:9746:1: ( rule__Call__Group__0__Impl rule__Call__Group__1 )
+            // InternalDSL.g:9747:2: rule__Call__Group__0__Impl rule__Call__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__Call__Group__0__Impl();
@@ -26558,17 +26655,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__0__Impl"
-    // InternalDSL.g:9723:1: rule__Call__Group__0__Impl : ( 'call' ) ;
+    // InternalDSL.g:9754:1: rule__Call__Group__0__Impl : ( 'call' ) ;
     public final void rule__Call__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9727:1: ( ( 'call' ) )
-            // InternalDSL.g:9728:1: ( 'call' )
+            // InternalDSL.g:9758:1: ( ( 'call' ) )
+            // InternalDSL.g:9759:1: ( 'call' )
             {
-            // InternalDSL.g:9728:1: ( 'call' )
-            // InternalDSL.g:9729:1: 'call'
+            // InternalDSL.g:9759:1: ( 'call' )
+            // InternalDSL.g:9760:1: 'call'
             {
              before(grammarAccess.getCallAccess().getCallKeyword_0()); 
             match(input,62,FOLLOW_2); 
@@ -26595,14 +26692,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__1"
-    // InternalDSL.g:9742:1: rule__Call__Group__1 : rule__Call__Group__1__Impl rule__Call__Group__2 ;
+    // InternalDSL.g:9773:1: rule__Call__Group__1 : rule__Call__Group__1__Impl rule__Call__Group__2 ;
     public final void rule__Call__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9746:1: ( rule__Call__Group__1__Impl rule__Call__Group__2 )
-            // InternalDSL.g:9747:2: rule__Call__Group__1__Impl rule__Call__Group__2
+            // InternalDSL.g:9777:1: ( rule__Call__Group__1__Impl rule__Call__Group__2 )
+            // InternalDSL.g:9778:2: rule__Call__Group__1__Impl rule__Call__Group__2
             {
             pushFollow(FOLLOW_37);
             rule__Call__Group__1__Impl();
@@ -26633,17 +26730,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__1__Impl"
-    // InternalDSL.g:9754:1: rule__Call__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:9785:1: rule__Call__Group__1__Impl : ( ruleNL ) ;
     public final void rule__Call__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9758:1: ( ( ruleNL ) )
-            // InternalDSL.g:9759:1: ( ruleNL )
+            // InternalDSL.g:9789:1: ( ( ruleNL ) )
+            // InternalDSL.g:9790:1: ( ruleNL )
             {
-            // InternalDSL.g:9759:1: ( ruleNL )
-            // InternalDSL.g:9760:1: ruleNL
+            // InternalDSL.g:9790:1: ( ruleNL )
+            // InternalDSL.g:9791:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -26674,14 +26771,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__2"
-    // InternalDSL.g:9771:1: rule__Call__Group__2 : rule__Call__Group__2__Impl rule__Call__Group__3 ;
+    // InternalDSL.g:9802:1: rule__Call__Group__2 : rule__Call__Group__2__Impl rule__Call__Group__3 ;
     public final void rule__Call__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9775:1: ( rule__Call__Group__2__Impl rule__Call__Group__3 )
-            // InternalDSL.g:9776:2: rule__Call__Group__2__Impl rule__Call__Group__3
+            // InternalDSL.g:9806:1: ( rule__Call__Group__2__Impl rule__Call__Group__3 )
+            // InternalDSL.g:9807:2: rule__Call__Group__2__Impl rule__Call__Group__3
             {
             pushFollow(FOLLOW_37);
             rule__Call__Group__2__Impl();
@@ -26712,25 +26809,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__2__Impl"
-    // InternalDSL.g:9783:1: rule__Call__Group__2__Impl : ( ( rule__Call__Group_2__0 )? ) ;
+    // InternalDSL.g:9814:1: rule__Call__Group__2__Impl : ( ( rule__Call__Group_2__0 )? ) ;
     public final void rule__Call__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9787:1: ( ( ( rule__Call__Group_2__0 )? ) )
-            // InternalDSL.g:9788:1: ( ( rule__Call__Group_2__0 )? )
+            // InternalDSL.g:9818:1: ( ( ( rule__Call__Group_2__0 )? ) )
+            // InternalDSL.g:9819:1: ( ( rule__Call__Group_2__0 )? )
             {
-            // InternalDSL.g:9788:1: ( ( rule__Call__Group_2__0 )? )
-            // InternalDSL.g:9789:1: ( rule__Call__Group_2__0 )?
+            // InternalDSL.g:9819:1: ( ( rule__Call__Group_2__0 )? )
+            // InternalDSL.g:9820:1: ( rule__Call__Group_2__0 )?
             {
              before(grammarAccess.getCallAccess().getGroup_2()); 
-            // InternalDSL.g:9790:1: ( rule__Call__Group_2__0 )?
-            int alt61=2;
-            alt61 = dfa61.predict(input);
-            switch (alt61) {
+            // InternalDSL.g:9821:1: ( rule__Call__Group_2__0 )?
+            int alt62=2;
+            alt62 = dfa62.predict(input);
+            switch (alt62) {
                 case 1 :
-                    // InternalDSL.g:9790:2: rule__Call__Group_2__0
+                    // InternalDSL.g:9821:2: rule__Call__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Call__Group_2__0();
@@ -26766,14 +26863,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__3"
-    // InternalDSL.g:9800:1: rule__Call__Group__3 : rule__Call__Group__3__Impl rule__Call__Group__4 ;
+    // InternalDSL.g:9831:1: rule__Call__Group__3 : rule__Call__Group__3__Impl rule__Call__Group__4 ;
     public final void rule__Call__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9804:1: ( rule__Call__Group__3__Impl rule__Call__Group__4 )
-            // InternalDSL.g:9805:2: rule__Call__Group__3__Impl rule__Call__Group__4
+            // InternalDSL.g:9835:1: ( rule__Call__Group__3__Impl rule__Call__Group__4 )
+            // InternalDSL.g:9836:2: rule__Call__Group__3__Impl rule__Call__Group__4
             {
             pushFollow(FOLLOW_4);
             rule__Call__Group__3__Impl();
@@ -26804,21 +26901,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__3__Impl"
-    // InternalDSL.g:9812:1: rule__Call__Group__3__Impl : ( ( rule__Call__DefinitionAssignment_3 ) ) ;
+    // InternalDSL.g:9843:1: rule__Call__Group__3__Impl : ( ( rule__Call__DefinitionAssignment_3 ) ) ;
     public final void rule__Call__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9816:1: ( ( ( rule__Call__DefinitionAssignment_3 ) ) )
-            // InternalDSL.g:9817:1: ( ( rule__Call__DefinitionAssignment_3 ) )
+            // InternalDSL.g:9847:1: ( ( ( rule__Call__DefinitionAssignment_3 ) ) )
+            // InternalDSL.g:9848:1: ( ( rule__Call__DefinitionAssignment_3 ) )
             {
-            // InternalDSL.g:9817:1: ( ( rule__Call__DefinitionAssignment_3 ) )
-            // InternalDSL.g:9818:1: ( rule__Call__DefinitionAssignment_3 )
+            // InternalDSL.g:9848:1: ( ( rule__Call__DefinitionAssignment_3 ) )
+            // InternalDSL.g:9849:1: ( rule__Call__DefinitionAssignment_3 )
             {
              before(grammarAccess.getCallAccess().getDefinitionAssignment_3()); 
-            // InternalDSL.g:9819:1: ( rule__Call__DefinitionAssignment_3 )
-            // InternalDSL.g:9819:2: rule__Call__DefinitionAssignment_3
+            // InternalDSL.g:9850:1: ( rule__Call__DefinitionAssignment_3 )
+            // InternalDSL.g:9850:2: rule__Call__DefinitionAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__Call__DefinitionAssignment_3();
@@ -26851,14 +26948,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__4"
-    // InternalDSL.g:9829:1: rule__Call__Group__4 : rule__Call__Group__4__Impl rule__Call__Group__5 ;
+    // InternalDSL.g:9860:1: rule__Call__Group__4 : rule__Call__Group__4__Impl rule__Call__Group__5 ;
     public final void rule__Call__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9833:1: ( rule__Call__Group__4__Impl rule__Call__Group__5 )
-            // InternalDSL.g:9834:2: rule__Call__Group__4__Impl rule__Call__Group__5
+            // InternalDSL.g:9864:1: ( rule__Call__Group__4__Impl rule__Call__Group__5 )
+            // InternalDSL.g:9865:2: rule__Call__Group__4__Impl rule__Call__Group__5
             {
             pushFollow(FOLLOW_4);
             rule__Call__Group__4__Impl();
@@ -26889,27 +26986,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__4__Impl"
-    // InternalDSL.g:9841:1: rule__Call__Group__4__Impl : ( ( rule__Call__Group_4__0 )* ) ;
+    // InternalDSL.g:9872:1: rule__Call__Group__4__Impl : ( ( rule__Call__Group_4__0 )* ) ;
     public final void rule__Call__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9845:1: ( ( ( rule__Call__Group_4__0 )* ) )
-            // InternalDSL.g:9846:1: ( ( rule__Call__Group_4__0 )* )
+            // InternalDSL.g:9876:1: ( ( ( rule__Call__Group_4__0 )* ) )
+            // InternalDSL.g:9877:1: ( ( rule__Call__Group_4__0 )* )
             {
-            // InternalDSL.g:9846:1: ( ( rule__Call__Group_4__0 )* )
-            // InternalDSL.g:9847:1: ( rule__Call__Group_4__0 )*
+            // InternalDSL.g:9877:1: ( ( rule__Call__Group_4__0 )* )
+            // InternalDSL.g:9878:1: ( rule__Call__Group_4__0 )*
             {
              before(grammarAccess.getCallAccess().getGroup_4()); 
-            // InternalDSL.g:9848:1: ( rule__Call__Group_4__0 )*
-            loop62:
+            // InternalDSL.g:9879:1: ( rule__Call__Group_4__0 )*
+            loop63:
             do {
-                int alt62=2;
-                alt62 = dfa62.predict(input);
-                switch (alt62) {
+                int alt63=2;
+                alt63 = dfa63.predict(input);
+                switch (alt63) {
             	case 1 :
-            	    // InternalDSL.g:9848:2: rule__Call__Group_4__0
+            	    // InternalDSL.g:9879:2: rule__Call__Group_4__0
             	    {
             	    pushFollow(FOLLOW_3);
             	    rule__Call__Group_4__0();
@@ -26921,7 +27018,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop62;
+            	    break loop63;
                 }
             } while (true);
 
@@ -26948,14 +27045,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__5"
-    // InternalDSL.g:9858:1: rule__Call__Group__5 : rule__Call__Group__5__Impl rule__Call__Group__6 ;
+    // InternalDSL.g:9889:1: rule__Call__Group__5 : rule__Call__Group__5__Impl rule__Call__Group__6 ;
     public final void rule__Call__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9862:1: ( rule__Call__Group__5__Impl rule__Call__Group__6 )
-            // InternalDSL.g:9863:2: rule__Call__Group__5__Impl rule__Call__Group__6
+            // InternalDSL.g:9893:1: ( rule__Call__Group__5__Impl rule__Call__Group__6 )
+            // InternalDSL.g:9894:2: rule__Call__Group__5__Impl rule__Call__Group__6
             {
             pushFollow(FOLLOW_4);
             rule__Call__Group__5__Impl();
@@ -26986,27 +27083,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__5__Impl"
-    // InternalDSL.g:9870:1: rule__Call__Group__5__Impl : ( ( rule__Call__Group_5__0 )* ) ;
+    // InternalDSL.g:9901:1: rule__Call__Group__5__Impl : ( ( rule__Call__Group_5__0 )* ) ;
     public final void rule__Call__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9874:1: ( ( ( rule__Call__Group_5__0 )* ) )
-            // InternalDSL.g:9875:1: ( ( rule__Call__Group_5__0 )* )
+            // InternalDSL.g:9905:1: ( ( ( rule__Call__Group_5__0 )* ) )
+            // InternalDSL.g:9906:1: ( ( rule__Call__Group_5__0 )* )
             {
-            // InternalDSL.g:9875:1: ( ( rule__Call__Group_5__0 )* )
-            // InternalDSL.g:9876:1: ( rule__Call__Group_5__0 )*
+            // InternalDSL.g:9906:1: ( ( rule__Call__Group_5__0 )* )
+            // InternalDSL.g:9907:1: ( rule__Call__Group_5__0 )*
             {
              before(grammarAccess.getCallAccess().getGroup_5()); 
-            // InternalDSL.g:9877:1: ( rule__Call__Group_5__0 )*
-            loop63:
+            // InternalDSL.g:9908:1: ( rule__Call__Group_5__0 )*
+            loop64:
             do {
-                int alt63=2;
-                alt63 = dfa63.predict(input);
-                switch (alt63) {
+                int alt64=2;
+                alt64 = dfa64.predict(input);
+                switch (alt64) {
             	case 1 :
-            	    // InternalDSL.g:9877:2: rule__Call__Group_5__0
+            	    // InternalDSL.g:9908:2: rule__Call__Group_5__0
             	    {
             	    pushFollow(FOLLOW_3);
             	    rule__Call__Group_5__0();
@@ -27018,7 +27115,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop63;
+            	    break loop64;
                 }
             } while (true);
 
@@ -27045,14 +27142,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__6"
-    // InternalDSL.g:9887:1: rule__Call__Group__6 : rule__Call__Group__6__Impl rule__Call__Group__7 ;
+    // InternalDSL.g:9918:1: rule__Call__Group__6 : rule__Call__Group__6__Impl rule__Call__Group__7 ;
     public final void rule__Call__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9891:1: ( rule__Call__Group__6__Impl rule__Call__Group__7 )
-            // InternalDSL.g:9892:2: rule__Call__Group__6__Impl rule__Call__Group__7
+            // InternalDSL.g:9922:1: ( rule__Call__Group__6__Impl rule__Call__Group__7 )
+            // InternalDSL.g:9923:2: rule__Call__Group__6__Impl rule__Call__Group__7
             {
             pushFollow(FOLLOW_4);
             rule__Call__Group__6__Impl();
@@ -27083,25 +27180,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__6__Impl"
-    // InternalDSL.g:9899:1: rule__Call__Group__6__Impl : ( ( rule__Call__Group_6__0 )? ) ;
+    // InternalDSL.g:9930:1: rule__Call__Group__6__Impl : ( ( rule__Call__Group_6__0 )? ) ;
     public final void rule__Call__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9903:1: ( ( ( rule__Call__Group_6__0 )? ) )
-            // InternalDSL.g:9904:1: ( ( rule__Call__Group_6__0 )? )
+            // InternalDSL.g:9934:1: ( ( ( rule__Call__Group_6__0 )? ) )
+            // InternalDSL.g:9935:1: ( ( rule__Call__Group_6__0 )? )
             {
-            // InternalDSL.g:9904:1: ( ( rule__Call__Group_6__0 )? )
-            // InternalDSL.g:9905:1: ( rule__Call__Group_6__0 )?
+            // InternalDSL.g:9935:1: ( ( rule__Call__Group_6__0 )? )
+            // InternalDSL.g:9936:1: ( rule__Call__Group_6__0 )?
             {
              before(grammarAccess.getCallAccess().getGroup_6()); 
-            // InternalDSL.g:9906:1: ( rule__Call__Group_6__0 )?
-            int alt64=2;
-            alt64 = dfa64.predict(input);
-            switch (alt64) {
+            // InternalDSL.g:9937:1: ( rule__Call__Group_6__0 )?
+            int alt65=2;
+            alt65 = dfa65.predict(input);
+            switch (alt65) {
                 case 1 :
-                    // InternalDSL.g:9906:2: rule__Call__Group_6__0
+                    // InternalDSL.g:9937:2: rule__Call__Group_6__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Call__Group_6__0();
@@ -27137,14 +27234,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__7"
-    // InternalDSL.g:9916:1: rule__Call__Group__7 : rule__Call__Group__7__Impl ;
+    // InternalDSL.g:9947:1: rule__Call__Group__7 : rule__Call__Group__7__Impl ;
     public final void rule__Call__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9920:1: ( rule__Call__Group__7__Impl )
-            // InternalDSL.g:9921:2: rule__Call__Group__7__Impl
+            // InternalDSL.g:9951:1: ( rule__Call__Group__7__Impl )
+            // InternalDSL.g:9952:2: rule__Call__Group__7__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Call__Group__7__Impl();
@@ -27170,17 +27267,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group__7__Impl"
-    // InternalDSL.g:9927:1: rule__Call__Group__7__Impl : ( ruleNL ) ;
+    // InternalDSL.g:9958:1: rule__Call__Group__7__Impl : ( ruleNL ) ;
     public final void rule__Call__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9931:1: ( ( ruleNL ) )
-            // InternalDSL.g:9932:1: ( ruleNL )
+            // InternalDSL.g:9962:1: ( ( ruleNL ) )
+            // InternalDSL.g:9963:1: ( ruleNL )
             {
-            // InternalDSL.g:9932:1: ( ruleNL )
-            // InternalDSL.g:9933:1: ruleNL
+            // InternalDSL.g:9963:1: ( ruleNL )
+            // InternalDSL.g:9964:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_7()); 
             pushFollow(FOLLOW_2);
@@ -27211,14 +27308,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_2__0"
-    // InternalDSL.g:9960:1: rule__Call__Group_2__0 : rule__Call__Group_2__0__Impl rule__Call__Group_2__1 ;
+    // InternalDSL.g:9991:1: rule__Call__Group_2__0 : rule__Call__Group_2__0__Impl rule__Call__Group_2__1 ;
     public final void rule__Call__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9964:1: ( rule__Call__Group_2__0__Impl rule__Call__Group_2__1 )
-            // InternalDSL.g:9965:2: rule__Call__Group_2__0__Impl rule__Call__Group_2__1
+            // InternalDSL.g:9995:1: ( rule__Call__Group_2__0__Impl rule__Call__Group_2__1 )
+            // InternalDSL.g:9996:2: rule__Call__Group_2__0__Impl rule__Call__Group_2__1
             {
             pushFollow(FOLLOW_4);
             rule__Call__Group_2__0__Impl();
@@ -27249,21 +27346,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_2__0__Impl"
-    // InternalDSL.g:9972:1: rule__Call__Group_2__0__Impl : ( ( rule__Call__MultiplierAssignment_2_0 ) ) ;
+    // InternalDSL.g:10003:1: rule__Call__Group_2__0__Impl : ( ( rule__Call__MultiplierAssignment_2_0 ) ) ;
     public final void rule__Call__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9976:1: ( ( ( rule__Call__MultiplierAssignment_2_0 ) ) )
-            // InternalDSL.g:9977:1: ( ( rule__Call__MultiplierAssignment_2_0 ) )
+            // InternalDSL.g:10007:1: ( ( ( rule__Call__MultiplierAssignment_2_0 ) ) )
+            // InternalDSL.g:10008:1: ( ( rule__Call__MultiplierAssignment_2_0 ) )
             {
-            // InternalDSL.g:9977:1: ( ( rule__Call__MultiplierAssignment_2_0 ) )
-            // InternalDSL.g:9978:1: ( rule__Call__MultiplierAssignment_2_0 )
+            // InternalDSL.g:10008:1: ( ( rule__Call__MultiplierAssignment_2_0 ) )
+            // InternalDSL.g:10009:1: ( rule__Call__MultiplierAssignment_2_0 )
             {
              before(grammarAccess.getCallAccess().getMultiplierAssignment_2_0()); 
-            // InternalDSL.g:9979:1: ( rule__Call__MultiplierAssignment_2_0 )
-            // InternalDSL.g:9979:2: rule__Call__MultiplierAssignment_2_0
+            // InternalDSL.g:10010:1: ( rule__Call__MultiplierAssignment_2_0 )
+            // InternalDSL.g:10010:2: rule__Call__MultiplierAssignment_2_0
             {
             pushFollow(FOLLOW_2);
             rule__Call__MultiplierAssignment_2_0();
@@ -27296,14 +27393,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_2__1"
-    // InternalDSL.g:9989:1: rule__Call__Group_2__1 : rule__Call__Group_2__1__Impl ;
+    // InternalDSL.g:10020:1: rule__Call__Group_2__1 : rule__Call__Group_2__1__Impl ;
     public final void rule__Call__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:9993:1: ( rule__Call__Group_2__1__Impl )
-            // InternalDSL.g:9994:2: rule__Call__Group_2__1__Impl
+            // InternalDSL.g:10024:1: ( rule__Call__Group_2__1__Impl )
+            // InternalDSL.g:10025:2: rule__Call__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Call__Group_2__1__Impl();
@@ -27329,17 +27426,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_2__1__Impl"
-    // InternalDSL.g:10000:1: rule__Call__Group_2__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10031:1: rule__Call__Group_2__1__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10004:1: ( ( ruleNL ) )
-            // InternalDSL.g:10005:1: ( ruleNL )
+            // InternalDSL.g:10035:1: ( ( ruleNL ) )
+            // InternalDSL.g:10036:1: ( ruleNL )
             {
-            // InternalDSL.g:10005:1: ( ruleNL )
-            // InternalDSL.g:10006:1: ruleNL
+            // InternalDSL.g:10036:1: ( ruleNL )
+            // InternalDSL.g:10037:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_2_1()); 
             pushFollow(FOLLOW_2);
@@ -27370,14 +27467,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_4__0"
-    // InternalDSL.g:10021:1: rule__Call__Group_4__0 : rule__Call__Group_4__0__Impl rule__Call__Group_4__1 ;
+    // InternalDSL.g:10052:1: rule__Call__Group_4__0 : rule__Call__Group_4__0__Impl rule__Call__Group_4__1 ;
     public final void rule__Call__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10025:1: ( rule__Call__Group_4__0__Impl rule__Call__Group_4__1 )
-            // InternalDSL.g:10026:2: rule__Call__Group_4__0__Impl rule__Call__Group_4__1
+            // InternalDSL.g:10056:1: ( rule__Call__Group_4__0__Impl rule__Call__Group_4__1 )
+            // InternalDSL.g:10057:2: rule__Call__Group_4__0__Impl rule__Call__Group_4__1
             {
             pushFollow(FOLLOW_31);
             rule__Call__Group_4__0__Impl();
@@ -27408,17 +27505,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_4__0__Impl"
-    // InternalDSL.g:10033:1: rule__Call__Group_4__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10064:1: rule__Call__Group_4__0__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10037:1: ( ( ruleNL ) )
-            // InternalDSL.g:10038:1: ( ruleNL )
+            // InternalDSL.g:10068:1: ( ( ruleNL ) )
+            // InternalDSL.g:10069:1: ( ruleNL )
             {
-            // InternalDSL.g:10038:1: ( ruleNL )
-            // InternalDSL.g:10039:1: ruleNL
+            // InternalDSL.g:10069:1: ( ruleNL )
+            // InternalDSL.g:10070:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -27449,14 +27546,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_4__1"
-    // InternalDSL.g:10050:1: rule__Call__Group_4__1 : rule__Call__Group_4__1__Impl ;
+    // InternalDSL.g:10081:1: rule__Call__Group_4__1 : rule__Call__Group_4__1__Impl ;
     public final void rule__Call__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10054:1: ( rule__Call__Group_4__1__Impl )
-            // InternalDSL.g:10055:2: rule__Call__Group_4__1__Impl
+            // InternalDSL.g:10085:1: ( rule__Call__Group_4__1__Impl )
+            // InternalDSL.g:10086:2: rule__Call__Group_4__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Call__Group_4__1__Impl();
@@ -27482,21 +27579,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_4__1__Impl"
-    // InternalDSL.g:10061:1: rule__Call__Group_4__1__Impl : ( ( rule__Call__ParametersAssignment_4_1 ) ) ;
+    // InternalDSL.g:10092:1: rule__Call__Group_4__1__Impl : ( ( rule__Call__ParametersAssignment_4_1 ) ) ;
     public final void rule__Call__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10065:1: ( ( ( rule__Call__ParametersAssignment_4_1 ) ) )
-            // InternalDSL.g:10066:1: ( ( rule__Call__ParametersAssignment_4_1 ) )
+            // InternalDSL.g:10096:1: ( ( ( rule__Call__ParametersAssignment_4_1 ) ) )
+            // InternalDSL.g:10097:1: ( ( rule__Call__ParametersAssignment_4_1 ) )
             {
-            // InternalDSL.g:10066:1: ( ( rule__Call__ParametersAssignment_4_1 ) )
-            // InternalDSL.g:10067:1: ( rule__Call__ParametersAssignment_4_1 )
+            // InternalDSL.g:10097:1: ( ( rule__Call__ParametersAssignment_4_1 ) )
+            // InternalDSL.g:10098:1: ( rule__Call__ParametersAssignment_4_1 )
             {
              before(grammarAccess.getCallAccess().getParametersAssignment_4_1()); 
-            // InternalDSL.g:10068:1: ( rule__Call__ParametersAssignment_4_1 )
-            // InternalDSL.g:10068:2: rule__Call__ParametersAssignment_4_1
+            // InternalDSL.g:10099:1: ( rule__Call__ParametersAssignment_4_1 )
+            // InternalDSL.g:10099:2: rule__Call__ParametersAssignment_4_1
             {
             pushFollow(FOLLOW_2);
             rule__Call__ParametersAssignment_4_1();
@@ -27529,14 +27626,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_5__0"
-    // InternalDSL.g:10082:1: rule__Call__Group_5__0 : rule__Call__Group_5__0__Impl rule__Call__Group_5__1 ;
+    // InternalDSL.g:10113:1: rule__Call__Group_5__0 : rule__Call__Group_5__0__Impl rule__Call__Group_5__1 ;
     public final void rule__Call__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10086:1: ( rule__Call__Group_5__0__Impl rule__Call__Group_5__1 )
-            // InternalDSL.g:10087:2: rule__Call__Group_5__0__Impl rule__Call__Group_5__1
+            // InternalDSL.g:10117:1: ( rule__Call__Group_5__0__Impl rule__Call__Group_5__1 )
+            // InternalDSL.g:10118:2: rule__Call__Group_5__0__Impl rule__Call__Group_5__1
             {
             pushFollow(FOLLOW_31);
             rule__Call__Group_5__0__Impl();
@@ -27567,17 +27664,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_5__0__Impl"
-    // InternalDSL.g:10094:1: rule__Call__Group_5__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10125:1: rule__Call__Group_5__0__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10098:1: ( ( ruleNL ) )
-            // InternalDSL.g:10099:1: ( ruleNL )
+            // InternalDSL.g:10129:1: ( ( ruleNL ) )
+            // InternalDSL.g:10130:1: ( ruleNL )
             {
-            // InternalDSL.g:10099:1: ( ruleNL )
-            // InternalDSL.g:10100:1: ruleNL
+            // InternalDSL.g:10130:1: ( ruleNL )
+            // InternalDSL.g:10131:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_5_0()); 
             pushFollow(FOLLOW_2);
@@ -27608,14 +27705,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_5__1"
-    // InternalDSL.g:10111:1: rule__Call__Group_5__1 : rule__Call__Group_5__1__Impl ;
+    // InternalDSL.g:10142:1: rule__Call__Group_5__1 : rule__Call__Group_5__1__Impl ;
     public final void rule__Call__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10115:1: ( rule__Call__Group_5__1__Impl )
-            // InternalDSL.g:10116:2: rule__Call__Group_5__1__Impl
+            // InternalDSL.g:10146:1: ( rule__Call__Group_5__1__Impl )
+            // InternalDSL.g:10147:2: rule__Call__Group_5__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Call__Group_5__1__Impl();
@@ -27641,21 +27738,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_5__1__Impl"
-    // InternalDSL.g:10122:1: rule__Call__Group_5__1__Impl : ( ( rule__Call__ResultsAssignment_5_1 ) ) ;
+    // InternalDSL.g:10153:1: rule__Call__Group_5__1__Impl : ( ( rule__Call__ResultsAssignment_5_1 ) ) ;
     public final void rule__Call__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10126:1: ( ( ( rule__Call__ResultsAssignment_5_1 ) ) )
-            // InternalDSL.g:10127:1: ( ( rule__Call__ResultsAssignment_5_1 ) )
+            // InternalDSL.g:10157:1: ( ( ( rule__Call__ResultsAssignment_5_1 ) ) )
+            // InternalDSL.g:10158:1: ( ( rule__Call__ResultsAssignment_5_1 ) )
             {
-            // InternalDSL.g:10127:1: ( ( rule__Call__ResultsAssignment_5_1 ) )
-            // InternalDSL.g:10128:1: ( rule__Call__ResultsAssignment_5_1 )
+            // InternalDSL.g:10158:1: ( ( rule__Call__ResultsAssignment_5_1 ) )
+            // InternalDSL.g:10159:1: ( rule__Call__ResultsAssignment_5_1 )
             {
              before(grammarAccess.getCallAccess().getResultsAssignment_5_1()); 
-            // InternalDSL.g:10129:1: ( rule__Call__ResultsAssignment_5_1 )
-            // InternalDSL.g:10129:2: rule__Call__ResultsAssignment_5_1
+            // InternalDSL.g:10160:1: ( rule__Call__ResultsAssignment_5_1 )
+            // InternalDSL.g:10160:2: rule__Call__ResultsAssignment_5_1
             {
             pushFollow(FOLLOW_2);
             rule__Call__ResultsAssignment_5_1();
@@ -27688,14 +27785,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__0"
-    // InternalDSL.g:10143:1: rule__Call__Group_6__0 : rule__Call__Group_6__0__Impl rule__Call__Group_6__1 ;
+    // InternalDSL.g:10174:1: rule__Call__Group_6__0 : rule__Call__Group_6__0__Impl rule__Call__Group_6__1 ;
     public final void rule__Call__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10147:1: ( rule__Call__Group_6__0__Impl rule__Call__Group_6__1 )
-            // InternalDSL.g:10148:2: rule__Call__Group_6__0__Impl rule__Call__Group_6__1
+            // InternalDSL.g:10178:1: ( rule__Call__Group_6__0__Impl rule__Call__Group_6__1 )
+            // InternalDSL.g:10179:2: rule__Call__Group_6__0__Impl rule__Call__Group_6__1
             {
             pushFollow(FOLLOW_29);
             rule__Call__Group_6__0__Impl();
@@ -27726,17 +27823,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__0__Impl"
-    // InternalDSL.g:10155:1: rule__Call__Group_6__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10186:1: rule__Call__Group_6__0__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10159:1: ( ( ruleNL ) )
-            // InternalDSL.g:10160:1: ( ruleNL )
+            // InternalDSL.g:10190:1: ( ( ruleNL ) )
+            // InternalDSL.g:10191:1: ( ruleNL )
             {
-            // InternalDSL.g:10160:1: ( ruleNL )
-            // InternalDSL.g:10161:1: ruleNL
+            // InternalDSL.g:10191:1: ( ruleNL )
+            // InternalDSL.g:10192:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
@@ -27767,14 +27864,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__1"
-    // InternalDSL.g:10172:1: rule__Call__Group_6__1 : rule__Call__Group_6__1__Impl rule__Call__Group_6__2 ;
+    // InternalDSL.g:10203:1: rule__Call__Group_6__1 : rule__Call__Group_6__1__Impl rule__Call__Group_6__2 ;
     public final void rule__Call__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10176:1: ( rule__Call__Group_6__1__Impl rule__Call__Group_6__2 )
-            // InternalDSL.g:10177:2: rule__Call__Group_6__1__Impl rule__Call__Group_6__2
+            // InternalDSL.g:10207:1: ( rule__Call__Group_6__1__Impl rule__Call__Group_6__2 )
+            // InternalDSL.g:10208:2: rule__Call__Group_6__1__Impl rule__Call__Group_6__2
             {
             pushFollow(FOLLOW_4);
             rule__Call__Group_6__1__Impl();
@@ -27805,17 +27902,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__1__Impl"
-    // InternalDSL.g:10184:1: rule__Call__Group_6__1__Impl : ( '->' ) ;
+    // InternalDSL.g:10215:1: rule__Call__Group_6__1__Impl : ( '->' ) ;
     public final void rule__Call__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10188:1: ( ( '->' ) )
-            // InternalDSL.g:10189:1: ( '->' )
+            // InternalDSL.g:10219:1: ( ( '->' ) )
+            // InternalDSL.g:10220:1: ( '->' )
             {
-            // InternalDSL.g:10189:1: ( '->' )
-            // InternalDSL.g:10190:1: '->'
+            // InternalDSL.g:10220:1: ( '->' )
+            // InternalDSL.g:10221:1: '->'
             {
              before(grammarAccess.getCallAccess().getHyphenMinusGreaterThanSignKeyword_6_1()); 
             match(input,56,FOLLOW_2); 
@@ -27842,14 +27939,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__2"
-    // InternalDSL.g:10203:1: rule__Call__Group_6__2 : rule__Call__Group_6__2__Impl rule__Call__Group_6__3 ;
+    // InternalDSL.g:10234:1: rule__Call__Group_6__2 : rule__Call__Group_6__2__Impl rule__Call__Group_6__3 ;
     public final void rule__Call__Group_6__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10207:1: ( rule__Call__Group_6__2__Impl rule__Call__Group_6__3 )
-            // InternalDSL.g:10208:2: rule__Call__Group_6__2__Impl rule__Call__Group_6__3
+            // InternalDSL.g:10238:1: ( rule__Call__Group_6__2__Impl rule__Call__Group_6__3 )
+            // InternalDSL.g:10239:2: rule__Call__Group_6__2__Impl rule__Call__Group_6__3
             {
             pushFollow(FOLLOW_7);
             rule__Call__Group_6__2__Impl();
@@ -27880,17 +27977,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__2__Impl"
-    // InternalDSL.g:10215:1: rule__Call__Group_6__2__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10246:1: rule__Call__Group_6__2__Impl : ( ruleNL ) ;
     public final void rule__Call__Group_6__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10219:1: ( ( ruleNL ) )
-            // InternalDSL.g:10220:1: ( ruleNL )
+            // InternalDSL.g:10250:1: ( ( ruleNL ) )
+            // InternalDSL.g:10251:1: ( ruleNL )
             {
-            // InternalDSL.g:10220:1: ( ruleNL )
-            // InternalDSL.g:10221:1: ruleNL
+            // InternalDSL.g:10251:1: ( ruleNL )
+            // InternalDSL.g:10252:1: ruleNL
             {
              before(grammarAccess.getCallAccess().getNLParserRuleCall_6_2()); 
             pushFollow(FOLLOW_2);
@@ -27921,14 +28018,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__3"
-    // InternalDSL.g:10232:1: rule__Call__Group_6__3 : rule__Call__Group_6__3__Impl ;
+    // InternalDSL.g:10263:1: rule__Call__Group_6__3 : rule__Call__Group_6__3__Impl ;
     public final void rule__Call__Group_6__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10236:1: ( rule__Call__Group_6__3__Impl )
-            // InternalDSL.g:10237:2: rule__Call__Group_6__3__Impl
+            // InternalDSL.g:10267:1: ( rule__Call__Group_6__3__Impl )
+            // InternalDSL.g:10268:2: rule__Call__Group_6__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Call__Group_6__3__Impl();
@@ -27954,21 +28051,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__Group_6__3__Impl"
-    // InternalDSL.g:10243:1: rule__Call__Group_6__3__Impl : ( ( rule__Call__ResultAssignment_6_3 ) ) ;
+    // InternalDSL.g:10274:1: rule__Call__Group_6__3__Impl : ( ( rule__Call__ResultAssignment_6_3 ) ) ;
     public final void rule__Call__Group_6__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10247:1: ( ( ( rule__Call__ResultAssignment_6_3 ) ) )
-            // InternalDSL.g:10248:1: ( ( rule__Call__ResultAssignment_6_3 ) )
+            // InternalDSL.g:10278:1: ( ( ( rule__Call__ResultAssignment_6_3 ) ) )
+            // InternalDSL.g:10279:1: ( ( rule__Call__ResultAssignment_6_3 ) )
             {
-            // InternalDSL.g:10248:1: ( ( rule__Call__ResultAssignment_6_3 ) )
-            // InternalDSL.g:10249:1: ( rule__Call__ResultAssignment_6_3 )
+            // InternalDSL.g:10279:1: ( ( rule__Call__ResultAssignment_6_3 ) )
+            // InternalDSL.g:10280:1: ( rule__Call__ResultAssignment_6_3 )
             {
              before(grammarAccess.getCallAccess().getResultAssignment_6_3()); 
-            // InternalDSL.g:10250:1: ( rule__Call__ResultAssignment_6_3 )
-            // InternalDSL.g:10250:2: rule__Call__ResultAssignment_6_3
+            // InternalDSL.g:10281:1: ( rule__Call__ResultAssignment_6_3 )
+            // InternalDSL.g:10281:2: rule__Call__ResultAssignment_6_3
             {
             pushFollow(FOLLOW_2);
             rule__Call__ResultAssignment_6_3();
@@ -28001,14 +28098,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__0"
-    // InternalDSL.g:10268:1: rule__NamedCallResult__Group__0 : rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1 ;
+    // InternalDSL.g:10299:1: rule__NamedCallResult__Group__0 : rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1 ;
     public final void rule__NamedCallResult__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10272:1: ( rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1 )
-            // InternalDSL.g:10273:2: rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1
+            // InternalDSL.g:10303:1: ( rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1 )
+            // InternalDSL.g:10304:2: rule__NamedCallResult__Group__0__Impl rule__NamedCallResult__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__NamedCallResult__Group__0__Impl();
@@ -28039,21 +28136,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__0__Impl"
-    // InternalDSL.g:10280:1: rule__NamedCallResult__Group__0__Impl : ( ( rule__NamedCallResult__NameAssignment_0 ) ) ;
+    // InternalDSL.g:10311:1: rule__NamedCallResult__Group__0__Impl : ( ( rule__NamedCallResult__NameAssignment_0 ) ) ;
     public final void rule__NamedCallResult__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10284:1: ( ( ( rule__NamedCallResult__NameAssignment_0 ) ) )
-            // InternalDSL.g:10285:1: ( ( rule__NamedCallResult__NameAssignment_0 ) )
+            // InternalDSL.g:10315:1: ( ( ( rule__NamedCallResult__NameAssignment_0 ) ) )
+            // InternalDSL.g:10316:1: ( ( rule__NamedCallResult__NameAssignment_0 ) )
             {
-            // InternalDSL.g:10285:1: ( ( rule__NamedCallResult__NameAssignment_0 ) )
-            // InternalDSL.g:10286:1: ( rule__NamedCallResult__NameAssignment_0 )
+            // InternalDSL.g:10316:1: ( ( rule__NamedCallResult__NameAssignment_0 ) )
+            // InternalDSL.g:10317:1: ( rule__NamedCallResult__NameAssignment_0 )
             {
              before(grammarAccess.getNamedCallResultAccess().getNameAssignment_0()); 
-            // InternalDSL.g:10287:1: ( rule__NamedCallResult__NameAssignment_0 )
-            // InternalDSL.g:10287:2: rule__NamedCallResult__NameAssignment_0
+            // InternalDSL.g:10318:1: ( rule__NamedCallResult__NameAssignment_0 )
+            // InternalDSL.g:10318:2: rule__NamedCallResult__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__NamedCallResult__NameAssignment_0();
@@ -28086,14 +28183,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__1"
-    // InternalDSL.g:10297:1: rule__NamedCallResult__Group__1 : rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2 ;
+    // InternalDSL.g:10328:1: rule__NamedCallResult__Group__1 : rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2 ;
     public final void rule__NamedCallResult__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10301:1: ( rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2 )
-            // InternalDSL.g:10302:2: rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2
+            // InternalDSL.g:10332:1: ( rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2 )
+            // InternalDSL.g:10333:2: rule__NamedCallResult__Group__1__Impl rule__NamedCallResult__Group__2
             {
             pushFollow(FOLLOW_29);
             rule__NamedCallResult__Group__1__Impl();
@@ -28124,17 +28221,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__1__Impl"
-    // InternalDSL.g:10309:1: rule__NamedCallResult__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10340:1: rule__NamedCallResult__Group__1__Impl : ( ruleNL ) ;
     public final void rule__NamedCallResult__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10313:1: ( ( ruleNL ) )
-            // InternalDSL.g:10314:1: ( ruleNL )
+            // InternalDSL.g:10344:1: ( ( ruleNL ) )
+            // InternalDSL.g:10345:1: ( ruleNL )
             {
-            // InternalDSL.g:10314:1: ( ruleNL )
-            // InternalDSL.g:10315:1: ruleNL
+            // InternalDSL.g:10345:1: ( ruleNL )
+            // InternalDSL.g:10346:1: ruleNL
             {
              before(grammarAccess.getNamedCallResultAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -28165,14 +28262,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__2"
-    // InternalDSL.g:10326:1: rule__NamedCallResult__Group__2 : rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3 ;
+    // InternalDSL.g:10357:1: rule__NamedCallResult__Group__2 : rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3 ;
     public final void rule__NamedCallResult__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10330:1: ( rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3 )
-            // InternalDSL.g:10331:2: rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3
+            // InternalDSL.g:10361:1: ( rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3 )
+            // InternalDSL.g:10362:2: rule__NamedCallResult__Group__2__Impl rule__NamedCallResult__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__NamedCallResult__Group__2__Impl();
@@ -28203,17 +28300,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__2__Impl"
-    // InternalDSL.g:10338:1: rule__NamedCallResult__Group__2__Impl : ( '->' ) ;
+    // InternalDSL.g:10369:1: rule__NamedCallResult__Group__2__Impl : ( '->' ) ;
     public final void rule__NamedCallResult__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10342:1: ( ( '->' ) )
-            // InternalDSL.g:10343:1: ( '->' )
+            // InternalDSL.g:10373:1: ( ( '->' ) )
+            // InternalDSL.g:10374:1: ( '->' )
             {
-            // InternalDSL.g:10343:1: ( '->' )
-            // InternalDSL.g:10344:1: '->'
+            // InternalDSL.g:10374:1: ( '->' )
+            // InternalDSL.g:10375:1: '->'
             {
              before(grammarAccess.getNamedCallResultAccess().getHyphenMinusGreaterThanSignKeyword_2()); 
             match(input,56,FOLLOW_2); 
@@ -28240,14 +28337,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__3"
-    // InternalDSL.g:10357:1: rule__NamedCallResult__Group__3 : rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4 ;
+    // InternalDSL.g:10388:1: rule__NamedCallResult__Group__3 : rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4 ;
     public final void rule__NamedCallResult__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10361:1: ( rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4 )
-            // InternalDSL.g:10362:2: rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4
+            // InternalDSL.g:10392:1: ( rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4 )
+            // InternalDSL.g:10393:2: rule__NamedCallResult__Group__3__Impl rule__NamedCallResult__Group__4
             {
             pushFollow(FOLLOW_7);
             rule__NamedCallResult__Group__3__Impl();
@@ -28278,17 +28375,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__3__Impl"
-    // InternalDSL.g:10369:1: rule__NamedCallResult__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10400:1: rule__NamedCallResult__Group__3__Impl : ( ruleNL ) ;
     public final void rule__NamedCallResult__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10373:1: ( ( ruleNL ) )
-            // InternalDSL.g:10374:1: ( ruleNL )
+            // InternalDSL.g:10404:1: ( ( ruleNL ) )
+            // InternalDSL.g:10405:1: ( ruleNL )
             {
-            // InternalDSL.g:10374:1: ( ruleNL )
-            // InternalDSL.g:10375:1: ruleNL
+            // InternalDSL.g:10405:1: ( ruleNL )
+            // InternalDSL.g:10406:1: ruleNL
             {
              before(grammarAccess.getNamedCallResultAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -28319,14 +28416,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__4"
-    // InternalDSL.g:10386:1: rule__NamedCallResult__Group__4 : rule__NamedCallResult__Group__4__Impl ;
+    // InternalDSL.g:10417:1: rule__NamedCallResult__Group__4 : rule__NamedCallResult__Group__4__Impl ;
     public final void rule__NamedCallResult__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10390:1: ( rule__NamedCallResult__Group__4__Impl )
-            // InternalDSL.g:10391:2: rule__NamedCallResult__Group__4__Impl
+            // InternalDSL.g:10421:1: ( rule__NamedCallResult__Group__4__Impl )
+            // InternalDSL.g:10422:2: rule__NamedCallResult__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__NamedCallResult__Group__4__Impl();
@@ -28352,21 +28449,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__Group__4__Impl"
-    // InternalDSL.g:10397:1: rule__NamedCallResult__Group__4__Impl : ( ( rule__NamedCallResult__TargetAssignment_4 ) ) ;
+    // InternalDSL.g:10428:1: rule__NamedCallResult__Group__4__Impl : ( ( rule__NamedCallResult__TargetAssignment_4 ) ) ;
     public final void rule__NamedCallResult__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10401:1: ( ( ( rule__NamedCallResult__TargetAssignment_4 ) ) )
-            // InternalDSL.g:10402:1: ( ( rule__NamedCallResult__TargetAssignment_4 ) )
+            // InternalDSL.g:10432:1: ( ( ( rule__NamedCallResult__TargetAssignment_4 ) ) )
+            // InternalDSL.g:10433:1: ( ( rule__NamedCallResult__TargetAssignment_4 ) )
             {
-            // InternalDSL.g:10402:1: ( ( rule__NamedCallResult__TargetAssignment_4 ) )
-            // InternalDSL.g:10403:1: ( rule__NamedCallResult__TargetAssignment_4 )
+            // InternalDSL.g:10433:1: ( ( rule__NamedCallResult__TargetAssignment_4 ) )
+            // InternalDSL.g:10434:1: ( rule__NamedCallResult__TargetAssignment_4 )
             {
              before(grammarAccess.getNamedCallResultAccess().getTargetAssignment_4()); 
-            // InternalDSL.g:10404:1: ( rule__NamedCallResult__TargetAssignment_4 )
-            // InternalDSL.g:10404:2: rule__NamedCallResult__TargetAssignment_4
+            // InternalDSL.g:10435:1: ( rule__NamedCallResult__TargetAssignment_4 )
+            // InternalDSL.g:10435:2: rule__NamedCallResult__TargetAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__NamedCallResult__TargetAssignment_4();
@@ -28399,14 +28496,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__0"
-    // InternalDSL.g:10424:1: rule__Suite__Group__0 : rule__Suite__Group__0__Impl rule__Suite__Group__1 ;
+    // InternalDSL.g:10455:1: rule__Suite__Group__0 : rule__Suite__Group__0__Impl rule__Suite__Group__1 ;
     public final void rule__Suite__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10428:1: ( rule__Suite__Group__0__Impl rule__Suite__Group__1 )
-            // InternalDSL.g:10429:2: rule__Suite__Group__0__Impl rule__Suite__Group__1
+            // InternalDSL.g:10459:1: ( rule__Suite__Group__0__Impl rule__Suite__Group__1 )
+            // InternalDSL.g:10460:2: rule__Suite__Group__0__Impl rule__Suite__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group__0__Impl();
@@ -28437,17 +28534,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__0__Impl"
-    // InternalDSL.g:10436:1: rule__Suite__Group__0__Impl : ( 'suite' ) ;
+    // InternalDSL.g:10467:1: rule__Suite__Group__0__Impl : ( 'suite' ) ;
     public final void rule__Suite__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10440:1: ( ( 'suite' ) )
-            // InternalDSL.g:10441:1: ( 'suite' )
+            // InternalDSL.g:10471:1: ( ( 'suite' ) )
+            // InternalDSL.g:10472:1: ( 'suite' )
             {
-            // InternalDSL.g:10441:1: ( 'suite' )
-            // InternalDSL.g:10442:1: 'suite'
+            // InternalDSL.g:10472:1: ( 'suite' )
+            // InternalDSL.g:10473:1: 'suite'
             {
              before(grammarAccess.getSuiteAccess().getSuiteKeyword_0()); 
             match(input,63,FOLLOW_2); 
@@ -28474,14 +28571,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__1"
-    // InternalDSL.g:10455:1: rule__Suite__Group__1 : rule__Suite__Group__1__Impl rule__Suite__Group__2 ;
+    // InternalDSL.g:10486:1: rule__Suite__Group__1 : rule__Suite__Group__1__Impl rule__Suite__Group__2 ;
     public final void rule__Suite__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10459:1: ( rule__Suite__Group__1__Impl rule__Suite__Group__2 )
-            // InternalDSL.g:10460:2: rule__Suite__Group__1__Impl rule__Suite__Group__2
+            // InternalDSL.g:10490:1: ( rule__Suite__Group__1__Impl rule__Suite__Group__2 )
+            // InternalDSL.g:10491:2: rule__Suite__Group__1__Impl rule__Suite__Group__2
             {
             pushFollow(FOLLOW_37);
             rule__Suite__Group__1__Impl();
@@ -28512,17 +28609,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__1__Impl"
-    // InternalDSL.g:10467:1: rule__Suite__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10498:1: rule__Suite__Group__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10471:1: ( ( ruleNL ) )
-            // InternalDSL.g:10472:1: ( ruleNL )
+            // InternalDSL.g:10502:1: ( ( ruleNL ) )
+            // InternalDSL.g:10503:1: ( ruleNL )
             {
-            // InternalDSL.g:10472:1: ( ruleNL )
-            // InternalDSL.g:10473:1: ruleNL
+            // InternalDSL.g:10503:1: ( ruleNL )
+            // InternalDSL.g:10504:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -28553,14 +28650,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__2"
-    // InternalDSL.g:10484:1: rule__Suite__Group__2 : rule__Suite__Group__2__Impl rule__Suite__Group__3 ;
+    // InternalDSL.g:10515:1: rule__Suite__Group__2 : rule__Suite__Group__2__Impl rule__Suite__Group__3 ;
     public final void rule__Suite__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10488:1: ( rule__Suite__Group__2__Impl rule__Suite__Group__3 )
-            // InternalDSL.g:10489:2: rule__Suite__Group__2__Impl rule__Suite__Group__3
+            // InternalDSL.g:10519:1: ( rule__Suite__Group__2__Impl rule__Suite__Group__3 )
+            // InternalDSL.g:10520:2: rule__Suite__Group__2__Impl rule__Suite__Group__3
             {
             pushFollow(FOLLOW_37);
             rule__Suite__Group__2__Impl();
@@ -28591,25 +28688,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__2__Impl"
-    // InternalDSL.g:10496:1: rule__Suite__Group__2__Impl : ( ( rule__Suite__Group_2__0 )? ) ;
+    // InternalDSL.g:10527:1: rule__Suite__Group__2__Impl : ( ( rule__Suite__Group_2__0 )? ) ;
     public final void rule__Suite__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10500:1: ( ( ( rule__Suite__Group_2__0 )? ) )
-            // InternalDSL.g:10501:1: ( ( rule__Suite__Group_2__0 )? )
+            // InternalDSL.g:10531:1: ( ( ( rule__Suite__Group_2__0 )? ) )
+            // InternalDSL.g:10532:1: ( ( rule__Suite__Group_2__0 )? )
             {
-            // InternalDSL.g:10501:1: ( ( rule__Suite__Group_2__0 )? )
-            // InternalDSL.g:10502:1: ( rule__Suite__Group_2__0 )?
+            // InternalDSL.g:10532:1: ( ( rule__Suite__Group_2__0 )? )
+            // InternalDSL.g:10533:1: ( rule__Suite__Group_2__0 )?
             {
              before(grammarAccess.getSuiteAccess().getGroup_2()); 
-            // InternalDSL.g:10503:1: ( rule__Suite__Group_2__0 )?
-            int alt65=2;
-            alt65 = dfa65.predict(input);
-            switch (alt65) {
+            // InternalDSL.g:10534:1: ( rule__Suite__Group_2__0 )?
+            int alt66=2;
+            alt66 = dfa66.predict(input);
+            switch (alt66) {
                 case 1 :
-                    // InternalDSL.g:10503:2: rule__Suite__Group_2__0
+                    // InternalDSL.g:10534:2: rule__Suite__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Suite__Group_2__0();
@@ -28645,14 +28742,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__3"
-    // InternalDSL.g:10513:1: rule__Suite__Group__3 : rule__Suite__Group__3__Impl rule__Suite__Group__4 ;
+    // InternalDSL.g:10544:1: rule__Suite__Group__3 : rule__Suite__Group__3__Impl rule__Suite__Group__4 ;
     public final void rule__Suite__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10517:1: ( rule__Suite__Group__3__Impl rule__Suite__Group__4 )
-            // InternalDSL.g:10518:2: rule__Suite__Group__3__Impl rule__Suite__Group__4
+            // InternalDSL.g:10548:1: ( rule__Suite__Group__3__Impl rule__Suite__Group__4 )
+            // InternalDSL.g:10549:2: rule__Suite__Group__3__Impl rule__Suite__Group__4
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group__3__Impl();
@@ -28683,21 +28780,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__3__Impl"
-    // InternalDSL.g:10525:1: rule__Suite__Group__3__Impl : ( ( rule__Suite__DefinitionAssignment_3 ) ) ;
+    // InternalDSL.g:10556:1: rule__Suite__Group__3__Impl : ( ( rule__Suite__DefinitionAssignment_3 ) ) ;
     public final void rule__Suite__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10529:1: ( ( ( rule__Suite__DefinitionAssignment_3 ) ) )
-            // InternalDSL.g:10530:1: ( ( rule__Suite__DefinitionAssignment_3 ) )
+            // InternalDSL.g:10560:1: ( ( ( rule__Suite__DefinitionAssignment_3 ) ) )
+            // InternalDSL.g:10561:1: ( ( rule__Suite__DefinitionAssignment_3 ) )
             {
-            // InternalDSL.g:10530:1: ( ( rule__Suite__DefinitionAssignment_3 ) )
-            // InternalDSL.g:10531:1: ( rule__Suite__DefinitionAssignment_3 )
+            // InternalDSL.g:10561:1: ( ( rule__Suite__DefinitionAssignment_3 ) )
+            // InternalDSL.g:10562:1: ( rule__Suite__DefinitionAssignment_3 )
             {
              before(grammarAccess.getSuiteAccess().getDefinitionAssignment_3()); 
-            // InternalDSL.g:10532:1: ( rule__Suite__DefinitionAssignment_3 )
-            // InternalDSL.g:10532:2: rule__Suite__DefinitionAssignment_3
+            // InternalDSL.g:10563:1: ( rule__Suite__DefinitionAssignment_3 )
+            // InternalDSL.g:10563:2: rule__Suite__DefinitionAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__Suite__DefinitionAssignment_3();
@@ -28730,14 +28827,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__4"
-    // InternalDSL.g:10542:1: rule__Suite__Group__4 : rule__Suite__Group__4__Impl rule__Suite__Group__5 ;
+    // InternalDSL.g:10573:1: rule__Suite__Group__4 : rule__Suite__Group__4__Impl rule__Suite__Group__5 ;
     public final void rule__Suite__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10546:1: ( rule__Suite__Group__4__Impl rule__Suite__Group__5 )
-            // InternalDSL.g:10547:2: rule__Suite__Group__4__Impl rule__Suite__Group__5
+            // InternalDSL.g:10577:1: ( rule__Suite__Group__4__Impl rule__Suite__Group__5 )
+            // InternalDSL.g:10578:2: rule__Suite__Group__4__Impl rule__Suite__Group__5
             {
             pushFollow(FOLLOW_38);
             rule__Suite__Group__4__Impl();
@@ -28768,17 +28865,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__4__Impl"
-    // InternalDSL.g:10554:1: rule__Suite__Group__4__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10585:1: rule__Suite__Group__4__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10558:1: ( ( ruleNL ) )
-            // InternalDSL.g:10559:1: ( ruleNL )
+            // InternalDSL.g:10589:1: ( ( ruleNL ) )
+            // InternalDSL.g:10590:1: ( ruleNL )
             {
-            // InternalDSL.g:10559:1: ( ruleNL )
-            // InternalDSL.g:10560:1: ruleNL
+            // InternalDSL.g:10590:1: ( ruleNL )
+            // InternalDSL.g:10591:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_4()); 
             pushFollow(FOLLOW_2);
@@ -28809,14 +28906,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__5"
-    // InternalDSL.g:10571:1: rule__Suite__Group__5 : rule__Suite__Group__5__Impl rule__Suite__Group__6 ;
+    // InternalDSL.g:10602:1: rule__Suite__Group__5 : rule__Suite__Group__5__Impl rule__Suite__Group__6 ;
     public final void rule__Suite__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10575:1: ( rule__Suite__Group__5__Impl rule__Suite__Group__6 )
-            // InternalDSL.g:10576:2: rule__Suite__Group__5__Impl rule__Suite__Group__6
+            // InternalDSL.g:10606:1: ( rule__Suite__Group__5__Impl rule__Suite__Group__6 )
+            // InternalDSL.g:10607:2: rule__Suite__Group__5__Impl rule__Suite__Group__6
             {
             pushFollow(FOLLOW_38);
             rule__Suite__Group__5__Impl();
@@ -28847,27 +28944,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__5__Impl"
-    // InternalDSL.g:10583:1: rule__Suite__Group__5__Impl : ( ( rule__Suite__Group_5__0 )* ) ;
+    // InternalDSL.g:10614:1: rule__Suite__Group__5__Impl : ( ( rule__Suite__Group_5__0 )* ) ;
     public final void rule__Suite__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10587:1: ( ( ( rule__Suite__Group_5__0 )* ) )
-            // InternalDSL.g:10588:1: ( ( rule__Suite__Group_5__0 )* )
+            // InternalDSL.g:10618:1: ( ( ( rule__Suite__Group_5__0 )* ) )
+            // InternalDSL.g:10619:1: ( ( rule__Suite__Group_5__0 )* )
             {
-            // InternalDSL.g:10588:1: ( ( rule__Suite__Group_5__0 )* )
-            // InternalDSL.g:10589:1: ( rule__Suite__Group_5__0 )*
+            // InternalDSL.g:10619:1: ( ( rule__Suite__Group_5__0 )* )
+            // InternalDSL.g:10620:1: ( rule__Suite__Group_5__0 )*
             {
              before(grammarAccess.getSuiteAccess().getGroup_5()); 
-            // InternalDSL.g:10590:1: ( rule__Suite__Group_5__0 )*
-            loop66:
+            // InternalDSL.g:10621:1: ( rule__Suite__Group_5__0 )*
+            loop67:
             do {
-                int alt66=2;
-                alt66 = dfa66.predict(input);
-                switch (alt66) {
+                int alt67=2;
+                alt67 = dfa67.predict(input);
+                switch (alt67) {
             	case 1 :
-            	    // InternalDSL.g:10590:2: rule__Suite__Group_5__0
+            	    // InternalDSL.g:10621:2: rule__Suite__Group_5__0
             	    {
             	    pushFollow(FOLLOW_13);
             	    rule__Suite__Group_5__0();
@@ -28879,7 +28976,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop66;
+            	    break loop67;
                 }
             } while (true);
 
@@ -28906,14 +29003,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__6"
-    // InternalDSL.g:10600:1: rule__Suite__Group__6 : rule__Suite__Group__6__Impl rule__Suite__Group__7 ;
+    // InternalDSL.g:10631:1: rule__Suite__Group__6 : rule__Suite__Group__6__Impl rule__Suite__Group__7 ;
     public final void rule__Suite__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10604:1: ( rule__Suite__Group__6__Impl rule__Suite__Group__7 )
-            // InternalDSL.g:10605:2: rule__Suite__Group__6__Impl rule__Suite__Group__7
+            // InternalDSL.g:10635:1: ( rule__Suite__Group__6__Impl rule__Suite__Group__7 )
+            // InternalDSL.g:10636:2: rule__Suite__Group__6__Impl rule__Suite__Group__7
             {
             pushFollow(FOLLOW_38);
             rule__Suite__Group__6__Impl();
@@ -28944,33 +29041,33 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__6__Impl"
-    // InternalDSL.g:10612:1: rule__Suite__Group__6__Impl : ( ( rule__Suite__Group_6__0 )* ) ;
+    // InternalDSL.g:10643:1: rule__Suite__Group__6__Impl : ( ( rule__Suite__Group_6__0 )* ) ;
     public final void rule__Suite__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10616:1: ( ( ( rule__Suite__Group_6__0 )* ) )
-            // InternalDSL.g:10617:1: ( ( rule__Suite__Group_6__0 )* )
+            // InternalDSL.g:10647:1: ( ( ( rule__Suite__Group_6__0 )* ) )
+            // InternalDSL.g:10648:1: ( ( rule__Suite__Group_6__0 )* )
             {
-            // InternalDSL.g:10617:1: ( ( rule__Suite__Group_6__0 )* )
-            // InternalDSL.g:10618:1: ( rule__Suite__Group_6__0 )*
+            // InternalDSL.g:10648:1: ( ( rule__Suite__Group_6__0 )* )
+            // InternalDSL.g:10649:1: ( rule__Suite__Group_6__0 )*
             {
              before(grammarAccess.getSuiteAccess().getGroup_6()); 
-            // InternalDSL.g:10619:1: ( rule__Suite__Group_6__0 )*
-            loop67:
+            // InternalDSL.g:10650:1: ( rule__Suite__Group_6__0 )*
+            loop68:
             do {
-                int alt67=2;
-                int LA67_0 = input.LA(1);
+                int alt68=2;
+                int LA68_0 = input.LA(1);
 
-                if ( (LA67_0==RULE_ID) ) {
-                    alt67=1;
+                if ( (LA68_0==RULE_ID) ) {
+                    alt68=1;
                 }
 
 
-                switch (alt67) {
+                switch (alt68) {
             	case 1 :
-            	    // InternalDSL.g:10619:2: rule__Suite__Group_6__0
+            	    // InternalDSL.g:10650:2: rule__Suite__Group_6__0
             	    {
             	    pushFollow(FOLLOW_13);
             	    rule__Suite__Group_6__0();
@@ -28982,7 +29079,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop67;
+            	    break loop68;
                 }
             } while (true);
 
@@ -29009,14 +29106,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__7"
-    // InternalDSL.g:10629:1: rule__Suite__Group__7 : rule__Suite__Group__7__Impl rule__Suite__Group__8 ;
+    // InternalDSL.g:10660:1: rule__Suite__Group__7 : rule__Suite__Group__7__Impl rule__Suite__Group__8 ;
     public final void rule__Suite__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10633:1: ( rule__Suite__Group__7__Impl rule__Suite__Group__8 )
-            // InternalDSL.g:10634:2: rule__Suite__Group__7__Impl rule__Suite__Group__8
+            // InternalDSL.g:10664:1: ( rule__Suite__Group__7__Impl rule__Suite__Group__8 )
+            // InternalDSL.g:10665:2: rule__Suite__Group__7__Impl rule__Suite__Group__8
             {
             pushFollow(FOLLOW_38);
             rule__Suite__Group__7__Impl();
@@ -29047,29 +29144,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__7__Impl"
-    // InternalDSL.g:10641:1: rule__Suite__Group__7__Impl : ( ( rule__Suite__Group_7__0 )? ) ;
+    // InternalDSL.g:10672:1: rule__Suite__Group__7__Impl : ( ( rule__Suite__Group_7__0 )? ) ;
     public final void rule__Suite__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10645:1: ( ( ( rule__Suite__Group_7__0 )? ) )
-            // InternalDSL.g:10646:1: ( ( rule__Suite__Group_7__0 )? )
+            // InternalDSL.g:10676:1: ( ( ( rule__Suite__Group_7__0 )? ) )
+            // InternalDSL.g:10677:1: ( ( rule__Suite__Group_7__0 )? )
             {
-            // InternalDSL.g:10646:1: ( ( rule__Suite__Group_7__0 )? )
-            // InternalDSL.g:10647:1: ( rule__Suite__Group_7__0 )?
+            // InternalDSL.g:10677:1: ( ( rule__Suite__Group_7__0 )? )
+            // InternalDSL.g:10678:1: ( rule__Suite__Group_7__0 )?
             {
              before(grammarAccess.getSuiteAccess().getGroup_7()); 
-            // InternalDSL.g:10648:1: ( rule__Suite__Group_7__0 )?
-            int alt68=2;
-            int LA68_0 = input.LA(1);
+            // InternalDSL.g:10679:1: ( rule__Suite__Group_7__0 )?
+            int alt69=2;
+            int LA69_0 = input.LA(1);
 
-            if ( (LA68_0==64) ) {
-                alt68=1;
+            if ( (LA69_0==64) ) {
+                alt69=1;
             }
-            switch (alt68) {
+            switch (alt69) {
                 case 1 :
-                    // InternalDSL.g:10648:2: rule__Suite__Group_7__0
+                    // InternalDSL.g:10679:2: rule__Suite__Group_7__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Suite__Group_7__0();
@@ -29105,14 +29202,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__8"
-    // InternalDSL.g:10658:1: rule__Suite__Group__8 : rule__Suite__Group__8__Impl ;
+    // InternalDSL.g:10689:1: rule__Suite__Group__8 : rule__Suite__Group__8__Impl ;
     public final void rule__Suite__Group__8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10662:1: ( rule__Suite__Group__8__Impl )
-            // InternalDSL.g:10663:2: rule__Suite__Group__8__Impl
+            // InternalDSL.g:10693:1: ( rule__Suite__Group__8__Impl )
+            // InternalDSL.g:10694:2: rule__Suite__Group__8__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Suite__Group__8__Impl();
@@ -29138,29 +29235,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group__8__Impl"
-    // InternalDSL.g:10669:1: rule__Suite__Group__8__Impl : ( ( rule__Suite__Group_8__0 )? ) ;
+    // InternalDSL.g:10700:1: rule__Suite__Group__8__Impl : ( ( rule__Suite__Group_8__0 )? ) ;
     public final void rule__Suite__Group__8__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10673:1: ( ( ( rule__Suite__Group_8__0 )? ) )
-            // InternalDSL.g:10674:1: ( ( rule__Suite__Group_8__0 )? )
+            // InternalDSL.g:10704:1: ( ( ( rule__Suite__Group_8__0 )? ) )
+            // InternalDSL.g:10705:1: ( ( rule__Suite__Group_8__0 )? )
             {
-            // InternalDSL.g:10674:1: ( ( rule__Suite__Group_8__0 )? )
-            // InternalDSL.g:10675:1: ( rule__Suite__Group_8__0 )?
+            // InternalDSL.g:10705:1: ( ( rule__Suite__Group_8__0 )? )
+            // InternalDSL.g:10706:1: ( rule__Suite__Group_8__0 )?
             {
              before(grammarAccess.getSuiteAccess().getGroup_8()); 
-            // InternalDSL.g:10676:1: ( rule__Suite__Group_8__0 )?
-            int alt69=2;
-            int LA69_0 = input.LA(1);
+            // InternalDSL.g:10707:1: ( rule__Suite__Group_8__0 )?
+            int alt70=2;
+            int LA70_0 = input.LA(1);
 
-            if ( (LA69_0==57) ) {
-                alt69=1;
+            if ( (LA70_0==57) ) {
+                alt70=1;
             }
-            switch (alt69) {
+            switch (alt70) {
                 case 1 :
-                    // InternalDSL.g:10676:2: rule__Suite__Group_8__0
+                    // InternalDSL.g:10707:2: rule__Suite__Group_8__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Suite__Group_8__0();
@@ -29196,14 +29293,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_2__0"
-    // InternalDSL.g:10704:1: rule__Suite__Group_2__0 : rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1 ;
+    // InternalDSL.g:10735:1: rule__Suite__Group_2__0 : rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1 ;
     public final void rule__Suite__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10708:1: ( rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1 )
-            // InternalDSL.g:10709:2: rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1
+            // InternalDSL.g:10739:1: ( rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1 )
+            // InternalDSL.g:10740:2: rule__Suite__Group_2__0__Impl rule__Suite__Group_2__1
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group_2__0__Impl();
@@ -29234,21 +29331,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_2__0__Impl"
-    // InternalDSL.g:10716:1: rule__Suite__Group_2__0__Impl : ( ( rule__Suite__MultiplierAssignment_2_0 ) ) ;
+    // InternalDSL.g:10747:1: rule__Suite__Group_2__0__Impl : ( ( rule__Suite__MultiplierAssignment_2_0 ) ) ;
     public final void rule__Suite__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10720:1: ( ( ( rule__Suite__MultiplierAssignment_2_0 ) ) )
-            // InternalDSL.g:10721:1: ( ( rule__Suite__MultiplierAssignment_2_0 ) )
+            // InternalDSL.g:10751:1: ( ( ( rule__Suite__MultiplierAssignment_2_0 ) ) )
+            // InternalDSL.g:10752:1: ( ( rule__Suite__MultiplierAssignment_2_0 ) )
             {
-            // InternalDSL.g:10721:1: ( ( rule__Suite__MultiplierAssignment_2_0 ) )
-            // InternalDSL.g:10722:1: ( rule__Suite__MultiplierAssignment_2_0 )
+            // InternalDSL.g:10752:1: ( ( rule__Suite__MultiplierAssignment_2_0 ) )
+            // InternalDSL.g:10753:1: ( rule__Suite__MultiplierAssignment_2_0 )
             {
              before(grammarAccess.getSuiteAccess().getMultiplierAssignment_2_0()); 
-            // InternalDSL.g:10723:1: ( rule__Suite__MultiplierAssignment_2_0 )
-            // InternalDSL.g:10723:2: rule__Suite__MultiplierAssignment_2_0
+            // InternalDSL.g:10754:1: ( rule__Suite__MultiplierAssignment_2_0 )
+            // InternalDSL.g:10754:2: rule__Suite__MultiplierAssignment_2_0
             {
             pushFollow(FOLLOW_2);
             rule__Suite__MultiplierAssignment_2_0();
@@ -29281,14 +29378,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_2__1"
-    // InternalDSL.g:10733:1: rule__Suite__Group_2__1 : rule__Suite__Group_2__1__Impl ;
+    // InternalDSL.g:10764:1: rule__Suite__Group_2__1 : rule__Suite__Group_2__1__Impl ;
     public final void rule__Suite__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10737:1: ( rule__Suite__Group_2__1__Impl )
-            // InternalDSL.g:10738:2: rule__Suite__Group_2__1__Impl
+            // InternalDSL.g:10768:1: ( rule__Suite__Group_2__1__Impl )
+            // InternalDSL.g:10769:2: rule__Suite__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Suite__Group_2__1__Impl();
@@ -29314,17 +29411,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_2__1__Impl"
-    // InternalDSL.g:10744:1: rule__Suite__Group_2__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10775:1: rule__Suite__Group_2__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10748:1: ( ( ruleNL ) )
-            // InternalDSL.g:10749:1: ( ruleNL )
+            // InternalDSL.g:10779:1: ( ( ruleNL ) )
+            // InternalDSL.g:10780:1: ( ruleNL )
             {
-            // InternalDSL.g:10749:1: ( ruleNL )
-            // InternalDSL.g:10750:1: ruleNL
+            // InternalDSL.g:10780:1: ( ruleNL )
+            // InternalDSL.g:10781:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_2_1()); 
             pushFollow(FOLLOW_2);
@@ -29355,14 +29452,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_5__0"
-    // InternalDSL.g:10765:1: rule__Suite__Group_5__0 : rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1 ;
+    // InternalDSL.g:10796:1: rule__Suite__Group_5__0 : rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1 ;
     public final void rule__Suite__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10769:1: ( rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1 )
-            // InternalDSL.g:10770:2: rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1
+            // InternalDSL.g:10800:1: ( rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1 )
+            // InternalDSL.g:10801:2: rule__Suite__Group_5__0__Impl rule__Suite__Group_5__1
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group_5__0__Impl();
@@ -29393,21 +29490,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_5__0__Impl"
-    // InternalDSL.g:10777:1: rule__Suite__Group_5__0__Impl : ( ( rule__Suite__ParametersAssignment_5_0 ) ) ;
+    // InternalDSL.g:10808:1: rule__Suite__Group_5__0__Impl : ( ( rule__Suite__ParametersAssignment_5_0 ) ) ;
     public final void rule__Suite__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10781:1: ( ( ( rule__Suite__ParametersAssignment_5_0 ) ) )
-            // InternalDSL.g:10782:1: ( ( rule__Suite__ParametersAssignment_5_0 ) )
+            // InternalDSL.g:10812:1: ( ( ( rule__Suite__ParametersAssignment_5_0 ) ) )
+            // InternalDSL.g:10813:1: ( ( rule__Suite__ParametersAssignment_5_0 ) )
             {
-            // InternalDSL.g:10782:1: ( ( rule__Suite__ParametersAssignment_5_0 ) )
-            // InternalDSL.g:10783:1: ( rule__Suite__ParametersAssignment_5_0 )
+            // InternalDSL.g:10813:1: ( ( rule__Suite__ParametersAssignment_5_0 ) )
+            // InternalDSL.g:10814:1: ( rule__Suite__ParametersAssignment_5_0 )
             {
              before(grammarAccess.getSuiteAccess().getParametersAssignment_5_0()); 
-            // InternalDSL.g:10784:1: ( rule__Suite__ParametersAssignment_5_0 )
-            // InternalDSL.g:10784:2: rule__Suite__ParametersAssignment_5_0
+            // InternalDSL.g:10815:1: ( rule__Suite__ParametersAssignment_5_0 )
+            // InternalDSL.g:10815:2: rule__Suite__ParametersAssignment_5_0
             {
             pushFollow(FOLLOW_2);
             rule__Suite__ParametersAssignment_5_0();
@@ -29440,14 +29537,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_5__1"
-    // InternalDSL.g:10794:1: rule__Suite__Group_5__1 : rule__Suite__Group_5__1__Impl ;
+    // InternalDSL.g:10825:1: rule__Suite__Group_5__1 : rule__Suite__Group_5__1__Impl ;
     public final void rule__Suite__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10798:1: ( rule__Suite__Group_5__1__Impl )
-            // InternalDSL.g:10799:2: rule__Suite__Group_5__1__Impl
+            // InternalDSL.g:10829:1: ( rule__Suite__Group_5__1__Impl )
+            // InternalDSL.g:10830:2: rule__Suite__Group_5__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Suite__Group_5__1__Impl();
@@ -29473,17 +29570,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_5__1__Impl"
-    // InternalDSL.g:10805:1: rule__Suite__Group_5__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10836:1: rule__Suite__Group_5__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10809:1: ( ( ruleNL ) )
-            // InternalDSL.g:10810:1: ( ruleNL )
+            // InternalDSL.g:10840:1: ( ( ruleNL ) )
+            // InternalDSL.g:10841:1: ( ruleNL )
             {
-            // InternalDSL.g:10810:1: ( ruleNL )
-            // InternalDSL.g:10811:1: ruleNL
+            // InternalDSL.g:10841:1: ( ruleNL )
+            // InternalDSL.g:10842:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_5_1()); 
             pushFollow(FOLLOW_2);
@@ -29514,14 +29611,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__0"
-    // InternalDSL.g:10826:1: rule__Suite__Group_6__0 : rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1 ;
+    // InternalDSL.g:10857:1: rule__Suite__Group_6__0 : rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1 ;
     public final void rule__Suite__Group_6__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10830:1: ( rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1 )
-            // InternalDSL.g:10831:2: rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1
+            // InternalDSL.g:10861:1: ( rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1 )
+            // InternalDSL.g:10862:2: rule__Suite__Group_6__0__Impl rule__Suite__Group_6__1
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group_6__0__Impl();
@@ -29552,21 +29649,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__0__Impl"
-    // InternalDSL.g:10838:1: rule__Suite__Group_6__0__Impl : ( ( rule__Suite__ReturnAssignment_6_0 ) ) ;
+    // InternalDSL.g:10869:1: rule__Suite__Group_6__0__Impl : ( ( rule__Suite__ReturnAssignment_6_0 ) ) ;
     public final void rule__Suite__Group_6__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10842:1: ( ( ( rule__Suite__ReturnAssignment_6_0 ) ) )
-            // InternalDSL.g:10843:1: ( ( rule__Suite__ReturnAssignment_6_0 ) )
+            // InternalDSL.g:10873:1: ( ( ( rule__Suite__ReturnAssignment_6_0 ) ) )
+            // InternalDSL.g:10874:1: ( ( rule__Suite__ReturnAssignment_6_0 ) )
             {
-            // InternalDSL.g:10843:1: ( ( rule__Suite__ReturnAssignment_6_0 ) )
-            // InternalDSL.g:10844:1: ( rule__Suite__ReturnAssignment_6_0 )
+            // InternalDSL.g:10874:1: ( ( rule__Suite__ReturnAssignment_6_0 ) )
+            // InternalDSL.g:10875:1: ( rule__Suite__ReturnAssignment_6_0 )
             {
              before(grammarAccess.getSuiteAccess().getReturnAssignment_6_0()); 
-            // InternalDSL.g:10845:1: ( rule__Suite__ReturnAssignment_6_0 )
-            // InternalDSL.g:10845:2: rule__Suite__ReturnAssignment_6_0
+            // InternalDSL.g:10876:1: ( rule__Suite__ReturnAssignment_6_0 )
+            // InternalDSL.g:10876:2: rule__Suite__ReturnAssignment_6_0
             {
             pushFollow(FOLLOW_2);
             rule__Suite__ReturnAssignment_6_0();
@@ -29599,14 +29696,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__1"
-    // InternalDSL.g:10855:1: rule__Suite__Group_6__1 : rule__Suite__Group_6__1__Impl ;
+    // InternalDSL.g:10886:1: rule__Suite__Group_6__1 : rule__Suite__Group_6__1__Impl ;
     public final void rule__Suite__Group_6__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10859:1: ( rule__Suite__Group_6__1__Impl )
-            // InternalDSL.g:10860:2: rule__Suite__Group_6__1__Impl
+            // InternalDSL.g:10890:1: ( rule__Suite__Group_6__1__Impl )
+            // InternalDSL.g:10891:2: rule__Suite__Group_6__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Suite__Group_6__1__Impl();
@@ -29632,17 +29729,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_6__1__Impl"
-    // InternalDSL.g:10866:1: rule__Suite__Group_6__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10897:1: rule__Suite__Group_6__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_6__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10870:1: ( ( ruleNL ) )
-            // InternalDSL.g:10871:1: ( ruleNL )
+            // InternalDSL.g:10901:1: ( ( ruleNL ) )
+            // InternalDSL.g:10902:1: ( ruleNL )
             {
-            // InternalDSL.g:10871:1: ( ruleNL )
-            // InternalDSL.g:10872:1: ruleNL
+            // InternalDSL.g:10902:1: ( ruleNL )
+            // InternalDSL.g:10903:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_6_1()); 
             pushFollow(FOLLOW_2);
@@ -29673,14 +29770,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__0"
-    // InternalDSL.g:10887:1: rule__Suite__Group_7__0 : rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1 ;
+    // InternalDSL.g:10918:1: rule__Suite__Group_7__0 : rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1 ;
     public final void rule__Suite__Group_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10891:1: ( rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1 )
-            // InternalDSL.g:10892:2: rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1
+            // InternalDSL.g:10922:1: ( rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1 )
+            // InternalDSL.g:10923:2: rule__Suite__Group_7__0__Impl rule__Suite__Group_7__1
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group_7__0__Impl();
@@ -29711,17 +29808,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__0__Impl"
-    // InternalDSL.g:10899:1: rule__Suite__Group_7__0__Impl : ( 'on' ) ;
+    // InternalDSL.g:10930:1: rule__Suite__Group_7__0__Impl : ( 'on' ) ;
     public final void rule__Suite__Group_7__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10903:1: ( ( 'on' ) )
-            // InternalDSL.g:10904:1: ( 'on' )
+            // InternalDSL.g:10934:1: ( ( 'on' ) )
+            // InternalDSL.g:10935:1: ( 'on' )
             {
-            // InternalDSL.g:10904:1: ( 'on' )
-            // InternalDSL.g:10905:1: 'on'
+            // InternalDSL.g:10935:1: ( 'on' )
+            // InternalDSL.g:10936:1: 'on'
             {
              before(grammarAccess.getSuiteAccess().getOnKeyword_7_0()); 
             match(input,64,FOLLOW_2); 
@@ -29748,14 +29845,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__1"
-    // InternalDSL.g:10918:1: rule__Suite__Group_7__1 : rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2 ;
+    // InternalDSL.g:10949:1: rule__Suite__Group_7__1 : rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2 ;
     public final void rule__Suite__Group_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10922:1: ( rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2 )
-            // InternalDSL.g:10923:2: rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2
+            // InternalDSL.g:10953:1: ( rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2 )
+            // InternalDSL.g:10954:2: rule__Suite__Group_7__1__Impl rule__Suite__Group_7__2
             {
             pushFollow(FOLLOW_7);
             rule__Suite__Group_7__1__Impl();
@@ -29786,17 +29883,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__1__Impl"
-    // InternalDSL.g:10930:1: rule__Suite__Group_7__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:10961:1: rule__Suite__Group_7__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_7__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10934:1: ( ( ruleNL ) )
-            // InternalDSL.g:10935:1: ( ruleNL )
+            // InternalDSL.g:10965:1: ( ( ruleNL ) )
+            // InternalDSL.g:10966:1: ( ruleNL )
             {
-            // InternalDSL.g:10935:1: ( ruleNL )
-            // InternalDSL.g:10936:1: ruleNL
+            // InternalDSL.g:10966:1: ( ruleNL )
+            // InternalDSL.g:10967:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_7_1()); 
             pushFollow(FOLLOW_2);
@@ -29827,14 +29924,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__2"
-    // InternalDSL.g:10947:1: rule__Suite__Group_7__2 : rule__Suite__Group_7__2__Impl rule__Suite__Group_7__3 ;
+    // InternalDSL.g:10978:1: rule__Suite__Group_7__2 : rule__Suite__Group_7__2__Impl rule__Suite__Group_7__3 ;
     public final void rule__Suite__Group_7__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10951:1: ( rule__Suite__Group_7__2__Impl rule__Suite__Group_7__3 )
-            // InternalDSL.g:10952:2: rule__Suite__Group_7__2__Impl rule__Suite__Group_7__3
+            // InternalDSL.g:10982:1: ( rule__Suite__Group_7__2__Impl rule__Suite__Group_7__3 )
+            // InternalDSL.g:10983:2: rule__Suite__Group_7__2__Impl rule__Suite__Group_7__3
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group_7__2__Impl();
@@ -29865,21 +29962,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__2__Impl"
-    // InternalDSL.g:10959:1: rule__Suite__Group_7__2__Impl : ( ( rule__Suite__ForkAssignment_7_2 ) ) ;
+    // InternalDSL.g:10990:1: rule__Suite__Group_7__2__Impl : ( ( rule__Suite__ForkAssignment_7_2 ) ) ;
     public final void rule__Suite__Group_7__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10963:1: ( ( ( rule__Suite__ForkAssignment_7_2 ) ) )
-            // InternalDSL.g:10964:1: ( ( rule__Suite__ForkAssignment_7_2 ) )
+            // InternalDSL.g:10994:1: ( ( ( rule__Suite__ForkAssignment_7_2 ) ) )
+            // InternalDSL.g:10995:1: ( ( rule__Suite__ForkAssignment_7_2 ) )
             {
-            // InternalDSL.g:10964:1: ( ( rule__Suite__ForkAssignment_7_2 ) )
-            // InternalDSL.g:10965:1: ( rule__Suite__ForkAssignment_7_2 )
+            // InternalDSL.g:10995:1: ( ( rule__Suite__ForkAssignment_7_2 ) )
+            // InternalDSL.g:10996:1: ( rule__Suite__ForkAssignment_7_2 )
             {
              before(grammarAccess.getSuiteAccess().getForkAssignment_7_2()); 
-            // InternalDSL.g:10966:1: ( rule__Suite__ForkAssignment_7_2 )
-            // InternalDSL.g:10966:2: rule__Suite__ForkAssignment_7_2
+            // InternalDSL.g:10997:1: ( rule__Suite__ForkAssignment_7_2 )
+            // InternalDSL.g:10997:2: rule__Suite__ForkAssignment_7_2
             {
             pushFollow(FOLLOW_2);
             rule__Suite__ForkAssignment_7_2();
@@ -29912,14 +30009,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__3"
-    // InternalDSL.g:10976:1: rule__Suite__Group_7__3 : rule__Suite__Group_7__3__Impl ;
+    // InternalDSL.g:11007:1: rule__Suite__Group_7__3 : rule__Suite__Group_7__3__Impl ;
     public final void rule__Suite__Group_7__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10980:1: ( rule__Suite__Group_7__3__Impl )
-            // InternalDSL.g:10981:2: rule__Suite__Group_7__3__Impl
+            // InternalDSL.g:11011:1: ( rule__Suite__Group_7__3__Impl )
+            // InternalDSL.g:11012:2: rule__Suite__Group_7__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Suite__Group_7__3__Impl();
@@ -29945,17 +30042,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_7__3__Impl"
-    // InternalDSL.g:10987:1: rule__Suite__Group_7__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11018:1: rule__Suite__Group_7__3__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_7__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:10991:1: ( ( ruleNL ) )
-            // InternalDSL.g:10992:1: ( ruleNL )
+            // InternalDSL.g:11022:1: ( ( ruleNL ) )
+            // InternalDSL.g:11023:1: ( ruleNL )
             {
-            // InternalDSL.g:10992:1: ( ruleNL )
-            // InternalDSL.g:10993:1: ruleNL
+            // InternalDSL.g:11023:1: ( ruleNL )
+            // InternalDSL.g:11024:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_7_3()); 
             pushFollow(FOLLOW_2);
@@ -29986,14 +30083,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8__0"
-    // InternalDSL.g:11012:1: rule__Suite__Group_8__0 : rule__Suite__Group_8__0__Impl rule__Suite__Group_8__1 ;
+    // InternalDSL.g:11043:1: rule__Suite__Group_8__0 : rule__Suite__Group_8__0__Impl rule__Suite__Group_8__1 ;
     public final void rule__Suite__Group_8__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11016:1: ( rule__Suite__Group_8__0__Impl rule__Suite__Group_8__1 )
-            // InternalDSL.g:11017:2: rule__Suite__Group_8__0__Impl rule__Suite__Group_8__1
+            // InternalDSL.g:11047:1: ( rule__Suite__Group_8__0__Impl rule__Suite__Group_8__1 )
+            // InternalDSL.g:11048:2: rule__Suite__Group_8__0__Impl rule__Suite__Group_8__1
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group_8__0__Impl();
@@ -30024,17 +30121,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8__0__Impl"
-    // InternalDSL.g:11024:1: rule__Suite__Group_8__0__Impl : ( 'in' ) ;
+    // InternalDSL.g:11055:1: rule__Suite__Group_8__0__Impl : ( 'in' ) ;
     public final void rule__Suite__Group_8__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11028:1: ( ( 'in' ) )
-            // InternalDSL.g:11029:1: ( 'in' )
+            // InternalDSL.g:11059:1: ( ( 'in' ) )
+            // InternalDSL.g:11060:1: ( 'in' )
             {
-            // InternalDSL.g:11029:1: ( 'in' )
-            // InternalDSL.g:11030:1: 'in'
+            // InternalDSL.g:11060:1: ( 'in' )
+            // InternalDSL.g:11061:1: 'in'
             {
              before(grammarAccess.getSuiteAccess().getInKeyword_8_0()); 
             match(input,57,FOLLOW_2); 
@@ -30061,14 +30158,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8__1"
-    // InternalDSL.g:11043:1: rule__Suite__Group_8__1 : rule__Suite__Group_8__1__Impl rule__Suite__Group_8__2 ;
+    // InternalDSL.g:11074:1: rule__Suite__Group_8__1 : rule__Suite__Group_8__1__Impl rule__Suite__Group_8__2 ;
     public final void rule__Suite__Group_8__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11047:1: ( rule__Suite__Group_8__1__Impl rule__Suite__Group_8__2 )
-            // InternalDSL.g:11048:2: rule__Suite__Group_8__1__Impl rule__Suite__Group_8__2
+            // InternalDSL.g:11078:1: ( rule__Suite__Group_8__1__Impl rule__Suite__Group_8__2 )
+            // InternalDSL.g:11079:2: rule__Suite__Group_8__1__Impl rule__Suite__Group_8__2
             {
             pushFollow(FOLLOW_7);
             rule__Suite__Group_8__1__Impl();
@@ -30099,17 +30196,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8__1__Impl"
-    // InternalDSL.g:11055:1: rule__Suite__Group_8__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11086:1: rule__Suite__Group_8__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_8__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11059:1: ( ( ruleNL ) )
-            // InternalDSL.g:11060:1: ( ruleNL )
+            // InternalDSL.g:11090:1: ( ( ruleNL ) )
+            // InternalDSL.g:11091:1: ( ruleNL )
             {
-            // InternalDSL.g:11060:1: ( ruleNL )
-            // InternalDSL.g:11061:1: ruleNL
+            // InternalDSL.g:11091:1: ( ruleNL )
+            // InternalDSL.g:11092:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_8_1()); 
             pushFollow(FOLLOW_2);
@@ -30140,14 +30237,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8__2"
-    // InternalDSL.g:11072:1: rule__Suite__Group_8__2 : rule__Suite__Group_8__2__Impl ;
+    // InternalDSL.g:11103:1: rule__Suite__Group_8__2 : rule__Suite__Group_8__2__Impl ;
     public final void rule__Suite__Group_8__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11076:1: ( rule__Suite__Group_8__2__Impl )
-            // InternalDSL.g:11077:2: rule__Suite__Group_8__2__Impl
+            // InternalDSL.g:11107:1: ( rule__Suite__Group_8__2__Impl )
+            // InternalDSL.g:11108:2: rule__Suite__Group_8__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Suite__Group_8__2__Impl();
@@ -30173,24 +30270,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8__2__Impl"
-    // InternalDSL.g:11083:1: rule__Suite__Group_8__2__Impl : ( ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* ) ) ;
+    // InternalDSL.g:11114:1: rule__Suite__Group_8__2__Impl : ( ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* ) ) ;
     public final void rule__Suite__Group_8__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11087:1: ( ( ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* ) ) )
-            // InternalDSL.g:11088:1: ( ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* ) )
+            // InternalDSL.g:11118:1: ( ( ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* ) ) )
+            // InternalDSL.g:11119:1: ( ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* ) )
             {
-            // InternalDSL.g:11088:1: ( ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* ) )
-            // InternalDSL.g:11089:1: ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* )
+            // InternalDSL.g:11119:1: ( ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* ) )
+            // InternalDSL.g:11120:1: ( ( rule__Suite__Group_8_2__0 ) ) ( ( rule__Suite__Group_8_2__0 )* )
             {
-            // InternalDSL.g:11089:1: ( ( rule__Suite__Group_8_2__0 ) )
-            // InternalDSL.g:11090:1: ( rule__Suite__Group_8_2__0 )
+            // InternalDSL.g:11120:1: ( ( rule__Suite__Group_8_2__0 ) )
+            // InternalDSL.g:11121:1: ( rule__Suite__Group_8_2__0 )
             {
              before(grammarAccess.getSuiteAccess().getGroup_8_2()); 
-            // InternalDSL.g:11091:1: ( rule__Suite__Group_8_2__0 )
-            // InternalDSL.g:11091:2: rule__Suite__Group_8_2__0
+            // InternalDSL.g:11122:1: ( rule__Suite__Group_8_2__0 )
+            // InternalDSL.g:11122:2: rule__Suite__Group_8_2__0
             {
             pushFollow(FOLLOW_13);
             rule__Suite__Group_8_2__0();
@@ -30204,24 +30301,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalDSL.g:11094:1: ( ( rule__Suite__Group_8_2__0 )* )
-            // InternalDSL.g:11095:1: ( rule__Suite__Group_8_2__0 )*
+            // InternalDSL.g:11125:1: ( ( rule__Suite__Group_8_2__0 )* )
+            // InternalDSL.g:11126:1: ( rule__Suite__Group_8_2__0 )*
             {
              before(grammarAccess.getSuiteAccess().getGroup_8_2()); 
-            // InternalDSL.g:11096:1: ( rule__Suite__Group_8_2__0 )*
-            loop70:
+            // InternalDSL.g:11127:1: ( rule__Suite__Group_8_2__0 )*
+            loop71:
             do {
-                int alt70=2;
-                int LA70_0 = input.LA(1);
+                int alt71=2;
+                int LA71_0 = input.LA(1);
 
-                if ( (LA70_0==RULE_ID) ) {
-                    alt70=1;
+                if ( (LA71_0==RULE_ID) ) {
+                    alt71=1;
                 }
 
 
-                switch (alt70) {
+                switch (alt71) {
             	case 1 :
-            	    // InternalDSL.g:11096:2: rule__Suite__Group_8_2__0
+            	    // InternalDSL.g:11127:2: rule__Suite__Group_8_2__0
             	    {
             	    pushFollow(FOLLOW_13);
             	    rule__Suite__Group_8_2__0();
@@ -30233,7 +30330,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop70;
+            	    break loop71;
                 }
             } while (true);
 
@@ -30263,14 +30360,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8_2__0"
-    // InternalDSL.g:11113:1: rule__Suite__Group_8_2__0 : rule__Suite__Group_8_2__0__Impl rule__Suite__Group_8_2__1 ;
+    // InternalDSL.g:11144:1: rule__Suite__Group_8_2__0 : rule__Suite__Group_8_2__0__Impl rule__Suite__Group_8_2__1 ;
     public final void rule__Suite__Group_8_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11117:1: ( rule__Suite__Group_8_2__0__Impl rule__Suite__Group_8_2__1 )
-            // InternalDSL.g:11118:2: rule__Suite__Group_8_2__0__Impl rule__Suite__Group_8_2__1
+            // InternalDSL.g:11148:1: ( rule__Suite__Group_8_2__0__Impl rule__Suite__Group_8_2__1 )
+            // InternalDSL.g:11149:2: rule__Suite__Group_8_2__0__Impl rule__Suite__Group_8_2__1
             {
             pushFollow(FOLLOW_4);
             rule__Suite__Group_8_2__0__Impl();
@@ -30301,21 +30398,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8_2__0__Impl"
-    // InternalDSL.g:11125:1: rule__Suite__Group_8_2__0__Impl : ( ( rule__Suite__VariantsAssignment_8_2_0 ) ) ;
+    // InternalDSL.g:11156:1: rule__Suite__Group_8_2__0__Impl : ( ( rule__Suite__VariantsAssignment_8_2_0 ) ) ;
     public final void rule__Suite__Group_8_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11129:1: ( ( ( rule__Suite__VariantsAssignment_8_2_0 ) ) )
-            // InternalDSL.g:11130:1: ( ( rule__Suite__VariantsAssignment_8_2_0 ) )
+            // InternalDSL.g:11160:1: ( ( ( rule__Suite__VariantsAssignment_8_2_0 ) ) )
+            // InternalDSL.g:11161:1: ( ( rule__Suite__VariantsAssignment_8_2_0 ) )
             {
-            // InternalDSL.g:11130:1: ( ( rule__Suite__VariantsAssignment_8_2_0 ) )
-            // InternalDSL.g:11131:1: ( rule__Suite__VariantsAssignment_8_2_0 )
+            // InternalDSL.g:11161:1: ( ( rule__Suite__VariantsAssignment_8_2_0 ) )
+            // InternalDSL.g:11162:1: ( rule__Suite__VariantsAssignment_8_2_0 )
             {
              before(grammarAccess.getSuiteAccess().getVariantsAssignment_8_2_0()); 
-            // InternalDSL.g:11132:1: ( rule__Suite__VariantsAssignment_8_2_0 )
-            // InternalDSL.g:11132:2: rule__Suite__VariantsAssignment_8_2_0
+            // InternalDSL.g:11163:1: ( rule__Suite__VariantsAssignment_8_2_0 )
+            // InternalDSL.g:11163:2: rule__Suite__VariantsAssignment_8_2_0
             {
             pushFollow(FOLLOW_2);
             rule__Suite__VariantsAssignment_8_2_0();
@@ -30348,14 +30445,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8_2__1"
-    // InternalDSL.g:11142:1: rule__Suite__Group_8_2__1 : rule__Suite__Group_8_2__1__Impl ;
+    // InternalDSL.g:11173:1: rule__Suite__Group_8_2__1 : rule__Suite__Group_8_2__1__Impl ;
     public final void rule__Suite__Group_8_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11146:1: ( rule__Suite__Group_8_2__1__Impl )
-            // InternalDSL.g:11147:2: rule__Suite__Group_8_2__1__Impl
+            // InternalDSL.g:11177:1: ( rule__Suite__Group_8_2__1__Impl )
+            // InternalDSL.g:11178:2: rule__Suite__Group_8_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Suite__Group_8_2__1__Impl();
@@ -30381,17 +30478,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__Group_8_2__1__Impl"
-    // InternalDSL.g:11153:1: rule__Suite__Group_8_2__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11184:1: rule__Suite__Group_8_2__1__Impl : ( ruleNL ) ;
     public final void rule__Suite__Group_8_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11157:1: ( ( ruleNL ) )
-            // InternalDSL.g:11158:1: ( ruleNL )
+            // InternalDSL.g:11188:1: ( ( ruleNL ) )
+            // InternalDSL.g:11189:1: ( ruleNL )
             {
-            // InternalDSL.g:11158:1: ( ruleNL )
-            // InternalDSL.g:11159:1: ruleNL
+            // InternalDSL.g:11189:1: ( ruleNL )
+            // InternalDSL.g:11190:1: ruleNL
             {
              before(grammarAccess.getSuiteAccess().getNLParserRuleCall_8_2_1()); 
             pushFollow(FOLLOW_2);
@@ -30422,14 +30519,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__0"
-    // InternalDSL.g:11174:1: rule__SuiteParameter__Group__0 : rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1 ;
+    // InternalDSL.g:11205:1: rule__SuiteParameter__Group__0 : rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1 ;
     public final void rule__SuiteParameter__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11178:1: ( rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1 )
-            // InternalDSL.g:11179:2: rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1
+            // InternalDSL.g:11209:1: ( rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1 )
+            // InternalDSL.g:11210:2: rule__SuiteParameter__Group__0__Impl rule__SuiteParameter__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__SuiteParameter__Group__0__Impl();
@@ -30460,21 +30557,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__0__Impl"
-    // InternalDSL.g:11186:1: rule__SuiteParameter__Group__0__Impl : ( ( rule__SuiteParameter__NameAssignment_0 ) ) ;
+    // InternalDSL.g:11217:1: rule__SuiteParameter__Group__0__Impl : ( ( rule__SuiteParameter__NameAssignment_0 ) ) ;
     public final void rule__SuiteParameter__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11190:1: ( ( ( rule__SuiteParameter__NameAssignment_0 ) ) )
-            // InternalDSL.g:11191:1: ( ( rule__SuiteParameter__NameAssignment_0 ) )
+            // InternalDSL.g:11221:1: ( ( ( rule__SuiteParameter__NameAssignment_0 ) ) )
+            // InternalDSL.g:11222:1: ( ( rule__SuiteParameter__NameAssignment_0 ) )
             {
-            // InternalDSL.g:11191:1: ( ( rule__SuiteParameter__NameAssignment_0 ) )
-            // InternalDSL.g:11192:1: ( rule__SuiteParameter__NameAssignment_0 )
+            // InternalDSL.g:11222:1: ( ( rule__SuiteParameter__NameAssignment_0 ) )
+            // InternalDSL.g:11223:1: ( rule__SuiteParameter__NameAssignment_0 )
             {
              before(grammarAccess.getSuiteParameterAccess().getNameAssignment_0()); 
-            // InternalDSL.g:11193:1: ( rule__SuiteParameter__NameAssignment_0 )
-            // InternalDSL.g:11193:2: rule__SuiteParameter__NameAssignment_0
+            // InternalDSL.g:11224:1: ( rule__SuiteParameter__NameAssignment_0 )
+            // InternalDSL.g:11224:2: rule__SuiteParameter__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__SuiteParameter__NameAssignment_0();
@@ -30507,14 +30604,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__1"
-    // InternalDSL.g:11203:1: rule__SuiteParameter__Group__1 : rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2 ;
+    // InternalDSL.g:11234:1: rule__SuiteParameter__Group__1 : rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2 ;
     public final void rule__SuiteParameter__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11207:1: ( rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2 )
-            // InternalDSL.g:11208:2: rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2
+            // InternalDSL.g:11238:1: ( rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2 )
+            // InternalDSL.g:11239:2: rule__SuiteParameter__Group__1__Impl rule__SuiteParameter__Group__2
             {
             pushFollow(FOLLOW_14);
             rule__SuiteParameter__Group__1__Impl();
@@ -30545,17 +30642,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__1__Impl"
-    // InternalDSL.g:11215:1: rule__SuiteParameter__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11246:1: rule__SuiteParameter__Group__1__Impl : ( ruleNL ) ;
     public final void rule__SuiteParameter__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11219:1: ( ( ruleNL ) )
-            // InternalDSL.g:11220:1: ( ruleNL )
+            // InternalDSL.g:11250:1: ( ( ruleNL ) )
+            // InternalDSL.g:11251:1: ( ruleNL )
             {
-            // InternalDSL.g:11220:1: ( ruleNL )
-            // InternalDSL.g:11221:1: ruleNL
+            // InternalDSL.g:11251:1: ( ruleNL )
+            // InternalDSL.g:11252:1: ruleNL
             {
              before(grammarAccess.getSuiteParameterAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -30586,14 +30683,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__2"
-    // InternalDSL.g:11232:1: rule__SuiteParameter__Group__2 : rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3 ;
+    // InternalDSL.g:11263:1: rule__SuiteParameter__Group__2 : rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3 ;
     public final void rule__SuiteParameter__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11236:1: ( rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3 )
-            // InternalDSL.g:11237:2: rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3
+            // InternalDSL.g:11267:1: ( rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3 )
+            // InternalDSL.g:11268:2: rule__SuiteParameter__Group__2__Impl rule__SuiteParameter__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__SuiteParameter__Group__2__Impl();
@@ -30624,17 +30721,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__2__Impl"
-    // InternalDSL.g:11244:1: rule__SuiteParameter__Group__2__Impl : ( ':' ) ;
+    // InternalDSL.g:11275:1: rule__SuiteParameter__Group__2__Impl : ( ':' ) ;
     public final void rule__SuiteParameter__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11248:1: ( ( ':' ) )
-            // InternalDSL.g:11249:1: ( ':' )
+            // InternalDSL.g:11279:1: ( ( ':' ) )
+            // InternalDSL.g:11280:1: ( ':' )
             {
-            // InternalDSL.g:11249:1: ( ':' )
-            // InternalDSL.g:11250:1: ':'
+            // InternalDSL.g:11280:1: ( ':' )
+            // InternalDSL.g:11281:1: ':'
             {
              before(grammarAccess.getSuiteParameterAccess().getColonKeyword_2()); 
             match(input,40,FOLLOW_2); 
@@ -30661,14 +30758,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__3"
-    // InternalDSL.g:11263:1: rule__SuiteParameter__Group__3 : rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4 ;
+    // InternalDSL.g:11294:1: rule__SuiteParameter__Group__3 : rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4 ;
     public final void rule__SuiteParameter__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11267:1: ( rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4 )
-            // InternalDSL.g:11268:2: rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4
+            // InternalDSL.g:11298:1: ( rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4 )
+            // InternalDSL.g:11299:2: rule__SuiteParameter__Group__3__Impl rule__SuiteParameter__Group__4
             {
             pushFollow(FOLLOW_15);
             rule__SuiteParameter__Group__3__Impl();
@@ -30699,17 +30796,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__3__Impl"
-    // InternalDSL.g:11275:1: rule__SuiteParameter__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11306:1: rule__SuiteParameter__Group__3__Impl : ( ruleNL ) ;
     public final void rule__SuiteParameter__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11279:1: ( ( ruleNL ) )
-            // InternalDSL.g:11280:1: ( ruleNL )
+            // InternalDSL.g:11310:1: ( ( ruleNL ) )
+            // InternalDSL.g:11311:1: ( ruleNL )
             {
-            // InternalDSL.g:11280:1: ( ruleNL )
-            // InternalDSL.g:11281:1: ruleNL
+            // InternalDSL.g:11311:1: ( ruleNL )
+            // InternalDSL.g:11312:1: ruleNL
             {
              before(grammarAccess.getSuiteParameterAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -30740,14 +30837,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__4"
-    // InternalDSL.g:11292:1: rule__SuiteParameter__Group__4 : rule__SuiteParameter__Group__4__Impl ;
+    // InternalDSL.g:11323:1: rule__SuiteParameter__Group__4 : rule__SuiteParameter__Group__4__Impl ;
     public final void rule__SuiteParameter__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11296:1: ( rule__SuiteParameter__Group__4__Impl )
-            // InternalDSL.g:11297:2: rule__SuiteParameter__Group__4__Impl
+            // InternalDSL.g:11327:1: ( rule__SuiteParameter__Group__4__Impl )
+            // InternalDSL.g:11328:2: rule__SuiteParameter__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SuiteParameter__Group__4__Impl();
@@ -30773,21 +30870,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__Group__4__Impl"
-    // InternalDSL.g:11303:1: rule__SuiteParameter__Group__4__Impl : ( ( rule__SuiteParameter__ValueAssignment_4 ) ) ;
+    // InternalDSL.g:11334:1: rule__SuiteParameter__Group__4__Impl : ( ( rule__SuiteParameter__ValueAssignment_4 ) ) ;
     public final void rule__SuiteParameter__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11307:1: ( ( ( rule__SuiteParameter__ValueAssignment_4 ) ) )
-            // InternalDSL.g:11308:1: ( ( rule__SuiteParameter__ValueAssignment_4 ) )
+            // InternalDSL.g:11338:1: ( ( ( rule__SuiteParameter__ValueAssignment_4 ) ) )
+            // InternalDSL.g:11339:1: ( ( rule__SuiteParameter__ValueAssignment_4 ) )
             {
-            // InternalDSL.g:11308:1: ( ( rule__SuiteParameter__ValueAssignment_4 ) )
-            // InternalDSL.g:11309:1: ( rule__SuiteParameter__ValueAssignment_4 )
+            // InternalDSL.g:11339:1: ( ( rule__SuiteParameter__ValueAssignment_4 ) )
+            // InternalDSL.g:11340:1: ( rule__SuiteParameter__ValueAssignment_4 )
             {
              before(grammarAccess.getSuiteParameterAccess().getValueAssignment_4()); 
-            // InternalDSL.g:11310:1: ( rule__SuiteParameter__ValueAssignment_4 )
-            // InternalDSL.g:11310:2: rule__SuiteParameter__ValueAssignment_4
+            // InternalDSL.g:11341:1: ( rule__SuiteParameter__ValueAssignment_4 )
+            // InternalDSL.g:11341:2: rule__SuiteParameter__ValueAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__SuiteParameter__ValueAssignment_4();
@@ -30820,14 +30917,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__0"
-    // InternalDSL.g:11330:1: rule__SuiteReturn__Group__0 : rule__SuiteReturn__Group__0__Impl rule__SuiteReturn__Group__1 ;
+    // InternalDSL.g:11361:1: rule__SuiteReturn__Group__0 : rule__SuiteReturn__Group__0__Impl rule__SuiteReturn__Group__1 ;
     public final void rule__SuiteReturn__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11334:1: ( rule__SuiteReturn__Group__0__Impl rule__SuiteReturn__Group__1 )
-            // InternalDSL.g:11335:2: rule__SuiteReturn__Group__0__Impl rule__SuiteReturn__Group__1
+            // InternalDSL.g:11365:1: ( rule__SuiteReturn__Group__0__Impl rule__SuiteReturn__Group__1 )
+            // InternalDSL.g:11366:2: rule__SuiteReturn__Group__0__Impl rule__SuiteReturn__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__SuiteReturn__Group__0__Impl();
@@ -30858,21 +30955,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__0__Impl"
-    // InternalDSL.g:11342:1: rule__SuiteReturn__Group__0__Impl : ( ( rule__SuiteReturn__NameAssignment_0 ) ) ;
+    // InternalDSL.g:11373:1: rule__SuiteReturn__Group__0__Impl : ( ( rule__SuiteReturn__NameAssignment_0 ) ) ;
     public final void rule__SuiteReturn__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11346:1: ( ( ( rule__SuiteReturn__NameAssignment_0 ) ) )
-            // InternalDSL.g:11347:1: ( ( rule__SuiteReturn__NameAssignment_0 ) )
+            // InternalDSL.g:11377:1: ( ( ( rule__SuiteReturn__NameAssignment_0 ) ) )
+            // InternalDSL.g:11378:1: ( ( rule__SuiteReturn__NameAssignment_0 ) )
             {
-            // InternalDSL.g:11347:1: ( ( rule__SuiteReturn__NameAssignment_0 ) )
-            // InternalDSL.g:11348:1: ( rule__SuiteReturn__NameAssignment_0 )
+            // InternalDSL.g:11378:1: ( ( rule__SuiteReturn__NameAssignment_0 ) )
+            // InternalDSL.g:11379:1: ( rule__SuiteReturn__NameAssignment_0 )
             {
              before(grammarAccess.getSuiteReturnAccess().getNameAssignment_0()); 
-            // InternalDSL.g:11349:1: ( rule__SuiteReturn__NameAssignment_0 )
-            // InternalDSL.g:11349:2: rule__SuiteReturn__NameAssignment_0
+            // InternalDSL.g:11380:1: ( rule__SuiteReturn__NameAssignment_0 )
+            // InternalDSL.g:11380:2: rule__SuiteReturn__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__SuiteReturn__NameAssignment_0();
@@ -30905,14 +31002,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__1"
-    // InternalDSL.g:11359:1: rule__SuiteReturn__Group__1 : rule__SuiteReturn__Group__1__Impl rule__SuiteReturn__Group__2 ;
+    // InternalDSL.g:11390:1: rule__SuiteReturn__Group__1 : rule__SuiteReturn__Group__1__Impl rule__SuiteReturn__Group__2 ;
     public final void rule__SuiteReturn__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11363:1: ( rule__SuiteReturn__Group__1__Impl rule__SuiteReturn__Group__2 )
-            // InternalDSL.g:11364:2: rule__SuiteReturn__Group__1__Impl rule__SuiteReturn__Group__2
+            // InternalDSL.g:11394:1: ( rule__SuiteReturn__Group__1__Impl rule__SuiteReturn__Group__2 )
+            // InternalDSL.g:11395:2: rule__SuiteReturn__Group__1__Impl rule__SuiteReturn__Group__2
             {
             pushFollow(FOLLOW_29);
             rule__SuiteReturn__Group__1__Impl();
@@ -30943,17 +31040,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__1__Impl"
-    // InternalDSL.g:11371:1: rule__SuiteReturn__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11402:1: rule__SuiteReturn__Group__1__Impl : ( ruleNL ) ;
     public final void rule__SuiteReturn__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11375:1: ( ( ruleNL ) )
-            // InternalDSL.g:11376:1: ( ruleNL )
+            // InternalDSL.g:11406:1: ( ( ruleNL ) )
+            // InternalDSL.g:11407:1: ( ruleNL )
             {
-            // InternalDSL.g:11376:1: ( ruleNL )
-            // InternalDSL.g:11377:1: ruleNL
+            // InternalDSL.g:11407:1: ( ruleNL )
+            // InternalDSL.g:11408:1: ruleNL
             {
              before(grammarAccess.getSuiteReturnAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -30984,14 +31081,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__2"
-    // InternalDSL.g:11388:1: rule__SuiteReturn__Group__2 : rule__SuiteReturn__Group__2__Impl rule__SuiteReturn__Group__3 ;
+    // InternalDSL.g:11419:1: rule__SuiteReturn__Group__2 : rule__SuiteReturn__Group__2__Impl rule__SuiteReturn__Group__3 ;
     public final void rule__SuiteReturn__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11392:1: ( rule__SuiteReturn__Group__2__Impl rule__SuiteReturn__Group__3 )
-            // InternalDSL.g:11393:2: rule__SuiteReturn__Group__2__Impl rule__SuiteReturn__Group__3
+            // InternalDSL.g:11423:1: ( rule__SuiteReturn__Group__2__Impl rule__SuiteReturn__Group__3 )
+            // InternalDSL.g:11424:2: rule__SuiteReturn__Group__2__Impl rule__SuiteReturn__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__SuiteReturn__Group__2__Impl();
@@ -31022,17 +31119,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__2__Impl"
-    // InternalDSL.g:11400:1: rule__SuiteReturn__Group__2__Impl : ( '->' ) ;
+    // InternalDSL.g:11431:1: rule__SuiteReturn__Group__2__Impl : ( '->' ) ;
     public final void rule__SuiteReturn__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11404:1: ( ( '->' ) )
-            // InternalDSL.g:11405:1: ( '->' )
+            // InternalDSL.g:11435:1: ( ( '->' ) )
+            // InternalDSL.g:11436:1: ( '->' )
             {
-            // InternalDSL.g:11405:1: ( '->' )
-            // InternalDSL.g:11406:1: '->'
+            // InternalDSL.g:11436:1: ( '->' )
+            // InternalDSL.g:11437:1: '->'
             {
              before(grammarAccess.getSuiteReturnAccess().getHyphenMinusGreaterThanSignKeyword_2()); 
             match(input,56,FOLLOW_2); 
@@ -31059,14 +31156,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__3"
-    // InternalDSL.g:11419:1: rule__SuiteReturn__Group__3 : rule__SuiteReturn__Group__3__Impl rule__SuiteReturn__Group__4 ;
+    // InternalDSL.g:11450:1: rule__SuiteReturn__Group__3 : rule__SuiteReturn__Group__3__Impl rule__SuiteReturn__Group__4 ;
     public final void rule__SuiteReturn__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11423:1: ( rule__SuiteReturn__Group__3__Impl rule__SuiteReturn__Group__4 )
-            // InternalDSL.g:11424:2: rule__SuiteReturn__Group__3__Impl rule__SuiteReturn__Group__4
+            // InternalDSL.g:11454:1: ( rule__SuiteReturn__Group__3__Impl rule__SuiteReturn__Group__4 )
+            // InternalDSL.g:11455:2: rule__SuiteReturn__Group__3__Impl rule__SuiteReturn__Group__4
             {
             pushFollow(FOLLOW_7);
             rule__SuiteReturn__Group__3__Impl();
@@ -31097,17 +31194,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__3__Impl"
-    // InternalDSL.g:11431:1: rule__SuiteReturn__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11462:1: rule__SuiteReturn__Group__3__Impl : ( ruleNL ) ;
     public final void rule__SuiteReturn__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11435:1: ( ( ruleNL ) )
-            // InternalDSL.g:11436:1: ( ruleNL )
+            // InternalDSL.g:11466:1: ( ( ruleNL ) )
+            // InternalDSL.g:11467:1: ( ruleNL )
             {
-            // InternalDSL.g:11436:1: ( ruleNL )
-            // InternalDSL.g:11437:1: ruleNL
+            // InternalDSL.g:11467:1: ( ruleNL )
+            // InternalDSL.g:11468:1: ruleNL
             {
              before(grammarAccess.getSuiteReturnAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -31138,14 +31235,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__4"
-    // InternalDSL.g:11448:1: rule__SuiteReturn__Group__4 : rule__SuiteReturn__Group__4__Impl ;
+    // InternalDSL.g:11479:1: rule__SuiteReturn__Group__4 : rule__SuiteReturn__Group__4__Impl ;
     public final void rule__SuiteReturn__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11452:1: ( rule__SuiteReturn__Group__4__Impl )
-            // InternalDSL.g:11453:2: rule__SuiteReturn__Group__4__Impl
+            // InternalDSL.g:11483:1: ( rule__SuiteReturn__Group__4__Impl )
+            // InternalDSL.g:11484:2: rule__SuiteReturn__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__SuiteReturn__Group__4__Impl();
@@ -31171,21 +31268,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__Group__4__Impl"
-    // InternalDSL.g:11459:1: rule__SuiteReturn__Group__4__Impl : ( ( rule__SuiteReturn__TargetAssignment_4 ) ) ;
+    // InternalDSL.g:11490:1: rule__SuiteReturn__Group__4__Impl : ( ( rule__SuiteReturn__TargetAssignment_4 ) ) ;
     public final void rule__SuiteReturn__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11463:1: ( ( ( rule__SuiteReturn__TargetAssignment_4 ) ) )
-            // InternalDSL.g:11464:1: ( ( rule__SuiteReturn__TargetAssignment_4 ) )
+            // InternalDSL.g:11494:1: ( ( ( rule__SuiteReturn__TargetAssignment_4 ) ) )
+            // InternalDSL.g:11495:1: ( ( rule__SuiteReturn__TargetAssignment_4 ) )
             {
-            // InternalDSL.g:11464:1: ( ( rule__SuiteReturn__TargetAssignment_4 ) )
-            // InternalDSL.g:11465:1: ( rule__SuiteReturn__TargetAssignment_4 )
+            // InternalDSL.g:11495:1: ( ( rule__SuiteReturn__TargetAssignment_4 ) )
+            // InternalDSL.g:11496:1: ( rule__SuiteReturn__TargetAssignment_4 )
             {
              before(grammarAccess.getSuiteReturnAccess().getTargetAssignment_4()); 
-            // InternalDSL.g:11466:1: ( rule__SuiteReturn__TargetAssignment_4 )
-            // InternalDSL.g:11466:2: rule__SuiteReturn__TargetAssignment_4
+            // InternalDSL.g:11497:1: ( rule__SuiteReturn__TargetAssignment_4 )
+            // InternalDSL.g:11497:2: rule__SuiteReturn__TargetAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__SuiteReturn__TargetAssignment_4();
@@ -31218,14 +31315,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__0"
-    // InternalDSL.g:11486:1: rule__Parameter__Group__0 : rule__Parameter__Group__0__Impl rule__Parameter__Group__1 ;
+    // InternalDSL.g:11517:1: rule__Parameter__Group__0 : rule__Parameter__Group__0__Impl rule__Parameter__Group__1 ;
     public final void rule__Parameter__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11490:1: ( rule__Parameter__Group__0__Impl rule__Parameter__Group__1 )
-            // InternalDSL.g:11491:2: rule__Parameter__Group__0__Impl rule__Parameter__Group__1
+            // InternalDSL.g:11521:1: ( rule__Parameter__Group__0__Impl rule__Parameter__Group__1 )
+            // InternalDSL.g:11522:2: rule__Parameter__Group__0__Impl rule__Parameter__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__Parameter__Group__0__Impl();
@@ -31256,21 +31353,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__0__Impl"
-    // InternalDSL.g:11498:1: rule__Parameter__Group__0__Impl : ( ( rule__Parameter__NameAssignment_0 ) ) ;
+    // InternalDSL.g:11529:1: rule__Parameter__Group__0__Impl : ( ( rule__Parameter__NameAssignment_0 ) ) ;
     public final void rule__Parameter__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11502:1: ( ( ( rule__Parameter__NameAssignment_0 ) ) )
-            // InternalDSL.g:11503:1: ( ( rule__Parameter__NameAssignment_0 ) )
+            // InternalDSL.g:11533:1: ( ( ( rule__Parameter__NameAssignment_0 ) ) )
+            // InternalDSL.g:11534:1: ( ( rule__Parameter__NameAssignment_0 ) )
             {
-            // InternalDSL.g:11503:1: ( ( rule__Parameter__NameAssignment_0 ) )
-            // InternalDSL.g:11504:1: ( rule__Parameter__NameAssignment_0 )
+            // InternalDSL.g:11534:1: ( ( rule__Parameter__NameAssignment_0 ) )
+            // InternalDSL.g:11535:1: ( rule__Parameter__NameAssignment_0 )
             {
              before(grammarAccess.getParameterAccess().getNameAssignment_0()); 
-            // InternalDSL.g:11505:1: ( rule__Parameter__NameAssignment_0 )
-            // InternalDSL.g:11505:2: rule__Parameter__NameAssignment_0
+            // InternalDSL.g:11536:1: ( rule__Parameter__NameAssignment_0 )
+            // InternalDSL.g:11536:2: rule__Parameter__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__Parameter__NameAssignment_0();
@@ -31303,14 +31400,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__1"
-    // InternalDSL.g:11515:1: rule__Parameter__Group__1 : rule__Parameter__Group__1__Impl rule__Parameter__Group__2 ;
+    // InternalDSL.g:11546:1: rule__Parameter__Group__1 : rule__Parameter__Group__1__Impl rule__Parameter__Group__2 ;
     public final void rule__Parameter__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11519:1: ( rule__Parameter__Group__1__Impl rule__Parameter__Group__2 )
-            // InternalDSL.g:11520:2: rule__Parameter__Group__1__Impl rule__Parameter__Group__2
+            // InternalDSL.g:11550:1: ( rule__Parameter__Group__1__Impl rule__Parameter__Group__2 )
+            // InternalDSL.g:11551:2: rule__Parameter__Group__1__Impl rule__Parameter__Group__2
             {
             pushFollow(FOLLOW_14);
             rule__Parameter__Group__1__Impl();
@@ -31341,17 +31438,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__1__Impl"
-    // InternalDSL.g:11527:1: rule__Parameter__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11558:1: rule__Parameter__Group__1__Impl : ( ruleNL ) ;
     public final void rule__Parameter__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11531:1: ( ( ruleNL ) )
-            // InternalDSL.g:11532:1: ( ruleNL )
+            // InternalDSL.g:11562:1: ( ( ruleNL ) )
+            // InternalDSL.g:11563:1: ( ruleNL )
             {
-            // InternalDSL.g:11532:1: ( ruleNL )
-            // InternalDSL.g:11533:1: ruleNL
+            // InternalDSL.g:11563:1: ( ruleNL )
+            // InternalDSL.g:11564:1: ruleNL
             {
              before(grammarAccess.getParameterAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -31382,14 +31479,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__2"
-    // InternalDSL.g:11544:1: rule__Parameter__Group__2 : rule__Parameter__Group__2__Impl rule__Parameter__Group__3 ;
+    // InternalDSL.g:11575:1: rule__Parameter__Group__2 : rule__Parameter__Group__2__Impl rule__Parameter__Group__3 ;
     public final void rule__Parameter__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11548:1: ( rule__Parameter__Group__2__Impl rule__Parameter__Group__3 )
-            // InternalDSL.g:11549:2: rule__Parameter__Group__2__Impl rule__Parameter__Group__3
+            // InternalDSL.g:11579:1: ( rule__Parameter__Group__2__Impl rule__Parameter__Group__3 )
+            // InternalDSL.g:11580:2: rule__Parameter__Group__2__Impl rule__Parameter__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__Parameter__Group__2__Impl();
@@ -31420,17 +31517,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__2__Impl"
-    // InternalDSL.g:11556:1: rule__Parameter__Group__2__Impl : ( ':' ) ;
+    // InternalDSL.g:11587:1: rule__Parameter__Group__2__Impl : ( ':' ) ;
     public final void rule__Parameter__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11560:1: ( ( ':' ) )
-            // InternalDSL.g:11561:1: ( ':' )
+            // InternalDSL.g:11591:1: ( ( ':' ) )
+            // InternalDSL.g:11592:1: ( ':' )
             {
-            // InternalDSL.g:11561:1: ( ':' )
-            // InternalDSL.g:11562:1: ':'
+            // InternalDSL.g:11592:1: ( ':' )
+            // InternalDSL.g:11593:1: ':'
             {
              before(grammarAccess.getParameterAccess().getColonKeyword_2()); 
             match(input,40,FOLLOW_2); 
@@ -31457,14 +31554,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__3"
-    // InternalDSL.g:11575:1: rule__Parameter__Group__3 : rule__Parameter__Group__3__Impl rule__Parameter__Group__4 ;
+    // InternalDSL.g:11606:1: rule__Parameter__Group__3 : rule__Parameter__Group__3__Impl rule__Parameter__Group__4 ;
     public final void rule__Parameter__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11579:1: ( rule__Parameter__Group__3__Impl rule__Parameter__Group__4 )
-            // InternalDSL.g:11580:2: rule__Parameter__Group__3__Impl rule__Parameter__Group__4
+            // InternalDSL.g:11610:1: ( rule__Parameter__Group__3__Impl rule__Parameter__Group__4 )
+            // InternalDSL.g:11611:2: rule__Parameter__Group__3__Impl rule__Parameter__Group__4
             {
             pushFollow(FOLLOW_15);
             rule__Parameter__Group__3__Impl();
@@ -31495,17 +31592,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__3__Impl"
-    // InternalDSL.g:11587:1: rule__Parameter__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11618:1: rule__Parameter__Group__3__Impl : ( ruleNL ) ;
     public final void rule__Parameter__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11591:1: ( ( ruleNL ) )
-            // InternalDSL.g:11592:1: ( ruleNL )
+            // InternalDSL.g:11622:1: ( ( ruleNL ) )
+            // InternalDSL.g:11623:1: ( ruleNL )
             {
-            // InternalDSL.g:11592:1: ( ruleNL )
-            // InternalDSL.g:11593:1: ruleNL
+            // InternalDSL.g:11623:1: ( ruleNL )
+            // InternalDSL.g:11624:1: ruleNL
             {
              before(grammarAccess.getParameterAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -31536,14 +31633,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__4"
-    // InternalDSL.g:11604:1: rule__Parameter__Group__4 : rule__Parameter__Group__4__Impl ;
+    // InternalDSL.g:11635:1: rule__Parameter__Group__4 : rule__Parameter__Group__4__Impl ;
     public final void rule__Parameter__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11608:1: ( rule__Parameter__Group__4__Impl )
-            // InternalDSL.g:11609:2: rule__Parameter__Group__4__Impl
+            // InternalDSL.g:11639:1: ( rule__Parameter__Group__4__Impl )
+            // InternalDSL.g:11640:2: rule__Parameter__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Parameter__Group__4__Impl();
@@ -31569,21 +31666,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__Group__4__Impl"
-    // InternalDSL.g:11615:1: rule__Parameter__Group__4__Impl : ( ( rule__Parameter__ValueAssignment_4 ) ) ;
+    // InternalDSL.g:11646:1: rule__Parameter__Group__4__Impl : ( ( rule__Parameter__ValueAssignment_4 ) ) ;
     public final void rule__Parameter__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11619:1: ( ( ( rule__Parameter__ValueAssignment_4 ) ) )
-            // InternalDSL.g:11620:1: ( ( rule__Parameter__ValueAssignment_4 ) )
+            // InternalDSL.g:11650:1: ( ( ( rule__Parameter__ValueAssignment_4 ) ) )
+            // InternalDSL.g:11651:1: ( ( rule__Parameter__ValueAssignment_4 ) )
             {
-            // InternalDSL.g:11620:1: ( ( rule__Parameter__ValueAssignment_4 ) )
-            // InternalDSL.g:11621:1: ( rule__Parameter__ValueAssignment_4 )
+            // InternalDSL.g:11651:1: ( ( rule__Parameter__ValueAssignment_4 ) )
+            // InternalDSL.g:11652:1: ( rule__Parameter__ValueAssignment_4 )
             {
              before(grammarAccess.getParameterAccess().getValueAssignment_4()); 
-            // InternalDSL.g:11622:1: ( rule__Parameter__ValueAssignment_4 )
-            // InternalDSL.g:11622:2: rule__Parameter__ValueAssignment_4
+            // InternalDSL.g:11653:1: ( rule__Parameter__ValueAssignment_4 )
+            // InternalDSL.g:11653:2: rule__Parameter__ValueAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__Parameter__ValueAssignment_4();
@@ -31616,14 +31713,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__Group__0"
-    // InternalDSL.g:11642:1: rule__ArbitraryParameterOrResultName__Group__0 : rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1 ;
+    // InternalDSL.g:11673:1: rule__ArbitraryParameterOrResultName__Group__0 : rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1 ;
     public final void rule__ArbitraryParameterOrResultName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11646:1: ( rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1 )
-            // InternalDSL.g:11647:2: rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1
+            // InternalDSL.g:11677:1: ( rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1 )
+            // InternalDSL.g:11678:2: rule__ArbitraryParameterOrResultName__Group__0__Impl rule__ArbitraryParameterOrResultName__Group__1
             {
             pushFollow(FOLLOW_39);
             rule__ArbitraryParameterOrResultName__Group__0__Impl();
@@ -31654,17 +31751,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__Group__0__Impl"
-    // InternalDSL.g:11654:1: rule__ArbitraryParameterOrResultName__Group__0__Impl : ( '+' ) ;
+    // InternalDSL.g:11685:1: rule__ArbitraryParameterOrResultName__Group__0__Impl : ( '+' ) ;
     public final void rule__ArbitraryParameterOrResultName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11658:1: ( ( '+' ) )
-            // InternalDSL.g:11659:1: ( '+' )
+            // InternalDSL.g:11689:1: ( ( '+' ) )
+            // InternalDSL.g:11690:1: ( '+' )
             {
-            // InternalDSL.g:11659:1: ( '+' )
-            // InternalDSL.g:11660:1: '+'
+            // InternalDSL.g:11690:1: ( '+' )
+            // InternalDSL.g:11691:1: '+'
             {
              before(grammarAccess.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0()); 
             match(input,28,FOLLOW_2); 
@@ -31691,14 +31788,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__Group__1"
-    // InternalDSL.g:11673:1: rule__ArbitraryParameterOrResultName__Group__1 : rule__ArbitraryParameterOrResultName__Group__1__Impl ;
+    // InternalDSL.g:11704:1: rule__ArbitraryParameterOrResultName__Group__1 : rule__ArbitraryParameterOrResultName__Group__1__Impl ;
     public final void rule__ArbitraryParameterOrResultName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11677:1: ( rule__ArbitraryParameterOrResultName__Group__1__Impl )
-            // InternalDSL.g:11678:2: rule__ArbitraryParameterOrResultName__Group__1__Impl
+            // InternalDSL.g:11708:1: ( rule__ArbitraryParameterOrResultName__Group__1__Impl )
+            // InternalDSL.g:11709:2: rule__ArbitraryParameterOrResultName__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ArbitraryParameterOrResultName__Group__1__Impl();
@@ -31724,21 +31821,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__Group__1__Impl"
-    // InternalDSL.g:11684:1: rule__ArbitraryParameterOrResultName__Group__1__Impl : ( ( rule__ArbitraryParameterOrResultName__Alternatives_1 ) ) ;
+    // InternalDSL.g:11715:1: rule__ArbitraryParameterOrResultName__Group__1__Impl : ( ( rule__ArbitraryParameterOrResultName__Alternatives_1 ) ) ;
     public final void rule__ArbitraryParameterOrResultName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11688:1: ( ( ( rule__ArbitraryParameterOrResultName__Alternatives_1 ) ) )
-            // InternalDSL.g:11689:1: ( ( rule__ArbitraryParameterOrResultName__Alternatives_1 ) )
+            // InternalDSL.g:11719:1: ( ( ( rule__ArbitraryParameterOrResultName__Alternatives_1 ) ) )
+            // InternalDSL.g:11720:1: ( ( rule__ArbitraryParameterOrResultName__Alternatives_1 ) )
             {
-            // InternalDSL.g:11689:1: ( ( rule__ArbitraryParameterOrResultName__Alternatives_1 ) )
-            // InternalDSL.g:11690:1: ( rule__ArbitraryParameterOrResultName__Alternatives_1 )
+            // InternalDSL.g:11720:1: ( ( rule__ArbitraryParameterOrResultName__Alternatives_1 ) )
+            // InternalDSL.g:11721:1: ( rule__ArbitraryParameterOrResultName__Alternatives_1 )
             {
              before(grammarAccess.getArbitraryParameterOrResultNameAccess().getAlternatives_1()); 
-            // InternalDSL.g:11691:1: ( rule__ArbitraryParameterOrResultName__Alternatives_1 )
-            // InternalDSL.g:11691:2: rule__ArbitraryParameterOrResultName__Alternatives_1
+            // InternalDSL.g:11722:1: ( rule__ArbitraryParameterOrResultName__Alternatives_1 )
+            // InternalDSL.g:11722:2: rule__ArbitraryParameterOrResultName__Alternatives_1
             {
             pushFollow(FOLLOW_2);
             rule__ArbitraryParameterOrResultName__Alternatives_1();
@@ -31771,14 +31868,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__0"
-    // InternalDSL.g:11705:1: rule__StandardOperation__Group__0 : rule__StandardOperation__Group__0__Impl rule__StandardOperation__Group__1 ;
+    // InternalDSL.g:11736:1: rule__StandardOperation__Group__0 : rule__StandardOperation__Group__0__Impl rule__StandardOperation__Group__1 ;
     public final void rule__StandardOperation__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11709:1: ( rule__StandardOperation__Group__0__Impl rule__StandardOperation__Group__1 )
-            // InternalDSL.g:11710:2: rule__StandardOperation__Group__0__Impl rule__StandardOperation__Group__1
+            // InternalDSL.g:11740:1: ( rule__StandardOperation__Group__0__Impl rule__StandardOperation__Group__1 )
+            // InternalDSL.g:11741:2: rule__StandardOperation__Group__0__Impl rule__StandardOperation__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__StandardOperation__Group__0__Impl();
@@ -31809,17 +31906,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__0__Impl"
-    // InternalDSL.g:11717:1: rule__StandardOperation__Group__0__Impl : ( '(' ) ;
+    // InternalDSL.g:11748:1: rule__StandardOperation__Group__0__Impl : ( '(' ) ;
     public final void rule__StandardOperation__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11721:1: ( ( '(' ) )
-            // InternalDSL.g:11722:1: ( '(' )
+            // InternalDSL.g:11752:1: ( ( '(' ) )
+            // InternalDSL.g:11753:1: ( '(' )
             {
-            // InternalDSL.g:11722:1: ( '(' )
-            // InternalDSL.g:11723:1: '('
+            // InternalDSL.g:11753:1: ( '(' )
+            // InternalDSL.g:11754:1: '('
             {
              before(grammarAccess.getStandardOperationAccess().getLeftParenthesisKeyword_0()); 
             match(input,65,FOLLOW_2); 
@@ -31846,14 +31943,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__1"
-    // InternalDSL.g:11736:1: rule__StandardOperation__Group__1 : rule__StandardOperation__Group__1__Impl rule__StandardOperation__Group__2 ;
+    // InternalDSL.g:11767:1: rule__StandardOperation__Group__1 : rule__StandardOperation__Group__1__Impl rule__StandardOperation__Group__2 ;
     public final void rule__StandardOperation__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11740:1: ( rule__StandardOperation__Group__1__Impl rule__StandardOperation__Group__2 )
-            // InternalDSL.g:11741:2: rule__StandardOperation__Group__1__Impl rule__StandardOperation__Group__2
+            // InternalDSL.g:11771:1: ( rule__StandardOperation__Group__1__Impl rule__StandardOperation__Group__2 )
+            // InternalDSL.g:11772:2: rule__StandardOperation__Group__1__Impl rule__StandardOperation__Group__2
             {
             pushFollow(FOLLOW_15);
             rule__StandardOperation__Group__1__Impl();
@@ -31884,17 +31981,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__1__Impl"
-    // InternalDSL.g:11748:1: rule__StandardOperation__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11779:1: rule__StandardOperation__Group__1__Impl : ( ruleNL ) ;
     public final void rule__StandardOperation__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11752:1: ( ( ruleNL ) )
-            // InternalDSL.g:11753:1: ( ruleNL )
+            // InternalDSL.g:11783:1: ( ( ruleNL ) )
+            // InternalDSL.g:11784:1: ( ruleNL )
             {
-            // InternalDSL.g:11753:1: ( ruleNL )
-            // InternalDSL.g:11754:1: ruleNL
+            // InternalDSL.g:11784:1: ( ruleNL )
+            // InternalDSL.g:11785:1: ruleNL
             {
              before(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -31925,14 +32022,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__2"
-    // InternalDSL.g:11765:1: rule__StandardOperation__Group__2 : rule__StandardOperation__Group__2__Impl rule__StandardOperation__Group__3 ;
+    // InternalDSL.g:11796:1: rule__StandardOperation__Group__2 : rule__StandardOperation__Group__2__Impl rule__StandardOperation__Group__3 ;
     public final void rule__StandardOperation__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11769:1: ( rule__StandardOperation__Group__2__Impl rule__StandardOperation__Group__3 )
-            // InternalDSL.g:11770:2: rule__StandardOperation__Group__2__Impl rule__StandardOperation__Group__3
+            // InternalDSL.g:11800:1: ( rule__StandardOperation__Group__2__Impl rule__StandardOperation__Group__3 )
+            // InternalDSL.g:11801:2: rule__StandardOperation__Group__2__Impl rule__StandardOperation__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__StandardOperation__Group__2__Impl();
@@ -31963,21 +32060,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__2__Impl"
-    // InternalDSL.g:11777:1: rule__StandardOperation__Group__2__Impl : ( ( rule__StandardOperation__FirstOperandAssignment_2 ) ) ;
+    // InternalDSL.g:11808:1: rule__StandardOperation__Group__2__Impl : ( ( rule__StandardOperation__FirstOperandAssignment_2 ) ) ;
     public final void rule__StandardOperation__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11781:1: ( ( ( rule__StandardOperation__FirstOperandAssignment_2 ) ) )
-            // InternalDSL.g:11782:1: ( ( rule__StandardOperation__FirstOperandAssignment_2 ) )
+            // InternalDSL.g:11812:1: ( ( ( rule__StandardOperation__FirstOperandAssignment_2 ) ) )
+            // InternalDSL.g:11813:1: ( ( rule__StandardOperation__FirstOperandAssignment_2 ) )
             {
-            // InternalDSL.g:11782:1: ( ( rule__StandardOperation__FirstOperandAssignment_2 ) )
-            // InternalDSL.g:11783:1: ( rule__StandardOperation__FirstOperandAssignment_2 )
+            // InternalDSL.g:11813:1: ( ( rule__StandardOperation__FirstOperandAssignment_2 ) )
+            // InternalDSL.g:11814:1: ( rule__StandardOperation__FirstOperandAssignment_2 )
             {
              before(grammarAccess.getStandardOperationAccess().getFirstOperandAssignment_2()); 
-            // InternalDSL.g:11784:1: ( rule__StandardOperation__FirstOperandAssignment_2 )
-            // InternalDSL.g:11784:2: rule__StandardOperation__FirstOperandAssignment_2
+            // InternalDSL.g:11815:1: ( rule__StandardOperation__FirstOperandAssignment_2 )
+            // InternalDSL.g:11815:2: rule__StandardOperation__FirstOperandAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__StandardOperation__FirstOperandAssignment_2();
@@ -32010,14 +32107,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__3"
-    // InternalDSL.g:11794:1: rule__StandardOperation__Group__3 : rule__StandardOperation__Group__3__Impl rule__StandardOperation__Group__4 ;
+    // InternalDSL.g:11825:1: rule__StandardOperation__Group__3 : rule__StandardOperation__Group__3__Impl rule__StandardOperation__Group__4 ;
     public final void rule__StandardOperation__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11798:1: ( rule__StandardOperation__Group__3__Impl rule__StandardOperation__Group__4 )
-            // InternalDSL.g:11799:2: rule__StandardOperation__Group__3__Impl rule__StandardOperation__Group__4
+            // InternalDSL.g:11829:1: ( rule__StandardOperation__Group__3__Impl rule__StandardOperation__Group__4 )
+            // InternalDSL.g:11830:2: rule__StandardOperation__Group__3__Impl rule__StandardOperation__Group__4
             {
             pushFollow(FOLLOW_40);
             rule__StandardOperation__Group__3__Impl();
@@ -32048,17 +32145,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__3__Impl"
-    // InternalDSL.g:11806:1: rule__StandardOperation__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11837:1: rule__StandardOperation__Group__3__Impl : ( ruleNL ) ;
     public final void rule__StandardOperation__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11810:1: ( ( ruleNL ) )
-            // InternalDSL.g:11811:1: ( ruleNL )
+            // InternalDSL.g:11841:1: ( ( ruleNL ) )
+            // InternalDSL.g:11842:1: ( ruleNL )
             {
-            // InternalDSL.g:11811:1: ( ruleNL )
-            // InternalDSL.g:11812:1: ruleNL
+            // InternalDSL.g:11842:1: ( ruleNL )
+            // InternalDSL.g:11843:1: ruleNL
             {
              before(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -32089,14 +32186,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__4"
-    // InternalDSL.g:11823:1: rule__StandardOperation__Group__4 : rule__StandardOperation__Group__4__Impl rule__StandardOperation__Group__5 ;
+    // InternalDSL.g:11854:1: rule__StandardOperation__Group__4 : rule__StandardOperation__Group__4__Impl rule__StandardOperation__Group__5 ;
     public final void rule__StandardOperation__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11827:1: ( rule__StandardOperation__Group__4__Impl rule__StandardOperation__Group__5 )
-            // InternalDSL.g:11828:2: rule__StandardOperation__Group__4__Impl rule__StandardOperation__Group__5
+            // InternalDSL.g:11858:1: ( rule__StandardOperation__Group__4__Impl rule__StandardOperation__Group__5 )
+            // InternalDSL.g:11859:2: rule__StandardOperation__Group__4__Impl rule__StandardOperation__Group__5
             {
             pushFollow(FOLLOW_41);
             rule__StandardOperation__Group__4__Impl();
@@ -32127,24 +32224,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__4__Impl"
-    // InternalDSL.g:11835:1: rule__StandardOperation__Group__4__Impl : ( ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* ) ) ;
+    // InternalDSL.g:11866:1: rule__StandardOperation__Group__4__Impl : ( ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* ) ) ;
     public final void rule__StandardOperation__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11839:1: ( ( ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* ) ) )
-            // InternalDSL.g:11840:1: ( ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* ) )
+            // InternalDSL.g:11870:1: ( ( ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* ) ) )
+            // InternalDSL.g:11871:1: ( ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* ) )
             {
-            // InternalDSL.g:11840:1: ( ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* ) )
-            // InternalDSL.g:11841:1: ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* )
+            // InternalDSL.g:11871:1: ( ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* ) )
+            // InternalDSL.g:11872:1: ( ( rule__StandardOperation__Group_4__0 ) ) ( ( rule__StandardOperation__Group_4__0 )* )
             {
-            // InternalDSL.g:11841:1: ( ( rule__StandardOperation__Group_4__0 ) )
-            // InternalDSL.g:11842:1: ( rule__StandardOperation__Group_4__0 )
+            // InternalDSL.g:11872:1: ( ( rule__StandardOperation__Group_4__0 ) )
+            // InternalDSL.g:11873:1: ( rule__StandardOperation__Group_4__0 )
             {
              before(grammarAccess.getStandardOperationAccess().getGroup_4()); 
-            // InternalDSL.g:11843:1: ( rule__StandardOperation__Group_4__0 )
-            // InternalDSL.g:11843:2: rule__StandardOperation__Group_4__0
+            // InternalDSL.g:11874:1: ( rule__StandardOperation__Group_4__0 )
+            // InternalDSL.g:11874:2: rule__StandardOperation__Group_4__0
             {
             pushFollow(FOLLOW_42);
             rule__StandardOperation__Group_4__0();
@@ -32158,24 +32255,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalDSL.g:11846:1: ( ( rule__StandardOperation__Group_4__0 )* )
-            // InternalDSL.g:11847:1: ( rule__StandardOperation__Group_4__0 )*
+            // InternalDSL.g:11877:1: ( ( rule__StandardOperation__Group_4__0 )* )
+            // InternalDSL.g:11878:1: ( rule__StandardOperation__Group_4__0 )*
             {
              before(grammarAccess.getStandardOperationAccess().getGroup_4()); 
-            // InternalDSL.g:11848:1: ( rule__StandardOperation__Group_4__0 )*
-            loop71:
+            // InternalDSL.g:11879:1: ( rule__StandardOperation__Group_4__0 )*
+            loop72:
             do {
-                int alt71=2;
-                int LA71_0 = input.LA(1);
+                int alt72=2;
+                int LA72_0 = input.LA(1);
 
-                if ( ((LA71_0>=28 && LA71_0<=33)) ) {
-                    alt71=1;
+                if ( ((LA72_0>=28 && LA72_0<=33)) ) {
+                    alt72=1;
                 }
 
 
-                switch (alt71) {
+                switch (alt72) {
             	case 1 :
-            	    // InternalDSL.g:11848:2: rule__StandardOperation__Group_4__0
+            	    // InternalDSL.g:11879:2: rule__StandardOperation__Group_4__0
             	    {
             	    pushFollow(FOLLOW_42);
             	    rule__StandardOperation__Group_4__0();
@@ -32187,7 +32284,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop71;
+            	    break loop72;
                 }
             } while (true);
 
@@ -32217,14 +32314,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__5"
-    // InternalDSL.g:11859:1: rule__StandardOperation__Group__5 : rule__StandardOperation__Group__5__Impl ;
+    // InternalDSL.g:11890:1: rule__StandardOperation__Group__5 : rule__StandardOperation__Group__5__Impl ;
     public final void rule__StandardOperation__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11863:1: ( rule__StandardOperation__Group__5__Impl )
-            // InternalDSL.g:11864:2: rule__StandardOperation__Group__5__Impl
+            // InternalDSL.g:11894:1: ( rule__StandardOperation__Group__5__Impl )
+            // InternalDSL.g:11895:2: rule__StandardOperation__Group__5__Impl
             {
             pushFollow(FOLLOW_2);
             rule__StandardOperation__Group__5__Impl();
@@ -32250,17 +32347,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group__5__Impl"
-    // InternalDSL.g:11870:1: rule__StandardOperation__Group__5__Impl : ( ')' ) ;
+    // InternalDSL.g:11901:1: rule__StandardOperation__Group__5__Impl : ( ')' ) ;
     public final void rule__StandardOperation__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11874:1: ( ( ')' ) )
-            // InternalDSL.g:11875:1: ( ')' )
+            // InternalDSL.g:11905:1: ( ( ')' ) )
+            // InternalDSL.g:11906:1: ( ')' )
             {
-            // InternalDSL.g:11875:1: ( ')' )
-            // InternalDSL.g:11876:1: ')'
+            // InternalDSL.g:11906:1: ( ')' )
+            // InternalDSL.g:11907:1: ')'
             {
              before(grammarAccess.getStandardOperationAccess().getRightParenthesisKeyword_5()); 
             match(input,66,FOLLOW_2); 
@@ -32287,14 +32384,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group_4__0"
-    // InternalDSL.g:11901:1: rule__StandardOperation__Group_4__0 : rule__StandardOperation__Group_4__0__Impl rule__StandardOperation__Group_4__1 ;
+    // InternalDSL.g:11932:1: rule__StandardOperation__Group_4__0 : rule__StandardOperation__Group_4__0__Impl rule__StandardOperation__Group_4__1 ;
     public final void rule__StandardOperation__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11905:1: ( rule__StandardOperation__Group_4__0__Impl rule__StandardOperation__Group_4__1 )
-            // InternalDSL.g:11906:2: rule__StandardOperation__Group_4__0__Impl rule__StandardOperation__Group_4__1
+            // InternalDSL.g:11936:1: ( rule__StandardOperation__Group_4__0__Impl rule__StandardOperation__Group_4__1 )
+            // InternalDSL.g:11937:2: rule__StandardOperation__Group_4__0__Impl rule__StandardOperation__Group_4__1
             {
             pushFollow(FOLLOW_4);
             rule__StandardOperation__Group_4__0__Impl();
@@ -32325,21 +32422,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group_4__0__Impl"
-    // InternalDSL.g:11913:1: rule__StandardOperation__Group_4__0__Impl : ( ( rule__StandardOperation__OperatorsAssignment_4_0 ) ) ;
+    // InternalDSL.g:11944:1: rule__StandardOperation__Group_4__0__Impl : ( ( rule__StandardOperation__OperatorsAssignment_4_0 ) ) ;
     public final void rule__StandardOperation__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11917:1: ( ( ( rule__StandardOperation__OperatorsAssignment_4_0 ) ) )
-            // InternalDSL.g:11918:1: ( ( rule__StandardOperation__OperatorsAssignment_4_0 ) )
+            // InternalDSL.g:11948:1: ( ( ( rule__StandardOperation__OperatorsAssignment_4_0 ) ) )
+            // InternalDSL.g:11949:1: ( ( rule__StandardOperation__OperatorsAssignment_4_0 ) )
             {
-            // InternalDSL.g:11918:1: ( ( rule__StandardOperation__OperatorsAssignment_4_0 ) )
-            // InternalDSL.g:11919:1: ( rule__StandardOperation__OperatorsAssignment_4_0 )
+            // InternalDSL.g:11949:1: ( ( rule__StandardOperation__OperatorsAssignment_4_0 ) )
+            // InternalDSL.g:11950:1: ( rule__StandardOperation__OperatorsAssignment_4_0 )
             {
              before(grammarAccess.getStandardOperationAccess().getOperatorsAssignment_4_0()); 
-            // InternalDSL.g:11920:1: ( rule__StandardOperation__OperatorsAssignment_4_0 )
-            // InternalDSL.g:11920:2: rule__StandardOperation__OperatorsAssignment_4_0
+            // InternalDSL.g:11951:1: ( rule__StandardOperation__OperatorsAssignment_4_0 )
+            // InternalDSL.g:11951:2: rule__StandardOperation__OperatorsAssignment_4_0
             {
             pushFollow(FOLLOW_2);
             rule__StandardOperation__OperatorsAssignment_4_0();
@@ -32372,14 +32469,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group_4__1"
-    // InternalDSL.g:11930:1: rule__StandardOperation__Group_4__1 : rule__StandardOperation__Group_4__1__Impl rule__StandardOperation__Group_4__2 ;
+    // InternalDSL.g:11961:1: rule__StandardOperation__Group_4__1 : rule__StandardOperation__Group_4__1__Impl rule__StandardOperation__Group_4__2 ;
     public final void rule__StandardOperation__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11934:1: ( rule__StandardOperation__Group_4__1__Impl rule__StandardOperation__Group_4__2 )
-            // InternalDSL.g:11935:2: rule__StandardOperation__Group_4__1__Impl rule__StandardOperation__Group_4__2
+            // InternalDSL.g:11965:1: ( rule__StandardOperation__Group_4__1__Impl rule__StandardOperation__Group_4__2 )
+            // InternalDSL.g:11966:2: rule__StandardOperation__Group_4__1__Impl rule__StandardOperation__Group_4__2
             {
             pushFollow(FOLLOW_15);
             rule__StandardOperation__Group_4__1__Impl();
@@ -32410,17 +32507,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group_4__1__Impl"
-    // InternalDSL.g:11942:1: rule__StandardOperation__Group_4__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:11973:1: rule__StandardOperation__Group_4__1__Impl : ( ruleNL ) ;
     public final void rule__StandardOperation__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11946:1: ( ( ruleNL ) )
-            // InternalDSL.g:11947:1: ( ruleNL )
+            // InternalDSL.g:11977:1: ( ( ruleNL ) )
+            // InternalDSL.g:11978:1: ( ruleNL )
             {
-            // InternalDSL.g:11947:1: ( ruleNL )
-            // InternalDSL.g:11948:1: ruleNL
+            // InternalDSL.g:11978:1: ( ruleNL )
+            // InternalDSL.g:11979:1: ruleNL
             {
              before(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_4_1()); 
             pushFollow(FOLLOW_2);
@@ -32451,14 +32548,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group_4__2"
-    // InternalDSL.g:11959:1: rule__StandardOperation__Group_4__2 : rule__StandardOperation__Group_4__2__Impl rule__StandardOperation__Group_4__3 ;
+    // InternalDSL.g:11990:1: rule__StandardOperation__Group_4__2 : rule__StandardOperation__Group_4__2__Impl rule__StandardOperation__Group_4__3 ;
     public final void rule__StandardOperation__Group_4__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11963:1: ( rule__StandardOperation__Group_4__2__Impl rule__StandardOperation__Group_4__3 )
-            // InternalDSL.g:11964:2: rule__StandardOperation__Group_4__2__Impl rule__StandardOperation__Group_4__3
+            // InternalDSL.g:11994:1: ( rule__StandardOperation__Group_4__2__Impl rule__StandardOperation__Group_4__3 )
+            // InternalDSL.g:11995:2: rule__StandardOperation__Group_4__2__Impl rule__StandardOperation__Group_4__3
             {
             pushFollow(FOLLOW_4);
             rule__StandardOperation__Group_4__2__Impl();
@@ -32489,21 +32586,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group_4__2__Impl"
-    // InternalDSL.g:11971:1: rule__StandardOperation__Group_4__2__Impl : ( ( rule__StandardOperation__MoreOperandsAssignment_4_2 ) ) ;
+    // InternalDSL.g:12002:1: rule__StandardOperation__Group_4__2__Impl : ( ( rule__StandardOperation__MoreOperandsAssignment_4_2 ) ) ;
     public final void rule__StandardOperation__Group_4__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11975:1: ( ( ( rule__StandardOperation__MoreOperandsAssignment_4_2 ) ) )
-            // InternalDSL.g:11976:1: ( ( rule__StandardOperation__MoreOperandsAssignment_4_2 ) )
+            // InternalDSL.g:12006:1: ( ( ( rule__StandardOperation__MoreOperandsAssignment_4_2 ) ) )
+            // InternalDSL.g:12007:1: ( ( rule__StandardOperation__MoreOperandsAssignment_4_2 ) )
             {
-            // InternalDSL.g:11976:1: ( ( rule__StandardOperation__MoreOperandsAssignment_4_2 ) )
-            // InternalDSL.g:11977:1: ( rule__StandardOperation__MoreOperandsAssignment_4_2 )
+            // InternalDSL.g:12007:1: ( ( rule__StandardOperation__MoreOperandsAssignment_4_2 ) )
+            // InternalDSL.g:12008:1: ( rule__StandardOperation__MoreOperandsAssignment_4_2 )
             {
              before(grammarAccess.getStandardOperationAccess().getMoreOperandsAssignment_4_2()); 
-            // InternalDSL.g:11978:1: ( rule__StandardOperation__MoreOperandsAssignment_4_2 )
-            // InternalDSL.g:11978:2: rule__StandardOperation__MoreOperandsAssignment_4_2
+            // InternalDSL.g:12009:1: ( rule__StandardOperation__MoreOperandsAssignment_4_2 )
+            // InternalDSL.g:12009:2: rule__StandardOperation__MoreOperandsAssignment_4_2
             {
             pushFollow(FOLLOW_2);
             rule__StandardOperation__MoreOperandsAssignment_4_2();
@@ -32536,14 +32633,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group_4__3"
-    // InternalDSL.g:11988:1: rule__StandardOperation__Group_4__3 : rule__StandardOperation__Group_4__3__Impl ;
+    // InternalDSL.g:12019:1: rule__StandardOperation__Group_4__3 : rule__StandardOperation__Group_4__3__Impl ;
     public final void rule__StandardOperation__Group_4__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:11992:1: ( rule__StandardOperation__Group_4__3__Impl )
-            // InternalDSL.g:11993:2: rule__StandardOperation__Group_4__3__Impl
+            // InternalDSL.g:12023:1: ( rule__StandardOperation__Group_4__3__Impl )
+            // InternalDSL.g:12024:2: rule__StandardOperation__Group_4__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__StandardOperation__Group_4__3__Impl();
@@ -32569,17 +32666,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__Group_4__3__Impl"
-    // InternalDSL.g:11999:1: rule__StandardOperation__Group_4__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12030:1: rule__StandardOperation__Group_4__3__Impl : ( ruleNL ) ;
     public final void rule__StandardOperation__Group_4__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12003:1: ( ( ruleNL ) )
-            // InternalDSL.g:12004:1: ( ruleNL )
+            // InternalDSL.g:12034:1: ( ( ruleNL ) )
+            // InternalDSL.g:12035:1: ( ruleNL )
             {
-            // InternalDSL.g:12004:1: ( ruleNL )
-            // InternalDSL.g:12005:1: ruleNL
+            // InternalDSL.g:12035:1: ( ruleNL )
+            // InternalDSL.g:12036:1: ruleNL
             {
              before(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_4_3()); 
             pushFollow(FOLLOW_2);
@@ -32610,14 +32707,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__0"
-    // InternalDSL.g:12024:1: rule__CustomOperation__Group__0 : rule__CustomOperation__Group__0__Impl rule__CustomOperation__Group__1 ;
+    // InternalDSL.g:12055:1: rule__CustomOperation__Group__0 : rule__CustomOperation__Group__0__Impl rule__CustomOperation__Group__1 ;
     public final void rule__CustomOperation__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12028:1: ( rule__CustomOperation__Group__0__Impl rule__CustomOperation__Group__1 )
-            // InternalDSL.g:12029:2: rule__CustomOperation__Group__0__Impl rule__CustomOperation__Group__1
+            // InternalDSL.g:12059:1: ( rule__CustomOperation__Group__0__Impl rule__CustomOperation__Group__1 )
+            // InternalDSL.g:12060:2: rule__CustomOperation__Group__0__Impl rule__CustomOperation__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__CustomOperation__Group__0__Impl();
@@ -32648,17 +32745,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__0__Impl"
-    // InternalDSL.g:12036:1: rule__CustomOperation__Group__0__Impl : ( '[' ) ;
+    // InternalDSL.g:12067:1: rule__CustomOperation__Group__0__Impl : ( '[' ) ;
     public final void rule__CustomOperation__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12040:1: ( ( '[' ) )
-            // InternalDSL.g:12041:1: ( '[' )
+            // InternalDSL.g:12071:1: ( ( '[' ) )
+            // InternalDSL.g:12072:1: ( '[' )
             {
-            // InternalDSL.g:12041:1: ( '[' )
-            // InternalDSL.g:12042:1: '['
+            // InternalDSL.g:12072:1: ( '[' )
+            // InternalDSL.g:12073:1: '['
             {
              before(grammarAccess.getCustomOperationAccess().getLeftSquareBracketKeyword_0()); 
             match(input,67,FOLLOW_2); 
@@ -32685,14 +32782,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__1"
-    // InternalDSL.g:12055:1: rule__CustomOperation__Group__1 : rule__CustomOperation__Group__1__Impl rule__CustomOperation__Group__2 ;
+    // InternalDSL.g:12086:1: rule__CustomOperation__Group__1 : rule__CustomOperation__Group__1__Impl rule__CustomOperation__Group__2 ;
     public final void rule__CustomOperation__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12059:1: ( rule__CustomOperation__Group__1__Impl rule__CustomOperation__Group__2 )
-            // InternalDSL.g:12060:2: rule__CustomOperation__Group__1__Impl rule__CustomOperation__Group__2
+            // InternalDSL.g:12090:1: ( rule__CustomOperation__Group__1__Impl rule__CustomOperation__Group__2 )
+            // InternalDSL.g:12091:2: rule__CustomOperation__Group__1__Impl rule__CustomOperation__Group__2
             {
             pushFollow(FOLLOW_15);
             rule__CustomOperation__Group__1__Impl();
@@ -32723,17 +32820,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__1__Impl"
-    // InternalDSL.g:12067:1: rule__CustomOperation__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12098:1: rule__CustomOperation__Group__1__Impl : ( ruleNL ) ;
     public final void rule__CustomOperation__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12071:1: ( ( ruleNL ) )
-            // InternalDSL.g:12072:1: ( ruleNL )
+            // InternalDSL.g:12102:1: ( ( ruleNL ) )
+            // InternalDSL.g:12103:1: ( ruleNL )
             {
-            // InternalDSL.g:12072:1: ( ruleNL )
-            // InternalDSL.g:12073:1: ruleNL
+            // InternalDSL.g:12103:1: ( ruleNL )
+            // InternalDSL.g:12104:1: ruleNL
             {
              before(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -32764,14 +32861,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__2"
-    // InternalDSL.g:12084:1: rule__CustomOperation__Group__2 : rule__CustomOperation__Group__2__Impl rule__CustomOperation__Group__3 ;
+    // InternalDSL.g:12115:1: rule__CustomOperation__Group__2 : rule__CustomOperation__Group__2__Impl rule__CustomOperation__Group__3 ;
     public final void rule__CustomOperation__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12088:1: ( rule__CustomOperation__Group__2__Impl rule__CustomOperation__Group__3 )
-            // InternalDSL.g:12089:2: rule__CustomOperation__Group__2__Impl rule__CustomOperation__Group__3
+            // InternalDSL.g:12119:1: ( rule__CustomOperation__Group__2__Impl rule__CustomOperation__Group__3 )
+            // InternalDSL.g:12120:2: rule__CustomOperation__Group__2__Impl rule__CustomOperation__Group__3
             {
             pushFollow(FOLLOW_15);
             rule__CustomOperation__Group__2__Impl();
@@ -32802,25 +32899,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__2__Impl"
-    // InternalDSL.g:12096:1: rule__CustomOperation__Group__2__Impl : ( ( rule__CustomOperation__Group_2__0 )? ) ;
+    // InternalDSL.g:12127:1: rule__CustomOperation__Group__2__Impl : ( ( rule__CustomOperation__Group_2__0 )? ) ;
     public final void rule__CustomOperation__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12100:1: ( ( ( rule__CustomOperation__Group_2__0 )? ) )
-            // InternalDSL.g:12101:1: ( ( rule__CustomOperation__Group_2__0 )? )
+            // InternalDSL.g:12131:1: ( ( ( rule__CustomOperation__Group_2__0 )? ) )
+            // InternalDSL.g:12132:1: ( ( rule__CustomOperation__Group_2__0 )? )
             {
-            // InternalDSL.g:12101:1: ( ( rule__CustomOperation__Group_2__0 )? )
-            // InternalDSL.g:12102:1: ( rule__CustomOperation__Group_2__0 )?
+            // InternalDSL.g:12132:1: ( ( rule__CustomOperation__Group_2__0 )? )
+            // InternalDSL.g:12133:1: ( rule__CustomOperation__Group_2__0 )?
             {
              before(grammarAccess.getCustomOperationAccess().getGroup_2()); 
-            // InternalDSL.g:12103:1: ( rule__CustomOperation__Group_2__0 )?
-            int alt72=2;
-            alt72 = dfa72.predict(input);
-            switch (alt72) {
+            // InternalDSL.g:12134:1: ( rule__CustomOperation__Group_2__0 )?
+            int alt73=2;
+            alt73 = dfa73.predict(input);
+            switch (alt73) {
                 case 1 :
-                    // InternalDSL.g:12103:2: rule__CustomOperation__Group_2__0
+                    // InternalDSL.g:12134:2: rule__CustomOperation__Group_2__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__CustomOperation__Group_2__0();
@@ -32856,14 +32953,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__3"
-    // InternalDSL.g:12113:1: rule__CustomOperation__Group__3 : rule__CustomOperation__Group__3__Impl rule__CustomOperation__Group__4 ;
+    // InternalDSL.g:12144:1: rule__CustomOperation__Group__3 : rule__CustomOperation__Group__3__Impl rule__CustomOperation__Group__4 ;
     public final void rule__CustomOperation__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12117:1: ( rule__CustomOperation__Group__3__Impl rule__CustomOperation__Group__4 )
-            // InternalDSL.g:12118:2: rule__CustomOperation__Group__3__Impl rule__CustomOperation__Group__4
+            // InternalDSL.g:12148:1: ( rule__CustomOperation__Group__3__Impl rule__CustomOperation__Group__4 )
+            // InternalDSL.g:12149:2: rule__CustomOperation__Group__3__Impl rule__CustomOperation__Group__4
             {
             pushFollow(FOLLOW_4);
             rule__CustomOperation__Group__3__Impl();
@@ -32894,21 +32991,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__3__Impl"
-    // InternalDSL.g:12125:1: rule__CustomOperation__Group__3__Impl : ( ( rule__CustomOperation__DefinitionAssignment_3 ) ) ;
+    // InternalDSL.g:12156:1: rule__CustomOperation__Group__3__Impl : ( ( rule__CustomOperation__DefinitionAssignment_3 ) ) ;
     public final void rule__CustomOperation__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12129:1: ( ( ( rule__CustomOperation__DefinitionAssignment_3 ) ) )
-            // InternalDSL.g:12130:1: ( ( rule__CustomOperation__DefinitionAssignment_3 ) )
+            // InternalDSL.g:12160:1: ( ( ( rule__CustomOperation__DefinitionAssignment_3 ) ) )
+            // InternalDSL.g:12161:1: ( ( rule__CustomOperation__DefinitionAssignment_3 ) )
             {
-            // InternalDSL.g:12130:1: ( ( rule__CustomOperation__DefinitionAssignment_3 ) )
-            // InternalDSL.g:12131:1: ( rule__CustomOperation__DefinitionAssignment_3 )
+            // InternalDSL.g:12161:1: ( ( rule__CustomOperation__DefinitionAssignment_3 ) )
+            // InternalDSL.g:12162:1: ( rule__CustomOperation__DefinitionAssignment_3 )
             {
              before(grammarAccess.getCustomOperationAccess().getDefinitionAssignment_3()); 
-            // InternalDSL.g:12132:1: ( rule__CustomOperation__DefinitionAssignment_3 )
-            // InternalDSL.g:12132:2: rule__CustomOperation__DefinitionAssignment_3
+            // InternalDSL.g:12163:1: ( rule__CustomOperation__DefinitionAssignment_3 )
+            // InternalDSL.g:12163:2: rule__CustomOperation__DefinitionAssignment_3
             {
             pushFollow(FOLLOW_2);
             rule__CustomOperation__DefinitionAssignment_3();
@@ -32941,14 +33038,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__4"
-    // InternalDSL.g:12142:1: rule__CustomOperation__Group__4 : rule__CustomOperation__Group__4__Impl rule__CustomOperation__Group__5 ;
+    // InternalDSL.g:12173:1: rule__CustomOperation__Group__4 : rule__CustomOperation__Group__4__Impl rule__CustomOperation__Group__5 ;
     public final void rule__CustomOperation__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12146:1: ( rule__CustomOperation__Group__4__Impl rule__CustomOperation__Group__5 )
-            // InternalDSL.g:12147:2: rule__CustomOperation__Group__4__Impl rule__CustomOperation__Group__5
+            // InternalDSL.g:12177:1: ( rule__CustomOperation__Group__4__Impl rule__CustomOperation__Group__5 )
+            // InternalDSL.g:12178:2: rule__CustomOperation__Group__4__Impl rule__CustomOperation__Group__5
             {
             pushFollow(FOLLOW_4);
             rule__CustomOperation__Group__4__Impl();
@@ -32979,25 +33076,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__4__Impl"
-    // InternalDSL.g:12154:1: rule__CustomOperation__Group__4__Impl : ( ( rule__CustomOperation__Group_4__0 )? ) ;
+    // InternalDSL.g:12185:1: rule__CustomOperation__Group__4__Impl : ( ( rule__CustomOperation__Group_4__0 )? ) ;
     public final void rule__CustomOperation__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12158:1: ( ( ( rule__CustomOperation__Group_4__0 )? ) )
-            // InternalDSL.g:12159:1: ( ( rule__CustomOperation__Group_4__0 )? )
+            // InternalDSL.g:12189:1: ( ( ( rule__CustomOperation__Group_4__0 )? ) )
+            // InternalDSL.g:12190:1: ( ( rule__CustomOperation__Group_4__0 )? )
             {
-            // InternalDSL.g:12159:1: ( ( rule__CustomOperation__Group_4__0 )? )
-            // InternalDSL.g:12160:1: ( rule__CustomOperation__Group_4__0 )?
+            // InternalDSL.g:12190:1: ( ( rule__CustomOperation__Group_4__0 )? )
+            // InternalDSL.g:12191:1: ( rule__CustomOperation__Group_4__0 )?
             {
              before(grammarAccess.getCustomOperationAccess().getGroup_4()); 
-            // InternalDSL.g:12161:1: ( rule__CustomOperation__Group_4__0 )?
-            int alt73=2;
-            alt73 = dfa73.predict(input);
-            switch (alt73) {
+            // InternalDSL.g:12192:1: ( rule__CustomOperation__Group_4__0 )?
+            int alt74=2;
+            alt74 = dfa74.predict(input);
+            switch (alt74) {
                 case 1 :
-                    // InternalDSL.g:12161:2: rule__CustomOperation__Group_4__0
+                    // InternalDSL.g:12192:2: rule__CustomOperation__Group_4__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__CustomOperation__Group_4__0();
@@ -33033,14 +33130,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__5"
-    // InternalDSL.g:12171:1: rule__CustomOperation__Group__5 : rule__CustomOperation__Group__5__Impl rule__CustomOperation__Group__6 ;
+    // InternalDSL.g:12202:1: rule__CustomOperation__Group__5 : rule__CustomOperation__Group__5__Impl rule__CustomOperation__Group__6 ;
     public final void rule__CustomOperation__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12175:1: ( rule__CustomOperation__Group__5__Impl rule__CustomOperation__Group__6 )
-            // InternalDSL.g:12176:2: rule__CustomOperation__Group__5__Impl rule__CustomOperation__Group__6
+            // InternalDSL.g:12206:1: ( rule__CustomOperation__Group__5__Impl rule__CustomOperation__Group__6 )
+            // InternalDSL.g:12207:2: rule__CustomOperation__Group__5__Impl rule__CustomOperation__Group__6
             {
             pushFollow(FOLLOW_43);
             rule__CustomOperation__Group__5__Impl();
@@ -33071,17 +33168,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__5__Impl"
-    // InternalDSL.g:12183:1: rule__CustomOperation__Group__5__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12214:1: rule__CustomOperation__Group__5__Impl : ( ruleNL ) ;
     public final void rule__CustomOperation__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12187:1: ( ( ruleNL ) )
-            // InternalDSL.g:12188:1: ( ruleNL )
+            // InternalDSL.g:12218:1: ( ( ruleNL ) )
+            // InternalDSL.g:12219:1: ( ruleNL )
             {
-            // InternalDSL.g:12188:1: ( ruleNL )
-            // InternalDSL.g:12189:1: ruleNL
+            // InternalDSL.g:12219:1: ( ruleNL )
+            // InternalDSL.g:12220:1: ruleNL
             {
              before(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_5()); 
             pushFollow(FOLLOW_2);
@@ -33112,14 +33209,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__6"
-    // InternalDSL.g:12200:1: rule__CustomOperation__Group__6 : rule__CustomOperation__Group__6__Impl ;
+    // InternalDSL.g:12231:1: rule__CustomOperation__Group__6 : rule__CustomOperation__Group__6__Impl ;
     public final void rule__CustomOperation__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12204:1: ( rule__CustomOperation__Group__6__Impl )
-            // InternalDSL.g:12205:2: rule__CustomOperation__Group__6__Impl
+            // InternalDSL.g:12235:1: ( rule__CustomOperation__Group__6__Impl )
+            // InternalDSL.g:12236:2: rule__CustomOperation__Group__6__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CustomOperation__Group__6__Impl();
@@ -33145,17 +33242,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group__6__Impl"
-    // InternalDSL.g:12211:1: rule__CustomOperation__Group__6__Impl : ( ']' ) ;
+    // InternalDSL.g:12242:1: rule__CustomOperation__Group__6__Impl : ( ']' ) ;
     public final void rule__CustomOperation__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12215:1: ( ( ']' ) )
-            // InternalDSL.g:12216:1: ( ']' )
+            // InternalDSL.g:12246:1: ( ( ']' ) )
+            // InternalDSL.g:12247:1: ( ']' )
             {
-            // InternalDSL.g:12216:1: ( ']' )
-            // InternalDSL.g:12217:1: ']'
+            // InternalDSL.g:12247:1: ( ']' )
+            // InternalDSL.g:12248:1: ']'
             {
              before(grammarAccess.getCustomOperationAccess().getRightSquareBracketKeyword_6()); 
             match(input,68,FOLLOW_2); 
@@ -33182,14 +33279,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_2__0"
-    // InternalDSL.g:12244:1: rule__CustomOperation__Group_2__0 : rule__CustomOperation__Group_2__0__Impl rule__CustomOperation__Group_2__1 ;
+    // InternalDSL.g:12275:1: rule__CustomOperation__Group_2__0 : rule__CustomOperation__Group_2__0__Impl rule__CustomOperation__Group_2__1 ;
     public final void rule__CustomOperation__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12248:1: ( rule__CustomOperation__Group_2__0__Impl rule__CustomOperation__Group_2__1 )
-            // InternalDSL.g:12249:2: rule__CustomOperation__Group_2__0__Impl rule__CustomOperation__Group_2__1
+            // InternalDSL.g:12279:1: ( rule__CustomOperation__Group_2__0__Impl rule__CustomOperation__Group_2__1 )
+            // InternalDSL.g:12280:2: rule__CustomOperation__Group_2__0__Impl rule__CustomOperation__Group_2__1
             {
             pushFollow(FOLLOW_4);
             rule__CustomOperation__Group_2__0__Impl();
@@ -33220,21 +33317,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_2__0__Impl"
-    // InternalDSL.g:12256:1: rule__CustomOperation__Group_2__0__Impl : ( ( rule__CustomOperation__PrefixOperandAssignment_2_0 ) ) ;
+    // InternalDSL.g:12287:1: rule__CustomOperation__Group_2__0__Impl : ( ( rule__CustomOperation__PrefixOperandAssignment_2_0 ) ) ;
     public final void rule__CustomOperation__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12260:1: ( ( ( rule__CustomOperation__PrefixOperandAssignment_2_0 ) ) )
-            // InternalDSL.g:12261:1: ( ( rule__CustomOperation__PrefixOperandAssignment_2_0 ) )
+            // InternalDSL.g:12291:1: ( ( ( rule__CustomOperation__PrefixOperandAssignment_2_0 ) ) )
+            // InternalDSL.g:12292:1: ( ( rule__CustomOperation__PrefixOperandAssignment_2_0 ) )
             {
-            // InternalDSL.g:12261:1: ( ( rule__CustomOperation__PrefixOperandAssignment_2_0 ) )
-            // InternalDSL.g:12262:1: ( rule__CustomOperation__PrefixOperandAssignment_2_0 )
+            // InternalDSL.g:12292:1: ( ( rule__CustomOperation__PrefixOperandAssignment_2_0 ) )
+            // InternalDSL.g:12293:1: ( rule__CustomOperation__PrefixOperandAssignment_2_0 )
             {
              before(grammarAccess.getCustomOperationAccess().getPrefixOperandAssignment_2_0()); 
-            // InternalDSL.g:12263:1: ( rule__CustomOperation__PrefixOperandAssignment_2_0 )
-            // InternalDSL.g:12263:2: rule__CustomOperation__PrefixOperandAssignment_2_0
+            // InternalDSL.g:12294:1: ( rule__CustomOperation__PrefixOperandAssignment_2_0 )
+            // InternalDSL.g:12294:2: rule__CustomOperation__PrefixOperandAssignment_2_0
             {
             pushFollow(FOLLOW_2);
             rule__CustomOperation__PrefixOperandAssignment_2_0();
@@ -33267,14 +33364,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_2__1"
-    // InternalDSL.g:12273:1: rule__CustomOperation__Group_2__1 : rule__CustomOperation__Group_2__1__Impl ;
+    // InternalDSL.g:12304:1: rule__CustomOperation__Group_2__1 : rule__CustomOperation__Group_2__1__Impl ;
     public final void rule__CustomOperation__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12277:1: ( rule__CustomOperation__Group_2__1__Impl )
-            // InternalDSL.g:12278:2: rule__CustomOperation__Group_2__1__Impl
+            // InternalDSL.g:12308:1: ( rule__CustomOperation__Group_2__1__Impl )
+            // InternalDSL.g:12309:2: rule__CustomOperation__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CustomOperation__Group_2__1__Impl();
@@ -33300,17 +33397,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_2__1__Impl"
-    // InternalDSL.g:12284:1: rule__CustomOperation__Group_2__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12315:1: rule__CustomOperation__Group_2__1__Impl : ( ruleNL ) ;
     public final void rule__CustomOperation__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12288:1: ( ( ruleNL ) )
-            // InternalDSL.g:12289:1: ( ruleNL )
+            // InternalDSL.g:12319:1: ( ( ruleNL ) )
+            // InternalDSL.g:12320:1: ( ruleNL )
             {
-            // InternalDSL.g:12289:1: ( ruleNL )
-            // InternalDSL.g:12290:1: ruleNL
+            // InternalDSL.g:12320:1: ( ruleNL )
+            // InternalDSL.g:12321:1: ruleNL
             {
              before(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_2_1()); 
             pushFollow(FOLLOW_2);
@@ -33341,14 +33438,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_4__0"
-    // InternalDSL.g:12305:1: rule__CustomOperation__Group_4__0 : rule__CustomOperation__Group_4__0__Impl rule__CustomOperation__Group_4__1 ;
+    // InternalDSL.g:12336:1: rule__CustomOperation__Group_4__0 : rule__CustomOperation__Group_4__0__Impl rule__CustomOperation__Group_4__1 ;
     public final void rule__CustomOperation__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12309:1: ( rule__CustomOperation__Group_4__0__Impl rule__CustomOperation__Group_4__1 )
-            // InternalDSL.g:12310:2: rule__CustomOperation__Group_4__0__Impl rule__CustomOperation__Group_4__1
+            // InternalDSL.g:12340:1: ( rule__CustomOperation__Group_4__0__Impl rule__CustomOperation__Group_4__1 )
+            // InternalDSL.g:12341:2: rule__CustomOperation__Group_4__0__Impl rule__CustomOperation__Group_4__1
             {
             pushFollow(FOLLOW_8);
             rule__CustomOperation__Group_4__0__Impl();
@@ -33379,17 +33476,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_4__0__Impl"
-    // InternalDSL.g:12317:1: rule__CustomOperation__Group_4__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12348:1: rule__CustomOperation__Group_4__0__Impl : ( ruleNL ) ;
     public final void rule__CustomOperation__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12321:1: ( ( ruleNL ) )
-            // InternalDSL.g:12322:1: ( ruleNL )
+            // InternalDSL.g:12352:1: ( ( ruleNL ) )
+            // InternalDSL.g:12353:1: ( ruleNL )
             {
-            // InternalDSL.g:12322:1: ( ruleNL )
-            // InternalDSL.g:12323:1: ruleNL
+            // InternalDSL.g:12353:1: ( ruleNL )
+            // InternalDSL.g:12354:1: ruleNL
             {
              before(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -33420,14 +33517,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_4__1"
-    // InternalDSL.g:12334:1: rule__CustomOperation__Group_4__1 : rule__CustomOperation__Group_4__1__Impl rule__CustomOperation__Group_4__2 ;
+    // InternalDSL.g:12365:1: rule__CustomOperation__Group_4__1 : rule__CustomOperation__Group_4__1__Impl rule__CustomOperation__Group_4__2 ;
     public final void rule__CustomOperation__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12338:1: ( rule__CustomOperation__Group_4__1__Impl rule__CustomOperation__Group_4__2 )
-            // InternalDSL.g:12339:2: rule__CustomOperation__Group_4__1__Impl rule__CustomOperation__Group_4__2
+            // InternalDSL.g:12369:1: ( rule__CustomOperation__Group_4__1__Impl rule__CustomOperation__Group_4__2 )
+            // InternalDSL.g:12370:2: rule__CustomOperation__Group_4__1__Impl rule__CustomOperation__Group_4__2
             {
             pushFollow(FOLLOW_15);
             rule__CustomOperation__Group_4__1__Impl();
@@ -33458,17 +33555,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_4__1__Impl"
-    // InternalDSL.g:12346:1: rule__CustomOperation__Group_4__1__Impl : ( 'with' ) ;
+    // InternalDSL.g:12377:1: rule__CustomOperation__Group_4__1__Impl : ( 'with' ) ;
     public final void rule__CustomOperation__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12350:1: ( ( 'with' ) )
-            // InternalDSL.g:12351:1: ( 'with' )
+            // InternalDSL.g:12381:1: ( ( 'with' ) )
+            // InternalDSL.g:12382:1: ( 'with' )
             {
-            // InternalDSL.g:12351:1: ( 'with' )
-            // InternalDSL.g:12352:1: 'with'
+            // InternalDSL.g:12382:1: ( 'with' )
+            // InternalDSL.g:12383:1: 'with'
             {
              before(grammarAccess.getCustomOperationAccess().getWithKeyword_4_1()); 
             match(input,35,FOLLOW_2); 
@@ -33495,14 +33592,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_4__2"
-    // InternalDSL.g:12365:1: rule__CustomOperation__Group_4__2 : rule__CustomOperation__Group_4__2__Impl ;
+    // InternalDSL.g:12396:1: rule__CustomOperation__Group_4__2 : rule__CustomOperation__Group_4__2__Impl ;
     public final void rule__CustomOperation__Group_4__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12369:1: ( rule__CustomOperation__Group_4__2__Impl )
-            // InternalDSL.g:12370:2: rule__CustomOperation__Group_4__2__Impl
+            // InternalDSL.g:12400:1: ( rule__CustomOperation__Group_4__2__Impl )
+            // InternalDSL.g:12401:2: rule__CustomOperation__Group_4__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__CustomOperation__Group_4__2__Impl();
@@ -33528,21 +33625,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__Group_4__2__Impl"
-    // InternalDSL.g:12376:1: rule__CustomOperation__Group_4__2__Impl : ( ( rule__CustomOperation__PostfixOperandAssignment_4_2 ) ) ;
+    // InternalDSL.g:12407:1: rule__CustomOperation__Group_4__2__Impl : ( ( rule__CustomOperation__PostfixOperandAssignment_4_2 ) ) ;
     public final void rule__CustomOperation__Group_4__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12380:1: ( ( ( rule__CustomOperation__PostfixOperandAssignment_4_2 ) ) )
-            // InternalDSL.g:12381:1: ( ( rule__CustomOperation__PostfixOperandAssignment_4_2 ) )
+            // InternalDSL.g:12411:1: ( ( ( rule__CustomOperation__PostfixOperandAssignment_4_2 ) ) )
+            // InternalDSL.g:12412:1: ( ( rule__CustomOperation__PostfixOperandAssignment_4_2 ) )
             {
-            // InternalDSL.g:12381:1: ( ( rule__CustomOperation__PostfixOperandAssignment_4_2 ) )
-            // InternalDSL.g:12382:1: ( rule__CustomOperation__PostfixOperandAssignment_4_2 )
+            // InternalDSL.g:12412:1: ( ( rule__CustomOperation__PostfixOperandAssignment_4_2 ) )
+            // InternalDSL.g:12413:1: ( rule__CustomOperation__PostfixOperandAssignment_4_2 )
             {
              before(grammarAccess.getCustomOperationAccess().getPostfixOperandAssignment_4_2()); 
-            // InternalDSL.g:12383:1: ( rule__CustomOperation__PostfixOperandAssignment_4_2 )
-            // InternalDSL.g:12383:2: rule__CustomOperation__PostfixOperandAssignment_4_2
+            // InternalDSL.g:12414:1: ( rule__CustomOperation__PostfixOperandAssignment_4_2 )
+            // InternalDSL.g:12414:2: rule__CustomOperation__PostfixOperandAssignment_4_2
             {
             pushFollow(FOLLOW_2);
             rule__CustomOperation__PostfixOperandAssignment_4_2();
@@ -33575,14 +33672,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group__0"
-    // InternalDSL.g:12399:1: rule__ValueOrEnumValueOrOperationCollection__Group__0 : rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1 ;
+    // InternalDSL.g:12430:1: rule__ValueOrEnumValueOrOperationCollection__Group__0 : rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1 ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12403:1: ( rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1 )
-            // InternalDSL.g:12404:2: rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1
+            // InternalDSL.g:12434:1: ( rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1 )
+            // InternalDSL.g:12435:2: rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl();
@@ -33613,21 +33710,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl"
-    // InternalDSL.g:12411:1: rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) ) ;
+    // InternalDSL.g:12442:1: rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12415:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) ) )
-            // InternalDSL.g:12416:1: ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) )
+            // InternalDSL.g:12446:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) ) )
+            // InternalDSL.g:12447:1: ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) )
             {
-            // InternalDSL.g:12416:1: ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) )
-            // InternalDSL.g:12417:1: ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 )
+            // InternalDSL.g:12447:1: ( ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 ) )
+            // InternalDSL.g:12448:1: ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 )
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getValueAssignment_0()); 
-            // InternalDSL.g:12418:1: ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 )
-            // InternalDSL.g:12418:2: rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0
+            // InternalDSL.g:12449:1: ( rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 )
+            // InternalDSL.g:12449:2: rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0();
@@ -33660,14 +33757,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group__1"
-    // InternalDSL.g:12428:1: rule__ValueOrEnumValueOrOperationCollection__Group__1 : rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl ;
+    // InternalDSL.g:12459:1: rule__ValueOrEnumValueOrOperationCollection__Group__1 : rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12432:1: ( rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl )
-            // InternalDSL.g:12433:2: rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl
+            // InternalDSL.g:12463:1: ( rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl )
+            // InternalDSL.g:12464:2: rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl();
@@ -33693,27 +33790,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl"
-    // InternalDSL.g:12439:1: rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* ) ;
+    // InternalDSL.g:12470:1: rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12443:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* ) )
-            // InternalDSL.g:12444:1: ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* )
+            // InternalDSL.g:12474:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* ) )
+            // InternalDSL.g:12475:1: ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* )
             {
-            // InternalDSL.g:12444:1: ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* )
-            // InternalDSL.g:12445:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*
+            // InternalDSL.g:12475:1: ( ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )* )
+            // InternalDSL.g:12476:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getGroup_1()); 
-            // InternalDSL.g:12446:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*
-            loop74:
+            // InternalDSL.g:12477:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*
+            loop75:
             do {
-                int alt74=2;
-                alt74 = dfa74.predict(input);
-                switch (alt74) {
+                int alt75=2;
+                alt75 = dfa75.predict(input);
+                switch (alt75) {
             	case 1 :
-            	    // InternalDSL.g:12446:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__0
+            	    // InternalDSL.g:12477:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__0
             	    {
             	    pushFollow(FOLLOW_3);
             	    rule__ValueOrEnumValueOrOperationCollection__Group_1__0();
@@ -33725,7 +33822,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop74;
+            	    break loop75;
                 }
             } while (true);
 
@@ -33752,14 +33849,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__0"
-    // InternalDSL.g:12460:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__0 : rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1 ;
+    // InternalDSL.g:12491:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__0 : rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1 ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12464:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1 )
-            // InternalDSL.g:12465:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1
+            // InternalDSL.g:12495:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1 )
+            // InternalDSL.g:12496:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__1
             {
             pushFollow(FOLLOW_44);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl();
@@ -33790,17 +33887,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl"
-    // InternalDSL.g:12472:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12503:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl : ( ruleNL ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12476:1: ( ( ruleNL ) )
-            // InternalDSL.g:12477:1: ( ruleNL )
+            // InternalDSL.g:12507:1: ( ( ruleNL ) )
+            // InternalDSL.g:12508:1: ( ruleNL )
             {
-            // InternalDSL.g:12477:1: ( ruleNL )
-            // InternalDSL.g:12478:1: ruleNL
+            // InternalDSL.g:12508:1: ( ruleNL )
+            // InternalDSL.g:12509:1: ruleNL
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getNLParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -33831,14 +33928,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__1"
-    // InternalDSL.g:12489:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__1 : rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2 ;
+    // InternalDSL.g:12520:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__1 : rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2 ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12493:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2 )
-            // InternalDSL.g:12494:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2
+            // InternalDSL.g:12524:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2 )
+            // InternalDSL.g:12525:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__2
             {
             pushFollow(FOLLOW_4);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl();
@@ -33869,17 +33966,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl"
-    // InternalDSL.g:12501:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl : ( ',' ) ;
+    // InternalDSL.g:12532:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl : ( ',' ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12505:1: ( ( ',' ) )
-            // InternalDSL.g:12506:1: ( ',' )
+            // InternalDSL.g:12536:1: ( ( ',' ) )
+            // InternalDSL.g:12537:1: ( ',' )
             {
-            // InternalDSL.g:12506:1: ( ',' )
-            // InternalDSL.g:12507:1: ','
+            // InternalDSL.g:12537:1: ( ',' )
+            // InternalDSL.g:12538:1: ','
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getCommaKeyword_1_1()); 
             match(input,69,FOLLOW_2); 
@@ -33906,14 +34003,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__2"
-    // InternalDSL.g:12520:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__2 : rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3 ;
+    // InternalDSL.g:12551:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__2 : rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3 ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12524:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3 )
-            // InternalDSL.g:12525:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3
+            // InternalDSL.g:12555:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3 )
+            // InternalDSL.g:12556:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl rule__ValueOrEnumValueOrOperationCollection__Group_1__3
             {
             pushFollow(FOLLOW_15);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl();
@@ -33944,17 +34041,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl"
-    // InternalDSL.g:12532:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12563:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl : ( ruleNL ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12536:1: ( ( ruleNL ) )
-            // InternalDSL.g:12537:1: ( ruleNL )
+            // InternalDSL.g:12567:1: ( ( ruleNL ) )
+            // InternalDSL.g:12568:1: ( ruleNL )
             {
-            // InternalDSL.g:12537:1: ( ruleNL )
-            // InternalDSL.g:12538:1: ruleNL
+            // InternalDSL.g:12568:1: ( ruleNL )
+            // InternalDSL.g:12569:1: ruleNL
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getNLParserRuleCall_1_2()); 
             pushFollow(FOLLOW_2);
@@ -33985,14 +34082,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__3"
-    // InternalDSL.g:12549:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__3 : rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl ;
+    // InternalDSL.g:12580:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__3 : rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12553:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl )
-            // InternalDSL.g:12554:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl
+            // InternalDSL.g:12584:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl )
+            // InternalDSL.g:12585:2: rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl();
@@ -34018,21 +34115,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl"
-    // InternalDSL.g:12560:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) ) ;
+    // InternalDSL.g:12591:1: rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl : ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__Group_1__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12564:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) ) )
-            // InternalDSL.g:12565:1: ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) )
+            // InternalDSL.g:12595:1: ( ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) ) )
+            // InternalDSL.g:12596:1: ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) )
             {
-            // InternalDSL.g:12565:1: ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) )
-            // InternalDSL.g:12566:1: ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 )
+            // InternalDSL.g:12596:1: ( ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 ) )
+            // InternalDSL.g:12597:1: ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 )
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getMoreValuesAssignment_1_3()); 
-            // InternalDSL.g:12567:1: ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 )
-            // InternalDSL.g:12567:2: rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3
+            // InternalDSL.g:12598:1: ( rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 )
+            // InternalDSL.g:12598:2: rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3
             {
             pushFollow(FOLLOW_2);
             rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3();
@@ -34065,14 +34162,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IsoDateAndTimeValue__Group__0"
-    // InternalDSL.g:12585:1: rule__IsoDateAndTimeValue__Group__0 : rule__IsoDateAndTimeValue__Group__0__Impl rule__IsoDateAndTimeValue__Group__1 ;
+    // InternalDSL.g:12616:1: rule__IsoDateAndTimeValue__Group__0 : rule__IsoDateAndTimeValue__Group__0__Impl rule__IsoDateAndTimeValue__Group__1 ;
     public final void rule__IsoDateAndTimeValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12589:1: ( rule__IsoDateAndTimeValue__Group__0__Impl rule__IsoDateAndTimeValue__Group__1 )
-            // InternalDSL.g:12590:2: rule__IsoDateAndTimeValue__Group__0__Impl rule__IsoDateAndTimeValue__Group__1
+            // InternalDSL.g:12620:1: ( rule__IsoDateAndTimeValue__Group__0__Impl rule__IsoDateAndTimeValue__Group__1 )
+            // InternalDSL.g:12621:2: rule__IsoDateAndTimeValue__Group__0__Impl rule__IsoDateAndTimeValue__Group__1
             {
             pushFollow(FOLLOW_45);
             rule__IsoDateAndTimeValue__Group__0__Impl();
@@ -34103,21 +34200,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IsoDateAndTimeValue__Group__0__Impl"
-    // InternalDSL.g:12597:1: rule__IsoDateAndTimeValue__Group__0__Impl : ( ( rule__IsoDateAndTimeValue__DateValueAssignment_0 ) ) ;
+    // InternalDSL.g:12628:1: rule__IsoDateAndTimeValue__Group__0__Impl : ( ( rule__IsoDateAndTimeValue__DateValueAssignment_0 ) ) ;
     public final void rule__IsoDateAndTimeValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12601:1: ( ( ( rule__IsoDateAndTimeValue__DateValueAssignment_0 ) ) )
-            // InternalDSL.g:12602:1: ( ( rule__IsoDateAndTimeValue__DateValueAssignment_0 ) )
+            // InternalDSL.g:12632:1: ( ( ( rule__IsoDateAndTimeValue__DateValueAssignment_0 ) ) )
+            // InternalDSL.g:12633:1: ( ( rule__IsoDateAndTimeValue__DateValueAssignment_0 ) )
             {
-            // InternalDSL.g:12602:1: ( ( rule__IsoDateAndTimeValue__DateValueAssignment_0 ) )
-            // InternalDSL.g:12603:1: ( rule__IsoDateAndTimeValue__DateValueAssignment_0 )
+            // InternalDSL.g:12633:1: ( ( rule__IsoDateAndTimeValue__DateValueAssignment_0 ) )
+            // InternalDSL.g:12634:1: ( rule__IsoDateAndTimeValue__DateValueAssignment_0 )
             {
              before(grammarAccess.getIsoDateAndTimeValueAccess().getDateValueAssignment_0()); 
-            // InternalDSL.g:12604:1: ( rule__IsoDateAndTimeValue__DateValueAssignment_0 )
-            // InternalDSL.g:12604:2: rule__IsoDateAndTimeValue__DateValueAssignment_0
+            // InternalDSL.g:12635:1: ( rule__IsoDateAndTimeValue__DateValueAssignment_0 )
+            // InternalDSL.g:12635:2: rule__IsoDateAndTimeValue__DateValueAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__IsoDateAndTimeValue__DateValueAssignment_0();
@@ -34150,14 +34247,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IsoDateAndTimeValue__Group__1"
-    // InternalDSL.g:12614:1: rule__IsoDateAndTimeValue__Group__1 : rule__IsoDateAndTimeValue__Group__1__Impl ;
+    // InternalDSL.g:12645:1: rule__IsoDateAndTimeValue__Group__1 : rule__IsoDateAndTimeValue__Group__1__Impl ;
     public final void rule__IsoDateAndTimeValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12618:1: ( rule__IsoDateAndTimeValue__Group__1__Impl )
-            // InternalDSL.g:12619:2: rule__IsoDateAndTimeValue__Group__1__Impl
+            // InternalDSL.g:12649:1: ( rule__IsoDateAndTimeValue__Group__1__Impl )
+            // InternalDSL.g:12650:2: rule__IsoDateAndTimeValue__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__IsoDateAndTimeValue__Group__1__Impl();
@@ -34183,21 +34280,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IsoDateAndTimeValue__Group__1__Impl"
-    // InternalDSL.g:12625:1: rule__IsoDateAndTimeValue__Group__1__Impl : ( ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 ) ) ;
+    // InternalDSL.g:12656:1: rule__IsoDateAndTimeValue__Group__1__Impl : ( ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 ) ) ;
     public final void rule__IsoDateAndTimeValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12629:1: ( ( ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 ) ) )
-            // InternalDSL.g:12630:1: ( ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 ) )
+            // InternalDSL.g:12660:1: ( ( ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 ) ) )
+            // InternalDSL.g:12661:1: ( ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 ) )
             {
-            // InternalDSL.g:12630:1: ( ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 ) )
-            // InternalDSL.g:12631:1: ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 )
+            // InternalDSL.g:12661:1: ( ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 ) )
+            // InternalDSL.g:12662:1: ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 )
             {
              before(grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueAssignment_1()); 
-            // InternalDSL.g:12632:1: ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 )
-            // InternalDSL.g:12632:2: rule__IsoDateAndTimeValue__TimeValueAssignment_1
+            // InternalDSL.g:12663:1: ( rule__IsoDateAndTimeValue__TimeValueAssignment_1 )
+            // InternalDSL.g:12663:2: rule__IsoDateAndTimeValue__TimeValueAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__IsoDateAndTimeValue__TimeValueAssignment_1();
@@ -34230,14 +34327,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd24HrsTimeValue__Group__0"
-    // InternalDSL.g:12646:1: rule__EuropeanDateAnd24HrsTimeValue__Group__0 : rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__1 ;
+    // InternalDSL.g:12677:1: rule__EuropeanDateAnd24HrsTimeValue__Group__0 : rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__1 ;
     public final void rule__EuropeanDateAnd24HrsTimeValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12650:1: ( rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__1 )
-            // InternalDSL.g:12651:2: rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__1
+            // InternalDSL.g:12681:1: ( rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__1 )
+            // InternalDSL.g:12682:2: rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl();
@@ -34268,21 +34365,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl"
-    // InternalDSL.g:12658:1: rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl : ( ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 ) ) ;
+    // InternalDSL.g:12689:1: rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl : ( ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 ) ) ;
     public final void rule__EuropeanDateAnd24HrsTimeValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12662:1: ( ( ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 ) ) )
-            // InternalDSL.g:12663:1: ( ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 ) )
+            // InternalDSL.g:12693:1: ( ( ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 ) ) )
+            // InternalDSL.g:12694:1: ( ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 ) )
             {
-            // InternalDSL.g:12663:1: ( ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 ) )
-            // InternalDSL.g:12664:1: ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 )
+            // InternalDSL.g:12694:1: ( ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 ) )
+            // InternalDSL.g:12695:1: ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 )
             {
              before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueAssignment_0()); 
-            // InternalDSL.g:12665:1: ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 )
-            // InternalDSL.g:12665:2: rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0
+            // InternalDSL.g:12696:1: ( rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 )
+            // InternalDSL.g:12696:2: rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0();
@@ -34315,14 +34412,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd24HrsTimeValue__Group__1"
-    // InternalDSL.g:12675:1: rule__EuropeanDateAnd24HrsTimeValue__Group__1 : rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__2 ;
+    // InternalDSL.g:12706:1: rule__EuropeanDateAnd24HrsTimeValue__Group__1 : rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__2 ;
     public final void rule__EuropeanDateAnd24HrsTimeValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12679:1: ( rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__2 )
-            // InternalDSL.g:12680:2: rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__2
+            // InternalDSL.g:12710:1: ( rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__2 )
+            // InternalDSL.g:12711:2: rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd24HrsTimeValue__Group__2
             {
             pushFollow(FOLLOW_46);
             rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl();
@@ -34353,17 +34450,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl"
-    // InternalDSL.g:12687:1: rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12718:1: rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl : ( ruleNL ) ;
     public final void rule__EuropeanDateAnd24HrsTimeValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12691:1: ( ( ruleNL ) )
-            // InternalDSL.g:12692:1: ( ruleNL )
+            // InternalDSL.g:12722:1: ( ( ruleNL ) )
+            // InternalDSL.g:12723:1: ( ruleNL )
             {
-            // InternalDSL.g:12692:1: ( ruleNL )
-            // InternalDSL.g:12693:1: ruleNL
+            // InternalDSL.g:12723:1: ( ruleNL )
+            // InternalDSL.g:12724:1: ruleNL
             {
              before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -34394,14 +34491,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd24HrsTimeValue__Group__2"
-    // InternalDSL.g:12704:1: rule__EuropeanDateAnd24HrsTimeValue__Group__2 : rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl ;
+    // InternalDSL.g:12735:1: rule__EuropeanDateAnd24HrsTimeValue__Group__2 : rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl ;
     public final void rule__EuropeanDateAnd24HrsTimeValue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12708:1: ( rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl )
-            // InternalDSL.g:12709:2: rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl
+            // InternalDSL.g:12739:1: ( rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl )
+            // InternalDSL.g:12740:2: rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl();
@@ -34427,21 +34524,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl"
-    // InternalDSL.g:12715:1: rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl : ( ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 ) ) ;
+    // InternalDSL.g:12746:1: rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl : ( ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 ) ) ;
     public final void rule__EuropeanDateAnd24HrsTimeValue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12719:1: ( ( ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 ) ) )
-            // InternalDSL.g:12720:1: ( ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 ) )
+            // InternalDSL.g:12750:1: ( ( ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 ) ) )
+            // InternalDSL.g:12751:1: ( ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 ) )
             {
-            // InternalDSL.g:12720:1: ( ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 ) )
-            // InternalDSL.g:12721:1: ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 )
+            // InternalDSL.g:12751:1: ( ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 ) )
+            // InternalDSL.g:12752:1: ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 )
             {
              before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueAssignment_2()); 
-            // InternalDSL.g:12722:1: ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 )
-            // InternalDSL.g:12722:2: rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2
+            // InternalDSL.g:12753:1: ( rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 )
+            // InternalDSL.g:12753:2: rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2();
@@ -34474,14 +34571,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd12HrsTimeValue__Group__0"
-    // InternalDSL.g:12738:1: rule__EuropeanDateAnd12HrsTimeValue__Group__0 : rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__1 ;
+    // InternalDSL.g:12769:1: rule__EuropeanDateAnd12HrsTimeValue__Group__0 : rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__1 ;
     public final void rule__EuropeanDateAnd12HrsTimeValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12742:1: ( rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__1 )
-            // InternalDSL.g:12743:2: rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__1
+            // InternalDSL.g:12773:1: ( rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__1 )
+            // InternalDSL.g:12774:2: rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl();
@@ -34512,21 +34609,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl"
-    // InternalDSL.g:12750:1: rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl : ( ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 ) ) ;
+    // InternalDSL.g:12781:1: rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl : ( ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 ) ) ;
     public final void rule__EuropeanDateAnd12HrsTimeValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12754:1: ( ( ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 ) ) )
-            // InternalDSL.g:12755:1: ( ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 ) )
+            // InternalDSL.g:12785:1: ( ( ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 ) ) )
+            // InternalDSL.g:12786:1: ( ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 ) )
             {
-            // InternalDSL.g:12755:1: ( ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 ) )
-            // InternalDSL.g:12756:1: ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 )
+            // InternalDSL.g:12786:1: ( ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 ) )
+            // InternalDSL.g:12787:1: ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 )
             {
              before(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getDateValueAssignment_0()); 
-            // InternalDSL.g:12757:1: ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 )
-            // InternalDSL.g:12757:2: rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0
+            // InternalDSL.g:12788:1: ( rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 )
+            // InternalDSL.g:12788:2: rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0();
@@ -34559,14 +34656,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd12HrsTimeValue__Group__1"
-    // InternalDSL.g:12767:1: rule__EuropeanDateAnd12HrsTimeValue__Group__1 : rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__2 ;
+    // InternalDSL.g:12798:1: rule__EuropeanDateAnd12HrsTimeValue__Group__1 : rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__2 ;
     public final void rule__EuropeanDateAnd12HrsTimeValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12771:1: ( rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__2 )
-            // InternalDSL.g:12772:2: rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__2
+            // InternalDSL.g:12802:1: ( rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__2 )
+            // InternalDSL.g:12803:2: rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl rule__EuropeanDateAnd12HrsTimeValue__Group__2
             {
             pushFollow(FOLLOW_47);
             rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl();
@@ -34597,17 +34694,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl"
-    // InternalDSL.g:12779:1: rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12810:1: rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl : ( ruleNL ) ;
     public final void rule__EuropeanDateAnd12HrsTimeValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12783:1: ( ( ruleNL ) )
-            // InternalDSL.g:12784:1: ( ruleNL )
+            // InternalDSL.g:12814:1: ( ( ruleNL ) )
+            // InternalDSL.g:12815:1: ( ruleNL )
             {
-            // InternalDSL.g:12784:1: ( ruleNL )
-            // InternalDSL.g:12785:1: ruleNL
+            // InternalDSL.g:12815:1: ( ruleNL )
+            // InternalDSL.g:12816:1: ruleNL
             {
              before(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -34638,14 +34735,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd12HrsTimeValue__Group__2"
-    // InternalDSL.g:12796:1: rule__EuropeanDateAnd12HrsTimeValue__Group__2 : rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl ;
+    // InternalDSL.g:12827:1: rule__EuropeanDateAnd12HrsTimeValue__Group__2 : rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl ;
     public final void rule__EuropeanDateAnd12HrsTimeValue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12800:1: ( rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl )
-            // InternalDSL.g:12801:2: rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl
+            // InternalDSL.g:12831:1: ( rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl )
+            // InternalDSL.g:12832:2: rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl();
@@ -34671,21 +34768,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl"
-    // InternalDSL.g:12807:1: rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl : ( ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 ) ) ;
+    // InternalDSL.g:12838:1: rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl : ( ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 ) ) ;
     public final void rule__EuropeanDateAnd12HrsTimeValue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12811:1: ( ( ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 ) ) )
-            // InternalDSL.g:12812:1: ( ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 ) )
+            // InternalDSL.g:12842:1: ( ( ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 ) ) )
+            // InternalDSL.g:12843:1: ( ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 ) )
             {
-            // InternalDSL.g:12812:1: ( ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 ) )
-            // InternalDSL.g:12813:1: ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 )
+            // InternalDSL.g:12843:1: ( ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 ) )
+            // InternalDSL.g:12844:1: ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 )
             {
              before(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getTimeValueAssignment_2()); 
-            // InternalDSL.g:12814:1: ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 )
-            // InternalDSL.g:12814:2: rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2
+            // InternalDSL.g:12845:1: ( rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 )
+            // InternalDSL.g:12845:2: rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2();
@@ -34718,14 +34815,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateAnd12HrsTimeValue__Group__0"
-    // InternalDSL.g:12830:1: rule__USDateAnd12HrsTimeValue__Group__0 : rule__USDateAnd12HrsTimeValue__Group__0__Impl rule__USDateAnd12HrsTimeValue__Group__1 ;
+    // InternalDSL.g:12861:1: rule__USDateAnd12HrsTimeValue__Group__0 : rule__USDateAnd12HrsTimeValue__Group__0__Impl rule__USDateAnd12HrsTimeValue__Group__1 ;
     public final void rule__USDateAnd12HrsTimeValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12834:1: ( rule__USDateAnd12HrsTimeValue__Group__0__Impl rule__USDateAnd12HrsTimeValue__Group__1 )
-            // InternalDSL.g:12835:2: rule__USDateAnd12HrsTimeValue__Group__0__Impl rule__USDateAnd12HrsTimeValue__Group__1
+            // InternalDSL.g:12865:1: ( rule__USDateAnd12HrsTimeValue__Group__0__Impl rule__USDateAnd12HrsTimeValue__Group__1 )
+            // InternalDSL.g:12866:2: rule__USDateAnd12HrsTimeValue__Group__0__Impl rule__USDateAnd12HrsTimeValue__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__USDateAnd12HrsTimeValue__Group__0__Impl();
@@ -34756,21 +34853,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateAnd12HrsTimeValue__Group__0__Impl"
-    // InternalDSL.g:12842:1: rule__USDateAnd12HrsTimeValue__Group__0__Impl : ( ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 ) ) ;
+    // InternalDSL.g:12873:1: rule__USDateAnd12HrsTimeValue__Group__0__Impl : ( ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 ) ) ;
     public final void rule__USDateAnd12HrsTimeValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12846:1: ( ( ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 ) ) )
-            // InternalDSL.g:12847:1: ( ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 ) )
+            // InternalDSL.g:12877:1: ( ( ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 ) ) )
+            // InternalDSL.g:12878:1: ( ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 ) )
             {
-            // InternalDSL.g:12847:1: ( ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 ) )
-            // InternalDSL.g:12848:1: ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 )
+            // InternalDSL.g:12878:1: ( ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 ) )
+            // InternalDSL.g:12879:1: ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 )
             {
              before(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getDateValueAssignment_0()); 
-            // InternalDSL.g:12849:1: ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 )
-            // InternalDSL.g:12849:2: rule__USDateAnd12HrsTimeValue__DateValueAssignment_0
+            // InternalDSL.g:12880:1: ( rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 )
+            // InternalDSL.g:12880:2: rule__USDateAnd12HrsTimeValue__DateValueAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__USDateAnd12HrsTimeValue__DateValueAssignment_0();
@@ -34803,14 +34900,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateAnd12HrsTimeValue__Group__1"
-    // InternalDSL.g:12859:1: rule__USDateAnd12HrsTimeValue__Group__1 : rule__USDateAnd12HrsTimeValue__Group__1__Impl rule__USDateAnd12HrsTimeValue__Group__2 ;
+    // InternalDSL.g:12890:1: rule__USDateAnd12HrsTimeValue__Group__1 : rule__USDateAnd12HrsTimeValue__Group__1__Impl rule__USDateAnd12HrsTimeValue__Group__2 ;
     public final void rule__USDateAnd12HrsTimeValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12863:1: ( rule__USDateAnd12HrsTimeValue__Group__1__Impl rule__USDateAnd12HrsTimeValue__Group__2 )
-            // InternalDSL.g:12864:2: rule__USDateAnd12HrsTimeValue__Group__1__Impl rule__USDateAnd12HrsTimeValue__Group__2
+            // InternalDSL.g:12894:1: ( rule__USDateAnd12HrsTimeValue__Group__1__Impl rule__USDateAnd12HrsTimeValue__Group__2 )
+            // InternalDSL.g:12895:2: rule__USDateAnd12HrsTimeValue__Group__1__Impl rule__USDateAnd12HrsTimeValue__Group__2
             {
             pushFollow(FOLLOW_47);
             rule__USDateAnd12HrsTimeValue__Group__1__Impl();
@@ -34841,17 +34938,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateAnd12HrsTimeValue__Group__1__Impl"
-    // InternalDSL.g:12871:1: rule__USDateAnd12HrsTimeValue__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:12902:1: rule__USDateAnd12HrsTimeValue__Group__1__Impl : ( ruleNL ) ;
     public final void rule__USDateAnd12HrsTimeValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12875:1: ( ( ruleNL ) )
-            // InternalDSL.g:12876:1: ( ruleNL )
+            // InternalDSL.g:12906:1: ( ( ruleNL ) )
+            // InternalDSL.g:12907:1: ( ruleNL )
             {
-            // InternalDSL.g:12876:1: ( ruleNL )
-            // InternalDSL.g:12877:1: ruleNL
+            // InternalDSL.g:12907:1: ( ruleNL )
+            // InternalDSL.g:12908:1: ruleNL
             {
              before(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -34882,14 +34979,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateAnd12HrsTimeValue__Group__2"
-    // InternalDSL.g:12888:1: rule__USDateAnd12HrsTimeValue__Group__2 : rule__USDateAnd12HrsTimeValue__Group__2__Impl ;
+    // InternalDSL.g:12919:1: rule__USDateAnd12HrsTimeValue__Group__2 : rule__USDateAnd12HrsTimeValue__Group__2__Impl ;
     public final void rule__USDateAnd12HrsTimeValue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12892:1: ( rule__USDateAnd12HrsTimeValue__Group__2__Impl )
-            // InternalDSL.g:12893:2: rule__USDateAnd12HrsTimeValue__Group__2__Impl
+            // InternalDSL.g:12923:1: ( rule__USDateAnd12HrsTimeValue__Group__2__Impl )
+            // InternalDSL.g:12924:2: rule__USDateAnd12HrsTimeValue__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__USDateAnd12HrsTimeValue__Group__2__Impl();
@@ -34915,21 +35012,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateAnd12HrsTimeValue__Group__2__Impl"
-    // InternalDSL.g:12899:1: rule__USDateAnd12HrsTimeValue__Group__2__Impl : ( ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 ) ) ;
+    // InternalDSL.g:12930:1: rule__USDateAnd12HrsTimeValue__Group__2__Impl : ( ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 ) ) ;
     public final void rule__USDateAnd12HrsTimeValue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12903:1: ( ( ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 ) ) )
-            // InternalDSL.g:12904:1: ( ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 ) )
+            // InternalDSL.g:12934:1: ( ( ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 ) ) )
+            // InternalDSL.g:12935:1: ( ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 ) )
             {
-            // InternalDSL.g:12904:1: ( ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 ) )
-            // InternalDSL.g:12905:1: ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 )
+            // InternalDSL.g:12935:1: ( ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 ) )
+            // InternalDSL.g:12936:1: ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 )
             {
              before(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getTimeValueAssignment_2()); 
-            // InternalDSL.g:12906:1: ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 )
-            // InternalDSL.g:12906:2: rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2
+            // InternalDSL.g:12937:1: ( rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 )
+            // InternalDSL.g:12937:2: rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2();
@@ -34962,14 +35059,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantValue__Group__0"
-    // InternalDSL.g:12922:1: rule__JavaConstantValue__Group__0 : rule__JavaConstantValue__Group__0__Impl rule__JavaConstantValue__Group__1 ;
+    // InternalDSL.g:12953:1: rule__JavaConstantValue__Group__0 : rule__JavaConstantValue__Group__0__Impl rule__JavaConstantValue__Group__1 ;
     public final void rule__JavaConstantValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12926:1: ( rule__JavaConstantValue__Group__0__Impl rule__JavaConstantValue__Group__1 )
-            // InternalDSL.g:12927:2: rule__JavaConstantValue__Group__0__Impl rule__JavaConstantValue__Group__1
+            // InternalDSL.g:12957:1: ( rule__JavaConstantValue__Group__0__Impl rule__JavaConstantValue__Group__1 )
+            // InternalDSL.g:12958:2: rule__JavaConstantValue__Group__0__Impl rule__JavaConstantValue__Group__1
             {
             pushFollow(FOLLOW_7);
             rule__JavaConstantValue__Group__0__Impl();
@@ -35000,17 +35097,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantValue__Group__0__Impl"
-    // InternalDSL.g:12934:1: rule__JavaConstantValue__Group__0__Impl : ( '<' ) ;
+    // InternalDSL.g:12965:1: rule__JavaConstantValue__Group__0__Impl : ( '<' ) ;
     public final void rule__JavaConstantValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12938:1: ( ( '<' ) )
-            // InternalDSL.g:12939:1: ( '<' )
+            // InternalDSL.g:12969:1: ( ( '<' ) )
+            // InternalDSL.g:12970:1: ( '<' )
             {
-            // InternalDSL.g:12939:1: ( '<' )
-            // InternalDSL.g:12940:1: '<'
+            // InternalDSL.g:12970:1: ( '<' )
+            // InternalDSL.g:12971:1: '<'
             {
              before(grammarAccess.getJavaConstantValueAccess().getLessThanSignKeyword_0()); 
             match(input,70,FOLLOW_2); 
@@ -35037,14 +35134,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantValue__Group__1"
-    // InternalDSL.g:12953:1: rule__JavaConstantValue__Group__1 : rule__JavaConstantValue__Group__1__Impl rule__JavaConstantValue__Group__2 ;
+    // InternalDSL.g:12984:1: rule__JavaConstantValue__Group__1 : rule__JavaConstantValue__Group__1__Impl rule__JavaConstantValue__Group__2 ;
     public final void rule__JavaConstantValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12957:1: ( rule__JavaConstantValue__Group__1__Impl rule__JavaConstantValue__Group__2 )
-            // InternalDSL.g:12958:2: rule__JavaConstantValue__Group__1__Impl rule__JavaConstantValue__Group__2
+            // InternalDSL.g:12988:1: ( rule__JavaConstantValue__Group__1__Impl rule__JavaConstantValue__Group__2 )
+            // InternalDSL.g:12989:2: rule__JavaConstantValue__Group__1__Impl rule__JavaConstantValue__Group__2
             {
             pushFollow(FOLLOW_48);
             rule__JavaConstantValue__Group__1__Impl();
@@ -35075,21 +35172,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantValue__Group__1__Impl"
-    // InternalDSL.g:12965:1: rule__JavaConstantValue__Group__1__Impl : ( ( rule__JavaConstantValue__ConstantAssignment_1 ) ) ;
+    // InternalDSL.g:12996:1: rule__JavaConstantValue__Group__1__Impl : ( ( rule__JavaConstantValue__ConstantAssignment_1 ) ) ;
     public final void rule__JavaConstantValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12969:1: ( ( ( rule__JavaConstantValue__ConstantAssignment_1 ) ) )
-            // InternalDSL.g:12970:1: ( ( rule__JavaConstantValue__ConstantAssignment_1 ) )
+            // InternalDSL.g:13000:1: ( ( ( rule__JavaConstantValue__ConstantAssignment_1 ) ) )
+            // InternalDSL.g:13001:1: ( ( rule__JavaConstantValue__ConstantAssignment_1 ) )
             {
-            // InternalDSL.g:12970:1: ( ( rule__JavaConstantValue__ConstantAssignment_1 ) )
-            // InternalDSL.g:12971:1: ( rule__JavaConstantValue__ConstantAssignment_1 )
+            // InternalDSL.g:13001:1: ( ( rule__JavaConstantValue__ConstantAssignment_1 ) )
+            // InternalDSL.g:13002:1: ( rule__JavaConstantValue__ConstantAssignment_1 )
             {
              before(grammarAccess.getJavaConstantValueAccess().getConstantAssignment_1()); 
-            // InternalDSL.g:12972:1: ( rule__JavaConstantValue__ConstantAssignment_1 )
-            // InternalDSL.g:12972:2: rule__JavaConstantValue__ConstantAssignment_1
+            // InternalDSL.g:13003:1: ( rule__JavaConstantValue__ConstantAssignment_1 )
+            // InternalDSL.g:13003:2: rule__JavaConstantValue__ConstantAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__JavaConstantValue__ConstantAssignment_1();
@@ -35122,14 +35219,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantValue__Group__2"
-    // InternalDSL.g:12982:1: rule__JavaConstantValue__Group__2 : rule__JavaConstantValue__Group__2__Impl ;
+    // InternalDSL.g:13013:1: rule__JavaConstantValue__Group__2 : rule__JavaConstantValue__Group__2__Impl ;
     public final void rule__JavaConstantValue__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12986:1: ( rule__JavaConstantValue__Group__2__Impl )
-            // InternalDSL.g:12987:2: rule__JavaConstantValue__Group__2__Impl
+            // InternalDSL.g:13017:1: ( rule__JavaConstantValue__Group__2__Impl )
+            // InternalDSL.g:13018:2: rule__JavaConstantValue__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__JavaConstantValue__Group__2__Impl();
@@ -35155,17 +35252,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantValue__Group__2__Impl"
-    // InternalDSL.g:12993:1: rule__JavaConstantValue__Group__2__Impl : ( '>' ) ;
+    // InternalDSL.g:13024:1: rule__JavaConstantValue__Group__2__Impl : ( '>' ) ;
     public final void rule__JavaConstantValue__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:12997:1: ( ( '>' ) )
-            // InternalDSL.g:12998:1: ( '>' )
+            // InternalDSL.g:13028:1: ( ( '>' ) )
+            // InternalDSL.g:13029:1: ( '>' )
             {
-            // InternalDSL.g:12998:1: ( '>' )
-            // InternalDSL.g:12999:1: '>'
+            // InternalDSL.g:13029:1: ( '>' )
+            // InternalDSL.g:13030:1: '>'
             {
              before(grammarAccess.getJavaConstantValueAccess().getGreaterThanSignKeyword_2()); 
             match(input,71,FOLLOW_2); 
@@ -35192,14 +35289,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__Group__0"
-    // InternalDSL.g:13018:1: rule__Variable__Group__0 : rule__Variable__Group__0__Impl rule__Variable__Group__1 ;
+    // InternalDSL.g:13049:1: rule__Variable__Group__0 : rule__Variable__Group__0__Impl rule__Variable__Group__1 ;
     public final void rule__Variable__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13022:1: ( rule__Variable__Group__0__Impl rule__Variable__Group__1 )
-            // InternalDSL.g:13023:2: rule__Variable__Group__0__Impl rule__Variable__Group__1
+            // InternalDSL.g:13053:1: ( rule__Variable__Group__0__Impl rule__Variable__Group__1 )
+            // InternalDSL.g:13054:2: rule__Variable__Group__0__Impl rule__Variable__Group__1
             {
             pushFollow(FOLLOW_49);
             rule__Variable__Group__0__Impl();
@@ -35230,21 +35327,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__Group__0__Impl"
-    // InternalDSL.g:13030:1: rule__Variable__Group__0__Impl : ( ( rule__Variable__NameAssignment_0 ) ) ;
+    // InternalDSL.g:13061:1: rule__Variable__Group__0__Impl : ( ( rule__Variable__NameAssignment_0 ) ) ;
     public final void rule__Variable__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13034:1: ( ( ( rule__Variable__NameAssignment_0 ) ) )
-            // InternalDSL.g:13035:1: ( ( rule__Variable__NameAssignment_0 ) )
+            // InternalDSL.g:13065:1: ( ( ( rule__Variable__NameAssignment_0 ) ) )
+            // InternalDSL.g:13066:1: ( ( rule__Variable__NameAssignment_0 ) )
             {
-            // InternalDSL.g:13035:1: ( ( rule__Variable__NameAssignment_0 ) )
-            // InternalDSL.g:13036:1: ( rule__Variable__NameAssignment_0 )
+            // InternalDSL.g:13066:1: ( ( rule__Variable__NameAssignment_0 ) )
+            // InternalDSL.g:13067:1: ( rule__Variable__NameAssignment_0 )
             {
              before(grammarAccess.getVariableAccess().getNameAssignment_0()); 
-            // InternalDSL.g:13037:1: ( rule__Variable__NameAssignment_0 )
-            // InternalDSL.g:13037:2: rule__Variable__NameAssignment_0
+            // InternalDSL.g:13068:1: ( rule__Variable__NameAssignment_0 )
+            // InternalDSL.g:13068:2: rule__Variable__NameAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__Variable__NameAssignment_0();
@@ -35277,14 +35374,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__Group__1"
-    // InternalDSL.g:13047:1: rule__Variable__Group__1 : rule__Variable__Group__1__Impl ;
+    // InternalDSL.g:13078:1: rule__Variable__Group__1 : rule__Variable__Group__1__Impl ;
     public final void rule__Variable__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13051:1: ( rule__Variable__Group__1__Impl )
-            // InternalDSL.g:13052:2: rule__Variable__Group__1__Impl
+            // InternalDSL.g:13082:1: ( rule__Variable__Group__1__Impl )
+            // InternalDSL.g:13083:2: rule__Variable__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Variable__Group__1__Impl();
@@ -35310,29 +35407,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__Group__1__Impl"
-    // InternalDSL.g:13058:1: rule__Variable__Group__1__Impl : ( ( rule__Variable__Group_1__0 )? ) ;
+    // InternalDSL.g:13089:1: rule__Variable__Group__1__Impl : ( ( rule__Variable__Group_1__0 )? ) ;
     public final void rule__Variable__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13062:1: ( ( ( rule__Variable__Group_1__0 )? ) )
-            // InternalDSL.g:13063:1: ( ( rule__Variable__Group_1__0 )? )
+            // InternalDSL.g:13093:1: ( ( ( rule__Variable__Group_1__0 )? ) )
+            // InternalDSL.g:13094:1: ( ( rule__Variable__Group_1__0 )? )
             {
-            // InternalDSL.g:13063:1: ( ( rule__Variable__Group_1__0 )? )
-            // InternalDSL.g:13064:1: ( rule__Variable__Group_1__0 )?
+            // InternalDSL.g:13094:1: ( ( rule__Variable__Group_1__0 )? )
+            // InternalDSL.g:13095:1: ( rule__Variable__Group_1__0 )?
             {
              before(grammarAccess.getVariableAccess().getGroup_1()); 
-            // InternalDSL.g:13065:1: ( rule__Variable__Group_1__0 )?
-            int alt75=2;
-            int LA75_0 = input.LA(1);
+            // InternalDSL.g:13096:1: ( rule__Variable__Group_1__0 )?
+            int alt76=2;
+            int LA76_0 = input.LA(1);
 
-            if ( (LA75_0==72) ) {
-                alt75=1;
+            if ( (LA76_0==72) ) {
+                alt76=1;
             }
-            switch (alt75) {
+            switch (alt76) {
                 case 1 :
-                    // InternalDSL.g:13065:2: rule__Variable__Group_1__0
+                    // InternalDSL.g:13096:2: rule__Variable__Group_1__0
                     {
                     pushFollow(FOLLOW_2);
                     rule__Variable__Group_1__0();
@@ -35368,14 +35465,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__Group_1__0"
-    // InternalDSL.g:13079:1: rule__Variable__Group_1__0 : rule__Variable__Group_1__0__Impl rule__Variable__Group_1__1 ;
+    // InternalDSL.g:13110:1: rule__Variable__Group_1__0 : rule__Variable__Group_1__0__Impl rule__Variable__Group_1__1 ;
     public final void rule__Variable__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13083:1: ( rule__Variable__Group_1__0__Impl rule__Variable__Group_1__1 )
-            // InternalDSL.g:13084:2: rule__Variable__Group_1__0__Impl rule__Variable__Group_1__1
+            // InternalDSL.g:13114:1: ( rule__Variable__Group_1__0__Impl rule__Variable__Group_1__1 )
+            // InternalDSL.g:13115:2: rule__Variable__Group_1__0__Impl rule__Variable__Group_1__1
             {
             pushFollow(FOLLOW_7);
             rule__Variable__Group_1__0__Impl();
@@ -35406,17 +35503,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__Group_1__0__Impl"
-    // InternalDSL.g:13091:1: rule__Variable__Group_1__0__Impl : ( '#' ) ;
+    // InternalDSL.g:13122:1: rule__Variable__Group_1__0__Impl : ( '#' ) ;
     public final void rule__Variable__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13095:1: ( ( '#' ) )
-            // InternalDSL.g:13096:1: ( '#' )
+            // InternalDSL.g:13126:1: ( ( '#' ) )
+            // InternalDSL.g:13127:1: ( '#' )
             {
-            // InternalDSL.g:13096:1: ( '#' )
-            // InternalDSL.g:13097:1: '#'
+            // InternalDSL.g:13127:1: ( '#' )
+            // InternalDSL.g:13128:1: '#'
             {
              before(grammarAccess.getVariableAccess().getNumberSignKeyword_1_0()); 
             match(input,72,FOLLOW_2); 
@@ -35443,14 +35540,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__Group_1__1"
-    // InternalDSL.g:13110:1: rule__Variable__Group_1__1 : rule__Variable__Group_1__1__Impl ;
+    // InternalDSL.g:13141:1: rule__Variable__Group_1__1 : rule__Variable__Group_1__1__Impl ;
     public final void rule__Variable__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13114:1: ( rule__Variable__Group_1__1__Impl )
-            // InternalDSL.g:13115:2: rule__Variable__Group_1__1__Impl
+            // InternalDSL.g:13145:1: ( rule__Variable__Group_1__1__Impl )
+            // InternalDSL.g:13146:2: rule__Variable__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__Variable__Group_1__1__Impl();
@@ -35476,21 +35573,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__Group_1__1__Impl"
-    // InternalDSL.g:13121:1: rule__Variable__Group_1__1__Impl : ( ( rule__Variable__AttributeAssignment_1_1 ) ) ;
+    // InternalDSL.g:13152:1: rule__Variable__Group_1__1__Impl : ( ( rule__Variable__AttributeAssignment_1_1 ) ) ;
     public final void rule__Variable__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13125:1: ( ( ( rule__Variable__AttributeAssignment_1_1 ) ) )
-            // InternalDSL.g:13126:1: ( ( rule__Variable__AttributeAssignment_1_1 ) )
+            // InternalDSL.g:13156:1: ( ( ( rule__Variable__AttributeAssignment_1_1 ) ) )
+            // InternalDSL.g:13157:1: ( ( rule__Variable__AttributeAssignment_1_1 ) )
             {
-            // InternalDSL.g:13126:1: ( ( rule__Variable__AttributeAssignment_1_1 ) )
-            // InternalDSL.g:13127:1: ( rule__Variable__AttributeAssignment_1_1 )
+            // InternalDSL.g:13157:1: ( ( rule__Variable__AttributeAssignment_1_1 ) )
+            // InternalDSL.g:13158:1: ( rule__Variable__AttributeAssignment_1_1 )
             {
              before(grammarAccess.getVariableAccess().getAttributeAssignment_1_1()); 
-            // InternalDSL.g:13128:1: ( rule__Variable__AttributeAssignment_1_1 )
-            // InternalDSL.g:13128:2: rule__Variable__AttributeAssignment_1_1
+            // InternalDSL.g:13159:1: ( rule__Variable__AttributeAssignment_1_1 )
+            // InternalDSL.g:13159:2: rule__Variable__AttributeAssignment_1_1
             {
             pushFollow(FOLLOW_2);
             rule__Variable__AttributeAssignment_1_1();
@@ -35523,14 +35620,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NullValue__Group__0"
-    // InternalDSL.g:13142:1: rule__NullValue__Group__0 : rule__NullValue__Group__0__Impl rule__NullValue__Group__1 ;
+    // InternalDSL.g:13173:1: rule__NullValue__Group__0 : rule__NullValue__Group__0__Impl rule__NullValue__Group__1 ;
     public final void rule__NullValue__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13146:1: ( rule__NullValue__Group__0__Impl rule__NullValue__Group__1 )
-            // InternalDSL.g:13147:2: rule__NullValue__Group__0__Impl rule__NullValue__Group__1
+            // InternalDSL.g:13177:1: ( rule__NullValue__Group__0__Impl rule__NullValue__Group__1 )
+            // InternalDSL.g:13178:2: rule__NullValue__Group__0__Impl rule__NullValue__Group__1
             {
             pushFollow(FOLLOW_50);
             rule__NullValue__Group__0__Impl();
@@ -35561,21 +35658,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NullValue__Group__0__Impl"
-    // InternalDSL.g:13154:1: rule__NullValue__Group__0__Impl : ( () ) ;
+    // InternalDSL.g:13185:1: rule__NullValue__Group__0__Impl : ( () ) ;
     public final void rule__NullValue__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13158:1: ( ( () ) )
-            // InternalDSL.g:13159:1: ( () )
+            // InternalDSL.g:13189:1: ( ( () ) )
+            // InternalDSL.g:13190:1: ( () )
             {
-            // InternalDSL.g:13159:1: ( () )
-            // InternalDSL.g:13160:1: ()
+            // InternalDSL.g:13190:1: ( () )
+            // InternalDSL.g:13191:1: ()
             {
              before(grammarAccess.getNullValueAccess().getNullAction_0()); 
-            // InternalDSL.g:13161:1: ()
-            // InternalDSL.g:13163:1: 
+            // InternalDSL.g:13192:1: ()
+            // InternalDSL.g:13194:1: 
             {
             }
 
@@ -35598,14 +35695,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NullValue__Group__1"
-    // InternalDSL.g:13173:1: rule__NullValue__Group__1 : rule__NullValue__Group__1__Impl ;
+    // InternalDSL.g:13204:1: rule__NullValue__Group__1 : rule__NullValue__Group__1__Impl ;
     public final void rule__NullValue__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13177:1: ( rule__NullValue__Group__1__Impl )
-            // InternalDSL.g:13178:2: rule__NullValue__Group__1__Impl
+            // InternalDSL.g:13208:1: ( rule__NullValue__Group__1__Impl )
+            // InternalDSL.g:13209:2: rule__NullValue__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__NullValue__Group__1__Impl();
@@ -35631,17 +35728,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NullValue__Group__1__Impl"
-    // InternalDSL.g:13184:1: rule__NullValue__Group__1__Impl : ( 'null' ) ;
+    // InternalDSL.g:13215:1: rule__NullValue__Group__1__Impl : ( 'null' ) ;
     public final void rule__NullValue__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13188:1: ( ( 'null' ) )
-            // InternalDSL.g:13189:1: ( 'null' )
+            // InternalDSL.g:13219:1: ( ( 'null' ) )
+            // InternalDSL.g:13220:1: ( 'null' )
             {
-            // InternalDSL.g:13189:1: ( 'null' )
-            // InternalDSL.g:13190:1: 'null'
+            // InternalDSL.g:13220:1: ( 'null' )
+            // InternalDSL.g:13221:1: 'null'
             {
              before(grammarAccess.getNullValueAccess().getNullKeyword_1()); 
             match(input,73,FOLLOW_2); 
@@ -35668,14 +35765,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group__0"
-    // InternalDSL.g:13207:1: rule__NestedObject__Group__0 : rule__NestedObject__Group__0__Impl rule__NestedObject__Group__1 ;
+    // InternalDSL.g:13238:1: rule__NestedObject__Group__0 : rule__NestedObject__Group__0__Impl rule__NestedObject__Group__1 ;
     public final void rule__NestedObject__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13211:1: ( rule__NestedObject__Group__0__Impl rule__NestedObject__Group__1 )
-            // InternalDSL.g:13212:2: rule__NestedObject__Group__0__Impl rule__NestedObject__Group__1
+            // InternalDSL.g:13242:1: ( rule__NestedObject__Group__0__Impl rule__NestedObject__Group__1 )
+            // InternalDSL.g:13243:2: rule__NestedObject__Group__0__Impl rule__NestedObject__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__NestedObject__Group__0__Impl();
@@ -35706,17 +35803,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group__0__Impl"
-    // InternalDSL.g:13219:1: rule__NestedObject__Group__0__Impl : ( '{' ) ;
+    // InternalDSL.g:13250:1: rule__NestedObject__Group__0__Impl : ( '{' ) ;
     public final void rule__NestedObject__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13223:1: ( ( '{' ) )
-            // InternalDSL.g:13224:1: ( '{' )
+            // InternalDSL.g:13254:1: ( ( '{' ) )
+            // InternalDSL.g:13255:1: ( '{' )
             {
-            // InternalDSL.g:13224:1: ( '{' )
-            // InternalDSL.g:13225:1: '{'
+            // InternalDSL.g:13255:1: ( '{' )
+            // InternalDSL.g:13256:1: '{'
             {
              before(grammarAccess.getNestedObjectAccess().getLeftCurlyBracketKeyword_0()); 
             match(input,74,FOLLOW_2); 
@@ -35743,14 +35840,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group__1"
-    // InternalDSL.g:13238:1: rule__NestedObject__Group__1 : rule__NestedObject__Group__1__Impl rule__NestedObject__Group__2 ;
+    // InternalDSL.g:13269:1: rule__NestedObject__Group__1 : rule__NestedObject__Group__1__Impl rule__NestedObject__Group__2 ;
     public final void rule__NestedObject__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13242:1: ( rule__NestedObject__Group__1__Impl rule__NestedObject__Group__2 )
-            // InternalDSL.g:13243:2: rule__NestedObject__Group__1__Impl rule__NestedObject__Group__2
+            // InternalDSL.g:13273:1: ( rule__NestedObject__Group__1__Impl rule__NestedObject__Group__2 )
+            // InternalDSL.g:13274:2: rule__NestedObject__Group__1__Impl rule__NestedObject__Group__2
             {
             pushFollow(FOLLOW_39);
             rule__NestedObject__Group__1__Impl();
@@ -35781,17 +35878,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group__1__Impl"
-    // InternalDSL.g:13250:1: rule__NestedObject__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:13281:1: rule__NestedObject__Group__1__Impl : ( ruleNL ) ;
     public final void rule__NestedObject__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13254:1: ( ( ruleNL ) )
-            // InternalDSL.g:13255:1: ( ruleNL )
+            // InternalDSL.g:13285:1: ( ( ruleNL ) )
+            // InternalDSL.g:13286:1: ( ruleNL )
             {
-            // InternalDSL.g:13255:1: ( ruleNL )
-            // InternalDSL.g:13256:1: ruleNL
+            // InternalDSL.g:13286:1: ( ruleNL )
+            // InternalDSL.g:13287:1: ruleNL
             {
              before(grammarAccess.getNestedObjectAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -35822,14 +35919,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group__2"
-    // InternalDSL.g:13267:1: rule__NestedObject__Group__2 : rule__NestedObject__Group__2__Impl rule__NestedObject__Group__3 ;
+    // InternalDSL.g:13298:1: rule__NestedObject__Group__2 : rule__NestedObject__Group__2__Impl rule__NestedObject__Group__3 ;
     public final void rule__NestedObject__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13271:1: ( rule__NestedObject__Group__2__Impl rule__NestedObject__Group__3 )
-            // InternalDSL.g:13272:2: rule__NestedObject__Group__2__Impl rule__NestedObject__Group__3
+            // InternalDSL.g:13302:1: ( rule__NestedObject__Group__2__Impl rule__NestedObject__Group__3 )
+            // InternalDSL.g:13303:2: rule__NestedObject__Group__2__Impl rule__NestedObject__Group__3
             {
             pushFollow(FOLLOW_51);
             rule__NestedObject__Group__2__Impl();
@@ -35860,24 +35957,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group__2__Impl"
-    // InternalDSL.g:13279:1: rule__NestedObject__Group__2__Impl : ( ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* ) ) ;
+    // InternalDSL.g:13310:1: rule__NestedObject__Group__2__Impl : ( ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* ) ) ;
     public final void rule__NestedObject__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13283:1: ( ( ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* ) ) )
-            // InternalDSL.g:13284:1: ( ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* ) )
+            // InternalDSL.g:13314:1: ( ( ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* ) ) )
+            // InternalDSL.g:13315:1: ( ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* ) )
             {
-            // InternalDSL.g:13284:1: ( ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* ) )
-            // InternalDSL.g:13285:1: ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* )
+            // InternalDSL.g:13315:1: ( ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* ) )
+            // InternalDSL.g:13316:1: ( ( rule__NestedObject__Group_2__0 ) ) ( ( rule__NestedObject__Group_2__0 )* )
             {
-            // InternalDSL.g:13285:1: ( ( rule__NestedObject__Group_2__0 ) )
-            // InternalDSL.g:13286:1: ( rule__NestedObject__Group_2__0 )
+            // InternalDSL.g:13316:1: ( ( rule__NestedObject__Group_2__0 ) )
+            // InternalDSL.g:13317:1: ( rule__NestedObject__Group_2__0 )
             {
              before(grammarAccess.getNestedObjectAccess().getGroup_2()); 
-            // InternalDSL.g:13287:1: ( rule__NestedObject__Group_2__0 )
-            // InternalDSL.g:13287:2: rule__NestedObject__Group_2__0
+            // InternalDSL.g:13318:1: ( rule__NestedObject__Group_2__0 )
+            // InternalDSL.g:13318:2: rule__NestedObject__Group_2__0
             {
             pushFollow(FOLLOW_52);
             rule__NestedObject__Group_2__0();
@@ -35891,24 +35988,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // InternalDSL.g:13290:1: ( ( rule__NestedObject__Group_2__0 )* )
-            // InternalDSL.g:13291:1: ( rule__NestedObject__Group_2__0 )*
+            // InternalDSL.g:13321:1: ( ( rule__NestedObject__Group_2__0 )* )
+            // InternalDSL.g:13322:1: ( rule__NestedObject__Group_2__0 )*
             {
              before(grammarAccess.getNestedObjectAccess().getGroup_2()); 
-            // InternalDSL.g:13292:1: ( rule__NestedObject__Group_2__0 )*
-            loop76:
+            // InternalDSL.g:13323:1: ( rule__NestedObject__Group_2__0 )*
+            loop77:
             do {
-                int alt76=2;
-                int LA76_0 = input.LA(1);
+                int alt77=2;
+                int LA77_0 = input.LA(1);
 
-                if ( (LA76_0==RULE_ID||LA76_0==RULE_STRING) ) {
-                    alt76=1;
+                if ( (LA77_0==RULE_ID||LA77_0==RULE_STRING) ) {
+                    alt77=1;
                 }
 
 
-                switch (alt76) {
+                switch (alt77) {
             	case 1 :
-            	    // InternalDSL.g:13292:2: rule__NestedObject__Group_2__0
+            	    // InternalDSL.g:13323:2: rule__NestedObject__Group_2__0
             	    {
             	    pushFollow(FOLLOW_52);
             	    rule__NestedObject__Group_2__0();
@@ -35920,7 +36017,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop76;
+            	    break loop77;
                 }
             } while (true);
 
@@ -35950,14 +36047,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group__3"
-    // InternalDSL.g:13303:1: rule__NestedObject__Group__3 : rule__NestedObject__Group__3__Impl ;
+    // InternalDSL.g:13334:1: rule__NestedObject__Group__3 : rule__NestedObject__Group__3__Impl ;
     public final void rule__NestedObject__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13307:1: ( rule__NestedObject__Group__3__Impl )
-            // InternalDSL.g:13308:2: rule__NestedObject__Group__3__Impl
+            // InternalDSL.g:13338:1: ( rule__NestedObject__Group__3__Impl )
+            // InternalDSL.g:13339:2: rule__NestedObject__Group__3__Impl
             {
             pushFollow(FOLLOW_2);
             rule__NestedObject__Group__3__Impl();
@@ -35983,17 +36080,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group__3__Impl"
-    // InternalDSL.g:13314:1: rule__NestedObject__Group__3__Impl : ( '}' ) ;
+    // InternalDSL.g:13345:1: rule__NestedObject__Group__3__Impl : ( '}' ) ;
     public final void rule__NestedObject__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13318:1: ( ( '}' ) )
-            // InternalDSL.g:13319:1: ( '}' )
+            // InternalDSL.g:13349:1: ( ( '}' ) )
+            // InternalDSL.g:13350:1: ( '}' )
             {
-            // InternalDSL.g:13319:1: ( '}' )
-            // InternalDSL.g:13320:1: '}'
+            // InternalDSL.g:13350:1: ( '}' )
+            // InternalDSL.g:13351:1: '}'
             {
              before(grammarAccess.getNestedObjectAccess().getRightCurlyBracketKeyword_3()); 
             match(input,75,FOLLOW_2); 
@@ -36020,14 +36117,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group_2__0"
-    // InternalDSL.g:13341:1: rule__NestedObject__Group_2__0 : rule__NestedObject__Group_2__0__Impl rule__NestedObject__Group_2__1 ;
+    // InternalDSL.g:13372:1: rule__NestedObject__Group_2__0 : rule__NestedObject__Group_2__0__Impl rule__NestedObject__Group_2__1 ;
     public final void rule__NestedObject__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13345:1: ( rule__NestedObject__Group_2__0__Impl rule__NestedObject__Group_2__1 )
-            // InternalDSL.g:13346:2: rule__NestedObject__Group_2__0__Impl rule__NestedObject__Group_2__1
+            // InternalDSL.g:13376:1: ( rule__NestedObject__Group_2__0__Impl rule__NestedObject__Group_2__1 )
+            // InternalDSL.g:13377:2: rule__NestedObject__Group_2__0__Impl rule__NestedObject__Group_2__1
             {
             pushFollow(FOLLOW_4);
             rule__NestedObject__Group_2__0__Impl();
@@ -36058,21 +36155,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group_2__0__Impl"
-    // InternalDSL.g:13353:1: rule__NestedObject__Group_2__0__Impl : ( ( rule__NestedObject__AttributesAssignment_2_0 ) ) ;
+    // InternalDSL.g:13384:1: rule__NestedObject__Group_2__0__Impl : ( ( rule__NestedObject__AttributesAssignment_2_0 ) ) ;
     public final void rule__NestedObject__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13357:1: ( ( ( rule__NestedObject__AttributesAssignment_2_0 ) ) )
-            // InternalDSL.g:13358:1: ( ( rule__NestedObject__AttributesAssignment_2_0 ) )
+            // InternalDSL.g:13388:1: ( ( ( rule__NestedObject__AttributesAssignment_2_0 ) ) )
+            // InternalDSL.g:13389:1: ( ( rule__NestedObject__AttributesAssignment_2_0 ) )
             {
-            // InternalDSL.g:13358:1: ( ( rule__NestedObject__AttributesAssignment_2_0 ) )
-            // InternalDSL.g:13359:1: ( rule__NestedObject__AttributesAssignment_2_0 )
+            // InternalDSL.g:13389:1: ( ( rule__NestedObject__AttributesAssignment_2_0 ) )
+            // InternalDSL.g:13390:1: ( rule__NestedObject__AttributesAssignment_2_0 )
             {
              before(grammarAccess.getNestedObjectAccess().getAttributesAssignment_2_0()); 
-            // InternalDSL.g:13360:1: ( rule__NestedObject__AttributesAssignment_2_0 )
-            // InternalDSL.g:13360:2: rule__NestedObject__AttributesAssignment_2_0
+            // InternalDSL.g:13391:1: ( rule__NestedObject__AttributesAssignment_2_0 )
+            // InternalDSL.g:13391:2: rule__NestedObject__AttributesAssignment_2_0
             {
             pushFollow(FOLLOW_2);
             rule__NestedObject__AttributesAssignment_2_0();
@@ -36105,14 +36202,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group_2__1"
-    // InternalDSL.g:13370:1: rule__NestedObject__Group_2__1 : rule__NestedObject__Group_2__1__Impl ;
+    // InternalDSL.g:13401:1: rule__NestedObject__Group_2__1 : rule__NestedObject__Group_2__1__Impl ;
     public final void rule__NestedObject__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13374:1: ( rule__NestedObject__Group_2__1__Impl )
-            // InternalDSL.g:13375:2: rule__NestedObject__Group_2__1__Impl
+            // InternalDSL.g:13405:1: ( rule__NestedObject__Group_2__1__Impl )
+            // InternalDSL.g:13406:2: rule__NestedObject__Group_2__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__NestedObject__Group_2__1__Impl();
@@ -36138,17 +36235,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__Group_2__1__Impl"
-    // InternalDSL.g:13381:1: rule__NestedObject__Group_2__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:13412:1: rule__NestedObject__Group_2__1__Impl : ( ruleNL ) ;
     public final void rule__NestedObject__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13385:1: ( ( ruleNL ) )
-            // InternalDSL.g:13386:1: ( ruleNL )
+            // InternalDSL.g:13416:1: ( ( ruleNL ) )
+            // InternalDSL.g:13417:1: ( ruleNL )
             {
-            // InternalDSL.g:13386:1: ( ruleNL )
-            // InternalDSL.g:13387:1: ruleNL
+            // InternalDSL.g:13417:1: ( ruleNL )
+            // InternalDSL.g:13418:1: ruleNL
             {
              before(grammarAccess.getNestedObjectAccess().getNLParserRuleCall_2_1()); 
             pushFollow(FOLLOW_2);
@@ -36179,14 +36276,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__0"
-    // InternalDSL.g:13402:1: rule__TypedNestedObject__Group__0 : rule__TypedNestedObject__Group__0__Impl rule__TypedNestedObject__Group__1 ;
+    // InternalDSL.g:13433:1: rule__TypedNestedObject__Group__0 : rule__TypedNestedObject__Group__0__Impl rule__TypedNestedObject__Group__1 ;
     public final void rule__TypedNestedObject__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13406:1: ( rule__TypedNestedObject__Group__0__Impl rule__TypedNestedObject__Group__1 )
-            // InternalDSL.g:13407:2: rule__TypedNestedObject__Group__0__Impl rule__TypedNestedObject__Group__1
+            // InternalDSL.g:13437:1: ( rule__TypedNestedObject__Group__0__Impl rule__TypedNestedObject__Group__1 )
+            // InternalDSL.g:13438:2: rule__TypedNestedObject__Group__0__Impl rule__TypedNestedObject__Group__1
             {
             pushFollow(FOLLOW_7);
             rule__TypedNestedObject__Group__0__Impl();
@@ -36217,17 +36314,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__0__Impl"
-    // InternalDSL.g:13414:1: rule__TypedNestedObject__Group__0__Impl : ( '<' ) ;
+    // InternalDSL.g:13445:1: rule__TypedNestedObject__Group__0__Impl : ( '<' ) ;
     public final void rule__TypedNestedObject__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13418:1: ( ( '<' ) )
-            // InternalDSL.g:13419:1: ( '<' )
+            // InternalDSL.g:13449:1: ( ( '<' ) )
+            // InternalDSL.g:13450:1: ( '<' )
             {
-            // InternalDSL.g:13419:1: ( '<' )
-            // InternalDSL.g:13420:1: '<'
+            // InternalDSL.g:13450:1: ( '<' )
+            // InternalDSL.g:13451:1: '<'
             {
              before(grammarAccess.getTypedNestedObjectAccess().getLessThanSignKeyword_0()); 
             match(input,70,FOLLOW_2); 
@@ -36254,14 +36351,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__1"
-    // InternalDSL.g:13433:1: rule__TypedNestedObject__Group__1 : rule__TypedNestedObject__Group__1__Impl rule__TypedNestedObject__Group__2 ;
+    // InternalDSL.g:13464:1: rule__TypedNestedObject__Group__1 : rule__TypedNestedObject__Group__1__Impl rule__TypedNestedObject__Group__2 ;
     public final void rule__TypedNestedObject__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13437:1: ( rule__TypedNestedObject__Group__1__Impl rule__TypedNestedObject__Group__2 )
-            // InternalDSL.g:13438:2: rule__TypedNestedObject__Group__1__Impl rule__TypedNestedObject__Group__2
+            // InternalDSL.g:13468:1: ( rule__TypedNestedObject__Group__1__Impl rule__TypedNestedObject__Group__2 )
+            // InternalDSL.g:13469:2: rule__TypedNestedObject__Group__1__Impl rule__TypedNestedObject__Group__2
             {
             pushFollow(FOLLOW_48);
             rule__TypedNestedObject__Group__1__Impl();
@@ -36292,21 +36389,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__1__Impl"
-    // InternalDSL.g:13445:1: rule__TypedNestedObject__Group__1__Impl : ( ( rule__TypedNestedObject__TypeAssignment_1 ) ) ;
+    // InternalDSL.g:13476:1: rule__TypedNestedObject__Group__1__Impl : ( ( rule__TypedNestedObject__TypeAssignment_1 ) ) ;
     public final void rule__TypedNestedObject__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13449:1: ( ( ( rule__TypedNestedObject__TypeAssignment_1 ) ) )
-            // InternalDSL.g:13450:1: ( ( rule__TypedNestedObject__TypeAssignment_1 ) )
+            // InternalDSL.g:13480:1: ( ( ( rule__TypedNestedObject__TypeAssignment_1 ) ) )
+            // InternalDSL.g:13481:1: ( ( rule__TypedNestedObject__TypeAssignment_1 ) )
             {
-            // InternalDSL.g:13450:1: ( ( rule__TypedNestedObject__TypeAssignment_1 ) )
-            // InternalDSL.g:13451:1: ( rule__TypedNestedObject__TypeAssignment_1 )
+            // InternalDSL.g:13481:1: ( ( rule__TypedNestedObject__TypeAssignment_1 ) )
+            // InternalDSL.g:13482:1: ( rule__TypedNestedObject__TypeAssignment_1 )
             {
              before(grammarAccess.getTypedNestedObjectAccess().getTypeAssignment_1()); 
-            // InternalDSL.g:13452:1: ( rule__TypedNestedObject__TypeAssignment_1 )
-            // InternalDSL.g:13452:2: rule__TypedNestedObject__TypeAssignment_1
+            // InternalDSL.g:13483:1: ( rule__TypedNestedObject__TypeAssignment_1 )
+            // InternalDSL.g:13483:2: rule__TypedNestedObject__TypeAssignment_1
             {
             pushFollow(FOLLOW_2);
             rule__TypedNestedObject__TypeAssignment_1();
@@ -36339,14 +36436,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__2"
-    // InternalDSL.g:13462:1: rule__TypedNestedObject__Group__2 : rule__TypedNestedObject__Group__2__Impl rule__TypedNestedObject__Group__3 ;
+    // InternalDSL.g:13493:1: rule__TypedNestedObject__Group__2 : rule__TypedNestedObject__Group__2__Impl rule__TypedNestedObject__Group__3 ;
     public final void rule__TypedNestedObject__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13466:1: ( rule__TypedNestedObject__Group__2__Impl rule__TypedNestedObject__Group__3 )
-            // InternalDSL.g:13467:2: rule__TypedNestedObject__Group__2__Impl rule__TypedNestedObject__Group__3
+            // InternalDSL.g:13497:1: ( rule__TypedNestedObject__Group__2__Impl rule__TypedNestedObject__Group__3 )
+            // InternalDSL.g:13498:2: rule__TypedNestedObject__Group__2__Impl rule__TypedNestedObject__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__TypedNestedObject__Group__2__Impl();
@@ -36377,17 +36474,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__2__Impl"
-    // InternalDSL.g:13474:1: rule__TypedNestedObject__Group__2__Impl : ( '>' ) ;
+    // InternalDSL.g:13505:1: rule__TypedNestedObject__Group__2__Impl : ( '>' ) ;
     public final void rule__TypedNestedObject__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13478:1: ( ( '>' ) )
-            // InternalDSL.g:13479:1: ( '>' )
+            // InternalDSL.g:13509:1: ( ( '>' ) )
+            // InternalDSL.g:13510:1: ( '>' )
             {
-            // InternalDSL.g:13479:1: ( '>' )
-            // InternalDSL.g:13480:1: '>'
+            // InternalDSL.g:13510:1: ( '>' )
+            // InternalDSL.g:13511:1: '>'
             {
              before(grammarAccess.getTypedNestedObjectAccess().getGreaterThanSignKeyword_2()); 
             match(input,71,FOLLOW_2); 
@@ -36414,14 +36511,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__3"
-    // InternalDSL.g:13493:1: rule__TypedNestedObject__Group__3 : rule__TypedNestedObject__Group__3__Impl rule__TypedNestedObject__Group__4 ;
+    // InternalDSL.g:13524:1: rule__TypedNestedObject__Group__3 : rule__TypedNestedObject__Group__3__Impl rule__TypedNestedObject__Group__4 ;
     public final void rule__TypedNestedObject__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13497:1: ( rule__TypedNestedObject__Group__3__Impl rule__TypedNestedObject__Group__4 )
-            // InternalDSL.g:13498:2: rule__TypedNestedObject__Group__3__Impl rule__TypedNestedObject__Group__4
+            // InternalDSL.g:13528:1: ( rule__TypedNestedObject__Group__3__Impl rule__TypedNestedObject__Group__4 )
+            // InternalDSL.g:13529:2: rule__TypedNestedObject__Group__3__Impl rule__TypedNestedObject__Group__4
             {
             pushFollow(FOLLOW_53);
             rule__TypedNestedObject__Group__3__Impl();
@@ -36452,17 +36549,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__3__Impl"
-    // InternalDSL.g:13505:1: rule__TypedNestedObject__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:13536:1: rule__TypedNestedObject__Group__3__Impl : ( ruleNL ) ;
     public final void rule__TypedNestedObject__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13509:1: ( ( ruleNL ) )
-            // InternalDSL.g:13510:1: ( ruleNL )
+            // InternalDSL.g:13540:1: ( ( ruleNL ) )
+            // InternalDSL.g:13541:1: ( ruleNL )
             {
-            // InternalDSL.g:13510:1: ( ruleNL )
-            // InternalDSL.g:13511:1: ruleNL
+            // InternalDSL.g:13541:1: ( ruleNL )
+            // InternalDSL.g:13542:1: ruleNL
             {
              before(grammarAccess.getTypedNestedObjectAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -36493,14 +36590,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__4"
-    // InternalDSL.g:13522:1: rule__TypedNestedObject__Group__4 : rule__TypedNestedObject__Group__4__Impl ;
+    // InternalDSL.g:13553:1: rule__TypedNestedObject__Group__4 : rule__TypedNestedObject__Group__4__Impl ;
     public final void rule__TypedNestedObject__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13526:1: ( rule__TypedNestedObject__Group__4__Impl )
-            // InternalDSL.g:13527:2: rule__TypedNestedObject__Group__4__Impl
+            // InternalDSL.g:13557:1: ( rule__TypedNestedObject__Group__4__Impl )
+            // InternalDSL.g:13558:2: rule__TypedNestedObject__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__TypedNestedObject__Group__4__Impl();
@@ -36526,21 +36623,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__Group__4__Impl"
-    // InternalDSL.g:13533:1: rule__TypedNestedObject__Group__4__Impl : ( ( rule__TypedNestedObject__NestedObjectAssignment_4 ) ) ;
+    // InternalDSL.g:13564:1: rule__TypedNestedObject__Group__4__Impl : ( ( rule__TypedNestedObject__NestedObjectAssignment_4 ) ) ;
     public final void rule__TypedNestedObject__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13537:1: ( ( ( rule__TypedNestedObject__NestedObjectAssignment_4 ) ) )
-            // InternalDSL.g:13538:1: ( ( rule__TypedNestedObject__NestedObjectAssignment_4 ) )
+            // InternalDSL.g:13568:1: ( ( ( rule__TypedNestedObject__NestedObjectAssignment_4 ) ) )
+            // InternalDSL.g:13569:1: ( ( rule__TypedNestedObject__NestedObjectAssignment_4 ) )
             {
-            // InternalDSL.g:13538:1: ( ( rule__TypedNestedObject__NestedObjectAssignment_4 ) )
-            // InternalDSL.g:13539:1: ( rule__TypedNestedObject__NestedObjectAssignment_4 )
+            // InternalDSL.g:13569:1: ( ( rule__TypedNestedObject__NestedObjectAssignment_4 ) )
+            // InternalDSL.g:13570:1: ( rule__TypedNestedObject__NestedObjectAssignment_4 )
             {
              before(grammarAccess.getTypedNestedObjectAccess().getNestedObjectAssignment_4()); 
-            // InternalDSL.g:13540:1: ( rule__TypedNestedObject__NestedObjectAssignment_4 )
-            // InternalDSL.g:13540:2: rule__TypedNestedObject__NestedObjectAssignment_4
+            // InternalDSL.g:13571:1: ( rule__TypedNestedObject__NestedObjectAssignment_4 )
+            // InternalDSL.g:13571:2: rule__TypedNestedObject__NestedObjectAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__TypedNestedObject__NestedObjectAssignment_4();
@@ -36573,14 +36670,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__0"
-    // InternalDSL.g:13560:1: rule__KeyValuePair__Group__0 : rule__KeyValuePair__Group__0__Impl rule__KeyValuePair__Group__1 ;
+    // InternalDSL.g:13591:1: rule__KeyValuePair__Group__0 : rule__KeyValuePair__Group__0__Impl rule__KeyValuePair__Group__1 ;
     public final void rule__KeyValuePair__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13564:1: ( rule__KeyValuePair__Group__0__Impl rule__KeyValuePair__Group__1 )
-            // InternalDSL.g:13565:2: rule__KeyValuePair__Group__0__Impl rule__KeyValuePair__Group__1
+            // InternalDSL.g:13595:1: ( rule__KeyValuePair__Group__0__Impl rule__KeyValuePair__Group__1 )
+            // InternalDSL.g:13596:2: rule__KeyValuePair__Group__0__Impl rule__KeyValuePair__Group__1
             {
             pushFollow(FOLLOW_4);
             rule__KeyValuePair__Group__0__Impl();
@@ -36611,21 +36708,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__0__Impl"
-    // InternalDSL.g:13572:1: rule__KeyValuePair__Group__0__Impl : ( ( rule__KeyValuePair__Alternatives_0 ) ) ;
+    // InternalDSL.g:13603:1: rule__KeyValuePair__Group__0__Impl : ( ( rule__KeyValuePair__Alternatives_0 ) ) ;
     public final void rule__KeyValuePair__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13576:1: ( ( ( rule__KeyValuePair__Alternatives_0 ) ) )
-            // InternalDSL.g:13577:1: ( ( rule__KeyValuePair__Alternatives_0 ) )
+            // InternalDSL.g:13607:1: ( ( ( rule__KeyValuePair__Alternatives_0 ) ) )
+            // InternalDSL.g:13608:1: ( ( rule__KeyValuePair__Alternatives_0 ) )
             {
-            // InternalDSL.g:13577:1: ( ( rule__KeyValuePair__Alternatives_0 ) )
-            // InternalDSL.g:13578:1: ( rule__KeyValuePair__Alternatives_0 )
+            // InternalDSL.g:13608:1: ( ( rule__KeyValuePair__Alternatives_0 ) )
+            // InternalDSL.g:13609:1: ( rule__KeyValuePair__Alternatives_0 )
             {
              before(grammarAccess.getKeyValuePairAccess().getAlternatives_0()); 
-            // InternalDSL.g:13579:1: ( rule__KeyValuePair__Alternatives_0 )
-            // InternalDSL.g:13579:2: rule__KeyValuePair__Alternatives_0
+            // InternalDSL.g:13610:1: ( rule__KeyValuePair__Alternatives_0 )
+            // InternalDSL.g:13610:2: rule__KeyValuePair__Alternatives_0
             {
             pushFollow(FOLLOW_2);
             rule__KeyValuePair__Alternatives_0();
@@ -36658,14 +36755,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__1"
-    // InternalDSL.g:13589:1: rule__KeyValuePair__Group__1 : rule__KeyValuePair__Group__1__Impl rule__KeyValuePair__Group__2 ;
+    // InternalDSL.g:13620:1: rule__KeyValuePair__Group__1 : rule__KeyValuePair__Group__1__Impl rule__KeyValuePair__Group__2 ;
     public final void rule__KeyValuePair__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13593:1: ( rule__KeyValuePair__Group__1__Impl rule__KeyValuePair__Group__2 )
-            // InternalDSL.g:13594:2: rule__KeyValuePair__Group__1__Impl rule__KeyValuePair__Group__2
+            // InternalDSL.g:13624:1: ( rule__KeyValuePair__Group__1__Impl rule__KeyValuePair__Group__2 )
+            // InternalDSL.g:13625:2: rule__KeyValuePair__Group__1__Impl rule__KeyValuePair__Group__2
             {
             pushFollow(FOLLOW_14);
             rule__KeyValuePair__Group__1__Impl();
@@ -36696,17 +36793,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__1__Impl"
-    // InternalDSL.g:13601:1: rule__KeyValuePair__Group__1__Impl : ( ruleNL ) ;
+    // InternalDSL.g:13632:1: rule__KeyValuePair__Group__1__Impl : ( ruleNL ) ;
     public final void rule__KeyValuePair__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13605:1: ( ( ruleNL ) )
-            // InternalDSL.g:13606:1: ( ruleNL )
+            // InternalDSL.g:13636:1: ( ( ruleNL ) )
+            // InternalDSL.g:13637:1: ( ruleNL )
             {
-            // InternalDSL.g:13606:1: ( ruleNL )
-            // InternalDSL.g:13607:1: ruleNL
+            // InternalDSL.g:13637:1: ( ruleNL )
+            // InternalDSL.g:13638:1: ruleNL
             {
              before(grammarAccess.getKeyValuePairAccess().getNLParserRuleCall_1()); 
             pushFollow(FOLLOW_2);
@@ -36737,14 +36834,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__2"
-    // InternalDSL.g:13618:1: rule__KeyValuePair__Group__2 : rule__KeyValuePair__Group__2__Impl rule__KeyValuePair__Group__3 ;
+    // InternalDSL.g:13649:1: rule__KeyValuePair__Group__2 : rule__KeyValuePair__Group__2__Impl rule__KeyValuePair__Group__3 ;
     public final void rule__KeyValuePair__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13622:1: ( rule__KeyValuePair__Group__2__Impl rule__KeyValuePair__Group__3 )
-            // InternalDSL.g:13623:2: rule__KeyValuePair__Group__2__Impl rule__KeyValuePair__Group__3
+            // InternalDSL.g:13653:1: ( rule__KeyValuePair__Group__2__Impl rule__KeyValuePair__Group__3 )
+            // InternalDSL.g:13654:2: rule__KeyValuePair__Group__2__Impl rule__KeyValuePair__Group__3
             {
             pushFollow(FOLLOW_4);
             rule__KeyValuePair__Group__2__Impl();
@@ -36775,17 +36872,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__2__Impl"
-    // InternalDSL.g:13630:1: rule__KeyValuePair__Group__2__Impl : ( ':' ) ;
+    // InternalDSL.g:13661:1: rule__KeyValuePair__Group__2__Impl : ( ':' ) ;
     public final void rule__KeyValuePair__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13634:1: ( ( ':' ) )
-            // InternalDSL.g:13635:1: ( ':' )
+            // InternalDSL.g:13665:1: ( ( ':' ) )
+            // InternalDSL.g:13666:1: ( ':' )
             {
-            // InternalDSL.g:13635:1: ( ':' )
-            // InternalDSL.g:13636:1: ':'
+            // InternalDSL.g:13666:1: ( ':' )
+            // InternalDSL.g:13667:1: ':'
             {
              before(grammarAccess.getKeyValuePairAccess().getColonKeyword_2()); 
             match(input,40,FOLLOW_2); 
@@ -36812,14 +36909,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__3"
-    // InternalDSL.g:13649:1: rule__KeyValuePair__Group__3 : rule__KeyValuePair__Group__3__Impl rule__KeyValuePair__Group__4 ;
+    // InternalDSL.g:13680:1: rule__KeyValuePair__Group__3 : rule__KeyValuePair__Group__3__Impl rule__KeyValuePair__Group__4 ;
     public final void rule__KeyValuePair__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13653:1: ( rule__KeyValuePair__Group__3__Impl rule__KeyValuePair__Group__4 )
-            // InternalDSL.g:13654:2: rule__KeyValuePair__Group__3__Impl rule__KeyValuePair__Group__4
+            // InternalDSL.g:13684:1: ( rule__KeyValuePair__Group__3__Impl rule__KeyValuePair__Group__4 )
+            // InternalDSL.g:13685:2: rule__KeyValuePair__Group__3__Impl rule__KeyValuePair__Group__4
             {
             pushFollow(FOLLOW_15);
             rule__KeyValuePair__Group__3__Impl();
@@ -36850,17 +36947,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__3__Impl"
-    // InternalDSL.g:13661:1: rule__KeyValuePair__Group__3__Impl : ( ruleNL ) ;
+    // InternalDSL.g:13692:1: rule__KeyValuePair__Group__3__Impl : ( ruleNL ) ;
     public final void rule__KeyValuePair__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13665:1: ( ( ruleNL ) )
-            // InternalDSL.g:13666:1: ( ruleNL )
+            // InternalDSL.g:13696:1: ( ( ruleNL ) )
+            // InternalDSL.g:13697:1: ( ruleNL )
             {
-            // InternalDSL.g:13666:1: ( ruleNL )
-            // InternalDSL.g:13667:1: ruleNL
+            // InternalDSL.g:13697:1: ( ruleNL )
+            // InternalDSL.g:13698:1: ruleNL
             {
              before(grammarAccess.getKeyValuePairAccess().getNLParserRuleCall_3()); 
             pushFollow(FOLLOW_2);
@@ -36891,14 +36988,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__4"
-    // InternalDSL.g:13678:1: rule__KeyValuePair__Group__4 : rule__KeyValuePair__Group__4__Impl ;
+    // InternalDSL.g:13709:1: rule__KeyValuePair__Group__4 : rule__KeyValuePair__Group__4__Impl ;
     public final void rule__KeyValuePair__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13682:1: ( rule__KeyValuePair__Group__4__Impl )
-            // InternalDSL.g:13683:2: rule__KeyValuePair__Group__4__Impl
+            // InternalDSL.g:13713:1: ( rule__KeyValuePair__Group__4__Impl )
+            // InternalDSL.g:13714:2: rule__KeyValuePair__Group__4__Impl
             {
             pushFollow(FOLLOW_2);
             rule__KeyValuePair__Group__4__Impl();
@@ -36924,21 +37021,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__Group__4__Impl"
-    // InternalDSL.g:13689:1: rule__KeyValuePair__Group__4__Impl : ( ( rule__KeyValuePair__ValueAssignment_4 ) ) ;
+    // InternalDSL.g:13720:1: rule__KeyValuePair__Group__4__Impl : ( ( rule__KeyValuePair__ValueAssignment_4 ) ) ;
     public final void rule__KeyValuePair__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13693:1: ( ( ( rule__KeyValuePair__ValueAssignment_4 ) ) )
-            // InternalDSL.g:13694:1: ( ( rule__KeyValuePair__ValueAssignment_4 ) )
+            // InternalDSL.g:13724:1: ( ( ( rule__KeyValuePair__ValueAssignment_4 ) ) )
+            // InternalDSL.g:13725:1: ( ( rule__KeyValuePair__ValueAssignment_4 ) )
             {
-            // InternalDSL.g:13694:1: ( ( rule__KeyValuePair__ValueAssignment_4 ) )
-            // InternalDSL.g:13695:1: ( rule__KeyValuePair__ValueAssignment_4 )
+            // InternalDSL.g:13725:1: ( ( rule__KeyValuePair__ValueAssignment_4 ) )
+            // InternalDSL.g:13726:1: ( rule__KeyValuePair__ValueAssignment_4 )
             {
              before(grammarAccess.getKeyValuePairAccess().getValueAssignment_4()); 
-            // InternalDSL.g:13696:1: ( rule__KeyValuePair__ValueAssignment_4 )
-            // InternalDSL.g:13696:2: rule__KeyValuePair__ValueAssignment_4
+            // InternalDSL.g:13727:1: ( rule__KeyValuePair__ValueAssignment_4 )
+            // InternalDSL.g:13727:2: rule__KeyValuePair__ValueAssignment_4
             {
             pushFollow(FOLLOW_2);
             rule__KeyValuePair__ValueAssignment_4();
@@ -36971,14 +37068,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__0"
-    // InternalDSL.g:13716:1: rule__MethodReference__Group__0 : rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1 ;
+    // InternalDSL.g:13747:1: rule__MethodReference__Group__0 : rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1 ;
     public final void rule__MethodReference__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13720:1: ( rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1 )
-            // InternalDSL.g:13721:2: rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1
+            // InternalDSL.g:13751:1: ( rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1 )
+            // InternalDSL.g:13752:2: rule__MethodReference__Group__0__Impl rule__MethodReference__Group__1
             {
             pushFollow(FOLLOW_49);
             rule__MethodReference__Group__0__Impl();
@@ -37009,21 +37106,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__0__Impl"
-    // InternalDSL.g:13728:1: rule__MethodReference__Group__0__Impl : ( ( rule__MethodReference__TypeAssignment_0 ) ) ;
+    // InternalDSL.g:13759:1: rule__MethodReference__Group__0__Impl : ( ( rule__MethodReference__TypeAssignment_0 ) ) ;
     public final void rule__MethodReference__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13732:1: ( ( ( rule__MethodReference__TypeAssignment_0 ) ) )
-            // InternalDSL.g:13733:1: ( ( rule__MethodReference__TypeAssignment_0 ) )
+            // InternalDSL.g:13763:1: ( ( ( rule__MethodReference__TypeAssignment_0 ) ) )
+            // InternalDSL.g:13764:1: ( ( rule__MethodReference__TypeAssignment_0 ) )
             {
-            // InternalDSL.g:13733:1: ( ( rule__MethodReference__TypeAssignment_0 ) )
-            // InternalDSL.g:13734:1: ( rule__MethodReference__TypeAssignment_0 )
+            // InternalDSL.g:13764:1: ( ( rule__MethodReference__TypeAssignment_0 ) )
+            // InternalDSL.g:13765:1: ( rule__MethodReference__TypeAssignment_0 )
             {
              before(grammarAccess.getMethodReferenceAccess().getTypeAssignment_0()); 
-            // InternalDSL.g:13735:1: ( rule__MethodReference__TypeAssignment_0 )
-            // InternalDSL.g:13735:2: rule__MethodReference__TypeAssignment_0
+            // InternalDSL.g:13766:1: ( rule__MethodReference__TypeAssignment_0 )
+            // InternalDSL.g:13766:2: rule__MethodReference__TypeAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__MethodReference__TypeAssignment_0();
@@ -37056,14 +37153,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__1"
-    // InternalDSL.g:13745:1: rule__MethodReference__Group__1 : rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2 ;
+    // InternalDSL.g:13776:1: rule__MethodReference__Group__1 : rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2 ;
     public final void rule__MethodReference__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13749:1: ( rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2 )
-            // InternalDSL.g:13750:2: rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2
+            // InternalDSL.g:13780:1: ( rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2 )
+            // InternalDSL.g:13781:2: rule__MethodReference__Group__1__Impl rule__MethodReference__Group__2
             {
             pushFollow(FOLLOW_7);
             rule__MethodReference__Group__1__Impl();
@@ -37094,17 +37191,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__1__Impl"
-    // InternalDSL.g:13757:1: rule__MethodReference__Group__1__Impl : ( '#' ) ;
+    // InternalDSL.g:13788:1: rule__MethodReference__Group__1__Impl : ( '#' ) ;
     public final void rule__MethodReference__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13761:1: ( ( '#' ) )
-            // InternalDSL.g:13762:1: ( '#' )
+            // InternalDSL.g:13792:1: ( ( '#' ) )
+            // InternalDSL.g:13793:1: ( '#' )
             {
-            // InternalDSL.g:13762:1: ( '#' )
-            // InternalDSL.g:13763:1: '#'
+            // InternalDSL.g:13793:1: ( '#' )
+            // InternalDSL.g:13794:1: '#'
             {
              before(grammarAccess.getMethodReferenceAccess().getNumberSignKeyword_1()); 
             match(input,72,FOLLOW_2); 
@@ -37131,14 +37228,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__2"
-    // InternalDSL.g:13776:1: rule__MethodReference__Group__2 : rule__MethodReference__Group__2__Impl ;
+    // InternalDSL.g:13807:1: rule__MethodReference__Group__2 : rule__MethodReference__Group__2__Impl ;
     public final void rule__MethodReference__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13780:1: ( rule__MethodReference__Group__2__Impl )
-            // InternalDSL.g:13781:2: rule__MethodReference__Group__2__Impl
+            // InternalDSL.g:13811:1: ( rule__MethodReference__Group__2__Impl )
+            // InternalDSL.g:13812:2: rule__MethodReference__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__MethodReference__Group__2__Impl();
@@ -37164,21 +37261,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__Group__2__Impl"
-    // InternalDSL.g:13787:1: rule__MethodReference__Group__2__Impl : ( ( rule__MethodReference__MethodAssignment_2 ) ) ;
+    // InternalDSL.g:13818:1: rule__MethodReference__Group__2__Impl : ( ( rule__MethodReference__MethodAssignment_2 ) ) ;
     public final void rule__MethodReference__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13791:1: ( ( ( rule__MethodReference__MethodAssignment_2 ) ) )
-            // InternalDSL.g:13792:1: ( ( rule__MethodReference__MethodAssignment_2 ) )
+            // InternalDSL.g:13822:1: ( ( ( rule__MethodReference__MethodAssignment_2 ) ) )
+            // InternalDSL.g:13823:1: ( ( rule__MethodReference__MethodAssignment_2 ) )
             {
-            // InternalDSL.g:13792:1: ( ( rule__MethodReference__MethodAssignment_2 ) )
-            // InternalDSL.g:13793:1: ( rule__MethodReference__MethodAssignment_2 )
+            // InternalDSL.g:13823:1: ( ( rule__MethodReference__MethodAssignment_2 ) )
+            // InternalDSL.g:13824:1: ( rule__MethodReference__MethodAssignment_2 )
             {
              before(grammarAccess.getMethodReferenceAccess().getMethodAssignment_2()); 
-            // InternalDSL.g:13794:1: ( rule__MethodReference__MethodAssignment_2 )
-            // InternalDSL.g:13794:2: rule__MethodReference__MethodAssignment_2
+            // InternalDSL.g:13825:1: ( rule__MethodReference__MethodAssignment_2 )
+            // InternalDSL.g:13825:2: rule__MethodReference__MethodAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__MethodReference__MethodAssignment_2();
@@ -37211,14 +37308,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantReference__Group__0"
-    // InternalDSL.g:13810:1: rule__JavaConstantReference__Group__0 : rule__JavaConstantReference__Group__0__Impl rule__JavaConstantReference__Group__1 ;
+    // InternalDSL.g:13841:1: rule__JavaConstantReference__Group__0 : rule__JavaConstantReference__Group__0__Impl rule__JavaConstantReference__Group__1 ;
     public final void rule__JavaConstantReference__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13814:1: ( rule__JavaConstantReference__Group__0__Impl rule__JavaConstantReference__Group__1 )
-            // InternalDSL.g:13815:2: rule__JavaConstantReference__Group__0__Impl rule__JavaConstantReference__Group__1
+            // InternalDSL.g:13845:1: ( rule__JavaConstantReference__Group__0__Impl rule__JavaConstantReference__Group__1 )
+            // InternalDSL.g:13846:2: rule__JavaConstantReference__Group__0__Impl rule__JavaConstantReference__Group__1
             {
             pushFollow(FOLLOW_49);
             rule__JavaConstantReference__Group__0__Impl();
@@ -37249,21 +37346,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantReference__Group__0__Impl"
-    // InternalDSL.g:13822:1: rule__JavaConstantReference__Group__0__Impl : ( ( rule__JavaConstantReference__TypeAssignment_0 ) ) ;
+    // InternalDSL.g:13853:1: rule__JavaConstantReference__Group__0__Impl : ( ( rule__JavaConstantReference__TypeAssignment_0 ) ) ;
     public final void rule__JavaConstantReference__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13826:1: ( ( ( rule__JavaConstantReference__TypeAssignment_0 ) ) )
-            // InternalDSL.g:13827:1: ( ( rule__JavaConstantReference__TypeAssignment_0 ) )
+            // InternalDSL.g:13857:1: ( ( ( rule__JavaConstantReference__TypeAssignment_0 ) ) )
+            // InternalDSL.g:13858:1: ( ( rule__JavaConstantReference__TypeAssignment_0 ) )
             {
-            // InternalDSL.g:13827:1: ( ( rule__JavaConstantReference__TypeAssignment_0 ) )
-            // InternalDSL.g:13828:1: ( rule__JavaConstantReference__TypeAssignment_0 )
+            // InternalDSL.g:13858:1: ( ( rule__JavaConstantReference__TypeAssignment_0 ) )
+            // InternalDSL.g:13859:1: ( rule__JavaConstantReference__TypeAssignment_0 )
             {
              before(grammarAccess.getJavaConstantReferenceAccess().getTypeAssignment_0()); 
-            // InternalDSL.g:13829:1: ( rule__JavaConstantReference__TypeAssignment_0 )
-            // InternalDSL.g:13829:2: rule__JavaConstantReference__TypeAssignment_0
+            // InternalDSL.g:13860:1: ( rule__JavaConstantReference__TypeAssignment_0 )
+            // InternalDSL.g:13860:2: rule__JavaConstantReference__TypeAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__JavaConstantReference__TypeAssignment_0();
@@ -37296,14 +37393,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantReference__Group__1"
-    // InternalDSL.g:13839:1: rule__JavaConstantReference__Group__1 : rule__JavaConstantReference__Group__1__Impl rule__JavaConstantReference__Group__2 ;
+    // InternalDSL.g:13870:1: rule__JavaConstantReference__Group__1 : rule__JavaConstantReference__Group__1__Impl rule__JavaConstantReference__Group__2 ;
     public final void rule__JavaConstantReference__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13843:1: ( rule__JavaConstantReference__Group__1__Impl rule__JavaConstantReference__Group__2 )
-            // InternalDSL.g:13844:2: rule__JavaConstantReference__Group__1__Impl rule__JavaConstantReference__Group__2
+            // InternalDSL.g:13874:1: ( rule__JavaConstantReference__Group__1__Impl rule__JavaConstantReference__Group__2 )
+            // InternalDSL.g:13875:2: rule__JavaConstantReference__Group__1__Impl rule__JavaConstantReference__Group__2
             {
             pushFollow(FOLLOW_54);
             rule__JavaConstantReference__Group__1__Impl();
@@ -37334,17 +37431,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantReference__Group__1__Impl"
-    // InternalDSL.g:13851:1: rule__JavaConstantReference__Group__1__Impl : ( '#' ) ;
+    // InternalDSL.g:13882:1: rule__JavaConstantReference__Group__1__Impl : ( '#' ) ;
     public final void rule__JavaConstantReference__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13855:1: ( ( '#' ) )
-            // InternalDSL.g:13856:1: ( '#' )
+            // InternalDSL.g:13886:1: ( ( '#' ) )
+            // InternalDSL.g:13887:1: ( '#' )
             {
-            // InternalDSL.g:13856:1: ( '#' )
-            // InternalDSL.g:13857:1: '#'
+            // InternalDSL.g:13887:1: ( '#' )
+            // InternalDSL.g:13888:1: '#'
             {
              before(grammarAccess.getJavaConstantReferenceAccess().getNumberSignKeyword_1()); 
             match(input,72,FOLLOW_2); 
@@ -37371,14 +37468,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantReference__Group__2"
-    // InternalDSL.g:13870:1: rule__JavaConstantReference__Group__2 : rule__JavaConstantReference__Group__2__Impl ;
+    // InternalDSL.g:13901:1: rule__JavaConstantReference__Group__2 : rule__JavaConstantReference__Group__2__Impl ;
     public final void rule__JavaConstantReference__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13874:1: ( rule__JavaConstantReference__Group__2__Impl )
-            // InternalDSL.g:13875:2: rule__JavaConstantReference__Group__2__Impl
+            // InternalDSL.g:13905:1: ( rule__JavaConstantReference__Group__2__Impl )
+            // InternalDSL.g:13906:2: rule__JavaConstantReference__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__JavaConstantReference__Group__2__Impl();
@@ -37404,21 +37501,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantReference__Group__2__Impl"
-    // InternalDSL.g:13881:1: rule__JavaConstantReference__Group__2__Impl : ( ( rule__JavaConstantReference__ConstantAssignment_2 ) ) ;
+    // InternalDSL.g:13912:1: rule__JavaConstantReference__Group__2__Impl : ( ( rule__JavaConstantReference__ConstantAssignment_2 ) ) ;
     public final void rule__JavaConstantReference__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13885:1: ( ( ( rule__JavaConstantReference__ConstantAssignment_2 ) ) )
-            // InternalDSL.g:13886:1: ( ( rule__JavaConstantReference__ConstantAssignment_2 ) )
+            // InternalDSL.g:13916:1: ( ( ( rule__JavaConstantReference__ConstantAssignment_2 ) ) )
+            // InternalDSL.g:13917:1: ( ( rule__JavaConstantReference__ConstantAssignment_2 ) )
             {
-            // InternalDSL.g:13886:1: ( ( rule__JavaConstantReference__ConstantAssignment_2 ) )
-            // InternalDSL.g:13887:1: ( rule__JavaConstantReference__ConstantAssignment_2 )
+            // InternalDSL.g:13917:1: ( ( rule__JavaConstantReference__ConstantAssignment_2 ) )
+            // InternalDSL.g:13918:1: ( rule__JavaConstantReference__ConstantAssignment_2 )
             {
              before(grammarAccess.getJavaConstantReferenceAccess().getConstantAssignment_2()); 
-            // InternalDSL.g:13888:1: ( rule__JavaConstantReference__ConstantAssignment_2 )
-            // InternalDSL.g:13888:2: rule__JavaConstantReference__ConstantAssignment_2
+            // InternalDSL.g:13919:1: ( rule__JavaConstantReference__ConstantAssignment_2 )
+            // InternalDSL.g:13919:2: rule__JavaConstantReference__ConstantAssignment_2
             {
             pushFollow(FOLLOW_2);
             rule__JavaConstantReference__ConstantAssignment_2();
@@ -37451,14 +37548,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__Group__0"
-    // InternalDSL.g:13904:1: rule__ExecutionMultiplier__Group__0 : rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1 ;
+    // InternalDSL.g:13935:1: rule__ExecutionMultiplier__Group__0 : rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1 ;
     public final void rule__ExecutionMultiplier__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13908:1: ( rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1 )
-            // InternalDSL.g:13909:2: rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1
+            // InternalDSL.g:13939:1: ( rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1 )
+            // InternalDSL.g:13940:2: rule__ExecutionMultiplier__Group__0__Impl rule__ExecutionMultiplier__Group__1
             {
             pushFollow(FOLLOW_55);
             rule__ExecutionMultiplier__Group__0__Impl();
@@ -37489,21 +37586,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__Group__0__Impl"
-    // InternalDSL.g:13916:1: rule__ExecutionMultiplier__Group__0__Impl : ( ( rule__ExecutionMultiplier__CountAssignment_0 ) ) ;
+    // InternalDSL.g:13947:1: rule__ExecutionMultiplier__Group__0__Impl : ( ( rule__ExecutionMultiplier__CountAssignment_0 ) ) ;
     public final void rule__ExecutionMultiplier__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13920:1: ( ( ( rule__ExecutionMultiplier__CountAssignment_0 ) ) )
-            // InternalDSL.g:13921:1: ( ( rule__ExecutionMultiplier__CountAssignment_0 ) )
+            // InternalDSL.g:13951:1: ( ( ( rule__ExecutionMultiplier__CountAssignment_0 ) ) )
+            // InternalDSL.g:13952:1: ( ( rule__ExecutionMultiplier__CountAssignment_0 ) )
             {
-            // InternalDSL.g:13921:1: ( ( rule__ExecutionMultiplier__CountAssignment_0 ) )
-            // InternalDSL.g:13922:1: ( rule__ExecutionMultiplier__CountAssignment_0 )
+            // InternalDSL.g:13952:1: ( ( rule__ExecutionMultiplier__CountAssignment_0 ) )
+            // InternalDSL.g:13953:1: ( rule__ExecutionMultiplier__CountAssignment_0 )
             {
              before(grammarAccess.getExecutionMultiplierAccess().getCountAssignment_0()); 
-            // InternalDSL.g:13923:1: ( rule__ExecutionMultiplier__CountAssignment_0 )
-            // InternalDSL.g:13923:2: rule__ExecutionMultiplier__CountAssignment_0
+            // InternalDSL.g:13954:1: ( rule__ExecutionMultiplier__CountAssignment_0 )
+            // InternalDSL.g:13954:2: rule__ExecutionMultiplier__CountAssignment_0
             {
             pushFollow(FOLLOW_2);
             rule__ExecutionMultiplier__CountAssignment_0();
@@ -37536,14 +37633,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__Group__1"
-    // InternalDSL.g:13933:1: rule__ExecutionMultiplier__Group__1 : rule__ExecutionMultiplier__Group__1__Impl ;
+    // InternalDSL.g:13964:1: rule__ExecutionMultiplier__Group__1 : rule__ExecutionMultiplier__Group__1__Impl ;
     public final void rule__ExecutionMultiplier__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13937:1: ( rule__ExecutionMultiplier__Group__1__Impl )
-            // InternalDSL.g:13938:2: rule__ExecutionMultiplier__Group__1__Impl
+            // InternalDSL.g:13968:1: ( rule__ExecutionMultiplier__Group__1__Impl )
+            // InternalDSL.g:13969:2: rule__ExecutionMultiplier__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__ExecutionMultiplier__Group__1__Impl();
@@ -37569,17 +37666,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__Group__1__Impl"
-    // InternalDSL.g:13944:1: rule__ExecutionMultiplier__Group__1__Impl : ( '*' ) ;
+    // InternalDSL.g:13975:1: rule__ExecutionMultiplier__Group__1__Impl : ( '*' ) ;
     public final void rule__ExecutionMultiplier__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13948:1: ( ( '*' ) )
-            // InternalDSL.g:13949:1: ( '*' )
+            // InternalDSL.g:13979:1: ( ( '*' ) )
+            // InternalDSL.g:13980:1: ( '*' )
             {
-            // InternalDSL.g:13949:1: ( '*' )
-            // InternalDSL.g:13950:1: '*'
+            // InternalDSL.g:13980:1: ( '*' )
+            // InternalDSL.g:13981:1: '*'
             {
              before(grammarAccess.getExecutionMultiplierAccess().getAsteriskKeyword_1()); 
             match(input,30,FOLLOW_2); 
@@ -37606,14 +37703,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0"
-    // InternalDSL.g:13967:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
+    // InternalDSL.g:13998:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
     public final void rule__QualifiedName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13971:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
-            // InternalDSL.g:13972:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
+            // InternalDSL.g:14002:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
+            // InternalDSL.g:14003:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
             {
             pushFollow(FOLLOW_56);
             rule__QualifiedName__Group__0__Impl();
@@ -37644,17 +37741,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0__Impl"
-    // InternalDSL.g:13979:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
+    // InternalDSL.g:14010:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:13983:1: ( ( RULE_ID ) )
-            // InternalDSL.g:13984:1: ( RULE_ID )
+            // InternalDSL.g:14014:1: ( ( RULE_ID ) )
+            // InternalDSL.g:14015:1: ( RULE_ID )
             {
-            // InternalDSL.g:13984:1: ( RULE_ID )
-            // InternalDSL.g:13985:1: RULE_ID
+            // InternalDSL.g:14015:1: ( RULE_ID )
+            // InternalDSL.g:14016:1: RULE_ID
             {
              before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -37681,14 +37778,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1"
-    // InternalDSL.g:13996:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
+    // InternalDSL.g:14027:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
     public final void rule__QualifiedName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14000:1: ( rule__QualifiedName__Group__1__Impl )
-            // InternalDSL.g:14001:2: rule__QualifiedName__Group__1__Impl
+            // InternalDSL.g:14031:1: ( rule__QualifiedName__Group__1__Impl )
+            // InternalDSL.g:14032:2: rule__QualifiedName__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__QualifiedName__Group__1__Impl();
@@ -37714,39 +37811,39 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1__Impl"
-    // InternalDSL.g:14007:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )* ) ;
+    // InternalDSL.g:14038:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )* ) ;
     public final void rule__QualifiedName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14011:1: ( ( ( rule__QualifiedName__Group_1__0 )* ) )
-            // InternalDSL.g:14012:1: ( ( rule__QualifiedName__Group_1__0 )* )
+            // InternalDSL.g:14042:1: ( ( ( rule__QualifiedName__Group_1__0 )* ) )
+            // InternalDSL.g:14043:1: ( ( rule__QualifiedName__Group_1__0 )* )
             {
-            // InternalDSL.g:14012:1: ( ( rule__QualifiedName__Group_1__0 )* )
-            // InternalDSL.g:14013:1: ( rule__QualifiedName__Group_1__0 )*
+            // InternalDSL.g:14043:1: ( ( rule__QualifiedName__Group_1__0 )* )
+            // InternalDSL.g:14044:1: ( rule__QualifiedName__Group_1__0 )*
             {
              before(grammarAccess.getQualifiedNameAccess().getGroup_1()); 
-            // InternalDSL.g:14014:1: ( rule__QualifiedName__Group_1__0 )*
-            loop77:
+            // InternalDSL.g:14045:1: ( rule__QualifiedName__Group_1__0 )*
+            loop78:
             do {
-                int alt77=2;
-                int LA77_0 = input.LA(1);
+                int alt78=2;
+                int LA78_0 = input.LA(1);
 
-                if ( (LA77_0==76) ) {
-                    int LA77_2 = input.LA(2);
+                if ( (LA78_0==76) ) {
+                    int LA78_2 = input.LA(2);
 
-                    if ( (LA77_2==RULE_ID) ) {
-                        alt77=1;
+                    if ( (LA78_2==RULE_ID) ) {
+                        alt78=1;
                     }
 
 
                 }
 
 
-                switch (alt77) {
+                switch (alt78) {
             	case 1 :
-            	    // InternalDSL.g:14014:2: rule__QualifiedName__Group_1__0
+            	    // InternalDSL.g:14045:2: rule__QualifiedName__Group_1__0
             	    {
             	    pushFollow(FOLLOW_57);
             	    rule__QualifiedName__Group_1__0();
@@ -37758,7 +37855,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop77;
+            	    break loop78;
                 }
             } while (true);
 
@@ -37785,14 +37882,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0"
-    // InternalDSL.g:14028:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
+    // InternalDSL.g:14059:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
     public final void rule__QualifiedName__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14032:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
-            // InternalDSL.g:14033:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
+            // InternalDSL.g:14063:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
+            // InternalDSL.g:14064:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
             {
             pushFollow(FOLLOW_7);
             rule__QualifiedName__Group_1__0__Impl();
@@ -37823,17 +37920,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0__Impl"
-    // InternalDSL.g:14040:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
+    // InternalDSL.g:14071:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
     public final void rule__QualifiedName__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14044:1: ( ( '.' ) )
-            // InternalDSL.g:14045:1: ( '.' )
+            // InternalDSL.g:14075:1: ( ( '.' ) )
+            // InternalDSL.g:14076:1: ( '.' )
             {
-            // InternalDSL.g:14045:1: ( '.' )
-            // InternalDSL.g:14046:1: '.'
+            // InternalDSL.g:14076:1: ( '.' )
+            // InternalDSL.g:14077:1: '.'
             {
              before(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             match(input,76,FOLLOW_2); 
@@ -37860,14 +37957,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1"
-    // InternalDSL.g:14059:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
+    // InternalDSL.g:14090:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
     public final void rule__QualifiedName__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14063:1: ( rule__QualifiedName__Group_1__1__Impl )
-            // InternalDSL.g:14064:2: rule__QualifiedName__Group_1__1__Impl
+            // InternalDSL.g:14094:1: ( rule__QualifiedName__Group_1__1__Impl )
+            // InternalDSL.g:14095:2: rule__QualifiedName__Group_1__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__QualifiedName__Group_1__1__Impl();
@@ -37893,17 +37990,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1__Impl"
-    // InternalDSL.g:14070:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
+    // InternalDSL.g:14101:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14074:1: ( ( RULE_ID ) )
-            // InternalDSL.g:14075:1: ( RULE_ID )
+            // InternalDSL.g:14105:1: ( ( RULE_ID ) )
+            // InternalDSL.g:14106:1: ( RULE_ID )
             {
-            // InternalDSL.g:14075:1: ( RULE_ID )
-            // InternalDSL.g:14076:1: RULE_ID
+            // InternalDSL.g:14106:1: ( RULE_ID )
+            // InternalDSL.g:14107:1: RULE_ID
             {
              before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -37930,14 +38027,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__0"
-    // InternalDSL.g:14091:1: rule__QualifiedJavaClassName__Group__0 : rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1 ;
+    // InternalDSL.g:14122:1: rule__QualifiedJavaClassName__Group__0 : rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1 ;
     public final void rule__QualifiedJavaClassName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14095:1: ( rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1 )
-            // InternalDSL.g:14096:2: rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1
+            // InternalDSL.g:14126:1: ( rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1 )
+            // InternalDSL.g:14127:2: rule__QualifiedJavaClassName__Group__0__Impl rule__QualifiedJavaClassName__Group__1
             {
             pushFollow(FOLLOW_56);
             rule__QualifiedJavaClassName__Group__0__Impl();
@@ -37968,17 +38065,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__0__Impl"
-    // InternalDSL.g:14103:1: rule__QualifiedJavaClassName__Group__0__Impl : ( ruleQualifiedName ) ;
+    // InternalDSL.g:14134:1: rule__QualifiedJavaClassName__Group__0__Impl : ( ruleQualifiedName ) ;
     public final void rule__QualifiedJavaClassName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14107:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14108:1: ( ruleQualifiedName )
+            // InternalDSL.g:14138:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14139:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14108:1: ( ruleQualifiedName )
-            // InternalDSL.g:14109:1: ruleQualifiedName
+            // InternalDSL.g:14139:1: ( ruleQualifiedName )
+            // InternalDSL.g:14140:1: ruleQualifiedName
             {
              before(grammarAccess.getQualifiedJavaClassNameAccess().getQualifiedNameParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
@@ -38009,14 +38106,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__1"
-    // InternalDSL.g:14120:1: rule__QualifiedJavaClassName__Group__1 : rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2 ;
+    // InternalDSL.g:14151:1: rule__QualifiedJavaClassName__Group__1 : rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2 ;
     public final void rule__QualifiedJavaClassName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14124:1: ( rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2 )
-            // InternalDSL.g:14125:2: rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2
+            // InternalDSL.g:14155:1: ( rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2 )
+            // InternalDSL.g:14156:2: rule__QualifiedJavaClassName__Group__1__Impl rule__QualifiedJavaClassName__Group__2
             {
             pushFollow(FOLLOW_54);
             rule__QualifiedJavaClassName__Group__1__Impl();
@@ -38047,17 +38144,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__1__Impl"
-    // InternalDSL.g:14132:1: rule__QualifiedJavaClassName__Group__1__Impl : ( '.' ) ;
+    // InternalDSL.g:14163:1: rule__QualifiedJavaClassName__Group__1__Impl : ( '.' ) ;
     public final void rule__QualifiedJavaClassName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14136:1: ( ( '.' ) )
-            // InternalDSL.g:14137:1: ( '.' )
+            // InternalDSL.g:14167:1: ( ( '.' ) )
+            // InternalDSL.g:14168:1: ( '.' )
             {
-            // InternalDSL.g:14137:1: ( '.' )
-            // InternalDSL.g:14138:1: '.'
+            // InternalDSL.g:14168:1: ( '.' )
+            // InternalDSL.g:14169:1: '.'
             {
              before(grammarAccess.getQualifiedJavaClassNameAccess().getFullStopKeyword_1()); 
             match(input,76,FOLLOW_2); 
@@ -38084,14 +38181,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__2"
-    // InternalDSL.g:14151:1: rule__QualifiedJavaClassName__Group__2 : rule__QualifiedJavaClassName__Group__2__Impl ;
+    // InternalDSL.g:14182:1: rule__QualifiedJavaClassName__Group__2 : rule__QualifiedJavaClassName__Group__2__Impl ;
     public final void rule__QualifiedJavaClassName__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14155:1: ( rule__QualifiedJavaClassName__Group__2__Impl )
-            // InternalDSL.g:14156:2: rule__QualifiedJavaClassName__Group__2__Impl
+            // InternalDSL.g:14186:1: ( rule__QualifiedJavaClassName__Group__2__Impl )
+            // InternalDSL.g:14187:2: rule__QualifiedJavaClassName__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__QualifiedJavaClassName__Group__2__Impl();
@@ -38117,17 +38214,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedJavaClassName__Group__2__Impl"
-    // InternalDSL.g:14162:1: rule__QualifiedJavaClassName__Group__2__Impl : ( RULE_UPPERCASE_ID ) ;
+    // InternalDSL.g:14193:1: rule__QualifiedJavaClassName__Group__2__Impl : ( RULE_UPPERCASE_ID ) ;
     public final void rule__QualifiedJavaClassName__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14166:1: ( ( RULE_UPPERCASE_ID ) )
-            // InternalDSL.g:14167:1: ( RULE_UPPERCASE_ID )
+            // InternalDSL.g:14197:1: ( ( RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:14198:1: ( RULE_UPPERCASE_ID )
             {
-            // InternalDSL.g:14167:1: ( RULE_UPPERCASE_ID )
-            // InternalDSL.g:14168:1: RULE_UPPERCASE_ID
+            // InternalDSL.g:14198:1: ( RULE_UPPERCASE_ID )
+            // InternalDSL.g:14199:1: RULE_UPPERCASE_ID
             {
              before(grammarAccess.getQualifiedJavaClassNameAccess().getUPPERCASE_IDTerminalRuleCall_2()); 
             match(input,RULE_UPPERCASE_ID,FOLLOW_2); 
@@ -38154,14 +38251,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__0"
-    // InternalDSL.g:14185:1: rule__QualifiedNameWithWildcard__Group__0 : rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 ;
+    // InternalDSL.g:14216:1: rule__QualifiedNameWithWildcard__Group__0 : rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 ;
     public final void rule__QualifiedNameWithWildcard__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14189:1: ( rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 )
-            // InternalDSL.g:14190:2: rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1
+            // InternalDSL.g:14220:1: ( rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1 )
+            // InternalDSL.g:14221:2: rule__QualifiedNameWithWildcard__Group__0__Impl rule__QualifiedNameWithWildcard__Group__1
             {
             pushFollow(FOLLOW_58);
             rule__QualifiedNameWithWildcard__Group__0__Impl();
@@ -38192,17 +38289,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__0__Impl"
-    // InternalDSL.g:14197:1: rule__QualifiedNameWithWildcard__Group__0__Impl : ( ruleQualifiedName ) ;
+    // InternalDSL.g:14228:1: rule__QualifiedNameWithWildcard__Group__0__Impl : ( ruleQualifiedName ) ;
     public final void rule__QualifiedNameWithWildcard__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14201:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14202:1: ( ruleQualifiedName )
+            // InternalDSL.g:14232:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14233:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14202:1: ( ruleQualifiedName )
-            // InternalDSL.g:14203:1: ruleQualifiedName
+            // InternalDSL.g:14233:1: ( ruleQualifiedName )
+            // InternalDSL.g:14234:1: ruleQualifiedName
             {
              before(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
@@ -38233,14 +38330,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__1"
-    // InternalDSL.g:14214:1: rule__QualifiedNameWithWildcard__Group__1 : rule__QualifiedNameWithWildcard__Group__1__Impl ;
+    // InternalDSL.g:14245:1: rule__QualifiedNameWithWildcard__Group__1 : rule__QualifiedNameWithWildcard__Group__1__Impl ;
     public final void rule__QualifiedNameWithWildcard__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14218:1: ( rule__QualifiedNameWithWildcard__Group__1__Impl )
-            // InternalDSL.g:14219:2: rule__QualifiedNameWithWildcard__Group__1__Impl
+            // InternalDSL.g:14249:1: ( rule__QualifiedNameWithWildcard__Group__1__Impl )
+            // InternalDSL.g:14250:2: rule__QualifiedNameWithWildcard__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__QualifiedNameWithWildcard__Group__1__Impl();
@@ -38266,29 +38363,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedNameWithWildcard__Group__1__Impl"
-    // InternalDSL.g:14225:1: rule__QualifiedNameWithWildcard__Group__1__Impl : ( ( '.*' )? ) ;
+    // InternalDSL.g:14256:1: rule__QualifiedNameWithWildcard__Group__1__Impl : ( ( '.*' )? ) ;
     public final void rule__QualifiedNameWithWildcard__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14229:1: ( ( ( '.*' )? ) )
-            // InternalDSL.g:14230:1: ( ( '.*' )? )
+            // InternalDSL.g:14260:1: ( ( ( '.*' )? ) )
+            // InternalDSL.g:14261:1: ( ( '.*' )? )
             {
-            // InternalDSL.g:14230:1: ( ( '.*' )? )
-            // InternalDSL.g:14231:1: ( '.*' )?
+            // InternalDSL.g:14261:1: ( ( '.*' )? )
+            // InternalDSL.g:14262:1: ( '.*' )?
             {
              before(grammarAccess.getQualifiedNameWithWildcardAccess().getFullStopAsteriskKeyword_1()); 
-            // InternalDSL.g:14232:1: ( '.*' )?
-            int alt78=2;
-            int LA78_0 = input.LA(1);
+            // InternalDSL.g:14263:1: ( '.*' )?
+            int alt79=2;
+            int LA79_0 = input.LA(1);
 
-            if ( (LA78_0==77) ) {
-                alt78=1;
+            if ( (LA79_0==77) ) {
+                alt79=1;
             }
-            switch (alt78) {
+            switch (alt79) {
                 case 1 :
-                    // InternalDSL.g:14233:2: '.*'
+                    // InternalDSL.g:14264:2: '.*'
                     {
                     match(input,77,FOLLOW_2); 
 
@@ -38320,14 +38417,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NL__Group__0"
-    // InternalDSL.g:14248:1: rule__NL__Group__0 : rule__NL__Group__0__Impl rule__NL__Group__1 ;
+    // InternalDSL.g:14279:1: rule__NL__Group__0 : rule__NL__Group__0__Impl rule__NL__Group__1 ;
     public final void rule__NL__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14252:1: ( rule__NL__Group__0__Impl rule__NL__Group__1 )
-            // InternalDSL.g:14253:2: rule__NL__Group__0__Impl rule__NL__Group__1
+            // InternalDSL.g:14283:1: ( rule__NL__Group__0__Impl rule__NL__Group__1 )
+            // InternalDSL.g:14284:2: rule__NL__Group__0__Impl rule__NL__Group__1
             {
             pushFollow(FOLLOW_59);
             rule__NL__Group__0__Impl();
@@ -38358,17 +38455,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NL__Group__0__Impl"
-    // InternalDSL.g:14260:1: rule__NL__Group__0__Impl : ( RULE_NEWLINE ) ;
+    // InternalDSL.g:14291:1: rule__NL__Group__0__Impl : ( RULE_NEWLINE ) ;
     public final void rule__NL__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14264:1: ( ( RULE_NEWLINE ) )
-            // InternalDSL.g:14265:1: ( RULE_NEWLINE )
+            // InternalDSL.g:14295:1: ( ( RULE_NEWLINE ) )
+            // InternalDSL.g:14296:1: ( RULE_NEWLINE )
             {
-            // InternalDSL.g:14265:1: ( RULE_NEWLINE )
-            // InternalDSL.g:14266:1: RULE_NEWLINE
+            // InternalDSL.g:14296:1: ( RULE_NEWLINE )
+            // InternalDSL.g:14297:1: RULE_NEWLINE
             {
              before(grammarAccess.getNLAccess().getNEWLINETerminalRuleCall_0()); 
             match(input,RULE_NEWLINE,FOLLOW_2); 
@@ -38395,14 +38492,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NL__Group__1"
-    // InternalDSL.g:14277:1: rule__NL__Group__1 : rule__NL__Group__1__Impl ;
+    // InternalDSL.g:14308:1: rule__NL__Group__1 : rule__NL__Group__1__Impl ;
     public final void rule__NL__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14281:1: ( rule__NL__Group__1__Impl )
-            // InternalDSL.g:14282:2: rule__NL__Group__1__Impl
+            // InternalDSL.g:14312:1: ( rule__NL__Group__1__Impl )
+            // InternalDSL.g:14313:2: rule__NL__Group__1__Impl
             {
             pushFollow(FOLLOW_2);
             rule__NL__Group__1__Impl();
@@ -38428,29 +38525,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NL__Group__1__Impl"
-    // InternalDSL.g:14288:1: rule__NL__Group__1__Impl : ( ( RULE_WS )? ) ;
+    // InternalDSL.g:14319:1: rule__NL__Group__1__Impl : ( ( RULE_WS )? ) ;
     public final void rule__NL__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14292:1: ( ( ( RULE_WS )? ) )
-            // InternalDSL.g:14293:1: ( ( RULE_WS )? )
+            // InternalDSL.g:14323:1: ( ( ( RULE_WS )? ) )
+            // InternalDSL.g:14324:1: ( ( RULE_WS )? )
             {
-            // InternalDSL.g:14293:1: ( ( RULE_WS )? )
-            // InternalDSL.g:14294:1: ( RULE_WS )?
+            // InternalDSL.g:14324:1: ( ( RULE_WS )? )
+            // InternalDSL.g:14325:1: ( RULE_WS )?
             {
              before(grammarAccess.getNLAccess().getWSTerminalRuleCall_1()); 
-            // InternalDSL.g:14295:1: ( RULE_WS )?
-            int alt79=2;
-            int LA79_0 = input.LA(1);
+            // InternalDSL.g:14326:1: ( RULE_WS )?
+            int alt80=2;
+            int LA80_0 = input.LA(1);
 
-            if ( (LA79_0==RULE_WS) ) {
-                alt79=1;
+            if ( (LA80_0==RULE_WS) ) {
+                alt80=1;
             }
-            switch (alt79) {
+            switch (alt80) {
                 case 1 :
-                    // InternalDSL.g:14295:3: RULE_WS
+                    // InternalDSL.g:14326:3: RULE_WS
                     {
                     match(input,RULE_WS,FOLLOW_2); 
 
@@ -38482,14 +38579,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__0"
-    // InternalDSL.g:14309:1: rule__NLFORCED__Group__0 : rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1 ;
+    // InternalDSL.g:14340:1: rule__NLFORCED__Group__0 : rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1 ;
     public final void rule__NLFORCED__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14313:1: ( rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1 )
-            // InternalDSL.g:14314:2: rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1
+            // InternalDSL.g:14344:1: ( rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1 )
+            // InternalDSL.g:14345:2: rule__NLFORCED__Group__0__Impl rule__NLFORCED__Group__1
             {
             pushFollow(FOLLOW_60);
             rule__NLFORCED__Group__0__Impl();
@@ -38520,17 +38617,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__0__Impl"
-    // InternalDSL.g:14321:1: rule__NLFORCED__Group__0__Impl : ( RULE_NEWLINE ) ;
+    // InternalDSL.g:14352:1: rule__NLFORCED__Group__0__Impl : ( RULE_NEWLINE ) ;
     public final void rule__NLFORCED__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14325:1: ( ( RULE_NEWLINE ) )
-            // InternalDSL.g:14326:1: ( RULE_NEWLINE )
+            // InternalDSL.g:14356:1: ( ( RULE_NEWLINE ) )
+            // InternalDSL.g:14357:1: ( RULE_NEWLINE )
             {
-            // InternalDSL.g:14326:1: ( RULE_NEWLINE )
-            // InternalDSL.g:14327:1: RULE_NEWLINE
+            // InternalDSL.g:14357:1: ( RULE_NEWLINE )
+            // InternalDSL.g:14358:1: RULE_NEWLINE
             {
              before(grammarAccess.getNLFORCEDAccess().getNEWLINETerminalRuleCall_0()); 
             match(input,RULE_NEWLINE,FOLLOW_2); 
@@ -38557,14 +38654,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__1"
-    // InternalDSL.g:14338:1: rule__NLFORCED__Group__1 : rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2 ;
+    // InternalDSL.g:14369:1: rule__NLFORCED__Group__1 : rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2 ;
     public final void rule__NLFORCED__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14342:1: ( rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2 )
-            // InternalDSL.g:14343:2: rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2
+            // InternalDSL.g:14373:1: ( rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2 )
+            // InternalDSL.g:14374:2: rule__NLFORCED__Group__1__Impl rule__NLFORCED__Group__2
             {
             pushFollow(FOLLOW_60);
             rule__NLFORCED__Group__1__Impl();
@@ -38595,29 +38692,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__1__Impl"
-    // InternalDSL.g:14350:1: rule__NLFORCED__Group__1__Impl : ( ( RULE_WS )? ) ;
+    // InternalDSL.g:14381:1: rule__NLFORCED__Group__1__Impl : ( ( RULE_WS )? ) ;
     public final void rule__NLFORCED__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14354:1: ( ( ( RULE_WS )? ) )
-            // InternalDSL.g:14355:1: ( ( RULE_WS )? )
+            // InternalDSL.g:14385:1: ( ( ( RULE_WS )? ) )
+            // InternalDSL.g:14386:1: ( ( RULE_WS )? )
             {
-            // InternalDSL.g:14355:1: ( ( RULE_WS )? )
-            // InternalDSL.g:14356:1: ( RULE_WS )?
+            // InternalDSL.g:14386:1: ( ( RULE_WS )? )
+            // InternalDSL.g:14387:1: ( RULE_WS )?
             {
              before(grammarAccess.getNLFORCEDAccess().getWSTerminalRuleCall_1()); 
-            // InternalDSL.g:14357:1: ( RULE_WS )?
-            int alt80=2;
-            int LA80_0 = input.LA(1);
+            // InternalDSL.g:14388:1: ( RULE_WS )?
+            int alt81=2;
+            int LA81_0 = input.LA(1);
 
-            if ( (LA80_0==RULE_WS) ) {
-                alt80=1;
+            if ( (LA81_0==RULE_WS) ) {
+                alt81=1;
             }
-            switch (alt80) {
+            switch (alt81) {
                 case 1 :
-                    // InternalDSL.g:14357:3: RULE_WS
+                    // InternalDSL.g:14388:3: RULE_WS
                     {
                     match(input,RULE_WS,FOLLOW_2); 
 
@@ -38649,14 +38746,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__2"
-    // InternalDSL.g:14367:1: rule__NLFORCED__Group__2 : rule__NLFORCED__Group__2__Impl ;
+    // InternalDSL.g:14398:1: rule__NLFORCED__Group__2 : rule__NLFORCED__Group__2__Impl ;
     public final void rule__NLFORCED__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14371:1: ( rule__NLFORCED__Group__2__Impl )
-            // InternalDSL.g:14372:2: rule__NLFORCED__Group__2__Impl
+            // InternalDSL.g:14402:1: ( rule__NLFORCED__Group__2__Impl )
+            // InternalDSL.g:14403:2: rule__NLFORCED__Group__2__Impl
             {
             pushFollow(FOLLOW_2);
             rule__NLFORCED__Group__2__Impl();
@@ -38682,17 +38779,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NLFORCED__Group__2__Impl"
-    // InternalDSL.g:14378:1: rule__NLFORCED__Group__2__Impl : ( ruleNL ) ;
+    // InternalDSL.g:14409:1: rule__NLFORCED__Group__2__Impl : ( ruleNL ) ;
     public final void rule__NLFORCED__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14382:1: ( ( ruleNL ) )
-            // InternalDSL.g:14383:1: ( ruleNL )
+            // InternalDSL.g:14413:1: ( ( ruleNL ) )
+            // InternalDSL.g:14414:1: ( ruleNL )
             {
-            // InternalDSL.g:14383:1: ( ruleNL )
-            // InternalDSL.g:14384:1: ruleNL
+            // InternalDSL.g:14414:1: ( ruleNL )
+            // InternalDSL.g:14415:1: ruleNL
             {
              before(grammarAccess.getNLFORCEDAccess().getNLParserRuleCall_2()); 
             pushFollow(FOLLOW_2);
@@ -38723,17 +38820,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Model__StatementsAssignment_2"
-    // InternalDSL.g:14402:1: rule__Model__StatementsAssignment_2 : ( ruleStatement ) ;
+    // InternalDSL.g:14433:1: rule__Model__StatementsAssignment_2 : ( ruleStatement ) ;
     public final void rule__Model__StatementsAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14406:1: ( ( ruleStatement ) )
-            // InternalDSL.g:14407:1: ( ruleStatement )
+            // InternalDSL.g:14437:1: ( ( ruleStatement ) )
+            // InternalDSL.g:14438:1: ( ruleStatement )
             {
-            // InternalDSL.g:14407:1: ( ruleStatement )
-            // InternalDSL.g:14408:1: ruleStatement
+            // InternalDSL.g:14438:1: ( ruleStatement )
+            // InternalDSL.g:14439:1: ruleStatement
             {
              before(grammarAccess.getModelAccess().getStatementsStatementParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -38764,17 +38861,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VisibleSingleLineNormalComment__ContentAssignment_0"
-    // InternalDSL.g:14417:1: rule__VisibleSingleLineNormalComment__ContentAssignment_0 : ( RULE_SL_VISIBLE_COMMENT ) ;
+    // InternalDSL.g:14448:1: rule__VisibleSingleLineNormalComment__ContentAssignment_0 : ( RULE_SL_VISIBLE_COMMENT ) ;
     public final void rule__VisibleSingleLineNormalComment__ContentAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14421:1: ( ( RULE_SL_VISIBLE_COMMENT ) )
-            // InternalDSL.g:14422:1: ( RULE_SL_VISIBLE_COMMENT )
+            // InternalDSL.g:14452:1: ( ( RULE_SL_VISIBLE_COMMENT ) )
+            // InternalDSL.g:14453:1: ( RULE_SL_VISIBLE_COMMENT )
             {
-            // InternalDSL.g:14422:1: ( RULE_SL_VISIBLE_COMMENT )
-            // InternalDSL.g:14423:1: RULE_SL_VISIBLE_COMMENT
+            // InternalDSL.g:14453:1: ( RULE_SL_VISIBLE_COMMENT )
+            // InternalDSL.g:14454:1: RULE_SL_VISIBLE_COMMENT
             {
              before(grammarAccess.getVisibleSingleLineNormalCommentAccess().getContentSL_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
             match(input,RULE_SL_VISIBLE_COMMENT,FOLLOW_2); 
@@ -38801,17 +38898,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VisibleSingleLineTitleComment__ContentAssignment_0"
-    // InternalDSL.g:14432:1: rule__VisibleSingleLineTitleComment__ContentAssignment_0 : ( RULE_SL_VISIBLE_TITLE_COMMENT ) ;
+    // InternalDSL.g:14463:1: rule__VisibleSingleLineTitleComment__ContentAssignment_0 : ( RULE_SL_VISIBLE_TITLE_COMMENT ) ;
     public final void rule__VisibleSingleLineTitleComment__ContentAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14436:1: ( ( RULE_SL_VISIBLE_TITLE_COMMENT ) )
-            // InternalDSL.g:14437:1: ( RULE_SL_VISIBLE_TITLE_COMMENT )
+            // InternalDSL.g:14467:1: ( ( RULE_SL_VISIBLE_TITLE_COMMENT ) )
+            // InternalDSL.g:14468:1: ( RULE_SL_VISIBLE_TITLE_COMMENT )
             {
-            // InternalDSL.g:14437:1: ( RULE_SL_VISIBLE_TITLE_COMMENT )
-            // InternalDSL.g:14438:1: RULE_SL_VISIBLE_TITLE_COMMENT
+            // InternalDSL.g:14468:1: ( RULE_SL_VISIBLE_TITLE_COMMENT )
+            // InternalDSL.g:14469:1: RULE_SL_VISIBLE_TITLE_COMMENT
             {
              before(grammarAccess.getVisibleSingleLineTitleCommentAccess().getContentSL_VISIBLE_TITLE_COMMENTTerminalRuleCall_0_0()); 
             match(input,RULE_SL_VISIBLE_TITLE_COMMENT,FOLLOW_2); 
@@ -38838,17 +38935,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VisibleMultiLineNormalComment__ContentAssignment_0"
-    // InternalDSL.g:14447:1: rule__VisibleMultiLineNormalComment__ContentAssignment_0 : ( RULE_ML_VISIBLE_COMMENT ) ;
+    // InternalDSL.g:14478:1: rule__VisibleMultiLineNormalComment__ContentAssignment_0 : ( RULE_ML_VISIBLE_COMMENT ) ;
     public final void rule__VisibleMultiLineNormalComment__ContentAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14451:1: ( ( RULE_ML_VISIBLE_COMMENT ) )
-            // InternalDSL.g:14452:1: ( RULE_ML_VISIBLE_COMMENT )
+            // InternalDSL.g:14482:1: ( ( RULE_ML_VISIBLE_COMMENT ) )
+            // InternalDSL.g:14483:1: ( RULE_ML_VISIBLE_COMMENT )
             {
-            // InternalDSL.g:14452:1: ( RULE_ML_VISIBLE_COMMENT )
-            // InternalDSL.g:14453:1: RULE_ML_VISIBLE_COMMENT
+            // InternalDSL.g:14483:1: ( RULE_ML_VISIBLE_COMMENT )
+            // InternalDSL.g:14484:1: RULE_ML_VISIBLE_COMMENT
             {
              before(grammarAccess.getVisibleMultiLineNormalCommentAccess().getContentML_VISIBLE_COMMENTTerminalRuleCall_0_0()); 
             match(input,RULE_ML_VISIBLE_COMMENT,FOLLOW_2); 
@@ -38875,17 +38972,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VisibleMultiLineTitleComment__ContentAssignment_0"
-    // InternalDSL.g:14462:1: rule__VisibleMultiLineTitleComment__ContentAssignment_0 : ( RULE_ML_VISIBLE_TITLE_COMMENT ) ;
+    // InternalDSL.g:14493:1: rule__VisibleMultiLineTitleComment__ContentAssignment_0 : ( RULE_ML_VISIBLE_TITLE_COMMENT ) ;
     public final void rule__VisibleMultiLineTitleComment__ContentAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14466:1: ( ( RULE_ML_VISIBLE_TITLE_COMMENT ) )
-            // InternalDSL.g:14467:1: ( RULE_ML_VISIBLE_TITLE_COMMENT )
+            // InternalDSL.g:14497:1: ( ( RULE_ML_VISIBLE_TITLE_COMMENT ) )
+            // InternalDSL.g:14498:1: ( RULE_ML_VISIBLE_TITLE_COMMENT )
             {
-            // InternalDSL.g:14467:1: ( RULE_ML_VISIBLE_TITLE_COMMENT )
-            // InternalDSL.g:14468:1: RULE_ML_VISIBLE_TITLE_COMMENT
+            // InternalDSL.g:14498:1: ( RULE_ML_VISIBLE_TITLE_COMMENT )
+            // InternalDSL.g:14499:1: RULE_ML_VISIBLE_TITLE_COMMENT
             {
              before(grammarAccess.getVisibleMultiLineTitleCommentAccess().getContentML_VISIBLE_TITLE_COMMENTTerminalRuleCall_0_0()); 
             match(input,RULE_ML_VISIBLE_TITLE_COMMENT,FOLLOW_2); 
@@ -38912,17 +39009,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VisibleDivider__ContentAssignment_0"
-    // InternalDSL.g:14477:1: rule__VisibleDivider__ContentAssignment_0 : ( RULE_DIVIDER ) ;
+    // InternalDSL.g:14508:1: rule__VisibleDivider__ContentAssignment_0 : ( RULE_DIVIDER ) ;
     public final void rule__VisibleDivider__ContentAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14481:1: ( ( RULE_DIVIDER ) )
-            // InternalDSL.g:14482:1: ( RULE_DIVIDER )
+            // InternalDSL.g:14512:1: ( ( RULE_DIVIDER ) )
+            // InternalDSL.g:14513:1: ( RULE_DIVIDER )
             {
-            // InternalDSL.g:14482:1: ( RULE_DIVIDER )
-            // InternalDSL.g:14483:1: RULE_DIVIDER
+            // InternalDSL.g:14513:1: ( RULE_DIVIDER )
+            // InternalDSL.g:14514:1: RULE_DIVIDER
             {
              before(grammarAccess.getVisibleDividerAccess().getContentDIVIDERTerminalRuleCall_0_0()); 
             match(input,RULE_DIVIDER,FOLLOW_2); 
@@ -38949,17 +39046,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PackageDefinition__NameAssignment_2"
-    // InternalDSL.g:14492:1: rule__PackageDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // InternalDSL.g:14523:1: rule__PackageDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__PackageDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14496:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14497:1: ( ruleQualifiedName )
+            // InternalDSL.g:14527:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14528:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14497:1: ( ruleQualifiedName )
-            // InternalDSL.g:14498:1: ruleQualifiedName
+            // InternalDSL.g:14528:1: ( ruleQualifiedName )
+            // InternalDSL.g:14529:1: ruleQualifiedName
             {
              before(grammarAccess.getPackageDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -38990,17 +39087,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PackageDefinition__StatementsAssignment_5"
-    // InternalDSL.g:14507:1: rule__PackageDefinition__StatementsAssignment_5 : ( rulePackageStatement ) ;
+    // InternalDSL.g:14538:1: rule__PackageDefinition__StatementsAssignment_5 : ( rulePackageStatement ) ;
     public final void rule__PackageDefinition__StatementsAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14511:1: ( ( rulePackageStatement ) )
-            // InternalDSL.g:14512:1: ( rulePackageStatement )
+            // InternalDSL.g:14542:1: ( ( rulePackageStatement ) )
+            // InternalDSL.g:14543:1: ( rulePackageStatement )
             {
-            // InternalDSL.g:14512:1: ( rulePackageStatement )
-            // InternalDSL.g:14513:1: rulePackageStatement
+            // InternalDSL.g:14543:1: ( rulePackageStatement )
+            // InternalDSL.g:14544:1: rulePackageStatement
             {
              before(grammarAccess.getPackageDefinitionAccess().getStatementsPackageStatementParserRuleCall_5_0()); 
             pushFollow(FOLLOW_2);
@@ -39031,17 +39128,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Import__ImportedNamespaceAssignment_2"
-    // InternalDSL.g:14522:1: rule__Import__ImportedNamespaceAssignment_2 : ( ruleQualifiedNameWithWildcard ) ;
+    // InternalDSL.g:14553:1: rule__Import__ImportedNamespaceAssignment_2 : ( ruleQualifiedNameWithWildcard ) ;
     public final void rule__Import__ImportedNamespaceAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14526:1: ( ( ruleQualifiedNameWithWildcard ) )
-            // InternalDSL.g:14527:1: ( ruleQualifiedNameWithWildcard )
+            // InternalDSL.g:14557:1: ( ( ruleQualifiedNameWithWildcard ) )
+            // InternalDSL.g:14558:1: ( ruleQualifiedNameWithWildcard )
             {
-            // InternalDSL.g:14527:1: ( ruleQualifiedNameWithWildcard )
-            // InternalDSL.g:14528:1: ruleQualifiedNameWithWildcard
+            // InternalDSL.g:14558:1: ( ruleQualifiedNameWithWildcard )
+            // InternalDSL.g:14559:1: ruleQualifiedNameWithWildcard
             {
              before(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -39072,21 +39169,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__PrivateAssignment_0"
-    // InternalDSL.g:14537:1: rule__ForkDefinition__PrivateAssignment_0 : ( ( 'private' ) ) ;
+    // InternalDSL.g:14568:1: rule__ForkDefinition__PrivateAssignment_0 : ( ( 'private' ) ) ;
     public final void rule__ForkDefinition__PrivateAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14541:1: ( ( ( 'private' ) ) )
-            // InternalDSL.g:14542:1: ( ( 'private' ) )
+            // InternalDSL.g:14572:1: ( ( ( 'private' ) ) )
+            // InternalDSL.g:14573:1: ( ( 'private' ) )
             {
-            // InternalDSL.g:14542:1: ( ( 'private' ) )
-            // InternalDSL.g:14543:1: ( 'private' )
+            // InternalDSL.g:14573:1: ( ( 'private' ) )
+            // InternalDSL.g:14574:1: ( 'private' )
             {
              before(grammarAccess.getForkDefinitionAccess().getPrivatePrivateKeyword_0_0()); 
-            // InternalDSL.g:14544:1: ( 'private' )
-            // InternalDSL.g:14545:1: 'private'
+            // InternalDSL.g:14575:1: ( 'private' )
+            // InternalDSL.g:14576:1: 'private'
             {
              before(grammarAccess.getForkDefinitionAccess().getPrivatePrivateKeyword_0_0()); 
             match(input,78,FOLLOW_2); 
@@ -39117,17 +39214,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__NameAssignment_3"
-    // InternalDSL.g:14560:1: rule__ForkDefinition__NameAssignment_3 : ( ruleQualifiedName ) ;
+    // InternalDSL.g:14591:1: rule__ForkDefinition__NameAssignment_3 : ( ruleQualifiedName ) ;
     public final void rule__ForkDefinition__NameAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14564:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14565:1: ( ruleQualifiedName )
+            // InternalDSL.g:14595:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14596:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14565:1: ( ruleQualifiedName )
-            // InternalDSL.g:14566:1: ruleQualifiedName
+            // InternalDSL.g:14596:1: ( ruleQualifiedName )
+            // InternalDSL.g:14597:1: ruleQualifiedName
             {
              before(grammarAccess.getForkDefinitionAccess().getNameQualifiedNameParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -39158,17 +39255,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__DescriptionAssignment_5_0"
-    // InternalDSL.g:14575:1: rule__ForkDefinition__DescriptionAssignment_5_0 : ( RULE_STRING ) ;
+    // InternalDSL.g:14606:1: rule__ForkDefinition__DescriptionAssignment_5_0 : ( RULE_STRING ) ;
     public final void rule__ForkDefinition__DescriptionAssignment_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14579:1: ( ( RULE_STRING ) )
-            // InternalDSL.g:14580:1: ( RULE_STRING )
+            // InternalDSL.g:14610:1: ( ( RULE_STRING ) )
+            // InternalDSL.g:14611:1: ( RULE_STRING )
             {
-            // InternalDSL.g:14580:1: ( RULE_STRING )
-            // InternalDSL.g:14581:1: RULE_STRING
+            // InternalDSL.g:14611:1: ( RULE_STRING )
+            // InternalDSL.g:14612:1: RULE_STRING
             {
              before(grammarAccess.getForkDefinitionAccess().getDescriptionSTRINGTerminalRuleCall_5_0_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -39195,17 +39292,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__ForkerClassAssignment_6_2"
-    // InternalDSL.g:14590:1: rule__ForkDefinition__ForkerClassAssignment_6_2 : ( ruleJavaClassReference ) ;
+    // InternalDSL.g:14621:1: rule__ForkDefinition__ForkerClassAssignment_6_2 : ( ruleJavaClassReference ) ;
     public final void rule__ForkDefinition__ForkerClassAssignment_6_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14594:1: ( ( ruleJavaClassReference ) )
-            // InternalDSL.g:14595:1: ( ruleJavaClassReference )
+            // InternalDSL.g:14625:1: ( ( ruleJavaClassReference ) )
+            // InternalDSL.g:14626:1: ( ruleJavaClassReference )
             {
-            // InternalDSL.g:14595:1: ( ruleJavaClassReference )
-            // InternalDSL.g:14596:1: ruleJavaClassReference
+            // InternalDSL.g:14626:1: ( ruleJavaClassReference )
+            // InternalDSL.g:14627:1: ruleJavaClassReference
             {
              before(grammarAccess.getForkDefinitionAccess().getForkerClassJavaClassReferenceParserRuleCall_6_2_0()); 
             pushFollow(FOLLOW_2);
@@ -39236,17 +39333,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkDefinition__ParametersAssignment_7_0"
-    // InternalDSL.g:14605:1: rule__ForkDefinition__ParametersAssignment_7_0 : ( ruleForkParameter ) ;
+    // InternalDSL.g:14636:1: rule__ForkDefinition__ParametersAssignment_7_0 : ( ruleForkParameter ) ;
     public final void rule__ForkDefinition__ParametersAssignment_7_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14609:1: ( ( ruleForkParameter ) )
-            // InternalDSL.g:14610:1: ( ruleForkParameter )
+            // InternalDSL.g:14640:1: ( ( ruleForkParameter ) )
+            // InternalDSL.g:14641:1: ( ruleForkParameter )
             {
-            // InternalDSL.g:14610:1: ( ruleForkParameter )
-            // InternalDSL.g:14611:1: ruleForkParameter
+            // InternalDSL.g:14641:1: ( ruleForkParameter )
+            // InternalDSL.g:14642:1: ruleForkParameter
             {
              before(grammarAccess.getForkDefinitionAccess().getParametersForkParameterParserRuleCall_7_0_0()); 
             pushFollow(FOLLOW_2);
@@ -39277,17 +39374,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkParameter__NameAssignment_0"
-    // InternalDSL.g:14620:1: rule__ForkParameter__NameAssignment_0 : ( ruleFixedParameterName ) ;
+    // InternalDSL.g:14651:1: rule__ForkParameter__NameAssignment_0 : ( ruleFixedParameterName ) ;
     public final void rule__ForkParameter__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14624:1: ( ( ruleFixedParameterName ) )
-            // InternalDSL.g:14625:1: ( ruleFixedParameterName )
+            // InternalDSL.g:14655:1: ( ( ruleFixedParameterName ) )
+            // InternalDSL.g:14656:1: ( ruleFixedParameterName )
             {
-            // InternalDSL.g:14625:1: ( ruleFixedParameterName )
-            // InternalDSL.g:14626:1: ruleFixedParameterName
+            // InternalDSL.g:14656:1: ( ruleFixedParameterName )
+            // InternalDSL.g:14657:1: ruleFixedParameterName
             {
              before(grammarAccess.getForkParameterAccess().getNameFixedParameterNameParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -39318,17 +39415,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ForkParameter__ValueAssignment_4"
-    // InternalDSL.g:14635:1: rule__ForkParameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperation ) ;
+    // InternalDSL.g:14666:1: rule__ForkParameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperation ) ;
     public final void rule__ForkParameter__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14639:1: ( ( ruleValueOrEnumValueOrOperation ) )
-            // InternalDSL.g:14640:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:14670:1: ( ( ruleValueOrEnumValueOrOperation ) )
+            // InternalDSL.g:14671:1: ( ruleValueOrEnumValueOrOperation )
             {
-            // InternalDSL.g:14640:1: ( ruleValueOrEnumValueOrOperation )
-            // InternalDSL.g:14641:1: ruleValueOrEnumValueOrOperation
+            // InternalDSL.g:14671:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:14672:1: ruleValueOrEnumValueOrOperation
             {
              before(grammarAccess.getForkParameterAccess().getValueValueOrEnumValueOrOperationParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -39359,17 +39456,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantDefinition__NameAssignment_2"
-    // InternalDSL.g:14650:1: rule__VariantDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // InternalDSL.g:14681:1: rule__VariantDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__VariantDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14654:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14655:1: ( ruleQualifiedName )
+            // InternalDSL.g:14685:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14686:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14655:1: ( ruleQualifiedName )
-            // InternalDSL.g:14656:1: ruleQualifiedName
+            // InternalDSL.g:14686:1: ( ruleQualifiedName )
+            // InternalDSL.g:14687:1: ruleQualifiedName
             {
              before(grammarAccess.getVariantDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -39400,17 +39497,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantDefinition__DescriptionAssignment_4_0"
-    // InternalDSL.g:14665:1: rule__VariantDefinition__DescriptionAssignment_4_0 : ( RULE_STRING ) ;
+    // InternalDSL.g:14696:1: rule__VariantDefinition__DescriptionAssignment_4_0 : ( RULE_STRING ) ;
     public final void rule__VariantDefinition__DescriptionAssignment_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14669:1: ( ( RULE_STRING ) )
-            // InternalDSL.g:14670:1: ( RULE_STRING )
+            // InternalDSL.g:14700:1: ( ( RULE_STRING ) )
+            // InternalDSL.g:14701:1: ( RULE_STRING )
             {
-            // InternalDSL.g:14670:1: ( RULE_STRING )
-            // InternalDSL.g:14671:1: RULE_STRING
+            // InternalDSL.g:14701:1: ( RULE_STRING )
+            // InternalDSL.g:14702:1: RULE_STRING
             {
              before(grammarAccess.getVariantDefinitionAccess().getDescriptionSTRINGTerminalRuleCall_4_0_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -39437,17 +39534,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TestDefinition__NameAssignment_2"
-    // InternalDSL.g:14680:1: rule__TestDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // InternalDSL.g:14711:1: rule__TestDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__TestDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14684:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14685:1: ( ruleQualifiedName )
+            // InternalDSL.g:14715:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14716:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14685:1: ( ruleQualifiedName )
-            // InternalDSL.g:14686:1: ruleQualifiedName
+            // InternalDSL.g:14716:1: ( ruleQualifiedName )
+            // InternalDSL.g:14717:1: ruleQualifiedName
             {
              before(grammarAccess.getTestDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -39478,17 +39575,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TestDefinition__FixtureMethodAssignment_6"
-    // InternalDSL.g:14695:1: rule__TestDefinition__FixtureMethodAssignment_6 : ( ruleMethodReference ) ;
+    // InternalDSL.g:14726:1: rule__TestDefinition__FixtureMethodAssignment_6 : ( ruleMethodReference ) ;
     public final void rule__TestDefinition__FixtureMethodAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14699:1: ( ( ruleMethodReference ) )
-            // InternalDSL.g:14700:1: ( ruleMethodReference )
+            // InternalDSL.g:14730:1: ( ( ruleMethodReference ) )
+            // InternalDSL.g:14731:1: ( ruleMethodReference )
             {
-            // InternalDSL.g:14700:1: ( ruleMethodReference )
-            // InternalDSL.g:14701:1: ruleMethodReference
+            // InternalDSL.g:14731:1: ( ruleMethodReference )
+            // InternalDSL.g:14732:1: ruleMethodReference
             {
              before(grammarAccess.getTestDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
@@ -39519,17 +39616,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CallDefinition__NameAssignment_2"
-    // InternalDSL.g:14710:1: rule__CallDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // InternalDSL.g:14741:1: rule__CallDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__CallDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14714:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14715:1: ( ruleQualifiedName )
+            // InternalDSL.g:14745:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14746:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14715:1: ( ruleQualifiedName )
-            // InternalDSL.g:14716:1: ruleQualifiedName
+            // InternalDSL.g:14746:1: ( ruleQualifiedName )
+            // InternalDSL.g:14747:1: ruleQualifiedName
             {
              before(grammarAccess.getCallDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -39560,17 +39657,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CallDefinition__FixtureMethodAssignment_6"
-    // InternalDSL.g:14725:1: rule__CallDefinition__FixtureMethodAssignment_6 : ( ruleMethodReference ) ;
+    // InternalDSL.g:14756:1: rule__CallDefinition__FixtureMethodAssignment_6 : ( ruleMethodReference ) ;
     public final void rule__CallDefinition__FixtureMethodAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14729:1: ( ( ruleMethodReference ) )
-            // InternalDSL.g:14730:1: ( ruleMethodReference )
+            // InternalDSL.g:14760:1: ( ( ruleMethodReference ) )
+            // InternalDSL.g:14761:1: ( ruleMethodReference )
             {
-            // InternalDSL.g:14730:1: ( ruleMethodReference )
-            // InternalDSL.g:14731:1: ruleMethodReference
+            // InternalDSL.g:14761:1: ( ruleMethodReference )
+            // InternalDSL.g:14762:1: ruleMethodReference
             {
              before(grammarAccess.getCallDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
@@ -39601,21 +39698,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteDefinition__PrivateAssignment_0"
-    // InternalDSL.g:14740:1: rule__SuiteDefinition__PrivateAssignment_0 : ( ( 'private' ) ) ;
+    // InternalDSL.g:14771:1: rule__SuiteDefinition__PrivateAssignment_0 : ( ( 'private' ) ) ;
     public final void rule__SuiteDefinition__PrivateAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14744:1: ( ( ( 'private' ) ) )
-            // InternalDSL.g:14745:1: ( ( 'private' ) )
+            // InternalDSL.g:14775:1: ( ( ( 'private' ) ) )
+            // InternalDSL.g:14776:1: ( ( 'private' ) )
             {
-            // InternalDSL.g:14745:1: ( ( 'private' ) )
-            // InternalDSL.g:14746:1: ( 'private' )
+            // InternalDSL.g:14776:1: ( ( 'private' ) )
+            // InternalDSL.g:14777:1: ( 'private' )
             {
              before(grammarAccess.getSuiteDefinitionAccess().getPrivatePrivateKeyword_0_0()); 
-            // InternalDSL.g:14747:1: ( 'private' )
-            // InternalDSL.g:14748:1: 'private'
+            // InternalDSL.g:14778:1: ( 'private' )
+            // InternalDSL.g:14779:1: 'private'
             {
              before(grammarAccess.getSuiteDefinitionAccess().getPrivatePrivateKeyword_0_0()); 
             match(input,78,FOLLOW_2); 
@@ -39645,26 +39742,30 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__SuiteDefinition__PrivateAssignment_0"
 
 
-    // $ANTLR start "rule__SuiteDefinition__NameAssignment_3"
-    // InternalDSL.g:14763:1: rule__SuiteDefinition__NameAssignment_3 : ( ruleQualifiedName ) ;
-    public final void rule__SuiteDefinition__NameAssignment_3() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__SingleRunAssignment_1"
+    // InternalDSL.g:14794:1: rule__SuiteDefinition__SingleRunAssignment_1 : ( ( 'single-run' ) ) ;
+    public final void rule__SuiteDefinition__SingleRunAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14767:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14768:1: ( ruleQualifiedName )
+            // InternalDSL.g:14798:1: ( ( ( 'single-run' ) ) )
+            // InternalDSL.g:14799:1: ( ( 'single-run' ) )
             {
-            // InternalDSL.g:14768:1: ( ruleQualifiedName )
-            // InternalDSL.g:14769:1: ruleQualifiedName
+            // InternalDSL.g:14799:1: ( ( 'single-run' ) )
+            // InternalDSL.g:14800:1: ( 'single-run' )
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getNameQualifiedNameParserRuleCall_3_0()); 
-            pushFollow(FOLLOW_2);
-            ruleQualifiedName();
+             before(grammarAccess.getSuiteDefinitionAccess().getSingleRunSingleRunKeyword_1_0()); 
+            // InternalDSL.g:14801:1: ( 'single-run' )
+            // InternalDSL.g:14802:1: 'single-run'
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getSingleRunSingleRunKeyword_1_0()); 
+            match(input,79,FOLLOW_2); 
+             after(grammarAccess.getSuiteDefinitionAccess().getSingleRunSingleRunKeyword_1_0()); 
 
-            state._fsp--;
+            }
 
-             after(grammarAccess.getSuiteDefinitionAccess().getNameQualifiedNameParserRuleCall_3_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getSingleRunSingleRunKeyword_1_0()); 
 
             }
 
@@ -39683,29 +39784,70 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__NameAssignment_3"
+    // $ANTLR end "rule__SuiteDefinition__SingleRunAssignment_1"
 
 
-    // $ANTLR start "rule__SuiteDefinition__ParametersAssignment_5_1_0"
-    // InternalDSL.g:14778:1: rule__SuiteDefinition__ParametersAssignment_5_1_0 : ( ruleSuiteParameterDefinition ) ;
-    public final void rule__SuiteDefinition__ParametersAssignment_5_1_0() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__NameAssignment_4"
+    // InternalDSL.g:14817:1: rule__SuiteDefinition__NameAssignment_4 : ( ruleQualifiedName ) ;
+    public final void rule__SuiteDefinition__NameAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14782:1: ( ( ruleSuiteParameterDefinition ) )
-            // InternalDSL.g:14783:1: ( ruleSuiteParameterDefinition )
+            // InternalDSL.g:14821:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14822:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14783:1: ( ruleSuiteParameterDefinition )
-            // InternalDSL.g:14784:1: ruleSuiteParameterDefinition
+            // InternalDSL.g:14822:1: ( ruleQualifiedName )
+            // InternalDSL.g:14823:1: ruleQualifiedName
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getNameQualifiedNameParserRuleCall_4_0()); 
+            pushFollow(FOLLOW_2);
+            ruleQualifiedName();
+
+            state._fsp--;
+
+             after(grammarAccess.getSuiteDefinitionAccess().getNameQualifiedNameParserRuleCall_4_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__SuiteDefinition__NameAssignment_4"
+
+
+    // $ANTLR start "rule__SuiteDefinition__ParametersAssignment_6_1_0"
+    // InternalDSL.g:14832:1: rule__SuiteDefinition__ParametersAssignment_6_1_0 : ( ruleSuiteParameterDefinition ) ;
+    public final void rule__SuiteDefinition__ParametersAssignment_6_1_0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // InternalDSL.g:14836:1: ( ( ruleSuiteParameterDefinition ) )
+            // InternalDSL.g:14837:1: ( ruleSuiteParameterDefinition )
+            {
+            // InternalDSL.g:14837:1: ( ruleSuiteParameterDefinition )
+            // InternalDSL.g:14838:1: ruleSuiteParameterDefinition
+            {
+             before(grammarAccess.getSuiteDefinitionAccess().getParametersSuiteParameterDefinitionParserRuleCall_6_1_0_0()); 
             pushFollow(FOLLOW_2);
             ruleSuiteParameterDefinition();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getParametersSuiteParameterDefinitionParserRuleCall_5_1_0_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getParametersSuiteParameterDefinitionParserRuleCall_6_1_0_0()); 
 
             }
 
@@ -39724,29 +39866,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__ParametersAssignment_5_1_0"
+    // $ANTLR end "rule__SuiteDefinition__ParametersAssignment_6_1_0"
 
 
-    // $ANTLR start "rule__SuiteDefinition__ReturnAssignment_6_1_0"
-    // InternalDSL.g:14793:1: rule__SuiteDefinition__ReturnAssignment_6_1_0 : ( ruleSuiteReturnDefinition ) ;
-    public final void rule__SuiteDefinition__ReturnAssignment_6_1_0() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__ReturnAssignment_7_1_0"
+    // InternalDSL.g:14847:1: rule__SuiteDefinition__ReturnAssignment_7_1_0 : ( ruleSuiteReturnDefinition ) ;
+    public final void rule__SuiteDefinition__ReturnAssignment_7_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14797:1: ( ( ruleSuiteReturnDefinition ) )
-            // InternalDSL.g:14798:1: ( ruleSuiteReturnDefinition )
+            // InternalDSL.g:14851:1: ( ( ruleSuiteReturnDefinition ) )
+            // InternalDSL.g:14852:1: ( ruleSuiteReturnDefinition )
             {
-            // InternalDSL.g:14798:1: ( ruleSuiteReturnDefinition )
-            // InternalDSL.g:14799:1: ruleSuiteReturnDefinition
+            // InternalDSL.g:14852:1: ( ruleSuiteReturnDefinition )
+            // InternalDSL.g:14853:1: ruleSuiteReturnDefinition
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getReturnSuiteReturnDefinitionParserRuleCall_6_1_0_0()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getReturnSuiteReturnDefinitionParserRuleCall_7_1_0_0()); 
             pushFollow(FOLLOW_2);
             ruleSuiteReturnDefinition();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getReturnSuiteReturnDefinitionParserRuleCall_6_1_0_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getReturnSuiteReturnDefinitionParserRuleCall_7_1_0_0()); 
 
             }
 
@@ -39765,37 +39907,37 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__ReturnAssignment_6_1_0"
+    // $ANTLR end "rule__SuiteDefinition__ReturnAssignment_7_1_0"
 
 
-    // $ANTLR start "rule__SuiteDefinition__DependenciesAssignment_7_2_0"
-    // InternalDSL.g:14808:1: rule__SuiteDefinition__DependenciesAssignment_7_2_0 : ( ( ruleQualifiedName ) ) ;
-    public final void rule__SuiteDefinition__DependenciesAssignment_7_2_0() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__DependenciesAssignment_8_2_0"
+    // InternalDSL.g:14862:1: rule__SuiteDefinition__DependenciesAssignment_8_2_0 : ( ( ruleQualifiedName ) ) ;
+    public final void rule__SuiteDefinition__DependenciesAssignment_8_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14812:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:14813:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14866:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:14867:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:14813:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14814:1: ( ruleQualifiedName )
+            // InternalDSL.g:14867:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14868:1: ( ruleQualifiedName )
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionCrossReference_7_2_0_0()); 
-            // InternalDSL.g:14815:1: ( ruleQualifiedName )
-            // InternalDSL.g:14816:1: ruleQualifiedName
+             before(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionCrossReference_8_2_0_0()); 
+            // InternalDSL.g:14869:1: ( ruleQualifiedName )
+            // InternalDSL.g:14870:1: ruleQualifiedName
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionQualifiedNameParserRuleCall_7_2_0_0_1()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1()); 
             pushFollow(FOLLOW_2);
             ruleQualifiedName();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionQualifiedNameParserRuleCall_7_2_0_0_1()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1()); 
 
             }
 
-             after(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionCrossReference_7_2_0_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getDependenciesSuiteDefinitionCrossReference_8_2_0_0()); 
 
             }
 
@@ -39814,37 +39956,37 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__DependenciesAssignment_7_2_0"
+    // $ANTLR end "rule__SuiteDefinition__DependenciesAssignment_8_2_0"
 
 
-    // $ANTLR start "rule__SuiteDefinition__FinalizersAssignment_8_2_0"
-    // InternalDSL.g:14827:1: rule__SuiteDefinition__FinalizersAssignment_8_2_0 : ( ( ruleQualifiedName ) ) ;
-    public final void rule__SuiteDefinition__FinalizersAssignment_8_2_0() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__FinalizersAssignment_9_2_0"
+    // InternalDSL.g:14881:1: rule__SuiteDefinition__FinalizersAssignment_9_2_0 : ( ( ruleQualifiedName ) ) ;
+    public final void rule__SuiteDefinition__FinalizersAssignment_9_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14831:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:14832:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14885:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:14886:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:14832:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14833:1: ( ruleQualifiedName )
+            // InternalDSL.g:14886:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14887:1: ( ruleQualifiedName )
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_8_2_0_0()); 
-            // InternalDSL.g:14834:1: ( ruleQualifiedName )
-            // InternalDSL.g:14835:1: ruleQualifiedName
+             before(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_9_2_0_0()); 
+            // InternalDSL.g:14888:1: ( ruleQualifiedName )
+            // InternalDSL.g:14889:1: ruleQualifiedName
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionQualifiedNameParserRuleCall_9_2_0_0_1()); 
             pushFollow(FOLLOW_2);
             ruleQualifiedName();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionQualifiedNameParserRuleCall_8_2_0_0_1()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionQualifiedNameParserRuleCall_9_2_0_0_1()); 
 
             }
 
-             after(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_8_2_0_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getFinalizersSuiteDefinitionCrossReference_9_2_0_0()); 
 
             }
 
@@ -39863,29 +40005,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__FinalizersAssignment_8_2_0"
+    // $ANTLR end "rule__SuiteDefinition__FinalizersAssignment_9_2_0"
 
 
-    // $ANTLR start "rule__SuiteDefinition__StatementsAssignment_11"
-    // InternalDSL.g:14846:1: rule__SuiteDefinition__StatementsAssignment_11 : ( ruleSuiteStatement ) ;
-    public final void rule__SuiteDefinition__StatementsAssignment_11() throws RecognitionException {
+    // $ANTLR start "rule__SuiteDefinition__StatementsAssignment_12"
+    // InternalDSL.g:14900:1: rule__SuiteDefinition__StatementsAssignment_12 : ( ruleSuiteStatement ) ;
+    public final void rule__SuiteDefinition__StatementsAssignment_12() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14850:1: ( ( ruleSuiteStatement ) )
-            // InternalDSL.g:14851:1: ( ruleSuiteStatement )
+            // InternalDSL.g:14904:1: ( ( ruleSuiteStatement ) )
+            // InternalDSL.g:14905:1: ( ruleSuiteStatement )
             {
-            // InternalDSL.g:14851:1: ( ruleSuiteStatement )
-            // InternalDSL.g:14852:1: ruleSuiteStatement
+            // InternalDSL.g:14905:1: ( ruleSuiteStatement )
+            // InternalDSL.g:14906:1: ruleSuiteStatement
             {
-             before(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_11_0()); 
+             before(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_12_0()); 
             pushFollow(FOLLOW_2);
             ruleSuiteStatement();
 
             state._fsp--;
 
-             after(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_11_0()); 
+             after(grammarAccess.getSuiteDefinitionAccess().getStatementsSuiteStatementParserRuleCall_12_0()); 
 
             }
 
@@ -39904,21 +40046,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__SuiteDefinition__StatementsAssignment_11"
+    // $ANTLR end "rule__SuiteDefinition__StatementsAssignment_12"
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__NameAssignment_0"
-    // InternalDSL.g:14861:1: rule__SuiteParameterDefinition__NameAssignment_0 : ( ruleVariableEntity ) ;
+    // InternalDSL.g:14915:1: rule__SuiteParameterDefinition__NameAssignment_0 : ( ruleVariableEntity ) ;
     public final void rule__SuiteParameterDefinition__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14865:1: ( ( ruleVariableEntity ) )
-            // InternalDSL.g:14866:1: ( ruleVariableEntity )
+            // InternalDSL.g:14919:1: ( ( ruleVariableEntity ) )
+            // InternalDSL.g:14920:1: ( ruleVariableEntity )
             {
-            // InternalDSL.g:14866:1: ( ruleVariableEntity )
-            // InternalDSL.g:14867:1: ruleVariableEntity
+            // InternalDSL.g:14920:1: ( ruleVariableEntity )
+            // InternalDSL.g:14921:1: ruleVariableEntity
             {
              before(grammarAccess.getSuiteParameterDefinitionAccess().getNameVariableEntityParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -39949,17 +40091,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameterDefinition__DefaultAssignment_1_2"
-    // InternalDSL.g:14876:1: rule__SuiteParameterDefinition__DefaultAssignment_1_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:14930:1: rule__SuiteParameterDefinition__DefaultAssignment_1_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__SuiteParameterDefinition__DefaultAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14880:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:14881:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:14934:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:14935:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:14881:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:14882:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:14935:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:14936:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getSuiteParameterDefinitionAccess().getDefaultValueOrEnumValueOrOperationCollectionParserRuleCall_1_2_0()); 
             pushFollow(FOLLOW_2);
@@ -39990,17 +40132,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturnDefinition__NameAssignment"
-    // InternalDSL.g:14891:1: rule__SuiteReturnDefinition__NameAssignment : ( ruleVariableEntity ) ;
+    // InternalDSL.g:14945:1: rule__SuiteReturnDefinition__NameAssignment : ( ruleVariableEntity ) ;
     public final void rule__SuiteReturnDefinition__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14895:1: ( ( ruleVariableEntity ) )
-            // InternalDSL.g:14896:1: ( ruleVariableEntity )
+            // InternalDSL.g:14949:1: ( ( ruleVariableEntity ) )
+            // InternalDSL.g:14950:1: ( ruleVariableEntity )
             {
-            // InternalDSL.g:14896:1: ( ruleVariableEntity )
-            // InternalDSL.g:14897:1: ruleVariableEntity
+            // InternalDSL.g:14950:1: ( ruleVariableEntity )
+            // InternalDSL.g:14951:1: ruleVariableEntity
             {
              before(grammarAccess.getSuiteReturnDefinitionAccess().getNameVariableEntityParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
@@ -40031,17 +40173,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__NameAssignment_2"
-    // InternalDSL.g:14906:1: rule__OperationDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
+    // InternalDSL.g:14960:1: rule__OperationDefinition__NameAssignment_2 : ( ruleQualifiedName ) ;
     public final void rule__OperationDefinition__NameAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14910:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:14911:1: ( ruleQualifiedName )
+            // InternalDSL.g:14964:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:14965:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:14911:1: ( ruleQualifiedName )
-            // InternalDSL.g:14912:1: ruleQualifiedName
+            // InternalDSL.g:14965:1: ( ruleQualifiedName )
+            // InternalDSL.g:14966:1: ruleQualifiedName
             {
              before(grammarAccess.getOperationDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -40072,17 +40214,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__OperationDefinition__OperationTypeAssignment_6"
-    // InternalDSL.g:14921:1: rule__OperationDefinition__OperationTypeAssignment_6 : ( ruleJavaClassReference ) ;
+    // InternalDSL.g:14975:1: rule__OperationDefinition__OperationTypeAssignment_6 : ( ruleJavaClassReference ) ;
     public final void rule__OperationDefinition__OperationTypeAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14925:1: ( ( ruleJavaClassReference ) )
-            // InternalDSL.g:14926:1: ( ruleJavaClassReference )
+            // InternalDSL.g:14979:1: ( ( ruleJavaClassReference ) )
+            // InternalDSL.g:14980:1: ( ruleJavaClassReference )
             {
-            // InternalDSL.g:14926:1: ( ruleJavaClassReference )
-            // InternalDSL.g:14927:1: ruleJavaClassReference
+            // InternalDSL.g:14980:1: ( ruleJavaClassReference )
+            // InternalDSL.g:14981:1: ruleJavaClassReference
             {
              before(grammarAccess.getOperationDefinitionAccess().getOperationTypeJavaClassReferenceParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
@@ -40113,21 +40255,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__PrivateAssignment_0"
-    // InternalDSL.g:14936:1: rule__VariableDefinition__PrivateAssignment_0 : ( ( 'private' ) ) ;
+    // InternalDSL.g:14990:1: rule__VariableDefinition__PrivateAssignment_0 : ( ( 'private' ) ) ;
     public final void rule__VariableDefinition__PrivateAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14940:1: ( ( ( 'private' ) ) )
-            // InternalDSL.g:14941:1: ( ( 'private' ) )
+            // InternalDSL.g:14994:1: ( ( ( 'private' ) ) )
+            // InternalDSL.g:14995:1: ( ( 'private' ) )
             {
-            // InternalDSL.g:14941:1: ( ( 'private' ) )
-            // InternalDSL.g:14942:1: ( 'private' )
+            // InternalDSL.g:14995:1: ( ( 'private' ) )
+            // InternalDSL.g:14996:1: ( 'private' )
             {
              before(grammarAccess.getVariableDefinitionAccess().getPrivatePrivateKeyword_0_0()); 
-            // InternalDSL.g:14943:1: ( 'private' )
-            // InternalDSL.g:14944:1: 'private'
+            // InternalDSL.g:14997:1: ( 'private' )
+            // InternalDSL.g:14998:1: 'private'
             {
              before(grammarAccess.getVariableDefinitionAccess().getPrivatePrivateKeyword_0_0()); 
             match(input,78,FOLLOW_2); 
@@ -40158,17 +40300,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__NameAssignment_3"
-    // InternalDSL.g:14959:1: rule__VariableDefinition__NameAssignment_3 : ( ruleVariableEntity ) ;
+    // InternalDSL.g:15013:1: rule__VariableDefinition__NameAssignment_3 : ( ruleVariableEntity ) ;
     public final void rule__VariableDefinition__NameAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14963:1: ( ( ruleVariableEntity ) )
-            // InternalDSL.g:14964:1: ( ruleVariableEntity )
+            // InternalDSL.g:15017:1: ( ( ruleVariableEntity ) )
+            // InternalDSL.g:15018:1: ( ruleVariableEntity )
             {
-            // InternalDSL.g:14964:1: ( ruleVariableEntity )
-            // InternalDSL.g:14965:1: ruleVariableEntity
+            // InternalDSL.g:15018:1: ( ruleVariableEntity )
+            // InternalDSL.g:15019:1: ruleVariableEntity
             {
              before(grammarAccess.getVariableDefinitionAccess().getNameVariableEntityParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -40199,17 +40341,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableDefinition__InitialValueAssignment_5_2"
-    // InternalDSL.g:14974:1: rule__VariableDefinition__InitialValueAssignment_5_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15028:1: rule__VariableDefinition__InitialValueAssignment_5_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__VariableDefinition__InitialValueAssignment_5_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14978:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:14979:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15032:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15033:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:14979:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:14980:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15033:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15034:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getVariableDefinitionAccess().getInitialValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_2_0()); 
             pushFollow(FOLLOW_2);
@@ -40240,21 +40382,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__PrivateAssignment_0"
-    // InternalDSL.g:14989:1: rule__ConstantDefinition__PrivateAssignment_0 : ( ( 'private' ) ) ;
+    // InternalDSL.g:15043:1: rule__ConstantDefinition__PrivateAssignment_0 : ( ( 'private' ) ) ;
     public final void rule__ConstantDefinition__PrivateAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:14993:1: ( ( ( 'private' ) ) )
-            // InternalDSL.g:14994:1: ( ( 'private' ) )
+            // InternalDSL.g:15047:1: ( ( ( 'private' ) ) )
+            // InternalDSL.g:15048:1: ( ( 'private' ) )
             {
-            // InternalDSL.g:14994:1: ( ( 'private' ) )
-            // InternalDSL.g:14995:1: ( 'private' )
+            // InternalDSL.g:15048:1: ( ( 'private' ) )
+            // InternalDSL.g:15049:1: ( 'private' )
             {
              before(grammarAccess.getConstantDefinitionAccess().getPrivatePrivateKeyword_0_0()); 
-            // InternalDSL.g:14996:1: ( 'private' )
-            // InternalDSL.g:14997:1: 'private'
+            // InternalDSL.g:15050:1: ( 'private' )
+            // InternalDSL.g:15051:1: 'private'
             {
              before(grammarAccess.getConstantDefinitionAccess().getPrivatePrivateKeyword_0_0()); 
             match(input,78,FOLLOW_2); 
@@ -40285,17 +40427,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__NameAssignment_3"
-    // InternalDSL.g:15012:1: rule__ConstantDefinition__NameAssignment_3 : ( ruleConstantEntity ) ;
+    // InternalDSL.g:15066:1: rule__ConstantDefinition__NameAssignment_3 : ( ruleConstantEntity ) ;
     public final void rule__ConstantDefinition__NameAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15016:1: ( ( ruleConstantEntity ) )
-            // InternalDSL.g:15017:1: ( ruleConstantEntity )
+            // InternalDSL.g:15070:1: ( ( ruleConstantEntity ) )
+            // InternalDSL.g:15071:1: ( ruleConstantEntity )
             {
-            // InternalDSL.g:15017:1: ( ruleConstantEntity )
-            // InternalDSL.g:15018:1: ruleConstantEntity
+            // InternalDSL.g:15071:1: ( ruleConstantEntity )
+            // InternalDSL.g:15072:1: ruleConstantEntity
             {
              before(grammarAccess.getConstantDefinitionAccess().getNameConstantEntityParserRuleCall_3_0()); 
             pushFollow(FOLLOW_2);
@@ -40326,17 +40468,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__ValueAssignment_5_0_0"
-    // InternalDSL.g:15027:1: rule__ConstantDefinition__ValueAssignment_5_0_0 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15081:1: rule__ConstantDefinition__ValueAssignment_5_0_0 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__ConstantDefinition__ValueAssignment_5_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15031:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15032:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15085:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15086:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15032:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15033:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15086:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15087:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0_0_0()); 
             pushFollow(FOLLOW_2);
@@ -40367,17 +40509,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__VariantValuesAssignment_5_1_0"
-    // InternalDSL.g:15042:1: rule__ConstantDefinition__VariantValuesAssignment_5_1_0 : ( ruleVariantValue ) ;
+    // InternalDSL.g:15096:1: rule__ConstantDefinition__VariantValuesAssignment_5_1_0 : ( ruleVariantValue ) ;
     public final void rule__ConstantDefinition__VariantValuesAssignment_5_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15046:1: ( ( ruleVariantValue ) )
-            // InternalDSL.g:15047:1: ( ruleVariantValue )
+            // InternalDSL.g:15100:1: ( ( ruleVariantValue ) )
+            // InternalDSL.g:15101:1: ( ruleVariantValue )
             {
-            // InternalDSL.g:15047:1: ( ruleVariantValue )
-            // InternalDSL.g:15048:1: ruleVariantValue
+            // InternalDSL.g:15101:1: ( ruleVariantValue )
+            // InternalDSL.g:15102:1: ruleVariantValue
             {
              before(grammarAccess.getConstantDefinitionAccess().getVariantValuesVariantValueParserRuleCall_5_1_0_0()); 
             pushFollow(FOLLOW_2);
@@ -40408,24 +40550,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantDefinition__ParameterizedAssignment_6_0"
-    // InternalDSL.g:15057:1: rule__ConstantDefinition__ParameterizedAssignment_6_0 : ( ( 'parameterized' ) ) ;
+    // InternalDSL.g:15111:1: rule__ConstantDefinition__ParameterizedAssignment_6_0 : ( ( 'parameterized' ) ) ;
     public final void rule__ConstantDefinition__ParameterizedAssignment_6_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15061:1: ( ( ( 'parameterized' ) ) )
-            // InternalDSL.g:15062:1: ( ( 'parameterized' ) )
+            // InternalDSL.g:15115:1: ( ( ( 'parameterized' ) ) )
+            // InternalDSL.g:15116:1: ( ( 'parameterized' ) )
             {
-            // InternalDSL.g:15062:1: ( ( 'parameterized' ) )
-            // InternalDSL.g:15063:1: ( 'parameterized' )
-            {
-             before(grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_6_0_0()); 
-            // InternalDSL.g:15064:1: ( 'parameterized' )
-            // InternalDSL.g:15065:1: 'parameterized'
+            // InternalDSL.g:15116:1: ( ( 'parameterized' ) )
+            // InternalDSL.g:15117:1: ( 'parameterized' )
             {
              before(grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_6_0_0()); 
-            match(input,79,FOLLOW_2); 
+            // InternalDSL.g:15118:1: ( 'parameterized' )
+            // InternalDSL.g:15119:1: 'parameterized'
+            {
+             before(grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_6_0_0()); 
+            match(input,80,FOLLOW_2); 
              after(grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_6_0_0()); 
 
             }
@@ -40453,17 +40595,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__ValueAssignment_2"
-    // InternalDSL.g:15080:1: rule__VariableAssignment__ValueAssignment_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15134:1: rule__VariableAssignment__ValueAssignment_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__VariableAssignment__ValueAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15084:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15085:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15138:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15139:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15085:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15086:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15139:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15140:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getVariableAssignmentAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -40494,17 +40636,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableAssignment__TargetAssignment_6"
-    // InternalDSL.g:15095:1: rule__VariableAssignment__TargetAssignment_6 : ( ruleVariableVariable ) ;
+    // InternalDSL.g:15149:1: rule__VariableAssignment__TargetAssignment_6 : ( ruleVariableVariable ) ;
     public final void rule__VariableAssignment__TargetAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15099:1: ( ( ruleVariableVariable ) )
-            // InternalDSL.g:15100:1: ( ruleVariableVariable )
+            // InternalDSL.g:15153:1: ( ( ruleVariableVariable ) )
+            // InternalDSL.g:15154:1: ( ruleVariableVariable )
             {
-            // InternalDSL.g:15100:1: ( ruleVariableVariable )
-            // InternalDSL.g:15101:1: ruleVariableVariable
+            // InternalDSL.g:15154:1: ( ruleVariableVariable )
+            // InternalDSL.g:15155:1: ruleVariableVariable
             {
              before(grammarAccess.getVariableAssignmentAccess().getTargetVariableVariableParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
@@ -40535,21 +40677,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__NamesAssignment_2_0"
-    // InternalDSL.g:15110:1: rule__VariantValue__NamesAssignment_2_0 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15164:1: rule__VariantValue__NamesAssignment_2_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__VariantValue__NamesAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15114:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15115:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15168:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15169:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15115:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15116:1: ( ruleQualifiedName )
+            // InternalDSL.g:15169:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15170:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getVariantValueAccess().getNamesVariantDefinitionCrossReference_2_0_0()); 
-            // InternalDSL.g:15117:1: ( ruleQualifiedName )
-            // InternalDSL.g:15118:1: ruleQualifiedName
+            // InternalDSL.g:15171:1: ( ruleQualifiedName )
+            // InternalDSL.g:15172:1: ruleQualifiedName
             {
              before(grammarAccess.getVariantValueAccess().getNamesVariantDefinitionQualifiedNameParserRuleCall_2_0_0_1()); 
             pushFollow(FOLLOW_2);
@@ -40584,17 +40726,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariantValue__ValueAssignment_5"
-    // InternalDSL.g:15129:1: rule__VariantValue__ValueAssignment_5 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15183:1: rule__VariantValue__ValueAssignment_5 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__VariantValue__ValueAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15133:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15134:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15187:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15188:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15134:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15135:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15188:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15189:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getVariantValueAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0()); 
             pushFollow(FOLLOW_2);
@@ -40625,17 +40767,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableEntity__NameAssignment"
-    // InternalDSL.g:15144:1: rule__VariableEntity__NameAssignment : ( ruleQualifiedName ) ;
+    // InternalDSL.g:15198:1: rule__VariableEntity__NameAssignment : ( ruleQualifiedName ) ;
     public final void rule__VariableEntity__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15148:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15149:1: ( ruleQualifiedName )
+            // InternalDSL.g:15202:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15203:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:15149:1: ( ruleQualifiedName )
-            // InternalDSL.g:15150:1: ruleQualifiedName
+            // InternalDSL.g:15203:1: ( ruleQualifiedName )
+            // InternalDSL.g:15204:1: ruleQualifiedName
             {
              before(grammarAccess.getVariableEntityAccess().getNameQualifiedNameParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
@@ -40666,17 +40808,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ConstantEntity__NameAssignment"
-    // InternalDSL.g:15159:1: rule__ConstantEntity__NameAssignment : ( ruleQualifiedName ) ;
+    // InternalDSL.g:15213:1: rule__ConstantEntity__NameAssignment : ( ruleQualifiedName ) ;
     public final void rule__ConstantEntity__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15163:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15164:1: ( ruleQualifiedName )
+            // InternalDSL.g:15217:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15218:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:15164:1: ( ruleQualifiedName )
-            // InternalDSL.g:15165:1: ruleQualifiedName
+            // InternalDSL.g:15218:1: ( ruleQualifiedName )
+            // InternalDSL.g:15219:1: ruleQualifiedName
             {
              before(grammarAccess.getConstantEntityAccess().getNameQualifiedNameParserRuleCall_0()); 
             pushFollow(FOLLOW_2);
@@ -40707,24 +40849,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__CheckpointAssignment_0"
-    // InternalDSL.g:15174:1: rule__Test__CheckpointAssignment_0 : ( ( 'checkpoint' ) ) ;
+    // InternalDSL.g:15228:1: rule__Test__CheckpointAssignment_0 : ( ( 'checkpoint' ) ) ;
     public final void rule__Test__CheckpointAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15178:1: ( ( ( 'checkpoint' ) ) )
-            // InternalDSL.g:15179:1: ( ( 'checkpoint' ) )
+            // InternalDSL.g:15232:1: ( ( ( 'checkpoint' ) ) )
+            // InternalDSL.g:15233:1: ( ( 'checkpoint' ) )
             {
-            // InternalDSL.g:15179:1: ( ( 'checkpoint' ) )
-            // InternalDSL.g:15180:1: ( 'checkpoint' )
-            {
-             before(grammarAccess.getTestAccess().getCheckpointCheckpointKeyword_0_0()); 
-            // InternalDSL.g:15181:1: ( 'checkpoint' )
-            // InternalDSL.g:15182:1: 'checkpoint'
+            // InternalDSL.g:15233:1: ( ( 'checkpoint' ) )
+            // InternalDSL.g:15234:1: ( 'checkpoint' )
             {
              before(grammarAccess.getTestAccess().getCheckpointCheckpointKeyword_0_0()); 
-            match(input,80,FOLLOW_2); 
+            // InternalDSL.g:15235:1: ( 'checkpoint' )
+            // InternalDSL.g:15236:1: 'checkpoint'
+            {
+             before(grammarAccess.getTestAccess().getCheckpointCheckpointKeyword_0_0()); 
+            match(input,81,FOLLOW_2); 
              after(grammarAccess.getTestAccess().getCheckpointCheckpointKeyword_0_0()); 
 
             }
@@ -40752,21 +40894,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__DefinitionAssignment_3"
-    // InternalDSL.g:15197:1: rule__Test__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15251:1: rule__Test__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Test__DefinitionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15201:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15202:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15255:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15256:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15202:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15203:1: ( ruleQualifiedName )
+            // InternalDSL.g:15256:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15257:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getTestAccess().getDefinitionTestDefinitionCrossReference_3_0()); 
-            // InternalDSL.g:15204:1: ( ruleQualifiedName )
-            // InternalDSL.g:15205:1: ruleQualifiedName
+            // InternalDSL.g:15258:1: ( ruleQualifiedName )
+            // InternalDSL.g:15259:1: ruleQualifiedName
             {
              before(grammarAccess.getTestAccess().getDefinitionTestDefinitionQualifiedNameParserRuleCall_3_0_1()); 
             pushFollow(FOLLOW_2);
@@ -40801,17 +40943,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__ParametersAssignment_4_1"
-    // InternalDSL.g:15216:1: rule__Test__ParametersAssignment_4_1 : ( ruleParameter ) ;
+    // InternalDSL.g:15270:1: rule__Test__ParametersAssignment_4_1 : ( ruleParameter ) ;
     public final void rule__Test__ParametersAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15220:1: ( ( ruleParameter ) )
-            // InternalDSL.g:15221:1: ( ruleParameter )
+            // InternalDSL.g:15274:1: ( ( ruleParameter ) )
+            // InternalDSL.g:15275:1: ( ruleParameter )
             {
-            // InternalDSL.g:15221:1: ( ruleParameter )
-            // InternalDSL.g:15222:1: ruleParameter
+            // InternalDSL.g:15275:1: ( ruleParameter )
+            // InternalDSL.g:15276:1: ruleParameter
             {
              before(grammarAccess.getTestAccess().getParametersParameterParserRuleCall_4_1_0()); 
             pushFollow(FOLLOW_2);
@@ -40842,17 +40984,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__ResultsAssignment_5_1"
-    // InternalDSL.g:15231:1: rule__Test__ResultsAssignment_5_1 : ( ruleNamedResult ) ;
+    // InternalDSL.g:15285:1: rule__Test__ResultsAssignment_5_1 : ( ruleNamedResult ) ;
     public final void rule__Test__ResultsAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15235:1: ( ( ruleNamedResult ) )
-            // InternalDSL.g:15236:1: ( ruleNamedResult )
+            // InternalDSL.g:15289:1: ( ( ruleNamedResult ) )
+            // InternalDSL.g:15290:1: ( ruleNamedResult )
             {
-            // InternalDSL.g:15236:1: ( ruleNamedResult )
-            // InternalDSL.g:15237:1: ruleNamedResult
+            // InternalDSL.g:15290:1: ( ruleNamedResult )
+            // InternalDSL.g:15291:1: ruleNamedResult
             {
              before(grammarAccess.getTestAccess().getResultsNamedResultParserRuleCall_5_1_0()); 
             pushFollow(FOLLOW_2);
@@ -40883,17 +41025,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Test__ResultAssignment_6_3"
-    // InternalDSL.g:15246:1: rule__Test__ResultAssignment_6_3 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15300:1: rule__Test__ResultAssignment_6_3 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__Test__ResultAssignment_6_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15250:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15251:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15304:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15305:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15251:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15252:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15305:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15306:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getTestAccess().getResultValueOrEnumValueOrOperationCollectionParserRuleCall_6_3_0()); 
             pushFollow(FOLLOW_2);
@@ -40924,21 +41066,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__DefinitionAssignment_2"
-    // InternalDSL.g:15261:1: rule__TableTest__DefinitionAssignment_2 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15315:1: rule__TableTest__DefinitionAssignment_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__TableTest__DefinitionAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15265:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15266:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15319:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15320:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15266:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15267:1: ( ruleQualifiedName )
+            // InternalDSL.g:15320:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15321:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getTableTestAccess().getDefinitionTestDefinitionCrossReference_2_0()); 
-            // InternalDSL.g:15268:1: ( ruleQualifiedName )
-            // InternalDSL.g:15269:1: ruleQualifiedName
+            // InternalDSL.g:15322:1: ( ruleQualifiedName )
+            // InternalDSL.g:15323:1: ruleQualifiedName
             {
              before(grammarAccess.getTableTestAccess().getDefinitionTestDefinitionQualifiedNameParserRuleCall_2_0_1()); 
             pushFollow(FOLLOW_2);
@@ -40973,17 +41115,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__ParametersAssignment_3_1"
-    // InternalDSL.g:15280:1: rule__TableTest__ParametersAssignment_3_1 : ( ruleParameter ) ;
+    // InternalDSL.g:15334:1: rule__TableTest__ParametersAssignment_3_1 : ( ruleParameter ) ;
     public final void rule__TableTest__ParametersAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15284:1: ( ( ruleParameter ) )
-            // InternalDSL.g:15285:1: ( ruleParameter )
+            // InternalDSL.g:15338:1: ( ( ruleParameter ) )
+            // InternalDSL.g:15339:1: ( ruleParameter )
             {
-            // InternalDSL.g:15285:1: ( ruleParameter )
-            // InternalDSL.g:15286:1: ruleParameter
+            // InternalDSL.g:15339:1: ( ruleParameter )
+            // InternalDSL.g:15340:1: ruleParameter
             {
              before(grammarAccess.getTableTestAccess().getParametersParameterParserRuleCall_3_1_0()); 
             pushFollow(FOLLOW_2);
@@ -41014,17 +41156,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__ParameterHeadersAssignment_5"
-    // InternalDSL.g:15295:1: rule__TableTest__ParameterHeadersAssignment_5 : ( ruleParameterTableHeader ) ;
+    // InternalDSL.g:15349:1: rule__TableTest__ParameterHeadersAssignment_5 : ( ruleParameterTableHeader ) ;
     public final void rule__TableTest__ParameterHeadersAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15299:1: ( ( ruleParameterTableHeader ) )
-            // InternalDSL.g:15300:1: ( ruleParameterTableHeader )
+            // InternalDSL.g:15353:1: ( ( ruleParameterTableHeader ) )
+            // InternalDSL.g:15354:1: ( ruleParameterTableHeader )
             {
-            // InternalDSL.g:15300:1: ( ruleParameterTableHeader )
-            // InternalDSL.g:15301:1: ruleParameterTableHeader
+            // InternalDSL.g:15354:1: ( ruleParameterTableHeader )
+            // InternalDSL.g:15355:1: ruleParameterTableHeader
             {
              before(grammarAccess.getTableTestAccess().getParameterHeadersParameterTableHeaderParserRuleCall_5_0()); 
             pushFollow(FOLLOW_2);
@@ -41055,17 +41197,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__ResultHeadersAssignment_6"
-    // InternalDSL.g:15310:1: rule__TableTest__ResultHeadersAssignment_6 : ( ruleResultTableHeader ) ;
+    // InternalDSL.g:15364:1: rule__TableTest__ResultHeadersAssignment_6 : ( ruleResultTableHeader ) ;
     public final void rule__TableTest__ResultHeadersAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15314:1: ( ( ruleResultTableHeader ) )
-            // InternalDSL.g:15315:1: ( ruleResultTableHeader )
+            // InternalDSL.g:15368:1: ( ( ruleResultTableHeader ) )
+            // InternalDSL.g:15369:1: ( ruleResultTableHeader )
             {
-            // InternalDSL.g:15315:1: ( ruleResultTableHeader )
-            // InternalDSL.g:15316:1: ruleResultTableHeader
+            // InternalDSL.g:15369:1: ( ruleResultTableHeader )
+            // InternalDSL.g:15370:1: ruleResultTableHeader
             {
              before(grammarAccess.getTableTestAccess().getResultHeadersResultTableHeaderParserRuleCall_6_0()); 
             pushFollow(FOLLOW_2);
@@ -41096,21 +41238,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__DefaultResultColumnAssignment_8_0"
-    // InternalDSL.g:15325:1: rule__TableTest__DefaultResultColumnAssignment_8_0 : ( ( '=' ) ) ;
+    // InternalDSL.g:15379:1: rule__TableTest__DefaultResultColumnAssignment_8_0 : ( ( '=' ) ) ;
     public final void rule__TableTest__DefaultResultColumnAssignment_8_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15329:1: ( ( ( '=' ) ) )
-            // InternalDSL.g:15330:1: ( ( '=' ) )
+            // InternalDSL.g:15383:1: ( ( ( '=' ) ) )
+            // InternalDSL.g:15384:1: ( ( '=' ) )
             {
-            // InternalDSL.g:15330:1: ( ( '=' ) )
-            // InternalDSL.g:15331:1: ( '=' )
+            // InternalDSL.g:15384:1: ( ( '=' ) )
+            // InternalDSL.g:15385:1: ( '=' )
             {
              before(grammarAccess.getTableTestAccess().getDefaultResultColumnEqualsSignKeyword_8_0_0()); 
-            // InternalDSL.g:15332:1: ( '=' )
-            // InternalDSL.g:15333:1: '='
+            // InternalDSL.g:15386:1: ( '=' )
+            // InternalDSL.g:15387:1: '='
             {
              before(grammarAccess.getTableTestAccess().getDefaultResultColumnEqualsSignKeyword_8_0_0()); 
             match(input,59,FOLLOW_2); 
@@ -41141,17 +41283,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTest__RowsAssignment_9_1"
-    // InternalDSL.g:15348:1: rule__TableTest__RowsAssignment_9_1 : ( ruleTableTestRow ) ;
+    // InternalDSL.g:15402:1: rule__TableTest__RowsAssignment_9_1 : ( ruleTableTestRow ) ;
     public final void rule__TableTest__RowsAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15352:1: ( ( ruleTableTestRow ) )
-            // InternalDSL.g:15353:1: ( ruleTableTestRow )
+            // InternalDSL.g:15406:1: ( ( ruleTableTestRow ) )
+            // InternalDSL.g:15407:1: ( ruleTableTestRow )
             {
-            // InternalDSL.g:15353:1: ( ruleTableTestRow )
-            // InternalDSL.g:15354:1: ruleTableTestRow
+            // InternalDSL.g:15407:1: ( ruleTableTestRow )
+            // InternalDSL.g:15408:1: ruleTableTestRow
             {
              before(grammarAccess.getTableTestAccess().getRowsTableTestRowParserRuleCall_9_1_0()); 
             pushFollow(FOLLOW_2);
@@ -41182,17 +41324,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TableTestRow__ValuesAssignment_1"
-    // InternalDSL.g:15363:1: rule__TableTestRow__ValuesAssignment_1 : ( ruleParameterTableValue ) ;
+    // InternalDSL.g:15417:1: rule__TableTestRow__ValuesAssignment_1 : ( ruleParameterTableValue ) ;
     public final void rule__TableTestRow__ValuesAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15367:1: ( ( ruleParameterTableValue ) )
-            // InternalDSL.g:15368:1: ( ruleParameterTableValue )
+            // InternalDSL.g:15421:1: ( ( ruleParameterTableValue ) )
+            // InternalDSL.g:15422:1: ( ruleParameterTableValue )
             {
-            // InternalDSL.g:15368:1: ( ruleParameterTableValue )
-            // InternalDSL.g:15369:1: ruleParameterTableValue
+            // InternalDSL.g:15422:1: ( ruleParameterTableValue )
+            // InternalDSL.g:15423:1: ruleParameterTableValue
             {
              before(grammarAccess.getTableTestRowAccess().getValuesParameterTableValueParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -41223,17 +41365,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableHeader__NameAssignment_1"
-    // InternalDSL.g:15378:1: rule__ParameterTableHeader__NameAssignment_1 : ( ruleParameterName ) ;
+    // InternalDSL.g:15432:1: rule__ParameterTableHeader__NameAssignment_1 : ( ruleParameterName ) ;
     public final void rule__ParameterTableHeader__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15382:1: ( ( ruleParameterName ) )
-            // InternalDSL.g:15383:1: ( ruleParameterName )
+            // InternalDSL.g:15436:1: ( ( ruleParameterName ) )
+            // InternalDSL.g:15437:1: ( ruleParameterName )
             {
-            // InternalDSL.g:15383:1: ( ruleParameterName )
-            // InternalDSL.g:15384:1: ruleParameterName
+            // InternalDSL.g:15437:1: ( ruleParameterName )
+            // InternalDSL.g:15438:1: ruleParameterName
             {
              before(grammarAccess.getParameterTableHeaderAccess().getNameParameterNameParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -41264,17 +41406,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultTableHeader__NameAssignment_1"
-    // InternalDSL.g:15393:1: rule__ResultTableHeader__NameAssignment_1 : ( ruleResultName ) ;
+    // InternalDSL.g:15447:1: rule__ResultTableHeader__NameAssignment_1 : ( ruleResultName ) ;
     public final void rule__ResultTableHeader__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15397:1: ( ( ruleResultName ) )
-            // InternalDSL.g:15398:1: ( ruleResultName )
+            // InternalDSL.g:15451:1: ( ( ruleResultName ) )
+            // InternalDSL.g:15452:1: ( ruleResultName )
             {
-            // InternalDSL.g:15398:1: ( ruleResultName )
-            // InternalDSL.g:15399:1: ruleResultName
+            // InternalDSL.g:15452:1: ( ruleResultName )
+            // InternalDSL.g:15453:1: ruleResultName
             {
              before(grammarAccess.getResultTableHeaderAccess().getNameResultNameParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -41305,17 +41447,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ParameterTableValue__ValueAssignment_1"
-    // InternalDSL.g:15408:1: rule__ParameterTableValue__ValueAssignment_1 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15462:1: rule__ParameterTableValue__ValueAssignment_1 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__ParameterTableValue__ValueAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15412:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15413:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15466:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15467:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15413:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15414:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15467:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15468:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getParameterTableValueAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -41346,17 +41488,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__NameAssignment_0"
-    // InternalDSL.g:15423:1: rule__NamedResult__NameAssignment_0 : ( ruleResultName ) ;
+    // InternalDSL.g:15477:1: rule__NamedResult__NameAssignment_0 : ( ruleResultName ) ;
     public final void rule__NamedResult__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15427:1: ( ( ruleResultName ) )
-            // InternalDSL.g:15428:1: ( ruleResultName )
+            // InternalDSL.g:15481:1: ( ( ruleResultName ) )
+            // InternalDSL.g:15482:1: ( ruleResultName )
             {
-            // InternalDSL.g:15428:1: ( ruleResultName )
-            // InternalDSL.g:15429:1: ruleResultName
+            // InternalDSL.g:15482:1: ( ruleResultName )
+            // InternalDSL.g:15483:1: ruleResultName
             {
              before(grammarAccess.getNamedResultAccess().getNameResultNameParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -41387,17 +41529,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedResult__ValueAssignment_4"
-    // InternalDSL.g:15438:1: rule__NamedResult__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15492:1: rule__NamedResult__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__NamedResult__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15442:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15443:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15496:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15497:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15443:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15444:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15497:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15498:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getNamedResultAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -41428,21 +41570,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FixedResultName__FieldAssignment"
-    // InternalDSL.g:15453:1: rule__FixedResultName__FieldAssignment : ( ( RULE_ID ) ) ;
+    // InternalDSL.g:15507:1: rule__FixedResultName__FieldAssignment : ( ( RULE_ID ) ) ;
     public final void rule__FixedResultName__FieldAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15457:1: ( ( ( RULE_ID ) ) )
-            // InternalDSL.g:15458:1: ( ( RULE_ID ) )
+            // InternalDSL.g:15511:1: ( ( ( RULE_ID ) ) )
+            // InternalDSL.g:15512:1: ( ( RULE_ID ) )
             {
-            // InternalDSL.g:15458:1: ( ( RULE_ID ) )
-            // InternalDSL.g:15459:1: ( RULE_ID )
+            // InternalDSL.g:15512:1: ( ( RULE_ID ) )
+            // InternalDSL.g:15513:1: ( RULE_ID )
             {
              before(grammarAccess.getFixedResultNameAccess().getFieldJvmFieldCrossReference_0()); 
-            // InternalDSL.g:15460:1: ( RULE_ID )
-            // InternalDSL.g:15461:1: RULE_ID
+            // InternalDSL.g:15514:1: ( RULE_ID )
+            // InternalDSL.g:15515:1: RULE_ID
             {
              before(grammarAccess.getFixedResultNameAccess().getFieldJvmFieldIDTerminalRuleCall_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -41473,17 +41615,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__MultiplierAssignment_2_0"
-    // InternalDSL.g:15472:1: rule__Call__MultiplierAssignment_2_0 : ( ruleExecutionMultiplier ) ;
+    // InternalDSL.g:15526:1: rule__Call__MultiplierAssignment_2_0 : ( ruleExecutionMultiplier ) ;
     public final void rule__Call__MultiplierAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15476:1: ( ( ruleExecutionMultiplier ) )
-            // InternalDSL.g:15477:1: ( ruleExecutionMultiplier )
+            // InternalDSL.g:15530:1: ( ( ruleExecutionMultiplier ) )
+            // InternalDSL.g:15531:1: ( ruleExecutionMultiplier )
             {
-            // InternalDSL.g:15477:1: ( ruleExecutionMultiplier )
-            // InternalDSL.g:15478:1: ruleExecutionMultiplier
+            // InternalDSL.g:15531:1: ( ruleExecutionMultiplier )
+            // InternalDSL.g:15532:1: ruleExecutionMultiplier
             {
              before(grammarAccess.getCallAccess().getMultiplierExecutionMultiplierParserRuleCall_2_0_0()); 
             pushFollow(FOLLOW_2);
@@ -41514,21 +41656,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__DefinitionAssignment_3"
-    // InternalDSL.g:15487:1: rule__Call__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15541:1: rule__Call__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Call__DefinitionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15491:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15492:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15545:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15546:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15492:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15493:1: ( ruleQualifiedName )
+            // InternalDSL.g:15546:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15547:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getCallAccess().getDefinitionCallDefinitionCrossReference_3_0()); 
-            // InternalDSL.g:15494:1: ( ruleQualifiedName )
-            // InternalDSL.g:15495:1: ruleQualifiedName
+            // InternalDSL.g:15548:1: ( ruleQualifiedName )
+            // InternalDSL.g:15549:1: ruleQualifiedName
             {
              before(grammarAccess.getCallAccess().getDefinitionCallDefinitionQualifiedNameParserRuleCall_3_0_1()); 
             pushFollow(FOLLOW_2);
@@ -41563,17 +41705,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__ParametersAssignment_4_1"
-    // InternalDSL.g:15506:1: rule__Call__ParametersAssignment_4_1 : ( ruleParameter ) ;
+    // InternalDSL.g:15560:1: rule__Call__ParametersAssignment_4_1 : ( ruleParameter ) ;
     public final void rule__Call__ParametersAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15510:1: ( ( ruleParameter ) )
-            // InternalDSL.g:15511:1: ( ruleParameter )
+            // InternalDSL.g:15564:1: ( ( ruleParameter ) )
+            // InternalDSL.g:15565:1: ( ruleParameter )
             {
-            // InternalDSL.g:15511:1: ( ruleParameter )
-            // InternalDSL.g:15512:1: ruleParameter
+            // InternalDSL.g:15565:1: ( ruleParameter )
+            // InternalDSL.g:15566:1: ruleParameter
             {
              before(grammarAccess.getCallAccess().getParametersParameterParserRuleCall_4_1_0()); 
             pushFollow(FOLLOW_2);
@@ -41604,17 +41746,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__ResultsAssignment_5_1"
-    // InternalDSL.g:15521:1: rule__Call__ResultsAssignment_5_1 : ( ruleNamedCallResult ) ;
+    // InternalDSL.g:15575:1: rule__Call__ResultsAssignment_5_1 : ( ruleNamedCallResult ) ;
     public final void rule__Call__ResultsAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15525:1: ( ( ruleNamedCallResult ) )
-            // InternalDSL.g:15526:1: ( ruleNamedCallResult )
+            // InternalDSL.g:15579:1: ( ( ruleNamedCallResult ) )
+            // InternalDSL.g:15580:1: ( ruleNamedCallResult )
             {
-            // InternalDSL.g:15526:1: ( ruleNamedCallResult )
-            // InternalDSL.g:15527:1: ruleNamedCallResult
+            // InternalDSL.g:15580:1: ( ruleNamedCallResult )
+            // InternalDSL.g:15581:1: ruleNamedCallResult
             {
              before(grammarAccess.getCallAccess().getResultsNamedCallResultParserRuleCall_5_1_0()); 
             pushFollow(FOLLOW_2);
@@ -41645,17 +41787,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Call__ResultAssignment_6_3"
-    // InternalDSL.g:15536:1: rule__Call__ResultAssignment_6_3 : ( ruleVariableVariable ) ;
+    // InternalDSL.g:15590:1: rule__Call__ResultAssignment_6_3 : ( ruleVariableVariable ) ;
     public final void rule__Call__ResultAssignment_6_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15540:1: ( ( ruleVariableVariable ) )
-            // InternalDSL.g:15541:1: ( ruleVariableVariable )
+            // InternalDSL.g:15594:1: ( ( ruleVariableVariable ) )
+            // InternalDSL.g:15595:1: ( ruleVariableVariable )
             {
-            // InternalDSL.g:15541:1: ( ruleVariableVariable )
-            // InternalDSL.g:15542:1: ruleVariableVariable
+            // InternalDSL.g:15595:1: ( ruleVariableVariable )
+            // InternalDSL.g:15596:1: ruleVariableVariable
             {
              before(grammarAccess.getCallAccess().getResultVariableVariableParserRuleCall_6_3_0()); 
             pushFollow(FOLLOW_2);
@@ -41686,17 +41828,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__NameAssignment_0"
-    // InternalDSL.g:15551:1: rule__NamedCallResult__NameAssignment_0 : ( ruleResultName ) ;
+    // InternalDSL.g:15605:1: rule__NamedCallResult__NameAssignment_0 : ( ruleResultName ) ;
     public final void rule__NamedCallResult__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15555:1: ( ( ruleResultName ) )
-            // InternalDSL.g:15556:1: ( ruleResultName )
+            // InternalDSL.g:15609:1: ( ( ruleResultName ) )
+            // InternalDSL.g:15610:1: ( ruleResultName )
             {
-            // InternalDSL.g:15556:1: ( ruleResultName )
-            // InternalDSL.g:15557:1: ruleResultName
+            // InternalDSL.g:15610:1: ( ruleResultName )
+            // InternalDSL.g:15611:1: ruleResultName
             {
              before(grammarAccess.getNamedCallResultAccess().getNameResultNameParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -41727,17 +41869,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NamedCallResult__TargetAssignment_4"
-    // InternalDSL.g:15566:1: rule__NamedCallResult__TargetAssignment_4 : ( ruleVariableVariable ) ;
+    // InternalDSL.g:15620:1: rule__NamedCallResult__TargetAssignment_4 : ( ruleVariableVariable ) ;
     public final void rule__NamedCallResult__TargetAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15570:1: ( ( ruleVariableVariable ) )
-            // InternalDSL.g:15571:1: ( ruleVariableVariable )
+            // InternalDSL.g:15624:1: ( ( ruleVariableVariable ) )
+            // InternalDSL.g:15625:1: ( ruleVariableVariable )
             {
-            // InternalDSL.g:15571:1: ( ruleVariableVariable )
-            // InternalDSL.g:15572:1: ruleVariableVariable
+            // InternalDSL.g:15625:1: ( ruleVariableVariable )
+            // InternalDSL.g:15626:1: ruleVariableVariable
             {
              before(grammarAccess.getNamedCallResultAccess().getTargetVariableVariableParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -41768,17 +41910,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__MultiplierAssignment_2_0"
-    // InternalDSL.g:15581:1: rule__Suite__MultiplierAssignment_2_0 : ( ruleExecutionMultiplier ) ;
+    // InternalDSL.g:15635:1: rule__Suite__MultiplierAssignment_2_0 : ( ruleExecutionMultiplier ) ;
     public final void rule__Suite__MultiplierAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15585:1: ( ( ruleExecutionMultiplier ) )
-            // InternalDSL.g:15586:1: ( ruleExecutionMultiplier )
+            // InternalDSL.g:15639:1: ( ( ruleExecutionMultiplier ) )
+            // InternalDSL.g:15640:1: ( ruleExecutionMultiplier )
             {
-            // InternalDSL.g:15586:1: ( ruleExecutionMultiplier )
-            // InternalDSL.g:15587:1: ruleExecutionMultiplier
+            // InternalDSL.g:15640:1: ( ruleExecutionMultiplier )
+            // InternalDSL.g:15641:1: ruleExecutionMultiplier
             {
              before(grammarAccess.getSuiteAccess().getMultiplierExecutionMultiplierParserRuleCall_2_0_0()); 
             pushFollow(FOLLOW_2);
@@ -41809,21 +41951,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__DefinitionAssignment_3"
-    // InternalDSL.g:15596:1: rule__Suite__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15650:1: rule__Suite__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Suite__DefinitionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15600:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15601:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15654:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15655:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15601:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15602:1: ( ruleQualifiedName )
+            // InternalDSL.g:15655:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15656:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionCrossReference_3_0()); 
-            // InternalDSL.g:15603:1: ( ruleQualifiedName )
-            // InternalDSL.g:15604:1: ruleQualifiedName
+            // InternalDSL.g:15657:1: ( ruleQualifiedName )
+            // InternalDSL.g:15658:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionQualifiedNameParserRuleCall_3_0_1()); 
             pushFollow(FOLLOW_2);
@@ -41858,17 +42000,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__ParametersAssignment_5_0"
-    // InternalDSL.g:15615:1: rule__Suite__ParametersAssignment_5_0 : ( ruleSuiteParameter ) ;
+    // InternalDSL.g:15669:1: rule__Suite__ParametersAssignment_5_0 : ( ruleSuiteParameter ) ;
     public final void rule__Suite__ParametersAssignment_5_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15619:1: ( ( ruleSuiteParameter ) )
-            // InternalDSL.g:15620:1: ( ruleSuiteParameter )
+            // InternalDSL.g:15673:1: ( ( ruleSuiteParameter ) )
+            // InternalDSL.g:15674:1: ( ruleSuiteParameter )
             {
-            // InternalDSL.g:15620:1: ( ruleSuiteParameter )
-            // InternalDSL.g:15621:1: ruleSuiteParameter
+            // InternalDSL.g:15674:1: ( ruleSuiteParameter )
+            // InternalDSL.g:15675:1: ruleSuiteParameter
             {
              before(grammarAccess.getSuiteAccess().getParametersSuiteParameterParserRuleCall_5_0_0()); 
             pushFollow(FOLLOW_2);
@@ -41899,17 +42041,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__ReturnAssignment_6_0"
-    // InternalDSL.g:15630:1: rule__Suite__ReturnAssignment_6_0 : ( ruleSuiteReturn ) ;
+    // InternalDSL.g:15684:1: rule__Suite__ReturnAssignment_6_0 : ( ruleSuiteReturn ) ;
     public final void rule__Suite__ReturnAssignment_6_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15634:1: ( ( ruleSuiteReturn ) )
-            // InternalDSL.g:15635:1: ( ruleSuiteReturn )
+            // InternalDSL.g:15688:1: ( ( ruleSuiteReturn ) )
+            // InternalDSL.g:15689:1: ( ruleSuiteReturn )
             {
-            // InternalDSL.g:15635:1: ( ruleSuiteReturn )
-            // InternalDSL.g:15636:1: ruleSuiteReturn
+            // InternalDSL.g:15689:1: ( ruleSuiteReturn )
+            // InternalDSL.g:15690:1: ruleSuiteReturn
             {
              before(grammarAccess.getSuiteAccess().getReturnSuiteReturnParserRuleCall_6_0_0()); 
             pushFollow(FOLLOW_2);
@@ -41940,21 +42082,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__ForkAssignment_7_2"
-    // InternalDSL.g:15645:1: rule__Suite__ForkAssignment_7_2 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15699:1: rule__Suite__ForkAssignment_7_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Suite__ForkAssignment_7_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15649:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15650:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15703:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15704:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15650:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15651:1: ( ruleQualifiedName )
+            // InternalDSL.g:15704:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15705:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteAccess().getForkForkDefinitionCrossReference_7_2_0()); 
-            // InternalDSL.g:15652:1: ( ruleQualifiedName )
-            // InternalDSL.g:15653:1: ruleQualifiedName
+            // InternalDSL.g:15706:1: ( ruleQualifiedName )
+            // InternalDSL.g:15707:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteAccess().getForkForkDefinitionQualifiedNameParserRuleCall_7_2_0_1()); 
             pushFollow(FOLLOW_2);
@@ -41989,21 +42131,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Suite__VariantsAssignment_8_2_0"
-    // InternalDSL.g:15664:1: rule__Suite__VariantsAssignment_8_2_0 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15718:1: rule__Suite__VariantsAssignment_8_2_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Suite__VariantsAssignment_8_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15668:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15669:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15722:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15723:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15669:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15670:1: ( ruleQualifiedName )
+            // InternalDSL.g:15723:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15724:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteAccess().getVariantsVariantDefinitionCrossReference_8_2_0_0()); 
-            // InternalDSL.g:15671:1: ( ruleQualifiedName )
-            // InternalDSL.g:15672:1: ruleQualifiedName
+            // InternalDSL.g:15725:1: ( ruleQualifiedName )
+            // InternalDSL.g:15726:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteAccess().getVariantsVariantDefinitionQualifiedNameParserRuleCall_8_2_0_0_1()); 
             pushFollow(FOLLOW_2);
@@ -42038,21 +42180,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__NameAssignment_0"
-    // InternalDSL.g:15683:1: rule__SuiteParameter__NameAssignment_0 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15737:1: rule__SuiteParameter__NameAssignment_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__SuiteParameter__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15687:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15688:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15741:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15742:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15688:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15689:1: ( ruleQualifiedName )
+            // InternalDSL.g:15742:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15743:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteParameterAccess().getNameVariableOrConstantEntityCrossReference_0_0()); 
-            // InternalDSL.g:15690:1: ( ruleQualifiedName )
-            // InternalDSL.g:15691:1: ruleQualifiedName
+            // InternalDSL.g:15744:1: ( ruleQualifiedName )
+            // InternalDSL.g:15745:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteParameterAccess().getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1()); 
             pushFollow(FOLLOW_2);
@@ -42087,17 +42229,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteParameter__ValueAssignment_4"
-    // InternalDSL.g:15702:1: rule__SuiteParameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15756:1: rule__SuiteParameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__SuiteParameter__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15706:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15707:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15760:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15761:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15707:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15708:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15761:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15762:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -42128,21 +42270,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__NameAssignment_0"
-    // InternalDSL.g:15717:1: rule__SuiteReturn__NameAssignment_0 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15771:1: rule__SuiteReturn__NameAssignment_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__SuiteReturn__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15721:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15722:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15775:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15776:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15722:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15723:1: ( ruleQualifiedName )
+            // InternalDSL.g:15776:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15777:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getSuiteReturnAccess().getNameSuiteReturnDefinitionCrossReference_0_0()); 
-            // InternalDSL.g:15724:1: ( ruleQualifiedName )
-            // InternalDSL.g:15725:1: ruleQualifiedName
+            // InternalDSL.g:15778:1: ( ruleQualifiedName )
+            // InternalDSL.g:15779:1: ruleQualifiedName
             {
              before(grammarAccess.getSuiteReturnAccess().getNameSuiteReturnDefinitionQualifiedNameParserRuleCall_0_0_1()); 
             pushFollow(FOLLOW_2);
@@ -42177,17 +42319,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteReturn__TargetAssignment_4"
-    // InternalDSL.g:15736:1: rule__SuiteReturn__TargetAssignment_4 : ( ruleVariableVariable ) ;
+    // InternalDSL.g:15790:1: rule__SuiteReturn__TargetAssignment_4 : ( ruleVariableVariable ) ;
     public final void rule__SuiteReturn__TargetAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15740:1: ( ( ruleVariableVariable ) )
-            // InternalDSL.g:15741:1: ( ruleVariableVariable )
+            // InternalDSL.g:15794:1: ( ( ruleVariableVariable ) )
+            // InternalDSL.g:15795:1: ( ruleVariableVariable )
             {
-            // InternalDSL.g:15741:1: ( ruleVariableVariable )
-            // InternalDSL.g:15742:1: ruleVariableVariable
+            // InternalDSL.g:15795:1: ( ruleVariableVariable )
+            // InternalDSL.g:15796:1: ruleVariableVariable
             {
              before(grammarAccess.getSuiteReturnAccess().getTargetVariableVariableParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -42218,17 +42360,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__NameAssignment_0"
-    // InternalDSL.g:15751:1: rule__Parameter__NameAssignment_0 : ( ruleParameterName ) ;
+    // InternalDSL.g:15805:1: rule__Parameter__NameAssignment_0 : ( ruleParameterName ) ;
     public final void rule__Parameter__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15755:1: ( ( ruleParameterName ) )
-            // InternalDSL.g:15756:1: ( ruleParameterName )
+            // InternalDSL.g:15809:1: ( ( ruleParameterName ) )
+            // InternalDSL.g:15810:1: ( ruleParameterName )
             {
-            // InternalDSL.g:15756:1: ( ruleParameterName )
-            // InternalDSL.g:15757:1: ruleParameterName
+            // InternalDSL.g:15810:1: ( ruleParameterName )
+            // InternalDSL.g:15811:1: ruleParameterName
             {
              before(grammarAccess.getParameterAccess().getNameParameterNameParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -42259,17 +42401,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Parameter__ValueAssignment_4"
-    // InternalDSL.g:15766:1: rule__Parameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15820:1: rule__Parameter__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__Parameter__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15770:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15771:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15824:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15825:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15771:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15772:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15825:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15826:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -42300,21 +42442,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__FixedParameterName__AnnotationAssignment"
-    // InternalDSL.g:15781:1: rule__FixedParameterName__AnnotationAssignment : ( ( RULE_ID ) ) ;
+    // InternalDSL.g:15835:1: rule__FixedParameterName__AnnotationAssignment : ( ( RULE_ID ) ) ;
     public final void rule__FixedParameterName__AnnotationAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15785:1: ( ( ( RULE_ID ) ) )
-            // InternalDSL.g:15786:1: ( ( RULE_ID ) )
+            // InternalDSL.g:15839:1: ( ( ( RULE_ID ) ) )
+            // InternalDSL.g:15840:1: ( ( RULE_ID ) )
             {
-            // InternalDSL.g:15786:1: ( ( RULE_ID ) )
-            // InternalDSL.g:15787:1: ( RULE_ID )
+            // InternalDSL.g:15840:1: ( ( RULE_ID ) )
+            // InternalDSL.g:15841:1: ( RULE_ID )
             {
              before(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceCrossReference_0()); 
-            // InternalDSL.g:15788:1: ( RULE_ID )
-            // InternalDSL.g:15789:1: RULE_ID
+            // InternalDSL.g:15842:1: ( RULE_ID )
+            // InternalDSL.g:15843:1: RULE_ID
             {
              before(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -42345,17 +42487,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_0"
-    // InternalDSL.g:15800:1: rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_0 : ( RULE_ID ) ;
+    // InternalDSL.g:15854:1: rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_0 : ( RULE_ID ) ;
     public final void rule__ArbitraryParameterOrResultName__IdentifierAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15804:1: ( ( RULE_ID ) )
-            // InternalDSL.g:15805:1: ( RULE_ID )
+            // InternalDSL.g:15858:1: ( ( RULE_ID ) )
+            // InternalDSL.g:15859:1: ( RULE_ID )
             {
-            // InternalDSL.g:15805:1: ( RULE_ID )
-            // InternalDSL.g:15806:1: RULE_ID
+            // InternalDSL.g:15859:1: ( RULE_ID )
+            // InternalDSL.g:15860:1: RULE_ID
             {
              before(grammarAccess.getArbitraryParameterOrResultNameAccess().getIdentifierIDTerminalRuleCall_1_0_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -42382,17 +42524,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ArbitraryParameterOrResultName__StringIdentifierAssignment_1_1"
-    // InternalDSL.g:15815:1: rule__ArbitraryParameterOrResultName__StringIdentifierAssignment_1_1 : ( RULE_STRING ) ;
+    // InternalDSL.g:15869:1: rule__ArbitraryParameterOrResultName__StringIdentifierAssignment_1_1 : ( RULE_STRING ) ;
     public final void rule__ArbitraryParameterOrResultName__StringIdentifierAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15819:1: ( ( RULE_STRING ) )
-            // InternalDSL.g:15820:1: ( RULE_STRING )
+            // InternalDSL.g:15873:1: ( ( RULE_STRING ) )
+            // InternalDSL.g:15874:1: ( RULE_STRING )
             {
-            // InternalDSL.g:15820:1: ( RULE_STRING )
-            // InternalDSL.g:15821:1: RULE_STRING
+            // InternalDSL.g:15874:1: ( RULE_STRING )
+            // InternalDSL.g:15875:1: RULE_STRING
             {
              before(grammarAccess.getArbitraryParameterOrResultNameAccess().getStringIdentifierSTRINGTerminalRuleCall_1_1_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -42419,17 +42561,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__FirstOperandAssignment_2"
-    // InternalDSL.g:15830:1: rule__StandardOperation__FirstOperandAssignment_2 : ( ruleValueOrEnumValueOrOperation ) ;
+    // InternalDSL.g:15884:1: rule__StandardOperation__FirstOperandAssignment_2 : ( ruleValueOrEnumValueOrOperation ) ;
     public final void rule__StandardOperation__FirstOperandAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15834:1: ( ( ruleValueOrEnumValueOrOperation ) )
-            // InternalDSL.g:15835:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:15888:1: ( ( ruleValueOrEnumValueOrOperation ) )
+            // InternalDSL.g:15889:1: ( ruleValueOrEnumValueOrOperation )
             {
-            // InternalDSL.g:15835:1: ( ruleValueOrEnumValueOrOperation )
-            // InternalDSL.g:15836:1: ruleValueOrEnumValueOrOperation
+            // InternalDSL.g:15889:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:15890:1: ruleValueOrEnumValueOrOperation
             {
              before(grammarAccess.getStandardOperationAccess().getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0()); 
             pushFollow(FOLLOW_2);
@@ -42460,21 +42602,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__OperatorsAssignment_4_0"
-    // InternalDSL.g:15845:1: rule__StandardOperation__OperatorsAssignment_4_0 : ( ( rule__StandardOperation__OperatorsAlternatives_4_0_0 ) ) ;
+    // InternalDSL.g:15899:1: rule__StandardOperation__OperatorsAssignment_4_0 : ( ( rule__StandardOperation__OperatorsAlternatives_4_0_0 ) ) ;
     public final void rule__StandardOperation__OperatorsAssignment_4_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15849:1: ( ( ( rule__StandardOperation__OperatorsAlternatives_4_0_0 ) ) )
-            // InternalDSL.g:15850:1: ( ( rule__StandardOperation__OperatorsAlternatives_4_0_0 ) )
+            // InternalDSL.g:15903:1: ( ( ( rule__StandardOperation__OperatorsAlternatives_4_0_0 ) ) )
+            // InternalDSL.g:15904:1: ( ( rule__StandardOperation__OperatorsAlternatives_4_0_0 ) )
             {
-            // InternalDSL.g:15850:1: ( ( rule__StandardOperation__OperatorsAlternatives_4_0_0 ) )
-            // InternalDSL.g:15851:1: ( rule__StandardOperation__OperatorsAlternatives_4_0_0 )
+            // InternalDSL.g:15904:1: ( ( rule__StandardOperation__OperatorsAlternatives_4_0_0 ) )
+            // InternalDSL.g:15905:1: ( rule__StandardOperation__OperatorsAlternatives_4_0_0 )
             {
              before(grammarAccess.getStandardOperationAccess().getOperatorsAlternatives_4_0_0()); 
-            // InternalDSL.g:15852:1: ( rule__StandardOperation__OperatorsAlternatives_4_0_0 )
-            // InternalDSL.g:15852:2: rule__StandardOperation__OperatorsAlternatives_4_0_0
+            // InternalDSL.g:15906:1: ( rule__StandardOperation__OperatorsAlternatives_4_0_0 )
+            // InternalDSL.g:15906:2: rule__StandardOperation__OperatorsAlternatives_4_0_0
             {
             pushFollow(FOLLOW_2);
             rule__StandardOperation__OperatorsAlternatives_4_0_0();
@@ -42507,17 +42649,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StandardOperation__MoreOperandsAssignment_4_2"
-    // InternalDSL.g:15861:1: rule__StandardOperation__MoreOperandsAssignment_4_2 : ( ruleValueOrEnumValueOrOperation ) ;
+    // InternalDSL.g:15915:1: rule__StandardOperation__MoreOperandsAssignment_4_2 : ( ruleValueOrEnumValueOrOperation ) ;
     public final void rule__StandardOperation__MoreOperandsAssignment_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15865:1: ( ( ruleValueOrEnumValueOrOperation ) )
-            // InternalDSL.g:15866:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:15919:1: ( ( ruleValueOrEnumValueOrOperation ) )
+            // InternalDSL.g:15920:1: ( ruleValueOrEnumValueOrOperation )
             {
-            // InternalDSL.g:15866:1: ( ruleValueOrEnumValueOrOperation )
-            // InternalDSL.g:15867:1: ruleValueOrEnumValueOrOperation
+            // InternalDSL.g:15920:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:15921:1: ruleValueOrEnumValueOrOperation
             {
              before(grammarAccess.getStandardOperationAccess().getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_4_2_0()); 
             pushFollow(FOLLOW_2);
@@ -42548,17 +42690,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__PrefixOperandAssignment_2_0"
-    // InternalDSL.g:15876:1: rule__CustomOperation__PrefixOperandAssignment_2_0 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15930:1: rule__CustomOperation__PrefixOperandAssignment_2_0 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__CustomOperation__PrefixOperandAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15880:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15881:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15934:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15935:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15881:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15882:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15935:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15936:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getCustomOperationAccess().getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0()); 
             pushFollow(FOLLOW_2);
@@ -42589,21 +42731,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__DefinitionAssignment_3"
-    // InternalDSL.g:15891:1: rule__CustomOperation__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:15945:1: rule__CustomOperation__DefinitionAssignment_3 : ( ( ruleQualifiedName ) ) ;
     public final void rule__CustomOperation__DefinitionAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15895:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:15896:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15949:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:15950:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:15896:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:15897:1: ( ruleQualifiedName )
+            // InternalDSL.g:15950:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:15951:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getCustomOperationAccess().getDefinitionOperationDefinitionCrossReference_3_0()); 
-            // InternalDSL.g:15898:1: ( ruleQualifiedName )
-            // InternalDSL.g:15899:1: ruleQualifiedName
+            // InternalDSL.g:15952:1: ( ruleQualifiedName )
+            // InternalDSL.g:15953:1: ruleQualifiedName
             {
              before(grammarAccess.getCustomOperationAccess().getDefinitionOperationDefinitionQualifiedNameParserRuleCall_3_0_1()); 
             pushFollow(FOLLOW_2);
@@ -42638,17 +42780,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__CustomOperation__PostfixOperandAssignment_4_2"
-    // InternalDSL.g:15910:1: rule__CustomOperation__PostfixOperandAssignment_4_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:15964:1: rule__CustomOperation__PostfixOperandAssignment_4_2 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__CustomOperation__PostfixOperandAssignment_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15914:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:15915:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15968:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:15969:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:15915:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:15916:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:15969:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:15970:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getCustomOperationAccess().getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
             pushFollow(FOLLOW_2);
@@ -42679,17 +42821,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0"
-    // InternalDSL.g:15925:1: rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 : ( ruleValueOrEnumValueOrOperation ) ;
+    // InternalDSL.g:15979:1: rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0 : ( ruleValueOrEnumValueOrOperation ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__ValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15929:1: ( ( ruleValueOrEnumValueOrOperation ) )
-            // InternalDSL.g:15930:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:15983:1: ( ( ruleValueOrEnumValueOrOperation ) )
+            // InternalDSL.g:15984:1: ( ruleValueOrEnumValueOrOperation )
             {
-            // InternalDSL.g:15930:1: ( ruleValueOrEnumValueOrOperation )
-            // InternalDSL.g:15931:1: ruleValueOrEnumValueOrOperation
+            // InternalDSL.g:15984:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:15985:1: ruleValueOrEnumValueOrOperation
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getValueValueOrEnumValueOrOperationParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -42720,17 +42862,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3"
-    // InternalDSL.g:15940:1: rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 : ( ruleValueOrEnumValueOrOperation ) ;
+    // InternalDSL.g:15994:1: rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3 : ( ruleValueOrEnumValueOrOperation ) ;
     public final void rule__ValueOrEnumValueOrOperationCollection__MoreValuesAssignment_1_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15944:1: ( ( ruleValueOrEnumValueOrOperation ) )
-            // InternalDSL.g:15945:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:15998:1: ( ( ruleValueOrEnumValueOrOperation ) )
+            // InternalDSL.g:15999:1: ( ruleValueOrEnumValueOrOperation )
             {
-            // InternalDSL.g:15945:1: ( ruleValueOrEnumValueOrOperation )
-            // InternalDSL.g:15946:1: ruleValueOrEnumValueOrOperation
+            // InternalDSL.g:15999:1: ( ruleValueOrEnumValueOrOperation )
+            // InternalDSL.g:16000:1: ruleValueOrEnumValueOrOperation
             {
              before(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getMoreValuesValueOrEnumValueOrOperationParserRuleCall_1_3_0()); 
             pushFollow(FOLLOW_2);
@@ -42761,17 +42903,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IntegerValue__IntegerValueAssignment"
-    // InternalDSL.g:15955:1: rule__IntegerValue__IntegerValueAssignment : ( RULE_INTEGER ) ;
+    // InternalDSL.g:16009:1: rule__IntegerValue__IntegerValueAssignment : ( RULE_INTEGER ) ;
     public final void rule__IntegerValue__IntegerValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15959:1: ( ( RULE_INTEGER ) )
-            // InternalDSL.g:15960:1: ( RULE_INTEGER )
+            // InternalDSL.g:16013:1: ( ( RULE_INTEGER ) )
+            // InternalDSL.g:16014:1: ( RULE_INTEGER )
             {
-            // InternalDSL.g:15960:1: ( RULE_INTEGER )
-            // InternalDSL.g:15961:1: RULE_INTEGER
+            // InternalDSL.g:16014:1: ( RULE_INTEGER )
+            // InternalDSL.g:16015:1: RULE_INTEGER
             {
              before(grammarAccess.getIntegerValueAccess().getIntegerValueINTEGERTerminalRuleCall_0()); 
             match(input,RULE_INTEGER,FOLLOW_2); 
@@ -42798,17 +42940,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DecimalValue__DecimalValueAssignment"
-    // InternalDSL.g:15970:1: rule__DecimalValue__DecimalValueAssignment : ( RULE_DECIMAL ) ;
+    // InternalDSL.g:16024:1: rule__DecimalValue__DecimalValueAssignment : ( RULE_DECIMAL ) ;
     public final void rule__DecimalValue__DecimalValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15974:1: ( ( RULE_DECIMAL ) )
-            // InternalDSL.g:15975:1: ( RULE_DECIMAL )
+            // InternalDSL.g:16028:1: ( ( RULE_DECIMAL ) )
+            // InternalDSL.g:16029:1: ( RULE_DECIMAL )
             {
-            // InternalDSL.g:15975:1: ( RULE_DECIMAL )
-            // InternalDSL.g:15976:1: RULE_DECIMAL
+            // InternalDSL.g:16029:1: ( RULE_DECIMAL )
+            // InternalDSL.g:16030:1: RULE_DECIMAL
             {
              before(grammarAccess.getDecimalValueAccess().getDecimalValueDECIMALTerminalRuleCall_0()); 
             match(input,RULE_DECIMAL,FOLLOW_2); 
@@ -42835,17 +42977,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StringValue__StringValueAssignment"
-    // InternalDSL.g:15985:1: rule__StringValue__StringValueAssignment : ( RULE_STRING ) ;
+    // InternalDSL.g:16039:1: rule__StringValue__StringValueAssignment : ( RULE_STRING ) ;
     public final void rule__StringValue__StringValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:15989:1: ( ( RULE_STRING ) )
-            // InternalDSL.g:15990:1: ( RULE_STRING )
+            // InternalDSL.g:16043:1: ( ( RULE_STRING ) )
+            // InternalDSL.g:16044:1: ( RULE_STRING )
             {
-            // InternalDSL.g:15990:1: ( RULE_STRING )
-            // InternalDSL.g:15991:1: RULE_STRING
+            // InternalDSL.g:16044:1: ( RULE_STRING )
+            // InternalDSL.g:16045:1: RULE_STRING
             {
              before(grammarAccess.getStringValueAccess().getStringValueSTRINGTerminalRuleCall_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -42872,21 +43014,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BooleanValue__BooleanValueAssignment"
-    // InternalDSL.g:16000:1: rule__BooleanValue__BooleanValueAssignment : ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) ) ;
+    // InternalDSL.g:16054:1: rule__BooleanValue__BooleanValueAssignment : ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) ) ;
     public final void rule__BooleanValue__BooleanValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16004:1: ( ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) ) )
-            // InternalDSL.g:16005:1: ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) )
+            // InternalDSL.g:16058:1: ( ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) ) )
+            // InternalDSL.g:16059:1: ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) )
             {
-            // InternalDSL.g:16005:1: ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) )
-            // InternalDSL.g:16006:1: ( rule__BooleanValue__BooleanValueAlternatives_0 )
+            // InternalDSL.g:16059:1: ( ( rule__BooleanValue__BooleanValueAlternatives_0 ) )
+            // InternalDSL.g:16060:1: ( rule__BooleanValue__BooleanValueAlternatives_0 )
             {
              before(grammarAccess.getBooleanValueAccess().getBooleanValueAlternatives_0()); 
-            // InternalDSL.g:16007:1: ( rule__BooleanValue__BooleanValueAlternatives_0 )
-            // InternalDSL.g:16007:2: rule__BooleanValue__BooleanValueAlternatives_0
+            // InternalDSL.g:16061:1: ( rule__BooleanValue__BooleanValueAlternatives_0 )
+            // InternalDSL.g:16061:2: rule__BooleanValue__BooleanValueAlternatives_0
             {
             pushFollow(FOLLOW_2);
             rule__BooleanValue__BooleanValueAlternatives_0();
@@ -42919,17 +43061,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IsoDateValue__DateValueAssignment"
-    // InternalDSL.g:16016:1: rule__IsoDateValue__DateValueAssignment : ( RULE_ISODATE ) ;
+    // InternalDSL.g:16070:1: rule__IsoDateValue__DateValueAssignment : ( RULE_ISODATE ) ;
     public final void rule__IsoDateValue__DateValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16020:1: ( ( RULE_ISODATE ) )
-            // InternalDSL.g:16021:1: ( RULE_ISODATE )
+            // InternalDSL.g:16074:1: ( ( RULE_ISODATE ) )
+            // InternalDSL.g:16075:1: ( RULE_ISODATE )
             {
-            // InternalDSL.g:16021:1: ( RULE_ISODATE )
-            // InternalDSL.g:16022:1: RULE_ISODATE
+            // InternalDSL.g:16075:1: ( RULE_ISODATE )
+            // InternalDSL.g:16076:1: RULE_ISODATE
             {
              before(grammarAccess.getIsoDateValueAccess().getDateValueISODATETerminalRuleCall_0()); 
             match(input,RULE_ISODATE,FOLLOW_2); 
@@ -42956,17 +43098,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateValue__DateValueAssignment"
-    // InternalDSL.g:16031:1: rule__EuropeanDateValue__DateValueAssignment : ( RULE_EURODATE ) ;
+    // InternalDSL.g:16085:1: rule__EuropeanDateValue__DateValueAssignment : ( RULE_EURODATE ) ;
     public final void rule__EuropeanDateValue__DateValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16035:1: ( ( RULE_EURODATE ) )
-            // InternalDSL.g:16036:1: ( RULE_EURODATE )
+            // InternalDSL.g:16089:1: ( ( RULE_EURODATE ) )
+            // InternalDSL.g:16090:1: ( RULE_EURODATE )
             {
-            // InternalDSL.g:16036:1: ( RULE_EURODATE )
-            // InternalDSL.g:16037:1: RULE_EURODATE
+            // InternalDSL.g:16090:1: ( RULE_EURODATE )
+            // InternalDSL.g:16091:1: RULE_EURODATE
             {
              before(grammarAccess.getEuropeanDateValueAccess().getDateValueEURODATETerminalRuleCall_0()); 
             match(input,RULE_EURODATE,FOLLOW_2); 
@@ -42993,17 +43135,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateValue__DateValueAssignment"
-    // InternalDSL.g:16046:1: rule__USDateValue__DateValueAssignment : ( RULE_USDATE ) ;
+    // InternalDSL.g:16100:1: rule__USDateValue__DateValueAssignment : ( RULE_USDATE ) ;
     public final void rule__USDateValue__DateValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16050:1: ( ( RULE_USDATE ) )
-            // InternalDSL.g:16051:1: ( RULE_USDATE )
+            // InternalDSL.g:16104:1: ( ( RULE_USDATE ) )
+            // InternalDSL.g:16105:1: ( RULE_USDATE )
             {
-            // InternalDSL.g:16051:1: ( RULE_USDATE )
-            // InternalDSL.g:16052:1: RULE_USDATE
+            // InternalDSL.g:16105:1: ( RULE_USDATE )
+            // InternalDSL.g:16106:1: RULE_USDATE
             {
              before(grammarAccess.getUSDateValueAccess().getDateValueUSDATETerminalRuleCall_0()); 
             match(input,RULE_USDATE,FOLLOW_2); 
@@ -43030,17 +43172,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IsoTimeValue__TimeValueAssignment"
-    // InternalDSL.g:16061:1: rule__IsoTimeValue__TimeValueAssignment : ( RULE_ISOTIME ) ;
+    // InternalDSL.g:16115:1: rule__IsoTimeValue__TimeValueAssignment : ( RULE_ISOTIME ) ;
     public final void rule__IsoTimeValue__TimeValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16065:1: ( ( RULE_ISOTIME ) )
-            // InternalDSL.g:16066:1: ( RULE_ISOTIME )
+            // InternalDSL.g:16119:1: ( ( RULE_ISOTIME ) )
+            // InternalDSL.g:16120:1: ( RULE_ISOTIME )
             {
-            // InternalDSL.g:16066:1: ( RULE_ISOTIME )
-            // InternalDSL.g:16067:1: RULE_ISOTIME
+            // InternalDSL.g:16120:1: ( RULE_ISOTIME )
+            // InternalDSL.g:16121:1: RULE_ISOTIME
             {
              before(grammarAccess.getIsoTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_0()); 
             match(input,RULE_ISOTIME,FOLLOW_2); 
@@ -43067,17 +43209,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Simple24HrsTimeValue__TimeValueAssignment"
-    // InternalDSL.g:16076:1: rule__Simple24HrsTimeValue__TimeValueAssignment : ( RULE_TWENTYFOURHRSTIME ) ;
+    // InternalDSL.g:16130:1: rule__Simple24HrsTimeValue__TimeValueAssignment : ( RULE_TWENTYFOURHRSTIME ) ;
     public final void rule__Simple24HrsTimeValue__TimeValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16080:1: ( ( RULE_TWENTYFOURHRSTIME ) )
-            // InternalDSL.g:16081:1: ( RULE_TWENTYFOURHRSTIME )
+            // InternalDSL.g:16134:1: ( ( RULE_TWENTYFOURHRSTIME ) )
+            // InternalDSL.g:16135:1: ( RULE_TWENTYFOURHRSTIME )
             {
-            // InternalDSL.g:16081:1: ( RULE_TWENTYFOURHRSTIME )
-            // InternalDSL.g:16082:1: RULE_TWENTYFOURHRSTIME
+            // InternalDSL.g:16135:1: ( RULE_TWENTYFOURHRSTIME )
+            // InternalDSL.g:16136:1: RULE_TWENTYFOURHRSTIME
             {
              before(grammarAccess.getSimple24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_0()); 
             match(input,RULE_TWENTYFOURHRSTIME,FOLLOW_2); 
@@ -43104,17 +43246,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Simple12HrsTimeValue__TimeValueAssignment"
-    // InternalDSL.g:16091:1: rule__Simple12HrsTimeValue__TimeValueAssignment : ( RULE_TWELVEHRSTIME ) ;
+    // InternalDSL.g:16145:1: rule__Simple12HrsTimeValue__TimeValueAssignment : ( RULE_TWELVEHRSTIME ) ;
     public final void rule__Simple12HrsTimeValue__TimeValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16095:1: ( ( RULE_TWELVEHRSTIME ) )
-            // InternalDSL.g:16096:1: ( RULE_TWELVEHRSTIME )
+            // InternalDSL.g:16149:1: ( ( RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:16150:1: ( RULE_TWELVEHRSTIME )
             {
-            // InternalDSL.g:16096:1: ( RULE_TWELVEHRSTIME )
-            // InternalDSL.g:16097:1: RULE_TWELVEHRSTIME
+            // InternalDSL.g:16150:1: ( RULE_TWELVEHRSTIME )
+            // InternalDSL.g:16151:1: RULE_TWELVEHRSTIME
             {
              before(grammarAccess.getSimple12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_0()); 
             match(input,RULE_TWELVEHRSTIME,FOLLOW_2); 
@@ -43141,17 +43283,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IsoDateAndTimeValue__DateValueAssignment_0"
-    // InternalDSL.g:16106:1: rule__IsoDateAndTimeValue__DateValueAssignment_0 : ( RULE_ISODATE ) ;
+    // InternalDSL.g:16160:1: rule__IsoDateAndTimeValue__DateValueAssignment_0 : ( RULE_ISODATE ) ;
     public final void rule__IsoDateAndTimeValue__DateValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16110:1: ( ( RULE_ISODATE ) )
-            // InternalDSL.g:16111:1: ( RULE_ISODATE )
+            // InternalDSL.g:16164:1: ( ( RULE_ISODATE ) )
+            // InternalDSL.g:16165:1: ( RULE_ISODATE )
             {
-            // InternalDSL.g:16111:1: ( RULE_ISODATE )
-            // InternalDSL.g:16112:1: RULE_ISODATE
+            // InternalDSL.g:16165:1: ( RULE_ISODATE )
+            // InternalDSL.g:16166:1: RULE_ISODATE
             {
              before(grammarAccess.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0()); 
             match(input,RULE_ISODATE,FOLLOW_2); 
@@ -43178,17 +43320,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__IsoDateAndTimeValue__TimeValueAssignment_1"
-    // InternalDSL.g:16121:1: rule__IsoDateAndTimeValue__TimeValueAssignment_1 : ( RULE_ISOTIME ) ;
+    // InternalDSL.g:16175:1: rule__IsoDateAndTimeValue__TimeValueAssignment_1 : ( RULE_ISOTIME ) ;
     public final void rule__IsoDateAndTimeValue__TimeValueAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16125:1: ( ( RULE_ISOTIME ) )
-            // InternalDSL.g:16126:1: ( RULE_ISOTIME )
+            // InternalDSL.g:16179:1: ( ( RULE_ISOTIME ) )
+            // InternalDSL.g:16180:1: ( RULE_ISOTIME )
             {
-            // InternalDSL.g:16126:1: ( RULE_ISOTIME )
-            // InternalDSL.g:16127:1: RULE_ISOTIME
+            // InternalDSL.g:16180:1: ( RULE_ISOTIME )
+            // InternalDSL.g:16181:1: RULE_ISOTIME
             {
              before(grammarAccess.getIsoDateAndTimeValueAccess().getTimeValueISOTIMETerminalRuleCall_1_0()); 
             match(input,RULE_ISOTIME,FOLLOW_2); 
@@ -43215,17 +43357,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0"
-    // InternalDSL.g:16136:1: rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 : ( RULE_EURODATE ) ;
+    // InternalDSL.g:16190:1: rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0 : ( RULE_EURODATE ) ;
     public final void rule__EuropeanDateAnd24HrsTimeValue__DateValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16140:1: ( ( RULE_EURODATE ) )
-            // InternalDSL.g:16141:1: ( RULE_EURODATE )
+            // InternalDSL.g:16194:1: ( ( RULE_EURODATE ) )
+            // InternalDSL.g:16195:1: ( RULE_EURODATE )
             {
-            // InternalDSL.g:16141:1: ( RULE_EURODATE )
-            // InternalDSL.g:16142:1: RULE_EURODATE
+            // InternalDSL.g:16195:1: ( RULE_EURODATE )
+            // InternalDSL.g:16196:1: RULE_EURODATE
             {
              before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0()); 
             match(input,RULE_EURODATE,FOLLOW_2); 
@@ -43252,17 +43394,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2"
-    // InternalDSL.g:16151:1: rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 : ( RULE_TWENTYFOURHRSTIME ) ;
+    // InternalDSL.g:16205:1: rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2 : ( RULE_TWENTYFOURHRSTIME ) ;
     public final void rule__EuropeanDateAnd24HrsTimeValue__TimeValueAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16155:1: ( ( RULE_TWENTYFOURHRSTIME ) )
-            // InternalDSL.g:16156:1: ( RULE_TWENTYFOURHRSTIME )
+            // InternalDSL.g:16209:1: ( ( RULE_TWENTYFOURHRSTIME ) )
+            // InternalDSL.g:16210:1: ( RULE_TWENTYFOURHRSTIME )
             {
-            // InternalDSL.g:16156:1: ( RULE_TWENTYFOURHRSTIME )
-            // InternalDSL.g:16157:1: RULE_TWENTYFOURHRSTIME
+            // InternalDSL.g:16210:1: ( RULE_TWENTYFOURHRSTIME )
+            // InternalDSL.g:16211:1: RULE_TWENTYFOURHRSTIME
             {
              before(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getTimeValueTWENTYFOURHRSTIMETerminalRuleCall_2_0()); 
             match(input,RULE_TWENTYFOURHRSTIME,FOLLOW_2); 
@@ -43289,17 +43431,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0"
-    // InternalDSL.g:16166:1: rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 : ( RULE_EURODATE ) ;
+    // InternalDSL.g:16220:1: rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0 : ( RULE_EURODATE ) ;
     public final void rule__EuropeanDateAnd12HrsTimeValue__DateValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16170:1: ( ( RULE_EURODATE ) )
-            // InternalDSL.g:16171:1: ( RULE_EURODATE )
+            // InternalDSL.g:16224:1: ( ( RULE_EURODATE ) )
+            // InternalDSL.g:16225:1: ( RULE_EURODATE )
             {
-            // InternalDSL.g:16171:1: ( RULE_EURODATE )
-            // InternalDSL.g:16172:1: RULE_EURODATE
+            // InternalDSL.g:16225:1: ( RULE_EURODATE )
+            // InternalDSL.g:16226:1: RULE_EURODATE
             {
              before(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0()); 
             match(input,RULE_EURODATE,FOLLOW_2); 
@@ -43326,17 +43468,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2"
-    // InternalDSL.g:16181:1: rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 : ( RULE_TWELVEHRSTIME ) ;
+    // InternalDSL.g:16235:1: rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2 : ( RULE_TWELVEHRSTIME ) ;
     public final void rule__EuropeanDateAnd12HrsTimeValue__TimeValueAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16185:1: ( ( RULE_TWELVEHRSTIME ) )
-            // InternalDSL.g:16186:1: ( RULE_TWELVEHRSTIME )
+            // InternalDSL.g:16239:1: ( ( RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:16240:1: ( RULE_TWELVEHRSTIME )
             {
-            // InternalDSL.g:16186:1: ( RULE_TWELVEHRSTIME )
-            // InternalDSL.g:16187:1: RULE_TWELVEHRSTIME
+            // InternalDSL.g:16240:1: ( RULE_TWELVEHRSTIME )
+            // InternalDSL.g:16241:1: RULE_TWELVEHRSTIME
             {
              before(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0()); 
             match(input,RULE_TWELVEHRSTIME,FOLLOW_2); 
@@ -43363,17 +43505,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateAnd12HrsTimeValue__DateValueAssignment_0"
-    // InternalDSL.g:16196:1: rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 : ( RULE_USDATE ) ;
+    // InternalDSL.g:16250:1: rule__USDateAnd12HrsTimeValue__DateValueAssignment_0 : ( RULE_USDATE ) ;
     public final void rule__USDateAnd12HrsTimeValue__DateValueAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16200:1: ( ( RULE_USDATE ) )
-            // InternalDSL.g:16201:1: ( RULE_USDATE )
+            // InternalDSL.g:16254:1: ( ( RULE_USDATE ) )
+            // InternalDSL.g:16255:1: ( RULE_USDATE )
             {
-            // InternalDSL.g:16201:1: ( RULE_USDATE )
-            // InternalDSL.g:16202:1: RULE_USDATE
+            // InternalDSL.g:16255:1: ( RULE_USDATE )
+            // InternalDSL.g:16256:1: RULE_USDATE
             {
              before(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getDateValueUSDATETerminalRuleCall_0_0()); 
             match(input,RULE_USDATE,FOLLOW_2); 
@@ -43400,17 +43542,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2"
-    // InternalDSL.g:16211:1: rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 : ( RULE_TWELVEHRSTIME ) ;
+    // InternalDSL.g:16265:1: rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2 : ( RULE_TWELVEHRSTIME ) ;
     public final void rule__USDateAnd12HrsTimeValue__TimeValueAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16215:1: ( ( RULE_TWELVEHRSTIME ) )
-            // InternalDSL.g:16216:1: ( RULE_TWELVEHRSTIME )
+            // InternalDSL.g:16269:1: ( ( RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:16270:1: ( RULE_TWELVEHRSTIME )
             {
-            // InternalDSL.g:16216:1: ( RULE_TWELVEHRSTIME )
-            // InternalDSL.g:16217:1: RULE_TWELVEHRSTIME
+            // InternalDSL.g:16270:1: ( RULE_TWELVEHRSTIME )
+            // InternalDSL.g:16271:1: RULE_TWELVEHRSTIME
             {
              before(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getTimeValueTWELVEHRSTIMETerminalRuleCall_2_0()); 
             match(input,RULE_TWELVEHRSTIME,FOLLOW_2); 
@@ -43437,17 +43579,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantValue__ConstantAssignment_1"
-    // InternalDSL.g:16226:1: rule__JavaConstantValue__ConstantAssignment_1 : ( ruleJavaConstantReference ) ;
+    // InternalDSL.g:16280:1: rule__JavaConstantValue__ConstantAssignment_1 : ( ruleJavaConstantReference ) ;
     public final void rule__JavaConstantValue__ConstantAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16230:1: ( ( ruleJavaConstantReference ) )
-            // InternalDSL.g:16231:1: ( ruleJavaConstantReference )
+            // InternalDSL.g:16284:1: ( ( ruleJavaConstantReference ) )
+            // InternalDSL.g:16285:1: ( ruleJavaConstantReference )
             {
-            // InternalDSL.g:16231:1: ( ruleJavaConstantReference )
-            // InternalDSL.g:16232:1: ruleJavaConstantReference
+            // InternalDSL.g:16285:1: ( ruleJavaConstantReference )
+            // InternalDSL.g:16286:1: ruleJavaConstantReference
             {
              before(grammarAccess.getJavaConstantValueAccess().getConstantJavaConstantReferenceParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -43478,21 +43620,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__NameAssignment_0"
-    // InternalDSL.g:16241:1: rule__Variable__NameAssignment_0 : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:16295:1: rule__Variable__NameAssignment_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__Variable__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16245:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:16246:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:16299:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:16300:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:16246:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:16247:1: ( ruleQualifiedName )
+            // InternalDSL.g:16300:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:16301:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getVariableAccess().getNameVariableOrConstantEntityCrossReference_0_0()); 
-            // InternalDSL.g:16248:1: ( ruleQualifiedName )
-            // InternalDSL.g:16249:1: ruleQualifiedName
+            // InternalDSL.g:16302:1: ( ruleQualifiedName )
+            // InternalDSL.g:16303:1: ruleQualifiedName
             {
              before(grammarAccess.getVariableAccess().getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1()); 
             pushFollow(FOLLOW_2);
@@ -43527,17 +43669,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__AttributeAssignment_1_1"
-    // InternalDSL.g:16260:1: rule__Variable__AttributeAssignment_1_1 : ( ruleQualifiedName ) ;
+    // InternalDSL.g:16314:1: rule__Variable__AttributeAssignment_1_1 : ( ruleQualifiedName ) ;
     public final void rule__Variable__AttributeAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16264:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:16265:1: ( ruleQualifiedName )
+            // InternalDSL.g:16318:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:16319:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:16265:1: ( ruleQualifiedName )
-            // InternalDSL.g:16266:1: ruleQualifiedName
+            // InternalDSL.g:16319:1: ( ruleQualifiedName )
+            // InternalDSL.g:16320:1: ruleQualifiedName
             {
              before(grammarAccess.getVariableAccess().getAttributeQualifiedNameParserRuleCall_1_1_0()); 
             pushFollow(FOLLOW_2);
@@ -43568,21 +43710,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VariableVariable__NameAssignment"
-    // InternalDSL.g:16275:1: rule__VariableVariable__NameAssignment : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:16329:1: rule__VariableVariable__NameAssignment : ( ( ruleQualifiedName ) ) ;
     public final void rule__VariableVariable__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16279:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:16280:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:16333:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:16334:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:16280:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:16281:1: ( ruleQualifiedName )
+            // InternalDSL.g:16334:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:16335:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getVariableVariableAccess().getNameVariableEntityCrossReference_0()); 
-            // InternalDSL.g:16282:1: ( ruleQualifiedName )
-            // InternalDSL.g:16283:1: ruleQualifiedName
+            // InternalDSL.g:16336:1: ( ruleQualifiedName )
+            // InternalDSL.g:16337:1: ruleQualifiedName
             {
              before(grammarAccess.getVariableVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1()); 
             pushFollow(FOLLOW_2);
@@ -43617,21 +43759,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Constant__NameAssignment"
-    // InternalDSL.g:16294:1: rule__Constant__NameAssignment : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:16348:1: rule__Constant__NameAssignment : ( ( ruleQualifiedName ) ) ;
     public final void rule__Constant__NameAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16298:1: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:16299:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:16352:1: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:16353:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:16299:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:16300:1: ( ruleQualifiedName )
+            // InternalDSL.g:16353:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:16354:1: ( ruleQualifiedName )
             {
              before(grammarAccess.getConstantAccess().getNameConstantEntityCrossReference_0()); 
-            // InternalDSL.g:16301:1: ( ruleQualifiedName )
-            // InternalDSL.g:16302:1: ruleQualifiedName
+            // InternalDSL.g:16355:1: ( ruleQualifiedName )
+            // InternalDSL.g:16356:1: ruleQualifiedName
             {
              before(grammarAccess.getConstantAccess().getNameConstantEntityQualifiedNameParserRuleCall_0_1()); 
             pushFollow(FOLLOW_2);
@@ -43666,21 +43808,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__EnumValue__EnumValueAssignment"
-    // InternalDSL.g:16313:1: rule__EnumValue__EnumValueAssignment : ( ( RULE_UPPERCASE_ID ) ) ;
+    // InternalDSL.g:16367:1: rule__EnumValue__EnumValueAssignment : ( ( RULE_UPPERCASE_ID ) ) ;
     public final void rule__EnumValue__EnumValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16317:1: ( ( ( RULE_UPPERCASE_ID ) ) )
-            // InternalDSL.g:16318:1: ( ( RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:16371:1: ( ( ( RULE_UPPERCASE_ID ) ) )
+            // InternalDSL.g:16372:1: ( ( RULE_UPPERCASE_ID ) )
             {
-            // InternalDSL.g:16318:1: ( ( RULE_UPPERCASE_ID ) )
-            // InternalDSL.g:16319:1: ( RULE_UPPERCASE_ID )
+            // InternalDSL.g:16372:1: ( ( RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:16373:1: ( RULE_UPPERCASE_ID )
             {
              before(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralCrossReference_0()); 
-            // InternalDSL.g:16320:1: ( RULE_UPPERCASE_ID )
-            // InternalDSL.g:16321:1: RULE_UPPERCASE_ID
+            // InternalDSL.g:16374:1: ( RULE_UPPERCASE_ID )
+            // InternalDSL.g:16375:1: RULE_UPPERCASE_ID
             {
              before(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1()); 
             match(input,RULE_UPPERCASE_ID,FOLLOW_2); 
@@ -43711,17 +43853,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedObject__AttributesAssignment_2_0"
-    // InternalDSL.g:16332:1: rule__NestedObject__AttributesAssignment_2_0 : ( ruleKeyValuePair ) ;
+    // InternalDSL.g:16386:1: rule__NestedObject__AttributesAssignment_2_0 : ( ruleKeyValuePair ) ;
     public final void rule__NestedObject__AttributesAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16336:1: ( ( ruleKeyValuePair ) )
-            // InternalDSL.g:16337:1: ( ruleKeyValuePair )
+            // InternalDSL.g:16390:1: ( ( ruleKeyValuePair ) )
+            // InternalDSL.g:16391:1: ( ruleKeyValuePair )
             {
-            // InternalDSL.g:16337:1: ( ruleKeyValuePair )
-            // InternalDSL.g:16338:1: ruleKeyValuePair
+            // InternalDSL.g:16391:1: ( ruleKeyValuePair )
+            // InternalDSL.g:16392:1: ruleKeyValuePair
             {
              before(grammarAccess.getNestedObjectAccess().getAttributesKeyValuePairParserRuleCall_2_0_0()); 
             pushFollow(FOLLOW_2);
@@ -43752,17 +43894,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__TypeAssignment_1"
-    // InternalDSL.g:16347:1: rule__TypedNestedObject__TypeAssignment_1 : ( ruleJavaClassReference ) ;
+    // InternalDSL.g:16401:1: rule__TypedNestedObject__TypeAssignment_1 : ( ruleJavaClassReference ) ;
     public final void rule__TypedNestedObject__TypeAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16351:1: ( ( ruleJavaClassReference ) )
-            // InternalDSL.g:16352:1: ( ruleJavaClassReference )
+            // InternalDSL.g:16405:1: ( ( ruleJavaClassReference ) )
+            // InternalDSL.g:16406:1: ( ruleJavaClassReference )
             {
-            // InternalDSL.g:16352:1: ( ruleJavaClassReference )
-            // InternalDSL.g:16353:1: ruleJavaClassReference
+            // InternalDSL.g:16406:1: ( ruleJavaClassReference )
+            // InternalDSL.g:16407:1: ruleJavaClassReference
             {
              before(grammarAccess.getTypedNestedObjectAccess().getTypeJavaClassReferenceParserRuleCall_1_0()); 
             pushFollow(FOLLOW_2);
@@ -43793,17 +43935,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypedNestedObject__NestedObjectAssignment_4"
-    // InternalDSL.g:16362:1: rule__TypedNestedObject__NestedObjectAssignment_4 : ( ruleNestedObject ) ;
+    // InternalDSL.g:16416:1: rule__TypedNestedObject__NestedObjectAssignment_4 : ( ruleNestedObject ) ;
     public final void rule__TypedNestedObject__NestedObjectAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16366:1: ( ( ruleNestedObject ) )
-            // InternalDSL.g:16367:1: ( ruleNestedObject )
+            // InternalDSL.g:16420:1: ( ( ruleNestedObject ) )
+            // InternalDSL.g:16421:1: ( ruleNestedObject )
             {
-            // InternalDSL.g:16367:1: ( ruleNestedObject )
-            // InternalDSL.g:16368:1: ruleNestedObject
+            // InternalDSL.g:16421:1: ( ruleNestedObject )
+            // InternalDSL.g:16422:1: ruleNestedObject
             {
              before(grammarAccess.getTypedNestedObjectAccess().getNestedObjectNestedObjectParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -43834,17 +43976,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__IdentifierAssignment_0_0"
-    // InternalDSL.g:16377:1: rule__KeyValuePair__IdentifierAssignment_0_0 : ( RULE_ID ) ;
+    // InternalDSL.g:16431:1: rule__KeyValuePair__IdentifierAssignment_0_0 : ( RULE_ID ) ;
     public final void rule__KeyValuePair__IdentifierAssignment_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16381:1: ( ( RULE_ID ) )
-            // InternalDSL.g:16382:1: ( RULE_ID )
+            // InternalDSL.g:16435:1: ( ( RULE_ID ) )
+            // InternalDSL.g:16436:1: ( RULE_ID )
             {
-            // InternalDSL.g:16382:1: ( RULE_ID )
-            // InternalDSL.g:16383:1: RULE_ID
+            // InternalDSL.g:16436:1: ( RULE_ID )
+            // InternalDSL.g:16437:1: RULE_ID
             {
              before(grammarAccess.getKeyValuePairAccess().getIdentifierIDTerminalRuleCall_0_0_0()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -43871,17 +44013,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__StringIdentifierAssignment_0_1"
-    // InternalDSL.g:16392:1: rule__KeyValuePair__StringIdentifierAssignment_0_1 : ( RULE_STRING ) ;
+    // InternalDSL.g:16446:1: rule__KeyValuePair__StringIdentifierAssignment_0_1 : ( RULE_STRING ) ;
     public final void rule__KeyValuePair__StringIdentifierAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16396:1: ( ( RULE_STRING ) )
-            // InternalDSL.g:16397:1: ( RULE_STRING )
+            // InternalDSL.g:16450:1: ( ( RULE_STRING ) )
+            // InternalDSL.g:16451:1: ( RULE_STRING )
             {
-            // InternalDSL.g:16397:1: ( RULE_STRING )
-            // InternalDSL.g:16398:1: RULE_STRING
+            // InternalDSL.g:16451:1: ( RULE_STRING )
+            // InternalDSL.g:16452:1: RULE_STRING
             {
              before(grammarAccess.getKeyValuePairAccess().getStringIdentifierSTRINGTerminalRuleCall_0_1_0()); 
             match(input,RULE_STRING,FOLLOW_2); 
@@ -43908,17 +44050,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__KeyValuePair__ValueAssignment_4"
-    // InternalDSL.g:16407:1: rule__KeyValuePair__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
+    // InternalDSL.g:16461:1: rule__KeyValuePair__ValueAssignment_4 : ( ruleValueOrEnumValueOrOperationCollection ) ;
     public final void rule__KeyValuePair__ValueAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16411:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:16412:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:16465:1: ( ( ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:16466:1: ( ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:16412:1: ( ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:16413:1: ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:16466:1: ( ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:16467:1: ruleValueOrEnumValueOrOperationCollection
             {
              before(grammarAccess.getKeyValuePairAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
             pushFollow(FOLLOW_2);
@@ -43949,21 +44091,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaClassReference__TypeAssignment"
-    // InternalDSL.g:16422:1: rule__JavaClassReference__TypeAssignment : ( ( ruleQualifiedJavaClassName ) ) ;
+    // InternalDSL.g:16476:1: rule__JavaClassReference__TypeAssignment : ( ( ruleQualifiedJavaClassName ) ) ;
     public final void rule__JavaClassReference__TypeAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16426:1: ( ( ( ruleQualifiedJavaClassName ) ) )
-            // InternalDSL.g:16427:1: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:16480:1: ( ( ( ruleQualifiedJavaClassName ) ) )
+            // InternalDSL.g:16481:1: ( ( ruleQualifiedJavaClassName ) )
             {
-            // InternalDSL.g:16427:1: ( ( ruleQualifiedJavaClassName ) )
-            // InternalDSL.g:16428:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:16481:1: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:16482:1: ( ruleQualifiedJavaClassName )
             {
              before(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeCrossReference_0()); 
-            // InternalDSL.g:16429:1: ( ruleQualifiedJavaClassName )
-            // InternalDSL.g:16430:1: ruleQualifiedJavaClassName
+            // InternalDSL.g:16483:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:16484:1: ruleQualifiedJavaClassName
             {
              before(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1()); 
             pushFollow(FOLLOW_2);
@@ -43998,21 +44140,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__TypeAssignment_0"
-    // InternalDSL.g:16441:1: rule__MethodReference__TypeAssignment_0 : ( ( ruleQualifiedJavaClassName ) ) ;
+    // InternalDSL.g:16495:1: rule__MethodReference__TypeAssignment_0 : ( ( ruleQualifiedJavaClassName ) ) ;
     public final void rule__MethodReference__TypeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16445:1: ( ( ( ruleQualifiedJavaClassName ) ) )
-            // InternalDSL.g:16446:1: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:16499:1: ( ( ( ruleQualifiedJavaClassName ) ) )
+            // InternalDSL.g:16500:1: ( ( ruleQualifiedJavaClassName ) )
             {
-            // InternalDSL.g:16446:1: ( ( ruleQualifiedJavaClassName ) )
-            // InternalDSL.g:16447:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:16500:1: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:16501:1: ( ruleQualifiedJavaClassName )
             {
              before(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeCrossReference_0_0()); 
-            // InternalDSL.g:16448:1: ( ruleQualifiedJavaClassName )
-            // InternalDSL.g:16449:1: ruleQualifiedJavaClassName
+            // InternalDSL.g:16502:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:16503:1: ruleQualifiedJavaClassName
             {
              before(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1()); 
             pushFollow(FOLLOW_2);
@@ -44047,21 +44189,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__MethodReference__MethodAssignment_2"
-    // InternalDSL.g:16460:1: rule__MethodReference__MethodAssignment_2 : ( ( RULE_ID ) ) ;
+    // InternalDSL.g:16514:1: rule__MethodReference__MethodAssignment_2 : ( ( RULE_ID ) ) ;
     public final void rule__MethodReference__MethodAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16464:1: ( ( ( RULE_ID ) ) )
-            // InternalDSL.g:16465:1: ( ( RULE_ID ) )
+            // InternalDSL.g:16518:1: ( ( ( RULE_ID ) ) )
+            // InternalDSL.g:16519:1: ( ( RULE_ID ) )
             {
-            // InternalDSL.g:16465:1: ( ( RULE_ID ) )
-            // InternalDSL.g:16466:1: ( RULE_ID )
+            // InternalDSL.g:16519:1: ( ( RULE_ID ) )
+            // InternalDSL.g:16520:1: ( RULE_ID )
             {
              before(grammarAccess.getMethodReferenceAccess().getMethodJvmOperationCrossReference_2_0()); 
-            // InternalDSL.g:16467:1: ( RULE_ID )
-            // InternalDSL.g:16468:1: RULE_ID
+            // InternalDSL.g:16521:1: ( RULE_ID )
+            // InternalDSL.g:16522:1: RULE_ID
             {
              before(grammarAccess.getMethodReferenceAccess().getMethodJvmOperationIDTerminalRuleCall_2_0_1()); 
             match(input,RULE_ID,FOLLOW_2); 
@@ -44092,21 +44234,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantReference__TypeAssignment_0"
-    // InternalDSL.g:16479:1: rule__JavaConstantReference__TypeAssignment_0 : ( ( ruleQualifiedJavaClassName ) ) ;
+    // InternalDSL.g:16533:1: rule__JavaConstantReference__TypeAssignment_0 : ( ( ruleQualifiedJavaClassName ) ) ;
     public final void rule__JavaConstantReference__TypeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16483:1: ( ( ( ruleQualifiedJavaClassName ) ) )
-            // InternalDSL.g:16484:1: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:16537:1: ( ( ( ruleQualifiedJavaClassName ) ) )
+            // InternalDSL.g:16538:1: ( ( ruleQualifiedJavaClassName ) )
             {
-            // InternalDSL.g:16484:1: ( ( ruleQualifiedJavaClassName ) )
-            // InternalDSL.g:16485:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:16538:1: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:16539:1: ( ruleQualifiedJavaClassName )
             {
              before(grammarAccess.getJavaConstantReferenceAccess().getTypeJvmTypeCrossReference_0_0()); 
-            // InternalDSL.g:16486:1: ( ruleQualifiedJavaClassName )
-            // InternalDSL.g:16487:1: ruleQualifiedJavaClassName
+            // InternalDSL.g:16540:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:16541:1: ruleQualifiedJavaClassName
             {
              before(grammarAccess.getJavaConstantReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1()); 
             pushFollow(FOLLOW_2);
@@ -44141,21 +44283,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__JavaConstantReference__ConstantAssignment_2"
-    // InternalDSL.g:16498:1: rule__JavaConstantReference__ConstantAssignment_2 : ( ( RULE_UPPERCASE_ID ) ) ;
+    // InternalDSL.g:16552:1: rule__JavaConstantReference__ConstantAssignment_2 : ( ( RULE_UPPERCASE_ID ) ) ;
     public final void rule__JavaConstantReference__ConstantAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16502:1: ( ( ( RULE_UPPERCASE_ID ) ) )
-            // InternalDSL.g:16503:1: ( ( RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:16556:1: ( ( ( RULE_UPPERCASE_ID ) ) )
+            // InternalDSL.g:16557:1: ( ( RULE_UPPERCASE_ID ) )
             {
-            // InternalDSL.g:16503:1: ( ( RULE_UPPERCASE_ID ) )
-            // InternalDSL.g:16504:1: ( RULE_UPPERCASE_ID )
+            // InternalDSL.g:16557:1: ( ( RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:16558:1: ( RULE_UPPERCASE_ID )
             {
              before(grammarAccess.getJavaConstantReferenceAccess().getConstantJvmFieldCrossReference_2_0()); 
-            // InternalDSL.g:16505:1: ( RULE_UPPERCASE_ID )
-            // InternalDSL.g:16506:1: RULE_UPPERCASE_ID
+            // InternalDSL.g:16559:1: ( RULE_UPPERCASE_ID )
+            // InternalDSL.g:16560:1: RULE_UPPERCASE_ID
             {
              before(grammarAccess.getJavaConstantReferenceAccess().getConstantJvmFieldUPPERCASE_IDTerminalRuleCall_2_0_1()); 
             match(input,RULE_UPPERCASE_ID,FOLLOW_2); 
@@ -44186,17 +44328,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ExecutionMultiplier__CountAssignment_0"
-    // InternalDSL.g:16517:1: rule__ExecutionMultiplier__CountAssignment_0 : ( ruleConstantValue ) ;
+    // InternalDSL.g:16571:1: rule__ExecutionMultiplier__CountAssignment_0 : ( ruleConstantValue ) ;
     public final void rule__ExecutionMultiplier__CountAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:16521:1: ( ( ruleConstantValue ) )
-            // InternalDSL.g:16522:1: ( ruleConstantValue )
+            // InternalDSL.g:16575:1: ( ( ruleConstantValue ) )
+            // InternalDSL.g:16576:1: ( ruleConstantValue )
             {
-            // InternalDSL.g:16522:1: ( ruleConstantValue )
-            // InternalDSL.g:16523:1: ruleConstantValue
+            // InternalDSL.g:16576:1: ( ruleConstantValue )
+            // InternalDSL.g:16577:1: ruleConstantValue
             {
              before(grammarAccess.getExecutionMultiplierAccess().getCountConstantValueParserRuleCall_0_0()); 
             pushFollow(FOLLOW_2);
@@ -44232,30 +44374,30 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     protected DFA15 dfa15 = new DFA15(this);
     protected DFA17 dfa17 = new DFA17(this);
     protected DFA21 dfa21 = new DFA21(this);
-    protected DFA40 dfa40 = new DFA40(this);
-    protected DFA49 dfa49 = new DFA49(this);
+    protected DFA41 dfa41 = new DFA41(this);
     protected DFA50 dfa50 = new DFA50(this);
     protected DFA51 dfa51 = new DFA51(this);
     protected DFA52 dfa52 = new DFA52(this);
-    protected DFA56 dfa56 = new DFA56(this);
-    protected DFA61 dfa61 = new DFA61(this);
+    protected DFA53 dfa53 = new DFA53(this);
+    protected DFA57 dfa57 = new DFA57(this);
     protected DFA62 dfa62 = new DFA62(this);
     protected DFA63 dfa63 = new DFA63(this);
     protected DFA64 dfa64 = new DFA64(this);
     protected DFA65 dfa65 = new DFA65(this);
     protected DFA66 dfa66 = new DFA66(this);
-    protected DFA72 dfa72 = new DFA72(this);
+    protected DFA67 dfa67 = new DFA67(this);
     protected DFA73 dfa73 = new DFA73(this);
     protected DFA74 dfa74 = new DFA74(this);
+    protected DFA75 dfa75 = new DFA75(this);
     static final String dfa_1s = "\13\uffff";
     static final String dfa_2s = "\1\45\1\uffff\1\46\10\uffff";
-    static final String dfa_3s = "\1\116\1\uffff\1\66\10\uffff";
+    static final String dfa_3s = "\1\117\1\uffff\1\117\10\uffff";
     static final String dfa_4s = "\1\uffff\1\1\1\uffff\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11";
     static final String dfa_5s = "\13\uffff}>";
     static final String[] dfa_6s = {
-            "\1\1\1\3\2\uffff\1\4\1\5\1\6\1\10\6\uffff\1\7\1\11\1\uffff\1\12\27\uffff\1\2",
+            "\1\1\1\3\2\uffff\1\4\1\5\1\6\1\10\6\uffff\1\7\1\11\1\uffff\1\12\27\uffff\1\2\1\10",
             "",
-            "\1\3\5\uffff\1\10\7\uffff\1\11\1\uffff\1\12",
+            "\1\3\5\uffff\1\10\7\uffff\1\11\1\uffff\1\12\30\uffff\1\10",
             "",
             "",
             "",
@@ -44291,8 +44433,8 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
         }
     }
     static final String dfa_7s = "\12\uffff";
-    static final String dfa_8s = "\1\4\1\uffff\1\6\2\uffff\1\114\1\6\1\107\1\114\1\uffff";
-    static final String dfa_9s = "\1\112\1\uffff\1\6\2\uffff\1\114\1\7\1\110\1\114\1\uffff";
+    static final String dfa_8s = "\1\4\1\uffff\1\6\2\uffff\1\114\1\6\1\114\1\107\1\uffff";
+    static final String dfa_9s = "\1\112\1\uffff\1\6\2\uffff\1\114\1\7\1\114\1\110\1\uffff";
     static final String dfa_10s = "\1\uffff\1\1\1\uffff\1\2\1\3\4\uffff\1\4";
     static final String dfa_11s = "\12\uffff}>";
     static final String[] dfa_12s = {
@@ -44302,9 +44444,9 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             "",
             "",
             "\1\6",
-            "\1\10\1\7",
-            "\1\11\1\1",
+            "\1\7\1\10",
             "\1\6",
+            "\1\11\1\1",
             ""
     };
 
@@ -44335,7 +44477,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final String dfa_13s = "\25\uffff";
     static final String dfa_14s = "\5\uffff\3\13\5\uffff\10\13";
     static final String dfa_15s = "\1\4\4\uffff\3\6\5\uffff\10\6";
-    static final String dfa_16s = "\1\111\4\uffff\3\120\5\uffff\10\120";
+    static final String dfa_16s = "\1\111\4\uffff\3\121\5\uffff\10\121";
     static final String dfa_17s = "\1\uffff\1\1\1\2\1\3\1\4\3\uffff\1\6\1\10\1\11\1\5\1\7\10\uffff";
     static final String dfa_18s = "\25\uffff}>";
     static final String[] dfa_19s = {
@@ -44344,22 +44486,22 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             "",
             "",
             "",
-            "\1\13\1\uffff\1\13\1\uffff\6\13\5\uffff\1\14\6\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\15\1\uffff\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\16\1\uffff\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
+            "\1\13\1\uffff\1\13\1\uffff\6\13\5\uffff\1\14\6\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\15\1\uffff\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\16\1\uffff\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
             "",
             "",
             "",
             "",
             "",
-            "\1\13\1\uffff\1\20\1\17\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\22\1\21\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\20\1\uffff\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\20\1\23\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\22\1\uffff\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\22\1\24\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\20\1\uffff\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13",
-            "\1\13\1\uffff\1\22\1\uffff\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\3\13"
+            "\1\13\1\uffff\1\20\1\17\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\22\1\21\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\20\1\uffff\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\20\1\23\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\22\1\uffff\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\22\1\24\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\20\1\uffff\6\13\6\uffff\2\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13",
+            "\1\13\1\uffff\1\22\1\uffff\6\13\7\uffff\1\14\4\uffff\13\13\2\uffff\5\13\1\uffff\3\13\1\uffff\2\13\1\uffff\13\13\1\uffff\1\13\1\uffff\2\13\5\uffff\1\13\2\uffff\4\13"
     };
 
     static final short[] dfa_13 = DFA.unpackEncodedString(dfa_13s);
@@ -44449,11 +44591,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_31 = DFA.unpackEncodedString(dfa_31s);
     static final short[][] dfa_32 = unpackEncodedStringArray(dfa_32s);
 
-    class DFA40 extends DFA {
+    class DFA41 extends DFA {
 
-        public DFA40(BaseRecognizer recognizer) {
+        public DFA41(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 40;
+            this.decisionNumber = 41;
             this.eot = dfa_26;
             this.eof = dfa_27;
             this.min = dfa_28;
@@ -44463,20 +44605,20 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_32;
         }
         public String getDescription() {
-            return "6491:1: ( rule__SuiteParameterDefinition__Group_1__0 )?";
+            return "6522:1: ( rule__SuiteParameterDefinition__Group_1__0 )?";
         }
     }
     static final String dfa_33s = "\2\4\3\uffff\1\4\5\uffff";
     static final String dfa_34s = "\2\6\1\10\1\6\1\uffff\1\6\1\10\1\uffff\3\10";
-    static final String dfa_35s = "\2\120\1\73\1\17\1\uffff\1\120\1\73\1\uffff\3\73";
+    static final String dfa_35s = "\2\121\1\73\1\17\1\uffff\1\121\1\73\1\uffff\3\73";
     static final String dfa_36s = "\4\uffff\1\2\2\uffff\1\1\3\uffff";
     static final String[] dfa_37s = {
-            "\1\2\1\uffff\1\1\1\uffff\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\3\4\1\uffff\2\4\16\uffff\1\4\1\uffff\1\4",
-            "\1\2\1\uffff\1\1\1\5\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\3\4\1\uffff\2\4\16\uffff\1\4\1\uffff\1\4",
+            "\1\2\1\uffff\1\1\1\uffff\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\3\4\1\uffff\2\4\16\uffff\1\4\2\uffff\1\4",
+            "\1\2\1\uffff\1\1\1\5\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\3\4\1\uffff\2\4\16\uffff\1\4\2\uffff\1\4",
             "\1\6\37\uffff\1\7\22\uffff\1\4",
             "\1\10\10\uffff\1\11",
             "",
-            "\1\2\1\uffff\1\1\1\uffff\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\3\4\1\uffff\2\4\16\uffff\1\4\1\uffff\1\4",
+            "\1\2\1\uffff\1\1\1\uffff\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\3\4\1\uffff\2\4\16\uffff\1\4\2\uffff\1\4",
             "\1\6\1\12\36\uffff\1\7\22\uffff\1\4",
             "",
             "\1\6\37\uffff\1\7\22\uffff\1\4",
@@ -44489,11 +44631,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_36 = DFA.unpackEncodedString(dfa_36s);
     static final short[][] dfa_37 = unpackEncodedStringArray(dfa_37s);
 
-    class DFA49 extends DFA {
+    class DFA50 extends DFA {
 
-        public DFA49(BaseRecognizer recognizer) {
+        public DFA50(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 49;
+            this.decisionNumber = 50;
             this.eot = dfa_1;
             this.eof = dfa_33;
             this.min = dfa_34;
@@ -44503,29 +44645,29 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_37;
         }
         public String getDescription() {
-            return "()* loopback of 8269:1: ( rule__Test__Group_4__0 )*";
+            return "()* loopback of 8300:1: ( rule__Test__Group_4__0 )*";
         }
     }
     static final String dfa_38s = "\2\2\2\uffff\1\2";
-    static final String dfa_39s = "\2\120\2\uffff\1\120";
+    static final String dfa_39s = "\2\121\2\uffff\1\121";
     static final String dfa_40s = "\2\uffff\1\2\1\1\1\uffff";
     static final String[] dfa_41s = {
-            "\1\3\1\uffff\1\1\1\uffff\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\2\2\2\uffff\3\2\1\uffff\2\2\16\uffff\1\2\1\uffff\1\2",
-            "\1\3\1\uffff\1\1\1\4\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\2\2\2\uffff\3\2\1\uffff\2\2\16\uffff\1\2\1\uffff\1\2",
+            "\1\3\1\uffff\1\1\1\uffff\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\2\2\2\uffff\3\2\1\uffff\2\2\16\uffff\1\2\2\uffff\1\2",
+            "\1\3\1\uffff\1\1\1\4\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\2\2\2\uffff\3\2\1\uffff\2\2\16\uffff\1\2\2\uffff\1\2",
             "",
             "",
-            "\1\3\1\uffff\1\1\1\uffff\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\2\2\2\uffff\3\2\1\uffff\2\2\16\uffff\1\2\1\uffff\1\2"
+            "\1\3\1\uffff\1\1\1\uffff\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\2\2\2\uffff\3\2\1\uffff\2\2\16\uffff\1\2\2\uffff\1\2"
     };
     static final short[] dfa_38 = DFA.unpackEncodedString(dfa_38s);
     static final char[] dfa_39 = DFA.unpackEncodedStringToUnsignedChars(dfa_39s);
     static final short[] dfa_40 = DFA.unpackEncodedString(dfa_40s);
     static final short[][] dfa_41 = unpackEncodedStringArray(dfa_41s);
 
-    class DFA50 extends DFA {
+    class DFA51 extends DFA {
 
-        public DFA50(BaseRecognizer recognizer) {
+        public DFA51(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 50;
+            this.decisionNumber = 51;
             this.eot = dfa_26;
             this.eof = dfa_38;
             this.min = dfa_28;
@@ -44535,27 +44677,27 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_41;
         }
         public String getDescription() {
-            return "()* loopback of 8298:1: ( rule__Test__Group_5__0 )*";
+            return "()* loopback of 8329:1: ( rule__Test__Group_5__0 )*";
         }
     }
     static final String dfa_42s = "\2\3\2\uffff\1\3";
     static final String dfa_43s = "\2\10\2\uffff\1\10";
     static final String[] dfa_44s = {
-            "\1\1\1\uffff\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\2\uffff\1\3\1\2\1\3\1\uffff\2\3\16\uffff\1\3\1\uffff\1\3",
-            "\1\1\1\4\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\2\uffff\1\3\1\2\1\3\1\uffff\2\3\16\uffff\1\3\1\uffff\1\3",
+            "\1\1\1\uffff\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\2\uffff\1\3\1\2\1\3\1\uffff\2\3\16\uffff\1\3\2\uffff\1\3",
+            "\1\1\1\4\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\2\uffff\1\3\1\2\1\3\1\uffff\2\3\16\uffff\1\3\2\uffff\1\3",
             "",
             "",
-            "\1\1\1\uffff\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\2\uffff\1\3\1\2\1\3\1\uffff\2\3\16\uffff\1\3\1\uffff\1\3"
+            "\1\1\1\uffff\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\2\uffff\1\3\1\2\1\3\1\uffff\2\3\16\uffff\1\3\2\uffff\1\3"
     };
     static final short[] dfa_42 = DFA.unpackEncodedString(dfa_42s);
     static final char[] dfa_43 = DFA.unpackEncodedStringToUnsignedChars(dfa_43s);
     static final short[][] dfa_44 = unpackEncodedStringArray(dfa_44s);
 
-    class DFA51 extends DFA {
+    class DFA52 extends DFA {
 
-        public DFA51(BaseRecognizer recognizer) {
+        public DFA52(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 51;
+            this.decisionNumber = 52;
             this.eot = dfa_26;
             this.eof = dfa_42;
             this.min = dfa_43;
@@ -44565,7 +44707,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_44;
         }
         public String getDescription() {
-            return "8327:1: ( rule__Test__Group_6__0 )?";
+            return "8358:1: ( rule__Test__Group_6__0 )?";
         }
     }
     static final String dfa_45s = "\7\uffff";
@@ -44590,11 +44732,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_49 = DFA.unpackEncodedString(dfa_49s);
     static final short[][] dfa_50 = unpackEncodedStringArray(dfa_50s);
 
-    class DFA52 extends DFA {
+    class DFA53 extends DFA {
 
-        public DFA52(BaseRecognizer recognizer) {
+        public DFA53(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 52;
+            this.decisionNumber = 53;
             this.eot = dfa_45;
             this.eof = dfa_45;
             this.min = dfa_46;
@@ -44604,21 +44746,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_50;
         }
         public String getDescription() {
-            return "()* loopback of 8736:1: ( rule__TableTest__Group_3__0 )*";
+            return "()* loopback of 8767:1: ( rule__TableTest__Group_3__0 )*";
         }
     }
     static final String dfa_51s = "\1\uffff\3\4\2\uffff\1\4";
     static final String dfa_52s = "\4\10\2\uffff\1\10";
-    static final String dfa_53s = "\1\10\3\120\2\uffff\1\120";
+    static final String dfa_53s = "\1\10\3\121\2\uffff\1\121";
     static final String dfa_54s = "\4\uffff\1\2\1\1\1\uffff";
     static final String[] dfa_55s = {
             "\1\1",
-            "\1\3\1\2\5\4\36\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\1\4\1\uffff\1\4\1\5\2\4\16\uffff\1\4\1\uffff\1\4",
-            "\1\3\1\uffff\5\4\36\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\1\4\1\uffff\1\4\1\5\2\4\16\uffff\1\4\1\uffff\1\4",
-            "\1\3\1\6\5\4\36\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\1\4\1\uffff\1\4\1\5\2\4\16\uffff\1\4\1\uffff\1\4",
+            "\1\3\1\2\5\4\36\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\1\4\1\uffff\1\4\1\5\2\4\16\uffff\1\4\2\uffff\1\4",
+            "\1\3\1\uffff\5\4\36\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\1\4\1\uffff\1\4\1\5\2\4\16\uffff\1\4\2\uffff\1\4",
+            "\1\3\1\6\5\4\36\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\1\4\1\uffff\1\4\1\5\2\4\16\uffff\1\4\2\uffff\1\4",
             "",
             "",
-            "\1\3\1\uffff\5\4\36\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\1\4\1\uffff\1\4\1\5\2\4\16\uffff\1\4\1\uffff\1\4"
+            "\1\3\1\uffff\5\4\36\uffff\1\4\6\uffff\1\4\1\uffff\2\4\2\uffff\1\4\1\uffff\1\4\1\5\2\4\16\uffff\1\4\2\uffff\1\4"
     };
     static final short[] dfa_51 = DFA.unpackEncodedString(dfa_51s);
     static final char[] dfa_52 = DFA.unpackEncodedStringToUnsignedChars(dfa_52s);
@@ -44626,11 +44768,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_54 = DFA.unpackEncodedString(dfa_54s);
     static final short[][] dfa_55 = unpackEncodedStringArray(dfa_55s);
 
-    class DFA56 extends DFA {
+    class DFA57 extends DFA {
 
-        public DFA56(BaseRecognizer recognizer) {
+        public DFA57(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 56;
+            this.decisionNumber = 57;
             this.eot = dfa_45;
             this.eof = dfa_51;
             this.min = dfa_52;
@@ -44640,22 +44782,22 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_55;
         }
         public String getDescription() {
-            return "()* loopback of 8918:1: ( rule__TableTest__Group_9__0 )*";
+            return "()* loopback of 8949:1: ( rule__TableTest__Group_9__0 )*";
         }
     }
     static final String dfa_56s = "\6\uffff";
     static final String dfa_57s = "\2\uffff\1\4\2\uffff\1\4";
     static final String dfa_58s = "\1\4\1\uffff\2\6\1\uffff\1\6";
-    static final String dfa_59s = "\1\111\1\uffff\1\120\1\6\1\uffff\1\120";
+    static final String dfa_59s = "\1\111\1\uffff\1\121\1\6\1\uffff\1\121";
     static final String dfa_60s = "\1\uffff\1\1\2\uffff\1\2\1\uffff";
     static final String dfa_61s = "\6\uffff}>";
     static final String[] dfa_62s = {
             "\2\1\1\2\10\uffff\11\1\56\uffff\1\1\2\uffff\1\1",
             "",
-            "\1\4\1\uffff\1\4\1\uffff\5\4\15\uffff\1\4\1\uffff\1\1\16\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\14\uffff\1\3\1\uffff\1\4\1\uffff\1\4",
+            "\1\4\1\uffff\1\4\1\uffff\5\4\15\uffff\1\4\1\uffff\1\1\16\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\14\uffff\1\3\1\uffff\1\4\2\uffff\1\4",
             "\1\5",
             "",
-            "\1\4\1\uffff\1\4\1\uffff\5\4\15\uffff\1\4\1\uffff\1\1\16\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\14\uffff\1\3\1\uffff\1\4\1\uffff\1\4"
+            "\1\4\1\uffff\1\4\1\uffff\5\4\15\uffff\1\4\1\uffff\1\1\16\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\14\uffff\1\3\1\uffff\1\4\2\uffff\1\4"
     };
 
     static final short[] dfa_56 = DFA.unpackEncodedString(dfa_56s);
@@ -44666,11 +44808,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_61 = DFA.unpackEncodedString(dfa_61s);
     static final short[][] dfa_62 = unpackEncodedStringArray(dfa_62s);
 
-    class DFA61 extends DFA {
+    class DFA62 extends DFA {
 
-        public DFA61(BaseRecognizer recognizer) {
+        public DFA62(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 61;
+            this.decisionNumber = 62;
             this.eot = dfa_56;
             this.eof = dfa_57;
             this.min = dfa_58;
@@ -44680,17 +44822,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_62;
         }
         public String getDescription() {
-            return "9790:1: ( rule__Call__Group_2__0 )?";
+            return "9821:1: ( rule__Call__Group_2__0 )?";
         }
     }
-    static final String dfa_63s = "\2\120\1\70\1\17\1\uffff\1\120\1\70\1\uffff\3\70";
+    static final String dfa_63s = "\2\121\1\70\1\17\1\uffff\1\121\1\70\1\uffff\3\70";
     static final String[] dfa_64s = {
-            "\1\2\1\uffff\1\1\1\uffff\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\16\uffff\1\4\1\uffff\1\4",
-            "\1\2\1\uffff\1\1\1\5\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\16\uffff\1\4\1\uffff\1\4",
+            "\1\2\1\uffff\1\1\1\uffff\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\16\uffff\1\4\2\uffff\1\4",
+            "\1\2\1\uffff\1\1\1\5\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\16\uffff\1\4\2\uffff\1\4",
             "\1\6\37\uffff\1\7\17\uffff\1\4",
             "\1\10\10\uffff\1\11",
             "",
-            "\1\2\1\uffff\1\1\1\uffff\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\16\uffff\1\4\1\uffff\1\4",
+            "\1\2\1\uffff\1\1\1\uffff\5\4\15\uffff\1\3\20\uffff\1\4\6\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\1\4\1\uffff\2\4\16\uffff\1\4\2\uffff\1\4",
             "\1\6\1\12\36\uffff\1\7\17\uffff\1\4",
             "",
             "\1\6\37\uffff\1\7\17\uffff\1\4",
@@ -44700,11 +44842,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final char[] dfa_63 = DFA.unpackEncodedStringToUnsignedChars(dfa_63s);
     static final short[][] dfa_64 = unpackEncodedStringArray(dfa_64s);
 
-    class DFA62 extends DFA {
+    class DFA63 extends DFA {
 
-        public DFA62(BaseRecognizer recognizer) {
+        public DFA63(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 62;
+            this.decisionNumber = 63;
             this.eot = dfa_1;
             this.eof = dfa_33;
             this.min = dfa_34;
@@ -44714,23 +44856,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_64;
         }
         public String getDescription() {
-            return "()* loopback of 9848:1: ( rule__Call__Group_4__0 )*";
+            return "()* loopback of 9879:1: ( rule__Call__Group_4__0 )*";
         }
     }
     static final String[] dfa_65s = {
-            "\1\3\1\uffff\1\1\1\uffff\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\3\2\1\uffff\1\2\1\uffff\1\2\1\uffff\2\2\16\uffff\1\2\1\uffff\1\2",
-            "\1\3\1\uffff\1\1\1\4\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\3\2\1\uffff\1\2\1\uffff\1\2\1\uffff\2\2\16\uffff\1\2\1\uffff\1\2",
+            "\1\3\1\uffff\1\1\1\uffff\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\3\2\1\uffff\1\2\1\uffff\1\2\1\uffff\2\2\16\uffff\1\2\2\uffff\1\2",
+            "\1\3\1\uffff\1\1\1\4\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\3\2\1\uffff\1\2\1\uffff\1\2\1\uffff\2\2\16\uffff\1\2\2\uffff\1\2",
             "",
             "",
-            "\1\3\1\uffff\1\1\1\uffff\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\3\2\1\uffff\1\2\1\uffff\1\2\1\uffff\2\2\16\uffff\1\2\1\uffff\1\2"
+            "\1\3\1\uffff\1\1\1\uffff\5\2\15\uffff\1\3\20\uffff\1\2\6\uffff\1\2\1\uffff\3\2\1\uffff\1\2\1\uffff\1\2\1\uffff\2\2\16\uffff\1\2\2\uffff\1\2"
     };
     static final short[][] dfa_65 = unpackEncodedStringArray(dfa_65s);
 
-    class DFA63 extends DFA {
+    class DFA64 extends DFA {
 
-        public DFA63(BaseRecognizer recognizer) {
+        public DFA64(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 63;
+            this.decisionNumber = 64;
             this.eot = dfa_26;
             this.eof = dfa_38;
             this.min = dfa_28;
@@ -44740,23 +44882,23 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_65;
         }
         public String getDescription() {
-            return "()* loopback of 9877:1: ( rule__Call__Group_5__0 )*";
+            return "()* loopback of 9908:1: ( rule__Call__Group_5__0 )*";
         }
     }
     static final String[] dfa_66s = {
-            "\1\1\1\uffff\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\1\2\1\uffff\1\3\1\uffff\1\3\1\uffff\2\3\16\uffff\1\3\1\uffff\1\3",
-            "\1\1\1\4\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\1\2\1\uffff\1\3\1\uffff\1\3\1\uffff\2\3\16\uffff\1\3\1\uffff\1\3",
+            "\1\1\1\uffff\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\1\2\1\uffff\1\3\1\uffff\1\3\1\uffff\2\3\16\uffff\1\3\2\uffff\1\3",
+            "\1\1\1\4\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\1\2\1\uffff\1\3\1\uffff\1\3\1\uffff\2\3\16\uffff\1\3\2\uffff\1\3",
             "",
             "",
-            "\1\1\1\uffff\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\1\2\1\uffff\1\3\1\uffff\1\3\1\uffff\2\3\16\uffff\1\3\1\uffff\1\3"
+            "\1\1\1\uffff\5\3\36\uffff\1\3\6\uffff\1\3\1\uffff\2\3\1\2\1\uffff\1\3\1\uffff\1\3\1\uffff\2\3\16\uffff\1\3\2\uffff\1\3"
     };
     static final short[][] dfa_66 = unpackEncodedStringArray(dfa_66s);
 
-    class DFA64 extends DFA {
+    class DFA65 extends DFA {
 
-        public DFA64(BaseRecognizer recognizer) {
+        public DFA65(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 64;
+            this.decisionNumber = 65;
             this.eot = dfa_26;
             this.eof = dfa_42;
             this.min = dfa_43;
@@ -44766,24 +44908,24 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_66;
         }
         public String getDescription() {
-            return "9906:1: ( rule__Call__Group_6__0 )?";
+            return "9937:1: ( rule__Call__Group_6__0 )?";
         }
     }
     static final String[] dfa_67s = {
             "\2\1\1\2\10\uffff\11\1\56\uffff\1\1\2\uffff\1\1",
             "",
-            "\1\4\1\uffff\1\4\1\uffff\5\4\17\uffff\1\1\16\uffff\1\4\6\uffff\1\4\1\uffff\2\4\1\uffff\2\4\1\uffff\1\4\1\uffff\3\4\13\uffff\1\3\1\uffff\1\4\1\uffff\1\4",
+            "\1\4\1\uffff\1\4\1\uffff\5\4\17\uffff\1\1\16\uffff\1\4\6\uffff\1\4\1\uffff\2\4\1\uffff\2\4\1\uffff\1\4\1\uffff\3\4\13\uffff\1\3\1\uffff\1\4\2\uffff\1\4",
             "\1\5",
             "",
-            "\1\4\1\uffff\1\4\1\uffff\5\4\17\uffff\1\1\16\uffff\1\4\6\uffff\1\4\1\uffff\2\4\1\uffff\2\4\1\uffff\1\4\1\uffff\3\4\13\uffff\1\3\1\uffff\1\4\1\uffff\1\4"
+            "\1\4\1\uffff\1\4\1\uffff\5\4\17\uffff\1\1\16\uffff\1\4\6\uffff\1\4\1\uffff\2\4\1\uffff\2\4\1\uffff\1\4\1\uffff\3\4\13\uffff\1\3\1\uffff\1\4\2\uffff\1\4"
     };
     static final short[][] dfa_67 = unpackEncodedStringArray(dfa_67s);
 
-    class DFA65 extends DFA {
+    class DFA66 extends DFA {
 
-        public DFA65(BaseRecognizer recognizer) {
+        public DFA66(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 65;
+            this.decisionNumber = 66;
             this.eot = dfa_56;
             this.eof = dfa_57;
             this.min = dfa_58;
@@ -44793,15 +44935,15 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_67;
         }
         public String getDescription() {
-            return "10503:1: ( rule__Suite__Group_2__0 )?";
+            return "10534:1: ( rule__Suite__Group_2__0 )?";
         }
     }
     static final String dfa_68s = "\1\2\7\uffff";
     static final String dfa_69s = "\1\6\1\10\1\uffff\1\6\1\10\1\uffff\2\10";
-    static final String dfa_70s = "\1\120\1\114\1\uffff\1\6\1\70\1\uffff\1\114\1\70";
+    static final String dfa_70s = "\1\121\1\114\1\uffff\1\6\1\70\1\uffff\1\114\1\70";
     static final String dfa_71s = "\2\uffff\1\2\2\uffff\1\1\2\uffff";
     static final String[] dfa_72s = {
-            "\1\1\3\uffff\5\2\36\uffff\1\2\6\uffff\1\2\1\uffff\2\2\1\uffff\2\2\1\uffff\1\2\1\uffff\3\2\15\uffff\1\2\1\uffff\1\2",
+            "\1\1\3\uffff\5\2\36\uffff\1\2\6\uffff\1\2\1\uffff\2\2\1\uffff\2\2\1\uffff\1\2\1\uffff\3\2\15\uffff\1\2\2\uffff\1\2",
             "\1\4\37\uffff\1\5\17\uffff\1\2\23\uffff\1\3",
             "",
             "\1\6",
@@ -44816,11 +44958,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_71 = DFA.unpackEncodedString(dfa_71s);
     static final short[][] dfa_72 = unpackEncodedStringArray(dfa_72s);
 
-    class DFA66 extends DFA {
+    class DFA67 extends DFA {
 
-        public DFA66(BaseRecognizer recognizer) {
+        public DFA67(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 66;
+            this.decisionNumber = 67;
             this.eot = dfa_20;
             this.eof = dfa_68;
             this.min = dfa_69;
@@ -44830,7 +44972,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_72;
         }
         public String getDescription() {
-            return "()* loopback of 10590:1: ( rule__Suite__Group_5__0 )*";
+            return "()* loopback of 10621:1: ( rule__Suite__Group_5__0 )*";
         }
     }
     static final String dfa_73s = "\1\4\1\uffff\3\6\1\uffff\2\6";
@@ -44851,11 +44993,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_75 = DFA.unpackEncodedString(dfa_75s);
     static final short[][] dfa_76 = unpackEncodedStringArray(dfa_76s);
 
-    class DFA72 extends DFA {
+    class DFA73 extends DFA {
 
-        public DFA72(BaseRecognizer recognizer) {
+        public DFA73(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 72;
+            this.decisionNumber = 73;
             this.eot = dfa_20;
             this.eof = dfa_20;
             this.min = dfa_73;
@@ -44865,7 +45007,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_76;
         }
         public String getDescription() {
-            return "12103:1: ( rule__CustomOperation__Group_2__0 )?";
+            return "12134:1: ( rule__CustomOperation__Group_2__0 )?";
         }
     }
     static final String dfa_77s = "\2\104\2\uffff\1\104";
@@ -44879,11 +45021,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final char[] dfa_77 = DFA.unpackEncodedStringToUnsignedChars(dfa_77s);
     static final short[][] dfa_78 = unpackEncodedStringArray(dfa_78s);
 
-    class DFA73 extends DFA {
+    class DFA74 extends DFA {
 
-        public DFA73(BaseRecognizer recognizer) {
+        public DFA74(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 73;
+            this.decisionNumber = 74;
             this.eot = dfa_26;
             this.eof = dfa_26;
             this.min = dfa_43;
@@ -44893,21 +45035,21 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_78;
         }
         public String getDescription() {
-            return "12161:1: ( rule__CustomOperation__Group_4__0 )?";
+            return "12192:1: ( rule__CustomOperation__Group_4__0 )?";
         }
     }
     static final String dfa_79s = "\1\1\1\uffff\1\1\1\uffff\3\1";
     static final String dfa_80s = "\1\6\1\uffff\1\6\1\uffff\3\6";
-    static final String dfa_81s = "\1\120\1\uffff\1\120\1\uffff\3\120";
+    static final String dfa_81s = "\1\121\1\uffff\1\121\1\uffff\3\121";
     static final String dfa_82s = "\1\uffff\1\2\1\uffff\1\1\3\uffff";
     static final String[] dfa_83s = {
-            "\1\1\1\uffff\1\2\1\uffff\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\3\1",
+            "\1\1\1\uffff\1\2\1\uffff\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\4\1",
             "",
-            "\1\1\1\uffff\1\5\1\4\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\3\1",
+            "\1\1\1\uffff\1\5\1\4\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\4\1",
             "",
-            "\1\1\1\uffff\1\5\1\uffff\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\3\1",
-            "\1\1\1\uffff\1\5\1\6\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\3\1",
-            "\1\1\1\uffff\1\5\1\uffff\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\3\1"
+            "\1\1\1\uffff\1\5\1\uffff\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\4\1",
+            "\1\1\1\uffff\1\5\1\6\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\4\1",
+            "\1\1\1\uffff\1\5\1\uffff\6\1\14\uffff\1\1\6\uffff\4\1\2\uffff\5\1\1\uffff\3\1\1\uffff\2\1\1\uffff\13\1\3\uffff\1\1\1\3\5\uffff\1\1\2\uffff\4\1"
     };
     static final short[] dfa_79 = DFA.unpackEncodedString(dfa_79s);
     static final char[] dfa_80 = DFA.unpackEncodedStringToUnsignedChars(dfa_80s);
@@ -44915,11 +45057,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     static final short[] dfa_82 = DFA.unpackEncodedString(dfa_82s);
     static final short[][] dfa_83 = unpackEncodedStringArray(dfa_83s);
 
-    class DFA74 extends DFA {
+    class DFA75 extends DFA {
 
-        public DFA74(BaseRecognizer recognizer) {
+        public DFA75(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 74;
+            this.decisionNumber = 75;
             this.eot = dfa_45;
             this.eof = dfa_79;
             this.min = dfa_80;
@@ -44929,7 +45071,7 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
             this.transition = dfa_83;
         }
         public String getDescription() {
-            return "()* loopback of 12446:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*";
+            return "()* loopback of 12477:1: ( rule__ValueOrEnumValueOrOperationCollection__Group_1__0 )*";
         }
     }
  
@@ -44942,8 +45084,8 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000026400000002L,0x0000000000004000L});
     public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000000040L});
     public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000800000000L});
-    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x00581E7400000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x00581E6400000002L,0x0000000000004000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x00581E7400000000L,0x000000000000C000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x00581E6400000002L,0x000000000000C000L});
     public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000004000000000L,0x0000000000004000L});
     public static final BitSet FOLLOW_12 = new BitSet(new long[]{0x0000008000008040L});
     public static final BitSet FOLLOW_13 = new BitSet(new long[]{0x0000000000000042L});
@@ -44951,19 +45093,19 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_15 = new BitSet(new long[]{0x0000000000FF80F0L,0x000000000000064AL});
     public static final BitSet FOLLOW_16 = new BitSet(new long[]{0x0000000000008000L});
     public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000100000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000100000000000L,0x000000000000C000L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0003C00800000000L});
-    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0xD4D83E6400007C00L,0x0000000000014000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0xD4D81E6400007C02L,0x0000000000014000L});
+    public static final BitSet FOLLOW_20 = new BitSet(new long[]{0xD4D83E6400007C00L,0x000000000002C000L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0xD4D81E6400007C02L,0x000000000002C000L});
     public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0004000000000000L});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0010000000000000L,0x0000000000004000L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0020000000000000L});
-    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x00581E6400000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x00581E6400000000L,0x000000000000C000L});
     public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0200000000FF80F0L,0x000000000000064AL});
-    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000000000000L,0x0000000000010000L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0200000000000002L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0400000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0400000000000000L,0x0000000000020000L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000010000040L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0800000000000000L});
     public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x2000000000000000L});

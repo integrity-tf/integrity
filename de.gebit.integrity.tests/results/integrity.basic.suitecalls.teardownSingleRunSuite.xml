@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="07.06.17 16:49" isotimestamp="2017-06-07T16:49:12" duration="18.972">
+  <variables />
+  <suite id="0" name="integrity.basic.suitecalls.teardownSingleRunSuite" timestamp="07.06.17 16:49:12.0769">
+    <setup />
+    <variables />
+    <statements>
+      <suite id="1" line="18" name="integrity.basic.suitecalls.dependingSubSuiteWithTeardown" timestamp="07.06.17 16:49:12.0772">
+        <setup>
+          <suite id="2" line="35" name="integrity.basic.suitecalls.subSuite" timestamp="07.06.17 16:49:12.0772">
+            <setup />
+            <variables />
+            <statements>
+              <suite id="3" line="36" name="integrity.basic.suitecalls.singleRunSuite" timestamp="07.06.17 16:49:12.0772">
+                <setup />
+                <variables />
+                <statements>
+                  <call id="4" line="28" name="echoString" description="Echo the string 'Echo this!'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="07.06.17 16:49:12.0776">
+                    <parameters>
+                      <parameter name="string" value="Echo this!" />
+                    </parameters>
+                    <result duration="2.926" type="success" />
+                  </call>
+                </statements>
+                <returns />
+                <teardown />
+                <result duration="11.669" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+              </suite>
+            </statements>
+            <result duration="12.379" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+          </suite>
+        </setup>
+        <variables />
+        <statements />
+        <returns />
+        <teardown />
+        <result duration="0.003" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+      <suite id="5" line="21" name="integrity.basic.suitecalls.dependingSubSuiteWithTeardown" timestamp="07.06.17 16:49:12.0785">
+        <setup>
+          <suite id="6" line="35" name="integrity.basic.suitecalls.subSuite" timestamp="07.06.17 16:49:12.0786">
+            <setup />
+            <variables />
+            <statements />
+            <result duration="0.260" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+          </suite>
+        </setup>
+        <variables />
+        <statements />
+        <returns />
+        <teardown />
+        <result duration="0.002" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="15.063" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

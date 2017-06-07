@@ -76,12 +76,32 @@ public abstract class TestRunnerCallback {
 	public abstract void onSuiteStart(Suite aSuite);
 
 	/**
+	 * Called when a suite call is being skipped.
+	 * 
+	 * @param aSuite
+	 *            the suite being skipped
+	 * @param aReason
+	 *            the reason for the skipping
+	 */
+	public abstract void onSuiteSkipped(Suite aSuite, SuiteSkipReason aReason);
+
+	/**
 	 * Called when a setup suite is being called.
 	 * 
 	 * @param aSetupSuite
 	 *            the setup suite being entered
 	 */
 	public abstract void onSetupStart(SuiteDefinition aSetupSuite);
+
+	/**
+	 * Called when a setup suite is being skipped.
+	 * 
+	 * @param aSetupSuite
+	 *            the suite being skipped
+	 * @param aReason
+	 *            the reason for the skipping
+	 */
+	public abstract void onSetupSkipped(SuiteDefinition aSetupSuite, SuiteSkipReason aReason);
 
 	/**
 	 * Called when a setup suite has been executed.
@@ -176,6 +196,16 @@ public abstract class TestRunnerCallback {
 	 *            the suite to be executed
 	 */
 	public abstract void onTearDownStart(SuiteDefinition aTearDownSuite);
+
+	/**
+	 * Called when a teardown suite is being skipped.
+	 * 
+	 * @param aTearDownSuite
+	 *            the suite being skipped
+	 * @param aReason
+	 *            the reason for the skipping
+	 */
+	public abstract void onTearDownSkipped(SuiteDefinition aTearDownSuite, SuiteSkipReason aReason);
 
 	/**
 	 * Called after a teardown suite was executed.
