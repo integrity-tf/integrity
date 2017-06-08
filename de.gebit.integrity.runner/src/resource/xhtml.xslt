@@ -69,6 +69,8 @@
 		.variabletable .row2 { background-color: #E7E6FF; }
 		.sectionTitle { font-size: 10pt; font-weight: bold; margin-bottom: 0px;
 		margin-top: 8px; border-bottom: 2px solid #000; }
+		.sectionFooter { font-size: 10pt; font-weight: bold; margin-top: 0px;
+		margin-bottom: 8px; border-top: 2px solid #000; }
 		.statement { border: 1px solid #FFF; position: relative; top: 0px; left: 0px;
 		margin-bottom: 1px; padding-left: 40px; padding-right: 4px; }
 		.statement:hover { border: 1px dashed #000; }
@@ -375,15 +377,13 @@ function getChildByName(node, childName) {
               </span>
               <xsl:choose>
                 <xsl:when test="@abortMessage">
-                  <span class="abortmessageintro">
-                  until aborted:
-                  </span>
+                  <span class="abortmessageintro">until aborted:</span>
                   <span class="abortmessage">
                     <xsl:value-of select="@abortMessage" />
                   </span>
                 </xsl:when>
                 <xsl:otherwise>
-                	<xsl:value-of select="concat(' ', 'to complete')" /> 
+                  <xsl:value-of select="concat(' ', 'to complete')" />
                 </xsl:otherwise>
               </xsl:choose>
             </div>
@@ -406,6 +406,8 @@ function getChildByName(node, childName) {
               <xsl:for-each select="suite">
                 <xsl:call-template name="navigationSuite">
                   <xsl:with-param name="depth" select="0" />
+                  <xsl:with-param name="path" select="''" />
+                  <xsl:with-param name="siblingCount" select="0" />
                 </xsl:call-template>
               </xsl:for-each>
             </div>
@@ -524,63 +526,18 @@ function getChildByName(node, childName) {
           <xsl:otherwise>success</xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
-      <xsl:call-template name="box">
-        <xsl:with-param name="color">
-          <xsl:choose>
-            <xsl:when test="$result = 'success'">#009933</xsl:when>
-            <xsl:when test="$result = 'exception'">#F99500</xsl:when>
-            <xsl:when test="$result = 'failure'">#CA0005</xsl:when>
-          </xsl:choose>
-        </xsl:with-param>
-        <xsl:with-param name="title">
-          <a>
-            <xsl:attribute name="href">
-              <xsl:value-of select="concat('#', $permalink)" />
-            </xsl:attribute>
-            <xsl:choose>
-              <xsl:when test="@title">
-                <xsl:value-of select="@title" />
-                <span class="nonbold">
-                  <xsl:value-of select="concat(' (',@name,')')" />
-                </span>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="@name" />
-              </xsl:otherwise>
-            </xsl:choose>
-          </a>
-          <xsl:if test="@forkName">
-            @
-            <xsl:value-of select="@forkName" />
-            <xsl:if test=" @forkDescription">
-              -
-              <xsl:value-of select="@forkDescription" />
-            </xsl:if>
+      <xsl:choose>
+        <xsl:when test="@display = 'inline'">
+          <xsl:if test="@forkName and not(../../@forkName)">
+            <div class="sectionTitle">
+              Switching to Fork
+              <xsl:value-of select="@forkName" />
+              <xsl:if test=" @forkDescription">
+                -
+                <xsl:value-of select="@forkDescription" />
+              </xsl:if>
+            </div>
           </xsl:if>
-        </xsl:with-param>
-        <xsl:with-param name="titleRight">
-          <xsl:call-template name="suiteResultSummary" />
-          <xsl:text />
-          at
-          <xsl:text />
-          <xsl:value-of select="@timestamp" />
-          <xsl:text />
-          in
-          <xsl:text />
-          <xsl:call-template name="duration">
-            <xsl:with-param name="value" select="result/@duration" />
-          </xsl:call-template>
-          <span class="suiteicons">
-            <xsl:if test="ancestor::suite[1]/@name">
-              <xsl:call-template name="scriptlink">
-                <xsl:with-param name="line" select="@line" />
-                <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
-                <xsl:with-param name="class" select="'suitescriptlink'" />
-              </xsl:call-template>
-            </xsl:if>
-          </span>
-        </xsl:with-param>
-        <xsl:with-param name="content">
           <xsl:if test="count(variables/variable) &gt; 0">
             <div class="sectionTitle">Variables/Constants</div>
             <xsl:apply-templates select="variables" />
@@ -601,8 +558,99 @@ function getChildByName(node, childName) {
             <div class="sectionTitle">Returned Values</div>
             <xsl:apply-templates select="returns" />
           </xsl:if>
-        </xsl:with-param>
-      </xsl:call-template>
+          <xsl:if test="@forkName and not(../../@forkName)">
+            <div class="sectionFooter">
+              Returning from Fork
+              <xsl:value-of select="@forkName" />
+              <xsl:if test=" @forkDescription">
+                -
+                <xsl:value-of select="@forkDescription" />
+              </xsl:if>
+            </div>
+          </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="box">
+            <xsl:with-param name="color">
+              <xsl:choose>
+                <xsl:when test="$result = 'success'">#009933</xsl:when>
+                <xsl:when test="$result = 'exception'">#F99500</xsl:when>
+                <xsl:when test="$result = 'failure'">#CA0005</xsl:when>
+              </xsl:choose>
+            </xsl:with-param>
+            <xsl:with-param name="title">
+              <a>
+                <xsl:attribute name="href">
+                  <xsl:value-of select="concat('#', $permalink)" />
+                </xsl:attribute>
+                <xsl:choose>
+                  <xsl:when test="@title">
+                    <xsl:value-of select="@title" />
+                    <span class="nonbold">
+                      <xsl:value-of select="concat(' (',@name,')')" />
+                    </span>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="@name" />
+                  </xsl:otherwise>
+                </xsl:choose>
+              </a>
+              <xsl:if test="@forkName">
+                @
+                <xsl:value-of select="@forkName" />
+                <xsl:if test=" @forkDescription">
+                  -
+                  <xsl:value-of select="@forkDescription" />
+                </xsl:if>
+              </xsl:if>
+            </xsl:with-param>
+            <xsl:with-param name="titleRight">
+              <xsl:call-template name="suiteResultSummary" />
+              <xsl:text />
+              at
+              <xsl:text />
+              <xsl:value-of select="@timestamp" />
+              <xsl:text />
+              in
+              <xsl:text />
+              <xsl:call-template name="duration">
+                <xsl:with-param name="value" select="result/@duration" />
+              </xsl:call-template>
+              <span class="suiteicons">
+                <xsl:if test="ancestor::suite[1]/@name">
+                  <xsl:call-template name="scriptlink">
+                    <xsl:with-param name="line" select="@line" />
+                    <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+                    <xsl:with-param name="class" select="'suitescriptlink'" />
+                  </xsl:call-template>
+                </xsl:if>
+              </span>
+            </xsl:with-param>
+            <xsl:with-param name="content">
+              <xsl:if test="count(variables/variable) &gt; 0">
+                <div class="sectionTitle">Variables/Constants</div>
+                <xsl:apply-templates select="variables" />
+              </xsl:if>
+              <xsl:if test="count(setup/suite) &gt; 0">
+                <div class="sectionTitle">Setup</div>
+                <xsl:apply-templates select="setup/suite" />
+              </xsl:if>
+              <xsl:if test="count(variables/variable) &gt; 0 or count(setup/suite) &gt; 0 or count(teardown/suite) &gt; 0">
+                <div class="sectionTitle">Suite</div>
+              </xsl:if>
+              <xsl:apply-templates select="statements/*" />
+              <xsl:if test="count(teardown/suite) &gt; 0">
+                <div class="sectionTitle">Teardown</div>
+                <xsl:apply-templates select="teardown/suite" />
+              </xsl:if>
+              <xsl:if test="count(returns/variable) &gt; 0">
+                <div class="sectionTitle">Returned Values</div>
+                <xsl:apply-templates select="returns" />
+              </xsl:if>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:template>
     <xsl:template match="comment">
       <div>
@@ -1686,65 +1734,21 @@ function getChildByName(node, childName) {
     <xsl:template name="navigationSuite">
       <xsl:param name="depth" />
       <xsl:param name="path" />
-      <xsl:param name="isLast" />
-      <xsl:variable name="result">
-        <xsl:choose>
-          <xsl:when test="result/@exceptionCount &gt; 0">exception</xsl:when>
-          <xsl:when test="result/@failureCount &gt; 0">failure</xsl:when>
-          <xsl:otherwise>success</xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
+      <xsl:param name="siblingCount" />
       <div>
-        <xsl:attribute name="class">
-          <xsl:value-of select="concat('nav_suite nav_suite', $result)" />
-        </xsl:attribute>
-        <xsl:attribute name="style">
-          <xsl:value-of select="concat('background-position: ', $depth * 16 - 8, 'px 0px;')" />
-        </xsl:attribute>
-        <xsl:call-template name="navigationLine">
-          <xsl:with-param name="depth" select="$depth" />
-          <xsl:with-param name="path" select="$path" />
-          <xsl:with-param name="isLast" select="$isLast" />
-        </xsl:call-template>
-        <div class="nav_suitetitle">
-          <xsl:variable name="linktitle">
-            <xsl:choose>
-              <xsl:when test="@title">
-                <xsl:value-of select="concat(@title, ' (', @name, ')')" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="@name" />
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:variable>
-          <a>
-            <xsl:attribute name="href">
-              <xsl:value-of select="concat('#i', @id)" />
-            </xsl:attribute>
-            <xsl:attribute name="title">
-              <xsl:value-of select="$linktitle" />
-            </xsl:attribute>
-            <xsl:choose>
-              <xsl:when test="@title">
-                <xsl:value-of select="@title" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:call-template name="simpleSuiteName">
-                  <xsl:with-param name="fullSuiteName" select="@name" />
-                </xsl:call-template>
-              </xsl:otherwise>
-            </xsl:choose>
-          </a>
-        </div>
-        <div>
-          <xsl:attribute name="class">
-            <xsl:value-of select="concat('nav_suiteresult nav_suite', $result)" />
-          </xsl:attribute>
-          <xsl:call-template name="suiteResultSummary" />
-        </div>
+        <xsl:variable name="result">
+          <xsl:choose>
+            <xsl:when test="result/@exceptionCount &gt; 0">exception</xsl:when>
+            <xsl:when test="result/@failureCount &gt; 0">failure</xsl:when>
+            <xsl:otherwise>success</xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
         <xsl:variable name="nextPath">
           <xsl:choose>
-            <xsl:when test="$isLast">
+            <xsl:when test="@display = 'inline'">
+              <xsl:value-of select="$path" />
+            </xsl:when>
+            <xsl:when test="$siblingCount = 0">
               <xsl:value-of select="concat($path, '1')" />
             </xsl:when>
             <xsl:otherwise>
@@ -1752,25 +1756,129 @@ function getChildByName(node, childName) {
             </xsl:otherwise>
           </xsl:choose>
         </xsl:variable>
+        <xsl:choose>
+          <xsl:when test="@display = 'inline'">
+            <xsl:attribute name="class">
+              <xsl:value-of select="concat('nav_suite nav_suite', $result)" />
+            </xsl:attribute>
+            <xsl:attribute name="style">
+            	<xsl:value-of select="'background-image: none'" />
+            </xsl:attribute>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="class">
+              <xsl:value-of select="concat('nav_suite nav_suite', $result)" />
+            </xsl:attribute>
+            <xsl:attribute name="style">
+            	<xsl:value-of select="concat('background-position: ', $depth * 16 - 8, 'px 0px;')" />
+            </xsl:attribute>
+            <xsl:call-template name="navigationLine">
+              <xsl:with-param name="depth" select="$depth" />
+              <xsl:with-param name="path" select="$path" />
+              <xsl:with-param name="isLast" select="$siblingCount = 0" />
+            </xsl:call-template>
+            <div class="nav_suitetitle">
+              <xsl:variable name="linktitle">
+                <xsl:choose>
+                  <xsl:when test="@title">
+                    <xsl:value-of select="concat(@title, ' (', @name, ')')" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="@name" />
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:variable>
+              <a>
+                <xsl:attribute name="href">
+                  <xsl:value-of select="concat('#i', @id)" />
+                </xsl:attribute>
+                <xsl:attribute name="title">
+                  <xsl:value-of select="$linktitle" />
+                </xsl:attribute>
+                <xsl:choose>
+                  <xsl:when test="@title">
+                    <xsl:value-of select="@title" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:call-template name="simpleSuiteName">
+                      <xsl:with-param name="fullSuiteName" select="@name" />
+                    </xsl:call-template>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </a>
+            </div>
+            <div>
+              <xsl:attribute name="class">
+                <xsl:value-of select="concat('nav_suiteresult nav_suite', $result)" />
+              </xsl:attribute>
+              <xsl:call-template name="suiteResultSummary" />
+            </div>
+          </xsl:otherwise>
+        </xsl:choose>
         <xsl:for-each select="setup/suite">
+          <xsl:variable name="siblingCountToAdd">
+            <xsl:choose>
+              <xsl:when test="@display = 'inline'">
+                <xsl:value-of select="$siblingCount" />
+              </xsl:when>
+              <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:variable name="nextSiblingCount" select="$siblingCountToAdd + (count(following-sibling::suite[not(@display = 'inline')]) + count(following-sibling::suite//suite[not(@display = 'inline')])) + count(../../statements//suite[not(@display='inline')]) + count(../../teardown//suite[not(@display='inline')])" />
+          <xsl:variable name="additionalDepth">
+            <xsl:choose>
+              <xsl:when test="@display = 'inline'">0</xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
           <xsl:call-template name="navigationSuite">
-            <xsl:with-param name="depth" select="$depth + 1" />
+            <xsl:with-param name="depth" select="$depth + $additionalDepth" />
             <xsl:with-param name="path" select="$nextPath" />
-            <xsl:with-param name="isLast" select="position() = last() and count(../../statements/suite) = 0 and count(../../teardown/suite) = 0" />
+            <xsl:with-param name="siblingCount" select="$nextSiblingCount" />
           </xsl:call-template>
         </xsl:for-each>
         <xsl:for-each select="statements/suite">
+          <xsl:variable name="siblingCountToAdd">
+            <xsl:choose>
+              <xsl:when test="../../@display = 'inline'">
+                <xsl:value-of select="$siblingCount" />
+              </xsl:when>
+              <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:variable name="nextSiblingCount" select="$siblingCountToAdd + (count(following-sibling::suite[not(@display = 'inline')]) + count(following-sibling::suite//suite[not(@display = 'inline')])) + count(../../teardown//suite[not(@display='inline')])" />
+          <xsl:variable name="additionalDepth">
+            <xsl:choose>
+              <xsl:when test="../../@display = 'inline'">0</xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
           <xsl:call-template name="navigationSuite">
-            <xsl:with-param name="depth" select="$depth + 1" />
+            <xsl:with-param name="depth" select="$depth + $additionalDepth" />
             <xsl:with-param name="path" select="$nextPath" />
-            <xsl:with-param name="isLast" select="position() = last() and count(../../teardown/suite) = 0" />
+            <xsl:with-param name="siblingCount" select="$nextSiblingCount" />
           </xsl:call-template>
         </xsl:for-each>
         <xsl:for-each select="teardown/suite">
+          <xsl:variable name="siblingCountToAdd">
+            <xsl:choose>
+              <xsl:when test="../../@display = 'inline'">
+                <xsl:value-of select="$siblingCount" />
+              </xsl:when>
+              <xsl:otherwise>0</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:variable name="nextSiblingCount" select="$siblingCountToAdd + (count(following-sibling::suite[not(@display = 'inline')]) + count(following-sibling::suite//suite[not(@display = 'inline')]))" />
+          <xsl:variable name="additionalDepth">
+            <xsl:choose>
+              <xsl:when test="@display = 'inline'">0</xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
           <xsl:call-template name="navigationSuite">
-            <xsl:with-param name="depth" select="$depth + 1" />
+            <xsl:with-param name="depth" select="$depth + $additionalDepth" />
             <xsl:with-param name="path" select="$nextPath" />
-            <xsl:with-param name="isLast" select="position() = last()" />
+            <xsl:with-param name="siblingCount" select="$nextSiblingCount" />
           </xsl:call-template>
         </xsl:for-each>
       </div>

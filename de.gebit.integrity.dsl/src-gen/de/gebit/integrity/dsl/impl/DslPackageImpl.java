@@ -1927,9 +1927,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Multiplier()
+  public EAttribute getSuite_Inlined()
   {
-    return (EReference)suiteEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)suiteEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1937,7 +1937,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Definition()
+  public EReference getSuite_Multiplier()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(1);
   }
@@ -1947,7 +1947,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Parameters()
+  public EReference getSuite_Definition()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(2);
   }
@@ -1957,7 +1957,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Return()
+  public EReference getSuite_Parameters()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(3);
   }
@@ -1967,7 +1967,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Fork()
+  public EReference getSuite_Return()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(4);
   }
@@ -1977,9 +1977,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuite_Variants()
+  public EReference getSuite_Fork()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSuite_Variants()
+  {
+    return (EReference)suiteEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -3047,6 +3057,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(namedCallResultEClass, NAMED_CALL_RESULT__TARGET);
 
     suiteEClass = createEClass(SUITE);
+    createEAttribute(suiteEClass, SUITE__INLINED);
     createEReference(suiteEClass, SUITE__MULTIPLIER);
     createEReference(suiteEClass, SUITE__DEFINITION);
     createEReference(suiteEClass, SUITE__PARAMETERS);
@@ -3443,6 +3454,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getNamedCallResult_Target(), this.getVariableVariable(), null, "target", null, 0, 1, NamedCallResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteEClass, Suite.class, "Suite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getSuite_Inlined(), ecorePackage.getEString(), "inlined", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Multiplier(), this.getExecutionMultiplier(), null, "multiplier", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Definition(), this.getSuiteDefinition(), null, "definition", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getSuite_Parameters(), this.getSuiteParameter(), null, "parameters", null, 0, -1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

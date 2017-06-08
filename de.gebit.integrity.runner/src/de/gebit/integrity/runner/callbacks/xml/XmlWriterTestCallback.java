@@ -208,6 +208,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected String abortMessage;
 
 	/**
+	 * This flag stores the information whether the root suite (= first suite we enter) has already been entered.
+	 */
+	protected boolean rootSuiteWasStarted;
+
+	/**
 	 * This prefix is used to mark temporary attributes (these are to be stripped before elements are serialized for the
 	 * final result).
 	 */
@@ -248,6 +253,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant SUITE_TITLE_ATTRIBUTE. */
 	protected static final String SUITE_TITLE_ATTRIBUTE = "title";
+
+	/** The Constant SUITE_DISPLAY_ATTRIBUTE. */
+	protected static final String SUITE_DISPLAY_ATTRIBUTE = "display";
+
+	/** The Constant SUITE_DISPLAY_VALUE_INLINE. */
+	protected static final String SUITE_DISPLAY_VALUE_INLINE = "inline";
 
 	/** The Constant VARIABLE_DEFINITION_COLLECTION_ELEMENT. */
 	protected static final String VARIABLE_DEFINITION_COLLECTION_ELEMENT = "variables";
@@ -629,6 +640,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addVersion(tempRootElement);
 		document = new Document(tempRootElement);
 		stackPush(tempRootElement);
+		rootSuiteWasStarted = false;
 
 		if (!isFork()) {
 			if (transformHandling == TransformHandling.EMBED_TRANSFORM) {
@@ -670,6 +682,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addLineNumber(tempSuiteElement, aSuite);
 		tempSuiteElement.setAttribute(SUITE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
+		if (aSuite.getInlined() != null && rootSuiteWasStarted) {
+			// Inlining the root suite will not work, so we ignore that if it happens.
+			tempSuiteElement.setAttribute(SUITE_DISPLAY_ATTRIBUTE, SUITE_DISPLAY_VALUE_INLINE);
+		}
+		rootSuiteWasStarted = true;
 
 		addCurrentTime(tempSuiteElement);
 

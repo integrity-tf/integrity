@@ -3383,13 +3383,28 @@ ruleSuite returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='suite' 
+((
+(
+		lv_inlined_0_0=	'inlined' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getSuiteAccess().getSuiteKeyword_0());
+        newLeafNode(lv_inlined_0_0, grammarAccess.getSuiteAccess().getInlinedInlinedKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSuiteRule());
+	        }
+       		setWithLastConsumed($current, "inlined", lv_inlined_0_0, "inlined");
+	    }
+
+)
+)?	otherlv_1='suite' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getSuiteAccess().getSuiteKeyword_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_2()); 
     }
 ruleNL
     { 
@@ -3398,16 +3413,16 @@ ruleNL
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getMultiplierExecutionMultiplierParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getMultiplierExecutionMultiplierParserRuleCall_3_0_0()); 
 	    }
-		lv_multiplier_2_0=ruleExecutionMultiplier		{
+		lv_multiplier_3_0=ruleExecutionMultiplier		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSuiteRule());
 	        }
        		set(
        			$current, 
        			"multiplier",
-        		lv_multiplier_2_0, 
+        		lv_multiplier_3_0, 
         		"de.gebit.integrity.DSL.ExecutionMultiplier");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -3415,7 +3430,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_2_1()); 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_3_1()); 
     }
 ruleNL
     { 
@@ -3429,7 +3444,7 @@ ruleNL
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionCrossReference_3_0()); 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionCrossReference_4_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -3438,7 +3453,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_5()); 
     }
 ruleNL
     { 
@@ -3447,43 +3462,17 @@ ruleNL
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getParametersSuiteParameterParserRuleCall_5_0_0()); 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getParametersSuiteParameterParserRuleCall_6_0_0()); 
 	    }
-		lv_parameters_6_0=ruleSuiteParameter		{
+		lv_parameters_7_0=ruleSuiteParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSuiteRule());
 	        }
        		add(
        			$current, 
        			"parameters",
-        		lv_parameters_6_0, 
+        		lv_parameters_7_0, 
         		"de.gebit.integrity.DSL.SuiteParameter");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-    { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_5_1()); 
-    }
-ruleNL
-    { 
-        afterParserOrEnumRuleCall();
-    }
-)*((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getReturnSuiteReturnParserRuleCall_6_0_0()); 
-	    }
-		lv_return_8_0=ruleSuiteReturn		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getSuiteRule());
-	        }
-       		add(
-       			$current, 
-       			"return",
-        		lv_return_8_0, 
-        		"de.gebit.integrity.DSL.SuiteReturn");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3496,13 +3485,39 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)*(	otherlv_10='on' 
+)*((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getReturnSuiteReturnParserRuleCall_7_0_0()); 
+	    }
+		lv_return_9_0=ruleSuiteReturn		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSuiteRule());
+	        }
+       		add(
+       			$current, 
+       			"return",
+        		lv_return_9_0, 
+        		"de.gebit.integrity.DSL.SuiteReturn");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_7_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)*(	otherlv_11='on' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getSuiteAccess().getOnKeyword_7_0());
+    	newLeafNode(otherlv_11, grammarAccess.getSuiteAccess().getOnKeyword_8_0());
     }
 
     { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_7_1()); 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_8_1()); 
     }
 ruleNL
     { 
@@ -3516,7 +3531,7 @@ ruleNL
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getForkForkDefinitionCrossReference_7_2_0()); 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getForkForkDefinitionCrossReference_8_2_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -3525,19 +3540,19 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_7_3()); 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_8_3()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)?(	otherlv_14='in' 
+)?(	otherlv_15='in' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getSuiteAccess().getInKeyword_8_0());
+    	newLeafNode(otherlv_15, grammarAccess.getSuiteAccess().getInKeyword_9_0());
     }
 
     { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_8_1()); 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_9_1()); 
     }
 ruleNL
     { 
@@ -3551,7 +3566,7 @@ ruleNL
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSuiteAccess().getVariantsVariantDefinitionCrossReference_8_2_0_0()); 
+	        newCompositeNode(grammarAccess.getSuiteAccess().getVariantsVariantDefinitionCrossReference_9_2_0_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -3560,7 +3575,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_8_2_1()); 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_9_2_1()); 
     }
 ruleNL
     { 

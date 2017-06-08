@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getInlined <em>Inlined</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getMultiplier <em>Multiplier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteImpl#getParameters <em>Parameters</em>}</li>
@@ -47,6 +48,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
 {
+  /**
+   * The default value of the '{@link #getInlined() <em>Inlined</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInlined()
+   * @generated
+   * @ordered
+   */
+  protected static final String INLINED_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getInlined() <em>Inlined</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInlined()
+   * @generated
+   * @ordered
+   */
+  protected String inlined = INLINED_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getMultiplier() <em>Multiplier</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -126,6 +147,29 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.SUITE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getInlined()
+  {
+    return inlined;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInlined(String newInlined)
+  {
+    String oldInlined = inlined;
+    inlined = newInlined;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.SUITE__INLINED, oldInlined, inlined));
   }
 
   /**
@@ -334,6 +378,8 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
   {
     switch (featureID)
     {
+      case DslPackage.SUITE__INLINED:
+        return getInlined();
       case DslPackage.SUITE__MULTIPLIER:
         return getMultiplier();
       case DslPackage.SUITE__DEFINITION:
@@ -363,6 +409,9 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
   {
     switch (featureID)
     {
+      case DslPackage.SUITE__INLINED:
+        setInlined((String)newValue);
+        return;
       case DslPackage.SUITE__MULTIPLIER:
         setMultiplier((ExecutionMultiplier)newValue);
         return;
@@ -398,6 +447,9 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
   {
     switch (featureID)
     {
+      case DslPackage.SUITE__INLINED:
+        setInlined(INLINED_EDEFAULT);
+        return;
       case DslPackage.SUITE__MULTIPLIER:
         setMultiplier((ExecutionMultiplier)null);
         return;
@@ -430,6 +482,8 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
   {
     switch (featureID)
     {
+      case DslPackage.SUITE__INLINED:
+        return INLINED_EDEFAULT == null ? inlined != null : !INLINED_EDEFAULT.equals(inlined);
       case DslPackage.SUITE__MULTIPLIER:
         return multiplier != null;
       case DslPackage.SUITE__DEFINITION:
@@ -444,6 +498,23 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
         return variants != null && !variants.isEmpty();
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (inlined: ");
+    result.append(inlined);
+    result.append(')');
+    return result.toString();
   }
 
 } //SuiteImpl

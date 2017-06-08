@@ -1259,6 +1259,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (
+	 *         inlined='inlined'? 
 	 *         multiplier=ExecutionMultiplier? 
 	 *         definition=[SuiteDefinition|QualifiedName] 
 	 *         parameters+=SuiteParameter* 

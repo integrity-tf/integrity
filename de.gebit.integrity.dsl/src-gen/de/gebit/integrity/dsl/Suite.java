@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.Suite#getInlined <em>Inlined</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getMultiplier <em>Multiplier</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getDefinition <em>Definition</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.Suite#getParameters <em>Parameters</em>}</li>
@@ -27,6 +28,32 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Suite extends SuiteStatementWithResult
 {
+  /**
+   * Returns the value of the '<em><b>Inlined</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Inlined</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Inlined</em>' attribute.
+   * @see #setInlined(String)
+   * @see de.gebit.integrity.dsl.DslPackage#getSuite_Inlined()
+   * @model
+   * @generated
+   */
+  String getInlined();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.Suite#getInlined <em>Inlined</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Inlined</em>' attribute.
+   * @see #getInlined()
+   * @generated
+   */
+  void setInlined(String value);
+
   /**
    * Returns the value of the '<em><b>Multiplier</b></em>' containment reference.
    * <!-- begin-user-doc -->

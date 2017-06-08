@@ -1567,13 +1567,22 @@ public interface DslPackage extends EPackage
   int SUITE = 42;
 
   /**
+   * The feature id for the '<em><b>Inlined</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUITE__INLINED = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Multiplier</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUITE__MULTIPLIER = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 0;
+  int SUITE__MULTIPLIER = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Definition</b></em>' reference.
@@ -1582,7 +1591,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE__DEFINITION = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 1;
+  int SUITE__DEFINITION = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -1591,7 +1600,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE__PARAMETERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
+  int SUITE__PARAMETERS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Return</b></em>' containment reference list.
@@ -1600,7 +1609,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE__RETURN = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
+  int SUITE__RETURN = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Fork</b></em>' reference.
@@ -1609,7 +1618,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE__FORK = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
+  int SUITE__FORK = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Variants</b></em>' reference list.
@@ -1618,7 +1627,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE__VARIANTS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 5;
+  int SUITE__VARIANTS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Suite</em>' class.
@@ -1627,7 +1636,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 6;
+  int SUITE_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteParameterImpl <em>Suite Parameter</em>}' class.
@@ -4199,6 +4208,17 @@ public interface DslPackage extends EPackage
   EClass getSuite();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.Suite#getInlined <em>Inlined</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Inlined</em>'.
+   * @see de.gebit.integrity.dsl.Suite#getInlined()
+   * @see #getSuite()
+   * @generated
+   */
+  EAttribute getSuite_Inlined();
+
+  /**
    * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.Suite#getMultiplier <em>Multiplier</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -6199,6 +6219,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass SUITE = eINSTANCE.getSuite();
+
+    /**
+     * The meta object literal for the '<em><b>Inlined</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SUITE__INLINED = eINSTANCE.getSuite_Inlined();
 
     /**
      * The meta object literal for the '<em><b>Multiplier</b></em>' containment reference feature.

@@ -6,52 +6,59 @@ packagedef mypackage with
 	forkdef fork1
 	forkdef fork2
 	forkdef fork3
-	
-	constant weirdstuff_001identifier "10000020000100010221"
-	constant weirdstuff_001gtin13 "04055018000103"
-	constant weirdstuff_001manualBarcode weirdstuff_001identifier
-	constant weirdstuff_001barcode ("01" .. weirdstuff_001gtin13 .. "90" .. weirdstuff_001manualBarcode)
-	
-	constant invocationCount 2
-	
+		
 	variable testString initially "test"
 	
 	variable returnVar
 
 	suitedef asuite with
 	
-		suite invocationCount * csuite
+		//suite csuite
 		
-		suite bsuite on fork1
+		//suite bsuite on fork1
 		
-		suite invocationCount * csuite
+		//suite csuite
 		
-		suite bsuite on fork2
+		inlined suite bsuite on fork2
 		
-		suite invocationCount * csuite
+		inlined suite csuite
 		
-		suite bsuite on fork3
+		inlined suite bsuite
 		
-		suite bsuite on fork1
+		suite bsuite
 		
-		suite invocationCount * csuite
+		suite csuite
 		
 	suiteend
 	
 	suitedef bsuite with
 	
-		test echo echo: returnVar = "blah"
-	
-		suite invocationCount * csuite
-		
 		call echoCall echo: "blah" -> returnVar
 	
+		inlined suite csuite
+		
+		suite csuite
+		
+		inlined suite dsuite
+		
+		test echo echo: returnVar = "blah"
+	
 	suiteend
 	
-	single-run suitedef csuite with
+	suitedef csuite with
 	
-		test echo echo: "test" = weirdstuff_001barcode
+		test echo echo: returnVar = "blahblub"
 	
 	suiteend
+	
+	suitedef dsuite with
+	
+		test echo echo: returnVar = "blahblub"
+		
+		suite csuite
+	
+	suiteend
+	
+	
 	
 packageend
