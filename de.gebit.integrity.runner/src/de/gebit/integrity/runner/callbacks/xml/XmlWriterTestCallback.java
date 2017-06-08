@@ -8,6 +8,7 @@
 package de.gebit.integrity.runner.callbacks.xml;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilterOutputStream;
@@ -536,6 +537,17 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected boolean isTracingEnabled = Boolean.getBoolean(SYSPARAM_ENABLE_TRACE_OUTPUT);
 
 	/**
+	 * System property name to override XSLT resource.
+	 */
+	protected static final String SYSPARAM_XSLT_RESOURCE = "integrity.xmlwriter.xsltpath";
+
+	/**
+	 * The name of the XSLT script resource.
+	 */
+	protected static final String XSLT_RESOURCE_NAME = System.getProperty(SYSPARAM_XSLT_RESOURCE,
+			"resource/xhtml.xslt");
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aClassLoader
@@ -565,7 +577,24 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * @return the xslt stream
 	 */
 	protected InputStream getXsltStream() {
-		return getClass().getClassLoader().getResourceAsStream("resource/xhtml.xslt");
+		InputStream tempResult = getClass().getClassLoader().getResourceAsStream(XSLT_RESOURCE_NAME);
+		if (tempResult == null) {
+			tempResult = classLoader.getResourceAsStream(XSLT_RESOURCE_NAME);
+		}
+		if (tempResult == null) {
+			try {
+				tempResult = new FileInputStream(new File(XSLT_RESOURCE_NAME));
+			} catch (FileNotFoundException exc) {
+				// ignored; will be handled below
+			}
+		}
+
+		if (tempResult == null) {
+			throw new IllegalStateException("Could not load XSLT resource '" + XSLT_RESOURCE_NAME
+					+ "', neither from JARs nor from the file system!");
+		}
+
+		return tempResult;
 	}
 
 	/**
