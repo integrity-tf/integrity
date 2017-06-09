@@ -1,0 +1,13 @@
+diff --git a/HTMLEmitter.java b/HTMLEmitter.java
+index 033b585..754b892 100644
+--- a/HTMLEmitter.java
++++ b/HTMLEmitter.java
+@@ -326,7 +326,7 @@ public class HTMLEmitter extends XMLEmitter {
+ 
+                 if (inAttribute) {
+                     if (ch[i]=='<') {
+-                        writer.write('<');                       // not escaped
++                        writer.write("&lt;");                       // escaped
+                     } else if (ch[i]=='>') {
+                         writer.write("&gt;");           // recommended for older browsers
+                     } else if (ch[i]=='&') {

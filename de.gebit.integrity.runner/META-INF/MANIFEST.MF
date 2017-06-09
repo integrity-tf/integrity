@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Test Runner
 Bundle-SymbolicName: de.gebit.integrity.runner
 Bundle-Version: 0.16.0.qualifier
-Bundle-ClassPath: .
 Require-Bundle: org.eclipse.xtext;bundle-version="2.8.3",
  de.gebit.integrity.dsl,
  org.eclipse.xtext.common.types;bundle-version="2.8.3",
@@ -41,3 +40,5 @@ Import-Package: org.apache.log4j;version="1.2.15",
  org.jdom.xpath;version="1.0.0",
  org.slf4j;version="1.4.0"
 Bundle-Vendor: GEBIT Solutions GmbH
+Bundle-ClassPath: .,
+ saxon/saxon-6.5.5-patched.jar

@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -557,6 +556,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected static final String XSLT_RESOURCE_NAME = System.getProperty(SYSPARAM_XSLT_RESOURCE,
 			"resource/xhtml.xslt");
+
+	/**
+	 * The XSLT transformer factory property.
+	 */
+	protected static final String XSLT_TRANSFORMER_FACTORY_PROPERTY = "javax.xml.transform.TransformerFactory";
 
 	/**
 	 * Creates a new instance.
@@ -1654,13 +1658,26 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	protected void transformResult(FileOutputStream aTargetStream) {
 		try {
-			if (System.getProperty("javax.xml.transform.TransformerFactory") == null) {
-				// Explicitly specify the JRE-bundled XSLT transformer if nothing else was specified via the
-				// system property, so we at least know for sure what to expect
-				System.setProperty("javax.xml.transform.TransformerFactory",
-						"com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
-			}
+			/*
+			 * Explicitly specify the bundled, patched Saxon XSLT transformer. There is a problem with the XML source
+			 * data that is copied to the transformed HTML result (into the "xmldata" element): since the output method
+			 * for the serializer is set to HTML, Saxon assumes it is okay to not escape the < char in attributes, which
+			 * is no problem for HTML, but strict XML requires those to be replaced by their corresponding entities. I
+			 * could solve this by outputting strict XML, but that renders the output unrenderable by browsers :-( well,
+			 * for some reason I don't fully understand at least, I'm no browser developer. To solve this, I have
+			 * patched the HTMLEmitter inside the bundled Saxon XSLT transformer to escape this character as well, which
+			 * seems to work just fine with browsers as well as XML parsers (which should then only parse until the end
+			 * of the xmldata element - afterwards there's a lot of non-well-formed XML, which actually is HTML,
+			 * coming). The mentioned patch is provided in the file com.icl.saxon.output.HTMLEmitter.diff.
+			 */
+			String tempOldProperty = System.getProperty(XSLT_TRANSFORMER_FACTORY_PROPERTY);
+			System.setProperty(XSLT_TRANSFORMER_FACTORY_PROPERTY, "com.icl.saxon.TransformerFactoryImpl");
 			TransformerFactory tempTransformerFactory = TransformerFactory.newInstance();
+			if (tempOldProperty != null) {
+				System.setProperty(XSLT_TRANSFORMER_FACTORY_PROPERTY, tempOldProperty);
+			} else {
+				System.clearProperty(XSLT_TRANSFORMER_FACTORY_PROPERTY);
+			}
 
 			Transformer tempTransformer = tempTransformerFactory.newTransformer(new StreamSource(getXsltStream()));
 			tempTransformer.setOutputProperty(OutputKeys.METHOD, "html");
@@ -1668,107 +1685,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 			Source tempSource = new JDOMSource(document);
 
-			/*
-			 * There is a problem with the XML source data that is copied to the transformed HTML result (into the
-			 * "xmldata" element): since the output method for the serializer is set to HTML, it seems to inevitably
-			 * output '<' and '>' in attributes as characters, which is no problem for HTML, but strict XML requires
-			 * those to be replaced by their corresponding entities. I could solve this by outputting strict XML, but
-			 * that renders the output unrenderable by browsers :-( well, for some reason I don't fully understand at
-			 * least, I'm no browser developer. To solve this, the following very ugly hack replaces the characters by
-			 * their entities in all attribute values inside the xmldata section on a character stream level. That makes
-			 * the xmldata content valid XML and thus conveniently parseable for example by a SAX parser (just be sure
-			 * to stop the parsing when reaching the end of that section, because the HTML afterwards definitely doesn't
-			 * parse as XML!), while keeping viewability on all browsers. It should not have any negative side-effects,
-			 * apart from being disgusting and everything, but well, this can still be replaced by a more elegant
-			 * solution if someone comes up with one.
-			 */
-			StreamResult tempResult = new StreamResult(new FilterOutputStream(aTargetStream) {
-
-				private final char[] triggerOpenTagName = new char[] { 'x', 'm', 'l', 'd', 'a', 't', 'a' };
-
-				private final char[] triggerCloseTagName = new char[] { '/', 'x', 'm', 'l', 'd', 'a', 't', 'a' };
-
-				private static final char TRIGGER_TAG_START = '<';
-
-				private static final char TRIGGER_TAG_END = '<';
-
-				private static final char TRIGGER_ATTRIBUTE = '"';
-
-				private boolean insideXmlPart;
-
-				private boolean insideAttribute;
-
-				private boolean pastXmlPart;
-
-				private int tagPosition;
-
-				@Override
-				public void write(int aByte) throws IOException {
-					char tempChar = (char) aByte;
-
-					if (!pastXmlPart) {
-						if (!insideAttribute) {
-							if (tempChar == TRIGGER_TAG_START) {
-								tagPosition = 0;
-							} else if (tempChar == TRIGGER_TAG_END) {
-								tagPosition = -1;
-							} else if (tagPosition >= 0) {
-								if (insideXmlPart && tempChar == TRIGGER_ATTRIBUTE) {
-									insideAttribute = true;
-								} else {
-									tagPosition++;
-									if (insideXmlPart) {
-										if (tagPosition < triggerCloseTagName.length - 1) {
-											if (tempChar != triggerCloseTagName[tagPosition]) {
-												tagPosition = 0;
-											}
-										} else if (tagPosition == triggerCloseTagName.length - 1) {
-											insideXmlPart = false;
-											pastXmlPart = true;
-											tagPosition = 0;
-										}
-									} else {
-										if (tagPosition < triggerOpenTagName.length - 1) {
-											if (tempChar != triggerOpenTagName[tagPosition]) {
-												tagPosition = 0;
-											}
-										} else if (tagPosition == triggerOpenTagName.length - 1) {
-											insideXmlPart = true;
-											pastXmlPart = false;
-											tagPosition = 0;
-										}
-									}
-								}
-							}
-						} else {
-							if (insideXmlPart) {
-								if (tempChar == TRIGGER_ATTRIBUTE) {
-									insideAttribute = false;
-								} else {
-									if (tempChar == '<') {
-										super.write("&lt;".getBytes("UTF-8"));
-										return;
-									} else if (tempChar == '>') {
-										super.write("&gt;".getBytes("UTF-8"));
-										return;
-									}
-								}
-							}
-						}
-					}
-
-					super.write(aByte);
-				}
-
-				@Override
-				public void write(byte[] someBytes, int anOffset, int aLength) throws IOException {
-					if (!pastXmlPart) {
-						super.write(someBytes, anOffset, aLength);
-					} else {
-						out.write(someBytes, anOffset, aLength);
-					}
-				}
-			});
+			StreamResult tempResult = new StreamResult(aTargetStream);
 
 			tempTransformer.transform(tempSource, tempResult);
 		} catch (TransformerConfigurationException exc) {
