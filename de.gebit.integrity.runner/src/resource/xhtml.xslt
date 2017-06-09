@@ -530,7 +530,7 @@ function getChildByName(node, childName) {
         <xsl:when test="@display = 'inline'">
           <xsl:if test="@forkName and not(../../@forkName)">
             <div class="sectionTitle">
-              Switching to 
+              Switching to
               <xsl:value-of select="@forkName" />
               <xsl:if test=" @forkDescription">
                 -
@@ -538,29 +538,16 @@ function getChildByName(node, childName) {
               </xsl:if>
             </div>
           </xsl:if>
-          <xsl:if test="count(variables/variable) &gt; 0">
-            <div class="sectionTitle">Variables/Constants</div>
-            <xsl:apply-templates select="variables" />
-          </xsl:if>
           <xsl:if test="count(setup/suite) &gt; 0">
-            <div class="sectionTitle">Setup</div>
             <xsl:apply-templates select="setup/suite" />
-          </xsl:if>
-          <xsl:if test="count(variables/variable) &gt; 0 or count(setup/suite) &gt; 0 or count(teardown/suite) &gt; 0">
-            <div class="sectionTitle">Suite</div>
           </xsl:if>
           <xsl:apply-templates select="statements/*" />
           <xsl:if test="count(teardown/suite) &gt; 0">
-            <div class="sectionTitle">Teardown</div>
             <xsl:apply-templates select="teardown/suite" />
-          </xsl:if>
-          <xsl:if test="count(returns/variable) &gt; 0">
-            <div class="sectionTitle">Returned Values</div>
-            <xsl:apply-templates select="returns" />
           </xsl:if>
           <xsl:if test="@forkName and not(../../@forkName)">
             <div class="sectionFooter">
-              Returning from 
+              Returning from
               <xsl:value-of select="@forkName" />
               <xsl:if test=" @forkDescription">
                 -
