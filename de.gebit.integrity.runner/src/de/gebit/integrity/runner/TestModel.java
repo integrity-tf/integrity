@@ -60,6 +60,7 @@ import de.gebit.integrity.runner.exceptions.ModelLoadException;
 import de.gebit.integrity.runner.exceptions.ModelParseException;
 import de.gebit.integrity.runner.logging.TestRunnerPerformanceLogger;
 import de.gebit.integrity.runner.providers.InMemoryTestResourceProvider;
+import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
@@ -335,6 +336,7 @@ public class TestModel {
 
 						System.out.println("Now loading " + tempAllResources.length + " test script(s) using "
 								+ tempNumberOfThreads + " threads...");
+						long tempStart = System.nanoTime();
 
 						ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads);
 						List<Future<List<Diagnostic>>> tempFutures = new ArrayList<>(tempAllResources.length);
@@ -377,7 +379,9 @@ public class TestModel {
 						}
 
 						System.out.println("Finished loading " + tempAllResources.length + " test script(s) with "
-								+ tempErrors.size() + " error(s)...");
+								+ tempErrors.size() + " error(s) in "
+								+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime() - tempStart,
+										false, false));
 					}
 
 				});
