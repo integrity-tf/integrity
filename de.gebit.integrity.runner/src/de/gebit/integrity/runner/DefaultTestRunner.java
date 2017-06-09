@@ -435,7 +435,7 @@ public class DefaultTestRunner implements TestRunner {
 	/**
 	 * The default time to wait for a fork to become ready for execution.
 	 */
-	protected static final int FORK_WAIT_UNTIL_READY_TIMEOUT_DEFAULT = (int) TimeUnit.MINUTES.toMillis(5);
+	protected static final int FORK_WAIT_UNTIL_READY_TIMEOUT_DEFAULT = (int) TimeUnit.MINUTES.toSeconds(5);
 
 	/**
 	 * Returns the time to wait for a fork to become ready for execution.
@@ -461,7 +461,7 @@ public class DefaultTestRunner implements TestRunner {
 	/**
 	 * The default time to wait for child processes to be killed.
 	 */
-	protected static final int CHILD_PROCESS_KILL_TIMEOUT_DEFAULT = 60000;
+	protected static final int CHILD_PROCESS_KILL_TIMEOUT_DEFAULT = 60;
 
 	protected int getChildProcessKillTimeout() {
 		return System.getProperty(CHILD_PROCESS_KILL_TIMEOUT_PROPERTY) != null
@@ -634,7 +634,7 @@ public class DefaultTestRunner implements TestRunner {
 
 			@Override
 			public void run() {
-				processTerminator.killAndWait(getChildProcessKillTimeout());
+				processTerminator.killAndWait((int) TimeUnit.SECONDS.toMillis(getChildProcessKillTimeout()));
 			}
 		});
 
@@ -714,7 +714,7 @@ public class DefaultTestRunner implements TestRunner {
 			if (remotingServer != null) {
 				remotingServer.closeAll(true);
 			}
-			processTerminator.killAndWait(getChildProcessKillTimeout());
+			processTerminator.killAndWait((int) TimeUnit.SECONDS.toMillis(getChildProcessKillTimeout()));
 		}
 	}
 
@@ -2819,8 +2819,7 @@ public class DefaultTestRunner implements TestRunner {
 									// nothing to do here
 								}
 
-								if (System.nanoTime() - tempWaitStartTime > TimeUnit.MILLISECONDS
-										.toNanos(tempWaitTimeout)) {
+								if (System.nanoTime() - tempWaitStartTime > TimeUnit.SECONDS.toNanos(tempWaitTimeout)) {
 									System.err.println("TIMED OUT WHILE WAITING FOR FORK TO GET READY");
 									return false;
 								}
