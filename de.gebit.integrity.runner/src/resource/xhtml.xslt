@@ -1818,7 +1818,7 @@ function getChildByName(node, childName) {
         <xsl:for-each select="setup/suite">
           <xsl:variable name="siblingCountToAdd">
             <xsl:choose>
-              <xsl:when test="@display = 'inline'">
+              <xsl:when test="../../@display = 'inline'">
                 <xsl:value-of select="$siblingCount" />
               </xsl:when>
               <xsl:otherwise>0</xsl:otherwise>
@@ -1849,7 +1849,7 @@ function getChildByName(node, childName) {
           <xsl:variable name="nextSiblingCount" select="$siblingCountToAdd + (count(following-sibling::suite[not(@display = 'inline')]) + count(following-sibling::suite//suite[not(@display = 'inline')])) + count(../../teardown//suite[not(@display='inline')])" />
           <xsl:variable name="additionalDepth">
             <xsl:choose>
-              <xsl:when test="../../@display = 'inline'">0</xsl:when>
+              <xsl:when test="@display = 'inline'">0</xsl:when>
               <xsl:otherwise>1</xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
