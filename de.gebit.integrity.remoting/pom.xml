@@ -40,31 +40,33 @@
 		            <phase>validate</phase>
 		            <configuration>
 		                <verbose>true</verbose>
-		                <fileset>
-		                    <directory>${basedir}/kryo/kryo-4.0.0.jar/</directory>
-		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
-		                    <include>**/*.class</include>
-		                </fileset>
-		                <fileset>
-		                    <directory>${basedir}/kryo/asm-5.0.4.jar/</directory>
-		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
-		                    <include>**/*.class</include>
-		                </fileset>
-		                <fileset>
-		                    <directory>${basedir}/kryo/minlog-1.3.0.jar/</directory>
-		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
-		                    <include>**/*.class</include>
-		                </fileset>
-		                <fileset>
-		                    <directory>${basedir}/kryo/objenesis-2.2.jar/</directory>
-		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
-		                    <include>**/*.class</include>
-		                </fileset>
-		                <fileset>
-		                    <directory>${basedir}/kryo/reflectasm-1.11.3.jar/</directory>
-		                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
-		                    <include>**/*.class</include>
-		                </fileset>
+		                <filesets>
+			                <fileset>
+			                    <directory>${basedir}/kryo/kryo-4.0.0.jar/</directory>
+			                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+			                    <include>**/*.class</include>
+			                </fileset>
+			                <fileset>
+			                    <directory>${basedir}/kryo/asm-5.0.4.jar/</directory>
+			                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+			                    <include>**/*.class</include>
+			                </fileset>
+			                <fileset>
+			                    <directory>${basedir}/kryo/minlog-1.3.0.jar/</directory>
+			                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+			                    <include>**/*.class</include>
+			                </fileset>
+			                <fileset>
+			                    <directory>${basedir}/kryo/objenesis-2.2.jar/</directory>
+			                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+			                    <include>**/*.class</include>
+			                </fileset>
+			                <fileset>
+			                    <directory>${basedir}/kryo/reflectasm-1.11.3.jar/</directory>
+			                    <outputDirectory>${project.build.directory}/kryo</outputDirectory>
+			                    <include>**/*.class</include>
+			                </fileset>
+		                </filesets>
 		            </configuration>
 		        </execution>
 		    </executions>
