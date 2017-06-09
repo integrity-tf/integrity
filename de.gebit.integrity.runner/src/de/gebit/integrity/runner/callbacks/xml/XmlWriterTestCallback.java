@@ -494,7 +494,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * System property name for overriding transform thread stack size.
 	 */
-	protected static final String SYSPARAM_TRANSFORM_THREAD_STACK_SIZE = "integrity.transform.stacksize";
+	protected static final String SYSPARAM_TRANSFORM_THREAD_STACK_SIZE = "integrity.xmlwriter.transform.stacksize";
 
 	/**
 	 * The time format used to format execution times.
