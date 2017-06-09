@@ -769,6 +769,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addId(tempSetupElement);
 		addLineNumber(tempSetupElement, aSetupSuite);
 		tempSetupElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aSetupSuite));
+		// Setup/Teardown suites are always considered to be inlined, since they are purely functional
+		tempSetupElement.setAttribute(SUITE_DISPLAY_ATTRIBUTE, SUITE_DISPLAY_VALUE_INLINE);
 
 		addCurrentTime(tempSetupElement);
 
@@ -1464,6 +1466,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addId(tempTearDownElement);
 		addLineNumber(tempTearDownElement, aTearDownSuite);
 		tempTearDownElement.setAttribute(SUITE_NAME_ATTRIBUTE, IntegrityDSLUtil.getQualifiedSuiteName(aTearDownSuite));
+		// Setup/Teardown suites are always considered to be inlined, since they are purely functional
+		tempTearDownElement.setAttribute(SUITE_DISPLAY_ATTRIBUTE, SUITE_DISPLAY_VALUE_INLINE);
 
 		addCurrentTime(tempTearDownElement);
 

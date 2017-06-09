@@ -530,7 +530,7 @@ function getChildByName(node, childName) {
         <xsl:when test="@display = 'inline'">
           <xsl:if test="@forkName and not(../../@forkName)">
             <div class="sectionTitle">
-              Switching to Fork
+              Switching to 
               <xsl:value-of select="@forkName" />
               <xsl:if test=" @forkDescription">
                 -
@@ -560,7 +560,7 @@ function getChildByName(node, childName) {
           </xsl:if>
           <xsl:if test="@forkName and not(../../@forkName)">
             <div class="sectionFooter">
-              Returning from Fork
+              Returning from 
               <xsl:value-of select="@forkName" />
               <xsl:if test=" @forkDescription">
                 -

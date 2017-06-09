@@ -21,9 +21,9 @@ packagedef mypackage with
 		
 		inlined suite bsuite on fork2
 		
-		inlined suite csuite
+		suite csuite
 		
-		inlined suite bsuite
+		suite bsuite
 		
 		suite bsuite
 		
@@ -31,21 +31,21 @@ packagedef mypackage with
 		
 	suiteend
 	
-	suitedef bsuite with
+	suitedef bsuite requires csuite with
 	
 		call echoCall echo: "blah" -> returnVar
 	
-		inlined suite csuite
+		suite csuite
 		
 		suite csuite
 		
-		inlined suite dsuite
+		suite dsuite
 		
 		test echo echo: returnVar = "blah"
 	
 	suiteend
 	
-	suitedef csuite with
+	suitedef csuite concludedby dsuite with
 	
 		test echo echo: returnVar = "blahblub"
 	
