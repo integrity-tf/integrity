@@ -8,7 +8,6 @@
 package de.gebit.integrity.scoping;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.util.IAcceptor;
@@ -16,7 +15,8 @@ import org.eclipse.xtext.util.IAcceptor;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
- * Custom {@link IDefaultResourceDescriptionStrategy} implementation which filters out private stuff.
+ * Custom {@link org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy} implementation which filters out
+ * private stuff.
  *
  * @author Rene Schneider - initial API and implementation
  *

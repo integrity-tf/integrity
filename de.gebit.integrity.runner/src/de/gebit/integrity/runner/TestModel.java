@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceFactory;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
 import com.google.inject.Inject;
@@ -392,8 +391,9 @@ public class TestModel {
 	}
 
 	/**
-	 * This sync object is used to synchronize access to {@link XtextResourceFactory}, {@link XtextResource} and
-	 * {@link XtextResourceSet}. I'm not sure if those are parallelizable, so better be safe than sorry.
+	 * This sync object is used to synchronize access to {@link org.eclipse.xtext.resource.XtextResourceFactory},
+	 * {@link XtextResource} and {@link XtextResourceSet}. I'm not sure if those are parallelizable, so better be safe
+	 * than sorry.
 	 */
 	protected Object resourceLoadingSyncObject = new Object();
 

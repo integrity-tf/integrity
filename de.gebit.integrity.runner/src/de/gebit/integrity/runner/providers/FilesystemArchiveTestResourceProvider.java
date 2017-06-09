@@ -11,13 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
-import de.gebit.integrity.providers.TestResourceProvider;
-
 /**
- * This is a compound {@link TestResourceProvider}, able to read Integrity scripts directly from the file system, within
- * a directory on the filesystem, and within archive files (and archives within archives). It wraps a
- * {@link FilesystemTestResourceProvider} and an {@link ArchiveTestResourceProvider}, which provide the actual
- * functionality.
+ * This is a compound {@link de.gebit.integrity.providers.TestResourceProvider}, able to read Integrity scripts directly
+ * from the file system, within a directory on the filesystem, and within archive files (and archives within archives).
+ * It wraps a {@link FilesystemTestResourceProvider} and an {@link ArchiveTestResourceProvider}, which provide the
+ * actual functionality.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
