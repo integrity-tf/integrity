@@ -304,7 +304,7 @@ public class IntegrityRemotingServer {
 			@Override
 			public void processMessage(ForkSetupMessage aMessage, Endpoint anEndpoint) {
 				listener.onForkSetupRetrieval(aMessage.getResourceProviders(), aMessage.getSetList(),
-						aMessage.getInitialVariables());
+						aMessage.getInitialVariables(), aMessage.getNumberOfSuiteInvocations());
 			}
 
 		});

@@ -161,8 +161,9 @@ public class IntegrityRemotingClient {
 	 *            the current set list of the master
 	 */
 	public void setupFork(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList,
-			Map<String, Object> someInitialVariables) {
-		sendMessage(new ForkSetupMessage(someResourceProviders, aSetList, someInitialVariables));
+			Map<String, Object> someInitialVariables, int aNumberOfSuiteInvocations) {
+		sendMessage(
+				new ForkSetupMessage(someResourceProviders, aSetList, someInitialVariables, aNumberOfSuiteInvocations));
 	}
 
 	/**

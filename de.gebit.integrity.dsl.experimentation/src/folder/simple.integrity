@@ -15,17 +15,19 @@ packagedef mypackage with
 	
 		//suite csuite
 		
-		//suite bsuite on fork1
+		suite bsuite on fork1
 		
 		//suite csuite
 		
-		inlined suite bsuite on fork2
+		inlined suite bsuite
 		
 		suite csuite
 		
-		suite bsuite
+		suite bsuite on fork2
 		
 		suite bsuite
+		
+		suite bsuite on fork2
 		
 		suite csuite
 		

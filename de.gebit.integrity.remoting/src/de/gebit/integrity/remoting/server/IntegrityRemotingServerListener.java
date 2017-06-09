@@ -60,9 +60,11 @@ public interface IntegrityRemotingServerListener {
 	 *            the initial set list state
 	 * @param someInitialVariables
 	 *            the initial state of variables and constants
+	 * @param aNumberOfSuiteInvocations
+	 *            the total number of suites to execute on this fork
 	 */
 	void onForkSetupRetrieval(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList,
-			Map<String, Object> someInitialVariables);
+			Map<String, Object> someInitialVariables, int aNumberOfSuiteInvocations);
 
 	/**
 	 * Called when a "run tests" command from a client came in.

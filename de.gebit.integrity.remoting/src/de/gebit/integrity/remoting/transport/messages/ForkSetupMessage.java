@@ -43,16 +43,23 @@ public class ForkSetupMessage extends AbstractMessage {
 	private Map<String, Object> initialVariables;
 
 	/**
+	 * The total number of suite invocations that this fork will have to perform. Used as a means to allow the fork to
+	 * quickly terminate execution when it's done with its work.
+	 */
+	private int numberOfSuiteInvocations;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aSetList
 	 *            the new setlist
 	 */
 	public ForkSetupMessage(List<? extends TestResourceProvider> someResourceProviders, SetList aSetList,
-			Map<String, Object> someInitialVariables) {
+			Map<String, Object> someInitialVariables, int aNumberOfSuiteInvocations) {
 		resourceProviders = someResourceProviders;
 		setList = aSetList;
 		initialVariables = someInitialVariables;
+		numberOfSuiteInvocations = aNumberOfSuiteInvocations;
 	}
 
 	/**
@@ -72,6 +79,10 @@ public class ForkSetupMessage extends AbstractMessage {
 
 	public Map<String, Object> getInitialVariables() {
 		return initialVariables;
+	}
+
+	public int getNumberOfSuiteInvocations() {
+		return numberOfSuiteInvocations;
 	}
 
 }

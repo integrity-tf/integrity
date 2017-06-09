@@ -474,7 +474,9 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
-	 * The fork that is currently being executed.
+	 * The fork that is currently being executed. This is set regardless of whether we are a fork ourselves and are
+	 * currently executing our own stuff, or whether we are a master or different fork and skipping over a bunch of
+	 * invocations due to them being executed by another fork.
 	 */
 	protected ForkDefinition forkInExecution;
 
@@ -505,9 +507,22 @@ public class DefaultTestRunner implements TestRunner {
 	 * should die after this number of suites has executed. Since suite invocation numbers are predeterminable in the
 	 * dry run and deterministic, this can be used to find out whether a suite during the test run has been the last one
 	 * to run on a particular fork. During this real test run, the counter is decremented on each suite invocation on a
-	 * fork, so in the end, we know when the fork has finished execution (= counter reaches zero).
+	 * fork, so in the end, we know when the fork has finished execution (= counter reaches zero).<br/>
+	 * <br>
+	 * This map is only used by the master to keep track of when the forks should die. It will then wait until they do.
+	 * The forks still carry the responsibility to terminate their execution in a clean way!
 	 */
 	protected Map<ForkDefinition, Integer> lastSuiteForFork = new HashMap<ForkDefinition, Integer>();
+
+	/**
+	 * This counts the number of suite invocations ttill to be done on this fork. Is only used if this test runner is
+	 * indeed a fork (otherwise this value has no meaning). Is somewhat related to {@link #lastSuiteForFork} in that
+	 * this is the individual number of invocations on a fork that is left; it is initially seeded with the
+	 * corresponding {@link #lastSuiteForFork} value from the master process and then counted down to know when a fork
+	 * can take the quick path to termination. Basically this is an optimization to allow for quicker termination on
+	 * forks that would otherwise have a huge bunch of test scripts to run through in dry mode when they're finished.
+	 */
+	protected int numberOfSuiteInvocationsLeftOnThisFork;
 
 	@Override
 	public void initialize(TestModel aModel, Map<String, String> someParameterizedConstants,
@@ -718,16 +733,17 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
-	 * Checks whether an {@link AbortExecutionException} has been thrown (either locally or by a fork). This is
-	 * determined by looking at {@link #abortExecutionCause}. This method does NOT only check something, but also
-	 * ensures that the {@link #setListCallback} is also removed from the current callback hierarchy - a very important
-	 * step, since after this method has returned true for the first time, a different execution path than normally is
-	 * expected, which would cause the set list callback to throw an inconsistency exception.
+	 * Checks whether a situation demanding for a quick test run abortion has occurred. This is true if either an
+	 * {@link AbortExecutionException} has been thrown (locally or by a fork) or if we are a fork and our last suite has
+	 * executed. This method does NOT only check something, but also ensures that the {@link #setListCallback} is also
+	 * removed from the current callback hierarchy - a very important step, since after this method has returned true
+	 * for the first time, a different execution path than normally is expected, which would cause the set list callback
+	 * to throw an inconsistency exception.
 	 * 
-	 * @return
+	 * @return true if the test execution shall take the quick path to an end
 	 */
 	protected boolean checkForAbortion() {
-		if (abortExecutionCause != null) {
+		if (abortExecutionCause != null || (isFork() && numberOfSuiteInvocationsLeftOnThisFork <= 0)) {
 			// Remove the setlist callback from the callback chain to prevent inconsistencies due to the expected change
 			// in the execution path
 			if (setListCallback != null && (currentCallback instanceof CompoundTestRunnerCallback)) {
@@ -1312,6 +1328,11 @@ public class DefaultTestRunner implements TestRunner {
 				} else {
 					// we're a fork and will return to dry run mode
 					currentCallback.setDryRun(true);
+
+					if (shouldExecuteFixtures()) {
+						// This is us! We apparently finished an invocation, so count down the counter.
+						numberOfSuiteInvocationsLeftOnThisFork--;
+					}
 				}
 			}
 			forkInExecution = null;
@@ -2491,12 +2512,14 @@ public class DefaultTestRunner implements TestRunner {
 
 		@Override
 		public void onForkSetupRetrieval(final List<? extends TestResourceProvider> someResourceProviders,
-				final SetList aSetList, final Map<String, Object> someVariableValues) {
+				final SetList aSetList, final Map<String, Object> someVariableValues,
+				final int aNumberOfSuiteInvocations) {
 			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_REMOTING,
 					"Setup Processing", new Runnable() {
 
 						@Override
 						public void run() {
+							numberOfSuiteInvocationsLeftOnThisFork = aNumberOfSuiteInvocations;
 							synchronized (setListWaiter) {
 								setList = aSetList;
 								for (TestResourceProvider tempProvider : someResourceProviders) {
@@ -2611,7 +2634,7 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	@SuppressWarnings("unchecked")
 	protected Fork createFork(Suite aSuiteCall) throws ForkException {
-		ForkDefinition tempForkDef = aSuiteCall.getFork();
+		final ForkDefinition tempForkDef = aSuiteCall.getFork();
 		Class<? extends Forker> tempForkerClass = DefaultForker.class;
 		if (tempForkDef.getForkerClass() != null) {
 			try {
@@ -2745,7 +2768,7 @@ public class DefaultTestRunner implements TestRunner {
 				});
 
 		if (tempFork.isAlive() && tempFork.isConnected()) {
-			// Start off the fork with a full set of test scripts and the current setlist
+			// Start off the fork with a full set of test scripts and the current setlist as well as all other init data
 			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
 					"Fork Setup (" + tempForkDef.getName() + ")", new Runnable() {
 
@@ -2753,7 +2776,8 @@ public class DefaultTestRunner implements TestRunner {
 						public void run() {
 							try {
 								tempFork.getClient().setupFork(model.getInMemoryResourceProviders(), setList,
-										variableManager.dumpVariableState(variantInExecution));
+										variableManager.dumpVariableState(variantInExecution),
+										lastSuiteForFork.get(tempForkDef));
 							} catch (IOException exc1) {
 								throw new RuntimeException("Failed to read resource providers into memory", exc1);
 							}
