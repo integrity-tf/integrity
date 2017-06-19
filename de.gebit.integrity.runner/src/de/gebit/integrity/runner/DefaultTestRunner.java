@@ -1632,11 +1632,22 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void defineConstant(final ConstantDefinition aDefinition, Object aValue, final SuiteDefinition aSuite)
 			throws ClassNotFoundException, InstantiationException, UnexecutableException {
-		// Constants can only be defined once, thus we'll define them in the first (dry) run and leave them defined for
-		// the actual test run. Except if we are a fork, because in that case, we don't want to define the constants at
-		// all, since they are injected from the master.
-		if ((!isFork() && currentPhase == Phase.DRY_RUN)
-				|| !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())) {
+		boolean tempHasToBeDefined = false;
+		if (!isFork()) {
+			// If we are not a fork, we need to define global constants only in the dry run, because we keep them
+			// defined when going into the test run. For non-global constants, which are undefined when we leave the
+			// definition scope, we have to define them in dry and test run.
+			tempHasToBeDefined = !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())
+					|| currentPhase == Phase.DRY_RUN;
+		} else {
+			// If we are a fork, we just need to define non-global constants that are defined in the suites to be
+			// executed by this fork. All others - global constants as well as local constants from suites further above
+			// in the suite call stack - are already defined and their values were injected from the master.
+			tempHasToBeDefined = !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())
+					&& currentPhase == Phase.TEST_RUN && shouldExecuteFixtures();
+		}
+
+		if (tempHasToBeDefined) {
 			Object tempValue;
 			if (aValue == null) {
 				tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
