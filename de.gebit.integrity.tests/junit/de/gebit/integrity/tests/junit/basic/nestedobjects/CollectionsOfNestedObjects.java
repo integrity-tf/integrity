@@ -101,4 +101,20 @@ public class CollectionsOfNestedObjects extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testSingleComplexObjectInsideArrayInComplexObject()
+			throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/collectionsOfNestedObjects.integrity" },
+				"integrity.basic.nestedobjects.singleComplexObjectInsideArrayInComplexObject", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

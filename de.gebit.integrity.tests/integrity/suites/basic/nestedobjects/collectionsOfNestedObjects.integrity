@@ -96,4 +96,29 @@ packagedef integrity.basic.nestedobjects with
 	suiteend
 	
 	
+	// These test issue #139 - Comparison fails in case of single complex object inside array in another complex object
+	// Both should be green; the bug made the first one fail, while the second succeeded
+	
+	suitedef singleComplexObjectInsideArrayInComplexObject with
+	
+		test createSimpleTestBeanArray elements: 1 = {
+			elements: {
+				firstParameter: "foo"
+				secondParameter: 0
+			}
+		}
+		
+		test createSimpleTestBeanArray elements: 2 = {
+			elements: {
+				firstParameter: "foo"
+				secondParameter: 0
+			}, {
+				firstParameter: "foo"
+				secondParameter: 1
+			}
+		}
+	
+	suiteend
+	
+	
 packageend
