@@ -394,36 +394,45 @@ public class DefaultResultComparator implements ResultComparator {
 					if (!(tempActualValue != null && tempActualValue.getClass().isArray())
 							|| !(tempReferenceValue != null && tempReferenceValue.getClass().isArray())) {
 						// If just one is an array, we automatically fail, since we have a different number of elements
-						tempCombinedFailedPaths.add(tempEntry.getKey().toString());
-						tempSuccess = false;
-					} else {
-						// Both are arrays -> check if length is equal, then check each entry
-						if (Array.getLength(tempActualValue) != Array.getLength(tempReferenceValue)) {
-							tempSuccess = false;
-							tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+						// - except if one of them is an array with one element and the other one is not an array. That
+						// is good, we just package the other one in an array and continue with array comparison.
+						if (tempActualValue != null && tempActualValue.getClass().isArray()) {
+							tempReferenceValue = new Object[] { tempReferenceValue };
+						} else if (tempReferenceValue != null && tempReferenceValue.getClass().isArray()) {
+							tempActualValue = new Object[] { tempActualValue };
 						} else {
-							for (int i = 0; i < Array.getLength(tempActualValue); i++) {
-								ComparisonResult tempInnerResult = performEqualityCheck(Array.get(tempActualValue, i),
-										Array.get(tempReferenceValue, i), aRawExpectedResult);
-								if (!tempInnerResult.isSuccessful()) {
-									tempSuccess = false;
-
-									// In case the sub-result is of a map comparison, we just add the failed paths to
-									// ours, prepending them with the necessary prefix in the process
-									if (tempInnerResult instanceof MapComparisonResult) {
-										for (String tempSubPath : ((MapComparisonResult) tempInnerResult)
-												.getFailedPaths()) {
-											tempCombinedFailedPaths.add(tempEntry.getKey() + "." + tempSubPath);
-										}
-									} else {
-										tempCombinedFailedPaths.add(tempEntry.getKey().toString());
-									}
-									break;
-								}
-							}
-
+							tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+							tempSuccess = false;
 							continue;
 						}
+					}
+
+					// Both are arrays -> check if length is equal, then check each entry
+					if (Array.getLength(tempActualValue) != Array.getLength(tempReferenceValue)) {
+						tempSuccess = false;
+						tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+					} else {
+						for (int i = 0; i < Array.getLength(tempActualValue); i++) {
+							ComparisonResult tempInnerResult = performEqualityCheck(Array.get(tempActualValue, i),
+									Array.get(tempReferenceValue, i), aRawExpectedResult);
+							if (!tempInnerResult.isSuccessful()) {
+								tempSuccess = false;
+
+								// In case the sub-result is of a map comparison, we just add the failed paths to
+								// ours, prepending them with the necessary prefix in the process
+								if (tempInnerResult instanceof MapComparisonResult) {
+									for (String tempSubPath : ((MapComparisonResult) tempInnerResult)
+											.getFailedPaths()) {
+										tempCombinedFailedPaths.add(tempEntry.getKey() + "." + tempSubPath);
+									}
+								} else {
+									tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+								}
+								break;
+							}
+						}
+
+						continue;
 					}
 				}
 

@@ -45,5 +45,8 @@ packagedef integrity.fixtures.basic.beans with
 	
 	testdef createNestedListTestBeanParameterized uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListTestBeanParameterized
 	calldef createNestedListTestBeanParameterizedCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListTestBeanParameterized
+	
+	testdef createSimpleTestBeanArray uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleTestBeanArray
+	calldef createSimpleTestBeanArrayCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleTestBeanArray 
 
 packageend
