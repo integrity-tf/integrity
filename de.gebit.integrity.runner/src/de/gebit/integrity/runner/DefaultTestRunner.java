@@ -1699,7 +1699,11 @@ public class DefaultTestRunner implements TestRunner {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
 				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
 
-		setVariableValue(anEntity, tempInitialValue, false);
+		// We need to send variable updates to forks in the main phase here
+		// This fixes issue #140: Constant defined within suite and then provided as suite parameter to a suite on a
+		// fork is nulled out (https://github.com/integrity-tf/integrity/issues/140)
+		setVariableValue(anEntity, tempInitialValue, !(isFork() && shouldExecuteFixtures()));
+
 		if (currentCallback != null) {
 			Runnable tempRunnable = new Runnable() {
 
