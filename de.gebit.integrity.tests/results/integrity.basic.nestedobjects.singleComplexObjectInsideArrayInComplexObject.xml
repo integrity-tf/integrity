@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="06.07.17 15:00" isotimestamp="2017-07-06T15:00:45" duration="63.769">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.singleComplexObjectInsideArrayInComplexObject" timestamp="06.07.17 15:00:45.0713">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="104" name="createSimpleTestBeanArray" description="Creates a simple test bean array with 1 elements" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleTestBeanArray" timestamp="06.07.17 15:00:45.0719">
+        <results duration="2.391" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.391" description="Creates a simple test bean array with 1 elements" type="success">
+            <parameters>
+              <parameter name="elements" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]elements = {[NL][T][T]firstParameter = foo[NL|, ][T][T]secondParameter = 0[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]elements = {[NL][T][T]firstParameter = foo[NL|, ][T][T]secondParameter = 0[NL|, ][T][T]thirdParameter = null[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="111" name="createSimpleTestBeanArray" description="Creates a simple test bean array with 2 elements" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleTestBeanArray" timestamp="06.07.17 15:00:45.0750">
+        <results duration="0.604" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.604" description="Creates a simple test bean array with 2 elements" type="success">
+            <parameters>
+              <parameter name="elements" value="2" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]elements = {[NL][T][T]firstParameter = foo[NL|, ][T][T]secondParameter = 0[NL][T]}, {[NL][T][T]firstParameter = foo[NL|, ][T][T]secondParameter = 1[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]elements = {[NL][T][T]firstParameter = foo[NL|, ][T][T]secondParameter = 0[NL|, ][T][T]thirdParameter = null[NL][T]}, {[NL][T][T]firstParameter = foo[NL|, ][T][T]secondParameter = 1[NL|, ][T][T]thirdParameter = null[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="60.237" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

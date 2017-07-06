@@ -8,7 +8,9 @@
 package de.gebit.integrity.tests.fixtures.basic.beans;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.gebit.integrity.fixtures.FixtureMethod;
@@ -161,5 +163,16 @@ public class BeanFixture {
 	public NestedListTestBean createNestedListTestBeanParameterized(
 			@FixtureParameter(name = "innerObjects") Integer anInnerObjectCount) {
 		return new NestedListTestBean(anInnerObjectCount != null ? anInnerObjectCount : 3);
+	}
+
+	@FixtureMethod(description = "Creates a simple test bean array with $elements$ elements")
+	public SimpleArrayBean createSimpleTestBeanArray(@FixtureParameter(name = "elements") Integer aNumberOfElements) {
+		List<SimpleTestBean> tempList = new ArrayList<>();
+
+		for (int i = 0; i < aNumberOfElements; i++) {
+			tempList.add(new SimpleTestBean("foo", i, null));
+		}
+
+		return new SimpleArrayBean(tempList.toArray(new SimpleTestBean[0]));
 	}
 }

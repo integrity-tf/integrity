@@ -46,6 +46,7 @@ import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -248,6 +249,22 @@ public class TestModel {
 				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedSuiteName(tempSuite);
 				suiteMap.put(tempFullyQualifiedName, tempSuite);
 				tempType = "suite";
+
+				// // Suite params are technically variable definitions
+				// for (SuiteParameterDefinition tempParam : tempSuite.getParameters()) {
+				// VariableEntity tempEntity = tempParam.getName();
+				// tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
+				// variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+				// variableAndConstantReverseMap.put(tempEntity, tempFullyQualifiedName);
+				// }
+			} else if (tempObject instanceof SuiteParameterDefinition) {
+				// Suite params are technically variable definitions
+				SuiteParameterDefinition tempDefinition = (SuiteParameterDefinition) tempObject;
+				VariableEntity tempEntity = tempDefinition.getName();
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
+				variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+				variableAndConstantReverseMap.put(tempEntity, tempFullyQualifiedName);
+				tempType = "suiteparam";
 			} else if (tempObject instanceof VariantDefinition) {
 				VariantDefinition tempVariant = (VariantDefinition) tempObject;
 				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariantName(tempVariant);
