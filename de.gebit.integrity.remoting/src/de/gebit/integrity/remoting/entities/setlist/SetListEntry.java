@@ -19,7 +19,7 @@ import java.util.Map.Entry;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class SetListEntry implements Serializable {
+public class SetListEntry implements Serializable, Cloneable {
 
 	/**
 	 * Serialization.
@@ -196,6 +196,16 @@ public class SetListEntry implements Serializable {
 		}
 
 		return tempBuffer.toString();
+	}
+
+	@Override
+	public SetListEntry clone() {
+		SetListEntry tempClone = new SetListEntry();
+		tempClone.id = this.id;
+		tempClone.type = this.type;
+		tempClone.attributes.putAll(this.attributes);
+
+		return tempClone;
 	}
 
 }

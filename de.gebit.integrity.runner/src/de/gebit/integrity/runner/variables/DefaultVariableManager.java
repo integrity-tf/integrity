@@ -172,7 +172,8 @@ public class DefaultVariableManager implements VariableManager {
 	public void set(VariableOrConstantEntity anEntity, Object aValue) {
 		if (anEntity instanceof ConstantEntity) {
 			if (variableMap.containsKey(anEntity)) {
-				throw new RuntimeException("Illegal attempt to redefine a constant: " + anEntity.getName());
+				throw new RuntimeException("Illegal attempt to redefine a constant: "
+						+ IntegrityDSLUtil.getQualifiedVariableEntityName(anEntity, true));
 			}
 		}
 		variableMap.put(anEntity, makeNull(aValue));

@@ -43,6 +43,12 @@ public class SetListUpdateMessage extends AbstractMessage {
 	public SetListUpdateMessage(Integer anEntryInExecution, SetListEntry... someUpdatedEntries) {
 		entryInExecution = anEntryInExecution;
 		updatedEntries = someUpdatedEntries;
+		// We clone the actual entries to make sure that there are no ConcurrentModificationExceptions. The ones that we
+		// send in the message are sent by a different thread than the main thread that created them, which opens up
+		// this possibility. See Issue #143: https://github.com/integrity-tf/integrity/issues/143
+		for (int i = 0; i < updatedEntries.length; i++) {
+			updatedEntries[i] = updatedEntries[i].clone();
+		}
 	}
 
 	/**
