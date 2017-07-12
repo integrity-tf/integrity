@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -84,6 +85,13 @@ public class Endpoint {
 	 * socket.
 	 */
 	private static final int DISCONNECT_WAIT_TIME = 10000;
+
+	/**
+	 * Maximum number of times to retry serialization of an outgoing message in case of
+	 * ConcurrentModificationExceptions. Those should not occur, but if they do, this mitigation is in place to attempt
+	 * to limit the impact they have.
+	 */
+	private static final int SERIALIZATION_RETRY_COUNT = 10;
 
 	/**
 	 * A map of message processors.
@@ -369,12 +377,39 @@ public class Endpoint {
 					}
 
 					if (tempMessageObject != null && socket.isConnected()) {
-						Kryo tempKryo = instantiateKryo();
-						ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
-						DeflaterOutputStream tempDeflateStream = new DeflaterOutputStream(tempStream);
-						Output tempKryoOutput = new Output(tempDeflateStream);
-						tempKryo.writeClassAndObject(tempKryoOutput, tempMessageObject);
-						tempKryoOutput.close();
+						int tempSerializationAttempts = 0;
+						ByteArrayOutputStream tempStream;
+						while (true) {
+							Kryo tempKryo = instantiateKryo();
+							tempStream = new ByteArrayOutputStream();
+							DeflaterOutputStream tempDeflateStream = new DeflaterOutputStream(tempStream);
+							Output tempKryoOutput = new Output(tempDeflateStream);
+							try {
+								tempKryo.writeClassAndObject(tempKryoOutput, tempMessageObject);
+								break;
+							} catch (ConcurrentModificationException exc) {
+								// Handle ConcurrentModificationExceptions by first trying to mitigate them via retry.
+								// But only do that for a limited number of times. This mitigation has been added
+								// because of Issue #143: https://github.com/integrity-tf/integrity/issues/143
+								tempSerializationAttempts++;
+								System.err.println(
+										"WARNING: FAILED TO SERIALIZE MESSAGE IN ATTEMPT " + tempSerializationAttempts);
+								if (tempSerializationAttempts >= SERIALIZATION_RETRY_COUNT) {
+									// No point in retrying forever - escalate this by closing the connection and
+									// rethrowing. Closing connection means the entire test execution will be killed by
+									// follow-up I/O errors, which is totally expected and the entire point.
+									System.err.println("FAILED TO SERIALIZE MESSAGE REPEATEDLY DUE TO CONCURRENT "
+											+ "MODIFICATIONS! CLOSING CONNECTION NOW IN ORDER TO TEAR EVERYTHING DOWN.");
+									closeInternal();
+									throw exc;
+								} else {
+									// Just print the stack trace to stdout for reference. We'll try it again...
+									exc.printStackTrace();
+								}
+							} finally {
+								tempKryoOutput.close();
+							}
+						}
 
 						byte[] tempMessage = tempStream.toByteArray();
 						byte[] tempLength = new byte[4];
