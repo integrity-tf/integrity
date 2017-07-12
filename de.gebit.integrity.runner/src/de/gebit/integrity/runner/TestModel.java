@@ -249,14 +249,6 @@ public class TestModel {
 				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedSuiteName(tempSuite);
 				suiteMap.put(tempFullyQualifiedName, tempSuite);
 				tempType = "suite";
-
-				// // Suite params are technically variable definitions
-				// for (SuiteParameterDefinition tempParam : tempSuite.getParameters()) {
-				// VariableEntity tempEntity = tempParam.getName();
-				// tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
-				// variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
-				// variableAndConstantReverseMap.put(tempEntity, tempFullyQualifiedName);
-				// }
 			} else if (tempObject instanceof SuiteParameterDefinition) {
 				// Suite params are technically variable definitions
 				SuiteParameterDefinition tempDefinition = (SuiteParameterDefinition) tempObject;
