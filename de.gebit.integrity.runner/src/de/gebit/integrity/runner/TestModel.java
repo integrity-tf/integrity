@@ -47,6 +47,7 @@ import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -252,6 +253,14 @@ public class TestModel {
 			} else if (tempObject instanceof SuiteParameterDefinition) {
 				// Suite params are technically variable definitions
 				SuiteParameterDefinition tempDefinition = (SuiteParameterDefinition) tempObject;
+				VariableEntity tempEntity = tempDefinition.getName();
+				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
+				variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
+				variableAndConstantReverseMap.put(tempEntity, tempFullyQualifiedName);
+				tempType = "suiteparam";
+			} else if (tempObject instanceof SuiteReturnDefinition) {
+				// Suite returns are technically also variable definitions
+				SuiteReturnDefinition tempDefinition = (SuiteReturnDefinition) tempObject;
 				VariableEntity tempEntity = tempDefinition.getName();
 				tempFullyQualifiedName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true);
 				variableAndConstantMap.put(tempFullyQualifiedName, tempEntity);
