@@ -14,6 +14,7 @@ import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DecimalValue;
+import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
@@ -724,6 +725,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass documentationCommentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass nullEClass = null;
 
   /**
@@ -1177,9 +1185,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSuiteDefinition_Private()
+  public EReference getSuiteDefinition_Documentation()
   {
-    return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(0);
+    return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1187,7 +1195,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSuiteDefinition_SingleRun()
+  public EAttribute getSuiteDefinition_Private()
   {
     return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(1);
   }
@@ -1197,7 +1205,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSuiteDefinition_Name()
+  public EAttribute getSuiteDefinition_SingleRun()
   {
     return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(2);
   }
@@ -1207,9 +1215,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Parameters()
+  public EAttribute getSuiteDefinition_Name()
   {
-    return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1217,7 +1225,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Return()
+  public EReference getSuiteDefinition_Parameters()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(4);
   }
@@ -1227,7 +1235,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Dependencies()
+  public EReference getSuiteDefinition_Return()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(5);
   }
@@ -1237,7 +1245,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Finalizers()
+  public EReference getSuiteDefinition_Dependencies()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(6);
   }
@@ -1247,9 +1255,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSuiteDefinition_Statements()
+  public EReference getSuiteDefinition_Finalizers()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getSuiteDefinition_Statements()
+  {
+    return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(8);
   }
 
   /**
@@ -2867,6 +2885,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getDocumentationComment()
+  {
+    return documentationCommentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDocumentationComment_Content()
+  {
+    return (EAttribute)documentationCommentEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getNull()
   {
     return nullEClass;
@@ -2958,6 +2996,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(callDefinitionEClass, CALL_DEFINITION__FIXTURE_METHOD);
 
     suiteDefinitionEClass = createEClass(SUITE_DEFINITION);
+    createEReference(suiteDefinitionEClass, SUITE_DEFINITION__DOCUMENTATION);
     createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__PRIVATE);
     createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__SINGLE_RUN);
     createEAttribute(suiteDefinitionEClass, SUITE_DEFINITION__NAME);
@@ -3196,6 +3235,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     executionMultiplierEClass = createEClass(EXECUTION_MULTIPLIER);
     createEReference(executionMultiplierEClass, EXECUTION_MULTIPLIER__COUNT);
 
+    documentationCommentEClass = createEClass(DOCUMENTATION_COMMENT);
+    createEAttribute(documentationCommentEClass, DOCUMENTATION_COMMENT__CONTENT);
+
     nullEClass = createEClass(NULL);
   }
 
@@ -3355,6 +3397,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getCallDefinition_FixtureMethod(), this.getMethodReference(), null, "fixtureMethod", null, 0, 1, CallDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteDefinitionEClass, SuiteDefinition.class, "SuiteDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getSuiteDefinition_Documentation(), this.getDocumentationComment(), null, "documentation", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSuiteDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSuiteDefinition_SingleRun(), ecorePackage.getEString(), "singleRun", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getSuiteDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, SuiteDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3592,6 +3635,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(executionMultiplierEClass, ExecutionMultiplier.class, "ExecutionMultiplier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getExecutionMultiplier_Count(), this.getConstantValue(), null, "count", null, 0, 1, ExecutionMultiplier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(documentationCommentEClass, DocumentationComment.class, "DocumentationComment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDocumentationComment_Content(), ecorePackage.getEString(), "content", null, 0, 1, DocumentationComment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(nullEClass, Null.class, "Null", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

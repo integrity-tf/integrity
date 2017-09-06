@@ -510,6 +510,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createExecutionMultiplierAdapter();
       }
       @Override
+      public Adapter caseDocumentationComment(DocumentationComment object)
+      {
+        return createDocumentationCommentAdapter();
+      }
+      @Override
       public Adapter caseNull(Null object)
       {
         return createNullAdapter();
@@ -1837,6 +1842,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createExecutionMultiplierAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.DocumentationComment <em>Documentation Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.DocumentationComment
+   * @generated
+   */
+  public Adapter createDocumentationCommentAdapter()
   {
     return null;
   }

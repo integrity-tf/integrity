@@ -13,6 +13,7 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DecimalValue;
+import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.EuropeanDateAnd12HrsTimeValue;
@@ -125,6 +126,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.DECIMAL_VALUE:
 				sequence_DecimalValue(context, (DecimalValue) semanticObject); 
+				return; 
+			case DslPackage.DOCUMENTATION_COMMENT:
+				sequence_DocumentationComment(context, (DocumentationComment) semanticObject); 
 				return; 
 			case DslPackage.ENUM_VALUE:
 				sequence_EnumValue(context, (EnumValue) semanticObject); 
@@ -471,6 +475,24 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getDecimalValueAccess().getDecimalValueDECIMALTerminalRuleCall_0(), semanticObject.getDecimalValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     DocumentationComment returns DocumentationComment
+	 *
+	 * Constraint:
+	 *     content=ML_DOC_COMMENT
+	 */
+	protected void sequence_DocumentationComment(ISerializationContext context, DocumentationComment semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.DOCUMENTATION_COMMENT__CONTENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.DOCUMENTATION_COMMENT__CONTENT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getDocumentationCommentAccess().getContentML_DOC_COMMENTTerminalRuleCall_0_0(), semanticObject.getContent());
 		feeder.finish();
 	}
 	
@@ -1164,6 +1186,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (
+	 *         documentation=DocumentationComment? 
 	 *         private='private'? 
 	 *         singleRun='single-run'? 
 	 *         name=QualifiedName 

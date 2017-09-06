@@ -806,6 +806,15 @@ public interface DslFactory extends EFactory
   ExecutionMultiplier createExecutionMultiplier();
 
   /**
+   * Returns a new object of class '<em>Documentation Comment</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Documentation Comment</em>'.
+   * @generated
+   */
+  DocumentationComment createDocumentationComment();
+
+  /**
    * Returns a new object of class '<em>Null</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

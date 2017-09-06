@@ -55,6 +55,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//CallDefinition/fixtureMethod"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//SuiteDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//SuiteDefinition/documentation"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//SuiteDefinition/private"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//SuiteDefinition/singleRun"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//SuiteDefinition/name"/>
@@ -270,6 +271,9 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ExecutionMultiplier">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ExecutionMultiplier/count"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//DocumentationComment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//DocumentationComment/content"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Null"/>
   </genPackages>

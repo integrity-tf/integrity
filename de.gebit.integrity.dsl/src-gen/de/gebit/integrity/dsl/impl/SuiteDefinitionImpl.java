@@ -2,6 +2,7 @@
  */
 package de.gebit.integrity.dsl.impl;
 
+import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
@@ -32,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getSingleRun <em>Single Run</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getName <em>Name</em>}</li>
@@ -46,6 +48,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDefinition
 {
+  /**
+   * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDocumentation()
+   * @generated
+   * @ordered
+   */
+  protected DocumentationComment documentation;
+
   /**
    * The default value of the '{@link #getPrivate() <em>Private</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -175,6 +187,54 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.SUITE_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DocumentationComment getDocumentation()
+  {
+    return documentation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDocumentation(DocumentationComment newDocumentation, NotificationChain msgs)
+  {
+    DocumentationComment oldDocumentation = documentation;
+    documentation = newDocumentation;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.SUITE_DEFINITION__DOCUMENTATION, oldDocumentation, newDocumentation);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDocumentation(DocumentationComment newDocumentation)
+  {
+    if (newDocumentation != documentation)
+    {
+      NotificationChain msgs = null;
+      if (documentation != null)
+        msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.SUITE_DEFINITION__DOCUMENTATION, null, msgs);
+      if (newDocumentation != null)
+        msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.SUITE_DEFINITION__DOCUMENTATION, null, msgs);
+      msgs = basicSetDocumentation(newDocumentation, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.SUITE_DEFINITION__DOCUMENTATION, newDocumentation, newDocumentation));
   }
 
   /**
@@ -326,6 +386,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__DOCUMENTATION:
+        return basicSetDocumentation(null, msgs);
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
         return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
       case DslPackage.SUITE_DEFINITION__RETURN:
@@ -346,6 +408,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__DOCUMENTATION:
+        return getDocumentation();
       case DslPackage.SUITE_DEFINITION__PRIVATE:
         return getPrivate();
       case DslPackage.SUITE_DEFINITION__SINGLE_RUN:
@@ -377,6 +441,9 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)newValue);
+        return;
       case DslPackage.SUITE_DEFINITION__PRIVATE:
         setPrivate((String)newValue);
         return;
@@ -420,6 +487,9 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)null);
+        return;
       case DslPackage.SUITE_DEFINITION__PRIVATE:
         setPrivate(PRIVATE_EDEFAULT);
         return;
@@ -458,6 +528,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
   {
     switch (featureID)
     {
+      case DslPackage.SUITE_DEFINITION__DOCUMENTATION:
+        return documentation != null;
       case DslPackage.SUITE_DEFINITION__PRIVATE:
         return PRIVATE_EDEFAULT == null ? private_ != null : !PRIVATE_EDEFAULT.equals(private_);
       case DslPackage.SUITE_DEFINITION__SINGLE_RUN:

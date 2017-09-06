@@ -653,13 +653,22 @@ public interface DslPackage extends EPackage
   int SUITE_DEFINITION = 18;
 
   /**
+   * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUITE_DEFINITION__DOCUMENTATION = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Private</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__PRIVATE = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+  int SUITE_DEFINITION__PRIVATE = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Single Run</b></em>' attribute.
@@ -668,7 +677,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__SINGLE_RUN = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+  int SUITE_DEFINITION__SINGLE_RUN = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -677,7 +686,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
+  int SUITE_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -686,7 +695,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__PARAMETERS = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
+  int SUITE_DEFINITION__PARAMETERS = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Return</b></em>' containment reference list.
@@ -695,7 +704,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__RETURN = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
+  int SUITE_DEFINITION__RETURN = PACKAGE_STATEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Dependencies</b></em>' reference list.
@@ -704,7 +713,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__DEPENDENCIES = PACKAGE_STATEMENT_FEATURE_COUNT + 5;
+  int SUITE_DEFINITION__DEPENDENCIES = PACKAGE_STATEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Finalizers</b></em>' reference list.
@@ -713,7 +722,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__FINALIZERS = PACKAGE_STATEMENT_FEATURE_COUNT + 6;
+  int SUITE_DEFINITION__FINALIZERS = PACKAGE_STATEMENT_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -722,7 +731,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__STATEMENTS = PACKAGE_STATEMENT_FEATURE_COUNT + 7;
+  int SUITE_DEFINITION__STATEMENTS = PACKAGE_STATEMENT_FEATURE_COUNT + 8;
 
   /**
    * The number of structural features of the '<em>Suite Definition</em>' class.
@@ -731,7 +740,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 8;
+  int SUITE_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 9;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteParameterDefinitionImpl <em>Suite Parameter Definition</em>}' class.
@@ -2988,6 +2997,34 @@ public interface DslPackage extends EPackage
   int EXECUTION_MULTIPLIER_FEATURE_COUNT = 1;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.DocumentationCommentImpl <em>Documentation Comment</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.DocumentationCommentImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDocumentationComment()
+   * @generated
+   */
+  int DOCUMENTATION_COMMENT = 87;
+
+  /**
+   * The feature id for the '<em><b>Content</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOCUMENTATION_COMMENT__CONTENT = 0;
+
+  /**
+   * The number of structural features of the '<em>Documentation Comment</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOCUMENTATION_COMMENT_FEATURE_COUNT = 1;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.NullImpl <em>Null</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2995,7 +3032,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 87;
+  int NULL = 88;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -3405,6 +3442,17 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getSuiteDefinition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.SuiteDefinition#getDocumentation <em>Documentation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Documentation</em>'.
+   * @see de.gebit.integrity.dsl.SuiteDefinition#getDocumentation()
+   * @see #getSuiteDefinition()
+   * @generated
+   */
+  EReference getSuiteDefinition_Documentation();
 
   /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.SuiteDefinition#getPrivate <em>Private</em>}'.
@@ -5198,6 +5246,27 @@ public interface DslPackage extends EPackage
   EReference getExecutionMultiplier_Count();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.DocumentationComment <em>Documentation Comment</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Documentation Comment</em>'.
+   * @see de.gebit.integrity.dsl.DocumentationComment
+   * @generated
+   */
+  EClass getDocumentationComment();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.DocumentationComment#getContent <em>Content</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Content</em>'.
+   * @see de.gebit.integrity.dsl.DocumentationComment#getContent()
+   * @see #getDocumentationComment()
+   * @generated
+   */
+  EAttribute getDocumentationComment_Content();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Null <em>Null</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5571,6 +5640,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass SUITE_DEFINITION = eINSTANCE.getSuiteDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SUITE_DEFINITION__DOCUMENTATION = eINSTANCE.getSuiteDefinition_Documentation();
 
     /**
      * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
@@ -7059,6 +7136,24 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference EXECUTION_MULTIPLIER__COUNT = eINSTANCE.getExecutionMultiplier_Count();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.DocumentationCommentImpl <em>Documentation Comment</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.DocumentationCommentImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDocumentationComment()
+     * @generated
+     */
+    EClass DOCUMENTATION_COMMENT = eINSTANCE.getDocumentationComment();
+
+    /**
+     * The meta object literal for the '<em><b>Content</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOCUMENTATION_COMMENT__CONTENT = eINSTANCE.getDocumentationComment_Content();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.NullImpl <em>Null</em>}' class.

@@ -11,6 +11,10 @@ packagedef mypackage with
 	
 	variable returnVar
 
+	/**
+	* Blah Blub Yeah 123.123.
+	* @test: abc
+	*/
 	suitedef asuite with
 	
 		//suite csuite
@@ -63,4 +67,4 @@ packagedef mypackage with
 	
 	
 	
-packageend
+packageend 
