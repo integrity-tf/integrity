@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Integrity Test Framework - Test Runner
+Bundle-SymbolicName: de.gebit.integrity.runner
+Bundle-Version: 0.17.0.qualifier
+Require-Bundle: org.eclipse.xtext;bundle-version="2.8.3",
+ de.gebit.integrity.dsl,
+ org.eclipse.xtext.common.types;bundle-version="2.8.3",
+ de.gebit.integrity.remoting;visibility:=reexport
+Export-Package: de.gebit.integrity.docgen,
+ de.gebit.integrity.docgen.console
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Import-Package: org.apache.log4j;version="1.2.15",
+ org.eclipse.core.runtime;version="3.4.0",
+ org.jdom;version="1.0.0",
+ org.jdom.adapters;version="1.0.0",
+ org.jdom.filter;version="1.0.0",
+ org.jdom.input;version="1.0.0",
+ org.jdom.output;version="1.0.0",
+ org.jdom.transform;version="1.0.0",
+ org.jdom.xpath;version="1.0.0",
+ org.slf4j;version="1.4.0"
+Bundle-Vendor: GEBIT Solutions GmbH
+Bundle-ClassPath: .
