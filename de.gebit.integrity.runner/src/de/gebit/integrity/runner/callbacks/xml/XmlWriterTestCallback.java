@@ -686,7 +686,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addLineNumber(tempSuiteElement, aSuite);
 		tempSuiteElement.setAttribute(SUITE_NAME_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
-		if (aSuite.getInlined() != null && rootSuiteWasStarted) {
+		if (rootSuiteWasStarted && (aSuite.getInlined() != null || aSuite.getDefinition().getInlined() != null)) {
 			// Inlining the root suite will not work, so we ignore that if it happens.
 			tempSuiteElement.setAttribute(SUITE_DISPLAY_ATTRIBUTE, SUITE_DISPLAY_VALUE_INLINE);
 		}

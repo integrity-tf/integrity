@@ -21,7 +21,7 @@
 'by default'=50
 'call'=62
 'calldef'=43
-'checkpoint'=81
+'checkpoint'=82
 'concludedby'=49
 'constant'=54
 'forkdef'=38
@@ -29,13 +29,13 @@
 'import'=37
 'in'=57
 'initially'=53
-'inlined'=82
+'inlined'=80
 'null'=73
 'on'=64
 'operationdef'=51
 'packagedef'=34
 'packageend'=36
-'parameterized'=80
+'parameterized'=81
 'private'=78
 'requires'=48
 'returns'=47

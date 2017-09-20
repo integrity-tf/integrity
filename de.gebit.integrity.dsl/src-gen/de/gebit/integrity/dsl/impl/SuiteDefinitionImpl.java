@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getSingleRun <em>Single Run</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getInlined <em>Inlined</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl#getReturn <em>Return</em>}</li>
@@ -85,6 +86,26 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * @ordered
    */
   protected String singleRun = SINGLE_RUN_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getInlined() <em>Inlined</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInlined()
+   * @generated
+   * @ordered
+   */
+  protected static final String INLINED_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getInlined() <em>Inlined</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInlined()
+   * @generated
+   * @ordered
+   */
+  protected String inlined = INLINED_EDEFAULT;
 
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -228,6 +249,29 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getInlined()
+  {
+    return inlined;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInlined(String newInlined)
+  {
+    String oldInlined = inlined;
+    inlined = newInlined;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.SUITE_DEFINITION__INLINED, oldInlined, inlined));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getName()
   {
     return name;
@@ -350,6 +394,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         return getPrivate();
       case DslPackage.SUITE_DEFINITION__SINGLE_RUN:
         return getSingleRun();
+      case DslPackage.SUITE_DEFINITION__INLINED:
+        return getInlined();
       case DslPackage.SUITE_DEFINITION__NAME:
         return getName();
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
@@ -382,6 +428,9 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         return;
       case DslPackage.SUITE_DEFINITION__SINGLE_RUN:
         setSingleRun((String)newValue);
+        return;
+      case DslPackage.SUITE_DEFINITION__INLINED:
+        setInlined((String)newValue);
         return;
       case DslPackage.SUITE_DEFINITION__NAME:
         setName((String)newValue);
@@ -426,6 +475,9 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
       case DslPackage.SUITE_DEFINITION__SINGLE_RUN:
         setSingleRun(SINGLE_RUN_EDEFAULT);
         return;
+      case DslPackage.SUITE_DEFINITION__INLINED:
+        setInlined(INLINED_EDEFAULT);
+        return;
       case DslPackage.SUITE_DEFINITION__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -462,6 +514,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
         return PRIVATE_EDEFAULT == null ? private_ != null : !PRIVATE_EDEFAULT.equals(private_);
       case DslPackage.SUITE_DEFINITION__SINGLE_RUN:
         return SINGLE_RUN_EDEFAULT == null ? singleRun != null : !SINGLE_RUN_EDEFAULT.equals(singleRun);
+      case DslPackage.SUITE_DEFINITION__INLINED:
+        return INLINED_EDEFAULT == null ? inlined != null : !INLINED_EDEFAULT.equals(inlined);
       case DslPackage.SUITE_DEFINITION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DslPackage.SUITE_DEFINITION__PARAMETERS:
@@ -493,6 +547,8 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
     result.append(private_);
     result.append(", singleRun: ");
     result.append(singleRun);
+    result.append(", inlined: ");
+    result.append(inlined);
     result.append(", name: ");
     result.append(name);
     result.append(')');

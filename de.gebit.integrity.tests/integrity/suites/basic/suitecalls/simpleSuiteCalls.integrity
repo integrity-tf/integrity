@@ -10,9 +10,14 @@ packagedef integrity.basic.suitecalls with
 	
 	suitedef simpleSuiteCallInlined with	
 		inlined suite otherSuite2
+		suite otherSuite3
 	suiteend
 	
 	suitedef otherSuite2 with
+		test integrity.fixtures.basic.noop.echoIntegerTest integer: 2 = 2		
+	suiteend
+	
+	inlined suitedef otherSuite3 with
 		test integrity.fixtures.basic.noop.echoIntegerTest integer: 2 = 2		
 	suiteend
 	
