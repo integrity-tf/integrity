@@ -1189,6 +1189,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         documentation=DocumentationComment? 
 	 *         private='private'? 
 	 *         singleRun='single-run'? 
+	 *         inlined='inlined'? 
 	 *         name=QualifiedName 
 	 *         parameters+=SuiteParameterDefinition* 
 	 *         return+=SuiteReturnDefinition* 

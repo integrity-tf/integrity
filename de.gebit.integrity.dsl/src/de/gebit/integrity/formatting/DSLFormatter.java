@@ -97,8 +97,8 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		// Suites and Packages
 		aConfig.setIndentation(tempGrammar.getPackageDefinitionAccess().getPackagedefKeyword_0(),
 				tempGrammar.getPackageDefinitionAccess().getPackageendKeyword_6());
-		aConfig.setIndentation(tempGrammar.getSuiteDefinitionAccess().getSuitedefKeyword_3(),
-				tempGrammar.getSuiteDefinitionAccess().getSuiteendKeyword_14());
+		aConfig.setIndentation(tempGrammar.getSuiteDefinitionAccess().getSuitedefKeyword_4(),
+				tempGrammar.getSuiteDefinitionAccess().getSuiteendKeyword_15());
 
 		// Objects
 		aConfig.setIndentation(tempGrammar.getNestedObjectAccess().getLeftCurlyBracketKeyword_0(),

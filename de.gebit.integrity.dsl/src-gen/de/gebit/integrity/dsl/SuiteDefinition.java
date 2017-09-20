@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getSingleRun <em>Single Run</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getInlined <em>Inlined</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getParameters <em>Parameters</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.SuiteDefinition#getReturn <em>Return</em>}</li>
@@ -107,6 +108,32 @@ public interface SuiteDefinition extends PackageStatement
    * @generated
    */
   void setSingleRun(String value);
+
+  /**
+   * Returns the value of the '<em><b>Inlined</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Inlined</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Inlined</em>' attribute.
+   * @see #setInlined(String)
+   * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Inlined()
+   * @model
+   * @generated
+   */
+  String getInlined();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.SuiteDefinition#getInlined <em>Inlined</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Inlined</em>' attribute.
+   * @see #getInlined()
+   * @generated
+   */
+  void setInlined(String value);
 
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

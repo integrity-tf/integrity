@@ -680,13 +680,22 @@ public interface DslPackage extends EPackage
   int SUITE_DEFINITION__SINGLE_RUN = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Inlined</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SUITE_DEFINITION__INLINED = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
+  int SUITE_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -695,7 +704,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__PARAMETERS = PACKAGE_STATEMENT_FEATURE_COUNT + 4;
+  int SUITE_DEFINITION__PARAMETERS = PACKAGE_STATEMENT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Return</b></em>' containment reference list.
@@ -704,7 +713,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__RETURN = PACKAGE_STATEMENT_FEATURE_COUNT + 5;
+  int SUITE_DEFINITION__RETURN = PACKAGE_STATEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Dependencies</b></em>' reference list.
@@ -713,7 +722,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__DEPENDENCIES = PACKAGE_STATEMENT_FEATURE_COUNT + 6;
+  int SUITE_DEFINITION__DEPENDENCIES = PACKAGE_STATEMENT_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Finalizers</b></em>' reference list.
@@ -722,7 +731,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__FINALIZERS = PACKAGE_STATEMENT_FEATURE_COUNT + 7;
+  int SUITE_DEFINITION__FINALIZERS = PACKAGE_STATEMENT_FEATURE_COUNT + 8;
 
   /**
    * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -731,7 +740,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION__STATEMENTS = PACKAGE_STATEMENT_FEATURE_COUNT + 8;
+  int SUITE_DEFINITION__STATEMENTS = PACKAGE_STATEMENT_FEATURE_COUNT + 9;
 
   /**
    * The number of structural features of the '<em>Suite Definition</em>' class.
@@ -740,7 +749,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUITE_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 9;
+  int SUITE_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 10;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteParameterDefinitionImpl <em>Suite Parameter Definition</em>}' class.
@@ -3477,6 +3486,17 @@ public interface DslPackage extends EPackage
   EAttribute getSuiteDefinition_SingleRun();
 
   /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.SuiteDefinition#getInlined <em>Inlined</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Inlined</em>'.
+   * @see de.gebit.integrity.dsl.SuiteDefinition#getInlined()
+   * @see #getSuiteDefinition()
+   * @generated
+   */
+  EAttribute getSuiteDefinition_Inlined();
+
+  /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.SuiteDefinition#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5664,6 +5684,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EAttribute SUITE_DEFINITION__SINGLE_RUN = eINSTANCE.getSuiteDefinition_SingleRun();
+
+    /**
+     * The meta object literal for the '<em><b>Inlined</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SUITE_DEFINITION__INLINED = eINSTANCE.getSuiteDefinition_Inlined();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
