@@ -20,8 +20,22 @@ import de.gebit.integrity.runner.TestModel;
  */
 public interface DocumentationGenerator {
 
+	/**
+	 * Initializes the documentation generator with a provided {@link TestModel} containing all the resources for which
+	 * documentation shall be generated.
+	 * 
+	 * @param aModel
+	 *            the model to parse
+	 */
 	void initialize(TestModel aModel);
 
+	/**
+	 * Executes the actual generation.
+	 * 
+	 * @param aTargetDirectory
+	 *            the target directory for the documentation results
+	 * @throws IOException
+	 */
 	void run(File aTargetDirectory) throws IOException;
 
 }

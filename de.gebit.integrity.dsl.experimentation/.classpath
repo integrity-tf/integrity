@@ -5,5 +5,6 @@
 	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.dsl/target/classes"/>
 	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.remoting/target/classes"/>
 	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.runner/target/classes"/>
+	<classpathentry kind="var" path="INTEGRITY_EXPERIMENTATION_CP_ROOT/de.gebit.integrity.docgen/target/classes"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

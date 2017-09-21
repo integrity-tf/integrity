@@ -488,6 +488,10 @@ public class TestModel {
 		return tempResource.getErrors();
 	}
 
+	public Injector getInjector() {
+		return injector;
+	}
+
 	public List<Model> getModels() {
 		return models;
 	}

@@ -8,16 +8,21 @@
 package de.gebit.integrity.docgen;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.docgen.html.PackageView;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.runner.TestModel;
+import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
 import htmlflow.HtmlView;
 
 /**
@@ -29,8 +34,14 @@ import htmlflow.HtmlView;
  */
 public class DefaultDocumentationGenerator implements DocumentationGenerator {
 
+	/**
+	 * The model to parse.
+	 */
 	private TestModel model;
 
+	/**
+	 * The target directory for the HTML result files.
+	 */
 	private File targetDirectory;
 
 	@Override
@@ -50,12 +61,30 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		}
 		targetDirectory = aTargetDirectory;
 
+		ModelSourceExplorer tempModelSourceExplorer = model.getInjector().getInstance(ModelSourceExplorer.class);
+
 		Map<String, Collection<SuiteDefinition>> tempSuitesByPackage = groupSuitesByPackage(model.getAllSuites());
 		for (Entry<String, Collection<SuiteDefinition>> tempEntry : tempSuitesByPackage.entrySet()) {
-			processPackage(tempEntry.getKey(), tempEntry.getValue());
+			System.out.print("Writing doc for package '" + tempEntry.getKey() + "'...");
+			try {
+				processDocument(new File(targetDirectory, tempEntry.getKey() + ".html"),
+						new PackageView(tempEntry, tempModelSourceExplorer));
+			} catch (ParseException exc) {
+				System.out.println("...failed :-( " + exc.getMessage());
+			}
+			System.out.println("done!");
 		}
+
+		System.out.println("Finished generating documentation!");
 	}
 
+	/**
+	 * Finds all distinct packages that the provided suites are located in and groups the suites by these packages.
+	 * 
+	 * @param someSuites
+	 *            the suites to search
+	 * @return a map, mapping distinct package names to lists of suites
+	 */
 	protected Map<String, Collection<SuiteDefinition>> groupSuitesByPackage(Collection<SuiteDefinition> someSuites) {
 		Map<String, Collection<SuiteDefinition>> tempResult = new HashMap<>();
 
@@ -72,23 +101,18 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		return tempResult;
 	}
 
-	protected void processPackage(String aPackageName, Collection<SuiteDefinition> someSuites) {
-		HtmlView<Package> tempPackageView = new HtmlView<>();
-		// @formatter:off
-		tempPackageView
-                .head()
-                .title("Package " + aPackageName)
-                .linkCss("resources/css/main.css");
-//		HtmlDiv<>tempPackageView
-//                .body().classAttr("container")
-//                .div().classAttr("title").text("Package " + aPackageName);
-		
-		// @formatter:on
-	}
-
-	protected void processSuite(SuiteDefinition aSuiteDefinition) {
-		if (aSuiteDefinition.getDocumentation() != null) {
-			// do nothing
+	/**
+	 * Writes out the result HTML for the provided view.
+	 * 
+	 * @param aTargetFile
+	 *            the file to write into
+	 * @param aView
+	 *            the view to generate HTML from
+	 * @throws IOException
+	 */
+	protected <T> void processDocument(File aTargetFile, HtmlView<T> aView) throws IOException {
+		try (PrintStream tempOut = new PrintStream(new FileOutputStream(aTargetFile))) {
+			aView.setPrintStream(tempOut).write();
 		}
 	}
 
