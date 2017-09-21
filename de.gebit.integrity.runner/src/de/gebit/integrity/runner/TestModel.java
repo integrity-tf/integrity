@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -512,6 +513,15 @@ public class TestModel {
 	 */
 	public SuiteDefinition getSuiteByName(String aFullyQualifiedSuiteName) {
 		return suiteMap.get(aFullyQualifiedSuiteName);
+	}
+
+	/**
+	 * Returns all suites in the test model.
+	 * 
+	 * @return all suites
+	 */
+	public Collection<SuiteDefinition> getAllSuites() {
+		return suiteMap.values();
 	}
 
 	/**
