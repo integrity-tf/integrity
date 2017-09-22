@@ -92,10 +92,12 @@ public class ParsedDocumentationComment {
 				tempCleanLine = tempCleanLine.trim();
 			}
 
-			if (tempDocumentationText.length() > 0) {
-				tempDocumentationText.append(" ");
+			if (tempCleanLine.length() > 0) {
+				if (tempDocumentationText.length() > 0) {
+					tempDocumentationText.append(" ");
+				}
+				tempDocumentationText.append(tempCleanLine);
 			}
-			tempDocumentationText.append(tempCleanLine);
 		}
 
 		documentationText = tempDocumentationText.toString();

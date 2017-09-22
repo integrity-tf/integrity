@@ -8,9 +8,13 @@
 package de.gebit.integrity.docgen;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -75,6 +79,10 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 			System.out.println("done!");
 		}
 
+		System.out.print("Copying static resources...");
+		copyResources(targetDirectory);
+		System.out.println("done!");
+
 		System.out.println("Finished generating documentation!");
 	}
 
@@ -114,6 +122,45 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		try (PrintStream tempOut = new PrintStream(new FileOutputStream(aTargetFile))) {
 			aView.setPrintStream(tempOut).write();
 		}
+	}
+
+	/**
+	 * Copies all static resource files into the target directory.
+	 * 
+	 * @param aTargetDir
+	 *            the target directory
+	 * @throws IOException
+	 */
+	protected void copyResources(File aTargetDir) throws IOException {
+		File tempCssTargetDir = new File(aTargetDir, "resources/css");
+		if (!tempCssTargetDir.exists() || !tempCssTargetDir.isDirectory()) {
+			if (!tempCssTargetDir.mkdirs()) {
+				throw new IOException("Failed to create CSS target directory");
+			}
+		}
+
+		File tempCss = new File(tempCssTargetDir, "main.css");
+		InputStream tempStream = getResourceAsStream("css/main.css");
+		Files.copy(tempStream, tempCss.getAbsoluteFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
+	}
+
+	/**
+	 * Opens a stream to read the given resource from the classpath. Assumes resources are present under a fixed
+	 * subdirectory.
+	 * 
+	 * @param aResourceName
+	 *            the name of the resource
+	 * @return the resource stream
+	 * @throws FileNotFoundException
+	 *             if the resource is not found
+	 */
+	protected InputStream getResourceAsStream(String aResourceName) throws FileNotFoundException {
+		InputStream tempStream = getClass().getResourceAsStream("/docgen-resources/" + aResourceName);
+		if (tempStream == null) {
+			throw new FileNotFoundException("Failed to find docgen resource '" + aResourceName + "' in JAR file");
+		}
+
+		return tempStream;
 	}
 
 }

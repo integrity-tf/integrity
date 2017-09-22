@@ -39,22 +39,33 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 
 		HtmlBody<?> tempBody = body();
 		tempBody.div().classAttr("title").text("Package " + anEntry.getKey());
-
 		tempBody.hr();
+		HtmlDiv<?> tempMainDiv = tempBody.div().classAttr("suites");
+		tempMainDiv.div().classAttr("suitesummary")
+				.text("This package defines " + anEntry.getValue().size() + " suites");
 
 		for (SuiteDefinition tempSuite : anEntry.getValue()) {
-			HtmlDiv<?> tempSuiteDiv = tempBody.div().classAttr("suite");
-			tempSuiteDiv.div().classAttr("suitetitle").text(IntegrityDSLUtil.getQualifiedSuiteName(tempSuite));
-
-			if (tempSuite.getDocumentation() != null) {
-				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
-						tempSuite.getDocumentation(),
-						aModelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()));
-
-				tempSuiteDiv.div().classAttr("suitedescription").text(tempParsedComment.getDocumentationText());
+			HtmlDiv<?> tempSuiteDiv = tempMainDiv.div().classAttr("suite");
+			HtmlDiv<?> tempSuiteHeaderDiv = tempSuiteDiv.div().classAttr("suiteheader");
+			tempSuiteHeaderDiv.div().classAttr("suitename").text(tempSuite.getName());
+			String tempSuiteTitle = IntegrityDSLUtil.getSuiteTitle(tempSuite);
+			if (tempSuiteTitle != null) {
+				tempSuiteHeaderDiv.div().classAttr("suitetitle").text(tempSuiteTitle);
 			}
+			tempSuiteHeaderDiv.div().classAttr("fullsuitename").text(IntegrityDSLUtil.getQualifiedSuiteName(tempSuite));
 
-			tempBody.addChild(tempSuiteDiv);
+			boolean tempSuiteHasDetails = (tempSuite.getDocumentation() != null);
+
+			if (tempSuiteHasDetails) {
+				HtmlDiv<?> tempSuiteDetailsDiv = tempSuiteDiv.div().classAttr("suitedetails");
+				if (tempSuite.getDocumentation() != null) {
+					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+							tempSuite.getDocumentation(),
+							aModelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()));
+					tempSuiteDetailsDiv.div().classAttr("suitedescription")
+							.text(tempParsedComment.getDocumentationText());
+				}
+			}
 		}
 	}
 

@@ -1,0 +1,87 @@
+body { 
+	color: #000;
+	background-color: #FFF;
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 10pt;
+}
+
+.title {
+	font-size: 18pt;
+	font-weight: bold;
+}
+
+hr {
+	border: 0px;
+	height: 1px;
+	background: #000;
+	margin-bottom: 10px;
+}
+
+.suites {
+	border: 1px solid #3060ff;
+	background-color: #d8e7ff;
+	padding-bottom: 10px;
+	margin-left: 0px;
+	margin-right: 0px;	
+}
+
+.suitesummary {
+	font-size: 12pt;
+	color: #ffffff;
+	background-color: #3060ff;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
+.suite {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-right: 10px;	
+	padding-left: 10px;
+}
+
+.suites > .suite ~ .suite {
+	border-top: 1px dashed #3060ff;
+}
+
+.suiteheader {
+	font-size: 12pt;
+	padding-bottom: 4px;
+}
+
+.suitename_prefix {
+	font-weight: bold;
+	display: inline;
+	color: #888;
+}
+
+.suitename {
+	font-weight: bold;
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+}
+
+.suitetitle {
+	font-style: italic;
+	display: inline;
+	padding-left: 10px;
+}
+
+.fullsuitename {
+	font-size: 8pt;
+}
+
+.suitedetails {
+	padding-top: 10px;
+	margin-left: 4px;
+	padding-bottom: 0px;
+	margin-bottom: 4px;
+	border-left: 1px solid #000;
+}
+
+.suitedescription {
+	padding-left: 10px;
+}

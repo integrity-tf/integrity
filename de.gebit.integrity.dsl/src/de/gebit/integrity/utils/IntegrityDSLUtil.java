@@ -46,6 +46,7 @@ import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteStatement;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -59,6 +60,7 @@ import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.dsl.VisibleMultiLineComment;
 import de.gebit.integrity.dsl.VisibleSingleLineComment;
+import de.gebit.integrity.dsl.VisibleSingleLineTitleComment;
 import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.forker.ForkerParameter;
@@ -469,6 +471,25 @@ public final class IntegrityDSLUtil {
 
 		throw new IllegalArgumentException(
 				"The given multi-line comment does not start and end with the expected literals.");
+	}
+
+	/**
+	 * Gets the suites' title from a given suite.
+	 * 
+	 * @param aSuite
+	 *            the suite to search in
+	 * @return the title of the suite or null if it does not have one
+	 */
+	public static String getSuiteTitle(SuiteDefinition aSuite) {
+		if (aSuite.getStatements().size() == 0) {
+			return null;
+		}
+
+		SuiteStatement tempFirstStatement = aSuite.getStatements().get(0);
+		if (tempFirstStatement instanceof VisibleSingleLineTitleComment) {
+			return ((VisibleSingleLineTitleComment) tempFirstStatement).getContent();
+		}
+		return null;
 	}
 
 	/**

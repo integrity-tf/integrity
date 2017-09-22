@@ -19,6 +19,9 @@
 			<directory>${basedir}/src</directory>
 		</resource>
 		<resource>
+			<directory>${basedir}/resources</directory>
+		</resource>
+		<resource>
 			<directory>${project.build.directory}/saxon</directory>
 		</resource>
   	</resources>
