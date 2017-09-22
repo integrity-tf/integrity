@@ -13,9 +13,14 @@ packagedef mypackage with
 
 	/**
 	* Blah Blub Yeah 123.123.
-	* @test: abc
+	* @param testParameter The first parameter that this suite gets
+	* @param anotherParameter
+	* 				This is the second parameter
+	* @param nonexistentParameter
+	* 				This one doesn't exist
 	*/
-	suitedef asuite with
+	suitedef asuite gets testParameter anotherParameter with
+		--- The first Suite
 	
 		//suite csuite
 		

@@ -487,7 +487,7 @@ public final class IntegrityDSLUtil {
 
 		SuiteStatement tempFirstStatement = aSuite.getStatements().get(0);
 		if (tempFirstStatement instanceof VisibleSingleLineTitleComment) {
-			return ((VisibleSingleLineTitleComment) tempFirstStatement).getContent();
+			return cleanSingleLineComment(((VisibleSingleLineTitleComment) tempFirstStatement));
 		}
 		return null;
 	}

@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Map.Entry;
 
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment;
@@ -18,6 +19,8 @@ import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
 import htmlflow.HtmlView;
 import htmlflow.elements.HtmlBody;
 import htmlflow.elements.HtmlDiv;
+import htmlflow.elements.HtmlTable;
+import htmlflow.elements.HtmlTr;
 
 /**
  * HTML view of an Integrity package, containing a number of suites.
@@ -52,7 +55,8 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 			if (tempSuiteTitle != null) {
 				tempSuiteHeaderDiv.div().classAttr("suitetitle").text(tempSuiteTitle);
 			}
-			tempSuiteHeaderDiv.div().classAttr("fullsuitename").text(IntegrityDSLUtil.getQualifiedSuiteName(tempSuite));
+			tempSuiteHeaderDiv.div().classAttr("fullsuitename code")
+					.text(IntegrityDSLUtil.getQualifiedSuiteName(tempSuite));
 
 			boolean tempSuiteHasDetails = (tempSuite.getDocumentation() != null);
 
@@ -64,6 +68,20 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 							aModelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()));
 					tempSuiteDetailsDiv.div().classAttr("suitedescription")
 							.text(tempParsedComment.getDocumentationText());
+
+					if (tempSuite.getParameters().size() > 0) {
+						HtmlDiv<?> tempSuiteParamsDiv = tempSuiteDetailsDiv.div().classAttr("suiteparams");
+						tempSuiteParamsDiv.div().classAttr("detailstitle").text("Parameters");
+						HtmlTable<?> tempParamTable = tempSuiteParamsDiv.table();
+
+						for (SuiteParameterDefinition tempParameter : tempSuite.getParameters()) {
+							String tempParamDoc = tempParsedComment.getParameterDocumentationTexts()
+									.get(tempParameter.getName().getName());
+							HtmlTr<?> tempRow = tempParamTable.tr();
+							tempRow.td().classAttr("code").text(tempParameter.getName().getName());
+							tempRow.td().text(tempParamDoc != null ? tempParamDoc : "");
+						}
+					}
 				}
 			}
 		}
