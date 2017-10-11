@@ -72,4 +72,40 @@ packagedef mypackage with
 	
 	
 	
+packageend
+
+packagedef mypackage.deeper with
+
+	suitedef csuite concludedby dsuite with
+	
+		test echo echo: returnVar = "blahblub"
+	
+	suiteend
+	
+	suitedef dsuite with
+	
+		test echo echo: returnVar = "blahblub"
+		
+		suite csuite
+	
+	suiteend
+
 packageend 
+
+packagedef mypackage.deeper.evendeeper.end with
+	suitedef emptysuite with
+	suiteend
+packageend
+
+packagedef mypackage.deeper.moredeeper.end with
+	suitedef emptysuite with
+	suiteend
+packageend
+
+packagedef mypackage.deeper2 with
+	suitedef emptysuite with
+	suiteend
+packageend
+
+packagedef mypackage.deeper3.yetmoredeep with
+packageend

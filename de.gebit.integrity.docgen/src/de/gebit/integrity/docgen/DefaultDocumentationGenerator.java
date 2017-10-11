@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.docgen.html.PackageTreeView;
 import de.gebit.integrity.docgen.html.PackageView;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -68,10 +69,19 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		ModelSourceExplorer tempModelSourceExplorer = model.getInjector().getInstance(ModelSourceExplorer.class);
 
 		Map<String, Collection<SuiteDefinition>> tempSuitesByPackage = groupSuitesByPackage(model.getAllSuites());
+
+		// Write out the package tree view document
+		System.out.print("Writing package tree...");
+		processDocument(new File(targetDirectory, "packages.html"), new PackageTreeView(tempSuitesByPackage));
+		System.out.println("done!");
+
+		// Write all the documents for packages
+		File tempPackageSubdir = new File(targetDirectory, "packages");
+		tempPackageSubdir.mkdir();
 		for (Entry<String, Collection<SuiteDefinition>> tempEntry : tempSuitesByPackage.entrySet()) {
 			System.out.print("Writing doc for package '" + tempEntry.getKey() + "'...");
 			try {
-				processDocument(new File(targetDirectory, tempEntry.getKey() + ".html"),
+				processDocument(new File(tempPackageSubdir, tempEntry.getKey() + ".html"),
 						new PackageView(tempEntry, tempModelSourceExplorer));
 			} catch (ParseException exc) {
 				System.out.println("...failed :-( " + exc.getMessage());

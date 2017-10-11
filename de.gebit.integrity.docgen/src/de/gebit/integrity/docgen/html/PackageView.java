@@ -38,7 +38,7 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 	 */
 	public PackageView(Entry<String, Collection<SuiteDefinition>> anEntry, ModelSourceExplorer aModelSourceExplorer)
 			throws ParseException {
-		head().linkCss("resources/css/main.css").title("Package " + anEntry.getKey());
+		head().linkCss("../resources/css/main.css").title("Package " + anEntry.getKey());
 
 		HtmlBody<?> tempBody = body();
 		tempBody.div().classAttr("title").text("Package " + anEntry.getKey());
