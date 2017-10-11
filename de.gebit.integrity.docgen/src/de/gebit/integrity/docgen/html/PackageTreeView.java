@@ -45,10 +45,26 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 		}
 	}
 
+	/**
+	 * Adds the provided {@link PackageTreeNode} recursively to the provided container. This is the starting point for
+	 * recursion.
+	 * 
+	 * @param aNode
+	 * @param aContainer
+	 */
 	protected void addPackageTree(PackageTreeNode aNode, HtmlDiv<?> aContainer) {
 		addPackageTree(aNode, aContainer, null, new Boolean[1000]);
 	}
 
+	/**
+	 * Recursive method to perform the task that {@link #addPackageTree(PackageTreeNode, HtmlDiv)} promises to do. Not
+	 * to be called directly, but only from {@link #addPackageTree(PackageTreeNode, HtmlDiv)} or itself.
+	 * 
+	 * @param aNode
+	 * @param aContainer
+	 * @param aLastChildFlag
+	 * @param aDepthMap
+	 */
 	protected void addPackageTree(PackageTreeNode aNode, HtmlDiv<?> aContainer, Boolean aLastChildFlag,
 			Boolean[] aDepthMap) {
 		HtmlDiv<?> tempTreeRow = aContainer.div();
