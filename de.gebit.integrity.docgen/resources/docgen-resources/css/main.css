@@ -138,3 +138,12 @@ hr {
 	background-position: 0px 0px;
 }
 
+.treecontainer {
+	float: left;
+}
+
+.maincontainer {
+	padding-left: 10px;
+	overflow: hidden;
+}
+

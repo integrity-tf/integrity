@@ -30,19 +30,33 @@ import htmlflow.elements.HtmlDiv;
 public class PackageTreeView extends HtmlView<Collection<String>> {
 
 	/**
+	 * The main div containing the package tree.
+	 */
+	private HtmlDiv<?> treeDiv;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param somePackages
 	 */
-	public PackageTreeView(Map<String, Collection<SuiteDefinition>> someSuitesByPackages) {
-		head().linkCss("resources/css/main.css").title("Package Tree");
+	public PackageTreeView(Map<String, Collection<SuiteDefinition>> someSuitesByPackages,
+			boolean aRelativeToPackageSubdirFlag) {
+		head().linkCss((aRelativeToPackageSubdirFlag ? "../" : "") + "resources/css/main.css").title("Package Tree");
 
 		HtmlBody<?> tempBody = body();
-		HtmlDiv<?> tempMainDiv = tempBody.div().classAttr("packagetree");
+		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().classAttr("treecontainer");
+		treeDiv = tempTreeContainerDiv.div().classAttr("packagetree");
+		HtmlDiv<?> tempMainContainerDiv = tempBody.div().classAttr("maincontainer");
+		tempMainContainerDiv.div().classAttr("title").text("Package Index");
+		tempMainContainerDiv.hr();
 
 		for (PackageTreeNode tempRoot : buildPackageTrees(someSuitesByPackages)) {
-			addPackageTree(tempRoot, tempMainDiv);
+			addPackageTree(tempRoot, treeDiv, aRelativeToPackageSubdirFlag);
 		}
+	}
+
+	public HtmlDiv<?> getTreeRootElement() {
+		return treeDiv;
 	}
 
 	/**
@@ -52,8 +66,8 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 	 * @param aNode
 	 * @param aContainer
 	 */
-	protected void addPackageTree(PackageTreeNode aNode, HtmlDiv<?> aContainer) {
-		addPackageTree(aNode, aContainer, null, new Boolean[1000]);
+	protected void addPackageTree(PackageTreeNode aNode, HtmlDiv<?> aContainer, boolean aRelativeToPackageSubdirFlag) {
+		addPackageTree(aNode, aContainer, null, new Boolean[1000], aRelativeToPackageSubdirFlag);
 	}
 
 	/**
@@ -66,7 +80,7 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 	 * @param aDepthMap
 	 */
 	protected void addPackageTree(PackageTreeNode aNode, HtmlDiv<?> aContainer, Boolean aLastChildFlag,
-			Boolean[] aDepthMap) {
+			Boolean[] aDepthMap, boolean aRelativeToPackageSubdirFlag) {
 		HtmlDiv<?> tempTreeRow = aContainer.div();
 		int tempDepth = 0;
 		while (aDepthMap[tempDepth] != null) {
@@ -91,7 +105,8 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 		}
 
 		if (aNode.containsSuites()) {
-			HtmlA<?> tempLink = new HtmlA<>("packages/" + aNode.getQualifiedName() + ".html");
+			HtmlA<?> tempLink = new HtmlA<>(
+					(aRelativeToPackageSubdirFlag ? "" : "packages/") + aNode.getQualifiedName() + ".html");
 			tempLink.text(aNode.getName());
 			tempTreeRow.addChild(tempLink);
 		} else {
@@ -104,7 +119,7 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 			PackageTreeNode tempChild = tempChildren.get(i);
 
 			boolean tempIsLastChild = (i + 1 == tempChildren.size());
-			addPackageTree(tempChild, aContainer, tempIsLastChild, aDepthMap);
+			addPackageTree(tempChild, aContainer, tempIsLastChild, aDepthMap, aRelativeToPackageSubdirFlag);
 		}
 		aDepthMap[tempDepth] = null;
 	}

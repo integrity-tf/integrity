@@ -72,7 +72,10 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 
 		// Write out the package tree view document
 		System.out.print("Writing package tree...");
-		processDocument(new File(targetDirectory, "packages.html"), new PackageTreeView(tempSuitesByPackage));
+		PackageTreeView tempTreeView = new PackageTreeView(tempSuitesByPackage, false);
+		// We also need a second PackageTreeView that is to be embedded into the package pages
+		PackageTreeView tempTreeViewEmbedded = new PackageTreeView(tempSuitesByPackage, true);
+		processDocument(new File(targetDirectory, "index.html"), tempTreeView);
 		System.out.println("done!");
 
 		// Write all the documents for packages
@@ -82,7 +85,7 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 			System.out.print("Writing doc for package '" + tempEntry.getKey() + "'...");
 			try {
 				processDocument(new File(tempPackageSubdir, tempEntry.getKey() + ".html"),
-						new PackageView(tempEntry, tempModelSourceExplorer));
+						new PackageView(tempEntry, tempModelSourceExplorer, tempTreeViewEmbedded));
 			} catch (ParseException exc) {
 				System.out.println("...failed :-( " + exc.getMessage());
 			}

@@ -36,14 +36,18 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 	 * @param anEntry
 	 * @throws ParseException
 	 */
-	public PackageView(Entry<String, Collection<SuiteDefinition>> anEntry, ModelSourceExplorer aModelSourceExplorer)
-			throws ParseException {
+	public PackageView(Entry<String, Collection<SuiteDefinition>> anEntry, ModelSourceExplorer aModelSourceExplorer,
+			PackageTreeView aTreeView) throws ParseException {
 		head().linkCss("../resources/css/main.css").title("Package " + anEntry.getKey());
 
 		HtmlBody<?> tempBody = body();
-		tempBody.div().classAttr("title").text("Package " + anEntry.getKey());
-		tempBody.hr();
-		HtmlDiv<?> tempMainDiv = tempBody.div().classAttr("suites");
+		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().classAttr("treecontainer");
+		tempTreeContainerDiv.addChild(aTreeView.getTreeRootElement());
+
+		HtmlDiv<?> tempMainContainerDiv = tempBody.div().classAttr("maincontainer");
+		tempMainContainerDiv.div().classAttr("title").text("Package " + anEntry.getKey());
+		tempMainContainerDiv.hr();
+		HtmlDiv<?> tempMainDiv = tempMainContainerDiv.div().classAttr("suites");
 		tempMainDiv.div().classAttr("suitesummary")
 				.text("This package defines " + anEntry.getValue().size() + " suites");
 
