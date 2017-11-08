@@ -10,6 +10,7 @@ package de.gebit.integrity.docgen.html;
 import java.util.Collection;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.docgen.IntegrityPackage;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
@@ -36,22 +37,36 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 	 * @param anEntry
 	 * @throws ParseException
 	 */
-	public PackageView(Entry<String, Collection<SuiteDefinition>> anEntry, ModelSourceExplorer aModelSourceExplorer,
-			PackageTreeView aTreeView) throws ParseException {
-		head().linkCss("../resources/css/main.css").title("Package " + anEntry.getKey());
+	public PackageView(IntegrityPackage aPackage, ModelSourceExplorer aModelSourceExplorer, PackageTreeView aTreeView)
+			throws ParseException {
+		head().linkCss("../resources/css/main.css").title("Package " + aPackage.getName());
 
 		HtmlBody<?> tempBody = body();
 		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().classAttr("treecontainer");
 		tempTreeContainerDiv.addChild(aTreeView.getTreeRootElement());
 
 		HtmlDiv<?> tempMainContainerDiv = tempBody.div().classAttr("maincontainer");
-		tempMainContainerDiv.div().classAttr("title").text("Package " + anEntry.getKey());
+		tempMainContainerDiv.div().classAttr("title").text("Package " + aPackage.getName());
 		tempMainContainerDiv.hr();
-		HtmlDiv<?> tempMainDiv = tempMainContainerDiv.div().classAttr("suites");
-		tempMainDiv.div().classAttr("suitesummary")
-				.text("This package defines " + anEntry.getValue().size() + " suites");
 
-		for (SuiteDefinition tempSuite : anEntry.getValue()) {
+		processSuites(aPackage, aModelSourceExplorer, tempMainContainerDiv);
+	}
+
+	/**
+	 * Processes all suites in a package.
+	 * 
+	 * @param anEntry
+	 * @param aModelSourceExplorer
+	 * @param aMainContainerDiv
+	 * @throws ParseException
+	 */
+	protected void processSuites(IntegrityPackage aPackage, ModelSourceExplorer aModelSourceExplorer,
+			HtmlDiv<?> aMainContainerDiv) throws ParseException {
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("suites");
+		tempMainDiv.div().classAttr("suitesummary")
+				.text("This package defines " + aPackage.getSuites().size() + " suites");
+
+		for (SuiteDefinition tempSuite : aPackage.getSuites()) {
 			HtmlDiv<?> tempSuiteDiv = tempMainDiv.div().classAttr("suite");
 			HtmlDiv<?> tempSuiteHeaderDiv = tempSuiteDiv.div().classAttr("suiteheader");
 			tempSuiteHeaderDiv.div().classAttr("suitename").text(tempSuite.getName());
@@ -89,6 +104,22 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 				}
 			}
 		}
+	}
+
+	/**
+	 * Processes all constants in a package.
+	 * 
+	 * @param anEntry
+	 * @param aModelSourceExplorer
+	 * @param aMainContainerDiv
+	 * @throws ParseException
+	 */
+	protected void processConstants(Entry<String, Collection<SuiteDefinition>> anEntry,
+			ModelSourceExplorer aModelSourceExplorer, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("constants");
+		tempMainDiv.div().classAttr("suitesummary")
+				.text("This package defines " + anEntry.getValue().size() + " suites");
+
 	}
 
 }

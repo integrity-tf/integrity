@@ -13,9 +13,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.docgen.IntegrityPackage;
 import htmlflow.HtmlView;
 import htmlflow.elements.HtmlA;
 import htmlflow.elements.HtmlBody;
@@ -39,8 +38,7 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 	 * 
 	 * @param somePackages
 	 */
-	public PackageTreeView(Map<String, Collection<SuiteDefinition>> someSuitesByPackages,
-			boolean aRelativeToPackageSubdirFlag) {
+	public PackageTreeView(Collection<IntegrityPackage> somePackages, boolean aRelativeToPackageSubdirFlag) {
 		head().linkCss((aRelativeToPackageSubdirFlag ? "../" : "") + "resources/css/main.css").title("Package Tree");
 
 		HtmlBody<?> tempBody = body();
@@ -50,7 +48,7 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 		tempMainContainerDiv.div().classAttr("title").text("Package Index");
 		tempMainContainerDiv.hr();
 
-		for (PackageTreeNode tempRoot : buildPackageTrees(someSuitesByPackages)) {
+		for (PackageTreeNode tempRoot : buildPackageTrees(somePackages)) {
 			addPackageTree(tempRoot, treeDiv, aRelativeToPackageSubdirFlag);
 		}
 	}
@@ -104,7 +102,7 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 			tempDepth++;
 		}
 
-		if (aNode.containsSuites()) {
+		if (aNode.hasContent()) {
 			HtmlA<?> tempLink = new HtmlA<>(
 					(aRelativeToPackageSubdirFlag ? "" : "packages/") + aNode.getQualifiedName() + ".html");
 			tempLink.text(aNode.getName());
@@ -131,13 +129,13 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 	 * @param somePackages
 	 * @return the package trees, with each node in the list being a tree root
 	 */
-	protected List<PackageTreeNode> buildPackageTrees(Map<String, Collection<SuiteDefinition>> someSuitesByPackages) {
+	protected List<PackageTreeNode> buildPackageTrees(Collection<IntegrityPackage> somePackages) {
 		PackageTreeNode tempRoot = new PackageTreeNode("", null);
 
-		for (Entry<String, Collection<SuiteDefinition>> tempEntry : someSuitesByPackages.entrySet()) {
+		for (IntegrityPackage tempPackage : somePackages) {
 			PackageTreeNode tempCurrentPackage = tempRoot;
 
-			String[] tempParts = tempEntry.getKey().split("\\.");
+			String[] tempParts = tempPackage.getName().split("\\.");
 			for (String tempPart : tempParts) {
 				PackageTreeNode tempNewPackage = tempCurrentPackage.getChild(tempPart);
 				if (tempNewPackage == null) {
@@ -146,8 +144,8 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 				tempCurrentPackage = tempNewPackage;
 			}
 
-			if (tempEntry.getValue().size() > 0) {
-				tempCurrentPackage.setContainsSuites();
+			if (!tempPackage.isEmpty()) {
+				tempCurrentPackage.setHasContent();
 			}
 		}
 
@@ -181,9 +179,9 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 		private PackageTreeNode parent;
 
 		/**
-		 * Whether there are any suites in this package.
+		 * Whether there are any documented entities (suites etc.) in this package.
 		 */
-		private boolean containsSuites;
+		private boolean hasContent;
 
 		/**
 		 * Constructs a new instance.
@@ -244,8 +242,8 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 		 * 
 		 * @return
 		 */
-		public boolean containsSuites() {
-			return containsSuites;
+		public boolean hasContent() {
+			return hasContent;
 		}
 
 		/**
@@ -253,8 +251,8 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 		 * 
 		 * @return
 		 */
-		public void setContainsSuites() {
-			containsSuites = true;
+		public void setHasContent() {
+			hasContent = true;
 		}
 
 		/**

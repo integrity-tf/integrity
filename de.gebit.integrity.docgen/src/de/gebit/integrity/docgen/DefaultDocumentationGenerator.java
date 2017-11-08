@@ -15,11 +15,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import de.gebit.integrity.docgen.html.PackageTreeView;
 import de.gebit.integrity.docgen.html.PackageView;
@@ -68,24 +66,24 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 
 		ModelSourceExplorer tempModelSourceExplorer = model.getInjector().getInstance(ModelSourceExplorer.class);
 
-		Map<String, Collection<SuiteDefinition>> tempSuitesByPackage = groupSuitesByPackage(model.getAllSuites());
+		Collection<IntegrityPackage> tempPackages = groupEntitiesByPackage(model);
 
 		// Write out the package tree view document
 		System.out.print("Writing package tree...");
-		PackageTreeView tempTreeView = new PackageTreeView(tempSuitesByPackage, false);
+		PackageTreeView tempTreeView = new PackageTreeView(tempPackages, false);
 		// We also need a second PackageTreeView that is to be embedded into the package pages
-		PackageTreeView tempTreeViewEmbedded = new PackageTreeView(tempSuitesByPackage, true);
+		PackageTreeView tempTreeViewEmbedded = new PackageTreeView(tempPackages, true);
 		processDocument(new File(targetDirectory, "index.html"), tempTreeView);
 		System.out.println("done!");
 
 		// Write all the documents for packages
 		File tempPackageSubdir = new File(targetDirectory, "packages");
 		tempPackageSubdir.mkdir();
-		for (Entry<String, Collection<SuiteDefinition>> tempEntry : tempSuitesByPackage.entrySet()) {
-			System.out.print("Writing doc for package '" + tempEntry.getKey() + "'...");
+		for (IntegrityPackage tempPackage : tempPackages) {
+			System.out.print("Writing doc for package '" + tempPackage.getName() + "'...");
 			try {
-				processDocument(new File(tempPackageSubdir, tempEntry.getKey() + ".html"),
-						new PackageView(tempEntry, tempModelSourceExplorer, tempTreeViewEmbedded));
+				processDocument(new File(tempPackageSubdir, tempPackage.getName() + ".html"),
+						new PackageView(tempPackage, tempModelSourceExplorer, tempTreeViewEmbedded));
 			} catch (ParseException exc) {
 				System.out.println("...failed :-( " + exc.getMessage());
 			}
@@ -100,26 +98,27 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 	}
 
 	/**
-	 * Finds all distinct packages that the provided suites are located in and groups the suites by these packages.
+	 * Parses all entities relevant for documentation, grouping them by the packages that they are located within, and
+	 * returns those packages.
 	 * 
-	 * @param someSuites
-	 *            the suites to search
-	 * @return a map, mapping distinct package names to lists of suites
+	 * @param aModel
+	 *            the model to search
+	 * @return a list of packages with entity info
 	 */
-	protected Map<String, Collection<SuiteDefinition>> groupSuitesByPackage(Collection<SuiteDefinition> someSuites) {
-		Map<String, Collection<SuiteDefinition>> tempResult = new HashMap<>();
+	protected Collection<IntegrityPackage> groupEntitiesByPackage(TestModel aModel) {
+		Map<String, IntegrityPackage> tempResult = new HashMap<>();
 
-		for (SuiteDefinition tempSuite : model.getAllSuites()) {
+		for (SuiteDefinition tempSuite : aModel.getAllSuites()) {
 			String tempPackageName = ((PackageDefinition) tempSuite.eContainer()).getName();
-			Collection<SuiteDefinition> tempSuiteList = tempResult.get(tempPackageName);
-			if (tempSuiteList == null) {
-				tempSuiteList = new ArrayList<>();
-				tempResult.put(tempPackageName, tempSuiteList);
+			IntegrityPackage tempPackageInfo = tempResult.get(tempPackageName);
+			if (tempPackageInfo == null) {
+				tempPackageInfo = new IntegrityPackage(tempPackageName);
+				tempResult.put(tempPackageName, tempPackageInfo);
 			}
-			tempSuiteList.add(tempSuite);
+			tempPackageInfo.add(tempSuite);
 		}
 
-		return tempResult;
+		return tempResult.values();
 	}
 
 	/**

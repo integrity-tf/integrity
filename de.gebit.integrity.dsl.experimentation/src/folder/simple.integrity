@@ -9,6 +9,8 @@ packagedef mypackage with
 		
 	variable testString initially "test"
 	
+	constant testConstant "abc"
+	
 	variable returnVar
 
 	/**
