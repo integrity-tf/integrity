@@ -82,8 +82,8 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 		tempMainContainerDiv.div().classAttr("title").text("Package " + aPackage.getName());
 		tempMainContainerDiv.hr();
 
-		processSuites(aPackage, tempMainContainerDiv);
 		processConstants(aPackage, tempMainContainerDiv);
+		processSuites(aPackage, tempMainContainerDiv);
 	}
 
 	/**
