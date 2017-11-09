@@ -171,6 +171,10 @@ hr {
 	margin: 10px;
 }
 
+.constants table p {
+	margin: 0px;	
+}
+
 .constants th, .constants td {
 	margin: 0px;
 	text-align: left;

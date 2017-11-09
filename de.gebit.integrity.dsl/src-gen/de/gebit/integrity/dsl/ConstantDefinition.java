@@ -13,6 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ConstantDefinition#getValue <em>Value</em>}</li>
@@ -26,6 +27,32 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ConstantDefinition extends PackageStatement, SuiteStatement
 {
+  /**
+   * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Documentation</em>' containment reference.
+   * @see #setDocumentation(DocumentationComment)
+   * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_Documentation()
+   * @model containment="true"
+   * @generated
+   */
+  DocumentationComment getDocumentation();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.ConstantDefinition#getDocumentation <em>Documentation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Documentation</em>' containment reference.
+   * @see #getDocumentation()
+   * @generated
+   */
+  void setDocumentation(DocumentationComment value);
+
   /**
    * Returns the value of the '<em><b>Private</b></em>' attribute.
    * <!-- begin-user-doc -->

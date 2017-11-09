@@ -171,6 +171,12 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 			HtmlTr<?> tempRow = tempTable.tr();
 
 			String tempConstantDescription = "";
+			if (tempConstant.getDocumentation() != null) {
+				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+						tempConstant.getDocumentation(),
+						modelSourceExplorer.determineSourceInformation(tempConstant.getDocumentation()));
+				tempConstantDescription = tempParsedComment.getDocumentationText();
+			}
 
 			StringJoiner tempTypes = new StringJoiner(" ");
 			if (tempConstant.getPrivate() != null) {

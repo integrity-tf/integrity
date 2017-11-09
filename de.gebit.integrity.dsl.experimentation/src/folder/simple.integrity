@@ -16,6 +16,9 @@ packagedef mypackage with
 		someMoreKeys: 123
 	}
 	
+	/**
+	* A constant with a funny name.
+	*/
 	private constant woohoo parameterized
 	
 	variable returnVar

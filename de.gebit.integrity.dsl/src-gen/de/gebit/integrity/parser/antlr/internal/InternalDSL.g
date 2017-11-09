@@ -2080,26 +2080,44 @@ ruleConstantDefinition returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-		lv_private_0_0=	'private' 
+		{ 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getDocumentationDocumentationCommentParserRuleCall_0_0()); 
+	    }
+		lv_documentation_0_0=ruleDocumentationComment		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"documentation",
+        		lv_documentation_0_0, 
+        		"de.gebit.integrity.DSL.DocumentationComment");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?(
+(
+		lv_private_1_0=	'private' 
     {
-        newLeafNode(lv_private_0_0, grammarAccess.getConstantDefinitionAccess().getPrivatePrivateKeyword_0_0());
+        newLeafNode(lv_private_1_0, grammarAccess.getConstantDefinitionAccess().getPrivatePrivateKeyword_1_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getConstantDefinitionRule());
 	        }
-       		setWithLastConsumed($current, "private", lv_private_0_0, "private");
+       		setWithLastConsumed($current, "private", lv_private_1_0, "private");
 	    }
 
 )
-)?	otherlv_1='constant' 
+)?	otherlv_2='constant' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getConstantDefinitionAccess().getConstantKeyword_1());
+    	newLeafNode(otherlv_2, grammarAccess.getConstantDefinitionAccess().getConstantKeyword_2());
     }
 
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_3()); 
     }
 ruleNL
     { 
@@ -2108,16 +2126,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNameConstantEntityParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNameConstantEntityParserRuleCall_4_0()); 
 	    }
-		lv_name_3_0=ruleConstantEntity		{
+		lv_name_4_0=ruleConstantEntity		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_3_0, 
+        		lv_name_4_0, 
         		"de.gebit.integrity.DSL.ConstantEntity");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2125,7 +2143,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5()); 
     }
 ruleNL
     { 
@@ -2134,16 +2152,16 @@ ruleNL
 (((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_5_0_0_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_6_0_0_0()); 
 	    }
-		lv_value_5_0=ruleValueOrEnumValueOrOperationCollection		{
+		lv_value_6_0=ruleValueOrEnumValueOrOperationCollection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
 	        }
        		set(
        			$current, 
        			"value",
-        		lv_value_5_0, 
+        		lv_value_6_0, 
         		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperationCollection");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2151,7 +2169,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_0_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_6_0_1()); 
     }
 ruleNL
     { 
@@ -2160,16 +2178,16 @@ ruleNL
 )?((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getVariantValuesVariantValueParserRuleCall_5_1_0_0()); 
+	        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getVariantValuesVariantValueParserRuleCall_6_1_0_0()); 
 	    }
-		lv_variantValues_7_0=ruleVariantValue		{
+		lv_variantValues_8_0=ruleVariantValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getConstantDefinitionRule());
 	        }
        		add(
        			$current, 
        			"variantValues",
-        		lv_variantValues_7_0, 
+        		lv_variantValues_8_0, 
         		"de.gebit.integrity.DSL.VariantValue");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -2177,7 +2195,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_5_1_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_6_1_1()); 
     }
 ruleNL
     { 
@@ -2185,22 +2203,22 @@ ruleNL
     }
 )*)((
 (
-		lv_parameterized_9_0=	'parameterized' 
+		lv_parameterized_10_0=	'parameterized' 
     {
-        newLeafNode(lv_parameterized_9_0, grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_6_0_0());
+        newLeafNode(lv_parameterized_10_0, grammarAccess.getConstantDefinitionAccess().getParameterizedParameterizedKeyword_7_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getConstantDefinitionRule());
 	        }
-       		setWithLastConsumed($current, "parameterized", lv_parameterized_9_0, "parameterized");
+       		setWithLastConsumed($current, "parameterized", lv_parameterized_10_0, "parameterized");
 	    }
 
 )
 )
     { 
-        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_6_1()); 
+        newCompositeNode(grammarAccess.getConstantDefinitionAccess().getNLParserRuleCall_7_1()); 
     }
 ruleNL
     { 

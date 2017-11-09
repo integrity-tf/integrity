@@ -394,7 +394,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     ConstantDefinition returns ConstantDefinition
 	 *
 	 * Constraint:
-	 *     (private='private'? name=ConstantEntity value=ValueOrEnumValueOrOperationCollection? variantValues+=VariantValue* parameterized='parameterized'?)
+	 *     (
+	 *         documentation=DocumentationComment? 
+	 *         private='private'? 
+	 *         name=ConstantEntity 
+	 *         value=ValueOrEnumValueOrOperationCollection? 
+	 *         variantValues+=VariantValue* 
+	 *         parameterized='parameterized'?
+	 *     )
 	 */
 	protected void sequence_ConstantDefinition(ISerializationContext context, ConstantDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

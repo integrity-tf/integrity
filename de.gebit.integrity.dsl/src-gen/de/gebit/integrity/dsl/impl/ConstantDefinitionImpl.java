@@ -4,6 +4,7 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariantValue;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ConstantDefinitionImpl#getValue <em>Value</em>}</li>
@@ -42,6 +44,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ConstantDefinitionImpl extends PackageStatementImpl implements ConstantDefinition
 {
+  /**
+   * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDocumentation()
+   * @generated
+   * @ordered
+   */
+  protected DocumentationComment documentation;
+
   /**
    * The default value of the '{@link #getPrivate() <em>Private</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -131,6 +143,54 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.CONSTANT_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DocumentationComment getDocumentation()
+  {
+    return documentation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDocumentation(DocumentationComment newDocumentation, NotificationChain msgs)
+  {
+    DocumentationComment oldDocumentation = documentation;
+    documentation = newDocumentation;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.CONSTANT_DEFINITION__DOCUMENTATION, oldDocumentation, newDocumentation);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDocumentation(DocumentationComment newDocumentation)
+  {
+    if (newDocumentation != documentation)
+    {
+      NotificationChain msgs = null;
+      if (documentation != null)
+        msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.CONSTANT_DEFINITION__DOCUMENTATION, null, msgs);
+      if (newDocumentation != null)
+        msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.CONSTANT_DEFINITION__DOCUMENTATION, null, msgs);
+      msgs = basicSetDocumentation(newDocumentation, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.CONSTANT_DEFINITION__DOCUMENTATION, newDocumentation, newDocumentation));
   }
 
   /**
@@ -299,6 +359,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__DOCUMENTATION:
+        return basicSetDocumentation(null, msgs);
       case DslPackage.CONSTANT_DEFINITION__NAME:
         return basicSetName(null, msgs);
       case DslPackage.CONSTANT_DEFINITION__VALUE:
@@ -319,6 +381,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__DOCUMENTATION:
+        return getDocumentation();
       case DslPackage.CONSTANT_DEFINITION__PRIVATE:
         return getPrivate();
       case DslPackage.CONSTANT_DEFINITION__NAME:
@@ -344,6 +408,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)newValue);
+        return;
       case DslPackage.CONSTANT_DEFINITION__PRIVATE:
         setPrivate((String)newValue);
         return;
@@ -374,6 +441,9 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)null);
+        return;
       case DslPackage.CONSTANT_DEFINITION__PRIVATE:
         setPrivate(PRIVATE_EDEFAULT);
         return;
@@ -403,6 +473,8 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
   {
     switch (featureID)
     {
+      case DslPackage.CONSTANT_DEFINITION__DOCUMENTATION:
+        return documentation != null;
       case DslPackage.CONSTANT_DEFINITION__PRIVATE:
         return PRIVATE_EDEFAULT == null ? private_ != null : !PRIVATE_EDEFAULT.equals(private_);
       case DslPackage.CONSTANT_DEFINITION__NAME:

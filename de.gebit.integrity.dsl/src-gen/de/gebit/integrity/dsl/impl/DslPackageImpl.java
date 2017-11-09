@@ -1435,9 +1435,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getConstantDefinition_Documentation()
+  {
+    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getConstantDefinition_Private()
   {
-    return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1447,7 +1457,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getConstantDefinition_Name()
   {
-    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1457,7 +1467,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getConstantDefinition_Value()
   {
-    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1467,7 +1477,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getConstantDefinition_VariantValues()
   {
-    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(3);
+    return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1477,7 +1487,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EAttribute getConstantDefinition_Parameterized()
   {
-    return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -3038,6 +3048,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(variableDefinitionEClass, VARIABLE_DEFINITION__INITIAL_VALUE);
 
     constantDefinitionEClass = createEClass(CONSTANT_DEFINITION);
+    createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__DOCUMENTATION);
     createEAttribute(constantDefinitionEClass, CONSTANT_DEFINITION__PRIVATE);
     createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__NAME);
     createEReference(constantDefinitionEClass, CONSTANT_DEFINITION__VALUE);
@@ -3440,6 +3451,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getVariableDefinition_InitialValue(), this.getValueOrEnumValueOrOperationCollection(), null, "initialValue", null, 0, 1, VariableDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constantDefinitionEClass, ConstantDefinition.class, "ConstantDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getConstantDefinition_Documentation(), this.getDocumentationComment(), null, "documentation", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getConstantDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConstantDefinition_Name(), this.getConstantEntity(), null, "name", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getConstantDefinition_Value(), this.getValueOrEnumValueOrOperationCollection(), null, "value", null, 0, 1, ConstantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
