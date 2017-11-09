@@ -18,13 +18,14 @@ import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
+
+import org.eclipse.emf.ecore.EObject;
 
 import de.gebit.integrity.docgen.html.PackageTreeView;
 import de.gebit.integrity.docgen.html.PackageView;
-import de.gebit.integrity.dsl.PackageDefinition;
-import de.gebit.integrity.dsl.SuiteDefinition;
-import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.runner.TestModel;
+import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
 import htmlflow.HtmlView;
 
@@ -64,8 +65,6 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		}
 		targetDirectory = aTargetDirectory;
 
-		ModelSourceExplorer tempModelSourceExplorer = model.getInjector().getInstance(ModelSourceExplorer.class);
-
 		Collection<IntegrityPackage> tempPackages = groupEntitiesByPackage(model);
 
 		// Write out the package tree view document
@@ -83,7 +82,7 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 			System.out.print("Writing doc for package '" + tempPackage.getName() + "'...");
 			try {
 				processDocument(new File(tempPackageSubdir, tempPackage.getName() + ".html"),
-						new PackageView(tempPackage, tempModelSourceExplorer, tempTreeViewEmbedded));
+						new PackageView(tempPackage, model, tempTreeViewEmbedded));
 			} catch (ParseException exc) {
 				System.out.println("...failed :-( " + exc.getMessage());
 			}
@@ -108,15 +107,22 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 	protected Collection<IntegrityPackage> groupEntitiesByPackage(TestModel aModel) {
 		Map<String, IntegrityPackage> tempResult = new HashMap<>();
 
-		for (SuiteDefinition tempSuite : aModel.getAllSuites()) {
-			String tempPackageName = ((PackageDefinition) tempSuite.eContainer()).getName();
-			IntegrityPackage tempPackageInfo = tempResult.get(tempPackageName);
-			if (tempPackageInfo == null) {
-				tempPackageInfo = new IntegrityPackage(tempPackageName);
-				tempResult.put(tempPackageName, tempPackageInfo);
-			}
-			tempPackageInfo.add(tempSuite);
-		}
+		Consumer<EObject> tempConsumer = new Consumer<EObject>() {
+			@Override
+			public void accept(EObject anEntity) {
+				String tempPackageName = IntegrityDSLUtil.getPackageContaining(anEntity).getName();
+				IntegrityPackage tempPackageInfo = tempResult.get(tempPackageName);
+				if (tempPackageInfo == null) {
+					tempPackageInfo = new IntegrityPackage(tempPackageName);
+					tempResult.put(tempPackageName, tempPackageInfo);
+				}
+				tempPackageInfo.add(anEntity);
+			};
+
+		};
+
+		aModel.getAllSuites().forEach(tempConsumer);
+		aModel.getConstantDefinitionsInPackages().forEach(tempConsumer);
 
 		return tempResult.values();
 	}

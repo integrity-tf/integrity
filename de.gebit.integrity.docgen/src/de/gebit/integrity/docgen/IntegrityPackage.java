@@ -9,6 +9,8 @@ package de.gebit.integrity.docgen;
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.EObject;
+
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 
@@ -79,6 +81,21 @@ public class IntegrityPackage {
 	public void add(ConstantDefinition aConstant) {
 		if (!constants.contains(aConstant)) {
 			constants.add(aConstant);
+		}
+	}
+
+	/**
+	 * Adds the provided entity. This dispatches the add to the appropriate method.
+	 * 
+	 * @param anEntity
+	 */
+	public void add(EObject anEntity) {
+		if (anEntity instanceof SuiteDefinition) {
+			add((SuiteDefinition) anEntity);
+		} else if (anEntity instanceof ConstantDefinition) {
+			add((ConstantDefinition) anEntity);
+		} else {
+			throw new IllegalArgumentException("Unknown entity type: " + anEntity.getClass().getName());
 		}
 	}
 

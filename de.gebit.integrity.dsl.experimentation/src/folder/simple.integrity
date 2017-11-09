@@ -10,6 +10,13 @@ packagedef mypackage with
 	variable testString initially "test"
 	
 	constant testConstant "abc"
+	private constant anotherConstant 12.245
+	constant complexConstant {
+		someKey: "someValue"
+		someMoreKeys: 123
+	}
+	
+	private constant woohoo parameterized
 	
 	variable returnVar
 

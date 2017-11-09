@@ -14,10 +14,10 @@ hr {
 	border: 0px;
 	height: 1px;
 	background: #000;
-	margin-bottom: 10px;
 }
 
 .suites {
+	margin-top: 10px;
 	border: 1px solid #3060ff;
 	background-color: #d8e7ff;
 	padding-bottom: 10px;
@@ -43,7 +43,7 @@ hr {
 }
 
 .suites > .suite ~ .suite {
-	border-top: 1px dashed #3060ff;
+	border-top: 1px solid #9bb1ff;
 }
 
 .suiteheader {
@@ -147,3 +147,40 @@ hr {
 	overflow: hidden;
 }
 
+.constants {
+	margin-top: 10px;
+	border: 1px solid #3060ff;
+	background-color: #d8e7ff;
+	margin-left: 0px;
+	margin-right: 0px;	
+}
+
+.constantsummary {
+	font-size: 12pt;
+	color: #ffffff;
+	background-color: #3060ff;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
+.constants table {
+	border-collapse: collapse;
+	width: calc(100% - 20px);
+	margin: 10px;
+}
+
+.constants th, .constants td {
+	margin: 0px;
+	text-align: left;
+}
+
+.constants td {
+	padding: 4px;
+	border-bottom: 1px solid #9bb1ff;
+}
+
+.constants th {
+	border-bottom: 1px solid #9bb1ff;
+}

@@ -8,6 +8,7 @@
 package de.gebit.integrity.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -652,6 +653,28 @@ public final class IntegrityDSLUtil {
 	}
 
 	/**
+	 * Aggregates all {@link ValueOrEnumValueOrOperation}s from the given
+	 * {@link ValueOrEnumValueOrOperationCollection}.<br/>
+	 * Integrity has (historically; could be done more elegant with todays' Xtext) splitted
+	 * {@link ValueOrEnumValueOrOperationCollection}s' internal values into two properties: a single value comes from
+	 * {@link ValueOrEnumValueOrOperationCollection#getValue()} and everything else goes into
+	 * {@link ValueOrEnumValueOrOperationCollection#getMoreValues()}. This method helps handling these by merging all
+	 * the values into a single {@link Collection}.
+	 * 
+	 * @param aValueCollection
+	 *            the value collection to aggregate single values from
+	 * @return all the aggregated values in a single {@link Collection}.
+	 */
+	public static Collection<ValueOrEnumValueOrOperation> getAllValuesFromCollection(
+			ValueOrEnumValueOrOperationCollection aValueCollection) {
+		Collection<ValueOrEnumValueOrOperation> tempResult = new ArrayList<>(
+				aValueCollection.getMoreValues().size() + 1);
+		tempResult.add(aValueCollection.getValue());
+		tempResult.addAll(aValueCollection.getMoreValues());
+		return tempResult;
+	}
+
+	/**
 	 * Checks whether the given variable/constant entity is defined in a global (package) context.
 	 * 
 	 * @param anEntity
@@ -680,6 +703,28 @@ public final class IntegrityDSLUtil {
 		}
 
 		return (T) tempParent;
+	}
+
+	/**
+	 * Finds the {@link PackageDefinition} that contains the given {@link EObject}.
+	 * 
+	 * @param anObject
+	 *            the entity
+	 * @return the package containing the entity, or null if the entity is not in a package
+	 */
+	public static PackageDefinition getPackageContaining(EObject anObject) {
+		return findUpstreamContainer(PackageDefinition.class, anObject);
+	}
+
+	/**
+	 * Finds the {@link SuiteDefinition} that contains the given {@link EObject}.
+	 * 
+	 * @param anObject
+	 *            the entity
+	 * @return the suite containing the entity, or null if the entity is not in a package
+	 */
+	public static SuiteDefinition getSuiteContaining(EObject anObject) {
+		return findUpstreamContainer(SuiteDefinition.class, anObject);
 	}
 
 	/**
