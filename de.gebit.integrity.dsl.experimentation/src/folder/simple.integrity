@@ -6,6 +6,9 @@ packagedef mypackage with
 	forkdef fork1
 	forkdef fork2
 	forkdef fork3
+	
+	variantdef deDE
+	variantdef enUS
 		
 	variable testString initially "test"
 	
@@ -14,7 +17,11 @@ packagedef mypackage with
 	constant complexConstant {
 		someKey: "someValue"
 		someMoreKeys: 123
-	}
+	}, "Blahblub Yeah Yeah Yeah"
+	
+	private constant languageString "???"
+		in deDE: "Die deutsche Version"
+		in enUS: "The english version", "Another english version"
 	
 	/**
 	* A constant with a funny name.

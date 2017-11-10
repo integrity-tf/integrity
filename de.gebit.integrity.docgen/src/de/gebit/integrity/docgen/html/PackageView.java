@@ -7,7 +7,10 @@
  *******************************************************************************/
 package de.gebit.integrity.docgen.html;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.StringJoiner;
 
@@ -19,6 +22,8 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VariantValue;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
@@ -35,6 +40,7 @@ import htmlflow.elements.HtmlBody;
 import htmlflow.elements.HtmlDiv;
 import htmlflow.elements.HtmlP;
 import htmlflow.elements.HtmlTable;
+import htmlflow.elements.HtmlTd;
 import htmlflow.elements.HtmlTr;
 
 /**
@@ -188,7 +194,40 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 
 			tempRow.td().text(tempTypes.toString());
 			tempRow.td().classAttr(CSSClasses.CODE).text(tempConstant.getName().getName());
-			tempRow.td().addChild(resolveValue(tempConstant.getValue()));
+			HtmlTd<?> tempValueContainer = tempRow.td();
+
+			if (tempConstant.getVariantValues().size() == 0) {
+				// No variants case - this is easy!
+				resolveValue(tempConstant.getValue()).forEach((anElement) -> {
+					tempValueContainer.addChild(anElement);
+				});
+			} else {
+				HtmlTable<?> tempVariantTable = new HtmlTable<>();
+				if (tempConstant.getValue() != null) {
+					HtmlTr<?> tempVariantRow = tempVariantTable.tr();
+					tempVariantRow.td().text("no variant:");
+					HtmlTd<?> tempVariantValueContainer = tempVariantRow.td();
+					resolveValue(tempConstant.getValue()).forEach((anElement) -> {
+						tempVariantValueContainer.addChild(anElement);
+					});
+				}
+
+				for (VariantValue tempVariantValue : tempConstant.getVariantValues()) {
+					HtmlTr<?> tempVariantRow = tempVariantTable.tr();
+					StringJoiner tempJoiner = new StringJoiner(", ");
+					for (VariantDefinition tempVariant : tempVariantValue.getNames()) {
+						tempJoiner.add(IntegrityDSLUtil.getQualifiedVariantName(tempVariant));
+					}
+					tempVariantRow.td().text("in " + tempJoiner.toString() + ":");
+					HtmlTd<?> tempVariantValueContainer = tempVariantRow.td();
+					resolveValue(tempVariantValue.getValue()).forEach((anElement) -> {
+						tempVariantValueContainer.addChild(anElement);
+					});
+				}
+
+				tempValueContainer.addChild(tempVariantTable);
+			}
+
 			tempRow.td().text(tempConstantDescription);
 		}
 	}
@@ -199,20 +238,20 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 	 * @param aValueCollection
 	 * @return
 	 */
-	protected HtmlP<?> resolveValue(ValueOrEnumValueOrOperationCollection aValueCollection) {
+	protected List<HtmlP<?>> resolveValue(ValueOrEnumValueOrOperationCollection aValueCollection) {
 		if (aValueCollection instanceof ValueOrEnumValueOrOperationCollection) {
 			if (aValueCollection.getMoreValues().size() > 0) {
-				HtmlP<?> tempElement = new HtmlP<>();
+				List<HtmlP<?>> tempElements = new ArrayList<HtmlP<?>>(aValueCollection.getMoreValues().size() + 1);
 				for (ValueOrEnumValueOrOperation tempSingleValue : IntegrityDSLUtil
 						.getAllValuesFromCollection(aValueCollection)) {
-					tempElement.addChild(resolveSingleValue(tempSingleValue));
+					tempElements.add(resolveSingleValue(tempSingleValue));
 				}
-				return tempElement;
+				return tempElements;
 			} else {
-				return resolveSingleValue(aValueCollection.getValue());
+				return Collections.singletonList(resolveSingleValue(aValueCollection.getValue()));
 			}
 		} else {
-			return resolveSingleValue((ValueOrEnumValueOrOperation) aValueCollection);
+			return Collections.singletonList(resolveSingleValue((ValueOrEnumValueOrOperation) aValueCollection));
 		}
 	}
 

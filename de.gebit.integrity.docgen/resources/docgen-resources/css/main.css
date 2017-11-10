@@ -175,6 +175,14 @@ hr {
 	margin: 0px;	
 }
 
+.constants table p:after {
+	content: ", ";
+}
+
+.constants table p:last-child:after {
+	content: "";
+}
+
 .constants th, .constants td {
 	margin: 0px;
 	text-align: left;
@@ -187,4 +195,18 @@ hr {
 
 .constants th {
 	border-bottom: 1px solid #9bb1ff;
+}
+
+.constants td table {
+	margin: 0px;
+	width: 100%;
+}
+
+.constants td table tr:last-child td {
+	border-bottom: none;
+}
+
+.constants td table td:first-child {
+	font-weight: bold;
+	border-right: 1px solid #9bb1ff;
 }
