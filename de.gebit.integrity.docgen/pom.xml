@@ -41,7 +41,7 @@
 		            <configuration>
 		                <verbose>true</verbose>
 		                <fileset>
-		                    <directory>${basedir}/lib/htmlflow-1.1.jar/</directory>
+		                    <directory>${basedir}/lib/htmlflow-1.3-SNAPSHOT.jar/</directory>
 		                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
 		                    <include>**/*.class</include>
 		                </fileset>

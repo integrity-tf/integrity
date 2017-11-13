@@ -35,7 +35,7 @@ import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment;
 import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
-import htmlflow.HtmlView;
+import htmlflow.HtmlWriterComposite;
 import htmlflow.elements.HtmlBody;
 import htmlflow.elements.HtmlDiv;
 import htmlflow.elements.HtmlP;
@@ -49,7 +49,7 @@ import htmlflow.elements.HtmlTr;
  * @author Rene Schneider - initial API and implementation
  *
  */
-public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefinition>>> {
+public class PackageView extends IntegrityHtmlView<Entry<String, Collection<SuiteDefinition>>> {
 
 	/**
 	 * The {@link ValueConverter}.
@@ -70,6 +70,11 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 	protected ModelSourceExplorer modelSourceExplorer;
 
 	/**
+	 * This holds the div that contains the main content of the package view.
+	 */
+	protected HtmlDiv<?> mainContent;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param anEntry
@@ -81,15 +86,23 @@ public class PackageView extends HtmlView<Entry<String, Collection<SuiteDefiniti
 		head().linkCss("../resources/css/main.css").title("Package " + aPackage.getName());
 
 		HtmlBody<?> tempBody = body();
+
+		// The content for the tree view is basically just copied over
 		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().classAttr("treecontainer");
 		tempTreeContainerDiv.addChild(aTreeView.getTreeRootElement());
 
-		HtmlDiv<?> tempMainContainerDiv = tempBody.div().classAttr("maincontainer");
-		tempMainContainerDiv.div().classAttr("title").text("Package " + aPackage.getName());
-		tempMainContainerDiv.hr();
+		// This generates the actual content (documentation of the package)
+		mainContent = tempBody.div().classAttr("maincontainer");
+		mainContent.div().classAttr("title").text("Package " + aPackage.getName());
+		mainContent.hr();
 
-		processConstants(aPackage, tempMainContainerDiv);
-		processSuites(aPackage, tempMainContainerDiv);
+		processConstants(aPackage, mainContent);
+		processSuites(aPackage, mainContent);
+	}
+
+	@Override
+	protected HtmlWriterComposite<?, ?> getTextOnlyEntryNode() {
+		return mainContent;
 	}
 
 	/**

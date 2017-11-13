@@ -15,10 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 import de.gebit.integrity.docgen.IntegrityPackage;
-import htmlflow.HtmlView;
 import htmlflow.elements.HtmlA;
 import htmlflow.elements.HtmlBody;
 import htmlflow.elements.HtmlDiv;
+import htmlflow.elements.HtmlFormInputSubmit;
+import htmlflow.elements.HtmlFormInputText;
 
 /**
  * This view represents a tree view of packages.
@@ -26,7 +27,7 @@ import htmlflow.elements.HtmlDiv;
  * @author Rene Schneider - initial API and implementation
  *
  */
-public class PackageTreeView extends HtmlView<Collection<String>> {
+public class PackageTreeView extends IntegrityHtmlView<Collection<String>> {
 
 	/**
 	 * The main div containing the package tree.
@@ -40,6 +41,10 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 	 */
 	public PackageTreeView(Collection<IntegrityPackage> somePackages, boolean aRelativeToPackageSubdirFlag) {
 		head().linkCss((aRelativeToPackageSubdirFlag ? "../" : "") + "resources/css/main.css").title("Package Tree");
+		head().scriptLink((aRelativeToPackageSubdirFlag ? "../" : "") + "resources/js/index.js");
+		head().scriptLink((aRelativeToPackageSubdirFlag ? "../" : "") + "resources/js/lunr.js");
+		head().scriptLink((aRelativeToPackageSubdirFlag ? "../" : "") + "resources/js/lunr_config.js");
+		head().scriptLink((aRelativeToPackageSubdirFlag ? "../" : "") + "resources/js/search.js");
 
 		HtmlBody<?> tempBody = body();
 		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().classAttr("treecontainer");
@@ -51,6 +56,15 @@ public class PackageTreeView extends HtmlView<Collection<String>> {
 		for (PackageTreeNode tempRoot : buildPackageTrees(somePackages)) {
 			addPackageTree(tempRoot, treeDiv, aRelativeToPackageSubdirFlag);
 		}
+
+		HtmlDiv<?> tempSearchForm = tempMainContainerDiv.div().classAttr("searchbox");
+		HtmlFormInputText tempSearchFormInput = new HtmlFormInputText("searchtext", "query");
+		HtmlFormInputSubmit<?> tempSearchFormButton = new HtmlFormInputSubmit<>("searchbutton");
+		tempSearchFormButton.addAttr("type", "button");
+		tempSearchFormButton.addAttr("onclick", "search(getElementById('query').value)");
+		tempSearchFormButton.addAttr("value", "Search");
+		tempSearchForm.addChild(tempSearchFormInput);
+		tempSearchForm.addChild(tempSearchFormButton);
 	}
 
 	public HtmlDiv<?> getTreeRootElement() {

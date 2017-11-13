@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import de.gebit.integrity.docgen.html.PackageTreeView;
 import de.gebit.integrity.docgen.html.PackageView;
+import de.gebit.integrity.docgen.search.LunrIndexBuilder;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
@@ -65,7 +66,13 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		}
 		targetDirectory = aTargetDirectory;
 
+		System.out.print("Initializing Lunr index builder...");
+		LunrIndexBuilder tempIndexBuilder = new LunrIndexBuilder();
+		System.out.println("done!");
+
+		System.out.print("Preprocessing entities...");
 		Collection<IntegrityPackage> tempPackages = groupEntitiesByPackage(model);
+		System.out.println("done!");
 
 		// Write out the package tree view document
 		System.out.print("Writing package tree...");
@@ -81,8 +88,9 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		for (IntegrityPackage tempPackage : tempPackages) {
 			System.out.print("Writing doc for package '" + tempPackage.getName() + "'...");
 			try {
-				processDocument(new File(tempPackageSubdir, tempPackage.getName() + ".html"),
-						new PackageView(tempPackage, model, tempTreeViewEmbedded));
+				PackageView tempPackageView = new PackageView(tempPackage, model, tempTreeViewEmbedded);
+				processDocument(new File(tempPackageSubdir, tempPackage.getName() + ".html"), tempPackageView);
+				tempIndexBuilder.addToIndex(tempPackage.getName(), tempPackageView.textOnly());
 			} catch (ParseException exc) {
 				System.out.println("...failed :-( " + exc.getMessage());
 			}
@@ -91,6 +99,10 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 
 		System.out.print("Copying static resources...");
 		copyResources(targetDirectory);
+		System.out.println("done!");
+
+		System.out.print("Finalizing Lunr index...");
+		tempIndexBuilder.build(new File(targetDirectory, "resources/js/index.js"));
 		System.out.println("done!");
 
 		System.out.println("Finished generating documentation!");
@@ -157,9 +169,30 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 			}
 		}
 
-		File tempCss = new File(tempCssTargetDir, "main.css");
-		InputStream tempStream = getResourceAsStream("css/main.css");
-		Files.copy(tempStream, tempCss.getAbsoluteFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
+		File tempJsTargetDir = new File(aTargetDir, "resources/js");
+		if (!tempJsTargetDir.exists() || !tempJsTargetDir.isDirectory()) {
+			if (!tempJsTargetDir.mkdirs()) {
+				throw new IOException("Failed to create JS target directory");
+			}
+		}
+
+		try (InputStream tempStream = getResourceAsStream("css/main.css")) {
+			Files.copy(tempStream, new File(tempCssTargetDir, "main.css").getAbsoluteFile().toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+		}
+
+		try (InputStream tempStream = getResourceAsStream("js/lunr.js")) {
+			Files.copy(tempStream, new File(tempJsTargetDir, "lunr.js").getAbsoluteFile().toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+		}
+		try (InputStream tempStream = getResourceAsStream("js/lunr_config.js")) {
+			Files.copy(tempStream, new File(tempJsTargetDir, "lunr_config.js").getAbsoluteFile().toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+		}
+		try (InputStream tempStream = getResourceAsStream("js/search.js")) {
+			Files.copy(tempStream, new File(tempJsTargetDir, "search.js").getAbsoluteFile().toPath(),
+					StandardCopyOption.REPLACE_EXISTING);
+		}
 	}
 
 	/**
