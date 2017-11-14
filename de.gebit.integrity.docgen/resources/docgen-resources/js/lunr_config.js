@@ -1,1 +1,1 @@
-lunr.tokenizer.separator = /[\s\-\.]+/
+lunr.tokenizer.separator = /[\s\-\.:]+/

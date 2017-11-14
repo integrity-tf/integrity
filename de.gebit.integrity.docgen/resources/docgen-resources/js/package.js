@@ -1,13 +1,16 @@
 window.onload = function(event){ 
 	if(window.location.hash) {
-		var highlightTokens = window.location.hash.split(/[ ,#]+/).filter(Boolean);
-		var treeContainer = document.getElementById('treecontainer');
-		treeContainer.parentElement.removeChild(treeContainer);
+		var highlightTokens = decodeURIComponent(window.location.hash).split(/[ ,#]+/).filter(Boolean);
+		
+		if(window.name && window.name.startsWith("result_")) {
+			var treeContainer = document.getElementById('treecontainer');
+			treeContainer.parentElement.removeChild(treeContainer);
+		}
 		
 		var context = document.getElementById('maincontainer');
 		var marker = new Mark(context);
 		marker.mark(highlightTokens, {'diacritics': false, 
-			'accuracy': {'value': "exactly", 'limiters': [" ", ".", ",", "\""]},
+			'accuracy': {'value': "exactly", 'limiters': [" ", ".", ",", "\"", ":"]},
 			'each': function(element) {
 				highlightedElements.push(element);
 			},
@@ -16,8 +19,8 @@ window.onload = function(event){
 					parent.postMessage(window.name + "|" + count + " hit" + (count != 1 ? "s" : ""), "*");
 				}
 				jumpToNext();
-      },
-    });
+			},
+		});
 	}
 };
 

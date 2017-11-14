@@ -43,7 +43,6 @@ function clearResults(container) {
 }
 
 function addResult(container, result) {
-	var resultUrl = "packages/" + result.ref + ".html";	
 	var resultTokens = "";
 	for (token in result.matchData.metadata) {
 		if(resultTokens != "") {
@@ -51,6 +50,7 @@ function addResult(container, result) {
 		}
 		resultTokens = resultTokens + token;
 	}
+	var resultUrl = "packages/" + result.ref + ".html" + "#" + encodeURIComponent(resultTokens);
 	var resultIdentifier = "result_" + Math.floor(Math.random() * 10000000000);
 	
 	var resultDiv = document.createElement('div');
@@ -76,7 +76,7 @@ function addResult(container, result) {
 	resultDiv.appendChild(hitCountDiv);
 	var resultDocumentFrame = document.createElement('iframe');
 	resultDocumentFrame.name = resultIdentifier;
-	resultDocumentFrame.src = resultUrl + "#" + encodeURIComponent(resultTokens);	
+	resultDocumentFrame.src = resultUrl;	
 	resultDiv.appendChild(resultDocumentFrame);
 	container.appendChild(resultDiv);
 	
