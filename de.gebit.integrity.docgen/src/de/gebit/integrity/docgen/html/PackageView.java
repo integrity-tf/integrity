@@ -84,15 +84,17 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		aModel.getInjector().injectMembers(this);
 
 		head().linkCss("../resources/css/main.css").title("Package " + aPackage.getName());
+		head().scriptLink("../resources/js/mark.js");
+		head().scriptLink("../resources/js/package.js");
 
 		HtmlBody<?> tempBody = body();
 
 		// The content for the tree view is basically just copied over
-		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().classAttr("treecontainer");
+		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().idAttr("treecontainer");
 		tempTreeContainerDiv.addChild(aTreeView.getTreeRootElement());
 
 		// This generates the actual content (documentation of the package)
-		mainContent = tempBody.div().classAttr("maincontainer");
+		mainContent = tempBody.div().idAttr("maincontainer");
 		mainContent.div().classAttr("title").text("Package " + aPackage.getName());
 		mainContent.hr();
 

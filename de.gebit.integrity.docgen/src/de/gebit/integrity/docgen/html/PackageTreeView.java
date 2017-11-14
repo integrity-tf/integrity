@@ -47,24 +47,31 @@ public class PackageTreeView extends IntegrityHtmlView<Collection<String>> {
 		head().scriptLink((aRelativeToPackageSubdirFlag ? "../" : "") + "resources/js/search.js");
 
 		HtmlBody<?> tempBody = body();
-		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().classAttr("treecontainer");
-		treeDiv = tempTreeContainerDiv.div().classAttr("packagetree");
-		HtmlDiv<?> tempMainContainerDiv = tempBody.div().classAttr("maincontainer");
+		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().idAttr("treecontainer");
+		treeDiv = tempTreeContainerDiv.div().idAttr("packagetree");
+		HtmlDiv<?> tempMainContainerDiv = tempBody.div().idAttr("maincontainer");
 		tempMainContainerDiv.div().classAttr("title").text("Package Index");
 		tempMainContainerDiv.hr();
+
+		HtmlDiv<?> tempTreeIndexLinkDiv = treeDiv.div().idAttr("treeindexlink");
+		HtmlA<?> tempTreeIndexLink = new HtmlA<>((aRelativeToPackageSubdirFlag ? "../" : "") + "index.html");
+		tempTreeIndexLink.text("Package Index");
+		tempTreeIndexLinkDiv.addChild(tempTreeIndexLink);
 
 		for (PackageTreeNode tempRoot : buildPackageTrees(somePackages)) {
 			addPackageTree(tempRoot, treeDiv, aRelativeToPackageSubdirFlag);
 		}
 
-		HtmlDiv<?> tempSearchForm = tempMainContainerDiv.div().classAttr("searchbox");
-		HtmlFormInputText tempSearchFormInput = new HtmlFormInputText("searchtext", "query");
+		HtmlDiv<?> tempSearchForm = tempMainContainerDiv.div().idAttr("searchbox");
+		HtmlFormInputText tempSearchFormInput = new HtmlFormInputText("searchtext", "searchtext");
 		HtmlFormInputSubmit<?> tempSearchFormButton = new HtmlFormInputSubmit<>("searchbutton");
+		tempSearchFormButton.addAttr("id", "searchbutton");
 		tempSearchFormButton.addAttr("type", "button");
-		tempSearchFormButton.addAttr("onclick", "search(getElementById('query').value)");
 		tempSearchFormButton.addAttr("value", "Search");
 		tempSearchForm.addChild(tempSearchFormInput);
 		tempSearchForm.addChild(tempSearchFormButton);
+
+		tempMainContainerDiv.div().idAttr("searchresults");
 	}
 
 	public HtmlDiv<?> getTreeRootElement() {

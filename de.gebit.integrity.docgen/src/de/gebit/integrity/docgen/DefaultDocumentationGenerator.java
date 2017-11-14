@@ -176,22 +176,24 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 			}
 		}
 
-		try (InputStream tempStream = getResourceAsStream("css/main.css")) {
-			Files.copy(tempStream, new File(tempCssTargetDir, "main.css").getAbsoluteFile().toPath(),
-					StandardCopyOption.REPLACE_EXISTING);
-		}
+		copySingleResource("css/main.css", new File(tempCssTargetDir, "main.css"));
+		copySingleResource("js/lunr.js", new File(tempJsTargetDir, "lunr.js"));
+		copySingleResource("js/lunr_config.js", new File(tempJsTargetDir, "lunr_config.js"));
+		copySingleResource("js/mark.js", new File(tempJsTargetDir, "mark.js"));
+		copySingleResource("js/search.js", new File(tempJsTargetDir, "search.js"));
+		copySingleResource("js/package.js", new File(tempJsTargetDir, "package.js"));
+	}
 
-		try (InputStream tempStream = getResourceAsStream("js/lunr.js")) {
-			Files.copy(tempStream, new File(tempJsTargetDir, "lunr.js").getAbsoluteFile().toPath(),
-					StandardCopyOption.REPLACE_EXISTING);
-		}
-		try (InputStream tempStream = getResourceAsStream("js/lunr_config.js")) {
-			Files.copy(tempStream, new File(tempJsTargetDir, "lunr_config.js").getAbsoluteFile().toPath(),
-					StandardCopyOption.REPLACE_EXISTING);
-		}
-		try (InputStream tempStream = getResourceAsStream("js/search.js")) {
-			Files.copy(tempStream, new File(tempJsTargetDir, "search.js").getAbsoluteFile().toPath(),
-					StandardCopyOption.REPLACE_EXISTING);
+	/**
+	 * Copies a single resource to the target file.
+	 * 
+	 * @param aResourceName
+	 * @param aTarget
+	 * @throws IOException
+	 */
+	protected void copySingleResource(String aResourceName, File aTarget) throws IOException {
+		try (InputStream tempStream = getResourceAsStream(aResourceName)) {
+			Files.copy(tempStream, aTarget.getAbsoluteFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
 		}
 	}
 
