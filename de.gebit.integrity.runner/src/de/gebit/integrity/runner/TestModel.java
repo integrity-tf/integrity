@@ -554,6 +554,55 @@ public class TestModel {
 	}
 
 	/**
+	 * Returns all forks in the test model.
+	 * 
+	 * @return all forks
+	 */
+	public Collection<ForkDefinition> getAllForks() {
+		return forkMap.values();
+	}
+
+	/**
+	 * Resolves a fully qualified call name to the actual call definition.
+	 * 
+	 * @param aFullyQualifiedCallName
+	 *            the call name
+	 * @return the call definition, or null if none was found
+	 */
+	public CallDefinition getCallByName(String aFullyQualifiedCallName) {
+		return callMap.get(aFullyQualifiedCallName);
+	}
+
+	/**
+	 * Returns all calls in the test model.
+	 * 
+	 * @return all calls
+	 */
+	public Collection<CallDefinition> getAllCalls() {
+		return callMap.values();
+	}
+
+	/**
+	 * Resolves a fully qualified test name to the actual test definition.
+	 * 
+	 * @param aFullyQualifiedTestName
+	 *            the call name
+	 * @return the test definition, or null if none was found
+	 */
+	public TestDefinition getTestByName(String aFullyQualifiedTestName) {
+		return testMap.get(aFullyQualifiedTestName);
+	}
+
+	/**
+	 * Returns all tests in the test model.
+	 * 
+	 * @return all tests
+	 */
+	public Collection<TestDefinition> getAllTests() {
+		return testMap.values();
+	}
+
+	/**
 	 * Resolves a fully qualified variable/constant name to the actual entity.
 	 * 
 	 * @param aFullyQualifiedName

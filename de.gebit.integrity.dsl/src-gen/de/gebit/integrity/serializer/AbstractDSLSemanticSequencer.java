@@ -351,19 +351,10 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     CallDefinition returns CallDefinition
 	 *
 	 * Constraint:
-	 *     (name=QualifiedName fixtureMethod=MethodReference)
+	 *     (documentation=DocumentationComment? name=QualifiedName fixtureMethod=MethodReference)
 	 */
 	protected void sequence_CallDefinition(ISerializationContext context, CallDefinition semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.CALL_DEFINITION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CALL_DEFINITION__NAME));
-			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.CALL_DEFINITION__FIXTURE_METHOD) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CALL_DEFINITION__FIXTURE_METHOD));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getCallDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getCallDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0(), semanticObject.getFixtureMethod());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1343,19 +1334,10 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     TestDefinition returns TestDefinition
 	 *
 	 * Constraint:
-	 *     (name=QualifiedName fixtureMethod=MethodReference)
+	 *     (documentation=DocumentationComment? name=QualifiedName fixtureMethod=MethodReference)
 	 */
 	protected void sequence_TestDefinition(ISerializationContext context, TestDefinition semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TEST_DEFINITION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TEST_DEFINITION__NAME));
-			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.TEST_DEFINITION__FIXTURE_METHOD) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.TEST_DEFINITION__FIXTURE_METHOD));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTestDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getTestDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0(), semanticObject.getFixtureMethod());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

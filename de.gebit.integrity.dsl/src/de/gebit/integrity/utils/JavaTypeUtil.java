@@ -10,6 +10,8 @@ package de.gebit.integrity.utils;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import org.eclipse.xtext.common.types.JvmType;
+
 /**
  * Util containing some helper methods dealing with Java types.
  * 
@@ -65,6 +67,20 @@ public final class JavaTypeUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Determines the readable java type name for the provided {@link JvmType}. Returns short (non-fully-qualified)
+	 * names for all the common Java types and fully qualified names for everything else.
+	 * 
+	 * @param aType
+	 *            the type to investigate
+	 * @return the name
+	 */
+	public static String getReadableJavaTypeName(JvmType aType) {
+		String tempQualifiedName = aType.getQualifiedName();
+
+		return tempQualifiedName;
 	}
 
 }

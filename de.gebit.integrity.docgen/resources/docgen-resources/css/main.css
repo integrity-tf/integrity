@@ -16,7 +16,7 @@ hr {
 	background: #000;
 }
 
-.suites {
+.entitybox {
 	margin-top: 10px;
 	border: 1px solid #3060ff;
 	background-color: #d8e7ff;
@@ -25,7 +25,7 @@ hr {
 	margin-right: 0px;	
 }
 
-.suitesummary {
+.entitysummary {
 	font-size: 12pt;
 	color: #ffffff;
 	background-color: #3060ff;
@@ -35,46 +35,44 @@ hr {
 	padding-left: 2px;
 }
 
-.suite {
+.suites {
+	padding-bottom: 10px;
+}
+
+.entity {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	padding-right: 10px;	
 	padding-left: 10px;
 }
 
-.suites > .suite ~ .suite {
+.entitybox > .entity ~ .entity {
 	border-top: 1px solid #9bb1ff;
 }
 
-.suiteheader {
+.entityheader {
 	font-size: 12pt;
 	padding-bottom: 4px;
 }
 
-.suitename_prefix {
-	font-weight: bold;
-	display: inline;
-	color: #888;
-}
-
-.suitename {
+.entityname {
 	font-weight: bold;
 	display: inline;
 	margin: 0px;
 	padding: 0px;
 }
 
-.suitetitle {
+.entitytitle {
 	font-style: italic;
 	display: inline;
 	padding-left: 10px;
 }
 
-.fullsuitename {
+.fullentityname {
 	font-size: 8pt;
 }
 
-.suitedetails {
+.entitydetails {
 	padding-top: 10px;
 	margin-left: 4px;
 	padding-bottom: 0px;
@@ -82,20 +80,20 @@ hr {
 	border-left: 1px solid #000;
 }
 
-.suitedescription {
+.entitydescription {
 	padding-left: 10px;
 }
 
-.suiteparams {
+.entityparams {
 	margin-left: 10px;
 	margin-top: 14px;
 }
 
-.suiteparams table {
+.entityparams table {
 	padding-left: 6px;
 }
 
-.suiteparams tr td:first-child {
+.entityparams tr td:first-child {
 	padding-right: 10px;
 }
 
@@ -150,24 +148,6 @@ hr {
 #treeindexlink {
 	font-weight: bold;
 	margin-bottom: 10px;	
-}
-
-.constants {
-	margin-top: 10px;
-	border: 1px solid #3060ff;
-	background-color: #d8e7ff;
-	margin-left: 0px;
-	margin-right: 0px;	
-}
-
-.constantsummary {
-	font-size: 12pt;
-	color: #ffffff;
-	background-color: #3060ff;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-right: 2px;
-	padding-left: 2px;
 }
 
 .constants table {

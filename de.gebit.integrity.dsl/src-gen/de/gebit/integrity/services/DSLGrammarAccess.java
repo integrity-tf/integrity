@@ -586,105 +586,121 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class TestDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TestDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cTestdefKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Keyword cUsesKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
-		private final Assignment cFixtureMethodAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cFixtureMethodMethodReferenceParserRuleCall_6_0 = (RuleCall)cFixtureMethodAssignment_6.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		private final Assignment cDocumentationAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDocumentationDocumentationCommentParserRuleCall_0_0 = (RuleCall)cDocumentationAssignment_0.eContents().get(0);
+		private final Keyword cTestdefKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameQualifiedNameParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Keyword cUsesKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final RuleCall cNLParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Assignment cFixtureMethodAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cFixtureMethodMethodReferenceParserRuleCall_7_0 = (RuleCall)cFixtureMethodAssignment_7.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
 		
 		//TestDefinition:
-		//	'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
+		//	documentation=DocumentationComment? 'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL
+		//documentation=DocumentationComment? 'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL
 		public Group getGroup() { return cGroup; }
 
+		//documentation=DocumentationComment?
+		public Assignment getDocumentationAssignment_0() { return cDocumentationAssignment_0; }
+
+		//DocumentationComment
+		public RuleCall getDocumentationDocumentationCommentParserRuleCall_0_0() { return cDocumentationDocumentationCommentParserRuleCall_0_0; }
+
 		//'testdef'
-		public Keyword getTestdefKeyword_0() { return cTestdefKeyword_0; }
+		public Keyword getTestdefKeyword_1() { return cTestdefKeyword_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
 
 		//name=QualifiedName
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
 		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
+		public RuleCall getNameQualifiedNameParserRuleCall_3_0() { return cNameQualifiedNameParserRuleCall_3_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
 		//'uses'
-		public Keyword getUsesKeyword_4() { return cUsesKeyword_4; }
+		public Keyword getUsesKeyword_5() { return cUsesKeyword_5; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
+		public RuleCall getNLParserRuleCall_6() { return cNLParserRuleCall_6; }
 
 		//fixtureMethod=MethodReference
-		public Assignment getFixtureMethodAssignment_6() { return cFixtureMethodAssignment_6; }
+		public Assignment getFixtureMethodAssignment_7() { return cFixtureMethodAssignment_7; }
 
 		//MethodReference
-		public RuleCall getFixtureMethodMethodReferenceParserRuleCall_6_0() { return cFixtureMethodMethodReferenceParserRuleCall_6_0; }
+		public RuleCall getFixtureMethodMethodReferenceParserRuleCall_7_0() { return cFixtureMethodMethodReferenceParserRuleCall_7_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_7() { return cNLParserRuleCall_7; }
+		public RuleCall getNLParserRuleCall_8() { return cNLParserRuleCall_8; }
 	}
 
 	public class CallDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.CallDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cCalldefKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Keyword cUsesKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
-		private final Assignment cFixtureMethodAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cFixtureMethodMethodReferenceParserRuleCall_6_0 = (RuleCall)cFixtureMethodAssignment_6.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		private final Assignment cDocumentationAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDocumentationDocumentationCommentParserRuleCall_0_0 = (RuleCall)cDocumentationAssignment_0.eContents().get(0);
+		private final Keyword cCalldefKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameQualifiedNameParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Keyword cUsesKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final RuleCall cNLParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Assignment cFixtureMethodAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cFixtureMethodMethodReferenceParserRuleCall_7_0 = (RuleCall)cFixtureMethodAssignment_7.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
 		
 		//CallDefinition:
-		//	'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
+		//	documentation=DocumentationComment? 'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL
+		//documentation=DocumentationComment? 'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL
 		public Group getGroup() { return cGroup; }
 
+		//documentation=DocumentationComment?
+		public Assignment getDocumentationAssignment_0() { return cDocumentationAssignment_0; }
+
+		//DocumentationComment
+		public RuleCall getDocumentationDocumentationCommentParserRuleCall_0_0() { return cDocumentationDocumentationCommentParserRuleCall_0_0; }
+
 		//'calldef'
-		public Keyword getCalldefKeyword_0() { return cCalldefKeyword_0; }
+		public Keyword getCalldefKeyword_1() { return cCalldefKeyword_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
 
 		//name=QualifiedName
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
 		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
+		public RuleCall getNameQualifiedNameParserRuleCall_3_0() { return cNameQualifiedNameParserRuleCall_3_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
 		//'uses'
-		public Keyword getUsesKeyword_4() { return cUsesKeyword_4; }
+		public Keyword getUsesKeyword_5() { return cUsesKeyword_5; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
+		public RuleCall getNLParserRuleCall_6() { return cNLParserRuleCall_6; }
 
 		//fixtureMethod=MethodReference
-		public Assignment getFixtureMethodAssignment_6() { return cFixtureMethodAssignment_6; }
+		public Assignment getFixtureMethodAssignment_7() { return cFixtureMethodAssignment_7; }
 
 		//MethodReference
-		public RuleCall getFixtureMethodMethodReferenceParserRuleCall_6_0() { return cFixtureMethodMethodReferenceParserRuleCall_6_0; }
+		public RuleCall getFixtureMethodMethodReferenceParserRuleCall_7_0() { return cFixtureMethodMethodReferenceParserRuleCall_7_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_7() { return cNLParserRuleCall_7; }
+		public RuleCall getNLParserRuleCall_8() { return cNLParserRuleCall_8; }
 	}
 
 	public class SuiteDefinitionElements extends AbstractParserRuleElementFinder {
@@ -4020,7 +4036,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TestDefinition:
-	//	'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
+	//	documentation=DocumentationComment? 'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	public TestDefinitionElements getTestDefinitionAccess() {
 		return pTestDefinition;
 	}
@@ -4030,7 +4046,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//CallDefinition:
-	//	'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
+	//	documentation=DocumentationComment? 'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	public CallDefinitionElements getCallDefinitionAccess() {
 		return pCallDefinition;
 	}

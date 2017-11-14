@@ -175,10 +175,12 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getForkParameterAccess().getValueAssignment_4(), "rule__ForkParameter__ValueAssignment_4");
 					put(grammarAccess.getVariantDefinitionAccess().getNameAssignment_2(), "rule__VariantDefinition__NameAssignment_2");
 					put(grammarAccess.getVariantDefinitionAccess().getDescriptionAssignment_4_0(), "rule__VariantDefinition__DescriptionAssignment_4_0");
-					put(grammarAccess.getTestDefinitionAccess().getNameAssignment_2(), "rule__TestDefinition__NameAssignment_2");
-					put(grammarAccess.getTestDefinitionAccess().getFixtureMethodAssignment_6(), "rule__TestDefinition__FixtureMethodAssignment_6");
-					put(grammarAccess.getCallDefinitionAccess().getNameAssignment_2(), "rule__CallDefinition__NameAssignment_2");
-					put(grammarAccess.getCallDefinitionAccess().getFixtureMethodAssignment_6(), "rule__CallDefinition__FixtureMethodAssignment_6");
+					put(grammarAccess.getTestDefinitionAccess().getDocumentationAssignment_0(), "rule__TestDefinition__DocumentationAssignment_0");
+					put(grammarAccess.getTestDefinitionAccess().getNameAssignment_3(), "rule__TestDefinition__NameAssignment_3");
+					put(grammarAccess.getTestDefinitionAccess().getFixtureMethodAssignment_7(), "rule__TestDefinition__FixtureMethodAssignment_7");
+					put(grammarAccess.getCallDefinitionAccess().getDocumentationAssignment_0(), "rule__CallDefinition__DocumentationAssignment_0");
+					put(grammarAccess.getCallDefinitionAccess().getNameAssignment_3(), "rule__CallDefinition__NameAssignment_3");
+					put(grammarAccess.getCallDefinitionAccess().getFixtureMethodAssignment_7(), "rule__CallDefinition__FixtureMethodAssignment_7");
 					put(grammarAccess.getSuiteDefinitionAccess().getDocumentationAssignment_0(), "rule__SuiteDefinition__DocumentationAssignment_0");
 					put(grammarAccess.getSuiteDefinitionAccess().getPrivateAssignment_1(), "rule__SuiteDefinition__PrivateAssignment_1");
 					put(grammarAccess.getSuiteDefinitionAccess().getSingleRunAssignment_2(), "rule__SuiteDefinition__SingleRunAssignment_2");

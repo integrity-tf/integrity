@@ -1125,9 +1125,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getTestDefinition_Documentation()
+  {
+    return (EReference)testDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getTestDefinition_Name()
   {
-    return (EAttribute)testDefinitionEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)testDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1137,7 +1147,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getTestDefinition_FixtureMethod()
   {
-    return (EReference)testDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EReference)testDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1155,9 +1165,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getCallDefinition_Documentation()
+  {
+    return (EReference)callDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EAttribute getCallDefinition_Name()
   {
-    return (EAttribute)callDefinitionEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)callDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1167,7 +1187,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getCallDefinition_FixtureMethod()
   {
-    return (EReference)callDefinitionEClass.getEStructuralFeatures().get(1);
+    return (EReference)callDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -3008,10 +3028,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(variantDefinitionEClass, VARIANT_DEFINITION__DESCRIPTION);
 
     testDefinitionEClass = createEClass(TEST_DEFINITION);
+    createEReference(testDefinitionEClass, TEST_DEFINITION__DOCUMENTATION);
     createEAttribute(testDefinitionEClass, TEST_DEFINITION__NAME);
     createEReference(testDefinitionEClass, TEST_DEFINITION__FIXTURE_METHOD);
 
     callDefinitionEClass = createEClass(CALL_DEFINITION);
+    createEReference(callDefinitionEClass, CALL_DEFINITION__DOCUMENTATION);
     createEAttribute(callDefinitionEClass, CALL_DEFINITION__NAME);
     createEReference(callDefinitionEClass, CALL_DEFINITION__FIXTURE_METHOD);
 
@@ -3411,10 +3433,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getVariantDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, VariantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(testDefinitionEClass, TestDefinition.class, "TestDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getTestDefinition_Documentation(), this.getDocumentationComment(), null, "documentation", null, 0, 1, TestDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTestDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, TestDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestDefinition_FixtureMethod(), this.getMethodReference(), null, "fixtureMethod", null, 0, 1, TestDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(callDefinitionEClass, CallDefinition.class, "CallDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCallDefinition_Documentation(), this.getDocumentationComment(), null, "documentation", null, 0, 1, CallDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getCallDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, CallDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getCallDefinition_FixtureMethod(), this.getMethodReference(), null, "fixtureMethod", null, 0, 1, CallDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

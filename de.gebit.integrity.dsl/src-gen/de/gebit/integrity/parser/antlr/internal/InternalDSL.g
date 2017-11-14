@@ -1133,13 +1133,31 @@ ruleTestDefinition returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='testdef' 
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTestDefinitionAccess().getDocumentationDocumentationCommentParserRuleCall_0_0()); 
+	    }
+		lv_documentation_0_0=ruleDocumentationComment		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTestDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"documentation",
+        		lv_documentation_0_0, 
+        		"de.gebit.integrity.DSL.DocumentationComment");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?	otherlv_1='testdef' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getTestDefinitionAccess().getTestdefKeyword_0());
+    	newLeafNode(otherlv_1, grammarAccess.getTestDefinitionAccess().getTestdefKeyword_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNLParserRuleCall_2()); 
     }
 ruleNL
     { 
@@ -1148,16 +1166,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNameQualifiedNameParserRuleCall_3_0()); 
 	    }
-		lv_name_2_0=ruleQualifiedName		{
+		lv_name_3_0=ruleQualifiedName		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestDefinitionRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_3_0, 
         		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1165,19 +1183,19 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNLParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNLParserRuleCall_4()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-	otherlv_4='uses' 
+	otherlv_5='uses' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getTestDefinitionAccess().getUsesKeyword_4());
+    	newLeafNode(otherlv_5, grammarAccess.getTestDefinitionAccess().getUsesKeyword_5());
     }
 
     { 
-        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNLParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNLParserRuleCall_6()); 
     }
 ruleNL
     { 
@@ -1186,16 +1204,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getTestDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_7_0()); 
 	    }
-		lv_fixtureMethod_6_0=ruleMethodReference		{
+		lv_fixtureMethod_7_0=ruleMethodReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestDefinitionRule());
 	        }
        		set(
        			$current, 
        			"fixtureMethod",
-        		lv_fixtureMethod_6_0, 
+        		lv_fixtureMethod_7_0, 
         		"de.gebit.integrity.DSL.MethodReference");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1203,7 +1221,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNLParserRuleCall_7()); 
+        newCompositeNode(grammarAccess.getTestDefinitionAccess().getNLParserRuleCall_8()); 
     }
 ruleNL
     { 
@@ -1230,13 +1248,31 @@ ruleCallDefinition returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='calldef' 
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getCallDefinitionAccess().getDocumentationDocumentationCommentParserRuleCall_0_0()); 
+	    }
+		lv_documentation_0_0=ruleDocumentationComment		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getCallDefinitionRule());
+	        }
+       		set(
+       			$current, 
+       			"documentation",
+        		lv_documentation_0_0, 
+        		"de.gebit.integrity.DSL.DocumentationComment");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?	otherlv_1='calldef' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getCallDefinitionAccess().getCalldefKeyword_0());
+    	newLeafNode(otherlv_1, grammarAccess.getCallDefinitionAccess().getCalldefKeyword_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNLParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNLParserRuleCall_2()); 
     }
 ruleNL
     { 
@@ -1245,16 +1281,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNameQualifiedNameParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNameQualifiedNameParserRuleCall_3_0()); 
 	    }
-		lv_name_2_0=ruleQualifiedName		{
+		lv_name_3_0=ruleQualifiedName		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCallDefinitionRule());
 	        }
        		set(
        			$current, 
        			"name",
-        		lv_name_2_0, 
+        		lv_name_3_0, 
         		"de.gebit.integrity.DSL.QualifiedName");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1262,19 +1298,19 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNLParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNLParserRuleCall_4()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-	otherlv_4='uses' 
+	otherlv_5='uses' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getCallDefinitionAccess().getUsesKeyword_4());
+    	newLeafNode(otherlv_5, grammarAccess.getCallDefinitionAccess().getUsesKeyword_5());
     }
 
     { 
-        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNLParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNLParserRuleCall_6()); 
     }
 ruleNL
     { 
@@ -1283,16 +1319,16 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getCallDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getCallDefinitionAccess().getFixtureMethodMethodReferenceParserRuleCall_7_0()); 
 	    }
-		lv_fixtureMethod_6_0=ruleMethodReference		{
+		lv_fixtureMethod_7_0=ruleMethodReference		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCallDefinitionRule());
 	        }
        		set(
        			$current, 
        			"fixtureMethod",
-        		lv_fixtureMethod_6_0, 
+        		lv_fixtureMethod_7_0, 
         		"de.gebit.integrity.DSL.MethodReference");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -1300,7 +1336,7 @@ ruleNL
 )
 )
     { 
-        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNLParserRuleCall_7()); 
+        newCompositeNode(grammarAccess.getCallDefinitionAccess().getNLParserRuleCall_8()); 
     }
 ruleNL
     { 

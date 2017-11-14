@@ -579,13 +579,22 @@ public interface DslPackage extends EPackage
   int TEST_DEFINITION = 16;
 
   /**
+   * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEST_DEFINITION__DOCUMENTATION = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TEST_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+  int TEST_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Fixture Method</b></em>' containment reference.
@@ -594,7 +603,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_DEFINITION__FIXTURE_METHOD = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+  int TEST_DEFINITION__FIXTURE_METHOD = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Test Definition</em>' class.
@@ -603,7 +612,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
+  int TEST_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.CallDefinitionImpl <em>Call Definition</em>}' class.
@@ -616,13 +625,22 @@ public interface DslPackage extends EPackage
   int CALL_DEFINITION = 17;
 
   /**
+   * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CALL_DEFINITION__DOCUMENTATION = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CALL_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 0;
+  int CALL_DEFINITION__NAME = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Fixture Method</b></em>' containment reference.
@@ -631,7 +649,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CALL_DEFINITION__FIXTURE_METHOD = PACKAGE_STATEMENT_FEATURE_COUNT + 1;
+  int CALL_DEFINITION__FIXTURE_METHOD = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Call Definition</em>' class.
@@ -640,7 +658,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CALL_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 2;
+  int CALL_DEFINITION_FEATURE_COUNT = PACKAGE_STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteDefinitionImpl <em>Suite Definition</em>}' class.
@@ -3398,6 +3416,17 @@ public interface DslPackage extends EPackage
   EClass getTestDefinition();
 
   /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.TestDefinition#getDocumentation <em>Documentation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Documentation</em>'.
+   * @see de.gebit.integrity.dsl.TestDefinition#getDocumentation()
+   * @see #getTestDefinition()
+   * @generated
+   */
+  EReference getTestDefinition_Documentation();
+
+  /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.TestDefinition#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3428,6 +3457,17 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getCallDefinition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.CallDefinition#getDocumentation <em>Documentation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Documentation</em>'.
+   * @see de.gebit.integrity.dsl.CallDefinition#getDocumentation()
+   * @see #getCallDefinition()
+   * @generated
+   */
+  EReference getCallDefinition_Documentation();
 
   /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.CallDefinition#getName <em>Name</em>}'.
@@ -5630,6 +5670,14 @@ public interface DslPackage extends EPackage
     EClass TEST_DEFINITION = eINSTANCE.getTestDefinition();
 
     /**
+     * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TEST_DEFINITION__DOCUMENTATION = eINSTANCE.getTestDefinition_Documentation();
+
+    /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5654,6 +5702,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass CALL_DEFINITION = eINSTANCE.getCallDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CALL_DEFINITION__DOCUMENTATION = eINSTANCE.getCallDefinition_Documentation();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.

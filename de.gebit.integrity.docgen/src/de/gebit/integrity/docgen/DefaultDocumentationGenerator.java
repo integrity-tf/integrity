@@ -135,6 +135,8 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 
 		aModel.getAllSuites().forEach(tempConsumer);
 		aModel.getConstantDefinitionsInPackages().forEach(tempConsumer);
+		aModel.getAllCalls().forEach(tempConsumer);
+		aModel.getAllTests().forEach(tempConsumer);
 
 		return tempResult.values();
 	}

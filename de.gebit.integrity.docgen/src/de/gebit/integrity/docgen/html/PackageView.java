@@ -17,6 +17,7 @@ import java.util.StringJoiner;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.docgen.IntegrityPackage;
+import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
@@ -33,6 +34,8 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.JavaTypeUtil;
+import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
 import de.gebit.integrity.utils.ParsedDocumentationComment;
 import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
 import htmlflow.HtmlWriterComposite;
@@ -99,6 +102,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		mainContent.hr();
 
 		processConstants(aPackage, mainContent);
+		processCalls(aPackage, mainContent);
 		processSuites(aPackage, mainContent);
 	}
 
@@ -120,25 +124,23 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 			return;
 		}
 
-		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("suites");
-		tempMainDiv.div().classAttr("suitesummary")
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox suites");
+		tempMainDiv.div().classAttr("entitysummary suitesummary")
 				.text("This package defines " + aPackage.getSuites().size() + " suites");
 
 		for (SuiteDefinition tempSuite : aPackage.getSuites()) {
-			HtmlDiv<?> tempSuiteDiv = tempMainDiv.div().classAttr("suite");
-			HtmlDiv<?> tempSuiteHeaderDiv = tempSuiteDiv.div().classAttr("suiteheader");
-			tempSuiteHeaderDiv.div().classAttr("suitename").text(tempSuite.getName());
+			HtmlDiv<?> tempSuiteDiv = tempMainDiv.div().classAttr("entity suite");
+			HtmlDiv<?> tempSuiteHeaderDiv = tempSuiteDiv.div().classAttr("entityheader");
+			tempSuiteHeaderDiv.div().classAttr("entityname").text(tempSuite.getName());
 			String tempSuiteTitle = IntegrityDSLUtil.getSuiteTitle(tempSuite);
 			if (tempSuiteTitle != null) {
-				tempSuiteHeaderDiv.div().classAttr("suitetitle").text(tempSuiteTitle);
+				tempSuiteHeaderDiv.div().classAttr("entitytitle").text(tempSuiteTitle);
 			}
-			tempSuiteHeaderDiv.div().classAttr("fullsuitename code")
+			tempSuiteHeaderDiv.div().classAttr("fullentityname code")
 					.text(IntegrityDSLUtil.getQualifiedSuiteName(tempSuite));
 
-			boolean tempSuiteHasDetails = (tempSuite.getDocumentation() != null);
-
-			if (tempSuiteHasDetails) {
-				HtmlDiv<?> tempSuiteDetailsDiv = tempSuiteDiv.div().classAttr("suitedetails");
+			if (tempSuite.getDocumentation() != null) {
+				HtmlDiv<?> tempSuiteDetailsDiv = tempSuiteDiv.div().classAttr("entitydetails");
 				if (tempSuite.getDocumentation() != null) {
 					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
 							tempSuite.getDocumentation(),
@@ -147,7 +149,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 							.text(tempParsedComment.getDocumentationText());
 
 					if (tempSuite.getParameters().size() > 0) {
-						HtmlDiv<?> tempSuiteParamsDiv = tempSuiteDetailsDiv.div().classAttr("suiteparams");
+						HtmlDiv<?> tempSuiteParamsDiv = tempSuiteDetailsDiv.div().classAttr("entityparams");
 						tempSuiteParamsDiv.div().classAttr("detailstitle").text("Parameters");
 						HtmlTable<?> tempParamTable = tempSuiteParamsDiv.table();
 
@@ -177,8 +179,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 			return;
 		}
 
-		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("constants");
-		tempMainDiv.div().classAttr("constantsummary")
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox constants");
+		tempMainDiv.div().classAttr("entitysummary constantsummary")
 				.text("This package defines " + aPackage.getConstants().size() + " constants");
 
 		HtmlTable<?> tempTable = tempMainDiv.table();
@@ -244,6 +246,66 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 			}
 
 			tempRow.td().text(tempConstantDescription);
+		}
+	}
+
+	/**
+	 * Processes all calls in a package.
+	 * 
+	 * @param anEntry
+	 * @param aModelSourceExplorer
+	 * @param aMainContainerDiv
+	 * @throws ParseException
+	 */
+	protected void processCalls(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+		if (aPackage.getCalls().size() == 0) {
+			return;
+		}
+
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox calls");
+		tempMainDiv.div().classAttr("entitysummary callsummary")
+				.text("This package defines " + aPackage.getCalls().size() + " call fixtures");
+
+		for (CallDefinition tempCall : aPackage.getCalls()) {
+			HtmlDiv<?> tempCallDiv = tempMainDiv.div().classAttr("entity call");
+			HtmlDiv<?> tempCallHeaderDiv = tempCallDiv.div().classAttr("entityheader");
+			tempCallHeaderDiv.div().classAttr("entityname").text(tempCall.getName());
+			tempCallHeaderDiv.div().classAttr("fullentityname code")
+					.text(IntegrityDSLUtil.getQualifiedCallName(tempCall));
+
+			List<ParamAnnotationTypeTriplet> tempParams = IntegrityDSLUtil
+					.getAllParamNamesFromFixtureMethod(tempCall.getFixtureMethod());
+			ParsedDocumentationComment tempParsedComment = (tempCall.getDocumentation() != null
+					? new ParsedDocumentationComment(tempCall.getDocumentation(),
+							modelSourceExplorer.determineSourceInformation(tempCall.getDocumentation()))
+					: null);
+
+			if (tempParams.size() > 0 || tempParsedComment != null) {
+				HtmlDiv<?> tempCallDetailsDiv = tempCallDiv.div().classAttr("entitydetails");
+				if (tempCall.getDocumentation() != null) {
+					tempCallDetailsDiv.div().classAttr("entitydescription")
+							.text(tempParsedComment.getDocumentationText());
+				}
+
+				if (tempParams.size() > 0) {
+					HtmlDiv<?> tempSuiteParamsDiv = tempCallDetailsDiv.div().classAttr("entityparams");
+					tempSuiteParamsDiv.div().classAttr("detailstitle").text("Parameters");
+					HtmlTable<?> tempParamTable = tempSuiteParamsDiv.table();
+
+					for (ParamAnnotationTypeTriplet tempParameter : tempParams) {
+						boolean tempMandatory = IntegrityDSLUtil
+								.getParamMandatoryFlagFromAnnotation(tempParameter.getAnnotation());
+
+						HtmlTr<?> tempRow = tempParamTable.tr();
+						tempRow.td().classAttr(CSSClasses.CODE).text(tempParameter.getParamName());
+						tempRow.td().classAttr(CSSClasses.CODE)
+								.text(JavaTypeUtil.getReadableJavaTypeName(tempParameter.getType().getType()));
+						tempRow.td().text(tempParsedComment != null
+								? tempParsedComment.getParameterDocumentationTexts().get(tempParameter.getParamName())
+								: "");
+					}
+				}
+			}
 		}
 	}
 

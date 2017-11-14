@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
 import org.eclipse.xtext.common.types.JvmArrayType;
+import org.eclipse.xtext.common.types.JvmBooleanAnnotationValue;
 import org.eclipse.xtext.common.types.JvmConstructor;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
 import org.eclipse.xtext.common.types.JvmEnumerationType;
@@ -125,6 +126,29 @@ public final class IntegrityDSLUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Returns whether the mandatory flag is set defined by a given annotation reference.
+	 * 
+	 * @param anAnnotation
+	 *            the annotation reference
+	 * @return true if mandatory, false otherwise
+	 */
+	public static boolean getParamMandatoryFlagFromAnnotation(JvmAnnotationReference anAnnotation) {
+		if (anAnnotation.getAnnotation() != null) {
+			if (anAnnotation.getAnnotation().getQualifiedName().equals(FixtureParameter.class.getCanonicalName())) {
+				for (JvmAnnotationValue tempValue : anAnnotation.getValues()) {
+					if (tempValue instanceof JvmBooleanAnnotationValue
+							&& "mandatory".equals(tempValue.getValueName())) {
+						return ((JvmBooleanAnnotationValue) tempValue).getValues().get(0);
+					}
+				}
+			}
+		}
+
+		throw new IllegalArgumentException(
+				"Provided annotation reference did not contain mandatory information: " + anAnnotation.getAnnotation());
 	}
 
 	/**

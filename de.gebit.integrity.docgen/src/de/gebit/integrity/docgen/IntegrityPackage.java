@@ -11,8 +11,10 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.TestDefinition;
 
 /**
  * Represents an Integrity package with all content relevant for documentation generation.
@@ -37,6 +39,16 @@ public class IntegrityPackage {
 	 */
 	private ArrayList<ConstantDefinition> constants = new ArrayList<ConstantDefinition>();
 
+	/***
+	 * Call fixture definitions within the package.
+	 */
+	private ArrayList<CallDefinition> calls = new ArrayList<CallDefinition>();
+
+	/**
+	 * Text fixture definitions within the package.
+	 */
+	private ArrayList<TestDefinition> tests = new ArrayList<TestDefinition>();
+
 	/**
 	 * Constructor.
 	 * 
@@ -56,6 +68,14 @@ public class IntegrityPackage {
 
 	public ArrayList<ConstantDefinition> getConstants() {
 		return constants;
+	}
+
+	public ArrayList<CallDefinition> getCalls() {
+		return calls;
+	}
+
+	public ArrayList<TestDefinition> getTests() {
+		return tests;
 	}
 
 	public boolean isEmpty() {
@@ -85,6 +105,28 @@ public class IntegrityPackage {
 	}
 
 	/**
+	 * Adds the provided entity.
+	 * 
+	 * @param aCall
+	 */
+	public void add(CallDefinition aCall) {
+		if (!calls.contains(aCall)) {
+			calls.add(aCall);
+		}
+	}
+
+	/**
+	 * Adds the provided entity.
+	 * 
+	 * @param aTest
+	 */
+	public void add(TestDefinition aTest) {
+		if (!tests.contains(aTest)) {
+			tests.add(aTest);
+		}
+	}
+
+	/**
 	 * Adds the provided entity. This dispatches the add to the appropriate method.
 	 * 
 	 * @param anEntity
@@ -94,6 +136,10 @@ public class IntegrityPackage {
 			add((SuiteDefinition) anEntity);
 		} else if (anEntity instanceof ConstantDefinition) {
 			add((ConstantDefinition) anEntity);
+		} else if (anEntity instanceof CallDefinition) {
+			add((CallDefinition) anEntity);
+		} else if (anEntity instanceof TestDefinition) {
+			add((TestDefinition) anEntity);
 		} else {
 			throw new IllegalArgumentException("Unknown entity type: " + anEntity.getClass().getName());
 		}

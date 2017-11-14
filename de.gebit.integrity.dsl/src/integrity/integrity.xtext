@@ -73,10 +73,10 @@ VariantDefinition:
 	'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
 	
 TestDefinition:
-	'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
+	documentation=DocumentationComment? 'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	
 CallDefinition:
-	'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
+	documentation=DocumentationComment? 'calldef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;
 	
 SuiteDefinition:
 	documentation=DocumentationComment? private='private'? singleRun='single-run'? inlined='inlined'? 'suitedef' NL name=QualifiedName NL ('gets' (parameters+=SuiteParameterDefinition NL)+)? ('returns' (return+=SuiteReturnDefinition NL)+)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL (finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL (statements+=SuiteStatement)* 'suiteend' NL;

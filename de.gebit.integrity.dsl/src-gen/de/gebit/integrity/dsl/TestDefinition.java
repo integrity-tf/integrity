@@ -12,6 +12,7 @@ package de.gebit.integrity.dsl;
  * The following features are supported:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.TestDefinition#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TestDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TestDefinition#getFixtureMethod <em>Fixture Method</em>}</li>
  * </ul>
@@ -22,6 +23,32 @@ package de.gebit.integrity.dsl;
  */
 public interface TestDefinition extends PackageStatement
 {
+  /**
+   * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Documentation</em>' containment reference.
+   * @see #setDocumentation(DocumentationComment)
+   * @see de.gebit.integrity.dsl.DslPackage#getTestDefinition_Documentation()
+   * @model containment="true"
+   * @generated
+   */
+  DocumentationComment getDocumentation();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.TestDefinition#getDocumentation <em>Documentation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Documentation</em>' containment reference.
+   * @see #getDocumentation()
+   * @generated
+   */
+  void setDocumentation(DocumentationComment value);
+
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->

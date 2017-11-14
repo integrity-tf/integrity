@@ -47,10 +47,12 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariantDefinition/description"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//TestDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TestDefinition/documentation"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TestDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TestDefinition/fixtureMethod"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//CallDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//CallDefinition/documentation"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//CallDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//CallDefinition/fixtureMethod"/>
     </genClasses>

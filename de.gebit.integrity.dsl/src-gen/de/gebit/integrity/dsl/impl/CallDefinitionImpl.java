@@ -3,6 +3,7 @@
 package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.MethodReference;
 
@@ -22,6 +23,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.CallDefinitionImpl#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.CallDefinitionImpl#getFixtureMethod <em>Fixture Method</em>}</li>
  * </ul>
@@ -30,6 +32,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class CallDefinitionImpl extends PackageStatementImpl implements CallDefinition
 {
+  /**
+   * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDocumentation()
+   * @generated
+   * @ordered
+   */
+  protected DocumentationComment documentation;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -79,6 +91,54 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.CALL_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DocumentationComment getDocumentation()
+  {
+    return documentation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDocumentation(DocumentationComment newDocumentation, NotificationChain msgs)
+  {
+    DocumentationComment oldDocumentation = documentation;
+    documentation = newDocumentation;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.CALL_DEFINITION__DOCUMENTATION, oldDocumentation, newDocumentation);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDocumentation(DocumentationComment newDocumentation)
+  {
+    if (newDocumentation != documentation)
+    {
+      NotificationChain msgs = null;
+      if (documentation != null)
+        msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.CALL_DEFINITION__DOCUMENTATION, null, msgs);
+      if (newDocumentation != null)
+        msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.CALL_DEFINITION__DOCUMENTATION, null, msgs);
+      msgs = basicSetDocumentation(newDocumentation, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.CALL_DEFINITION__DOCUMENTATION, newDocumentation, newDocumentation));
   }
 
   /**
@@ -162,6 +222,8 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
   {
     switch (featureID)
     {
+      case DslPackage.CALL_DEFINITION__DOCUMENTATION:
+        return basicSetDocumentation(null, msgs);
       case DslPackage.CALL_DEFINITION__FIXTURE_METHOD:
         return basicSetFixtureMethod(null, msgs);
     }
@@ -178,6 +240,8 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
   {
     switch (featureID)
     {
+      case DslPackage.CALL_DEFINITION__DOCUMENTATION:
+        return getDocumentation();
       case DslPackage.CALL_DEFINITION__NAME:
         return getName();
       case DslPackage.CALL_DEFINITION__FIXTURE_METHOD:
@@ -196,6 +260,9 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
   {
     switch (featureID)
     {
+      case DslPackage.CALL_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)newValue);
+        return;
       case DslPackage.CALL_DEFINITION__NAME:
         setName((String)newValue);
         return;
@@ -216,6 +283,9 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
   {
     switch (featureID)
     {
+      case DslPackage.CALL_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)null);
+        return;
       case DslPackage.CALL_DEFINITION__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -236,6 +306,8 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
   {
     switch (featureID)
     {
+      case DslPackage.CALL_DEFINITION__DOCUMENTATION:
+        return documentation != null;
       case DslPackage.CALL_DEFINITION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DslPackage.CALL_DEFINITION__FIXTURE_METHOD:
