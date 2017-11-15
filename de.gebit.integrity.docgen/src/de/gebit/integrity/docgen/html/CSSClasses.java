@@ -20,4 +20,14 @@ public interface CSSClasses {
 	 */
 	String CODE = "code";
 
+	/**
+	 * Used for mandatory stuff (in combination with {@link #CODE}).
+	 */
+	String MANDATORY = "mandatory";
+
+	/**
+	 * Stuff that is by default hidden.
+	 */
+	String HIDDEN = "hidden";
+
 }

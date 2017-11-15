@@ -80,7 +80,54 @@ public final class JavaTypeUtil {
 	public static String getReadableJavaTypeName(JvmType aType) {
 		String tempQualifiedName = aType.getQualifiedName();
 
-		return tempQualifiedName;
+		int tempArrayPartStart = tempQualifiedName.indexOf("[");
+		String tempArrayPart = "";
+		String tempTypePart = tempQualifiedName;
+		if (tempArrayPartStart >= 0) {
+			tempArrayPart = tempQualifiedName.substring(tempArrayPartStart);
+			tempTypePart = tempQualifiedName.substring(0, tempArrayPartStart);
+		}
+
+		if (tempTypePart.startsWith("java.lang.") || tempTypePart.startsWith("java.math.")
+				|| tempTypePart.startsWith("java.util.")) {
+			tempTypePart = tempTypePart.substring(10);
+		}
+		if (tempTypePart.startsWith("java.sql.")) {
+			tempTypePart = tempTypePart.substring(9);
+		}
+
+		if (!tempTypePart.contains(".")) {
+			switch (tempTypePart) {
+			case "int":
+				tempTypePart = "Integer";
+				break;
+			case "byte":
+				tempTypePart = "Byte";
+				break;
+			case "short":
+				tempTypePart = "Short";
+				break;
+			case "long":
+				tempTypePart = "Long";
+				break;
+			case "char":
+				tempTypePart = "Character";
+				break;
+			case "float":
+				tempTypePart = "Float";
+				break;
+			case "double":
+				tempTypePart = "Double";
+				break;
+			case "boolean":
+				tempTypePart = "Boolean";
+				break;
+			default:
+				break;
+			}
+		}
+
+		return tempTypePart + tempArrayPart;
 	}
 
 }

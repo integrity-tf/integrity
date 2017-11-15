@@ -2,6 +2,13 @@ packagedef mypackage with
 
 	testdef addition uses de.gebit.integrity.experiments.fixtures.AdditionFixture#addition
 
+	/**
+	* Calculates a random number and returns it.
+	*
+	* @param min: The minimum limit (is 0 if not provided)
+	* @param max The maximum limit (is 1 if not provided)
+	* @returns A random number within the limits 
+	*/
 	calldef random uses de.gebit.integrity.experiments.fixtures.AdditionFixture#randomNumber
 	
 	calldef wait uses de.gebit.integrity.experiments.fixtures.AdditionFixture#wait

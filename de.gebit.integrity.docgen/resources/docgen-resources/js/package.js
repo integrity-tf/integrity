@@ -92,3 +92,16 @@ function scrollIntoVisibility(element) {
   
   document.documentElement.scrollTop = position;
 }
+
+function toggleHiddenDiv(parentElement) {
+	for (var i = 0; i < parentElement.childNodes.length; ++i) {
+		var child = parentElement.childNodes[i];
+		if (child.className && child.className.includes("hidden")) {
+			if (child.style.display == "block") {
+				child.style.display = "none";
+			} else {
+				child.style.display = "block";
+			}
+		}
+	}
+}

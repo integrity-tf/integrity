@@ -17,7 +17,7 @@ import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.modelsource.ModelSourceInformationElement;
 
 /**
- *
+ * The parsed version of a JavaDoc-style Integrity documentation comment.
  *
  * @author Rene Schneider - initial API and implementation
  *
@@ -174,6 +174,9 @@ public class ParsedDocumentationComment {
 		for (String tempParameterLine : tempParameterDocs) {
 			String[] tempParts = tempParameterLine.split("\\s+", 2);
 			if (tempParts.length == 2) {
+				if (tempParts[0].endsWith(":")) {
+					tempParts[0] = tempParts[0].substring(0, tempParts[0].length() - 1);
+				}
 				parameterDocumentationTexts.put(tempParts[0], tempParts[1]);
 			}
 		}

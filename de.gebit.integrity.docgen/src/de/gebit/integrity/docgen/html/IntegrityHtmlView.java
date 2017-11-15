@@ -49,10 +49,16 @@ public class IntegrityHtmlView<T> extends HtmlView<T> {
 	 * @param aComposite
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	protected String recursivelyWalkComposite(HtmlWriterComposite<?, ?> aComposite) {
 		StringJoiner tempBuffer = new StringJoiner(" ");
 		for (HtmlWriter<?> tempChild : aComposite.getChildren()) {
 			if (tempChild instanceof HtmlWriterComposite) {
+				if (((HtmlWriterComposite) tempChild).getClassAttribute().contains(CSSClasses.HIDDEN)) {
+					// Skip hidden elements, because they won't be visible in the default view of the page and thus
+					// we cannot practically show those in the results
+					continue;
+				}
 				tempBuffer.add(recursivelyWalkComposite((HtmlWriterComposite<?, ?>) tempChild));
 			} else if (tempChild instanceof TextNode) {
 				tempBuffer.add(((TextNode<?>) tempChild).getText());
