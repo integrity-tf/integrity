@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.StringJoiner;
 
+import org.eclipse.xtext.common.types.JvmType;
+import org.eclipse.xtext.common.types.JvmVoid;
+
 import com.google.inject.Inject;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
@@ -39,6 +42,7 @@ import de.gebit.integrity.utils.JavaTypeUtil;
 import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
 import de.gebit.integrity.utils.ParsedDocumentationComment;
 import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
+import de.gebit.integrity.utils.ResultFieldTuple;
 import htmlflow.HtmlWriterComposite;
 import htmlflow.elements.HtmlBody;
 import htmlflow.elements.HtmlDiv;
@@ -295,53 +299,102 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 				}
 
 				if (tempParams.size() > 0) {
-					HtmlDiv<?> tempSuiteParamsDiv = tempCallDetailsDiv.div().classAttr("entityparams");
-					tempSuiteParamsDiv.div().classAttr("detailstitle").text("Parameters");
-					HtmlTable<?> tempParamTable = tempSuiteParamsDiv.table();
+					HtmlDiv<?> tempCallParamsDiv = tempCallDetailsDiv.div().classAttr("entityparams");
+					tempCallParamsDiv.div().classAttr("detailstitle").text("Parameters");
+					HtmlTable<?> tempParamTable = tempCallParamsDiv.table();
 
 					for (ParamAnnotationTypeTriplet tempParameter : tempParams) {
 						boolean tempMandatory = IntegrityDSLUtil
 								.getParamMandatoryFlagFromAnnotation(tempParameter.getAnnotation());
-						String tempParamDocumentation = (tempParsedComment != null
-								? tempParsedComment.getParameterDocumentationTexts().get(tempParameter.getParamName())
-								: "");
+						String tempParamName = tempParameter.getParamName();
+						String tempParamDoc = (tempParsedComment != null
+								? tempParsedComment.getParameterDocumentationTexts().get(tempParamName) : "");
+						tempParamTable.addChild(createParameterRow(tempParamName, tempMandatory,
+								tempParameter.getType().getType(), tempParamDoc));
+					}
+				}
 
-						HtmlTr<?> tempRow = tempParamTable.tr();
-						tempRow.td().classAttr(CSSClasses.CODE + (tempMandatory ? " " + CSSClasses.MANDATORY : ""))
-								.text(tempParameter.getParamName());
-						String tempTypeName = JavaTypeUtil.getReadableJavaTypeName(tempParameter.getType().getType());
-						HtmlTd<?> tempTypeColumn = tempRow.td();
-						HtmlP<?> tempTypeText = new HtmlP<>();
-						tempTypeText.classAttr(CSSClasses.CODE).text(tempTypeName);
-						tempTypeColumn.addChild(tempTypeText);
-						if (tempTypeName.contains(".")) {
-							// Only in this case it could be an enum
-							try {
-								Class<?> tempClass = classLoader.loadClass(tempParameter.getType().getType());
-								if (tempClass.isEnum()) {
-									HtmlDiv<?> tempEnumValuesDiv = new HtmlDiv<>();
-									tempEnumValuesDiv.classAttr("enumvalues " + CSSClasses.HIDDEN);
-									tempEnumValuesDiv.div().classAttr("header").text("Possible enumeration values");
-									HtmlDiv<?> tempEnumValuesContentDiv = tempEnumValuesDiv.div();
-									tempEnumValuesContentDiv.classAttr("content");
-									for (Object tempConstant : tempClass.getEnumConstants()) {
-										tempEnumValuesContentDiv.div().classAttr(CSSClasses.CODE)
-												.text(tempConstant.toString());
-									}
-									tempTypeColumn.addChild(tempEnumValuesDiv);
-									tempTypeText.classAttr(CSSClasses.CODE + " " + "enumtype");
-									tempTypeText.addAttr("onclick", "toggleHiddenDiv(this.parentElement)");
-								}
-							} catch (ClassNotFoundException exc) {
-								exc.printStackTrace();
+				JvmType tempReturnType = tempCall.getFixtureMethod().getMethod().getReturnType().getType();
+				if (!(tempReturnType instanceof JvmVoid)) {
+					HtmlDiv<?> tempCallResultsDiv = tempCallDetailsDiv.div().classAttr("entityparams");
+					tempCallResultsDiv.div().classAttr("detailstitle").text("Returns");
+					HtmlTable<?> tempResultsTable = tempCallResultsDiv.table();
+
+					String tempDefaultResultDocumentation = null;
+					boolean tempResultsHandled = false;
+					if (tempParsedComment != null && tempParsedComment.getResultDocumentationTexts().size() > 0) {
+						tempDefaultResultDocumentation = tempParsedComment.getResultDocumentationTexts().get(null);
+						if (tempDefaultResultDocumentation == null) {
+							// Must be named results then
+							List<ResultFieldTuple> tempNamedResults = IntegrityDSLUtil
+									.getAllResultNamesFromFixtureMethod(tempCall.getFixtureMethod());
+
+							for (ResultFieldTuple tempNamedResult : tempNamedResults) {
+								String tempDocumentation = tempParsedComment.getResultDocumentationTexts()
+										.get(tempNamedResult.getResultName());
+								tempResultsTable.addChild(createParameterRow(tempNamedResult.getResultName(), false,
+										tempNamedResult.getField().getType().getType(), tempDocumentation));
 							}
+							tempResultsHandled = true;
 						}
-
-						tempRow.td().text(tempParamDocumentation);
+					}
+					if (!tempResultsHandled) {
+						// This adds just a single line for our result
+						tempResultsTable.addChild(createParameterRow(null, false,
+								tempCall.getFixtureMethod().getMethod().getReturnType().getType(),
+								tempDefaultResultDocumentation));
 					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * Creates a {@link HtmlTr} documenting the provided parameter.
+	 * 
+	 * @param aParamName
+	 * @param aMandatory
+	 * @param aFullyQualifiedTypeName
+	 * @param aParsedComment
+	 * @return
+	 */
+	protected HtmlTr<?> createParameterRow(String aParamName, boolean aMandatory, JvmType aType,
+			String aDocumentation) {
+		String tempTypeName = JavaTypeUtil.getReadableJavaTypeName(aType);
+
+		HtmlTr<?> tempRow = new HtmlTr<>();
+		if (aParamName != null) {
+			// Is null for the default result, which only has one line in the table
+			tempRow.td().classAttr(CSSClasses.CODE + (aMandatory ? " " + CSSClasses.MANDATORY : "")).text(aParamName);
+		}
+		HtmlTd<?> tempTypeColumn = tempRow.td();
+		HtmlP<?> tempTypeText = new HtmlP<>();
+		tempTypeText.classAttr(CSSClasses.CODE).text(tempTypeName);
+		tempTypeColumn.addChild(tempTypeText);
+		if (tempTypeName.contains(".")) {
+			// Only in this case it could be an enum
+			try {
+				Class<?> tempClass = classLoader.loadClass(aType);
+				if (tempClass.isEnum()) {
+					HtmlDiv<?> tempEnumValuesDiv = new HtmlDiv<>();
+					tempEnumValuesDiv.classAttr("enumvalues " + CSSClasses.HIDDEN);
+					tempEnumValuesDiv.div().classAttr("header").text("Possible enumeration values");
+					HtmlDiv<?> tempEnumValuesContentDiv = tempEnumValuesDiv.div();
+					tempEnumValuesContentDiv.classAttr("content");
+					for (Object tempConstant : tempClass.getEnumConstants()) {
+						tempEnumValuesContentDiv.div().classAttr(CSSClasses.CODE).text(tempConstant.toString());
+					}
+					tempTypeColumn.addChild(tempEnumValuesDiv);
+					tempTypeText.classAttr(CSSClasses.CODE + " " + "enumtype");
+					tempTypeText.addAttr("onclick", "toggleHiddenDiv(this.parentElement)");
+				}
+			} catch (ClassNotFoundException exc) {
+				exc.printStackTrace();
+			}
+		}
+		tempRow.td().text(aDocumentation != null ? aDocumentation : "");
+
+		return tempRow;
 	}
 
 	/**

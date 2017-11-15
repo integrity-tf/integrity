@@ -66,6 +66,16 @@ public interface IntegrityClassLoader {
 	Class<?> loadClass(JvmType aType) throws ClassNotFoundException;
 
 	/**
+	 * Loads the class given by the fully-qualified name.
+	 * 
+	 * @param aClassName
+	 *            the class to load
+	 * @return the loaded class
+	 * @throws ClassNotFoundException
+	 */
+	Class<?> loadClass(String aClassName) throws ClassNotFoundException;
+
+	/**
 	 * Load the class defined by the provided {@link OperationDefinition}.
 	 * 
 	 * @param anOperationDefinition

@@ -70,6 +70,7 @@ import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.JavaTypeUtil;
 import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ResultFieldTuple;
@@ -294,8 +295,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	protected IScope determineDefaultResultEnumValueScope(MethodReference aMethodRef) {
 		if (aMethodRef != null) {
 			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-			List<JvmEnumerationLiteral> tempLiteralList = IntegrityDSLUtil
-					.getAllEnumLiteralsFromJvmTypeReference(aMethodRef.getMethod().getReturnType());
+			List<JvmEnumerationLiteral> tempLiteralList = JavaTypeUtil
+					.getAllEnumLiteralsFromJvmType(aMethodRef.getMethod().getReturnType().getType());
 			if (tempLiteralList != null) {
 				for (JvmEnumerationLiteral tempLiteral : tempLiteralList) {
 					tempList.add(EObjectDescription.create(tempLiteral.getSimpleName(), tempLiteral));
@@ -318,8 +319,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		if (aMethodRef != null && aField != null) {
 			ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 
-			List<JvmEnumerationLiteral> tempLiteralList = IntegrityDSLUtil
-					.getAllEnumLiteralsFromJvmTypeReference(aField.getType());
+			List<JvmEnumerationLiteral> tempLiteralList = JavaTypeUtil
+					.getAllEnumLiteralsFromJvmType(aField.getType().getType());
 			if (tempLiteralList != null) {
 				for (JvmEnumerationLiteral tempLiteral : tempLiteralList) {
 					tempList.add(EObjectDescription.create(tempLiteral.getSimpleName(), tempLiteral));

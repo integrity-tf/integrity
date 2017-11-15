@@ -7,7 +7,7 @@ packagedef mypackage with
 	*
 	* @param min: The minimum limit (is 0 if not provided)
 	* @param max The maximum limit (is 1 if not provided)
-	* @returns A random number within the limits 
+	* @result A random number within the limits 
 	*/
 	calldef random uses de.gebit.integrity.experiments.fixtures.AdditionFixture#randomNumber
 	
@@ -41,6 +41,12 @@ packagedef mypackage with
 	
 	testdef multiresult uses de.gebit.integrity.experiments.fixtures.AdditionFixture#multiResultFixture
 	
+	/**
+	 * This one has multiple results!
+	 *
+	 * @result firstNamedResult: The first result!
+	 * @result secondNamedResult: The second result!
+	 */
 	calldef multiresultcall uses de.gebit.integrity.experiments.fixtures.AdditionFixture#multiResultFixture
 	
 	testdef stringarraytest uses de.gebit.integrity.experiments.fixtures.ArrayFixture#receiveArrayAndReturnSize

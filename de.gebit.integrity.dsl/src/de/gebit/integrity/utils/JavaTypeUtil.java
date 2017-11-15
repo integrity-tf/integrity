@@ -9,7 +9,11 @@ package de.gebit.integrity.utils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 
+import org.eclipse.xtext.common.types.JvmArrayType;
+import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
+import org.eclipse.xtext.common.types.JvmEnumerationType;
 import org.eclipse.xtext.common.types.JvmType;
 
 /**
@@ -70,22 +74,20 @@ public final class JavaTypeUtil {
 	}
 
 	/**
-	 * Determines the readable java type name for the provided {@link JvmType}. Returns short (non-fully-qualified)
-	 * names for all the common Java types and fully qualified names for everything else.
+	 * Determines the readable java type name for the provided qualified name. Returns short (non-fully-qualified) names
+	 * for all the common Java types and fully qualified names for everything else.
 	 * 
-	 * @param aType
+	 * @param aQualifiedTypeName
 	 *            the type to investigate
 	 * @return the name
 	 */
-	public static String getReadableJavaTypeName(JvmType aType) {
-		String tempQualifiedName = aType.getQualifiedName();
-
-		int tempArrayPartStart = tempQualifiedName.indexOf("[");
+	public static String getReadableJavaTypeName(String aQualifiedTypeName) {
+		int tempArrayPartStart = aQualifiedTypeName.indexOf("[");
 		String tempArrayPart = "";
-		String tempTypePart = tempQualifiedName;
+		String tempTypePart = aQualifiedTypeName;
 		if (tempArrayPartStart >= 0) {
-			tempArrayPart = tempQualifiedName.substring(tempArrayPartStart);
-			tempTypePart = tempQualifiedName.substring(0, tempArrayPartStart);
+			tempArrayPart = aQualifiedTypeName.substring(tempArrayPartStart);
+			tempTypePart = aQualifiedTypeName.substring(0, tempArrayPartStart);
 		}
 
 		if (tempTypePart.startsWith("java.lang.") || tempTypePart.startsWith("java.math.")
@@ -128,6 +130,70 @@ public final class JavaTypeUtil {
 		}
 
 		return tempTypePart + tempArrayPart;
+	}
+
+	/**
+	 * Determines the readable java type name for the provided {@link JvmType}. Returns short (non-fully-qualified)
+	 * names for all the common Java types and fully qualified names for everything else.
+	 * 
+	 * @param aType
+	 *            the type to investigate
+	 * @return the name
+	 */
+	public static String getReadableJavaTypeName(JvmType aType) {
+		String tempQualifiedName = aType.getQualifiedName();
+
+		return getReadableJavaTypeName(tempQualifiedName);
+	}
+
+	/**
+	 * Resolves a {@link JvmType} to its basic class name (= without array indicators, even if the {@link JvmType} is an
+	 * {@link JvmArrayType}).
+	 * 
+	 * @param aType
+	 *            the type to resolve
+	 * @return the fully-qualified class name of the type
+	 */
+	public static String getBasicClassNameFromJvmType(JvmType aType) {
+		return getBasicTypeFromJvmType(aType).getQualifiedName();
+	}
+
+	/**
+	 * Returns the underlying basic {@link JvmType} for the provided {@link JvmType}. This strips out
+	 * {@link JvmArrayType}s and resolves them to the component type.
+	 * 
+	 * @param aType
+	 *            the type to resolve
+	 * @return the basic type
+	 */
+	public static JvmType getBasicTypeFromJvmType(JvmType aType) {
+		JvmType tempType = aType;
+
+		while (tempType instanceof JvmArrayType) {
+			// might be an array of enums! We need to extract the raw type then.
+			JvmArrayType tempArrayType = (JvmArrayType) tempType;
+			tempType = tempArrayType.getComponentType();
+		}
+
+		return tempType;
+	}
+
+	/**
+	 * Returns a list of all valid enumeration literals that are defined in the given type.
+	 * 
+	 * @param aType
+	 *            the type
+	 * @return the enumeration literals, or none if the type reference doesn't refer to an enum type
+	 */
+	public static List<JvmEnumerationLiteral> getAllEnumLiteralsFromJvmType(JvmType aType) {
+		JvmType tempType = getBasicTypeFromJvmType(aType);
+
+		if (tempType instanceof JvmEnumerationType) {
+			JvmEnumerationType tempEnumType = (JvmEnumerationType) tempType;
+			return tempEnumType.getLiterals();
+		}
+
+		return null;
 	}
 
 }

@@ -22,6 +22,7 @@ import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
+import de.gebit.integrity.utils.JavaTypeUtil;
 
 /**
  * Basic implementation of {@link IntegrityClassLoader}. Uses the injected Java classloader internally.
@@ -49,8 +50,18 @@ public class DefaultIntegrityClassLoader implements IntegrityClassLoader {
 			return null;
 		}
 
-		String tempFullyQualifiedName = aType.getQualifiedName();
-		return classLoader.loadClass(tempFullyQualifiedName);
+		String tempFullyQualifiedName = JavaTypeUtil.getBasicClassNameFromJvmType(aType);
+
+		return loadClass(tempFullyQualifiedName);
+	}
+
+	@Override
+	public Class<?> loadClass(String aClassName) throws ClassNotFoundException {
+		if (aClassName == null) {
+			return null;
+		}
+
+		return classLoader.loadClass(aClassName);
 	}
 
 	private Class<?> loadClassGuarded(JvmType aType, EObject aSourceObject) throws ClassNotFoundException {

@@ -15,17 +15,14 @@ import java.util.NoSuchElementException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
-import org.eclipse.xtext.common.types.JvmArrayType;
 import org.eclipse.xtext.common.types.JvmBooleanAnnotationValue;
 import org.eclipse.xtext.common.types.JvmConstructor;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
-import org.eclipse.xtext.common.types.JvmEnumerationType;
 import org.eclipse.xtext.common.types.JvmField;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.common.types.JvmGenericType;
 import org.eclipse.xtext.common.types.JvmOperation;
 import org.eclipse.xtext.common.types.JvmStringAnnotationValue;
-import org.eclipse.xtext.common.types.JvmType;
 import org.eclipse.xtext.common.types.JvmTypeReference;
 
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
@@ -217,34 +214,10 @@ public final class IntegrityDSLUtil {
 				for (JvmAnnotationReference tempAnnotation : tempParam.getAnnotations()) {
 					if (aParamAnnotation == tempAnnotation) {
 						JvmTypeReference tempTypeRef = tempParam.getParameterType();
-						return getAllEnumLiteralsFromJvmTypeReference(tempTypeRef);
+						return JavaTypeUtil.getAllEnumLiteralsFromJvmType(tempTypeRef.getType());
 					}
 				}
 			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns a list of all valid enumeration literals that are defined in the given type reference.
-	 * 
-	 * @param aTypeRef
-	 *            the type reference
-	 * @return the enumeration literals, or none if the type reference doesn't refer to an enum type
-	 */
-	public static List<JvmEnumerationLiteral> getAllEnumLiteralsFromJvmTypeReference(JvmTypeReference aTypeRef) {
-		JvmType tempType = aTypeRef.getType();
-
-		if (tempType instanceof JvmArrayType) {
-			// might be an array of enums! We need to extract the raw type then.
-			JvmArrayType tempArrayType = (JvmArrayType) tempType;
-			tempType = tempArrayType.getComponentType();
-		}
-
-		if (tempType instanceof JvmEnumerationType) {
-			JvmEnumerationType tempEnumType = (JvmEnumerationType) tempType;
-			return tempEnumType.getLiterals();
 		}
 
 		return null;

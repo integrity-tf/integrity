@@ -89,6 +89,7 @@ import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil.FieldDescription;
 import de.gebit.integrity.ui.utils.IntegrityDSLUIUtil.ResolvedTypeName;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.JavaTypeUtil;
 import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 import de.gebit.integrity.utils.ResultFieldTuple;
@@ -726,15 +727,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 								for (ResultFieldTuple tempPossibleResult : tempResultList) {
 									if (tempParamName.equals(tempPossibleResult.getResultName())) {
 										if (tempPossibleResult != null && tempPossibleResult.getField() != null) {
-											String tempQualifiedName = tempPossibleResult.getField().getQualifiedName();
-											// The qualified name can contain brackets here if it is an array. We don't
-											// care
-											// for arrays for the purpose of proposal providing, so we strip the array
-											// brackets.
-											if (tempQualifiedName.endsWith("[]")) {
-												tempQualifiedName = tempQualifiedName.substring(0,
-														tempQualifiedName.length() - 2);
-											}
+											String tempQualifiedName = JavaTypeUtil.getBasicClassNameFromJvmType(
+													tempPossibleResult.getField().getType().getType());
 											tempRootType = IntegrityDSLUIUtil.findTypeByName(tempQualifiedName);
 										}
 										break;

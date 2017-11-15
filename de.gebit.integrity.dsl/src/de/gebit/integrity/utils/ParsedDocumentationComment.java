@@ -51,6 +51,11 @@ public class ParsedDocumentationComment {
 	protected Map<String, String> parameterDocumentationTexts = new HashMap<String, String>();
 
 	/**
+	 * Documentation for results (@result). The one for the default result is added with key null.
+	 */
+	protected Map<String, String> resultDocumentationTexts = new HashMap<String, String>();
+
+	/**
 	 * A documentation comment starts with this.
 	 */
 	protected static final String COMMENT_START = "/**";
@@ -69,6 +74,16 @@ public class ParsedDocumentationComment {
 	 * The documentation tag for parameter descriptions.
 	 */
 	protected static final String DOCUMENTATION_TAG_PARAMETER = "param";
+
+	/**
+	 * The documentation tag for result descriptions.
+	 */
+	protected static final String DOCUMENTATION_TAG_RESULT = "result";
+
+	/**
+	 * The documentation tag for result descriptions. Can be used alternatively to {@link #DOCUMENTATION_TAG_RESULT}.
+	 */
+	protected static final String DOCUMENTATION_TAG_RETURN = "return";
 
 	/**
 	 * Parses a given {@link DocumentationComment} and extracts the documentation info.
@@ -98,6 +113,7 @@ public class ParsedDocumentationComment {
 	 * @throws ParseException
 	 *             in case of parsing errors
 	 */
+	@SuppressWarnings("unchecked")
 	protected void parse(String aCommentString, ModelSourceInformationElement aModelSourceInfo) throws ParseException {
 		String tempCommentString = aCommentString.trim();
 
@@ -168,7 +184,6 @@ public class ParsedDocumentationComment {
 
 		documentationText = tempDocumentationText.toString();
 
-		@SuppressWarnings("unchecked")
 		List<String> tempParameterDocs = tempTags.getOrDefault(DOCUMENTATION_TAG_PARAMETER,
 				(List<String>) Collections.EMPTY_LIST);
 		for (String tempParameterLine : tempParameterDocs) {
@@ -179,6 +194,25 @@ public class ParsedDocumentationComment {
 				}
 				parameterDocumentationTexts.put(tempParts[0], tempParts[1]);
 			}
+		}
+
+		List<String> tempResultDocs = tempTags.getOrDefault(DOCUMENTATION_TAG_RESULT,
+				(List<String>) Collections.EMPTY_LIST);
+		tempResultDocs.addAll(tempTags.getOrDefault(DOCUMENTATION_TAG_RETURN, (List<String>) Collections.EMPTY_LIST));
+		for (String tempResultLine : tempResultDocs) {
+			String tempNamedResultName = null;
+			String tempResultDocumentation = tempResultLine;
+
+			// This could be a named result. Those have the result name in the beginning, followed by mandatory ':'
+			String[] tempParts = tempResultLine.split("\\s+", 2);
+			if (tempParts.length == 2) {
+				if (tempParts[0].endsWith(":")) {
+					tempNamedResultName = tempParts[0].substring(0, tempParts[0].length() - 1);
+					tempResultDocumentation = tempParts[1];
+				}
+			}
+
+			resultDocumentationTexts.put(tempNamedResultName, tempResultDocumentation);
 		}
 	}
 
@@ -196,6 +230,10 @@ public class ParsedDocumentationComment {
 
 	public Map<String, String> getParameterDocumentationTexts() {
 		return parameterDocumentationTexts;
+	}
+
+	public Map<String, String> getResultDocumentationTexts() {
+		return resultDocumentationTexts;
 	}
 
 	/**
