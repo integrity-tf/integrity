@@ -4865,7 +4865,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal ML_COMMENT:
-	//	'/ *' ('\r'? '\n')->'* /';
+	//	'/ * '->'* /';
 	public TerminalRule getML_COMMENTRule() {
 		return tML_COMMENT;
 	} 

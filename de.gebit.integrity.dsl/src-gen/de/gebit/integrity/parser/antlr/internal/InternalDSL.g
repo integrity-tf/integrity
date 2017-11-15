@@ -6449,7 +6449,7 @@ RULE_DECIMAL : '-'? ('0'..'9')+ '.' ('0'..'9')+;
 
 RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))* '"'|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
 
-RULE_ML_COMMENT : '/*' '\r'? '\n' ( options {greedy=false;} : . )*'*/';
+RULE_ML_COMMENT : '/* ' ( options {greedy=false;} : . )*'*/';
 
 RULE_SL_COMMENT : '//' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
