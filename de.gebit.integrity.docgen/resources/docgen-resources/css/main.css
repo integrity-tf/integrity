@@ -117,6 +117,22 @@ p {
 	display: none;	
 }
 
+table th.shrink {
+    white-space: nowrap;
+}
+
+table th.expand {
+    width: 50%;
+}
+
+table td.shrink {
+    white-space: nowrap;
+}
+
+table td.expand {
+    width: 50%;
+}
+
 .enumvalues {
 	margin-top: 3px;
 	border: 1px solid #000;
@@ -187,48 +203,56 @@ p {
 	margin-bottom: 10px;	
 }
 
-.constants table {
+.constanttable {
 	border-collapse: collapse;
 	width: calc(100% - 20px);
 	margin: 10px;
+	border-spacing: 0px;
 }
 
-.constants table p {
-	margin: 0px;	
+.constanttable span {
+	margin: 0px;
 }
 
-.constants table p:after {
+.constanttable span:after {
 	content: ", ";
 }
 
-.constants table p:last-child:after {
+.constanttable span:last-child:after {
 	content: "";
 }
 
-.constants th, .constants td {
+.constanttable th, .constanttable td {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+.constanttable th {	
 	margin: 0px;
 	text-align: left;
 }
 
-.constants td {
-	padding: 4px;
+.constanttable td {
 	border-bottom: 1px solid #9bb1ff;
 }
 
-.constants th {
+.constanttable th {
 	border-bottom: 1px solid #9bb1ff;
 }
 
-.constants td table {
+.constanttable td table {
 	margin: 0px;
 	width: 100%;
+	border-spacing: 0px;
 }
 
-.constants td table tr:last-child td {
+.constanttable td table tr:last-child td {
 	border-bottom: none;
 }
 
-.constants td table td:first-child {
+.constanttable td table td:first-child {
 	font-weight: bold;
 	border-right: 1px solid #9bb1ff;
 }

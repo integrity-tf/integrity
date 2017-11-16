@@ -30,4 +30,14 @@ public interface CSSClasses {
 	 */
 	String HIDDEN = "hidden";
 
+	/**
+	 * Table cells that should be as small as possible.
+	 */
+	String SHRINK = "shrink";
+
+	/**
+	 * Table cells that should expand as much as possible.
+	 */
+	String EXPAND = "expand";
+
 }

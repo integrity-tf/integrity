@@ -9,6 +9,8 @@ package de.gebit.integrity.docgen;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EObject;
@@ -17,6 +19,8 @@ import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.dsl.VariantValue;
 
 /**
  * Represents an Integrity package with all content relevant for documentation generation.
@@ -29,12 +33,12 @@ public class IntegrityPackage {
 	/**
 	 * The name of the package.
 	 */
-	private String name;
+	protected String name;
 
 	/**
 	 * The suites contained within the package.
 	 */
-	private Collection<SuiteDefinition> suites = new TreeSet<>(new Comparator<SuiteDefinition>() {
+	protected Collection<SuiteDefinition> suites = new TreeSet<>(new Comparator<SuiteDefinition>() {
 
 		@Override
 		public int compare(SuiteDefinition aFirst, SuiteDefinition aSecond) {
@@ -45,7 +49,7 @@ public class IntegrityPackage {
 	/**
 	 * The constants within the package.
 	 */
-	private Collection<ConstantDefinition> constants = new TreeSet<ConstantDefinition>(
+	protected Collection<ConstantDefinition> constants = new TreeSet<ConstantDefinition>(
 			new Comparator<ConstantDefinition>() {
 
 				@Override
@@ -57,7 +61,7 @@ public class IntegrityPackage {
 	/***
 	 * Call fixture definitions within the package.
 	 */
-	private Collection<CallDefinition> calls = new TreeSet<CallDefinition>(new Comparator<CallDefinition>() {
+	protected Collection<CallDefinition> calls = new TreeSet<CallDefinition>(new Comparator<CallDefinition>() {
 
 		@Override
 		public int compare(CallDefinition aFirst, CallDefinition aSecond) {
@@ -68,13 +72,30 @@ public class IntegrityPackage {
 	/**
 	 * Test fixture definitions within the package.
 	 */
-	private Collection<TestDefinition> tests = new TreeSet<TestDefinition>(new Comparator<TestDefinition>() {
+	protected Collection<TestDefinition> tests = new TreeSet<TestDefinition>(new Comparator<TestDefinition>() {
 
 		@Override
 		public int compare(TestDefinition aFirst, TestDefinition aSecond) {
 			return aFirst.getName().compareTo(aSecond.getName());
 		}
 	});
+
+	/**
+	 * Variant definitions within the package.
+	 */
+	protected Collection<VariantDefinition> variants = new TreeSet<VariantDefinition>(
+			new Comparator<VariantDefinition>() {
+
+				@Override
+				public int compare(VariantDefinition aFirst, VariantDefinition aSecond) {
+					return aFirst.getName().compareTo(aSecond.getName());
+				}
+			});
+
+	/**
+	 * Maps each {@link VariantDefinition} to a collection of constants influenced by the variant.
+	 */
+	protected Map<VariantDefinition, Collection<ConstantDefinition>> variantToConstantMap = new HashMap<>();
 
 	/**
 	 * Constructor.
@@ -105,52 +126,22 @@ public class IntegrityPackage {
 		return tests;
 	}
 
+	public Collection<VariantDefinition> getVariants() {
+		return variants;
+	}
+
+	/**
+	 * Finds all constants that are influenced by the given variant.
+	 * 
+	 * @param aVariant
+	 * @return
+	 */
+	public Collection<ConstantDefinition> getConstantsInfluencedByVariant(VariantDefinition aVariant) {
+		return variantToConstantMap.get(aVariant);
+	}
+
 	public boolean isEmpty() {
-		return suites.isEmpty() && constants.isEmpty();
-	}
-
-	/**
-	 * Adds the provided entity.
-	 * 
-	 * @param aSuite
-	 */
-	public void add(SuiteDefinition aSuite) {
-		if (!suites.contains(aSuite)) {
-			suites.add(aSuite);
-		}
-	}
-
-	/**
-	 * Adds the provided entity.
-	 * 
-	 * @param aConstant
-	 */
-	public void add(ConstantDefinition aConstant) {
-		if (!constants.contains(aConstant)) {
-			constants.add(aConstant);
-		}
-	}
-
-	/**
-	 * Adds the provided entity.
-	 * 
-	 * @param aCall
-	 */
-	public void add(CallDefinition aCall) {
-		if (!calls.contains(aCall)) {
-			calls.add(aCall);
-		}
-	}
-
-	/**
-	 * Adds the provided entity.
-	 * 
-	 * @param aTest
-	 */
-	public void add(TestDefinition aTest) {
-		if (!tests.contains(aTest)) {
-			tests.add(aTest);
-		}
+		return suites.isEmpty() && constants.isEmpty() && calls.isEmpty() && tests.isEmpty() && variants.isEmpty();
 	}
 
 	/**
@@ -160,15 +151,50 @@ public class IntegrityPackage {
 	 */
 	public void add(EObject anEntity) {
 		if (anEntity instanceof SuiteDefinition) {
-			add((SuiteDefinition) anEntity);
+			suites.add((SuiteDefinition) anEntity);
 		} else if (anEntity instanceof ConstantDefinition) {
-			add((ConstantDefinition) anEntity);
+			constants.add((ConstantDefinition) anEntity);
 		} else if (anEntity instanceof CallDefinition) {
-			add((CallDefinition) anEntity);
+			calls.add((CallDefinition) anEntity);
 		} else if (anEntity instanceof TestDefinition) {
-			add((TestDefinition) anEntity);
+			tests.add((TestDefinition) anEntity);
+		} else if (anEntity instanceof VariantDefinition) {
+			variants.add((VariantDefinition) anEntity);
 		} else {
 			throw new IllegalArgumentException("Unknown entity type: " + anEntity.getClass().getName());
+		}
+	}
+
+	/**
+	 * Is called when all {@link IntegrityPackage} objects have been filled with their respective entities, in order to
+	 * be able to perform cross-package linking jobs.
+	 * 
+	 * @param somePackages
+	 *            all the packages (including our own!)
+	 */
+	public void postProcess(Collection<IntegrityPackage> somePackages) {
+		// Find constants influenced by all variants defined in this package
+		for (VariantDefinition tempVariant : variants) {
+			Collection<ConstantDefinition> tempInfluencedConstants = new TreeSet<>(
+					new Comparator<ConstantDefinition>() {
+
+						@Override
+						public int compare(ConstantDefinition aFirst, ConstantDefinition aSecond) {
+							return aFirst.getName().getName().compareTo(aSecond.getName().getName());
+						}
+					});
+			variantToConstantMap.put(tempVariant, tempInfluencedConstants);
+
+			for (IntegrityPackage tempOtherPackage : somePackages) {
+				for (ConstantDefinition tempConstant : tempOtherPackage.getConstants()) {
+					for (VariantValue tempVariantValue : tempConstant.getVariantValues()) {
+						if (tempVariantValue.getNames().contains(tempVariant)) {
+							tempInfluencedConstants.add(tempConstant);
+							break;
+						}
+					}
+				}
+			}
 		}
 	}
 

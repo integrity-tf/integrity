@@ -542,6 +542,10 @@ public class TestModel {
 		return variantMap.get(aFullyQualifiedVariantName);
 	}
 
+	public Collection<VariantDefinition> getAllVariants() {
+		return variantMap.values();
+	}
+
 	/**
 	 * Resolves a fully qualified fork name to the actual fork definition.
 	 * 

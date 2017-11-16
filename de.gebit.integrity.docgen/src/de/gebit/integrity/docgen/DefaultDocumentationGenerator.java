@@ -140,6 +140,11 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		aModel.getConstantDefinitionsInPackages().forEach(tempConsumer);
 		aModel.getAllCalls().forEach(tempConsumer);
 		aModel.getAllTests().forEach(tempConsumer);
+		aModel.getAllVariants().forEach(tempConsumer);
+
+		tempResult.values().forEach((aPackage) -> {
+			aPackage.postProcess(tempResult.values());
+		});
 
 		return tempResult.values();
 	}

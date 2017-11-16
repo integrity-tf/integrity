@@ -54,6 +54,7 @@ import htmlflow.elements.HtmlAnchor;
 import htmlflow.elements.HtmlBody;
 import htmlflow.elements.HtmlDiv;
 import htmlflow.elements.HtmlP;
+import htmlflow.elements.HtmlSpan;
 import htmlflow.elements.HtmlTable;
 import htmlflow.elements.HtmlTd;
 import htmlflow.elements.HtmlTr;
@@ -121,12 +122,14 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		HtmlDiv<?> tempSummaryDiv = mainContent.div().classAttr("packagesummary");
 
 		int tempConstantCount = processConstants(aPackage, mainContent);
+		int tempVariantCount = processVariants(aPackage, mainContent);
 		int tempCallCount = processCalls(aPackage, mainContent);
 		int tempTestCount = processTests(aPackage, mainContent);
 		int tempSuiteCount = processSuites(aPackage, mainContent);
 
 		CountsOfThingsStringJoiner tempSummaryText = new CountsOfThingsStringJoiner(false);
 		tempSummaryText.add(tempConstantCount, "Constant", "Constants", "constants");
+		tempSummaryText.add(tempVariantCount, "Variant", "Variants", "variants");
 		tempSummaryText.add(tempCallCount, "Call", "Calls", "calls");
 		tempSummaryText.add(tempTestCount, "Test", "Tests", "tests");
 		tempSummaryText.add(tempSuiteCount, "Suite", "Suites", "suites");
@@ -175,7 +178,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 			if (tempSuiteTitle != null) {
 				tempSuiteHeaderDiv.div().classAttr("entitytitle").text(tempSuiteTitle);
 			}
-			tempSuiteHeaderDiv.div().classAttr("fullentityname code")
+			tempSuiteHeaderDiv.div().classAttr("fullentityname " + CSSClasses.CODE)
 					.text(IntegrityDSLUtil.getQualifiedSuiteName(tempSuite));
 
 			if (tempSuite.getDocumentation() != null) {
@@ -226,53 +229,74 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		tempMainDiv.div().classAttr("entitysummary constantsummary")
 				.text(aPackage.getConstants().size() + " Constants");
 
-		HtmlTable<?> tempTable = tempMainDiv.table();
+		HtmlTable<?> tempTable = tempMainDiv.table().classAttr("constanttable");
+
 		HtmlTr<?> tempHeaderRow = tempTable.tr();
-		tempHeaderRow.th().text("Type");
-		tempHeaderRow.th().text("Name");
-		tempHeaderRow.th().text("Value");
-		tempHeaderRow.th().text("Description");
+		tempHeaderRow.th().classAttr(CSSClasses.SHRINK).text("Type");
+		tempHeaderRow.th().classAttr(CSSClasses.SHRINK).text("Name");
+		tempHeaderRow.th().classAttr(CSSClasses.EXPAND).text("Value");
+		tempHeaderRow.th().classAttr(CSSClasses.EXPAND).text("Description");
 
 		for (ConstantDefinition tempConstant : aPackage.getConstants()) {
-			HtmlTr<?> tempRow = tempTable.tr();
+			tempTable.addChild(createConstantRow(tempConstant, null, false));
+		}
 
-			String tempConstantDescription = "";
-			if (tempConstant.getDocumentation() != null) {
-				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
-						tempConstant.getDocumentation(),
-						modelSourceExplorer.determineSourceInformation(tempConstant.getDocumentation()));
-				tempConstantDescription = tempParsedComment.getDocumentationText();
-			}
+		return aPackage.getConstants().size();
+	}
 
-			StringJoiner tempTypes = new StringJoiner(" ");
-			if (tempConstant.getPrivate() != null) {
-				tempTypes.add(tempConstant.getPrivate());
-			}
-			if (tempConstant.getParameterized() != null) {
-				tempTypes.add(tempConstant.getParameterized());
-			}
+	/**
+	 * Creates a table row describing the provided constant.
+	 * 
+	 * @param aConstant
+	 * @return
+	 * @throws ParseException
+	 */
+	protected HtmlTr<?> createConstantRow(ConstantDefinition aConstant, VariantDefinition aVariant,
+			boolean aFullyQualifiedNameFlag) throws ParseException {
+		HtmlTr<?> tempRow = new HtmlTr<>();
 
-			tempRow.td().text(tempTypes.toString());
-			tempRow.td().classAttr(CSSClasses.CODE).text(tempConstant.getName().getName());
-			HtmlTd<?> tempValueContainer = tempRow.td();
+		String tempConstantDescription = "";
+		if (aConstant.getDocumentation() != null) {
+			ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(aConstant.getDocumentation(),
+					modelSourceExplorer.determineSourceInformation(aConstant.getDocumentation()));
+			tempConstantDescription = tempParsedComment.getDocumentationText();
+		}
 
-			if (tempConstant.getVariantValues().size() == 0) {
+		StringJoiner tempTypes = new StringJoiner(" ");
+		if (aConstant.getPrivate() != null) {
+			tempTypes.add(aConstant.getPrivate());
+		}
+		if (aConstant.getParameterized() != null) {
+			tempTypes.add(aConstant.getParameterized());
+		}
+
+		tempRow.td().classAttr(CSSClasses.SHRINK).text(tempTypes.toString());
+		tempRow.td().classAttr(CSSClasses.SHRINK + " " + CSSClasses.CODE)
+				.text(aFullyQualifiedNameFlag
+						? IntegrityDSLUtil.getQualifiedVariableEntityName(aConstant.getName(), true)
+						: aConstant.getName().getName());
+		HtmlTd<?> tempValueContainer = tempRow.td();
+		tempValueContainer.classAttr(CSSClasses.EXPAND);
+
+		if (aVariant == null) {
+			// We shall print out all possible values of this constant
+			if (aConstant.getVariantValues().size() == 0) {
 				// No variants case - this is easy!
-				resolveValue(tempConstant.getValue()).forEach((anElement) -> {
+				resolveValue(aConstant.getValue()).forEach((anElement) -> {
 					tempValueContainer.addChild(anElement);
 				});
 			} else {
 				HtmlTable<?> tempVariantTable = new HtmlTable<>();
-				if (tempConstant.getValue() != null) {
+				if (aConstant.getValue() != null) {
 					HtmlTr<?> tempVariantRow = tempVariantTable.tr();
 					tempVariantRow.td().text("no variant:");
 					HtmlTd<?> tempVariantValueContainer = tempVariantRow.td();
-					resolveValue(tempConstant.getValue()).forEach((anElement) -> {
+					resolveValue(aConstant.getValue()).forEach((anElement) -> {
 						tempVariantValueContainer.addChild(anElement);
 					});
 				}
 
-				for (VariantValue tempVariantValue : tempConstant.getVariantValues()) {
+				for (VariantValue tempVariantValue : aConstant.getVariantValues()) {
 					HtmlTr<?> tempVariantRow = tempVariantTable.tr();
 					StringJoiner tempJoiner = new StringJoiner(", ");
 					for (VariantDefinition tempVariant : tempVariantValue.getNames()) {
@@ -280,18 +304,64 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 					}
 					tempVariantRow.td().text("in " + tempJoiner.toString() + ":");
 					HtmlTd<?> tempVariantValueContainer = tempVariantRow.td();
-					resolveValue(tempVariantValue.getValue()).forEach((anElement) -> {
-						tempVariantValueContainer.addChild(anElement);
-					});
+					resolveValue(tempVariantValue.getValue()).forEach(tempVariantValueContainer::addChild);
 				}
 
 				tempValueContainer.addChild(tempVariantTable);
 			}
-
-			tempRow.td().text(tempConstantDescription);
+		} else {
+			// A variant was provided, so we need to find out the value of this constant in this particular variant
+			resolveValue(IntegrityDSLUtil.getInitialValueForConstant(aConstant, aVariant))
+					.forEach(tempValueContainer::addChild);
 		}
 
-		return aPackage.getConstants().size();
+		tempRow.td().classAttr(CSSClasses.EXPAND).text(tempConstantDescription);
+
+		return tempRow;
+	}
+
+	/**
+	 * Processes all variants in a package.
+	 * 
+	 * @param anEntry
+	 * @param aModelSourceExplorer
+	 * @param aMainContainerDiv
+	 * @throws ParseException
+	 */
+	protected int processVariants(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+		if (aPackage.getVariants().size() == 0) {
+			return 0;
+		}
+
+		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("variants");
+		aMainContainerDiv.addChild(tempAnchor);
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox variants");
+		tempMainDiv.div().classAttr("entitysummary variantsummary").text(aPackage.getVariants().size() + " Variants");
+
+		for (VariantDefinition tempVariant : aPackage.getVariants()) {
+			HtmlDiv<?> tempVariantDiv = tempMainDiv.div().classAttr("entity variant");
+			HtmlDiv<?> tempVariantHeaderDiv = tempVariantDiv.div().classAttr("entityheader");
+			tempVariantHeaderDiv.div().classAttr("entityname").text(tempVariant.getName());
+			if (tempVariant.getDescription() != null) {
+				tempVariantHeaderDiv.div().classAttr("entitytitle").text(tempVariant.getDescription());
+			}
+			tempVariantHeaderDiv.div().classAttr("fullentityname " + CSSClasses.CODE)
+					.text(IntegrityDSLUtil.getQualifiedVariantName(tempVariant));
+
+			HtmlTable<?> tempTable = tempMainDiv.table().classAttr("constanttable");
+
+			HtmlTr<?> tempHeaderRow = tempTable.tr();
+			tempHeaderRow.th().classAttr(CSSClasses.SHRINK).text("Type");
+			tempHeaderRow.th().classAttr(CSSClasses.SHRINK).text("Constant");
+			tempHeaderRow.th().classAttr(CSSClasses.EXPAND).text("Value in Variant");
+			tempHeaderRow.th().classAttr(CSSClasses.EXPAND).text("Description");
+
+			for (ConstantDefinition tempConstant : aPackage.getConstantsInfluencedByVariant(tempVariant)) {
+				tempTable.addChild(createConstantRow(tempConstant, tempVariant, true));
+			}
+		}
+
+		return aPackage.getVariants().size();
 	}
 
 	/**
@@ -366,7 +436,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		tempTestDiv.classAttr("entity " + anEntityName);
 		HtmlDiv<?> tempTestHeaderDiv = tempTestDiv.div().classAttr("entityheader");
 		tempTestHeaderDiv.div().classAttr("entityname").text(aShortName);
-		tempTestHeaderDiv.div().classAttr("fullentityname code").text(aQualifiedName);
+		tempTestHeaderDiv.div().classAttr("fullentityname " + CSSClasses.CODE).text(aQualifiedName);
 
 		List<ParamAnnotationTypeTriplet> tempParams = IntegrityDSLUtil
 				.getAllParamNamesFromFixtureMethod(aFixtureMethod);
@@ -484,10 +554,11 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * @param aValueCollection
 	 * @return
 	 */
-	protected List<HtmlP<?>> resolveValue(ValueOrEnumValueOrOperationCollection aValueCollection) {
+	protected List<HtmlSpan<?>> resolveValue(ValueOrEnumValueOrOperationCollection aValueCollection) {
 		if (aValueCollection instanceof ValueOrEnumValueOrOperationCollection) {
 			if (aValueCollection.getMoreValues().size() > 0) {
-				List<HtmlP<?>> tempElements = new ArrayList<HtmlP<?>>(aValueCollection.getMoreValues().size() + 1);
+				List<HtmlSpan<?>> tempElements = new ArrayList<HtmlSpan<?>>(
+						aValueCollection.getMoreValues().size() + 1);
 				for (ValueOrEnumValueOrOperation tempSingleValue : IntegrityDSLUtil
 						.getAllValuesFromCollection(aValueCollection)) {
 					tempElements.add(resolveSingleValue(tempSingleValue));
@@ -507,7 +578,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * @param aValue
 	 * @return
 	 */
-	protected HtmlP<?> resolveSingleValue(ValueOrEnumValueOrOperation aValue) {
+	protected HtmlSpan<?> resolveSingleValue(ValueOrEnumValueOrOperation aValue) {
 		Object tempResult;
 		try {
 			tempResult = parameterResolver.resolveStatically(aValue, null);
@@ -515,7 +586,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 			tempResult = UnresolvableVariable.getInstance();
 		}
 
-		HtmlP<?> tempP = new HtmlP<>();
+		HtmlSpan<?> tempP = new HtmlSpan<>();
 		tempP.text(valueConverter.convertValueToString(tempResult, false, new ConversionContext()
 				.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
 				.toString());
