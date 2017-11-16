@@ -1,6 +1,6 @@
 window.onload = function(event){ 
 	if(window.location.hash) {
-		var highlightText = decodeURIComponent(window.location.hash);
+		var highlightText = decodeURIComponent(window.location.hash).substring(1);
 		
 		if(window.name && window.name.startsWith("result_")) {
 			var treeContainer = document.getElementById('treecontainer');
@@ -8,7 +8,7 @@ window.onload = function(event){
 		}
 		
 		if(highlightText.startsWith("highlight_")) {
-			var highlightTokens = highlightText.substring(11).split(/[ ,#]+/).filter(Boolean);				
+			var highlightTokens = highlightText.substring(10).split(/[ ,#]+/).filter(Boolean);				
 			var context = document.getElementById('maincontainer');
 			var marker = new Mark(context);
 			marker.mark(highlightTokens, {'diacritics': false, 
