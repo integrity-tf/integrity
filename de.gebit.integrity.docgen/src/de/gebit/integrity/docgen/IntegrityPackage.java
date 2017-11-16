@@ -7,7 +7,9 @@
  *******************************************************************************/
 package de.gebit.integrity.docgen;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -32,22 +34,47 @@ public class IntegrityPackage {
 	/**
 	 * The suites contained within the package.
 	 */
-	private ArrayList<SuiteDefinition> suites = new ArrayList<>();
+	private Collection<SuiteDefinition> suites = new TreeSet<>(new Comparator<SuiteDefinition>() {
+
+		@Override
+		public int compare(SuiteDefinition aFirst, SuiteDefinition aSecond) {
+			return aFirst.getName().compareTo(aSecond.getName());
+		}
+	});
 
 	/**
 	 * The constants within the package.
 	 */
-	private ArrayList<ConstantDefinition> constants = new ArrayList<ConstantDefinition>();
+	private Collection<ConstantDefinition> constants = new TreeSet<ConstantDefinition>(
+			new Comparator<ConstantDefinition>() {
+
+				@Override
+				public int compare(ConstantDefinition aFirst, ConstantDefinition aSecond) {
+					return aFirst.getName().getName().compareTo(aSecond.getName().getName());
+				}
+			});
 
 	/***
 	 * Call fixture definitions within the package.
 	 */
-	private ArrayList<CallDefinition> calls = new ArrayList<CallDefinition>();
+	private Collection<CallDefinition> calls = new TreeSet<CallDefinition>(new Comparator<CallDefinition>() {
+
+		@Override
+		public int compare(CallDefinition aFirst, CallDefinition aSecond) {
+			return aFirst.getName().compareTo(aSecond.getName());
+		}
+	});
 
 	/**
-	 * Text fixture definitions within the package.
+	 * Test fixture definitions within the package.
 	 */
-	private ArrayList<TestDefinition> tests = new ArrayList<TestDefinition>();
+	private Collection<TestDefinition> tests = new TreeSet<TestDefinition>(new Comparator<TestDefinition>() {
+
+		@Override
+		public int compare(TestDefinition aFirst, TestDefinition aSecond) {
+			return aFirst.getName().compareTo(aSecond.getName());
+		}
+	});
 
 	/**
 	 * Constructor.
@@ -62,19 +89,19 @@ public class IntegrityPackage {
 		return name;
 	}
 
-	public ArrayList<SuiteDefinition> getSuites() {
+	public Collection<SuiteDefinition> getSuites() {
 		return suites;
 	}
 
-	public ArrayList<ConstantDefinition> getConstants() {
+	public Collection<ConstantDefinition> getConstants() {
 		return constants;
 	}
 
-	public ArrayList<CallDefinition> getCalls() {
+	public Collection<CallDefinition> getCalls() {
 		return calls;
 	}
 
-	public ArrayList<TestDefinition> getTests() {
+	public Collection<TestDefinition> getTests() {
 		return tests;
 	}
 
