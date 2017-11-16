@@ -23,8 +23,11 @@ import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.docgen.IntegrityPackage;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.DocumentationComment;
+import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariantDefinition;
@@ -114,6 +117,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 		processConstants(aPackage, mainContent);
 		processCalls(aPackage, mainContent);
+		processTests(aPackage, mainContent);
 		processSuites(aPackage, mainContent);
 	}
 
@@ -261,7 +265,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	}
 
 	/**
-	 * Processes all calls in a package.
+	 * Processes all call fixtures in a package.
 	 * 
 	 * @param anEntry
 	 * @param aModelSourceExplorer
@@ -278,75 +282,116 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 				.text("This package defines " + aPackage.getCalls().size() + " call fixtures");
 
 		for (CallDefinition tempCall : aPackage.getCalls()) {
-			HtmlDiv<?> tempCallDiv = tempMainDiv.div().classAttr("entity call");
-			HtmlDiv<?> tempCallHeaderDiv = tempCallDiv.div().classAttr("entityheader");
-			tempCallHeaderDiv.div().classAttr("entityname").text(tempCall.getName());
-			tempCallHeaderDiv.div().classAttr("fullentityname code")
-					.text(IntegrityDSLUtil.getQualifiedCallName(tempCall));
+			tempMainDiv
+					.addChild(createTestOrCallDiv(tempCall.getName(), IntegrityDSLUtil.getQualifiedCallName(tempCall),
+							tempCall.getDocumentation(), tempCall.getFixtureMethod(), "call", "Returns"));
+		}
+	}
 
-			List<ParamAnnotationTypeTriplet> tempParams = IntegrityDSLUtil
-					.getAllParamNamesFromFixtureMethod(tempCall.getFixtureMethod());
-			ParsedDocumentationComment tempParsedComment = (tempCall.getDocumentation() != null
-					? new ParsedDocumentationComment(tempCall.getDocumentation(),
-							modelSourceExplorer.determineSourceInformation(tempCall.getDocumentation()))
-					: null);
+	/**
+	 * Processes all test fixtures in a package.
+	 * 
+	 * @param anEntry
+	 * @param aModelSourceExplorer
+	 * @param aMainContainerDiv
+	 * @throws ParseException
+	 */
+	protected void processTests(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+		if (aPackage.getTests().size() == 0) {
+			return;
+		}
 
-			if (tempParams.size() > 0 || tempParsedComment != null) {
-				HtmlDiv<?> tempCallDetailsDiv = tempCallDiv.div().classAttr("entitydetails");
-				if (tempCall.getDocumentation() != null) {
-					tempCallDetailsDiv.div().classAttr("entitydescription")
-							.text(tempParsedComment.getDocumentationText());
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox tests");
+		tempMainDiv.div().classAttr("entitysummary testsummary")
+				.text("This package defines " + aPackage.getTests().size() + " test fixtures");
+
+		for (TestDefinition tempTest : aPackage.getTests()) {
+			tempMainDiv
+					.addChild(createTestOrCallDiv(tempTest.getName(), IntegrityDSLUtil.getQualifiedTestName(tempTest),
+							tempTest.getDocumentation(), tempTest.getFixtureMethod(), "test", "Results"));
+		}
+	}
+
+	/**
+	 * Creates a single test/call documentation block.
+	 * 
+	 * @param aShortName
+	 * @param aQualifiedName
+	 * @param aDocComment
+	 * @param aFixtureMethod
+	 * @param anEntityName
+	 * @param aReturnValueName
+	 * @return
+	 * @throws ParseException
+	 */
+	protected HtmlDiv<?> createTestOrCallDiv(String aShortName, String aQualifiedName, DocumentationComment aDocComment,
+			MethodReference aFixtureMethod, String anEntityName, String aReturnValueName) throws ParseException {
+		HtmlDiv<?> tempTestDiv = new HtmlDiv<>();
+		tempTestDiv.classAttr("entity " + anEntityName);
+		HtmlDiv<?> tempTestHeaderDiv = tempTestDiv.div().classAttr("entityheader");
+		tempTestHeaderDiv.div().classAttr("entityname").text(aShortName);
+		tempTestHeaderDiv.div().classAttr("fullentityname code").text(aQualifiedName);
+
+		List<ParamAnnotationTypeTriplet> tempParams = IntegrityDSLUtil
+				.getAllParamNamesFromFixtureMethod(aFixtureMethod);
+		ParsedDocumentationComment tempParsedComment = (aDocComment != null ? new ParsedDocumentationComment(
+				aDocComment, modelSourceExplorer.determineSourceInformation(aDocComment)) : null);
+
+		if (tempParams.size() > 0 || tempParsedComment != null) {
+			HtmlDiv<?> tempTestDetailsDiv = tempTestDiv.div().classAttr("entitydetails");
+			if (tempParsedComment != null) {
+				tempTestDetailsDiv.div().classAttr("entitydescription").text(tempParsedComment.getDocumentationText());
+			}
+
+			if (tempParams.size() > 0) {
+				HtmlDiv<?> tempTestParamsDiv = tempTestDetailsDiv.div().classAttr("entityparams");
+				tempTestParamsDiv.div().classAttr("detailstitle").text("Parameters");
+				HtmlTable<?> tempParamTable = tempTestParamsDiv.table();
+
+				for (ParamAnnotationTypeTriplet tempParameter : tempParams) {
+					boolean tempMandatory = IntegrityDSLUtil
+							.getParamMandatoryFlagFromAnnotation(tempParameter.getAnnotation());
+					String tempParamName = tempParameter.getParamName();
+					String tempParamDoc = (tempParsedComment != null
+							? tempParsedComment.getParameterDocumentationTexts().get(tempParamName) : "");
+					tempParamTable.addChild(createParameterRow(tempParamName, tempMandatory,
+							tempParameter.getType().getType(), tempParamDoc));
 				}
+			}
 
-				if (tempParams.size() > 0) {
-					HtmlDiv<?> tempCallParamsDiv = tempCallDetailsDiv.div().classAttr("entityparams");
-					tempCallParamsDiv.div().classAttr("detailstitle").text("Parameters");
-					HtmlTable<?> tempParamTable = tempCallParamsDiv.table();
+			JvmType tempReturnType = aFixtureMethod.getMethod().getReturnType().getType();
+			if (!(tempReturnType instanceof JvmVoid)) {
+				HtmlDiv<?> tempCallResultsDiv = tempTestDetailsDiv.div().classAttr("entityparams");
+				tempCallResultsDiv.div().classAttr("detailstitle").text(aReturnValueName);
+				HtmlTable<?> tempResultsTable = tempCallResultsDiv.table();
 
-					for (ParamAnnotationTypeTriplet tempParameter : tempParams) {
-						boolean tempMandatory = IntegrityDSLUtil
-								.getParamMandatoryFlagFromAnnotation(tempParameter.getAnnotation());
-						String tempParamName = tempParameter.getParamName();
-						String tempParamDoc = (tempParsedComment != null
-								? tempParsedComment.getParameterDocumentationTexts().get(tempParamName) : "");
-						tempParamTable.addChild(createParameterRow(tempParamName, tempMandatory,
-								tempParameter.getType().getType(), tempParamDoc));
-					}
-				}
+				String tempDefaultResultDocumentation = null;
+				boolean tempResultsHandled = false;
+				if (tempParsedComment != null && tempParsedComment.getResultDocumentationTexts().size() > 0) {
+					tempDefaultResultDocumentation = tempParsedComment.getResultDocumentationTexts().get(null);
+					if (tempDefaultResultDocumentation == null) {
+						// Must be named results then
+						List<ResultFieldTuple> tempNamedResults = IntegrityDSLUtil
+								.getAllResultNamesFromFixtureMethod(aFixtureMethod);
 
-				JvmType tempReturnType = tempCall.getFixtureMethod().getMethod().getReturnType().getType();
-				if (!(tempReturnType instanceof JvmVoid)) {
-					HtmlDiv<?> tempCallResultsDiv = tempCallDetailsDiv.div().classAttr("entityparams");
-					tempCallResultsDiv.div().classAttr("detailstitle").text("Returns");
-					HtmlTable<?> tempResultsTable = tempCallResultsDiv.table();
-
-					String tempDefaultResultDocumentation = null;
-					boolean tempResultsHandled = false;
-					if (tempParsedComment != null && tempParsedComment.getResultDocumentationTexts().size() > 0) {
-						tempDefaultResultDocumentation = tempParsedComment.getResultDocumentationTexts().get(null);
-						if (tempDefaultResultDocumentation == null) {
-							// Must be named results then
-							List<ResultFieldTuple> tempNamedResults = IntegrityDSLUtil
-									.getAllResultNamesFromFixtureMethod(tempCall.getFixtureMethod());
-
-							for (ResultFieldTuple tempNamedResult : tempNamedResults) {
-								String tempDocumentation = tempParsedComment.getResultDocumentationTexts()
-										.get(tempNamedResult.getResultName());
-								tempResultsTable.addChild(createParameterRow(tempNamedResult.getResultName(), false,
-										tempNamedResult.getField().getType().getType(), tempDocumentation));
-							}
-							tempResultsHandled = true;
+						for (ResultFieldTuple tempNamedResult : tempNamedResults) {
+							String tempDocumentation = tempParsedComment.getResultDocumentationTexts()
+									.get(tempNamedResult.getResultName());
+							tempResultsTable.addChild(createParameterRow(tempNamedResult.getResultName(), false,
+									tempNamedResult.getField().getType().getType(), tempDocumentation));
 						}
+						tempResultsHandled = true;
 					}
-					if (!tempResultsHandled) {
-						// This adds just a single line for our result
-						tempResultsTable.addChild(createParameterRow(null, false,
-								tempCall.getFixtureMethod().getMethod().getReturnType().getType(),
-								tempDefaultResultDocumentation));
-					}
+				}
+				if (!tempResultsHandled) {
+					// This adds just a single line for our result
+					tempResultsTable.addChild(createParameterRow(null, false,
+							aFixtureMethod.getMethod().getReturnType().getType(), tempDefaultResultDocumentation));
 				}
 			}
 		}
+
+		return tempTestDiv;
 	}
 
 	/**
