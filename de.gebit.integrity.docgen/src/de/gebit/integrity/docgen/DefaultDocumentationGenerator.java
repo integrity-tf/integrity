@@ -133,7 +133,10 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 
 		};
 
-		aModel.getAllSuites().forEach(tempConsumer);
+		// For suites, we only include those that are either non-private or are private but have a doc comment attached
+		aModel.getAllSuites().stream()
+				.filter((aSuite) -> (aSuite.getPrivate() == null || aSuite.getDocumentation() != null))
+				.forEach(tempConsumer);
 		aModel.getConstantDefinitionsInPackages().forEach(tempConsumer);
 		aModel.getAllCalls().forEach(tempConsumer);
 		aModel.getAllTests().forEach(tempConsumer);

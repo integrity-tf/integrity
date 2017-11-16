@@ -38,7 +38,7 @@ packagedef mypackage with
 	* @param nonexistentParameter
 	* 				This one doesn't exist
 	*/
-	suitedef asuite gets testParameter anotherParameter with
+	private suitedef asuite gets testParameter anotherParameter with
 		--- The first Suite
 	
 		//suite csuite
@@ -75,7 +75,7 @@ packagedef mypackage with
 	
 	suiteend
 	
-	suitedef csuite concludedby dsuite with
+	private suitedef csuite concludedby dsuite with
 	
 		test echo echo: returnVar = "blahblub"
 	
