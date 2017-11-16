@@ -50,7 +50,7 @@ function addResult(container, result) {
 		}
 		resultTokens = resultTokens + token;
 	}
-	var resultUrl = "packages/" + result.ref + ".html" + "#" + encodeURIComponent(resultTokens);
+	var resultUrl = "packages/" + result.ref + ".html" + "#" + encodeURIComponent("highlight_" + resultTokens);
 	var resultIdentifier = "result_" + Math.floor(Math.random() * 10000000000);
 	
 	var resultDiv = document.createElement('div');

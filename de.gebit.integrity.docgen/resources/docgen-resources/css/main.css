@@ -30,13 +30,17 @@ p {
 }
 
 .entitysummary {
-	font-size: 12pt;
+	font-size: 16pt;
 	color: #ffffff;
 	background-color: #3060ff;
 	padding-top: 2px;
 	padding-bottom: 2px;
 	padding-right: 2px;
 	padding-left: 2px;
+}
+
+.packagesummary {
+	font-size: 12pt;
 }
 
 .suites {
@@ -55,7 +59,7 @@ p {
 }
 
 .entityheader {
-	font-size: 12pt;
+	font-size: 14pt;
 	padding-bottom: 4px;
 }
 

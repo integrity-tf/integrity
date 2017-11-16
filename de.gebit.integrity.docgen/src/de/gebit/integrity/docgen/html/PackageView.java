@@ -40,6 +40,8 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.runner.TestModel;
+import de.gebit.integrity.utils.CountsOfThingsStringJoiner;
+import de.gebit.integrity.utils.CountsOfThingsStringJoiner.StringSegment;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.JavaTypeUtil;
 import de.gebit.integrity.utils.ParamAnnotationTypeTriplet;
@@ -47,6 +49,8 @@ import de.gebit.integrity.utils.ParsedDocumentationComment;
 import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
 import de.gebit.integrity.utils.ResultFieldTuple;
 import htmlflow.HtmlWriterComposite;
+import htmlflow.elements.HtmlA;
+import htmlflow.elements.HtmlAnchor;
 import htmlflow.elements.HtmlBody;
 import htmlflow.elements.HtmlDiv;
 import htmlflow.elements.HtmlP;
@@ -114,11 +118,30 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		mainContent = tempBody.div().idAttr("maincontainer");
 		mainContent.div().classAttr("title").text("Package " + aPackage.getName());
 		mainContent.hr();
+		HtmlDiv<?> tempSummaryDiv = mainContent.div().classAttr("packagesummary");
 
-		processConstants(aPackage, mainContent);
-		processCalls(aPackage, mainContent);
-		processTests(aPackage, mainContent);
-		processSuites(aPackage, mainContent);
+		int tempConstantCount = processConstants(aPackage, mainContent);
+		int tempCallCount = processCalls(aPackage, mainContent);
+		int tempTestCount = processTests(aPackage, mainContent);
+		int tempSuiteCount = processSuites(aPackage, mainContent);
+
+		CountsOfThingsStringJoiner tempSummaryText = new CountsOfThingsStringJoiner(false);
+		tempSummaryText.add(tempConstantCount, "Constant", "Constants", "constants");
+		tempSummaryText.add(tempCallCount, "Call", "Calls", "calls");
+		tempSummaryText.add(tempTestCount, "Test", "Tests", "tests");
+		tempSummaryText.add(tempSuiteCount, "Suite", "Suites", "suites");
+		List<StringSegment> tempSummaryParts = tempSummaryText.toStringSegments();
+		tempSummaryDiv.text("Contains ");
+		for (StringSegment tempSegment : tempSummaryParts) {
+			if (tempSegment.hasLastDivider()) {
+				tempSummaryDiv.text(tempSegment.getDivider());
+			}
+			HtmlA<?> tempSummaryLink = new HtmlA<>("#" + tempSegment.getData());
+			tempSummaryLink.text(tempSegment.getContent()
+					+ ((tempSegment.getNextSegment() != null && !tempSegment.getNextSegment().hasLastDivider())
+							? tempSegment.getNextSegment().getDivider().replace(" ", "") : ""));
+			tempSummaryDiv.addChild(tempSummaryLink);
+		}
 	}
 
 	@Override
@@ -134,14 +157,15 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * @param aMainContainerDiv
 	 * @throws ParseException
 	 */
-	protected void processSuites(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+	protected int processSuites(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
 		if (aPackage.getSuites().size() == 0) {
-			return;
+			return 0;
 		}
 
+		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("suites");
+		aMainContainerDiv.addChild(tempAnchor);
 		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox suites");
-		tempMainDiv.div().classAttr("entitysummary suitesummary")
-				.text("This package defines " + aPackage.getSuites().size() + " suites");
+		tempMainDiv.div().classAttr("entitysummary suitesummary").text(aPackage.getSuites().size() + " Suites");
 
 		for (SuiteDefinition tempSuite : aPackage.getSuites()) {
 			HtmlDiv<?> tempSuiteDiv = tempMainDiv.div().classAttr("entity suite");
@@ -179,6 +203,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 				}
 			}
 		}
+
+		return aPackage.getSuites().size();
 	}
 
 	/**
@@ -189,14 +215,16 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * @param aMainContainerDiv
 	 * @throws ParseException
 	 */
-	protected void processConstants(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+	protected int processConstants(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
 		if (aPackage.getConstants().size() == 0) {
-			return;
+			return 0;
 		}
 
+		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("constants");
+		aMainContainerDiv.addChild(tempAnchor);
 		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox constants");
 		tempMainDiv.div().classAttr("entitysummary constantsummary")
-				.text("This package defines " + aPackage.getConstants().size() + " constants");
+				.text(aPackage.getConstants().size() + " Constants");
 
 		HtmlTable<?> tempTable = tempMainDiv.table();
 		HtmlTr<?> tempHeaderRow = tempTable.tr();
@@ -262,6 +290,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 			tempRow.td().text(tempConstantDescription);
 		}
+
+		return aPackage.getConstants().size();
 	}
 
 	/**
@@ -272,20 +302,23 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * @param aMainContainerDiv
 	 * @throws ParseException
 	 */
-	protected void processCalls(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+	protected int processCalls(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
 		if (aPackage.getCalls().size() == 0) {
-			return;
+			return 0;
 		}
 
+		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("calls");
+		aMainContainerDiv.addChild(tempAnchor);
 		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox calls");
-		tempMainDiv.div().classAttr("entitysummary callsummary")
-				.text("This package defines " + aPackage.getCalls().size() + " call fixtures");
+		tempMainDiv.div().classAttr("entitysummary callsummary").text(aPackage.getCalls().size() + " Call Fixtures");
 
 		for (CallDefinition tempCall : aPackage.getCalls()) {
 			tempMainDiv
 					.addChild(createTestOrCallDiv(tempCall.getName(), IntegrityDSLUtil.getQualifiedCallName(tempCall),
 							tempCall.getDocumentation(), tempCall.getFixtureMethod(), "call", "Returns"));
 		}
+
+		return aPackage.getCalls().size();
 	}
 
 	/**
@@ -296,20 +329,23 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * @param aMainContainerDiv
 	 * @throws ParseException
 	 */
-	protected void processTests(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+	protected int processTests(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
 		if (aPackage.getTests().size() == 0) {
-			return;
+			return 0;
 		}
 
+		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("tests");
+		aMainContainerDiv.addChild(tempAnchor);
 		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox tests");
-		tempMainDiv.div().classAttr("entitysummary testsummary")
-				.text("This package defines " + aPackage.getTests().size() + " test fixtures");
+		tempMainDiv.div().classAttr("entitysummary testsummary").text(aPackage.getTests().size() + " Test Fixtures");
 
 		for (TestDefinition tempTest : aPackage.getTests()) {
 			tempMainDiv
 					.addChild(createTestOrCallDiv(tempTest.getName(), IntegrityDSLUtil.getQualifiedTestName(tempTest),
 							tempTest.getDocumentation(), tempTest.getFixtureMethod(), "test", "Results"));
 		}
+
+		return aPackage.getTests().size();
 	}
 
 	/**

@@ -1,26 +1,29 @@
 window.onload = function(event){ 
 	if(window.location.hash) {
-		var highlightTokens = decodeURIComponent(window.location.hash).split(/[ ,#]+/).filter(Boolean);
+		var highlightText = decodeURIComponent(window.location.hash);
 		
 		if(window.name && window.name.startsWith("result_")) {
 			var treeContainer = document.getElementById('treecontainer');
 			treeContainer.parentElement.removeChild(treeContainer);
 		}
 		
-		var context = document.getElementById('maincontainer');
-		var marker = new Mark(context);
-		marker.mark(highlightTokens, {'diacritics': false, 
-			'accuracy': {'value': "exactly", 'limiters': [" ", ".", ",", "\"", ":"]},
-			'each': function(element) {
-				highlightedElements.push(element);
-			},
-			'done': function(count) {
-				if(parent) {
-					parent.postMessage(window.name + "|" + count + " hit" + (count != 1 ? "s" : ""), "*");
-				}
-				jumpToNext();
-			},
-		});
+		if(highlightText.startsWith("highlight_")) {
+			var highlightTokens = highlightText.substring(11).split(/[ ,#]+/).filter(Boolean);				
+			var context = document.getElementById('maincontainer');
+			var marker = new Mark(context);
+			marker.mark(highlightTokens, {'diacritics': false, 
+				'accuracy': {'value': "exactly", 'limiters': [" ", ".", ",", "\"", ":"]},
+				'each': function(element) {
+					highlightedElements.push(element);
+				},
+				'done': function(count) {
+					if(parent) {
+						parent.postMessage(window.name + "|" + count + " hit" + (count != 1 ? "s" : ""), "*");
+					}
+					jumpToNext();
+				},
+			});
+		}
 	}
 };
 
