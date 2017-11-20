@@ -511,7 +511,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 */
 	protected HtmlTr<?> createParameterRow(String aParamName, boolean aMandatory, JvmType aType,
 			String aDocumentation) {
-		String tempTypeName = JavaTypeUtil.getReadableJavaTypeName(aType);
+		String tempTypeName = (aType != null ? JavaTypeUtil.getReadableJavaTypeName(aType) : "(unknown type)");
 
 		HtmlTr<?> tempRow = new HtmlTr<>();
 		if (aParamName != null) {
