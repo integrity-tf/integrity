@@ -7,9 +7,12 @@
  *******************************************************************************/
 package de.gebit.integrity.docgen;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
@@ -95,7 +98,7 @@ public class IntegrityPackage {
 	/**
 	 * Maps each {@link VariantDefinition} to a collection of constants influenced by the variant.
 	 */
-	protected Map<VariantDefinition, Collection<ConstantDefinition>> variantToConstantMap = new HashMap<>();
+	protected Map<VariantDefinition, List<ConstantDefinition>> variantToConstantMap = new HashMap<>();
 
 	/**
 	 * Constructor.
@@ -175,26 +178,32 @@ public class IntegrityPackage {
 	public void postProcess(Collection<IntegrityPackage> somePackages) {
 		// Find constants influenced by all variants defined in this package
 		for (VariantDefinition tempVariant : variants) {
-			Collection<ConstantDefinition> tempInfluencedConstants = new TreeSet<>(
-					new Comparator<ConstantDefinition>() {
+			variantToConstantMap.put(tempVariant, new ArrayList<>());
+		}
 
-						@Override
-						public int compare(ConstantDefinition aFirst, ConstantDefinition aSecond) {
-							return aFirst.getName().getName().compareTo(aSecond.getName().getName());
-						}
-					});
-			variantToConstantMap.put(tempVariant, tempInfluencedConstants);
-
+		if (variantToConstantMap.size() > 0) {
 			for (IntegrityPackage tempOtherPackage : somePackages) {
 				for (ConstantDefinition tempConstant : tempOtherPackage.getConstants()) {
 					for (VariantValue tempVariantValue : tempConstant.getVariantValues()) {
-						if (tempVariantValue.getNames().contains(tempVariant)) {
-							tempInfluencedConstants.add(tempConstant);
-							break;
+						for (VariantDefinition tempVariant : tempVariantValue.getNames()) {
+							List<ConstantDefinition> tempList = variantToConstantMap.get(tempVariant);
+							if (tempList != null) {
+								tempList.add(tempConstant);
+							}
 						}
 					}
 				}
 			}
+		}
+
+		for (List<ConstantDefinition> tempList : variantToConstantMap.values()) {
+			Collections.sort(tempList, new Comparator<ConstantDefinition>() {
+
+				@Override
+				public int compare(ConstantDefinition aFirst, ConstantDefinition aSecond) {
+					return aFirst.getName().getName().compareTo(aSecond.getName().getName());
+				}
+			});
 		}
 	}
 
