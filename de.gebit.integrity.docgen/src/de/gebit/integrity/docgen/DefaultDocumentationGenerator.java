@@ -15,8 +15,11 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -71,7 +74,8 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		System.out.println("done!");
 
 		System.out.print("Preprocessing entities...");
-		Collection<IntegrityPackage> tempPackages = groupEntitiesByPackage(model);
+		List<IntegrityPackage> tempPackages = new ArrayList<>(groupEntitiesByPackage(model));
+		Collections.sort(tempPackages);
 		System.out.println("done!");
 
 		// Write out the package tree view document

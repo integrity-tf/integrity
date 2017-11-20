@@ -31,7 +31,7 @@ import de.gebit.integrity.dsl.VariantValue;
  * @author Rene Schneider - initial API and implementation
  *
  */
-public class IntegrityPackage {
+public class IntegrityPackage implements Comparable<IntegrityPackage> {
 
 	/**
 	 * The name of the package.
@@ -205,6 +205,11 @@ public class IntegrityPackage {
 				}
 			});
 		}
+	}
+
+	@Override
+	public int compareTo(IntegrityPackage anOther) {
+		return name.compareTo(anOther.name);
 	}
 
 }
