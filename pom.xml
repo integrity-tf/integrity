@@ -24,6 +24,7 @@
     <module>de.gebit.integrity.eclipse</module>
     <module>de.gebit.integrity.remoting</module>
     <module>de.gebit.integrity.runner</module>
+    <module>de.gebit.integrity.docgen</module>
     <module>de.gebit.integrity.feature</module>
     <module>de.gebit.integrity.tests</module>
     <module>javadoc</module>

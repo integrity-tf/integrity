@@ -22,7 +22,7 @@
 			<directory>${basedir}/resources</directory>
 		</resource>
 		<resource>
-			<directory>${project.build.directory}/saxon</directory>
+			<directory>${project.build.directory}/lib</directory>
 		</resource>
   	</resources>
   	
@@ -60,6 +60,16 @@
 		      <goals>
 		        <goal>compile</goal>
 		      </goals>
+		      <configuration>
+		      	<extraClasspathElements>
+		      		<extraClasspathElement>
+						<groupId>de.gebit.integrity.docgen.internaldep</groupId>
+						<artifactId>htmlflow</artifactId>
+						<version>1.3.0</version>
+						<systemPath>${basedir}/lib/htmlflow-1.3-SNAPSHOT.jar</systemPath>
+					</extraClasspathElement>
+		      	</extraClasspathElements>
+		      </configuration>
 		    </execution>
 		  </executions>
 		</plugin>

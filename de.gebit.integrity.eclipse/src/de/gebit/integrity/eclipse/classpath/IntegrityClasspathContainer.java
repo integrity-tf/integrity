@@ -56,6 +56,7 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		ArrayList<IClasspathEntry> tempEntryList = new ArrayList<IClasspathEntry>();
 
 		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.runner" } });
+		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.docgen" } });
 		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.remoting" } });
 		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.dsl" } });
 
@@ -116,12 +117,9 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 			}
 		}
 
-		Activator
-				.getInstance()
-				.getLog()
-				.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
-						"Was unable to find any of the bundle combinations '" + tempBuffer
-								+ "' to add it to a projects' classpath!"));
+		Activator.getInstance().getLog().log(
+				new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Was unable to find any of the bundle combinations '"
+						+ tempBuffer + "' to add it to a projects' classpath!"));
 	}
 
 	private Bundle findBundle(String aSymbolicName) {
