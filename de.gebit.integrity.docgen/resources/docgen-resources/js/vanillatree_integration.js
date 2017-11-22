@@ -51,7 +51,7 @@ function goToPackage(targetIndex) {
 	var targetPackage = treeData[targetIndex];
 	
 	if(targetPackage.href != null) {
-		if(lunrIndex) {
+		if(typeof lunrIndex === 'undefined') {
 			window.location.href = "packages/" + targetPackage.href + ".html" + "#" + encodeURIComponent(serializeTreeState() + "|");
 		} else {
 			window.location.href = targetPackage.href + ".html" + "#" + encodeURIComponent(serializeTreeState() + "|");
