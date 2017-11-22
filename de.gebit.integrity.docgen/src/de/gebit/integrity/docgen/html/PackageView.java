@@ -102,18 +102,25 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * @param anEntry
 	 * @throws ParseException
 	 */
-	public PackageView(IntegrityPackage aPackage, TestModel aModel, PackageTreeView aTreeView) throws ParseException {
+	public PackageView(IntegrityPackage aPackage, TestModel aModel, PackageIndexView aTreeView) throws ParseException {
 		aModel.getInjector().injectMembers(this);
 
-		head().linkCss("../resources/css/main.css").title("Package " + aPackage.getName());
+		head().title("Package " + aPackage.getName());
+		head().linkCss("../resources/css/main.css");
+		head().linkCss("../resources/css/vtree.css");
 		head().scriptLink("../resources/js/mark.js");
 		head().scriptLink("../resources/js/package.js");
+		head().scriptLink("../resources/js/vanillatree.js");
+		head().scriptLink("../resources/js/vanillatree_integration.js");
+		head().scriptLink("../resources/js/tree.js");
 
 		HtmlBody<?> tempBody = body();
-
-		// The content for the tree view is basically just copied over
 		HtmlDiv<?> tempTreeContainerDiv = tempBody.div().idAttr("treecontainer");
-		tempTreeContainerDiv.addChild(aTreeView.getTreeRootElement());
+		HtmlDiv<?> tempTreeDiv = tempTreeContainerDiv.div().idAttr("packagetree");
+		HtmlDiv<?> tempTreeIndexLinkDiv = tempTreeDiv.div().idAttr("treeindexlink");
+		HtmlA<?> tempTreeIndexLink = new HtmlA<>("../index.html");
+		tempTreeIndexLink.text("Package Index");
+		tempTreeIndexLinkDiv.addChild(tempTreeIndexLink);
 
 		// This generates the actual content (documentation of the package)
 		mainContent = tempBody.div().idAttr("maincontainer");

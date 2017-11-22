@@ -25,9 +25,10 @@ import java.util.function.Consumer;
 
 import org.eclipse.emf.ecore.EObject;
 
-import de.gebit.integrity.docgen.html.PackageTreeView;
+import de.gebit.integrity.docgen.html.PackageIndexView;
 import de.gebit.integrity.docgen.html.PackageView;
-import de.gebit.integrity.docgen.search.LunrIndexBuilder;
+import de.gebit.integrity.docgen.jsdata.LunrIndexBuilder;
+import de.gebit.integrity.docgen.jsdata.TreeDataBuilder;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
@@ -80,9 +81,11 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 
 		// Write out the package tree view document
 		System.out.print("Writing package tree...");
-		PackageTreeView tempTreeView = new PackageTreeView(tempPackages, false);
+		TreeDataBuilder tempTreeBuilder = new TreeDataBuilder(tempPackages);
+		tempTreeBuilder.build(new File(targetDirectory, "resources/js/tree.js"));
+		PackageIndexView tempTreeView = new PackageIndexView(tempPackages, false);
 		// We also need a second PackageTreeView that is to be embedded into the package pages
-		PackageTreeView tempTreeViewEmbedded = new PackageTreeView(tempPackages, true);
+		PackageIndexView tempTreeViewEmbedded = new PackageIndexView(tempPackages, true);
 		processDocument(new File(targetDirectory, "index.html"), tempTreeView);
 		System.out.println("done!");
 
@@ -191,10 +194,13 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		}
 
 		copySingleResource("css/main.css", new File(tempCssTargetDir, "main.css"));
+		copySingleResource("css/vtree.css", new File(tempCssTargetDir, "vtree.css"));
 		copySingleResource("js/lunr.js", new File(tempJsTargetDir, "lunr.js"));
 		copySingleResource("js/lunr_config.js", new File(tempJsTargetDir, "lunr_config.js"));
+		copySingleResource("js/lunr_integration.js", new File(tempJsTargetDir, "lunr_integration.js"));
+		copySingleResource("js/vanillatree.js", new File(tempJsTargetDir, "vanillatree.js"));
+		copySingleResource("js/vanillatree_integration.js", new File(tempJsTargetDir, "vanillatree_integration.js"));
 		copySingleResource("js/mark.js", new File(tempJsTargetDir, "mark.js"));
-		copySingleResource("js/search.js", new File(tempJsTargetDir, "search.js"));
 		copySingleResource("js/package.js", new File(tempJsTargetDir, "package.js"));
 	}
 

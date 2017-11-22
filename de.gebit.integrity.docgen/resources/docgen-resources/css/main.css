@@ -191,6 +191,7 @@ table td.expand {
 
 #treecontainer {
 	float: left;
+	min-width: 200px;
 }
 
 #maincontainer {

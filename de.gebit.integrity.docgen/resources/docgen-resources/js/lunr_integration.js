@@ -8,6 +8,13 @@ window.onload = function(event){
         document.getElementById("searchbutton").click();
     }
 	});
+	
+	attachTree(document.getElementById('packagetree'));
+	
+	if(window.location.hash) {
+		var hashText = decodeURIComponent(window.location.hash).substring(1);
+		restoreTreeState(hashText);
+	}
 }
 
 var lunrIndex = lunr.Index.load(lunrIndexJSON.index);
@@ -50,7 +57,7 @@ function addResult(container, result) {
 		}
 		resultTokens = resultTokens + token;
 	}
-	var resultUrl = "packages/" + result.ref + ".html" + "#" + encodeURIComponent("highlight_" + resultTokens);
+	var resultUrl = "packages/" + result.ref + ".html" + "#" + encodeURIComponent(serializeTreeState() + "|" + "highlight_" + resultTokens);
 	var resultIdentifier = "result_" + Math.floor(Math.random() * 10000000000);
 	
 	var resultDiv = document.createElement('div');

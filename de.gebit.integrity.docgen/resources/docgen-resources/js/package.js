@@ -1,11 +1,18 @@
-window.onload = function(event){ 
+window.onload = function(event) {
+	var showTree = true;
+	
 	if(window.location.hash) {
-		var highlightText = decodeURIComponent(window.location.hash).substring(1);
+		var hashText = decodeURIComponent(window.location.hash).substring(1);
 		
 		if(window.name && window.name.startsWith("result_")) {
 			var treeContainer = document.getElementById('treecontainer');
 			treeContainer.parentElement.removeChild(treeContainer);
+			showTree = false;
 		}
+		
+		var parts = hashText.split('|');
+		var stateText = parts[0];
+		var highlightText = parts[1];
 		
 		if(highlightText.startsWith("highlight_")) {
 			var highlightTokens = highlightText.substring(10).split(/[ ,#]+/).filter(Boolean);				
@@ -23,6 +30,13 @@ window.onload = function(event){
 					jumpToNext();
 				},
 			});
+		}
+	}
+	
+	if(showTree) {
+		attachTree(document.getElementById('packagetree'));
+		if(stateText != "") {
+			restoreTreeState(stateText);
 		}
 	}
 };
