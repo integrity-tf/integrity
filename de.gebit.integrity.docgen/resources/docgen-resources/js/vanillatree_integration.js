@@ -52,9 +52,9 @@ function goToPackage(targetIndex) {
 	
 	if(targetPackage.href != null) {
 		if(typeof lunrIndex === 'undefined') {
-			window.location.href = "packages/" + targetPackage.href + ".html" + "#" + encodeURIComponent(serializeTreeState() + "|");
-		} else {
 			window.location.href = targetPackage.href + ".html" + "#" + encodeURIComponent(serializeTreeState() + "|");
+		} else {
+			window.location.href = "packages/" + targetPackage.href + ".html" + "#" + encodeURIComponent(serializeTreeState() + "|");
 		}
 	} else {
 		tree.toggle(targetIndex);
