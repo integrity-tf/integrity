@@ -101,7 +101,7 @@ packagedef mypackage with
 		suite csuite
 		
 		suite asuite
-	
+		
 	suiteend
 	
 	

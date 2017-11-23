@@ -50,7 +50,7 @@ public class ParsedDocumentationComment {
 	/**
 	 * The parsed core documentation text. May be empty if {@link #documentationText} is empty.
 	 */
-	protected List<DocCommentElement> documentationTextElements = Collections.emptyList();
+	protected List<DocCommentElement> documentationTextElements;
 
 	/**
 	 * Documentation for parameters (@param).
@@ -190,7 +190,6 @@ public class ParsedDocumentationComment {
 		}
 
 		documentationText = tempDocumentationText.toString();
-		documentationTextElements = tokenizeCommentText(documentationText);
 
 		List<String> tempParameterDocs = tempTags.getOrDefault(DOCUMENTATION_TAG_PARAMETER,
 				(List<String>) Collections.EMPTY_LIST);
@@ -236,7 +235,15 @@ public class ParsedDocumentationComment {
 		return documentationText;
 	}
 
+	/**
+	 * Lazily calculates the documentation text elements and returns them.
+	 * 
+	 * @return
+	 */
 	public List<DocCommentElement> getDocumentationTextElements() {
+		if (documentationText != null && documentationTextElements == null) {
+			documentationTextElements = tokenizeCommentText(documentationText);
+		}
 		return documentationTextElements;
 	}
 

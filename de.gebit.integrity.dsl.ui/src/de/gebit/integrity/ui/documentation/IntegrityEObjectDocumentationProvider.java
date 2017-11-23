@@ -17,7 +17,9 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment;
@@ -29,6 +31,7 @@ import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
  * @author Rene Schneider - initial API and implementation
  * 
  */
+@SuppressWarnings("restriction")
 public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentationProvider {
 
 	/**
@@ -46,32 +49,43 @@ public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentat
 	/**
 	 * Returns the documentation text for a specific object.
 	 */
-	@SuppressWarnings("restriction")
 	@Override
 	public String getDocumentation(EObject anObjectOrProxy) {
-		if (!anObjectOrProxy.eIsProxy()) {
-			if (anObjectOrProxy instanceof TestDefinition) {
-				TestDefinition tempTestDefinition = (TestDefinition) anObjectOrProxy;
-				String tempJavadoc = JavadocUtil.getMethodJavadoc(tempTestDefinition.getFixtureMethod().getMethod(),
-						elementFinder);
-				return tempJavadoc;
-			} else if (anObjectOrProxy instanceof CallDefinition) {
-				CallDefinition tempCallDefinition = (CallDefinition) anObjectOrProxy;
-				String tempJavadoc = JavadocUtil.getMethodJavadoc(tempCallDefinition.getFixtureMethod().getMethod(),
-						elementFinder);
-				return tempJavadoc;
-			} else if (anObjectOrProxy instanceof SuiteDefinition) {
-				SuiteDefinition tempSuiteDefinition = (SuiteDefinition) anObjectOrProxy;
-				try {
+		try {
+			if (!anObjectOrProxy.eIsProxy()) {
+				if (anObjectOrProxy instanceof TestDefinition) {
+					TestDefinition tempTestDefinition = (TestDefinition) anObjectOrProxy;
+					String tempJavadoc = JavadocUtil.getMethodJavadoc(tempTestDefinition.getFixtureMethod().getMethod(),
+							elementFinder);
+					return tempJavadoc;
+				} else if (anObjectOrProxy instanceof CallDefinition) {
+					CallDefinition tempCallDefinition = (CallDefinition) anObjectOrProxy;
+					String tempJavadoc = JavadocUtil.getMethodJavadoc(tempCallDefinition.getFixtureMethod().getMethod(),
+							elementFinder);
+					return tempJavadoc;
+				} else if (anObjectOrProxy instanceof SuiteDefinition) {
+					SuiteDefinition tempSuiteDefinition = (SuiteDefinition) anObjectOrProxy;
 					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
 							tempSuiteDefinition.getDocumentation(),
 							modelSourceExplorer.determineSourceInformation(tempSuiteDefinition));
 					return tempParsedComment.getDocumentationText();
-				} catch (ParseException exc) {
-					Activator.getDefault().getLog().log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",
-							"An exception was caught during documentation comment parsing", exc));
+				} else if (anObjectOrProxy instanceof VariableEntity) {
+					if (anObjectOrProxy.eContainer() instanceof SuiteParameterDefinition) {
+						SuiteDefinition tempSuiteDefinition = (SuiteDefinition) anObjectOrProxy.eContainer()
+								.eContainer();
+						if (tempSuiteDefinition.getDocumentation() != null) {
+							ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+									tempSuiteDefinition.getDocumentation(),
+									modelSourceExplorer.determineSourceInformation(tempSuiteDefinition));
+							return tempParsedComment.getParameterDocumentationTexts()
+									.get(((VariableEntity) anObjectOrProxy).getName());
+						}
+					}
 				}
 			}
+		} catch (ParseException exc) {
+			Activator.getDefault().getLog().log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",
+					"An exception was caught during documentation comment parsing", exc));
 		}
 
 		return null;
