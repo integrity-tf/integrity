@@ -12,6 +12,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.modelsource.ModelSourceInformationElement;
@@ -41,9 +43,14 @@ public class ParsedDocumentationComment {
 	protected List<ParseException> parseExceptions = new ArrayList<>();
 
 	/**
-	 * The core documentation text.
+	 * The core documentation text (non-parsed).
 	 */
 	protected String documentationText;
+
+	/**
+	 * The parsed core documentation text. May be empty if {@link #documentationText} is empty.
+	 */
+	protected List<DocCommentElement> documentationTextElements = Collections.emptyList();
 
 	/**
 	 * Documentation for parameters (@param).
@@ -183,6 +190,7 @@ public class ParsedDocumentationComment {
 		}
 
 		documentationText = tempDocumentationText.toString();
+		documentationTextElements = tokenizeCommentText(documentationText);
 
 		List<String> tempParameterDocs = tempTags.getOrDefault(DOCUMENTATION_TAG_PARAMETER,
 				(List<String>) Collections.EMPTY_LIST);
@@ -226,6 +234,10 @@ public class ParsedDocumentationComment {
 
 	public String getDocumentationText() {
 		return documentationText;
+	}
+
+	public List<DocCommentElement> getDocumentationTextElements() {
+		return documentationTextElements;
 	}
 
 	public Map<String, String> getParameterDocumentationTexts() {
@@ -288,6 +300,203 @@ public class ParsedDocumentationComment {
 
 		public ModelSourceInformationElement getModelSourceInfo() {
 			return modelSourceInfo;
+		}
+
+	}
+
+	/**
+	 * The pattern used to split documentation comments into elements.
+	 */
+	protected static final Pattern DOC_COMMENT_TOKENIZER_PATTERN = Pattern.compile("(.*?)<(/?)(\\w+)/?>([^<]*)");
+
+	/**
+	 * Splits the documentation comment text into elements.
+	 * 
+	 * @param aText
+	 * @return
+	 */
+	protected List<DocCommentElement> tokenizeCommentText(String aText) {
+		List<DocCommentElement> tempResults = new ArrayList<DocCommentElement>();
+
+		Matcher tempMatcher = DOC_COMMENT_TOKENIZER_PATTERN.matcher(aText);
+		while (tempMatcher.find()) {
+			if (tempMatcher.group(1) != null && tempMatcher.group(1).length() > 0) {
+				tempResults.add(new DocCommentElement(tempMatcher.group(1), DocCommentElementType.TEXT, false));
+			}
+
+			for (DocCommentElementType tempTypeCandidate : DocCommentElementType.values()) {
+				if (tempTypeCandidate.doesMatch(tempMatcher.group(3))) {
+					tempResults.add(new DocCommentElement(tempMatcher.group(3), tempTypeCandidate,
+							(tempMatcher.group(2) != null && tempMatcher.group(2).length() > 0)));
+				}
+			}
+
+			if (tempMatcher.group(4) != null && tempMatcher.group(4).length() > 0) {
+				tempResults.add(new DocCommentElement(tempMatcher.group(4), DocCommentElementType.TEXT, false));
+			}
+		}
+
+		if (tempResults.size() == 0 && aText != null && aText.length() > 0) {
+			// The text is just text with no single element
+			tempResults.add(new DocCommentElement(aText, DocCommentElementType.TEXT, false));
+		}
+
+		return tempResults;
+	}
+
+	/**
+	 * The supported types of elements in documentation comments.
+	 *
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 */
+	public enum DocCommentElementType {
+
+		/**
+		 * Simple, plain text.
+		 */
+		TEXT(false),
+
+		/**
+		 * New line.
+		 */
+		NEWLINE(false, "br"),
+
+		/**
+		 * New paragraph.
+		 */
+		PARAGRAPH(true, "p"),
+
+		/**
+		 * Unordered list.
+		 */
+		UNORDERED_LIST(true, "ul"),
+
+		/**
+		 * Ordered list.
+		 */
+		ORDERED_LIST(true, "ol"),
+
+		/**
+		 * List element.
+		 */
+		LIST_ELEMENT(true, "li"),
+
+		/**
+		 * Bold text.
+		 */
+		BOLD(true, "b", "strong"),
+
+		/**
+		 * Italic text.
+		 */
+		ITALIC(true, "i"),
+
+		/**
+		 * Code segments.
+		 */
+		CODE(true, "code"),
+
+		/**
+		 * Biggest header.
+		 */
+		HEADER_1(true, "h1"),
+
+		/**
+		 * Second-biggest header.
+		 */
+		HEADER_2(true, "h2");
+
+		/**
+		 * All possible matching sequences.
+		 */
+		private String[] matches;
+
+		/**
+		 * Whether this element "spans" a certain amount of text.
+		 */
+		private boolean spanning;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param someMatches
+		 */
+		DocCommentElementType(boolean aSpanningFlag, String... someMatches) {
+			spanning = aSpanningFlag;
+			matches = someMatches;
+		}
+
+		public boolean isSpanning() {
+			return spanning;
+		}
+
+		/**
+		 * Whether a provided possible match matches this type.
+		 * 
+		 * @param aPossibleMatch
+		 * @return
+		 */
+		public boolean doesMatch(String aPossibleMatch) {
+			for (String tempMatch : matches) {
+				if (aPossibleMatch.toLowerCase().equals(tempMatch)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+	}
+
+	/**
+	 * A single element of a documentation comment. Can be a textual element or a structural formatting information.
+	 *
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 */
+	public static final class DocCommentElement {
+
+		/**
+		 * Text of this element.
+		 */
+		private String text;
+
+		/**
+		 * Type of the element.
+		 */
+		private DocCommentElementType type;
+
+		/**
+		 * Whether this is a termination element.
+		 */
+		private boolean terminal;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param aText
+		 * @param aType
+		 * @param aTerminalFlag
+		 */
+		public DocCommentElement(String aText, DocCommentElementType aType, boolean aTerminalFlag) {
+			text = aText;
+			type = aType;
+			terminal = aTerminalFlag;
+		}
+
+		public String getText() {
+			return text;
+		}
+
+		public DocCommentElementType getType() {
+			return type;
+		}
+
+		public boolean isTerminal() {
+			return terminal;
 		}
 
 	}

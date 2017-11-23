@@ -25,13 +25,26 @@ packagedef mypackage with
 	
 	/**
 	* A constant with a funny name.
+	* And a multi-line comment.
+	*
+	* - And it also has some lists
+	* - With items 
 	*/
 	private constant woohoo parameterized
 	
 	variable returnVar
 
 	/**
-	* Blah Blub Yeah 123.123.
+	* Blah Blub Yeah <i>123.123.</i><br>
+	* And a <b>multi-line</b> comment.
+	* <p>There is even a paragraph!
+	* <h1>And a big header!</h1>
+	* <h2>Small header as well</h2>
+	* <ul>
+	* <li>And it also has some lists
+	* <li><strong>With items</strong></li>
+	* </ul>
+	* <ol><li>first</li><li>second</li><li>third</li></ol>
 	* @param testParameter The first parameter that this suite gets
 	* @param anotherParameter
 	* 				This is the second parameter

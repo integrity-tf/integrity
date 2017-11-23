@@ -195,8 +195,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
 							tempSuite.getDocumentation(),
 							modelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()));
-					tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION)
-							.text(tempParsedComment.getDocumentationText());
+					attachFormattedDocumentationText(tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
+							tempParsedComment.getDocumentationTextElements());
 
 					if (tempSuite.getParameters().size() > 0) {
 						HtmlDiv<?> tempSuiteParamsDiv = tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYPARAMS);
@@ -458,8 +458,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		if (tempParams.size() > 0 || tempParsedComment != null) {
 			HtmlDiv<?> tempTestDetailsDiv = tempTestDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
 			if (tempParsedComment != null) {
-				tempTestDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION)
-						.text(tempParsedComment.getDocumentationText());
+				attachFormattedDocumentationText(tempTestDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
+						tempParsedComment.getDocumentationTextElements());
 			}
 
 			if (tempParams.size() > 0) {

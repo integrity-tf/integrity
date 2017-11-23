@@ -21,6 +21,26 @@ public interface CSSClasses {
 	String CODE = "code";
 
 	/**
+	 * Makes text bold.
+	 */
+	String BOLD = "bold";
+
+	/**
+	 * Italic text.
+	 */
+	String ITALIC = "italic";
+
+	/**
+	 * Large header text.
+	 */
+	String HEADER_1 = "header1";
+
+	/**
+	 * Smaller header text.
+	 */
+	String HEADER_2 = "header2";
+
+	/**
 	 * Used for mandatory stuff (in combination with {@link #CODE}).
 	 */
 	String MANDATORY = "mandatory";

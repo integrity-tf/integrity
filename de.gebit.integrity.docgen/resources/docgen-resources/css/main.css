@@ -92,6 +92,11 @@ p {
 	padding-left: 10px;
 }
 
+.entitydescription p {
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
 .entityparams {
 	margin-left: 10px;
 	margin-top: 14px;
@@ -109,12 +114,31 @@ p {
 	font-family: 'DejaVu Sans Mono', monospace;
 }
 
+.bold {
+	font-weight: bold;	
+}
+
+.italic {
+	font-style: italic;	
+}
+
 .mandatory {
 	font-weight: bold;	
 }
 
 .hidden {
 	display: none;	
+}
+
+.header1 {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.header2 {
+	font-weight: bold;
+	font-size: 14px;
+	text-decoration: underline;
 }
 
 table th.shrink {
