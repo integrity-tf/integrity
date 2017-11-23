@@ -20,8 +20,8 @@ packagedef mypackage with
 	}, "Blahblub Yeah Yeah Yeah"
 	
 	private constant languageString "???"
-		in deDE: "Die deutsche Version"
-		in enUS: "The english version", "Another english version"
+	in deDE: "Die deutsche Version"
+	in enUS: "The english version", "Another english version"
 	
 	/**
 	* A constant with a funny name.
@@ -99,6 +99,8 @@ packagedef mypackage with
 		test echo echo: returnVar = "blahblub"
 		
 		suite csuite
+		
+		suite asuite
 	
 	suiteend
 	
@@ -122,7 +124,7 @@ packagedef mypackage.deeper with
 	
 	suiteend
 
-packageend 
+packageend
 
 packagedef mypackage.deeper.evendeeper.end with
 	suitedef emptysuite with

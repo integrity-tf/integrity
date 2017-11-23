@@ -14,6 +14,7 @@ import org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 
@@ -49,6 +50,9 @@ public class IntegrityEObjectHoverProvider extends DefaultEObjectHoverProvider {
 						elementFinder);
 				return tempJavadoc != null;
 			}
+		} else if (anObject instanceof SuiteDefinition) {
+			SuiteDefinition tempSuiteDefinition = (SuiteDefinition) anObject;
+			return (tempSuiteDefinition.getDocumentation() != null);
 		}
 
 		return false;
