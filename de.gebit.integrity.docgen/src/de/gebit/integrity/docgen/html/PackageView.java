@@ -174,32 +174,33 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("suites");
 		aMainContainerDiv.addChild(tempAnchor);
-		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox suites");
-		tempMainDiv.div().classAttr("entitysummary suitesummary").text(aPackage.getSuites().size() + " Suites");
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr(CSSClasses.ENTITYBOX + " suites");
+		tempMainDiv.div().classAttr(CSSClasses.ENTITYSUMMARY + " suitesummary")
+				.text(aPackage.getSuites().size() + " Suites");
 
 		for (SuiteDefinition tempSuite : aPackage.getSuites()) {
-			HtmlDiv<?> tempSuiteDiv = tempMainDiv.div().classAttr("entity suite");
-			HtmlDiv<?> tempSuiteHeaderDiv = tempSuiteDiv.div().classAttr("entityheader");
-			tempSuiteHeaderDiv.div().classAttr("entityname").text(tempSuite.getName());
+			HtmlDiv<?> tempSuiteDiv = tempMainDiv.div().classAttr(CSSClasses.ENTITY + " suite");
+			HtmlDiv<?> tempSuiteHeaderDiv = tempSuiteDiv.div().classAttr(CSSClasses.ENTITYHEADER);
+			tempSuiteHeaderDiv.div().classAttr(CSSClasses.ENTITYNAME).text(tempSuite.getName());
 			String tempSuiteTitle = IntegrityDSLUtil.getSuiteTitle(tempSuite);
 			if (tempSuiteTitle != null) {
-				tempSuiteHeaderDiv.div().classAttr("entitytitle").text(tempSuiteTitle);
+				tempSuiteHeaderDiv.div().classAttr(CSSClasses.ENTITYTITLE).text(tempSuiteTitle);
 			}
-			tempSuiteHeaderDiv.div().classAttr("fullentityname " + CSSClasses.CODE)
-					.text(IntegrityDSLUtil.getQualifiedSuiteName(tempSuite));
+			tempSuiteHeaderDiv.div().classAttr(CSSClasses.FULLENTITYNAME + " " + CSSClasses.CODE)
+					.text("suite " + IntegrityDSLUtil.getQualifiedSuiteName(tempSuite));
 
 			if (tempSuite.getDocumentation() != null) {
-				HtmlDiv<?> tempSuiteDetailsDiv = tempSuiteDiv.div().classAttr("entitydetails");
+				HtmlDiv<?> tempSuiteDetailsDiv = tempSuiteDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
 				if (tempSuite.getDocumentation() != null) {
 					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
 							tempSuite.getDocumentation(),
 							modelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()));
-					tempSuiteDetailsDiv.div().classAttr("entitydescription")
+					tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION)
 							.text(tempParsedComment.getDocumentationText());
 
 					if (tempSuite.getParameters().size() > 0) {
-						HtmlDiv<?> tempSuiteParamsDiv = tempSuiteDetailsDiv.div().classAttr("entityparams");
-						tempSuiteParamsDiv.div().classAttr("detailstitle").text("Parameters");
+						HtmlDiv<?> tempSuiteParamsDiv = tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYPARAMS);
+						tempSuiteParamsDiv.div().classAttr(CSSClasses.DETAILSTITLE).text("Parameters");
 						HtmlTable<?> tempParamTable = tempSuiteParamsDiv.table();
 
 						for (SuiteParameterDefinition tempParameter : tempSuite.getParameters()) {
@@ -232,8 +233,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("constants");
 		aMainContainerDiv.addChild(tempAnchor);
-		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox constants");
-		tempMainDiv.div().classAttr("entitysummary constantsummary")
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr(CSSClasses.ENTITYBOX + " constants");
+		tempMainDiv.div().classAttr(CSSClasses.ENTITYSUMMARY + " constantsummary")
 				.text(aPackage.getConstants().size() + " Constants");
 
 		HtmlTable<?> tempTable = tempMainDiv.table().classAttr("constanttable");
@@ -342,17 +343,18 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("variants");
 		aMainContainerDiv.addChild(tempAnchor);
-		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox variants");
-		tempMainDiv.div().classAttr("entitysummary variantsummary").text(aPackage.getVariants().size() + " Variants");
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr(CSSClasses.ENTITYBOX + " variants");
+		tempMainDiv.div().classAttr(CSSClasses.ENTITYSUMMARY + " variantsummary")
+				.text(aPackage.getVariants().size() + " Variants");
 
 		for (VariantDefinition tempVariant : aPackage.getVariants()) {
-			HtmlDiv<?> tempVariantDiv = tempMainDiv.div().classAttr("entity variant");
-			HtmlDiv<?> tempVariantHeaderDiv = tempVariantDiv.div().classAttr("entityheader");
-			tempVariantHeaderDiv.div().classAttr("entityname").text(tempVariant.getName());
+			HtmlDiv<?> tempVariantDiv = tempMainDiv.div().classAttr(CSSClasses.ENTITY + " variant");
+			HtmlDiv<?> tempVariantHeaderDiv = tempVariantDiv.div().classAttr(CSSClasses.ENTITYHEADER);
+			tempVariantHeaderDiv.div().classAttr(CSSClasses.ENTITYNAME).text(tempVariant.getName());
 			if (tempVariant.getDescription() != null) {
-				tempVariantHeaderDiv.div().classAttr("entitytitle").text(tempVariant.getDescription());
+				tempVariantHeaderDiv.div().classAttr(CSSClasses.ENTITYTITLE).text(tempVariant.getDescription());
 			}
-			tempVariantHeaderDiv.div().classAttr("fullentityname " + CSSClasses.CODE)
+			tempVariantHeaderDiv.div().classAttr(CSSClasses.FULLENTITYNAME + " " + CSSClasses.CODE)
 					.text(IntegrityDSLUtil.getQualifiedVariantName(tempVariant));
 
 			HtmlTable<?> tempTable = tempMainDiv.table().classAttr("constanttable");
@@ -386,8 +388,9 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("calls");
 		aMainContainerDiv.addChild(tempAnchor);
-		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox calls");
-		tempMainDiv.div().classAttr("entitysummary callsummary").text(aPackage.getCalls().size() + " Call Fixtures");
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr(CSSClasses.ENTITYBOX + " calls");
+		tempMainDiv.div().classAttr(CSSClasses.ENTITYSUMMARY + " callsummary")
+				.text(aPackage.getCalls().size() + " Call Fixtures");
 
 		for (CallDefinition tempCall : aPackage.getCalls()) {
 			tempMainDiv
@@ -413,8 +416,9 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("tests");
 		aMainContainerDiv.addChild(tempAnchor);
-		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr("entitybox tests");
-		tempMainDiv.div().classAttr("entitysummary testsummary").text(aPackage.getTests().size() + " Test Fixtures");
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr(CSSClasses.ENTITYBOX + " tests");
+		tempMainDiv.div().classAttr(CSSClasses.ENTITYSUMMARY + " testsummary")
+				.text(aPackage.getTests().size() + " Test Fixtures");
 
 		for (TestDefinition tempTest : aPackage.getTests()) {
 			tempMainDiv
@@ -440,10 +444,11 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	protected HtmlDiv<?> createTestOrCallDiv(String aShortName, String aQualifiedName, DocumentationComment aDocComment,
 			MethodReference aFixtureMethod, String anEntityName, String aReturnValueName) throws ParseException {
 		HtmlDiv<?> tempTestDiv = new HtmlDiv<>();
-		tempTestDiv.classAttr("entity " + anEntityName);
-		HtmlDiv<?> tempTestHeaderDiv = tempTestDiv.div().classAttr("entityheader");
-		tempTestHeaderDiv.div().classAttr("entityname").text(aShortName);
-		tempTestHeaderDiv.div().classAttr("fullentityname " + CSSClasses.CODE).text(aQualifiedName);
+		tempTestDiv.classAttr(CSSClasses.ENTITY + " " + anEntityName);
+		HtmlDiv<?> tempTestHeaderDiv = tempTestDiv.div().classAttr(CSSClasses.ENTITYHEADER);
+		tempTestHeaderDiv.div().classAttr(CSSClasses.ENTITYNAME).text(aShortName);
+		tempTestHeaderDiv.div().classAttr(CSSClasses.FULLENTITYNAME + " " + CSSClasses.CODE)
+				.text(anEntityName + " " + aQualifiedName);
 
 		List<ParamAnnotationTypeTriplet> tempParams = IntegrityDSLUtil
 				.getAllParamNamesFromFixtureMethod(aFixtureMethod);
@@ -451,14 +456,15 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 				aDocComment, modelSourceExplorer.determineSourceInformation(aDocComment)) : null);
 
 		if (tempParams.size() > 0 || tempParsedComment != null) {
-			HtmlDiv<?> tempTestDetailsDiv = tempTestDiv.div().classAttr("entitydetails");
+			HtmlDiv<?> tempTestDetailsDiv = tempTestDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
 			if (tempParsedComment != null) {
-				tempTestDetailsDiv.div().classAttr("entitydescription").text(tempParsedComment.getDocumentationText());
+				tempTestDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION)
+						.text(tempParsedComment.getDocumentationText());
 			}
 
 			if (tempParams.size() > 0) {
-				HtmlDiv<?> tempTestParamsDiv = tempTestDetailsDiv.div().classAttr("entityparams");
-				tempTestParamsDiv.div().classAttr("detailstitle").text("Parameters");
+				HtmlDiv<?> tempTestParamsDiv = tempTestDetailsDiv.div().classAttr(CSSClasses.ENTITYPARAMS);
+				tempTestParamsDiv.div().classAttr(CSSClasses.DETAILSTITLE).text("Parameters");
 				HtmlTable<?> tempParamTable = tempTestParamsDiv.table();
 
 				for (ParamAnnotationTypeTriplet tempParameter : tempParams) {
@@ -474,8 +480,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 			JvmType tempReturnType = aFixtureMethod.getMethod().getReturnType().getType();
 			if (!(tempReturnType instanceof JvmVoid)) {
-				HtmlDiv<?> tempCallResultsDiv = tempTestDetailsDiv.div().classAttr("entityparams");
-				tempCallResultsDiv.div().classAttr("detailstitle").text(aReturnValueName);
+				HtmlDiv<?> tempCallResultsDiv = tempTestDetailsDiv.div().classAttr(CSSClasses.ENTITYPARAMS);
+				tempCallResultsDiv.div().classAttr(CSSClasses.DETAILSTITLE).text(aReturnValueName);
 				HtmlTable<?> tempResultsTable = tempCallResultsDiv.table();
 
 				String tempDefaultResultDocumentation = null;

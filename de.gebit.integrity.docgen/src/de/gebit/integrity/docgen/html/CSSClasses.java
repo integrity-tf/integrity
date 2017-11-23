@@ -40,4 +40,59 @@ public interface CSSClasses {
 	 */
 	String EXPAND = "expand";
 
+	/**
+	 * Just entities.
+	 */
+	String ENTITY = "entity";
+
+	/**
+	 * Simple entity names.
+	 */
+	String ENTITYNAME = "entityname";
+
+	/**
+	 * Entity titles.
+	 */
+	String ENTITYTITLE = "entitytitle";
+
+	/**
+	 * Fully qualified entity names.
+	 */
+	String FULLENTITYNAME = "fullentityname";
+
+	/**
+	 * The header of entity boxes.
+	 */
+	String ENTITYHEADER = "entityheader";
+
+	/**
+	 * Defines the box that entities are in.
+	 */
+	String ENTITYBOX = "entitybox";
+
+	/**
+	 * Details for entities.
+	 */
+	String ENTITYDETAILS = "entitydetails";
+
+	/**
+	 * Entity summaries.
+	 */
+	String ENTITYSUMMARY = "entitysummary";
+
+	/**
+	 * Detailed descriptions about entities.
+	 */
+	String ENTITYDESCRIPTION = "entitydescription";
+
+	/**
+	 * Entity parameters.
+	 */
+	String ENTITYPARAMS = "entityparams";
+
+	/**
+	 * Smaller title for sections in details.
+	 */
+	String DETAILSTITLE = "detailstitle";
+
 }
