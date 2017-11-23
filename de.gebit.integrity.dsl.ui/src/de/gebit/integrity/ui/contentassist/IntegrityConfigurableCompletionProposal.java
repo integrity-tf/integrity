@@ -28,6 +28,7 @@ import com.google.inject.Provider;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -42,8 +43,8 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
  * 
  */
 @SuppressWarnings("restriction")
-public class IntegrityConfigurableCompletionProposal extends ConfigurableCompletionProposal implements
-		ICompletionProposalExtension3 {
+public class IntegrityConfigurableCompletionProposal extends ConfigurableCompletionProposal
+		implements ICompletionProposalExtension3 {
 
 	/**
 	 * The context.
@@ -120,9 +121,12 @@ public class IntegrityConfigurableCompletionProposal extends ConfigurableComplet
 		}
 
 		if (tempAdditionalProposalInfo instanceof VariableOrConstantEntity
-				&& ((VariableOrConstantEntity) tempAdditionalProposalInfo).eContainer() instanceof SuiteDefinition) {
+				&& ((VariableOrConstantEntity) tempAdditionalProposalInfo)
+						.eContainer() instanceof SuiteParameterDefinition
+				&& ((VariableOrConstantEntity) tempAdditionalProposalInfo).eContainer()
+						.eContainer() instanceof SuiteDefinition) {
 			suiteDefiningProposedParameter = (SuiteDefinition) ((VariableOrConstantEntity) tempAdditionalProposalInfo)
-					.eContainer();
+					.eContainer().eContainer();
 
 			// suite parameter proposals are NEVER scoped, even though XText might think so...
 			String[] tempReplacementStringParts = getReplacementString().split("\\.");
