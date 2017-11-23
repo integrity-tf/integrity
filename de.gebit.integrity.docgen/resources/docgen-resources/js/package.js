@@ -110,14 +110,34 @@ function scrollIntoVisibility(element) {
   document.documentElement.scrollTop = position;
 }
 
-function toggleHiddenDiv(parentElement) {
+function toggleHiddenDiv(parentElement, indicatorElement) {
+	var wasClosed = false;
+	
 	for (var i = 0; i < parentElement.childNodes.length; ++i) {
 		var child = parentElement.childNodes[i];
 		if (child.className && child.className.includes("hidden")) {
 			if (child.style.display == "block") {
 				child.style.display = "none";
+				wasClosed = true;
 			} else {
 				child.style.display = "block";
+				wasClosed = false;
+			}
+		}
+	}
+	
+	if(indicatorElement !== undefined) {
+		if(indicatorElement.className.includes("triangle")) {
+			if(wasClosed) {
+				indicatorElement.className = indicatorElement.className.replace("uptriangle", "downtriangle");
+			} else {
+				indicatorElement.className = indicatorElement.className.replace("downtriangle", "uptriangle");
+			}
+		} else {
+			if(wasClosed) {
+				indicatorElement.className = indicatorElement.className + " downtriangle";
+			} else {
+				indicatorElement.className = indicatorElement.className + " uptriangle";
 			}
 		}
 	}

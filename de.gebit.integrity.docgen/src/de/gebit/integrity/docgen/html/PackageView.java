@@ -549,8 +549,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 						tempEnumValuesContentDiv.div().classAttr(CSSClasses.CODE).text(tempConstant.toString());
 					}
 					tempTypeColumn.addChild(tempEnumValuesDiv);
-					tempTypeText.classAttr(CSSClasses.CODE + " " + "enumtype");
-					tempTypeText.addAttr("onclick", "toggleHiddenDiv(this.parentElement)");
+					tempTypeText.classAttr(CSSClasses.CODE + " " + "enumtype downtriangle");
+					tempTypeText.addAttr("onclick", "toggleHiddenDiv(this.parentElement,this)");
 				}
 			} catch (ClassNotFoundException exc) {
 				exc.printStackTrace();

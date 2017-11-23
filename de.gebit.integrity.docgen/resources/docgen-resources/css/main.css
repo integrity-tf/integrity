@@ -154,6 +154,18 @@ table td.expand {
 	cursor: pointer;
 }
 
+.uptriangle:after {
+	content: '\25B2';
+	position: relative;
+	left: 2px;
+}
+
+.downtriangle:after {
+	content: '\25BC';
+	position: relative;
+	left: 2px;
+}
+
 .detailstitle {
 	font-weight: bold;
 	margin-bottom: 2px;
