@@ -495,13 +495,22 @@ public interface DslPackage extends EPackage
   int FORK_DEFINITION__FORKER_CLASS = STATEMENT_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Base Fork</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORK_DEFINITION__BASE_FORK = STATEMENT_FEATURE_COUNT + 5;
+
+  /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__PARAMETERS = STATEMENT_FEATURE_COUNT + 5;
+  int FORK_DEFINITION__PARAMETERS = STATEMENT_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Fork Definition</em>' class.
@@ -510,7 +519,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 6;
+  int FORK_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ForkParameterImpl <em>Fork Parameter</em>}' class.
@@ -3380,6 +3389,17 @@ public interface DslPackage extends EPackage
   EReference getForkDefinition_ForkerClass();
 
   /**
+   * Returns the meta object for the reference '{@link de.gebit.integrity.dsl.ForkDefinition#getBaseFork <em>Base Fork</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Base Fork</em>'.
+   * @see de.gebit.integrity.dsl.ForkDefinition#getBaseFork()
+   * @see #getForkDefinition()
+   * @generated
+   */
+  EReference getForkDefinition_BaseFork();
+
+  /**
    * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.ForkDefinition#getParameters <em>Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5674,6 +5694,14 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EReference FORK_DEFINITION__FORKER_CLASS = eINSTANCE.getForkDefinition_ForkerClass();
+
+    /**
+     * The meta object literal for the '<em><b>Base Fork</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference FORK_DEFINITION__BASE_FORK = eINSTANCE.getForkDefinition_BaseFork();
 
     /**
      * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.

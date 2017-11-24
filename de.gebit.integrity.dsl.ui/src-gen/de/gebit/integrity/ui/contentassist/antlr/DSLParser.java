@@ -42,6 +42,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVisibleSingleLineCommentAccess().getAlternatives(), "rule__VisibleSingleLineComment__Alternatives");
 					put(grammarAccess.getVisibleMultiLineCommentAccess().getAlternatives(), "rule__VisibleMultiLineComment__Alternatives");
 					put(grammarAccess.getPackageStatementAccess().getAlternatives(), "rule__PackageStatement__Alternatives");
+					put(grammarAccess.getForkDefinitionAccess().getAlternatives_7_0(), "rule__ForkDefinition__Alternatives_7_0");
 					put(grammarAccess.getSuiteStatementAccess().getAlternatives(), "rule__SuiteStatement__Alternatives");
 					put(grammarAccess.getSuiteStatementWithResultAccess().getAlternatives(), "rule__SuiteStatementWithResult__Alternatives");
 					put(grammarAccess.getVariableOrConstantEntityAccess().getAlternatives(), "rule__VariableOrConstantEntity__Alternatives");
@@ -70,6 +71,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getForkDefinitionAccess().getGroup(), "rule__ForkDefinition__Group__0");
 					put(grammarAccess.getForkDefinitionAccess().getGroup_6(), "rule__ForkDefinition__Group_6__0");
 					put(grammarAccess.getForkDefinitionAccess().getGroup_7(), "rule__ForkDefinition__Group_7__0");
+					put(grammarAccess.getForkDefinitionAccess().getGroup_7_0_0(), "rule__ForkDefinition__Group_7_0_0__0");
+					put(grammarAccess.getForkDefinitionAccess().getGroup_7_0_1(), "rule__ForkDefinition__Group_7_0_1__0");
 					put(grammarAccess.getForkDefinitionAccess().getGroup_8(), "rule__ForkDefinition__Group_8__0");
 					put(grammarAccess.getForkParameterAccess().getGroup(), "rule__ForkParameter__Group__0");
 					put(grammarAccess.getVariantDefinitionAccess().getGroup(), "rule__VariantDefinition__Group__0");
@@ -171,7 +174,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getForkDefinitionAccess().getPrivateAssignment_1(), "rule__ForkDefinition__PrivateAssignment_1");
 					put(grammarAccess.getForkDefinitionAccess().getNameAssignment_4(), "rule__ForkDefinition__NameAssignment_4");
 					put(grammarAccess.getForkDefinitionAccess().getDescriptionAssignment_6_0(), "rule__ForkDefinition__DescriptionAssignment_6_0");
-					put(grammarAccess.getForkDefinitionAccess().getForkerClassAssignment_7_2(), "rule__ForkDefinition__ForkerClassAssignment_7_2");
+					put(grammarAccess.getForkDefinitionAccess().getForkerClassAssignment_7_0_0_2(), "rule__ForkDefinition__ForkerClassAssignment_7_0_0_2");
+					put(grammarAccess.getForkDefinitionAccess().getBaseForkAssignment_7_0_1_2(), "rule__ForkDefinition__BaseForkAssignment_7_0_1_2");
 					put(grammarAccess.getForkDefinitionAccess().getParametersAssignment_8_0(), "rule__ForkDefinition__ParametersAssignment_8_0");
 					put(grammarAccess.getForkParameterAccess().getNameAssignment_0(), "rule__ForkParameter__NameAssignment_0");
 					put(grammarAccess.getForkParameterAccess().getValueAssignment_4(), "rule__ForkParameter__ValueAssignment_4");

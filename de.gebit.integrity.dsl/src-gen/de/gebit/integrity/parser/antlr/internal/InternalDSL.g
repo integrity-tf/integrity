@@ -922,13 +922,13 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)?(	otherlv_8='uses' 
+)?(((	otherlv_8='uses' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getForkDefinitionAccess().getUsesKeyword_7_0());
+    	newLeafNode(otherlv_8, grammarAccess.getForkDefinitionAccess().getUsesKeyword_7_0_0_0());
     }
 
     { 
-        newCompositeNode(grammarAccess.getForkDefinitionAccess().getNLParserRuleCall_7_1()); 
+        newCompositeNode(grammarAccess.getForkDefinitionAccess().getNLParserRuleCall_7_0_0_1()); 
     }
 ruleNL
     { 
@@ -937,7 +937,7 @@ ruleNL
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getForkerClassJavaClassReferenceParserRuleCall_7_2_0()); 
+	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getForkerClassJavaClassReferenceParserRuleCall_7_0_0_2_0()); 
 	    }
 		lv_forkerClass_10_0=ruleJavaClassReference		{
 	        if ($current==null) {
@@ -952,9 +952,37 @@ ruleNL
 	    }
 
 )
-)
+))
+    |(	otherlv_11='based on' 
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getForkDefinitionAccess().getBasedOnKeyword_7_0_1_0());
+    }
+
     { 
-        newCompositeNode(grammarAccess.getForkDefinitionAccess().getNLParserRuleCall_7_3()); 
+        newCompositeNode(grammarAccess.getForkDefinitionAccess().getNLParserRuleCall_7_0_1_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getForkDefinitionRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getBaseForkForkDefinitionCrossReference_7_0_1_2_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))
+    { 
+        newCompositeNode(grammarAccess.getForkDefinitionAccess().getNLParserRuleCall_7_1()); 
     }
 ruleNL
     { 
@@ -965,14 +993,14 @@ ruleNL
 		{ 
 	        newCompositeNode(grammarAccess.getForkDefinitionAccess().getParametersForkParameterParserRuleCall_8_0_0()); 
 	    }
-		lv_parameters_12_0=ruleForkParameter		{
+		lv_parameters_15_0=ruleForkParameter		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getForkDefinitionRule());
 	        }
        		add(
        			$current, 
        			"parameters",
-        		lv_parameters_12_0, 
+        		lv_parameters_15_0, 
         		"de.gebit.integrity.DSL.ForkParameter");
 	        afterParserOrEnumRuleCall();
 	    }

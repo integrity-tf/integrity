@@ -657,7 +657,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         private='private'? 
 	 *         name=QualifiedName 
 	 *         description=STRING? 
-	 *         forkerClass=JavaClassReference? 
+	 *         (forkerClass=JavaClassReference | baseFork=[ForkDefinition|QualifiedName])? 
 	 *         parameters+=ForkParameter*
 	 *     )
 	 */

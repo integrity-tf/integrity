@@ -64,7 +64,7 @@ Import:
 	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
 	
 ForkDefinition:
-	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
+	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ((('uses' NL forkerClass=JavaClassReference) | ('based on' NL baseFork=[ForkDefinition|QualifiedName])) NL)? (parameters+=ForkParameter NL)*;
 	
 ForkParameter:
 	name=FixedParameterName NL ':' NL value=ValueOrEnumValueOrOperation;

@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getDescription <em>Description</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getBaseFork <em>Base Fork</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getParameters <em>Parameters</em>}</li>
  * </ul>
  *
@@ -156,6 +157,32 @@ public interface ForkDefinition extends Statement, PackageStatement
    * @generated
    */
   void setForkerClass(JavaClassReference value);
+
+  /**
+   * Returns the value of the '<em><b>Base Fork</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Base Fork</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Base Fork</em>' reference.
+   * @see #setBaseFork(ForkDefinition)
+   * @see de.gebit.integrity.dsl.DslPackage#getForkDefinition_BaseFork()
+   * @model
+   * @generated
+   */
+  ForkDefinition getBaseFork();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.ForkDefinition#getBaseFork <em>Base Fork</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Base Fork</em>' reference.
+   * @see #getBaseFork()
+   * @generated
+   */
+  void setBaseFork(ForkDefinition value);
 
   /**
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.

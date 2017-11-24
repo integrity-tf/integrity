@@ -121,6 +121,10 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			ForkParameter tempForkParameter = (ForkParameter) aParameterName.eContainer();
 			ForkDefinition tempForkDef = (ForkDefinition) tempForkParameter.eContainer();
 
+			while (tempForkDef.getBaseFork() != null) {
+				tempForkDef = tempForkDef.getBaseFork();
+			}
+
 			if (tempForkDef.getForkerClass() != null
 					&& (tempForkDef.getForkerClass().getType() instanceof JvmGenericType)) {
 				ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();

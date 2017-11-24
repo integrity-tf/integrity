@@ -117,6 +117,10 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 				tempGrammar.getCallAccess().getNLParserRuleCall_7());
 		aConfig.setIndentation(tempGrammar.getTableTestAccess().getNLParserRuleCall_1(),
 				tempGrammar.getTableTestAccess().getNLFORCEDParserRuleCall_10());
+
+		// Fork parameters
+		aConfig.setIndentationIncrement().before(tempGrammar.getForkDefinitionAccess().getParametersAssignment_8_0());
+		aConfig.setIndentationDecrement().after(tempGrammar.getForkDefinitionAccess().getParametersAssignment_8_0());
 	}
 
 	@Override

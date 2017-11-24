@@ -1065,9 +1065,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getForkDefinition_Parameters()
+  public EReference getForkDefinition_BaseFork()
   {
     return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getForkDefinition_Parameters()
+  {
+    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -3049,6 +3059,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__NAME);
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__DESCRIPTION);
     createEReference(forkDefinitionEClass, FORK_DEFINITION__FORKER_CLASS);
+    createEReference(forkDefinitionEClass, FORK_DEFINITION__BASE_FORK);
     createEReference(forkDefinitionEClass, FORK_DEFINITION__PARAMETERS);
 
     forkParameterEClass = createEClass(FORK_PARAMETER);
@@ -3457,6 +3468,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getForkDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getForkDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForkDefinition_ForkerClass(), this.getJavaClassReference(), null, "forkerClass", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getForkDefinition_BaseFork(), this.getForkDefinition(), null, "baseFork", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForkDefinition_Parameters(), this.getForkParameter(), null, "parameters", null, 0, -1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(forkParameterEClass, ForkParameter.class, "ForkParameter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

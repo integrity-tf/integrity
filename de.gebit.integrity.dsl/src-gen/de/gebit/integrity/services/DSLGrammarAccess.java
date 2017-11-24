@@ -424,11 +424,19 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDescriptionSTRINGTerminalRuleCall_6_0_0 = (RuleCall)cDescriptionAssignment_6_0.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cUsesKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Alternatives cAlternatives_7_0 = (Alternatives)cGroup_7.eContents().get(0);
+		private final Group cGroup_7_0_0 = (Group)cAlternatives_7_0.eContents().get(0);
+		private final Keyword cUsesKeyword_7_0_0_0 = (Keyword)cGroup_7_0_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_7_0_0_1 = (RuleCall)cGroup_7_0_0.eContents().get(1);
+		private final Assignment cForkerClassAssignment_7_0_0_2 = (Assignment)cGroup_7_0_0.eContents().get(2);
+		private final RuleCall cForkerClassJavaClassReferenceParserRuleCall_7_0_0_2_0 = (RuleCall)cForkerClassAssignment_7_0_0_2.eContents().get(0);
+		private final Group cGroup_7_0_1 = (Group)cAlternatives_7_0.eContents().get(1);
+		private final Keyword cBasedOnKeyword_7_0_1_0 = (Keyword)cGroup_7_0_1.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_7_0_1_1 = (RuleCall)cGroup_7_0_1.eContents().get(1);
+		private final Assignment cBaseForkAssignment_7_0_1_2 = (Assignment)cGroup_7_0_1.eContents().get(2);
+		private final CrossReference cBaseForkForkDefinitionCrossReference_7_0_1_2_0 = (CrossReference)cBaseForkAssignment_7_0_1_2.eContents().get(0);
+		private final RuleCall cBaseForkForkDefinitionQualifiedNameParserRuleCall_7_0_1_2_0_1 = (RuleCall)cBaseForkForkDefinitionCrossReference_7_0_1_2_0.eContents().get(1);
 		private final RuleCall cNLParserRuleCall_7_1 = (RuleCall)cGroup_7.eContents().get(1);
-		private final Assignment cForkerClassAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
-		private final RuleCall cForkerClassJavaClassReferenceParserRuleCall_7_2_0 = (RuleCall)cForkerClassAssignment_7_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_7_3 = (RuleCall)cGroup_7.eContents().get(3);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
 		private final Assignment cParametersAssignment_8_0 = (Assignment)cGroup_8.eContents().get(0);
 		private final RuleCall cParametersForkParameterParserRuleCall_8_0_0 = (RuleCall)cParametersAssignment_8_0.eContents().get(0);
@@ -436,11 +444,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ForkDefinition:
 		//	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
-		//	('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
+		//	(('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
+		//	(parameters+=ForkParameter NL)*;
 		@Override public ParserRule getRule() { return rule; }
 
 		//documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
-		//('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*
+		//(('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
+		//(parameters+=ForkParameter NL)*
 		public Group getGroup() { return cGroup; }
 
 		//documentation=DocumentationComment?
@@ -482,23 +492,47 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_6_1() { return cNLParserRuleCall_6_1; }
 
-		//('uses' NL forkerClass=JavaClassReference NL)?
+		//(('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
 		public Group getGroup_7() { return cGroup_7; }
 
+		//('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName])
+		public Alternatives getAlternatives_7_0() { return cAlternatives_7_0; }
+
+		//'uses' NL forkerClass=JavaClassReference
+		public Group getGroup_7_0_0() { return cGroup_7_0_0; }
+
 		//'uses'
-		public Keyword getUsesKeyword_7_0() { return cUsesKeyword_7_0; }
+		public Keyword getUsesKeyword_7_0_0_0() { return cUsesKeyword_7_0_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_7_0_0_1() { return cNLParserRuleCall_7_0_0_1; }
+
+		//forkerClass=JavaClassReference
+		public Assignment getForkerClassAssignment_7_0_0_2() { return cForkerClassAssignment_7_0_0_2; }
+
+		//JavaClassReference
+		public RuleCall getForkerClassJavaClassReferenceParserRuleCall_7_0_0_2_0() { return cForkerClassJavaClassReferenceParserRuleCall_7_0_0_2_0; }
+
+		//'based on' NL baseFork=[ForkDefinition|QualifiedName]
+		public Group getGroup_7_0_1() { return cGroup_7_0_1; }
+
+		//'based on'
+		public Keyword getBasedOnKeyword_7_0_1_0() { return cBasedOnKeyword_7_0_1_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_7_0_1_1() { return cNLParserRuleCall_7_0_1_1; }
+
+		//baseFork=[ForkDefinition|QualifiedName]
+		public Assignment getBaseForkAssignment_7_0_1_2() { return cBaseForkAssignment_7_0_1_2; }
+
+		//[ForkDefinition|QualifiedName]
+		public CrossReference getBaseForkForkDefinitionCrossReference_7_0_1_2_0() { return cBaseForkForkDefinitionCrossReference_7_0_1_2_0; }
+
+		//QualifiedName
+		public RuleCall getBaseForkForkDefinitionQualifiedNameParserRuleCall_7_0_1_2_0_1() { return cBaseForkForkDefinitionQualifiedNameParserRuleCall_7_0_1_2_0_1; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_7_1() { return cNLParserRuleCall_7_1; }
-
-		//forkerClass=JavaClassReference
-		public Assignment getForkerClassAssignment_7_2() { return cForkerClassAssignment_7_2; }
-
-		//JavaClassReference
-		public RuleCall getForkerClassJavaClassReferenceParserRuleCall_7_2_0() { return cForkerClassJavaClassReferenceParserRuleCall_7_2_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_7_3() { return cNLParserRuleCall_7_3; }
 
 		//(parameters+=ForkParameter NL)*
 		public Group getGroup_8() { return cGroup_8; }
@@ -4033,7 +4067,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ForkDefinition:
 	//	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
-	//	('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
+	//	(('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
+	//	(parameters+=ForkParameter NL)*;
 	public ForkDefinitionElements getForkDefinitionAccess() {
 		return pForkDefinition;
 	}

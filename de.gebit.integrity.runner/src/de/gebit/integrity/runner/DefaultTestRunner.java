@@ -2665,15 +2665,28 @@ public class DefaultTestRunner implements TestRunner {
 	protected Fork createFork(Suite aSuiteCall) throws ForkException {
 		final ForkDefinition tempForkDef = aSuiteCall.getFork();
 		Class<? extends Forker> tempForkerClass = DefaultForker.class;
-		if (tempForkDef.getForkerClass() != null) {
+
+		// If we are using forkdef inheritance, we need to resolve the chain up to the forkdef without a base fork ->
+		// this one could potentially define a forker
+		ForkDefinition tempCurrentForkDef = tempForkDef;
+		List<ForkDefinition> tempForkDefList = new ArrayList<ForkDefinition>();
+		tempForkDefList.add(tempForkDef);
+		while (tempCurrentForkDef.getBaseFork() != null) {
+			tempCurrentForkDef = tempCurrentForkDef.getBaseFork();
+			tempForkDefList.add(tempCurrentForkDef);
+		}
+
+		// Now we are at the last one, this one must define the forker class (or no forker class is defined)
+		if (tempCurrentForkDef.getForkerClass() != null) {
 			try {
-				tempForkerClass = (Class<? extends Forker>) getClassForJvmType(tempForkDef.getForkerClass().getType());
+				tempForkerClass = (Class<? extends Forker>) getClassForJvmType(
+						tempCurrentForkDef.getForkerClass().getType());
 			} catch (ClassCastException exc) {
 				throw new ForkException(
-						"Could not create fork '" + tempForkDef.getName() + "': forker class not usable.", exc);
+						"Could not create fork '" + tempCurrentForkDef.getName() + "': forker class not usable.", exc);
 			} catch (ClassNotFoundException exc) {
 				throw new ForkException(
-						"Could not create fork '" + tempForkDef.getName() + "': forker class not found.", exc);
+						"Could not create fork '" + tempCurrentForkDef.getName() + "': forker class not found.", exc);
 			}
 		}
 
@@ -2691,16 +2704,21 @@ public class DefaultTestRunner implements TestRunner {
 					if (ForkerParameter.class.isAssignableFrom(tempAnnotation.annotationType())) {
 						String tempName = ((ForkerParameter) tempAnnotation).name();
 						if (tempName != null) {
-							for (ForkParameter tempParameter : tempForkDef.getParameters()) {
-								String tempParamName = IntegrityDSLUtil
-										.getParamNameStringFromParameterName(tempParameter.getName());
-								if (tempName.equals(tempParamName)) {
-									Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
-									tempParameters[i] = valueConverter.convertValue(tempTargetType,
-											tempParameter.getValue(),
-											conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
-													UnresolvableVariableHandling.EXCEPTION));
-									break;
+							// For each parameter, check all forkdefs, starting with the latest ones in the chain (which
+							// are the first ones in the list). The first match is used, so it's possible to override
+							// parameters further down the forkdef inheritance line.
+							forkDefLoop: for (ForkDefinition tempPossibleForkDef : tempForkDefList) {
+								for (ForkParameter tempParameter : tempPossibleForkDef.getParameters()) {
+									String tempParamName = IntegrityDSLUtil
+											.getParamNameStringFromParameterName(tempParameter.getName());
+									if (tempName.equals(tempParamName)) {
+										Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
+										tempParameters[i] = valueConverter.convertValue(tempTargetType,
+												tempParameter.getValue(),
+												conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
+														UnresolvableVariableHandling.EXCEPTION));
+										break forkDefLoop;
+									}
 								}
 							}
 						}

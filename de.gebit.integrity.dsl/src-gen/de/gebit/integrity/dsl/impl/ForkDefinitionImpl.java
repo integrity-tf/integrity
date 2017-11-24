@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getForkerClass <em>Forker Class</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getBaseFork <em>Base Fork</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  *
@@ -122,6 +123,16 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * @ordered
    */
   protected JavaClassReference forkerClass;
+
+  /**
+   * The cached value of the '{@link #getBaseFork() <em>Base Fork</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBaseFork()
+   * @generated
+   * @ordered
+   */
+  protected ForkDefinition baseFork;
 
   /**
    * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -324,6 +335,49 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  public ForkDefinition getBaseFork()
+  {
+    if (baseFork != null && baseFork.eIsProxy())
+    {
+      InternalEObject oldBaseFork = (InternalEObject)baseFork;
+      baseFork = (ForkDefinition)eResolveProxy(oldBaseFork);
+      if (baseFork != oldBaseFork)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, DslPackage.FORK_DEFINITION__BASE_FORK, oldBaseFork, baseFork));
+      }
+    }
+    return baseFork;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ForkDefinition basicGetBaseFork()
+  {
+    return baseFork;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setBaseFork(ForkDefinition newBaseFork)
+  {
+    ForkDefinition oldBaseFork = baseFork;
+    baseFork = newBaseFork;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.FORK_DEFINITION__BASE_FORK, oldBaseFork, baseFork));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<ForkParameter> getParameters()
   {
     if (parameters == null)
@@ -373,6 +427,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
         return getDescription();
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         return getForkerClass();
+      case DslPackage.FORK_DEFINITION__BASE_FORK:
+        if (resolve) return getBaseFork();
+        return basicGetBaseFork();
       case DslPackage.FORK_DEFINITION__PARAMETERS:
         return getParameters();
     }
@@ -404,6 +461,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
         return;
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         setForkerClass((JavaClassReference)newValue);
+        return;
+      case DslPackage.FORK_DEFINITION__BASE_FORK:
+        setBaseFork((ForkDefinition)newValue);
         return;
       case DslPackage.FORK_DEFINITION__PARAMETERS:
         getParameters().clear();
@@ -438,6 +498,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         setForkerClass((JavaClassReference)null);
         return;
+      case DslPackage.FORK_DEFINITION__BASE_FORK:
+        setBaseFork((ForkDefinition)null);
+        return;
       case DslPackage.FORK_DEFINITION__PARAMETERS:
         getParameters().clear();
         return;
@@ -465,6 +528,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         return forkerClass != null;
+      case DslPackage.FORK_DEFINITION__BASE_FORK:
+        return baseFork != null;
       case DslPackage.FORK_DEFINITION__PARAMETERS:
         return parameters != null && !parameters.isEmpty();
     }
