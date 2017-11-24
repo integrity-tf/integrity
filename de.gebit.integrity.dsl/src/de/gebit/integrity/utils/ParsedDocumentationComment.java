@@ -9,11 +9,14 @@ package de.gebit.integrity.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.modelsource.ModelSourceInformationElement;
@@ -41,6 +44,11 @@ public class ParsedDocumentationComment {
 	 * an abortion of the parsing process, but point to problems nevertheless.
 	 */
 	protected List<ParseException> parseExceptions = new ArrayList<>();
+
+	/**
+	 * The entire raw textual content (including @ elements, but excluding comment *s).
+	 */
+	protected String rawText;
 
 	/**
 	 * The core documentation text (non-parsed).
@@ -131,6 +139,7 @@ public class ParsedDocumentationComment {
 			throw new ParseException("Doc comment does not end with '" + COMMENT_END + "'", aModelSourceInfo);
 		}
 
+		StringBuilder tempRawText = new StringBuilder();
 		StringBuilder tempDocumentationText = new StringBuilder();
 		Map<String, List<String>> tempTags = new HashMap<>();
 
@@ -146,6 +155,8 @@ public class ParsedDocumentationComment {
 				tempCleanLine = tempCleanLine.substring(1);
 				tempCleanLine = tempCleanLine.trim();
 			}
+
+			tempRawText.append(tempCleanLine + "\n");
 
 			if (tempCleanLine.startsWith(DOCUMENTATION_TAG_START)) {
 				if (tempCurrentTagName != null) {
@@ -189,6 +200,7 @@ public class ParsedDocumentationComment {
 			tempCurrentTagName = null;
 		}
 
+		rawText = tempRawText.toString();
 		documentationText = tempDocumentationText.toString();
 
 		List<String> tempParameterDocs = tempTags.getOrDefault(DOCUMENTATION_TAG_PARAMETER,
@@ -231,6 +243,10 @@ public class ParsedDocumentationComment {
 		return sourceInfo;
 	}
 
+	public String getRawText() {
+		return rawText;
+	}
+
 	public String getDocumentationText() {
 		return documentationText;
 	}
@@ -247,12 +263,67 @@ public class ParsedDocumentationComment {
 		return documentationTextElements;
 	}
 
+	/**
+	 * Generates a representation of this entire documentation comments' content in Javadoc-style HTML. This includes
+	 * all known @ elements.
+	 * 
+	 * @return
+	 */
+	public String getJavadocStyleFullDocumentation() {
+		StringBuilder tempBuilder = new StringBuilder();
+
+		if (documentationText != null) {
+			tempBuilder.append(documentationText);
+		}
+
+		if (parameterDocumentationTexts.size() > 0) {
+			tempBuilder.append("<p><b>Parameters</b><br><ul style=\"list-style-type: none;\">");
+			for (Entry<String, String> tempEntry : getSortedParameterDocumentationTexts()) {
+				tempBuilder.append("<li><b>" + tempEntry.getKey() + "</b>: " + tempEntry.getValue() + "</li>");
+			}
+			tempBuilder.append("</ul></p>");
+		}
+
+		if (resultDocumentationTexts.size() > 0) {
+			tempBuilder.append("<p><b>Results</b><br><ul style=\"list-style-type: none;\">");
+			for (Entry<String, String> tempEntry : getSortedResultDocumentationTexts()) {
+				tempBuilder.append("<li>" + (tempEntry.getKey() != null ? "<b>" + tempEntry.getKey() + "</b>: " : "")
+						+ tempEntry.getValue() + "</li>");
+			}
+			tempBuilder.append("</ul></p>");
+		}
+
+		return tempBuilder.toString();
+	}
+
 	public Map<String, String> getParameterDocumentationTexts() {
 		return parameterDocumentationTexts;
 	}
 
+	public List<Entry<String, String>> getSortedParameterDocumentationTexts() {
+		return parameterDocumentationTexts.entrySet().stream().sorted(new Comparator<Entry<String, String>>() {
+
+			@Override
+			public int compare(Entry<String, String> aFirst, Entry<String, String> aSecond) {
+				return aFirst.getKey().compareTo(aSecond.getKey());
+			}
+
+		}).collect(Collectors.toList());
+	}
+
 	public Map<String, String> getResultDocumentationTexts() {
 		return resultDocumentationTexts;
+	}
+
+	public List<Entry<String, String>> getSortedResultDocumentationTexts() {
+		return resultDocumentationTexts.entrySet().stream().sorted(new Comparator<Entry<String, String>>() {
+
+			@Override
+			public int compare(Entry<String, String> aFirst, Entry<String, String> aSecond) {
+				return aFirst.getKey().compareTo(aSecond.getKey());
+			}
+
+		}).collect(Collectors.toList());
 	}
 
 	/**

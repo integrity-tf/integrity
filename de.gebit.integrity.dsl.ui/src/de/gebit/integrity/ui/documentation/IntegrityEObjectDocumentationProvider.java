@@ -59,14 +59,30 @@ public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentat
 			if (!anObjectOrProxy.eIsProxy()) {
 				if (anObjectOrProxy instanceof TestDefinition) {
 					TestDefinition tempTestDefinition = (TestDefinition) anObjectOrProxy;
-					String tempJavadoc = JavadocUtil.getMethodJavadoc(tempTestDefinition.getFixtureMethod().getMethod(),
-							elementFinder);
-					return tempJavadoc;
+					if (tempTestDefinition.getDocumentation() != null) {
+						ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+								tempTestDefinition.getDocumentation(),
+								modelSourceExplorer.determineSourceInformation(tempTestDefinition.getDocumentation()));
+						return tempParsedComment.getJavadocStyleFullDocumentation();
+					} else {
+						// Try a fallback to the javadoc of the fixture method
+						String tempJavadoc = JavadocUtil
+								.getMethodJavadoc(tempTestDefinition.getFixtureMethod().getMethod(), elementFinder);
+						return tempJavadoc;
+					}
 				} else if (anObjectOrProxy instanceof CallDefinition) {
 					CallDefinition tempCallDefinition = (CallDefinition) anObjectOrProxy;
-					String tempJavadoc = JavadocUtil.getMethodJavadoc(tempCallDefinition.getFixtureMethod().getMethod(),
-							elementFinder);
-					return tempJavadoc;
+					if (tempCallDefinition.getDocumentation() != null) {
+						ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+								tempCallDefinition.getDocumentation(),
+								modelSourceExplorer.determineSourceInformation(tempCallDefinition.getDocumentation()));
+						return tempParsedComment.getJavadocStyleFullDocumentation();
+					} else {
+						// Try a fallback to the javadoc of the fixture method
+						String tempJavadoc = JavadocUtil
+								.getMethodJavadoc(tempCallDefinition.getFixtureMethod().getMethod(), elementFinder);
+						return tempJavadoc;
+					}
 				} else if (anObjectOrProxy instanceof SuiteDefinition) {
 					SuiteDefinition tempSuiteDefinition = (SuiteDefinition) anObjectOrProxy;
 					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(

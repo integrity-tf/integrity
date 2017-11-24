@@ -55,19 +55,29 @@ public class IntegrityEObjectHoverProvider extends DefaultEObjectHoverProvider {
 		try {
 			if (anObject instanceof TestDefinition) {
 				TestDefinition tempTestDefinition = (TestDefinition) anObject;
-				if (tempTestDefinition.getFixtureMethod() != null
-						&& tempTestDefinition.getFixtureMethod().getMethod() != null) {
-					String tempJavadoc = JavadocUtil.getMethodJavadoc(tempTestDefinition.getFixtureMethod().getMethod(),
-							elementFinder);
-					return tempJavadoc != null;
+				if (tempTestDefinition.getDocumentation() != null) {
+					return true;
+				} else {
+					// Try a fallback to the javadoc of the fixture method
+					if (tempTestDefinition.getFixtureMethod() != null
+							&& tempTestDefinition.getFixtureMethod().getMethod() != null) {
+						String tempJavadoc = JavadocUtil
+								.getMethodJavadoc(tempTestDefinition.getFixtureMethod().getMethod(), elementFinder);
+						return tempJavadoc != null;
+					}
 				}
 			} else if (anObject instanceof CallDefinition) {
 				CallDefinition tempCallDefinition = (CallDefinition) anObject;
-				if (tempCallDefinition.getFixtureMethod() != null
-						&& tempCallDefinition.getFixtureMethod().getMethod() != null) {
-					String tempJavadoc = JavadocUtil.getMethodJavadoc(tempCallDefinition.getFixtureMethod().getMethod(),
-							elementFinder);
-					return tempJavadoc != null;
+				if (tempCallDefinition.getDocumentation() != null) {
+					return true;
+				} else {
+					// Try a fallback to the javadoc of the fixture method
+					if (tempCallDefinition.getFixtureMethod() != null
+							&& tempCallDefinition.getFixtureMethod().getMethod() != null) {
+						String tempJavadoc = JavadocUtil
+								.getMethodJavadoc(tempCallDefinition.getFixtureMethod().getMethod(), elementFinder);
+						return tempJavadoc != null;
+					}
 				}
 			} else if (anObject instanceof SuiteDefinition) {
 				SuiteDefinition tempSuiteDefinition = (SuiteDefinition) anObject;
