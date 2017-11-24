@@ -652,7 +652,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     ForkDefinition returns ForkDefinition
 	 *
 	 * Constraint:
-	 *     (private='private'? name=QualifiedName description=STRING? forkerClass=JavaClassReference? parameters+=ForkParameter*)
+	 *     (
+	 *         documentation=DocumentationComment? 
+	 *         private='private'? 
+	 *         name=QualifiedName 
+	 *         description=STRING? 
+	 *         forkerClass=JavaClassReference? 
+	 *         parameters+=ForkParameter*
+	 *     )
 	 */
 	protected void sequence_ForkDefinition(ISerializationContext context, ForkDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1000,7 +1007,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     PackageDefinition returns PackageDefinition
 	 *
 	 * Constraint:
-	 *     (name=QualifiedName statements+=PackageStatement*)
+	 *     (documentation=DocumentationComment? name=QualifiedName statements+=PackageStatement*)
 	 */
 	protected void sequence_PackageDefinition(ISerializationContext context, PackageDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1539,7 +1546,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     VariantDefinition returns VariantDefinition
 	 *
 	 * Constraint:
-	 *     (name=QualifiedName description=STRING?)
+	 *     (documentation=DocumentationComment? name=QualifiedName description=STRING?)
 	 */
 	protected void sequence_VariantDefinition(ISerializationContext context, VariantDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -55,7 +55,7 @@ VisibleDivider:
 	content=DIVIDER NL;
 	
 PackageDefinition:
-	'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
+	documentation=DocumentationComment? 'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
 	
 PackageStatement:
 	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
@@ -64,13 +64,13 @@ Import:
 	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
 	
 ForkDefinition:
-	private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
+	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
 	
 ForkParameter:
 	name=FixedParameterName NL ':' NL value=ValueOrEnumValueOrOperation;
 	
 VariantDefinition:
-	'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
+	documentation=DocumentationComment? 'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
 	
 TestDefinition:
 	documentation=DocumentationComment? 'testdef' NL name=QualifiedName NL 'uses' NL fixtureMethod=MethodReference NL;

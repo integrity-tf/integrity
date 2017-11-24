@@ -266,53 +266,63 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class PackageDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.PackageDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cPackagedefKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final Keyword cWithKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
-		private final Assignment cStatementsAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cStatementsPackageStatementParserRuleCall_5_0 = (RuleCall)cStatementsAssignment_5.eContents().get(0);
-		private final Keyword cPackageendKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final RuleCall cNLParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		private final Assignment cDocumentationAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDocumentationDocumentationCommentParserRuleCall_0_0 = (RuleCall)cDocumentationAssignment_0.eContents().get(0);
+		private final Keyword cPackagedefKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameQualifiedNameParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final Keyword cWithKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Assignment cStatementsAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cStatementsPackageStatementParserRuleCall_6_0 = (RuleCall)cStatementsAssignment_6.eContents().get(0);
+		private final Keyword cPackageendKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final RuleCall cNLParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
 		
 		//PackageDefinition:
-		//	'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
+		//	documentation=DocumentationComment? 'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement*
+		//	'packageend' NL;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL
+		//documentation=DocumentationComment? 'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement*
+		//'packageend' NL
 		public Group getGroup() { return cGroup; }
 
+		//documentation=DocumentationComment?
+		public Assignment getDocumentationAssignment_0() { return cDocumentationAssignment_0; }
+
+		//DocumentationComment
+		public RuleCall getDocumentationDocumentationCommentParserRuleCall_0_0() { return cDocumentationDocumentationCommentParserRuleCall_0_0; }
+
 		//'packagedef'
-		public Keyword getPackagedefKeyword_0() { return cPackagedefKeyword_0; }
+		public Keyword getPackagedefKeyword_1() { return cPackagedefKeyword_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
 
 		//name=QualifiedName
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
 		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
+		public RuleCall getNameQualifiedNameParserRuleCall_3_0() { return cNameQualifiedNameParserRuleCall_3_0; }
 
 		//'with'
-		public Keyword getWithKeyword_3() { return cWithKeyword_3; }
+		public Keyword getWithKeyword_4() { return cWithKeyword_4; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
+		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 
 		//statements+=PackageStatement*
-		public Assignment getStatementsAssignment_5() { return cStatementsAssignment_5; }
+		public Assignment getStatementsAssignment_6() { return cStatementsAssignment_6; }
 
 		//PackageStatement
-		public RuleCall getStatementsPackageStatementParserRuleCall_5_0() { return cStatementsPackageStatementParserRuleCall_5_0; }
+		public RuleCall getStatementsPackageStatementParserRuleCall_6_0() { return cStatementsPackageStatementParserRuleCall_6_0; }
 
 		//'packageend'
-		public Keyword getPackageendKeyword_6() { return cPackageendKeyword_6; }
+		public Keyword getPackageendKeyword_7() { return cPackageendKeyword_7; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_7() { return cNLParserRuleCall_7; }
+		public RuleCall getNLParserRuleCall_8() { return cNLParserRuleCall_8; }
 	}
 
 	public class PackageStatementElements extends AbstractParserRuleElementFinder {
@@ -400,99 +410,107 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class ForkDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.ForkDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cPrivateAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Keyword cPrivatePrivateKeyword_0_0 = (Keyword)cPrivateAssignment_0.eContents().get(0);
-		private final Keyword cForkdefKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cNameQualifiedNameParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Assignment cDescriptionAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
-		private final RuleCall cDescriptionSTRINGTerminalRuleCall_5_0_0 = (RuleCall)cDescriptionAssignment_5_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
+		private final Assignment cDocumentationAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDocumentationDocumentationCommentParserRuleCall_0_0 = (RuleCall)cDocumentationAssignment_0.eContents().get(0);
+		private final Assignment cPrivateAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final Keyword cPrivatePrivateKeyword_1_0 = (Keyword)cPrivateAssignment_1.eContents().get(0);
+		private final Keyword cForkdefKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cNameQualifiedNameParserRuleCall_4_0 = (RuleCall)cNameAssignment_4.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
-		private final Keyword cUsesKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cDescriptionAssignment_6_0 = (Assignment)cGroup_6.eContents().get(0);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_6_0_0 = (RuleCall)cDescriptionAssignment_6_0.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_6_1 = (RuleCall)cGroup_6.eContents().get(1);
-		private final Assignment cForkerClassAssignment_6_2 = (Assignment)cGroup_6.eContents().get(2);
-		private final RuleCall cForkerClassJavaClassReferenceParserRuleCall_6_2_0 = (RuleCall)cForkerClassAssignment_6_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_6_3 = (RuleCall)cGroup_6.eContents().get(3);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Assignment cParametersAssignment_7_0 = (Assignment)cGroup_7.eContents().get(0);
-		private final RuleCall cParametersForkParameterParserRuleCall_7_0_0 = (RuleCall)cParametersAssignment_7_0.eContents().get(0);
+		private final Keyword cUsesKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_7_1 = (RuleCall)cGroup_7.eContents().get(1);
+		private final Assignment cForkerClassAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
+		private final RuleCall cForkerClassJavaClassReferenceParserRuleCall_7_2_0 = (RuleCall)cForkerClassAssignment_7_2.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_7_3 = (RuleCall)cGroup_7.eContents().get(3);
+		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
+		private final Assignment cParametersAssignment_8_0 = (Assignment)cGroup_8.eContents().get(0);
+		private final RuleCall cParametersForkParameterParserRuleCall_8_0_0 = (RuleCall)cParametersAssignment_8_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_8_1 = (RuleCall)cGroup_8.eContents().get(1);
 		
 		//ForkDefinition:
-		//	private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL
-		//	forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
+		//	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
+		//	('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL forkerClass=JavaClassReference
-		//NL)? (parameters+=ForkParameter NL)*
+		//documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
+		//('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*
 		public Group getGroup() { return cGroup; }
 
+		//documentation=DocumentationComment?
+		public Assignment getDocumentationAssignment_0() { return cDocumentationAssignment_0; }
+
+		//DocumentationComment
+		public RuleCall getDocumentationDocumentationCommentParserRuleCall_0_0() { return cDocumentationDocumentationCommentParserRuleCall_0_0; }
+
 		//private='private'?
-		public Assignment getPrivateAssignment_0() { return cPrivateAssignment_0; }
+		public Assignment getPrivateAssignment_1() { return cPrivateAssignment_1; }
 
 		//'private'
-		public Keyword getPrivatePrivateKeyword_0_0() { return cPrivatePrivateKeyword_0_0; }
+		public Keyword getPrivatePrivateKeyword_1_0() { return cPrivatePrivateKeyword_1_0; }
 
 		//'forkdef'
-		public Keyword getForkdefKeyword_1() { return cForkdefKeyword_1; }
+		public Keyword getForkdefKeyword_2() { return cForkdefKeyword_2; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
+		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
 
 		//name=QualifiedName
-		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
+		public Assignment getNameAssignment_4() { return cNameAssignment_4; }
 
 		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_3_0() { return cNameQualifiedNameParserRuleCall_3_0; }
+		public RuleCall getNameQualifiedNameParserRuleCall_4_0() { return cNameQualifiedNameParserRuleCall_4_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
+		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 
 		//(description=STRING NL)?
-		public Group getGroup_5() { return cGroup_5; }
-
-		//description=STRING
-		public Assignment getDescriptionAssignment_5_0() { return cDescriptionAssignment_5_0; }
-
-		//STRING
-		public RuleCall getDescriptionSTRINGTerminalRuleCall_5_0_0() { return cDescriptionSTRINGTerminalRuleCall_5_0_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
-
-		//('uses' NL forkerClass=JavaClassReference NL)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//'uses'
-		public Keyword getUsesKeyword_6_0() { return cUsesKeyword_6_0; }
+		//description=STRING
+		public Assignment getDescriptionAssignment_6_0() { return cDescriptionAssignment_6_0; }
+
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_6_0_0() { return cDescriptionSTRINGTerminalRuleCall_6_0_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_6_1() { return cNLParserRuleCall_6_1; }
 
-		//forkerClass=JavaClassReference
-		public Assignment getForkerClassAssignment_6_2() { return cForkerClassAssignment_6_2; }
-
-		//JavaClassReference
-		public RuleCall getForkerClassJavaClassReferenceParserRuleCall_6_2_0() { return cForkerClassJavaClassReferenceParserRuleCall_6_2_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_6_3() { return cNLParserRuleCall_6_3; }
-
-		//(parameters+=ForkParameter NL)*
+		//('uses' NL forkerClass=JavaClassReference NL)?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//parameters+=ForkParameter
-		public Assignment getParametersAssignment_7_0() { return cParametersAssignment_7_0; }
-
-		//ForkParameter
-		public RuleCall getParametersForkParameterParserRuleCall_7_0_0() { return cParametersForkParameterParserRuleCall_7_0_0; }
+		//'uses'
+		public Keyword getUsesKeyword_7_0() { return cUsesKeyword_7_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_7_1() { return cNLParserRuleCall_7_1; }
+
+		//forkerClass=JavaClassReference
+		public Assignment getForkerClassAssignment_7_2() { return cForkerClassAssignment_7_2; }
+
+		//JavaClassReference
+		public RuleCall getForkerClassJavaClassReferenceParserRuleCall_7_2_0() { return cForkerClassJavaClassReferenceParserRuleCall_7_2_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_7_3() { return cNLParserRuleCall_7_3; }
+
+		//(parameters+=ForkParameter NL)*
+		public Group getGroup_8() { return cGroup_8; }
+
+		//parameters+=ForkParameter
+		public Assignment getParametersAssignment_8_0() { return cParametersAssignment_8_0; }
+
+		//ForkParameter
+		public RuleCall getParametersForkParameterParserRuleCall_8_0_0() { return cParametersForkParameterParserRuleCall_8_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_8_1() { return cNLParserRuleCall_8_1; }
 	}
 
 	public class ForkParameterElements extends AbstractParserRuleElementFinder {
@@ -538,49 +556,57 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class VariantDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.VariantDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cVariantdefKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Assignment cNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cNameQualifiedNameParserRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Assignment cDescriptionAssignment_4_0 = (Assignment)cGroup_4.eContents().get(0);
-		private final RuleCall cDescriptionSTRINGTerminalRuleCall_4_0_0 = (RuleCall)cDescriptionAssignment_4_0.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_4_1 = (RuleCall)cGroup_4.eContents().get(1);
+		private final Assignment cDocumentationAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cDocumentationDocumentationCommentParserRuleCall_0_0 = (RuleCall)cDocumentationAssignment_0.eContents().get(0);
+		private final Keyword cVariantdefKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cNameQualifiedNameParserRuleCall_3_0 = (RuleCall)cNameAssignment_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Assignment cDescriptionAssignment_5_0 = (Assignment)cGroup_5.eContents().get(0);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_5_0_0 = (RuleCall)cDescriptionAssignment_5_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_5_1 = (RuleCall)cGroup_5.eContents().get(1);
 		
 		//VariantDefinition:
-		//	'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
+		//	documentation=DocumentationComment? 'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'variantdef' NL name=QualifiedName NL (description=STRING NL)?
+		//documentation=DocumentationComment? 'variantdef' NL name=QualifiedName NL (description=STRING NL)?
 		public Group getGroup() { return cGroup; }
 
+		//documentation=DocumentationComment?
+		public Assignment getDocumentationAssignment_0() { return cDocumentationAssignment_0; }
+
+		//DocumentationComment
+		public RuleCall getDocumentationDocumentationCommentParserRuleCall_0_0() { return cDocumentationDocumentationCommentParserRuleCall_0_0; }
+
 		//'variantdef'
-		public Keyword getVariantdefKeyword_0() { return cVariantdefKeyword_0; }
+		public Keyword getVariantdefKeyword_1() { return cVariantdefKeyword_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+		public RuleCall getNLParserRuleCall_2() { return cNLParserRuleCall_2; }
 
 		//name=QualifiedName
-		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
+		public Assignment getNameAssignment_3() { return cNameAssignment_3; }
 
 		//QualifiedName
-		public RuleCall getNameQualifiedNameParserRuleCall_2_0() { return cNameQualifiedNameParserRuleCall_2_0; }
+		public RuleCall getNameQualifiedNameParserRuleCall_3_0() { return cNameQualifiedNameParserRuleCall_3_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
+		public RuleCall getNLParserRuleCall_4() { return cNLParserRuleCall_4; }
 
 		//(description=STRING NL)?
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_5() { return cGroup_5; }
 
 		//description=STRING
-		public Assignment getDescriptionAssignment_4_0() { return cDescriptionAssignment_4_0; }
+		public Assignment getDescriptionAssignment_5_0() { return cDescriptionAssignment_5_0; }
 
 		//STRING
-		public RuleCall getDescriptionSTRINGTerminalRuleCall_4_0_0() { return cDescriptionSTRINGTerminalRuleCall_4_0_0; }
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_5_0_0() { return cDescriptionSTRINGTerminalRuleCall_5_0_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_4_1() { return cNLParserRuleCall_4_1; }
+		public RuleCall getNLParserRuleCall_5_1() { return cNLParserRuleCall_5_1; }
 	}
 
 	public class TestDefinitionElements extends AbstractParserRuleElementFinder {
@@ -3974,7 +4000,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PackageDefinition:
-	//	'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
+	//	documentation=DocumentationComment? 'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement*
+	//	'packageend' NL;
 	public PackageDefinitionElements getPackageDefinitionAccess() {
 		return pPackageDefinition;
 	}
@@ -4005,8 +4032,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ForkDefinition:
-	//	private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ('uses' NL
-	//	forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
+	//	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
+	//	('uses' NL forkerClass=JavaClassReference NL)? (parameters+=ForkParameter NL)*;
 	public ForkDefinitionElements getForkDefinitionAccess() {
 		return pForkDefinition;
 	}
@@ -4026,7 +4053,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VariantDefinition:
-	//	'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
+	//	documentation=DocumentationComment? 'variantdef' NL name=QualifiedName NL (description=STRING NL)?;
 	public VariantDefinitionElements getVariantDefinitionAccess() {
 		return pVariantDefinition;
 	}

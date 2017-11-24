@@ -2,12 +2,15 @@
  */
 package de.gebit.integrity.dsl.impl;
 
+import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.VariantDefinition;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -19,6 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.VariantDefinitionImpl#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.VariantDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.VariantDefinitionImpl#getDescription <em>Description</em>}</li>
  * </ul>
@@ -27,6 +31,16 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class VariantDefinitionImpl extends StatementImpl implements VariantDefinition
 {
+  /**
+   * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDocumentation()
+   * @generated
+   * @ordered
+   */
+  protected DocumentationComment documentation;
+
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -93,6 +107,54 @@ public class VariantDefinitionImpl extends StatementImpl implements VariantDefin
    * <!-- end-user-doc -->
    * @generated
    */
+  public DocumentationComment getDocumentation()
+  {
+    return documentation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDocumentation(DocumentationComment newDocumentation, NotificationChain msgs)
+  {
+    DocumentationComment oldDocumentation = documentation;
+    documentation = newDocumentation;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.VARIANT_DEFINITION__DOCUMENTATION, oldDocumentation, newDocumentation);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDocumentation(DocumentationComment newDocumentation)
+  {
+    if (newDocumentation != documentation)
+    {
+      NotificationChain msgs = null;
+      if (documentation != null)
+        msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.VARIANT_DEFINITION__DOCUMENTATION, null, msgs);
+      if (newDocumentation != null)
+        msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.VARIANT_DEFINITION__DOCUMENTATION, null, msgs);
+      msgs = basicSetDocumentation(newDocumentation, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.VARIANT_DEFINITION__DOCUMENTATION, newDocumentation, newDocumentation));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getName()
   {
     return name;
@@ -140,10 +202,28 @@ public class VariantDefinitionImpl extends StatementImpl implements VariantDefin
    * @generated
    */
   @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case DslPackage.VARIANT_DEFINITION__DOCUMENTATION:
+        return basicSetDocumentation(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
     switch (featureID)
     {
+      case DslPackage.VARIANT_DEFINITION__DOCUMENTATION:
+        return getDocumentation();
       case DslPackage.VARIANT_DEFINITION__NAME:
         return getName();
       case DslPackage.VARIANT_DEFINITION__DESCRIPTION:
@@ -162,6 +242,9 @@ public class VariantDefinitionImpl extends StatementImpl implements VariantDefin
   {
     switch (featureID)
     {
+      case DslPackage.VARIANT_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)newValue);
+        return;
       case DslPackage.VARIANT_DEFINITION__NAME:
         setName((String)newValue);
         return;
@@ -182,6 +265,9 @@ public class VariantDefinitionImpl extends StatementImpl implements VariantDefin
   {
     switch (featureID)
     {
+      case DslPackage.VARIANT_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)null);
+        return;
       case DslPackage.VARIANT_DEFINITION__NAME:
         setName(NAME_EDEFAULT);
         return;
@@ -202,6 +288,8 @@ public class VariantDefinitionImpl extends StatementImpl implements VariantDefin
   {
     switch (featureID)
     {
+      case DslPackage.VARIANT_DEFINITION__DOCUMENTATION:
+        return documentation != null;
       case DslPackage.VARIANT_DEFINITION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DslPackage.VARIANT_DEFINITION__DESCRIPTION:

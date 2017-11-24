@@ -2,6 +2,7 @@
  */
 package de.gebit.integrity.dsl.impl;
 
+import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getPrivate <em>Private</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl#getDescription <em>Description</em>}</li>
@@ -41,6 +43,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
 {
+  /**
+   * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDocumentation()
+   * @generated
+   * @ordered
+   */
+  protected DocumentationComment documentation;
+
   /**
    * The default value of the '{@link #getPrivate() <em>Private</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -140,6 +152,54 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   protected EClass eStaticClass()
   {
     return DslPackage.Literals.FORK_DEFINITION;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DocumentationComment getDocumentation()
+  {
+    return documentation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDocumentation(DocumentationComment newDocumentation, NotificationChain msgs)
+  {
+    DocumentationComment oldDocumentation = documentation;
+    documentation = newDocumentation;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.FORK_DEFINITION__DOCUMENTATION, oldDocumentation, newDocumentation);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDocumentation(DocumentationComment newDocumentation)
+  {
+    if (newDocumentation != documentation)
+    {
+      NotificationChain msgs = null;
+      if (documentation != null)
+        msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.FORK_DEFINITION__DOCUMENTATION, null, msgs);
+      if (newDocumentation != null)
+        msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.FORK_DEFINITION__DOCUMENTATION, null, msgs);
+      msgs = basicSetDocumentation(newDocumentation, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.FORK_DEFINITION__DOCUMENTATION, newDocumentation, newDocumentation));
   }
 
   /**
@@ -283,6 +343,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__DOCUMENTATION:
+        return basicSetDocumentation(null, msgs);
       case DslPackage.FORK_DEFINITION__FORKER_CLASS:
         return basicSetForkerClass(null, msgs);
       case DslPackage.FORK_DEFINITION__PARAMETERS:
@@ -301,6 +363,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__DOCUMENTATION:
+        return getDocumentation();
       case DslPackage.FORK_DEFINITION__PRIVATE:
         return getPrivate();
       case DslPackage.FORK_DEFINITION__NAME:
@@ -326,6 +390,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)newValue);
+        return;
       case DslPackage.FORK_DEFINITION__PRIVATE:
         setPrivate((String)newValue);
         return;
@@ -356,6 +423,9 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__DOCUMENTATION:
+        setDocumentation((DocumentationComment)null);
+        return;
       case DslPackage.FORK_DEFINITION__PRIVATE:
         setPrivate(PRIVATE_EDEFAULT);
         return;
@@ -385,6 +455,8 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     switch (featureID)
     {
+      case DslPackage.FORK_DEFINITION__DOCUMENTATION:
+        return documentation != null;
       case DslPackage.FORK_DEFINITION__PRIVATE:
         return PRIVATE_EDEFAULT == null ? private_ != null : !PRIVATE_EDEFAULT.equals(private_);
       case DslPackage.FORK_DEFINITION__NAME:
