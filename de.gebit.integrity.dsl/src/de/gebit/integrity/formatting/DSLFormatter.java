@@ -106,9 +106,9 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 
 		// Constant Variants
 		aConfig.setIndentationIncrement()
-				.before(tempGrammar.getConstantDefinitionAccess().getVariantValuesAssignment_5_1_0());
+				.before(tempGrammar.getConstantDefinitionAccess().getVariantValuesAssignment_6_1_0());
 		aConfig.setIndentationDecrement()
-				.after(tempGrammar.getConstantDefinitionAccess().getVariantValuesAssignment_5_1_0());
+				.after(tempGrammar.getConstantDefinitionAccess().getVariantValuesAssignment_6_1_0());
 
 		// Tests and Calls
 		aConfig.setIndentation(tempGrammar.getTestAccess().getNLParserRuleCall_2(),
