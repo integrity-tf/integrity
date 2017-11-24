@@ -14,6 +14,9 @@ packagedef mypackage with
 	forkdef fork2
 	forkdef fork3
 	
+	/**
+	 * A Variant.
+	 */
 	variantdef deDE
 	variantdef enUS
 		
@@ -85,14 +88,14 @@ packagedef mypackage with
 	
 		call echoCall echo: "blah" -> returnVar
 	
-		suite csuite
+		suite csuite in deDE
 		
 		suite csuite
 		
 		suite dsuite
 		
-		test echo echo: returnVar = "blah"
-	
+		test echo echo: returnVar = woohoo
+			
 	suiteend
 	
 	private suitedef csuite concludedby dsuite with

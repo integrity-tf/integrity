@@ -16,10 +16,14 @@ import org.eclipse.xtext.ui.shared.internal.Activator;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment;
@@ -79,6 +83,15 @@ public class IntegrityEObjectHoverProvider extends DefaultEObjectHoverProvider {
 								.containsKey(((VariableEntity) anObject).getName());
 					}
 				}
+			} else if (anObject instanceof ForkDefinition) {
+				ForkDefinition tempForkDefinition = (ForkDefinition) anObject;
+				return (tempForkDefinition.getDocumentation() != null);
+			} else if (anObject instanceof VariantDefinition) {
+				VariantDefinition tempVariantDefinition = (VariantDefinition) anObject;
+				return (tempVariantDefinition.getDocumentation() != null);
+			} else if (anObject instanceof ConstantEntity && anObject.eContainer() instanceof ConstantDefinition) {
+				ConstantDefinition tempConstantDefinition = (ConstantDefinition) anObject.eContainer();
+				return (tempConstantDefinition.getDocumentation() != null);
 			}
 		} catch (ParseException exc) {
 			Activator.getDefault().getLog().log(new Status(Status.ERROR, "de.gebit.integrity.dsl.ui",

@@ -16,10 +16,14 @@ import org.eclipse.xtext.ui.shared.internal.Activator;
 import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariableEntity;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
 import de.gebit.integrity.ui.utils.JavadocUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment;
@@ -81,6 +85,25 @@ public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentat
 									.get(((VariableEntity) anObjectOrProxy).getName());
 						}
 					}
+				} else if (anObjectOrProxy instanceof ForkDefinition) {
+					ForkDefinition tempForkDefinition = (ForkDefinition) anObjectOrProxy;
+					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+							tempForkDefinition.getDocumentation(),
+							modelSourceExplorer.determineSourceInformation(tempForkDefinition.getDocumentation()));
+					return tempParsedComment.getDocumentationText();
+				} else if (anObjectOrProxy instanceof VariantDefinition) {
+					VariantDefinition tempVariantDefinition = (VariantDefinition) anObjectOrProxy;
+					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+							tempVariantDefinition.getDocumentation(),
+							modelSourceExplorer.determineSourceInformation(tempVariantDefinition.getDocumentation()));
+					return tempParsedComment.getDocumentationText();
+				} else if (anObjectOrProxy instanceof ConstantEntity
+						&& anObjectOrProxy.eContainer() instanceof ConstantDefinition) {
+					ConstantDefinition tempConstantDefinition = (ConstantDefinition) anObjectOrProxy.eContainer();
+					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+							tempConstantDefinition.getDocumentation(),
+							modelSourceExplorer.determineSourceInformation(tempConstantDefinition.getDocumentation()));
+					return tempParsedComment.getDocumentationText();
 				}
 			}
 		} catch (ParseException exc) {
