@@ -74,7 +74,7 @@ public class IntegrityEObjectHoverProvider extends DefaultEObjectHoverProvider {
 					if (tempSuiteDefinition.getDocumentation() != null) {
 						ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
 								tempSuiteDefinition.getDocumentation(),
-								modelSourceExplorer.determineSourceInformation(tempSuiteDefinition));
+								modelSourceExplorer.determineSourceInformation(tempSuiteDefinition.getDocumentation()));
 						return tempParsedComment.getParameterDocumentationTexts()
 								.containsKey(((VariableEntity) anObject).getName());
 					}

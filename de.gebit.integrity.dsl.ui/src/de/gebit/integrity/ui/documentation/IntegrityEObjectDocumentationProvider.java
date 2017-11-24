@@ -67,7 +67,7 @@ public class IntegrityEObjectDocumentationProvider implements IEObjectDocumentat
 					SuiteDefinition tempSuiteDefinition = (SuiteDefinition) anObjectOrProxy;
 					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
 							tempSuiteDefinition.getDocumentation(),
-							modelSourceExplorer.determineSourceInformation(tempSuiteDefinition));
+							modelSourceExplorer.determineSourceInformation(tempSuiteDefinition.getDocumentation()));
 					return tempParsedComment.getDocumentationText();
 				} else if (anObjectOrProxy instanceof VariableEntity) {
 					if (anObjectOrProxy.eContainer() instanceof SuiteParameterDefinition) {

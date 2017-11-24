@@ -29,6 +29,7 @@ import de.gebit.integrity.docgen.html.PackageIndexView;
 import de.gebit.integrity.docgen.html.PackageView;
 import de.gebit.integrity.docgen.jsdata.LunrIndexBuilder;
 import de.gebit.integrity.docgen.jsdata.TreeDataBuilder;
+import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParsedDocumentationComment.ParseException;
@@ -129,11 +130,11 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		Consumer<EObject> tempConsumer = new Consumer<EObject>() {
 			@Override
 			public void accept(EObject anEntity) {
-				String tempPackageName = IntegrityDSLUtil.getPackageContaining(anEntity).getName();
-				IntegrityPackage tempPackageInfo = tempResult.get(tempPackageName);
+				PackageDefinition tempPackage = IntegrityDSLUtil.getPackageContaining(anEntity);
+				IntegrityPackage tempPackageInfo = tempResult.get(tempPackage.getName());
 				if (tempPackageInfo == null) {
-					tempPackageInfo = new IntegrityPackage(tempPackageName);
-					tempResult.put(tempPackageName, tempPackageInfo);
+					tempPackageInfo = new IntegrityPackage(tempPackage);
+					tempResult.put(tempPackage.getName(), tempPackageInfo);
 				}
 				tempPackageInfo.add(anEntity);
 			};
@@ -148,6 +149,7 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		aModel.getAllCalls().forEach(tempConsumer);
 		aModel.getAllTests().forEach(tempConsumer);
 		aModel.getAllVariants().forEach(tempConsumer);
+		aModel.getAllForks().forEach(tempConsumer);
 
 		tempResult.values().forEach((aPackage) -> {
 			aPackage.postProcess(tempResult.values());

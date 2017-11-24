@@ -20,6 +20,9 @@ import org.eclipse.emf.ecore.EObject;
 
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
+import de.gebit.integrity.dsl.DocumentationComment;
+import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
@@ -96,17 +99,34 @@ public class IntegrityPackage implements Comparable<IntegrityPackage> {
 			});
 
 	/**
+	 * Fork definitions within the package.
+	 */
+	protected Collection<ForkDefinition> forks = new TreeSet<ForkDefinition>(new Comparator<ForkDefinition>() {
+
+		@Override
+		public int compare(ForkDefinition aFirst, ForkDefinition aSecond) {
+			return aFirst.getName().compareTo(aSecond.getName());
+		}
+	});
+
+	/**
 	 * Maps each {@link VariantDefinition} to a collection of constants influenced by the variant.
 	 */
 	protected Map<VariantDefinition, List<ConstantDefinition>> variantToConstantMap = new HashMap<>();
+
+	/**
+	 * The {@link DocumentationComment} of the package itself.
+	 */
+	protected DocumentationComment documentationComment;
 
 	/**
 	 * Constructor.
 	 * 
 	 * @param aName
 	 */
-	public IntegrityPackage(String aName) {
-		name = aName;
+	public IntegrityPackage(PackageDefinition aPackage) {
+		name = aPackage.getName();
+		documentationComment = aPackage.getDocumentation();
 	}
 
 	public String getName() {
@@ -133,6 +153,14 @@ public class IntegrityPackage implements Comparable<IntegrityPackage> {
 		return variants;
 	}
 
+	public Collection<ForkDefinition> getForks() {
+		return forks;
+	}
+
+	public DocumentationComment getDocumentationComment() {
+		return documentationComment;
+	}
+
 	/**
 	 * Finds all constants that are influenced by the given variant.
 	 * 
@@ -144,7 +172,8 @@ public class IntegrityPackage implements Comparable<IntegrityPackage> {
 	}
 
 	public boolean isEmpty() {
-		return suites.isEmpty() && constants.isEmpty() && calls.isEmpty() && tests.isEmpty() && variants.isEmpty();
+		return suites.isEmpty() && constants.isEmpty() && calls.isEmpty() && tests.isEmpty() && variants.isEmpty()
+				&& forks.isEmpty();
 	}
 
 	/**
@@ -163,9 +192,15 @@ public class IntegrityPackage implements Comparable<IntegrityPackage> {
 			tests.add((TestDefinition) anEntity);
 		} else if (anEntity instanceof VariantDefinition) {
 			variants.add((VariantDefinition) anEntity);
+		} else if (anEntity instanceof ForkDefinition) {
+			forks.add((ForkDefinition) anEntity);
 		} else {
-			throw new IllegalArgumentException("Unknown entity type: " + anEntity.getClass().getName());
+			throw new IllegalArgumentException("Unsupported entity type: " + anEntity.getClass().getName());
 		}
+	}
+
+	public void setDocumentationComment(DocumentationComment aDocumentationComment) {
+		this.documentationComment = aDocumentationComment;
 	}
 
 	/**

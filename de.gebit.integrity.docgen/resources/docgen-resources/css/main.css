@@ -43,6 +43,12 @@ p {
 	font-size: 12pt;
 }
 
+.packagedoc {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	font-size: larger;
+}
+
 .suites {
 	padding-bottom: 10px;
 }

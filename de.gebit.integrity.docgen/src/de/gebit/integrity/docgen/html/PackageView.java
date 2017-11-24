@@ -24,6 +24,8 @@ import de.gebit.integrity.docgen.IntegrityPackage;
 import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DocumentationComment;
+import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
@@ -127,9 +129,11 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		mainContent.div().classAttr("title").text("Package " + aPackage.getName());
 		mainContent.hr();
 		HtmlDiv<?> tempSummaryDiv = mainContent.div().classAttr("packagesummary");
+		HtmlDiv<?> tempDocumentationDiv = mainContent.div().classAttr("packagedoc");
 
 		int tempConstantCount = processConstants(aPackage, mainContent);
 		int tempVariantCount = processVariants(aPackage, mainContent);
+		int tempForkCount = processForks(aPackage, mainContent);
 		int tempCallCount = processCalls(aPackage, mainContent);
 		int tempTestCount = processTests(aPackage, mainContent);
 		int tempSuiteCount = processSuites(aPackage, mainContent);
@@ -137,6 +141,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		CountsOfThingsStringJoiner tempSummaryText = new CountsOfThingsStringJoiner(false);
 		tempSummaryText.add(tempConstantCount, "Constant", "Constants", "constants");
 		tempSummaryText.add(tempVariantCount, "Variant", "Variants", "variants");
+		tempSummaryText.add(tempForkCount, "Fork", "Forks", "forks");
 		tempSummaryText.add(tempCallCount, "Call", "Calls", "calls");
 		tempSummaryText.add(tempTestCount, "Test", "Tests", "tests");
 		tempSummaryText.add(tempSuiteCount, "Suite", "Suites", "suites");
@@ -151,6 +156,13 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 					+ ((tempSegment.getNextSegment() != null && !tempSegment.getNextSegment().hasLastDivider())
 							? tempSegment.getNextSegment().getDivider().replace(" ", "") : ""));
 			tempSummaryDiv.addChild(tempSummaryLink);
+		}
+
+		if (aPackage.getDocumentationComment() != null) {
+			ParsedDocumentationComment tempParsedDoc = new ParsedDocumentationComment(
+					aPackage.getDocumentationComment(),
+					modelSourceExplorer.determineSourceInformation(aPackage.getDocumentationComment()));
+			attachFormattedDocumentationText(tempDocumentationDiv, tempParsedDoc.getDocumentationTextElements());
 		}
 	}
 
@@ -191,25 +203,23 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 			if (tempSuite.getDocumentation() != null) {
 				HtmlDiv<?> tempSuiteDetailsDiv = tempSuiteDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
-				if (tempSuite.getDocumentation() != null) {
-					ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
-							tempSuite.getDocumentation(),
-							modelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()));
-					attachFormattedDocumentationText(tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
-							tempParsedComment.getDocumentationTextElements());
+				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+						tempSuite.getDocumentation(),
+						modelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()));
+				attachFormattedDocumentationText(tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
+						tempParsedComment.getDocumentationTextElements());
 
-					if (tempSuite.getParameters().size() > 0) {
-						HtmlDiv<?> tempSuiteParamsDiv = tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYPARAMS);
-						tempSuiteParamsDiv.div().classAttr(CSSClasses.DETAILSTITLE).text("Parameters");
-						HtmlTable<?> tempParamTable = tempSuiteParamsDiv.table();
+				if (tempSuite.getParameters().size() > 0) {
+					HtmlDiv<?> tempSuiteParamsDiv = tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYPARAMS);
+					tempSuiteParamsDiv.div().classAttr(CSSClasses.DETAILSTITLE).text("Parameters");
+					HtmlTable<?> tempParamTable = tempSuiteParamsDiv.table();
 
-						for (SuiteParameterDefinition tempParameter : tempSuite.getParameters()) {
-							String tempParamDoc = tempParsedComment.getParameterDocumentationTexts()
-									.get(tempParameter.getName().getName());
-							HtmlTr<?> tempRow = tempParamTable.tr();
-							tempRow.td().classAttr(CSSClasses.CODE).text(tempParameter.getName().getName());
-							tempRow.td().text(tempParamDoc != null ? tempParamDoc : "");
-						}
+					for (SuiteParameterDefinition tempParameter : tempSuite.getParameters()) {
+						String tempParamDoc = tempParsedComment.getParameterDocumentationTexts()
+								.get(tempParameter.getName().getName());
+						HtmlTr<?> tempRow = tempParamTable.tr();
+						tempRow.td().classAttr(CSSClasses.CODE).text(tempParameter.getName().getName());
+						tempRow.td().text(tempParamDoc != null ? tempParamDoc : "");
 					}
 				}
 			}
@@ -357,6 +367,15 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 			tempVariantHeaderDiv.div().classAttr(CSSClasses.FULLENTITYNAME + " " + CSSClasses.CODE)
 					.text(IntegrityDSLUtil.getQualifiedVariantName(tempVariant));
 
+			if (tempVariant.getDocumentation() != null) {
+				HtmlDiv<?> tempVariantDetailsDiv = tempVariantDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
+				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+						tempVariant.getDocumentation(),
+						modelSourceExplorer.determineSourceInformation(tempVariant.getDocumentation()));
+				attachFormattedDocumentationText(tempVariantDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
+						tempParsedComment.getDocumentationTextElements());
+			}
+
 			HtmlTable<?> tempTable = tempMainDiv.table().classAttr("constanttable");
 
 			HtmlTr<?> tempHeaderRow = tempTable.tr();
@@ -427,6 +446,65 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		}
 
 		return aPackage.getTests().size();
+	}
+
+	/**
+	 * Processes all forks in a package.
+	 * 
+	 * @param aPackage
+	 * @param aMainContainerDiv
+	 * @return
+	 * @throws ParseException
+	 */
+	protected int processForks(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
+		if (aPackage.getForks().size() == 0) {
+			return 0;
+		}
+
+		HtmlAnchor<?> tempAnchor = new HtmlAnchor<>("forks");
+		aMainContainerDiv.addChild(tempAnchor);
+		HtmlDiv<?> tempMainDiv = aMainContainerDiv.div().classAttr(CSSClasses.ENTITYBOX + " forks");
+		tempMainDiv.div().classAttr(CSSClasses.ENTITYSUMMARY + " forksummary")
+				.text(aPackage.getForks().size() + " Forks");
+
+		for (ForkDefinition tempFork : aPackage.getForks()) {
+			HtmlDiv<?> tempVariantDiv = tempMainDiv.div().classAttr(CSSClasses.ENTITY + " fork");
+			HtmlDiv<?> tempVariantHeaderDiv = tempVariantDiv.div().classAttr(CSSClasses.ENTITYHEADER);
+			tempVariantHeaderDiv.div().classAttr(CSSClasses.ENTITYNAME).text(tempFork.getName());
+			if (tempFork.getDescription() != null) {
+				tempVariantHeaderDiv.div().classAttr(CSSClasses.ENTITYTITLE).text(tempFork.getDescription());
+			}
+			tempVariantHeaderDiv.div().classAttr(CSSClasses.FULLENTITYNAME + " " + CSSClasses.CODE)
+					.text(IntegrityDSLUtil.getQualifiedForkName(tempFork));
+
+			if (tempFork.getDocumentation() != null) {
+				HtmlDiv<?> tempVariantDetailsDiv = tempVariantDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
+				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
+						tempFork.getDocumentation(),
+						modelSourceExplorer.determineSourceInformation(tempFork.getDocumentation()));
+				attachFormattedDocumentationText(tempVariantDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
+						tempParsedComment.getDocumentationTextElements());
+
+				if (tempFork.getParameters().size() > 0) {
+					HtmlDiv<?> tempForkParamsDiv = tempVariantDetailsDiv.div().classAttr(CSSClasses.ENTITYPARAMS);
+					tempForkParamsDiv.div().classAttr(CSSClasses.DETAILSTITLE).text("Parameters");
+					HtmlTable<?> tempParamTable = tempForkParamsDiv.table();
+					HtmlTr<?> tempHeaderRow = tempParamTable.tr();
+					tempHeaderRow.th().classAttr(CSSClasses.SHRINK).text("Name");
+					tempHeaderRow.th().classAttr(CSSClasses.SHRINK).text("Value");
+
+					for (ForkParameter tempParameter : tempFork.getParameters()) {
+						String tempParamName = IntegrityDSLUtil
+								.getParamNameStringFromParameterName(tempParameter.getName());
+						HtmlTr<?> tempRow = tempParamTable.tr();
+						tempRow.td().classAttr(CSSClasses.CODE).text(tempParamName);
+						tempRow.td().addChild(resolveSingleValue(tempParameter.getValue()));
+					}
+				}
+			}
+		}
+
+		return aPackage.getForks().size();
 	}
 
 	/**

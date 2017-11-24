@@ -1,8 +1,15 @@
 import mypackage.*
 import mysecondpackage.*
 
+/**
+* This is a package. <br>
+* <p><b>Yeah!</b></p>
+*/
 packagedef mypackage with
 	
+	/**
+	* Woohoo!
+	*/
 	forkdef fork1
 	forkdef fork2
 	forkdef fork3
