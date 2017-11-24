@@ -353,7 +353,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		 */
 		private String value;
 
-		public TokenTuple(EObject aGrammarElement, String aValue) {
+		TokenTuple(EObject aGrammarElement, String aValue) {
 			grammarElement = aGrammarElement;
 			value = aValue;
 		}
