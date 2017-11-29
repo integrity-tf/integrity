@@ -1670,14 +1670,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			 * of the xmldata element - afterwards there's a lot of non-well-formed XML, which actually is HTML,
 			 * coming). The mentioned patch is provided in the file com.icl.saxon.output.HTMLEmitter.diff.
 			 */
-			String tempOldProperty = System.getProperty(XSLT_TRANSFORMER_FACTORY_PROPERTY);
-			System.setProperty(XSLT_TRANSFORMER_FACTORY_PROPERTY, "com.icl.saxon.TransformerFactoryImpl");
-			TransformerFactory tempTransformerFactory = TransformerFactory.newInstance();
-			if (tempOldProperty != null) {
-				System.setProperty(XSLT_TRANSFORMER_FACTORY_PROPERTY, tempOldProperty);
-			} else {
-				System.clearProperty(XSLT_TRANSFORMER_FACTORY_PROPERTY);
-			}
+			TransformerFactory tempTransformerFactory = TransformerFactory
+					.newInstance("com.icl.saxon.TransformerFactoryImpl", getClass().getClassLoader());
 
 			Transformer tempTransformer = tempTransformerFactory.newTransformer(new StreamSource(getXsltStream()));
 			tempTransformer.setOutputProperty(OutputKeys.METHOD, "html");
