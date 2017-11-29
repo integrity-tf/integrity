@@ -32,6 +32,11 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String VISIBLE_TITLE_COMMENT_ID = "visibletitlecomment";
 
 	/**
+	 * The ID for IntegrityDoc comments.
+	 */
+	public static final String DOCUMENTATION_COMMENT_ID = "documentationcomment";
+
+	/**
 	 * The ID for visible dividers.
 	 */
 	public static final String VISIBLE_DIVIDER_ID = "visibledivider";
@@ -176,9 +181,11 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	 */
 	public void configure(IHighlightingConfigurationAcceptor anAcceptor) {
 		super.configure(anAcceptor);
-		anAcceptor.acceptDefaultHighlighting(VISIBLE_COMMENT_ID, "Visible Comment", visibleCommentTextStyle());
-		anAcceptor
-				.acceptDefaultHighlighting(VISIBLE_TITLE_COMMENT_ID, "Title Comments", visibleTitleCommentTextStyle());
+		anAcceptor.acceptDefaultHighlighting(VISIBLE_COMMENT_ID, "Visible Comments", visibleCommentTextStyle());
+		anAcceptor.acceptDefaultHighlighting(VISIBLE_TITLE_COMMENT_ID, "Title Comments",
+				visibleTitleCommentTextStyle());
+		anAcceptor.acceptDefaultHighlighting(DOCUMENTATION_COMMENT_ID, "Documentation Comments",
+				documentationCommentTextStyle());
 		anAcceptor.acceptDefaultHighlighting(VISIBLE_DIVIDER_ID, "Visible Divider", visibleDividerTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_NAME_ID, "Parameter Name", parameterNameTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_NAME_ID, "Result Name", resultNameTextStyle());
@@ -253,6 +260,17 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		tempTextStyle.setColor(new RGB(14, 70, 0));
 		int tempUnderlineStyle = (1 << 30); // This constant is not present in the SWT class.
 		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.ITALIC | SWT.BOLD | tempUnderlineStyle);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for documentation comments.
+	 * 
+	 * @return the style
+	 */
+	public TextStyle documentationCommentTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(75, 97, 189));
 		return tempTextStyle;
 	}
 

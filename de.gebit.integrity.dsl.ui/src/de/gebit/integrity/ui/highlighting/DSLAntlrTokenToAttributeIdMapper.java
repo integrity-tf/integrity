@@ -25,6 +25,8 @@ public class DSLAntlrTokenToAttributeIdMapper extends DefaultAntlrTokenToAttribu
 		} else if ("RULE_SL_VISIBLE_TITLE_COMMENT".equals(aTokenName)
 				|| "RULE_ML_VISIBLE_TITLE_COMMENT".equals(aTokenName)) {
 			return DSLHighlightingConfiguration.VISIBLE_TITLE_COMMENT_ID;
+		} else if ("RULE_ML_DOC_COMMENT".equals(aTokenName)) {
+			return DSLHighlightingConfiguration.DOCUMENTATION_COMMENT_ID;
 		} else if ("RULE_DIVIDER".equals(aTokenName)) {
 			return DSLHighlightingConfiguration.VISIBLE_DIVIDER_ID;
 		} else if ("RULE_INTEGER".equals(aTokenName) || "RULE_DECIMAL".equals(aTokenName)) {
