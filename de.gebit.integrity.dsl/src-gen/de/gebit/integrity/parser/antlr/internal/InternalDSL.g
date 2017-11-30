@@ -1986,21 +1986,31 @@ ruleSuiteStatement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getTimeSetParserRuleCall_4()); 
     }
-    this_VisibleComment_4=ruleVisibleComment
+    this_TimeSet_4=ruleTimeSet
     { 
-        $current = $this_VisibleComment_4.current; 
+        $current = $this_TimeSet_4.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_5()); 
     }
-    this_VisibleDivider_5=ruleVisibleDivider
+    this_VisibleComment_5=ruleVisibleComment
     { 
-        $current = $this_VisibleDivider_5.current; 
+        $current = $this_VisibleComment_5.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_6()); 
+    }
+    this_VisibleDivider_6=ruleVisibleDivider
+    { 
+        $current = $this_VisibleDivider_6.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -3532,6 +3542,193 @@ ruleNL
 
 )
 ))
+;
+
+
+
+
+
+// Entry rule entryRuleTimeSet
+entryRuleTimeSet returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTimeSetRule()); }
+	 iv_ruleTimeSet=ruleTimeSet 
+	 { $current=$iv_ruleTimeSet.current; } 
+	 EOF 
+;
+
+// Rule TimeSet
+ruleTimeSet returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='timeset' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getTimeSetAccess().getTimesetKeyword_0());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(((
+(
+		lv_live_2_0=	'live' 
+    {
+        newLeafNode(lv_live_2_0, grammarAccess.getTimeSetAccess().getLiveLiveKeyword_2_0_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeSetRule());
+	        }
+       		setWithLastConsumed($current, "live", lv_live_2_0, "live");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_0_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)
+    |((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTimeSetAccess().getStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0()); 
+	    }
+		lv_startTime_4_0=ruleValueOrEnumValueOrOperation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTimeSetRule());
+	        }
+       		set(
+       			$current, 
+       			"startTime",
+        		lv_startTime_4_0, 
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+((
+(
+		lv_progressionMode_6_0=	'progressing' 
+    {
+        newLeafNode(lv_progressionMode_6_0, grammarAccess.getTimeSetAccess().getProgressionModeProgressingKeyword_2_1_2_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeSetRule());
+	        }
+       		setWithLastConsumed($current, "progressionMode", lv_progressionMode_6_0, "progressing");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTimeSetAccess().getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0()); 
+	    }
+		lv_progressionFactor_8_0=ruleValueOrEnumValueOrOperation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTimeSetRule());
+	        }
+       		set(
+       			$current, 
+       			"progressionFactor",
+        		lv_progressionFactor_8_0, 
+        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?	otherlv_9='x' 
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getTimeSetAccess().getXKeyword_2_1_2_3());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_4()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)?))(	otherlv_11='on' 
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getTimeSetAccess().getOnKeyword_3_0());
+    }
+
+    { 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_3_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeSetRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getTimeSetAccess().getForksForkDefinitionCrossReference_3_2_0_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+    |(
+(
+		lv_masterFork_14_0=	'master' 
+    {
+        newLeafNode(lv_masterFork_14_0, grammarAccess.getTimeSetAccess().getMasterForkMasterKeyword_3_2_1_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeSetRule());
+	        }
+       		setWithLastConsumed($current, "masterFork", lv_masterFork_14_0, "master");
+	    }
+
+)
+))+
+    { 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_3_3()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+)?)
 ;
 
 

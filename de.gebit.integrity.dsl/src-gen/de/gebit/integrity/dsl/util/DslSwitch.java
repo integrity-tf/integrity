@@ -410,6 +410,14 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.TIME_SET:
+      {
+        TimeSet timeSet = (TimeSet)theEObject;
+        T result = caseTimeSet(timeSet);
+        if (result == null) result = caseSuiteStatement(timeSet);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.SUITE:
       {
         Suite suite = (Suite)theEObject;
@@ -1524,6 +1532,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseNamedCallResult(NamedCallResult object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Time Set</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Time Set</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTimeSet(TimeSet object)
   {
     return null;
   }

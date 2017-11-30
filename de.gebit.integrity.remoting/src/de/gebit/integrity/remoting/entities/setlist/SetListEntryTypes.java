@@ -78,6 +78,11 @@ public enum SetListEntryTypes {
 	/**
 	 * Comment.
 	 */
-	COMMENT;
+	COMMENT,
+
+	/**
+	 * Time setting.
+	 */
+	TIMESET;
 
 }

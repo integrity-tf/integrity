@@ -59,6 +59,8 @@ public enum TestRunnerCallbackMethods {
 
 	VISIBLE_DIVIDER,
 
-	ABORT_EXECUTION
+	ABORT_EXECUTION,
+
+	TIME_SET;
 
 }

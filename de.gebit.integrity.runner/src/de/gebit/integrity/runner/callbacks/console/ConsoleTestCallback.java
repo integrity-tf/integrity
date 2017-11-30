@@ -17,12 +17,14 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -294,6 +296,11 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 		println("Assigned return variable " + IntegrityDSLUtil.getQualifiedVariableEntityName(aSource, false)
 				+ " to calling suites' variable " + IntegrityDSLUtil.getQualifiedVariableEntityName(aTarget, false)
 				+ " - returned value: " + valueConverter.convertValueToString(aValue, false, null));
+	}
+
+	@Override
+	public void onTimeSet(TimeSet aTimeSet, SuiteDefinition aSuite, ForkDefinition aFork) {
+		println(testFormatter.timeSetToHumanReadableString(aTimeSet, aFork));
 	}
 
 	@Override

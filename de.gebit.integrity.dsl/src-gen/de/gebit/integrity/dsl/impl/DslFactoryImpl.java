@@ -106,6 +106,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.FIXED_RESULT_NAME: return createFixedResultName();
       case DslPackage.CALL: return createCall();
       case DslPackage.NAMED_CALL_RESULT: return createNamedCallResult();
+      case DslPackage.TIME_SET: return createTimeSet();
       case DslPackage.SUITE: return createSuite();
       case DslPackage.SUITE_PARAMETER: return createSuiteParameter();
       case DslPackage.SUITE_RETURN: return createSuiteReturn();
@@ -618,6 +619,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     NamedCallResultImpl namedCallResult = new NamedCallResultImpl();
     return namedCallResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TimeSet createTimeSet()
+  {
+    TimeSetImpl timeSet = new TimeSetImpl();
+    return timeSet;
   }
 
   /**

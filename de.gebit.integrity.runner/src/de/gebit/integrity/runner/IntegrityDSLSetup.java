@@ -18,7 +18,13 @@ import de.gebit.integrity.runner.modelcheck.ModelChecker;
 import de.gebit.integrity.runner.modelcheck.NullModelChecker;
 
 /**
- * Initialization support for running Xtext languages without equinox extension registry.
+ * Initialization support for running Xtext languages without equinox extension registry. This class is intended to be
+ * an override entry point for Integrity framework users who want to customize certain parts of the framework. The most
+ * interesting methods probably are {@link #createGuiceModule(ClassLoader)}, which allows to use a custom Guice module
+ * class instead of the default (this custom class allows you to override any of the internal Integrity services) and
+ * {@link #overrideBindings(Binder)}, which also allows an override of Guice bindings, but without having to subclass
+ * the module. If you want to override the entire Guice injector creation, you may be interested in
+ * {@link #createInjector()}.
  * 
  * @author Rene Schneider - initial API and implementation
  * 

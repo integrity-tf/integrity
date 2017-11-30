@@ -91,7 +91,7 @@ OperationDefinition:
 	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=JavaClassReference NL;
 
 SuiteStatement:
-	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment | VisibleDivider;
+	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | TimeSet | VisibleComment | VisibleDivider;
 	
 SuiteStatementWithResult:
 	Suite | Test | TableTest | Call;
@@ -150,6 +150,9 @@ Call:
 	
 NamedCallResult:
 	name=ResultName NL '->' NL target=VariableVariable;
+	
+TimeSet:
+	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation)? 'x' NL)?)) ('on' NL (forks+=[ForkDefinition|QualifiedName] | masterFork='master')+ NL)?;
 	
 Suite:
 	inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] NL)+)?;

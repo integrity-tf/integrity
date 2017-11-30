@@ -64,6 +64,7 @@ import com.google.inject.Inject;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
@@ -73,6 +74,7 @@ import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableEntity;
@@ -339,6 +341,21 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant VARIABLE_ASSIGNMENT_ELEMENT. */
 	protected static final String VARIABLE_ASSIGNMENT_ELEMENT = "variableAssign";
+
+	/** The Constant TIME_SET_ELEMENT. */
+	protected static final String TIME_SET_ELEMENT = "timeSet";
+
+	/** The Constant TIME_START_ATTRIBUTE. */
+	protected static final String TIME_START_ATTRIBUTE = "time";
+
+	/** The Constant TIME_PROGRESSION_FACTOR_ATTRIBUTE. */
+	protected static final String TIME_PROGRESSION_FACTOR_ATTRIBUTE = "progressionFactor";
+
+	/** The Constant TIME_FORK_ATTRIBUTE. */
+	protected static final String TIME_FORK_ATTRIBUTE = "fork";
+
+	/** The Constant TIME_TEXT_ATTRIBUTE. */
+	protected static final String TIME_TEXT_ATTRIBUTE = "text";
 
 	/** The Constant COMMENT_ELEMENT. */
 	protected static final String COMMENT_ELEMENT = "comment";
@@ -1786,6 +1803,52 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 	}
 
+	@Override
+	public void onTimeSet(TimeSet aTimeSet, SuiteDefinition aSuite, ForkDefinition aFork) {
+		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
+				new ConversionContext().withUnresolvableVariableHandlingPolicy(
+						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
+		String tempProgressionFactor = valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false,
+				new ConversionContext().withUnresolvableVariableHandlingPolicy(
+						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
+
+		String tempForkName = null;
+		if (aFork != null) {
+			tempForkName = aFork.getName();
+		} else if (aTimeSet.getForks().size() > 0) {
+			tempForkName = "master";
+		}
+
+		Element tempTimeSetElement = new Element(TIME_SET_ELEMENT);
+		tempTimeSetElement.setAttribute(TIME_TEXT_ATTRIBUTE,
+				testFormatter.timeSetToHumanReadableString(aTimeSet, aFork));
+		if (tempStartTime != null) {
+			tempTimeSetElement.setAttribute(TIME_START_ATTRIBUTE, tempStartTime);
+		}
+		if (tempProgressionFactor != null) {
+			tempTimeSetElement.setAttribute(TIME_PROGRESSION_FACTOR_ATTRIBUTE, tempProgressionFactor);
+		}
+		if (tempForkName != null) {
+			tempTimeSetElement.setAttribute(TIME_FORK_ATTRIBUTE, tempForkName);
+		}
+
+		if (!isDryRun()) {
+			if (isFork()) {
+				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET, tempTimeSetElement);
+			}
+			internalOnTimeSet(tempTimeSetElement);
+		}
+	}
+
+	/**
+	 * Internal version of {@link #onTimeSet(TimeSet, SuiteDefinition, ForkDefinition)}.
+	 * 
+	 * @param aTimeSetElement
+	 */
+	protected void internalOnTimeSet(Element aTimeSetElement) {
+		stackPeek().addContent(currentElement);
+	}
+
 	/**
 	 * Internal version of {@link #onReturnVariableAssignment(SuiteReturn, Suite, Object)}.
 	 * 
@@ -2172,6 +2235,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			break;
 		case RETURN_ASSIGNMENT:
 			internalOnReturnVariableAssignment(tempFirstElement);
+			break;
+		case TIME_SET:
+			internalOnTimeSet(tempFirstElement);
 			break;
 		case VISIBLE_COMMENT:
 			internalOnVisibleComment(tempFirstElement);

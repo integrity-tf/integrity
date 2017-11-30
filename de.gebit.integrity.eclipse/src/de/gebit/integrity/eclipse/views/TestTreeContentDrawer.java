@@ -261,6 +261,7 @@ public class TestTreeContentDrawer {
 						}
 						break;
 					case CALL:
+					case TIMESET:
 						switch (tempResultState) {
 						case SUCCESSFUL:
 							tempBackground = callSuccessColor;
@@ -323,6 +324,7 @@ public class TestTreeContentDrawer {
 					case TEST:
 					case TABLETEST:
 					case VARIABLE_ASSIGNMENT:
+					case TIMESET:
 						anEvent.gc.setBackground(callOrTestInExecutionColor);
 						break;
 					case SUITE:

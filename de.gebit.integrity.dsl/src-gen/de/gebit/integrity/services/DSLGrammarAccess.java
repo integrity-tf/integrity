@@ -1084,15 +1084,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVariableDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cConstantDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cVariableAssignmentParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cVisibleCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cVisibleDividerParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cTimeSetParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cVisibleCommentParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cVisibleDividerParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		
 		//SuiteStatement:
-		//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
+		//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | TimeSet | VisibleComment |
 		//	VisibleDivider;
 		@Override public ParserRule getRule() { return rule; }
 
-		//SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
+		//SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | TimeSet | VisibleComment |
 		//VisibleDivider
 		public Alternatives getAlternatives() { return cAlternatives; }
 
@@ -1108,11 +1109,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//VariableAssignment
 		public RuleCall getVariableAssignmentParserRuleCall_3() { return cVariableAssignmentParserRuleCall_3; }
 
+		//TimeSet
+		public RuleCall getTimeSetParserRuleCall_4() { return cTimeSetParserRuleCall_4; }
+
 		//VisibleComment
-		public RuleCall getVisibleCommentParserRuleCall_4() { return cVisibleCommentParserRuleCall_4; }
+		public RuleCall getVisibleCommentParserRuleCall_5() { return cVisibleCommentParserRuleCall_5; }
 
 		//VisibleDivider
-		public RuleCall getVisibleDividerParserRuleCall_5() { return cVisibleDividerParserRuleCall_5; }
+		public RuleCall getVisibleDividerParserRuleCall_6() { return cVisibleDividerParserRuleCall_6; }
 	}
 
 	public class SuiteStatementWithResultElements extends AbstractParserRuleElementFinder {
@@ -2027,6 +2031,140 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//VariableVariable
 		public RuleCall getTargetVariableVariableParserRuleCall_4_0() { return cTargetVariableVariableParserRuleCall_4_0; }
+	}
+
+	public class TimeSetElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TimeSet");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cTimesetKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
+		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
+		private final Assignment cLiveAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
+		private final Keyword cLiveLiveKeyword_2_0_0_0 = (Keyword)cLiveAssignment_2_0_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_2_0_1 = (RuleCall)cGroup_2_0.eContents().get(1);
+		private final Group cGroup_2_1 = (Group)cAlternatives_2.eContents().get(1);
+		private final Assignment cStartTimeAssignment_2_1_0 = (Assignment)cGroup_2_1.eContents().get(0);
+		private final RuleCall cStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0 = (RuleCall)cStartTimeAssignment_2_1_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_2_1_1 = (RuleCall)cGroup_2_1.eContents().get(1);
+		private final Group cGroup_2_1_2 = (Group)cGroup_2_1.eContents().get(2);
+		private final Assignment cProgressionModeAssignment_2_1_2_0 = (Assignment)cGroup_2_1_2.eContents().get(0);
+		private final Keyword cProgressionModeProgressingKeyword_2_1_2_0_0 = (Keyword)cProgressionModeAssignment_2_1_2_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_2_1_2_1 = (RuleCall)cGroup_2_1_2.eContents().get(1);
+		private final Assignment cProgressionFactorAssignment_2_1_2_2 = (Assignment)cGroup_2_1_2.eContents().get(2);
+		private final RuleCall cProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0 = (RuleCall)cProgressionFactorAssignment_2_1_2_2.eContents().get(0);
+		private final Keyword cXKeyword_2_1_2_3 = (Keyword)cGroup_2_1_2.eContents().get(3);
+		private final RuleCall cNLParserRuleCall_2_1_2_4 = (RuleCall)cGroup_2_1_2.eContents().get(4);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cOnKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Alternatives cAlternatives_3_2 = (Alternatives)cGroup_3.eContents().get(2);
+		private final Assignment cForksAssignment_3_2_0 = (Assignment)cAlternatives_3_2.eContents().get(0);
+		private final CrossReference cForksForkDefinitionCrossReference_3_2_0_0 = (CrossReference)cForksAssignment_3_2_0.eContents().get(0);
+		private final RuleCall cForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_1 = (RuleCall)cForksForkDefinitionCrossReference_3_2_0_0.eContents().get(1);
+		private final Assignment cMasterForkAssignment_3_2_1 = (Assignment)cAlternatives_3_2.eContents().get(1);
+		private final Keyword cMasterForkMasterKeyword_3_2_1_0 = (Keyword)cMasterForkAssignment_3_2_1.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_3_3 = (RuleCall)cGroup_3.eContents().get(3);
+		
+		//TimeSet:
+		//	'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
+		//	progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL (forks+=[ForkDefinition|QualifiedName] |
+		//	masterFork='master')+ NL)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
+		//progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL (forks+=[ForkDefinition|QualifiedName] |
+		//masterFork='master')+ NL)?
+		public Group getGroup() { return cGroup; }
+
+		//'timeset'
+		public Keyword getTimesetKeyword_0() { return cTimesetKeyword_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//(live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
+		//progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?)
+		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+
+		//live='live' NL
+		public Group getGroup_2_0() { return cGroup_2_0; }
+
+		//live='live'
+		public Assignment getLiveAssignment_2_0_0() { return cLiveAssignment_2_0_0; }
+
+		//'live'
+		public Keyword getLiveLiveKeyword_2_0_0_0() { return cLiveLiveKeyword_2_0_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_2_0_1() { return cNLParserRuleCall_2_0_1; }
+
+		//startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
+		//progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?
+		public Group getGroup_2_1() { return cGroup_2_1; }
+
+		//startTime=ValueOrEnumValueOrOperation
+		public Assignment getStartTimeAssignment_2_1_0() { return cStartTimeAssignment_2_1_0; }
+
+		//ValueOrEnumValueOrOperation
+		public RuleCall getStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0() { return cStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_2_1_1() { return cNLParserRuleCall_2_1_1; }
+
+		//(progressionMode='progressing' NL progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?
+		public Group getGroup_2_1_2() { return cGroup_2_1_2; }
+
+		//progressionMode='progressing'
+		public Assignment getProgressionModeAssignment_2_1_2_0() { return cProgressionModeAssignment_2_1_2_0; }
+
+		//'progressing'
+		public Keyword getProgressionModeProgressingKeyword_2_1_2_0_0() { return cProgressionModeProgressingKeyword_2_1_2_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_2_1_2_1() { return cNLParserRuleCall_2_1_2_1; }
+
+		//progressionFactor=ValueOrEnumValueOrOperation?
+		public Assignment getProgressionFactorAssignment_2_1_2_2() { return cProgressionFactorAssignment_2_1_2_2; }
+
+		//ValueOrEnumValueOrOperation
+		public RuleCall getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0() { return cProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0; }
+
+		//'x'
+		public Keyword getXKeyword_2_1_2_3() { return cXKeyword_2_1_2_3; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_2_1_2_4() { return cNLParserRuleCall_2_1_2_4; }
+
+		//('on' NL (forks+=[ForkDefinition|QualifiedName] | masterFork='master')+ NL)?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//'on'
+		public Keyword getOnKeyword_3_0() { return cOnKeyword_3_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3_1() { return cNLParserRuleCall_3_1; }
+
+		//(forks+=[ForkDefinition|QualifiedName] | masterFork='master')+
+		public Alternatives getAlternatives_3_2() { return cAlternatives_3_2; }
+
+		//forks+=[ForkDefinition|QualifiedName]
+		public Assignment getForksAssignment_3_2_0() { return cForksAssignment_3_2_0; }
+
+		//[ForkDefinition|QualifiedName]
+		public CrossReference getForksForkDefinitionCrossReference_3_2_0_0() { return cForksForkDefinitionCrossReference_3_2_0_0; }
+
+		//QualifiedName
+		public RuleCall getForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_1() { return cForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_1; }
+
+		//masterFork='master'
+		public Assignment getMasterForkAssignment_3_2_1() { return cMasterForkAssignment_3_2_1; }
+
+		//'master'
+		public Keyword getMasterForkMasterKeyword_3_2_1_0() { return cMasterForkMasterKeyword_3_2_1_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_3_3() { return cNLParserRuleCall_3_3; }
 	}
 
 	public class SuiteElements extends AbstractParserRuleElementFinder {
@@ -3698,6 +3836,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final FixedResultNameElements pFixedResultName;
 	private final CallElements pCall;
 	private final NamedCallResultElements pNamedCallResult;
+	private final TimeSetElements pTimeSet;
 	private final SuiteElements pSuite;
 	private final SuiteParameterElements pSuiteParameter;
 	private final SuiteReturnElements pSuiteReturn;
@@ -3822,6 +3961,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pFixedResultName = new FixedResultNameElements();
 		this.pCall = new CallElements();
 		this.pNamedCallResult = new NamedCallResultElements();
+		this.pTimeSet = new TimeSetElements();
 		this.pSuite = new SuiteElements();
 		this.pSuiteParameter = new SuiteParameterElements();
 		this.pSuiteReturn = new SuiteReturnElements();
@@ -4161,7 +4301,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatement:
-	//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
+	//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | TimeSet | VisibleComment |
 	//	VisibleDivider;
 	public SuiteStatementElements getSuiteStatementAccess() {
 		return pSuiteStatement;
@@ -4366,6 +4506,18 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNamedCallResultRule() {
 		return getNamedCallResultAccess().getRule();
+	}
+
+	//TimeSet:
+	//	'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
+	//	progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL (forks+=[ForkDefinition|QualifiedName] |
+	//	masterFork='master')+ NL)?;
+	public TimeSetElements getTimeSetAccess() {
+		return pTimeSet;
+	}
+	
+	public ParserRule getTimeSetRule() {
+		return getTimeSetAccess().getRule();
 	}
 
 	//Suite:

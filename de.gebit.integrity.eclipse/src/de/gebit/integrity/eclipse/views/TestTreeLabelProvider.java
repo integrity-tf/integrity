@@ -204,6 +204,8 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 			default:
 				return testImage;
 			}
+		case TIMESET:
+			return callSuccessImage;
 		case COMMENT:
 		default:
 			return null;
@@ -248,6 +250,8 @@ public class TestTreeLabelProvider extends LabelProvider implements ILabelProvid
 			return ((String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION)) + tempSuffix;
 		case COMMENT:
 			return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
+		case TIMESET:
+			return (String) tempEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION) + tempSuffix;
 		default:
 			return tempEntry.toString() + tempSuffix;
 		}

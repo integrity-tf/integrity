@@ -18,6 +18,7 @@ import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.dsl.VariableEntity;
 import de.gebit.integrity.dsl.VariantDefinition;
@@ -298,6 +299,18 @@ public abstract class TestRunnerCallback {
 	 */
 	public abstract void onReturnVariableAssignment(SuiteReturn aReturn, VariableEntity aSource, VariableEntity aTarget,
 			Suite aSuite, Object aValue);
+
+	/**
+	 * Called when the test time is set.
+	 * 
+	 * @param aTimeSet
+	 *            the time to be set
+	 * @param aSuite
+	 *            the suite in which the time is set
+	 * @param aFork
+	 *            the fork on which the time is set
+	 */
+	public abstract void onTimeSet(TimeSet aTimeSet, SuiteDefinition aSuite, ForkDefinition aFork);
 
 	/**
 	 * Called when a visible comment is encountered during execution.

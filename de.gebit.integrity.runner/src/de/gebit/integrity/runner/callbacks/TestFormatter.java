@@ -17,11 +17,13 @@ import com.google.inject.Provider;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.FixtureMethod;
@@ -115,8 +117,8 @@ public class TestFormatter {
 	 * @throws MethodNotFoundException
 	 */
 	public String tableTestRowToHumanReadableString(TableTest aTest, TableTestRow aRow,
-			ConversionContext aConversionContext) throws ClassNotFoundException, UnexecutableException,
-					InstantiationException, MethodNotFoundException {
+			ConversionContext aConversionContext)
+			throws ClassNotFoundException, UnexecutableException, InstantiationException, MethodNotFoundException {
 		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
 		return fixtureMethodToHumanReadableString(aTest.getDefinition().getFixtureMethod(), aTest,
@@ -365,6 +367,49 @@ public class TestFormatter {
 			return conversionContextProvider.get();
 		} else {
 			return aContext;
+		}
+	}
+
+	/**
+	 * Converts a {@link TimeSet} command to a human-readable description.
+	 * 
+	 * @param aTimeSet
+	 *            the timeset command to convert
+	 * @param aFork
+	 *            the fork onto which it is executed (null = master)
+	 * @return
+	 */
+	public String timeSetToHumanReadableString(TimeSet aTimeSet, ForkDefinition aFork) {
+		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
+				new ConversionContext().withUnresolvableVariableHandlingPolicy(
+						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
+		String tempProgressionFactor = valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false,
+				new ConversionContext().withUnresolvableVariableHandlingPolicy(
+						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
+
+		String tempForkName = "";
+		if (aFork != null) {
+			tempForkName = "on fork '" + aFork.getName() + "' ";
+		} else {
+			if (aTimeSet.getForks().size() > 0) {
+				tempForkName = "on the master process ";
+			}
+		}
+
+		if (tempStartTime != null) {
+			if (tempProgressionFactor != null) {
+				return "Setting test time " + tempForkName + "to " + tempStartTime + ", progressing with "
+						+ tempProgressionFactor + "x speed";
+			} else {
+				return "Setting test time " + tempForkName + "to " + tempStartTime;
+			}
+		} else {
+			if (tempProgressionFactor != null) {
+				return "Setting test time " + tempForkName + "to current system  time, progressing with "
+						+ tempProgressionFactor + "x speed";
+			} else {
+				return "Resetting test time override " + tempForkName + "- normal system time is used again";
+			}
 		}
 	}
 }

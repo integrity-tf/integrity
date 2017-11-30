@@ -401,6 +401,15 @@ public interface DslFactory extends EFactory
   NamedCallResult createNamedCallResult();
 
   /**
+   * Returns a new object of class '<em>Time Set</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Time Set</em>'.
+   * @generated
+   */
+  TimeSet createTimeSet();
+
+  /**
    * Returns a new object of class '<em>Suite</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

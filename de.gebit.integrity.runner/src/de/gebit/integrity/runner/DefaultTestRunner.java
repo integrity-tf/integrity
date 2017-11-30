@@ -12,11 +12,13 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.net.BindException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -77,6 +79,7 @@ import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableAssignment;
@@ -151,6 +154,7 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.runner.time.TestTimeAdapter;
 import de.gebit.integrity.runner.wrapper.AbortExecutionCauseWrapper;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
@@ -282,6 +286,12 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	@Inject
 	protected TestRunnerPerformanceLogger performanceLogger;
+
+	/**
+	 * The test time adapter.
+	 */
+	@Inject
+	protected TestTimeAdapter testTimeAdapter;
 
 	/**
 	 * The remoting server.
@@ -1570,6 +1580,8 @@ public class DefaultTestRunner implements TestRunner {
 							tempIsTitle, (VisibleComment) tempStatement);
 					currentCallback.onCallbackProcessingEnd();
 				}
+			} else if (tempStatement instanceof TimeSet) {
+				executeTimeSet((TimeSet) tempStatement);
 			} else if (tempStatement instanceof VisibleMultiLineComment) {
 				if (currentCallback != null) {
 					boolean tempIsTitle = (tempStatement instanceof VisibleMultiLineTitleComment);
@@ -2355,6 +2367,42 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		return tempReturn;
+	}
+
+	/**
+	 * Executes a time setting operation.
+	 * 
+	 * @param aTimeSet
+	 */
+	protected void executeTimeSet(TimeSet aTimeSet) {
+		Date tempStartTime = null;
+		BigDecimal tempProgressionFactor = null;
+
+		try {
+			if (aTimeSet.getStartTime() != null) {
+				tempStartTime = (Date) valueConverter.convertValue(Date.class, aTimeSet.getStartTime(), null);
+			}
+			if (aTimeSet.getProgressionFactor() != null) {
+				tempProgressionFactor = (BigDecimal) valueConverter.convertValue(BigDecimal.class,
+						aTimeSet.getProgressionFactor(), null);
+			}
+
+			// TODO only non-fork case possible at the moment; implement the actual time setting via fork communication
+
+			if (shouldExecuteFixtures()) {
+				// Technically this is not a fixture call, but we nevertheless only perform time setting in run mode
+				testTimeAdapter.setTestTime(tempStartTime, tempProgressionFactor);
+			}
+
+			if (currentCallback != null) {
+				currentCallback.onCallbackProcessingStart();
+				currentCallback.onTimeSet(aTimeSet, (SuiteDefinition) aTimeSet.eContainer(), null);
+				currentCallback.onCallbackProcessingEnd();
+			}
+		} catch (Exception exc) {
+			// Any exception happening during time setting is considered an abort execution case
+			handlePossibleAbortException(new AbortExecutionException("Failed to set test time", exc));
+		}
 	}
 
 	/**

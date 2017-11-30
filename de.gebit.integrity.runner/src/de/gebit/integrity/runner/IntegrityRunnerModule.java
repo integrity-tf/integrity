@@ -22,6 +22,8 @@ import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.runner.logging.TestRunnerPerformanceLogger;
 import de.gebit.integrity.runner.modelcheck.DefaultModelChecker;
 import de.gebit.integrity.runner.modelcheck.ModelChecker;
+import de.gebit.integrity.runner.time.SimpleTestTimeAdapter;
+import de.gebit.integrity.runner.time.TestTimeAdapter;
 import de.gebit.integrity.runner.variables.DefaultVariableManager;
 import de.gebit.integrity.runner.wrapper.DefaultWrapperFactory;
 import de.gebit.integrity.wrapper.WrapperFactory;
@@ -139,6 +141,15 @@ public class IntegrityRunnerModule extends DSLRuntimeModule {
 	 */
 	public Class<? extends TestRunnerPerformanceLogger> bindTestRunnerPerformanceLogger() {
 		return TestRunnerPerformanceLogger.class;
+	}
+
+	/**
+	 * Binds the {@link TestTimeAdapter}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends TestTimeAdapter> bindTestTimeAdapter() {
+		return SimpleTestTimeAdapter.class;
 	}
 
 }

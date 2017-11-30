@@ -157,6 +157,14 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NamedCallResult/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//NamedCallResult/target"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TimeSet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeSet/live"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeSet/startTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeSet/progressionMode"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeSet/progressionFactor"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeSet/forks"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeSet/masterFork"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Suite">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Suite/inlined"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Suite/multiplier"/>

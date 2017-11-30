@@ -285,6 +285,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createNamedCallResultAdapter();
       }
       @Override
+      public Adapter caseTimeSet(TimeSet object)
+      {
+        return createTimeSetAdapter();
+      }
+      @Override
       public Adapter caseSuite(Suite object)
       {
         return createSuiteAdapter();
@@ -1167,6 +1172,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createNamedCallResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.TimeSet <em>Time Set</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.TimeSet
+   * @generated
+   */
+  public Adapter createTimeSetAdapter()
   {
     return null;
   }

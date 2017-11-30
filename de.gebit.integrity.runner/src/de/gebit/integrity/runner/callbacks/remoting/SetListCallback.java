@@ -30,6 +30,7 @@ import com.google.inject.Provider;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantEntity;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.Suite;
@@ -39,6 +40,7 @@ import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.Variable;
 import de.gebit.integrity.dsl.VariableAssignment;
@@ -577,6 +579,22 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	public void onReturnVariableAssignment(SuiteReturn aReturn, VariableEntity aSource, VariableEntity aTarget,
 			Suite aSuite, Object aValue) {
 		// not used in this context
+	}
+
+	@Override
+	public void onTimeSet(TimeSet aTimeSet, SuiteDefinition aSuite, ForkDefinition aFork) {
+		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TIMESET);
+
+		tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
+				testFormatter.timeSetToHumanReadableString(aTimeSet, aFork));
+		SetListEntry tempResultEntry = setList.createEntry(SetListEntryTypes.RESULT);
+		if (!isDryRun()) {
+			tempResultEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
+		}
+		setList.addReference(tempNewEntry, SetListEntryAttributeKeys.RESULT, tempResultEntry);
+
+		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
+		sendUpdateToClients(null, tempNewEntry);
 	}
 
 	/**

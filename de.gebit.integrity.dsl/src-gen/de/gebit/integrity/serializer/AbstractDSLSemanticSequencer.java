@@ -58,6 +58,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.USDateValue;
@@ -261,6 +262,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.TEST_DEFINITION:
 				sequence_TestDefinition(context, (TestDefinition) semanticObject); 
+				return; 
+			case DslPackage.TIME_SET:
+				sequence_TimeSet(context, (TimeSet) semanticObject); 
 				return; 
 			case DslPackage.TYPED_NESTED_OBJECT:
 				sequence_TypedNestedObject(context, (TypedNestedObject) semanticObject); 
@@ -1364,6 +1368,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     )
 	 */
 	protected void sequence_Test(ISerializationContext context, Test semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     SuiteStatement returns TimeSet
+	 *     TimeSet returns TimeSet
+	 *
+	 * Constraint:
+	 *     (
+	 *         (live='live' | (startTime=ValueOrEnumValueOrOperation (progressionMode='progressing' progressionFactor=ValueOrEnumValueOrOperation?)?)) 
+	 *         (forks+=[ForkDefinition|QualifiedName] | masterFork='master')*
+	 *     )
+	 */
+	protected void sequence_TimeSet(ISerializationContext context, TimeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

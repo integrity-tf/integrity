@@ -47,6 +47,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSuiteStatementWithResultAccess().getAlternatives(), "rule__SuiteStatementWithResult__Alternatives");
 					put(grammarAccess.getVariableOrConstantEntityAccess().getAlternatives(), "rule__VariableOrConstantEntity__Alternatives");
 					put(grammarAccess.getResultNameAccess().getAlternatives(), "rule__ResultName__Alternatives");
+					put(grammarAccess.getTimeSetAccess().getAlternatives_2(), "rule__TimeSet__Alternatives_2");
+					put(grammarAccess.getTimeSetAccess().getAlternatives_3_2(), "rule__TimeSet__Alternatives_3_2");
 					put(grammarAccess.getParameterNameAccess().getAlternatives(), "rule__ParameterName__Alternatives");
 					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getAlternatives_1(), "rule__ArbitraryParameterOrResultName__Alternatives_1");
 					put(grammarAccess.getOperationAccess().getAlternatives(), "rule__Operation__Alternatives");
@@ -120,6 +122,11 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCallAccess().getGroup_5(), "rule__Call__Group_5__0");
 					put(grammarAccess.getCallAccess().getGroup_6(), "rule__Call__Group_6__0");
 					put(grammarAccess.getNamedCallResultAccess().getGroup(), "rule__NamedCallResult__Group__0");
+					put(grammarAccess.getTimeSetAccess().getGroup(), "rule__TimeSet__Group__0");
+					put(grammarAccess.getTimeSetAccess().getGroup_2_0(), "rule__TimeSet__Group_2_0__0");
+					put(grammarAccess.getTimeSetAccess().getGroup_2_1(), "rule__TimeSet__Group_2_1__0");
+					put(grammarAccess.getTimeSetAccess().getGroup_2_1_2(), "rule__TimeSet__Group_2_1_2__0");
+					put(grammarAccess.getTimeSetAccess().getGroup_3(), "rule__TimeSet__Group_3__0");
 					put(grammarAccess.getSuiteAccess().getGroup(), "rule__Suite__Group__0");
 					put(grammarAccess.getSuiteAccess().getGroup_3(), "rule__Suite__Group_3__0");
 					put(grammarAccess.getSuiteAccess().getGroup_6(), "rule__Suite__Group_6__0");
@@ -243,6 +250,12 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCallAccess().getResultAssignment_6_3(), "rule__Call__ResultAssignment_6_3");
 					put(grammarAccess.getNamedCallResultAccess().getNameAssignment_0(), "rule__NamedCallResult__NameAssignment_0");
 					put(grammarAccess.getNamedCallResultAccess().getTargetAssignment_4(), "rule__NamedCallResult__TargetAssignment_4");
+					put(grammarAccess.getTimeSetAccess().getLiveAssignment_2_0_0(), "rule__TimeSet__LiveAssignment_2_0_0");
+					put(grammarAccess.getTimeSetAccess().getStartTimeAssignment_2_1_0(), "rule__TimeSet__StartTimeAssignment_2_1_0");
+					put(grammarAccess.getTimeSetAccess().getProgressionModeAssignment_2_1_2_0(), "rule__TimeSet__ProgressionModeAssignment_2_1_2_0");
+					put(grammarAccess.getTimeSetAccess().getProgressionFactorAssignment_2_1_2_2(), "rule__TimeSet__ProgressionFactorAssignment_2_1_2_2");
+					put(grammarAccess.getTimeSetAccess().getForksAssignment_3_2_0(), "rule__TimeSet__ForksAssignment_3_2_0");
+					put(grammarAccess.getTimeSetAccess().getMasterForkAssignment_3_2_1(), "rule__TimeSet__MasterForkAssignment_3_2_1");
 					put(grammarAccess.getSuiteAccess().getInlinedAssignment_0(), "rule__Suite__InlinedAssignment_0");
 					put(grammarAccess.getSuiteAccess().getMultiplierAssignment_3_0(), "rule__Suite__MultiplierAssignment_3_0");
 					put(grammarAccess.getSuiteAccess().getDefinitionAssignment_4(), "rule__Suite__DefinitionAssignment_4");

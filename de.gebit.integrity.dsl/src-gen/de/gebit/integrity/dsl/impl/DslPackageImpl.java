@@ -70,6 +70,7 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
@@ -404,6 +405,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass namedCallResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass timeSetEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2015,6 +2023,76 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getTimeSet()
+  {
+    return timeSetEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTimeSet_Live()
+  {
+    return (EAttribute)timeSetEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTimeSet_StartTime()
+  {
+    return (EReference)timeSetEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTimeSet_ProgressionMode()
+  {
+    return (EAttribute)timeSetEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTimeSet_ProgressionFactor()
+  {
+    return (EReference)timeSetEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTimeSet_Forks()
+  {
+    return (EReference)timeSetEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTimeSet_MasterFork()
+  {
+    return (EAttribute)timeSetEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getSuite()
   {
     return suiteEClass;
@@ -3183,6 +3261,14 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(namedCallResultEClass, NAMED_CALL_RESULT__NAME);
     createEReference(namedCallResultEClass, NAMED_CALL_RESULT__TARGET);
 
+    timeSetEClass = createEClass(TIME_SET);
+    createEAttribute(timeSetEClass, TIME_SET__LIVE);
+    createEReference(timeSetEClass, TIME_SET__START_TIME);
+    createEAttribute(timeSetEClass, TIME_SET__PROGRESSION_MODE);
+    createEReference(timeSetEClass, TIME_SET__PROGRESSION_FACTOR);
+    createEReference(timeSetEClass, TIME_SET__FORKS);
+    createEAttribute(timeSetEClass, TIME_SET__MASTER_FORK);
+
     suiteEClass = createEClass(SUITE);
     createEAttribute(suiteEClass, SUITE__INLINED);
     createEReference(suiteEClass, SUITE__MULTIPLIER);
@@ -3392,6 +3478,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     tableTestEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     fixedResultNameEClass.getESuperTypes().add(this.getResultName());
     callEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
+    timeSetEClass.getESuperTypes().add(this.getSuiteStatement());
     suiteEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     fixedParameterNameEClass.getESuperTypes().add(this.getParameterName());
     arbitraryParameterOrResultNameEClass.getESuperTypes().add(this.getResultName());
@@ -3591,6 +3678,14 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(namedCallResultEClass, NamedCallResult.class, "NamedCallResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getNamedCallResult_Name(), this.getResultName(), null, "name", null, 0, 1, NamedCallResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getNamedCallResult_Target(), this.getVariableVariable(), null, "target", null, 0, 1, NamedCallResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(timeSetEClass, TimeSet.class, "TimeSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTimeSet_Live(), ecorePackage.getEString(), "live", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTimeSet_StartTime(), this.getValueOrEnumValueOrOperation(), null, "startTime", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTimeSet_ProgressionMode(), ecorePackage.getEString(), "progressionMode", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTimeSet_ProgressionFactor(), this.getValueOrEnumValueOrOperation(), null, "progressionFactor", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTimeSet_Forks(), this.getForkDefinition(), null, "forks", null, 0, -1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTimeSet_MasterFork(), ecorePackage.getEString(), "masterFork", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteEClass, Suite.class, "Suite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSuite_Inlined(), ecorePackage.getEString(), "inlined", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
