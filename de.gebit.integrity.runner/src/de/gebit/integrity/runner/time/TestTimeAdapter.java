@@ -49,12 +49,12 @@ public interface TestTimeAdapter {
 	 * provided time and shall then progress at the provided speed</li>
 	 * </ul>
 	 * 
-	 * @param aCurrentTime
+	 * @param aStartTime
 	 *            the date and time to be set (if null, the current time is to be used)
 	 * @param aProgressionFactor
 	 *            the speed at which the time should progress (1.0 is normal speed, progression factor may be negative
 	 *            too, or 0.0, which means time is frozen)
 	 */
-	void setTestTime(Date aCurrentTime, BigDecimal aProgressionFactor);
+	void setTestTime(Date aStartTime, BigDecimal aProgressionFactor);
 
 }

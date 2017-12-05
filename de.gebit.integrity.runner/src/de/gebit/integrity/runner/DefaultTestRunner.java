@@ -38,6 +38,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -124,6 +125,7 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 import de.gebit.integrity.runner.callbacks.CompoundTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.SuiteSkipReason;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
@@ -155,7 +157,7 @@ import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.runner.time.TestTimeAdapter;
-import de.gebit.integrity.runner.wrapper.AbortExecutionCauseWrapper;
+import de.gebit.integrity.runner.wrapper.ExceptionWrapper;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -510,7 +512,7 @@ public class DefaultTestRunner implements TestRunner {
 	 * (actually, only the message and stack trace string are stored - this is because the data could just as well come
 	 * from a fork, in which case an exception can not be transported over the remoting connection).
 	 */
-	protected AbortExecutionCauseWrapper abortExecutionCause;
+	protected ExceptionWrapper abortExecutionCause;
 
 	/**
 	 * Maps each {@link ForkDefinition} to the suite call and a number that counts any suite invocations. The fork
@@ -533,6 +535,29 @@ public class DefaultTestRunner implements TestRunner {
 	 * forks that would otherwise have a huge bunch of test scripts to run through in dry mode when they're finished.
 	 */
 	protected int numberOfSuiteInvocationsLeftOnThisFork;
+
+	/**
+	 * The result of a time sync request from this fork sent to a master is stored here.
+	 */
+	protected TimeSyncResultMessage timeSyncResult;
+
+	/**
+	 * A sync object used to synchronize accesses to {@link #timeSyncResult}.
+	 */
+	protected final Object timeSyncResultSyncObject = new Object();
+
+	/**
+	 * Returns the timeout in seconds for timesync requests originating from this fork, sent to the master and
+	 * distributed to a variable number of forks for execution.
+	 * 
+	 * @param aNumberOfForks
+	 *            the number of forks involved in this timesync
+	 * @return a timeout in seconds
+	 */
+	protected int calculateMasterTimeSyncTimeout(int aNumberOfForks) {
+		// The default just takes the configured timeout per fork and multiplies it with the number of forks
+		return Fork.getForkTimesyncTimeout() * aNumberOfForks;
+	}
 
 	@Override
 	public void initialize(TestModel aModel, Map<String, String> someParameterizedConstants,
@@ -736,7 +761,7 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void handlePossibleAbortException(Throwable anException) {
 		if (anException instanceof AbortExecutionException && abortExecutionCause == null) {
-			abortExecutionCause = new AbortExecutionCauseWrapper((AbortExecutionException) anException);
+			abortExecutionCause = new ExceptionWrapper(anException);
 
 			currentCallback.onAbortExecution(abortExecutionCause.getMessage(), abortExecutionCause.getStackTrace());
 		}
@@ -1330,7 +1355,7 @@ public class DefaultTestRunner implements TestRunner {
 					if (tempFork != null && tempFork.hasAborted()) {
 						// If this happens, an abortion has happened on the fork due to an AbortExecutionException.
 						// TODO make this nicer, it's kind of ugly to create a fake object with null values
-						abortExecutionCause = new AbortExecutionCauseWrapper(null, null);
+						abortExecutionCause = new ExceptionWrapper(null, null);
 
 						if (tempResult == null && tempForkResultSummary == null) {
 							// We may not have any result at this point, as the fork has aborted without providing us
@@ -2387,16 +2412,61 @@ public class DefaultTestRunner implements TestRunner {
 						aTimeSet.getProgressionFactor(), null);
 			}
 
-			// TODO only non-fork case possible at the moment; implement the actual time setting via fork communication
-
-			if (shouldExecuteFixtures()) {
-				// Technically this is not a fixture call, but we nevertheless only perform time setting in run mode
-				testTimeAdapter.setTestTime(tempStartTime, tempProgressionFactor);
+			List<ForkDefinition> tempForksToRunOn = new ArrayList<>();
+			if (aTimeSet.getMasterFork() != null) {
+				tempForksToRunOn.add(null);
+			}
+			if (aTimeSet.getForks().size() > 0) {
+				for (ForkDefinition tempFork : aTimeSet.getForks()) {
+					tempForksToRunOn.add(tempFork);
+				}
 			}
 
 			if (currentCallback != null) {
 				currentCallback.onCallbackProcessingStart();
-				currentCallback.onTimeSet(aTimeSet, (SuiteDefinition) aTimeSet.eContainer(), null);
+				currentCallback.onTimeSetStart(aTimeSet, (SuiteDefinition) aTimeSet.eContainer(), tempForksToRunOn);
+				currentCallback.onCallbackProcessingEnd();
+			}
+
+			if (shouldExecuteFixtures()) {
+				// Technically this is not a fixture call, but we nevertheless only perform time setting in run mode
+				if (isFork()) {
+					// If on a fork, deliver the timesync request to the master, which will then distribute it to all
+					// forks, which will perform it and respond. The master collects all responses and delivers them
+					// back to us.
+					synchronized (timeSyncResultSyncObject) {
+						timeSyncResult = null;
+						long tempStart = System.nanoTime();
+						remotingServer.sendTestTimeSync(tempStartTime, tempProgressionFactor,
+								tempForksToRunOn.size() == 0 ? null : tempForksToRunOn.stream().map((aFork) -> {
+									return IntegrityDSLUtil.getQualifiedForkName(aFork);
+								}).collect(Collectors.toList()).toArray(new String[0]));
+
+						while (timeSyncResult == null) {
+							long tempTimeLeft = TimeUnit.SECONDS
+									.toMillis(calculateMasterTimeSyncTimeout(tempForksToRunOn.size() + 1))
+									- TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - tempStart);
+							if (tempTimeLeft > 0) {
+								try {
+									timeSyncResultSyncObject.wait(tempTimeLeft);
+								} catch (InterruptedException exc) {
+									// ignored
+								}
+							} else {
+								throw new RuntimeException(
+										"Timed out while waiting to receive time sync confirmation from master!");
+							}
+						}
+
+					}
+				}
+			}
+
+			if (currentCallback != null) {
+				currentCallback.onCallbackProcessingStart();
+				currentCallback.onTimeSetFinish(aTimeSet, (SuiteDefinition) aTimeSet.eContainer(), tempForksToRunOn,
+						timeSyncResult == null ? null : timeSyncResult.getErrorMessage(),
+						timeSyncResult == null ? null : timeSyncResult.getStackTrace());
 				currentCallback.onCallbackProcessingEnd();
 			}
 		} catch (Exception exc) {
@@ -2679,6 +2749,20 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		@Override
+		public void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor) {
+			// This is called when a master process wants to set the time of a fork. Just set it.
+			testTimeAdapter.setTestTime(aStartDate, aProgressionFactor);
+		}
+
+		@Override
+		public void onTimeSyncResponse(TimeSyncResultMessage aResult) {
+			synchronized (timeSyncResultSyncObject) {
+				timeSyncResult = aResult;
+				timeSyncResultSyncObject.notifyAll();
+			}
+		}
+
+		@Override
 		public void onShutdownRequest() {
 			if (isFork()) {
 				System.err.println("RECEIVED SHUTDOWN REQUEST FROM MASTER PROCESS - THIS FORK WILL NOW TERMINATE!");
@@ -2689,6 +2773,124 @@ public class DefaultTestRunner implements TestRunner {
 			// Shutdown hook(s) will be called after this command automatically!
 			System.exit(-1);
 		}
+	}
+
+	/**
+	 * This will be called when a master process either receives a time sync message from one of its forks and has to
+	 * redistribute it to all the forks that this time sync is intended for, or when a master process encounters a time
+	 * sync command by itself. In both cases it may have to execute it for itself. This method ONLY runs on the
+	 * master!<br>
+	 * <br>
+	 * The method is also responsible for collecting the responses about successful or failed timesyncs and for
+	 * aggregating them into a result object. It blocks until this has finished (or a timeout has hit).
+	 * 
+	 * @param aStartTime
+	 * @param aProgressionFactor
+	 * @param someTargetedForks
+	 * @return null if nothing went wrong, an exception wrapper containing all messages and all exceptions (textually
+	 *         merged) in case of (non-critical) errors
+	 */
+	protected ExceptionWrapper distributeTimeSyncRequest(Date aStartTime, BigDecimal aProgressionFactor,
+			String[] someTargetedForks) {
+		boolean tempMasterHasToSync = false;
+		List<Fork> tempTargetedForks = new ArrayList<Fork>();
+
+		if (someTargetedForks == null) {
+			// This should go to all forks, including the master
+			tempMasterHasToSync = true;
+			tempTargetedForks.addAll(forkMap.values());
+		} else {
+			for (String tempForkName : someTargetedForks) {
+				if (tempForkName == null) {
+					// The null name is the master fork
+					tempMasterHasToSync = true;
+				} else {
+					ForkDefinition tempForkDef = model.getForkByName(tempForkName);
+					if (tempForkDef != null) {
+						Fork tempFork = forkMap.get(tempForkDef);
+						if (tempFork != null) {
+							tempTargetedForks.add(tempFork);
+						}
+					}
+				}
+			}
+		}
+
+		String tempMergedResultMessage = "";
+		String tempMergedResultStackTrace = "";
+
+		if (tempMasterHasToSync) {
+			ExceptionWrapper tempExc = setTestTimeGuarded(aStartTime, aProgressionFactor);
+			if (tempExc != null) {
+				if (tempTargetedForks.size() > 0) {
+					tempMergedResultMessage = "Master process failed with: '" + tempExc.getMessage() + "'";
+					tempMergedResultStackTrace = "Master process failed with:\n" + tempExc.getStackTrace();
+				} else {
+					tempMergedResultMessage = tempExc.getMessage();
+					tempMergedResultStackTrace = tempExc.getStackTrace();
+				}
+			}
+		}
+		for (Fork tempFork : tempTargetedForks) {
+			TimeSyncResultMessage tempResult = tempFork.performTimeSync(aStartTime, aProgressionFactor);
+			if (tempResult != null && tempResult.getErrorMessage() != null) {
+				if (tempMergedResultMessage.length() != 0) {
+					tempMergedResultMessage += ", ";
+					tempMergedResultStackTrace += "\n\n";
+				}
+				tempMergedResultMessage += "Fork '" + IntegrityDSLUtil.getQualifiedForkName(tempFork.getDefinition())
+						+ "' failed with: '" + tempResult.getErrorMessage() + "'";
+				tempMergedResultStackTrace += "Fork '" + IntegrityDSLUtil.getQualifiedForkName(tempFork.getDefinition())
+						+ "' failed with:\n" + tempResult.getStackTrace();
+			}
+		}
+
+		if (tempMergedResultMessage.length() == 0) {
+			// no errors
+			return null;
+		} else {
+			return new ExceptionWrapper(tempMergedResultMessage, tempMergedResultStackTrace);
+		}
+	}
+
+	/**
+	 * Like {@link #distributeTimeSyncRequest(Date, BigDecimal, String[])}, but performs the work in an asynchronous
+	 * thread, so it returns instantly. The result of the operation is sent to the provided fork that shall receive it.
+	 * 
+	 * @param aStartTime
+	 * @param aProgressionFactor
+	 * @param someTargetedForks
+	 */
+	protected void distributeTimeSyncRequestAsync(Date aStartTime, BigDecimal aProgressionFactor,
+			String[] someTargetedForks, Fork aResultTarget) {
+		Thread tempThread = new Thread("Integrity Test Runner - Timesync Distribution") {
+
+			@Override
+			public void run() {
+				ExceptionWrapper tempExc = distributeTimeSyncRequest(aStartTime, aProgressionFactor, someTargetedForks);
+				aResultTarget.deliverTimeSyncResult(tempExc);
+			}
+
+		};
+		tempThread.start();
+	}
+
+	/**
+	 * Performs a guarded call to the {@link TestTimeAdapter}. If the call runs into any exception, it will be caught
+	 * and returned.
+	 * 
+	 * @param aStartTime
+	 * @param aProgressionFactor
+	 * @return null in case of success or an exception wrapper with errors in case of errors
+	 */
+	protected ExceptionWrapper setTestTimeGuarded(Date aStartTime, BigDecimal aProgressionFactor) {
+		try {
+			testTimeAdapter.setTestTime(aStartTime, aProgressionFactor);
+		} catch (Throwable exc) {
+			return new ExceptionWrapper(exc);
+		}
+
+		return null;
 	}
 
 	/**
@@ -2820,6 +3022,13 @@ public class DefaultTestRunner implements TestRunner {
 								return;
 							}
 						}
+					}
+
+					@Override
+					public void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks,
+							Fork aResultTarget) {
+						distributeTimeSyncRequestAsync(aStartDate, aProgressionFactor, someTargetedForks,
+								aResultTarget);
 					}
 				});
 		injector.injectMembers(tempFork);

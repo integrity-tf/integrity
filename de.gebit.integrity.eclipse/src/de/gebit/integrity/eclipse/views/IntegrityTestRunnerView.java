@@ -10,8 +10,10 @@ package de.gebit.integrity.eclipse.views;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.net.UnknownHostException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -135,6 +137,7 @@ import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 import de.gebit.integrity.ui.linking.IntegrityURLResolver;
 import de.gebit.integrity.utils.DateUtil;
 
@@ -2687,6 +2690,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		@Override
 		public void onVariableUpdateRetrieval(String aVariableName, Serializable aValue) {
+			// not used in this context
+		}
+
+		@Override
+		public void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
+			// not used in this context
+		}
+
+		@Override
+		public void onTimeSyncResponse(TimeSyncResultMessage aResult) {
 			// not used in this context
 		}
 

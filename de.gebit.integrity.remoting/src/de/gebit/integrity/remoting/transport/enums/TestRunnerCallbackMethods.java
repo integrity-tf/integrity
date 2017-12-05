@@ -61,6 +61,8 @@ public enum TestRunnerCallbackMethods {
 
 	ABORT_EXECUTION,
 
-	TIME_SET;
+	TIME_SET_START,
+
+	TIME_SET_FINISH;
 
 }

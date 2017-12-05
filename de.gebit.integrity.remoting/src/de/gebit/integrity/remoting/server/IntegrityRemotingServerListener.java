@@ -8,6 +8,8 @@
 package de.gebit.integrity.remoting.server;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 
 /**
  * This listener must be implemented by the server process itself and serves as a kind of callback.
@@ -119,6 +122,22 @@ public interface IntegrityRemotingServerListener {
 	 *            the new value
 	 */
 	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
+
+	/**
+	 * Called when a timesync command has arrived.
+	 * 
+	 * @param aStartDate
+	 *            the start date
+	 * @param aProgressionFactor
+	 *            the progression factor
+	 */
+	void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor);
+
+	/**
+	 * Called when a timesync response has arrived. If the arguments' error fields are null, this was successful.
+	 * 
+	 */
+	void onTimeSyncResponse(TimeSyncResultMessage aResult);
 
 	/**
 	 * Called when a client requested a process shutdown.

@@ -9,7 +9,9 @@ package de.gebit.integrity.remoting.server;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.net.UnknownHostException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +34,7 @@ import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ShutdownRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
@@ -208,6 +211,18 @@ public class IntegrityRemotingServer {
 	}
 
 	/**
+	 * Sends a test time sync message.
+	 * 
+	 * @param aStartDate
+	 * @param aProgressionFactor
+	 */
+	public void sendTestTimeSync(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new TimeSyncRequestMessage(aStartDate, aProgressionFactor, someTargetedForks));
+		}
+	}
+
+	/**
 	 * Creates the processors for processing incoming messages.
 	 * 
 	 * @return a map of message classes to processors
@@ -306,7 +321,14 @@ public class IntegrityRemotingServer {
 				listener.onForkSetupRetrieval(aMessage.getResourceProviders(), aMessage.getSetList(),
 						aMessage.getInitialVariables(), aMessage.getNumberOfSuiteInvocations());
 			}
+		});
 
+		tempMap.put(TimeSyncRequestMessage.class, new MessageProcessor<TimeSyncRequestMessage>() {
+
+			@Override
+			public void processMessage(TimeSyncRequestMessage aMessage, Endpoint anEndpoint) {
+				listener.onTimeSync(aMessage.getStartDate(), aMessage.getProgressionFactor());
+			}
 		});
 
 		return tempMap;

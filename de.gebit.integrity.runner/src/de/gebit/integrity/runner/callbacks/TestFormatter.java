@@ -8,9 +8,11 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -375,11 +377,11 @@ public class TestFormatter {
 	 * 
 	 * @param aTimeSet
 	 *            the timeset command to convert
-	 * @param aFork
-	 *            the fork onto which it is executed (null = master)
+	 * @param someForks
+	 *            the forks onto which it is executed (null = master)
 	 * @return
 	 */
-	public String timeSetToHumanReadableString(TimeSet aTimeSet, ForkDefinition aFork) {
+	public String timeSetToHumanReadableString(TimeSet aTimeSet, List<ForkDefinition> someForks) {
 		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
 				new ConversionContext().withUnresolvableVariableHandlingPolicy(
 						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
@@ -387,28 +389,31 @@ public class TestFormatter {
 				new ConversionContext().withUnresolvableVariableHandlingPolicy(
 						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
 
-		String tempForkName = "";
-		if (aFork != null) {
-			tempForkName = "on fork '" + aFork.getName() + "' ";
+		String tempForkNames = "";
+		if (someForks != null) {
+			tempForkNames = "on fork(s) "
+					+ someForks.stream().map((aFork) -> "'" + (aFork != null ? aFork.getName() : "master") + "'")
+							.collect(Collectors.joining(","))
+					+ " ";
 		} else {
 			if (aTimeSet.getForks().size() > 0) {
-				tempForkName = "on the master process ";
+				tempForkNames = "on the master process ";
 			}
 		}
 
 		if (tempStartTime != null) {
 			if (tempProgressionFactor != null) {
-				return "Setting test time " + tempForkName + "to " + tempStartTime + ", progressing with "
+				return "Setting test time " + tempForkNames + "to " + tempStartTime + ", progressing with "
 						+ tempProgressionFactor + "x speed";
 			} else {
-				return "Setting test time " + tempForkName + "to " + tempStartTime;
+				return "Setting test time " + tempForkNames + "to " + tempStartTime;
 			}
 		} else {
 			if (tempProgressionFactor != null) {
-				return "Setting test time " + tempForkName + "to current system  time, progressing with "
+				return "Setting test time " + tempForkNames + "to current system  time, progressing with "
 						+ tempProgressionFactor + "x speed";
 			} else {
-				return "Resetting test time override " + tempForkName + "- normal system time is used again";
+				return "Resetting test time override " + tempForkNames + "- normal system time is used again";
 			}
 		}
 	}

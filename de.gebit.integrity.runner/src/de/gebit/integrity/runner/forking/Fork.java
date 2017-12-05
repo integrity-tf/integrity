@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
@@ -36,10 +38,13 @@ import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 import de.gebit.integrity.runner.callbacks.TestRunnerCallback;
 import de.gebit.integrity.runner.console.intercept.ConsoleOutputInterceptor;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.runner.operations.RandomNumberOperation;
+import de.gebit.integrity.runner.time.TestTimeAdapter;
+import de.gebit.integrity.runner.wrapper.ExceptionWrapper;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -148,6 +153,16 @@ public class Fork {
 	private ExecutionStates executionState;
 
 	/**
+	 * The last received timesync result.
+	 */
+	private volatile TimeSyncResultMessage timeSyncResult;
+
+	/**
+	 * A synchronization object to sync updates to {@link #timeSyncResult}.
+	 */
+	private final Object timeSyncResultSyncObject = new Object();
+
+	/**
 	 * The process watchdog, used to govern other processes started by the test runner.
 	 */
 	@Inject
@@ -173,6 +188,12 @@ public class Fork {
 	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
+	 * The test time adapter.
+	 */
+	@Inject
+	protected TestTimeAdapter testTimeAdapter;
+
+	/**
 	 * The interval in which the fork monitor shall check the liveliness of the fork until a connection has been
 	 * established, in milliseconds.
 	 */
@@ -188,6 +209,24 @@ public class Fork {
 	 * until then, test execution continues. This is in milliseconds.
 	 */
 	private static final int FORK_DISCONNECT_WAIT_TIME = 60000;
+
+	/**
+	 * The system property that allows to override the timeout used when waiting for timesync results from forks.
+	 */
+	private static final String FORK_TIMESYNC_TIMEOUT_PROPERTY = "integrity.fork.timeout.timesync";
+
+	/**
+	 * The default fork timesync timeout, in seconds.
+	 */
+	private static final int FORK_TIMESYNC_TIMEOUT_DEFAULT = 30;
+
+	/**
+	 * The fork timesync timeout, in seconds.
+	 */
+	public static int getForkTimesyncTimeout() {
+		return System.getProperty(FORK_TIMESYNC_TIMEOUT_PROPERTY) != null
+				? Integer.parseInt(System.getProperty(FORK_TIMESYNC_TIMEOUT_PROPERTY)) : FORK_TIMESYNC_TIMEOUT_DEFAULT;
+	}
 
 	/**
 	 * Creates a new fork. Calling this constructor triggers the creation of the actual forked process implicitly.
@@ -453,6 +492,61 @@ public class Fork {
 		}
 	}
 
+	/**
+	 * Request a time sync of the test time to the provided values. Waits for the result object to be retrieved and
+	 * returns it. In case of a timeout, a runtime exception is thrown.
+	 * 
+	 * @param aStartTime
+	 * @param aProgressionFactor
+	 */
+	public TimeSyncResultMessage performTimeSync(Date aStartTime, BigDecimal aProgressionFactor) {
+		if (isConnected()) {
+			synchronized (timeSyncResultSyncObject) {
+				timeSyncResult = null;
+				long tempStart = System.nanoTime();
+				client.sendTestTimeSync(aStartTime, aProgressionFactor);
+
+				while (timeSyncResult == null) {
+					long tempTimeLeft = TimeUnit.SECONDS.toMillis(getForkTimesyncTimeout())
+							- TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - tempStart);
+					if (tempTimeLeft > 0) {
+						try {
+							timeSyncResultSyncObject.wait(tempTimeLeft);
+						} catch (InterruptedException exc) {
+							// ignored
+						}
+					} else {
+						throw new RuntimeException(
+								"Timed out while waiting to receive time sync confirmation from fork '"
+										+ IntegrityDSLUtil.getQualifiedForkName(getDefinition()) + "'!");
+					}
+				}
+
+				// Cannot be null at this point - that would have resulted in a runtime exception already
+				return timeSyncResult;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Delivers the result of a timesync orchestrated by the master process to a fork, who originally requested it.
+	 * 
+	 * @param anExceptionWrapper
+	 *            null in case of success, error info in case of errors
+	 * 
+	 */
+	public void deliverTimeSyncResult(ExceptionWrapper anExceptionWrapper) {
+		if (isConnected()) {
+			if (anExceptionWrapper != null) {
+				client.sendTestTimeSyncResult(anExceptionWrapper.getMessage(), anExceptionWrapper.getStackTrace());
+			} else {
+				client.sendTestTimeSyncResult(null, null);
+			}
+		}
+	}
+
 	private class ForkRemotingClientListener implements IntegrityRemotingClientListener {
 
 		@Override
@@ -566,6 +660,22 @@ public class Fork {
 			ignoreVariableUpdates = true;
 			forkCallback.onSetVariableValue(aVariableName, aValue, true);
 			ignoreVariableUpdates = false;
+		}
+
+		@Override
+		public void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
+			// If we receive this from a fork, it means that we have to evaluate the target list and forward it
+			// appropriately, and possibly also set this on ourselves
+			forkCallback.onTimeSync(aStartDate, aProgressionFactor, someTargetedForks, Fork.this);
+		}
+
+		@Override
+		public void onTimeSyncResponse(TimeSyncResultMessage aResult) {
+			// If we receive this from a fork, the time syncing of that fork was performed.
+			synchronized (timeSyncResultSyncObject) {
+				timeSyncResult = aResult;
+				timeSyncResultSyncObject.notifyAll();
+			}
 		}
 
 		@Override

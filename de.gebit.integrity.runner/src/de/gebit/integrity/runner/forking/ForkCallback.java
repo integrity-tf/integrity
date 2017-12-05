@@ -7,6 +7,9 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.forking;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * Callback to deliver events from a fork to the parent.
  * 
@@ -26,6 +29,17 @@ public interface ForkCallback {
 	 *            whether updates should be distributed to other remoting clients
 	 */
 	void onSetVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag);
+
+	/**
+	 * If the fork wants to perform a time sync, it sends a respective message to the parent, containing a list of all
+	 * target forks of this timesync. The master then relays the message to these forks (and processes it for himself if
+	 * requested).
+	 * 
+	 * @param aStartDate
+	 * @param aProgressionFactor
+	 * @param someTargetedForks
+	 */
+	void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks, Fork aResultTarget);
 
 	/**
 	 * Called when the fork exits.

@@ -582,19 +582,34 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onTimeSet(TimeSet aTimeSet, SuiteDefinition aSuite, ForkDefinition aFork) {
+	public void onTimeSetStart(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TIMESET);
 
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
-				testFormatter.timeSetToHumanReadableString(aTimeSet, aFork));
-		SetListEntry tempResultEntry = setList.createEntry(SetListEntryTypes.RESULT);
-		if (!isDryRun()) {
-			tempResultEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG, Boolean.TRUE);
-		}
-		setList.addReference(tempNewEntry, SetListEntryAttributeKeys.RESULT, tempResultEntry);
+				testFormatter.timeSetToHumanReadableString(aTimeSet, someForks));
 
 		setList.addReference(entryStack.peek(), SetListEntryAttributeKeys.STATEMENTS, tempNewEntry);
-		sendUpdateToClients(null, tempNewEntry);
+
+		entryStack.push(tempNewEntry);
+		sendUpdateToClients(tempNewEntry.getId(), tempNewEntry);
+	}
+
+	@Override
+	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
+			String anErrorMessage, String anExceptionStackTrace) {
+		SetListEntry tempEntry = entryStack.pop();
+
+		SetListEntry tempResultEntry = setList.createEntry(SetListEntryTypes.RESULT);
+		if (!isDryRun()) {
+			tempResultEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG,
+					anErrorMessage == null ? Boolean.TRUE : Boolean.FALSE);
+			if (anExceptionStackTrace != null) {
+				tempEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION, anExceptionStackTrace);
+			}
+		}
+		setList.addReference(tempEntry, SetListEntryAttributeKeys.RESULT, tempResultEntry);
+
+		sendUpdateToClients(null, tempEntry, tempResultEntry);
 	}
 
 	/**

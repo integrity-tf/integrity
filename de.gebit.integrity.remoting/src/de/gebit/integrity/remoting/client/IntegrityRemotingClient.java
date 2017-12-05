@@ -9,7 +9,9 @@ package de.gebit.integrity.remoting.client;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.net.UnknownHostException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,8 @@ import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ShutdownRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncRequestMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
@@ -186,6 +190,26 @@ public class IntegrityRemotingClient {
 	}
 
 	/**
+	 * Sends a test time sync message.
+	 * 
+	 * @param aStartDate
+	 * @param aProgressionFactor
+	 */
+	public void sendTestTimeSync(Date aStartDate, BigDecimal aProgressionFactor) {
+		sendMessage(new TimeSyncRequestMessage(aStartDate, aProgressionFactor, null));
+	}
+
+	/**
+	 * Sends a {@link TimeSyncResultMessage}.
+	 * 
+	 * @param anErrorMessage
+	 * @param anExceptionStackTrace
+	 */
+	public void sendTestTimeSyncResult(String anErrorMessage, String anExceptionStackTrace) {
+		sendMessage(new TimeSyncResultMessage(anErrorMessage, anExceptionStackTrace));
+	}
+
+	/**
 	 * Sends a message to the server.
 	 * 
 	 * @param aMessage
@@ -283,6 +307,23 @@ public class IntegrityRemotingClient {
 			@Override
 			public void processMessage(AbortExecutionMessage aMessage, Endpoint anEndpoint) {
 				listener.onAbortExecution(aMessage.getExceptionMessage(), aMessage.getExceptionStackTrace());
+			}
+		});
+
+		tempMap.put(TimeSyncRequestMessage.class, new MessageProcessor<TimeSyncRequestMessage>() {
+
+			@Override
+			public void processMessage(TimeSyncRequestMessage aMessage, Endpoint anEndpoint) {
+				listener.onTimeSyncRequest(aMessage.getStartDate(), aMessage.getProgressionFactor(),
+						aMessage.getTargetedForks());
+			}
+		});
+
+		tempMap.put(TimeSyncResultMessage.class, new MessageProcessor<TimeSyncResultMessage>() {
+
+			@Override
+			public void processMessage(TimeSyncResultMessage aMessage, Endpoint anEndpoint) {
+				listener.onTimeSyncResponse(aMessage);
 			}
 		});
 

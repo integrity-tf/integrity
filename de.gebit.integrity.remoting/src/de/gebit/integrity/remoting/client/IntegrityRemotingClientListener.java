@@ -8,6 +8,8 @@
 package de.gebit.integrity.remoting.client;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
@@ -15,6 +17,7 @@ import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.ExecutionStates;
 import de.gebit.integrity.remoting.transport.enums.TestRunnerCallbackMethods;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 
 /**
  * This listener must be implemented by anyone wanting to attach to the remoting client.
@@ -127,6 +130,26 @@ public interface IntegrityRemotingClientListener {
 	 *            the new value
 	 */
 	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
+
+	/**
+	 * Called when a timesync command has arrived.
+	 * 
+	 * @param aStartDate
+	 *            the start date
+	 * @param aProgressionFactor
+	 *            the progression factor
+	 * @param someTargetedForks
+	 *            the forks that this message should be sent to
+	 */
+	void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks);
+
+	/**
+	 * Called when a timesync response has arrived. If the arguments' error fields are null, this was successful.
+	 * 
+	 * @param anErrorMessage
+	 * @param anErrorStackTrace
+	 */
+	void onTimeSyncResponse(TimeSyncResultMessage aResult);
 
 	/**
 	 * Called when the server has hit an AbortExecutionException aborting further test execution.

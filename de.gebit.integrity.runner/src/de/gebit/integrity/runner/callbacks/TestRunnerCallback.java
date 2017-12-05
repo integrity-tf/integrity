@@ -8,6 +8,7 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.io.Serializable;
+import java.util.List;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantEntity;
@@ -301,16 +302,33 @@ public abstract class TestRunnerCallback {
 			Suite aSuite, Object aValue);
 
 	/**
-	 * Called when the test time is set.
+	 * Called when the test time will be set.
 	 * 
 	 * @param aTimeSet
 	 *            the time to be set
 	 * @param aSuite
-	 *            the suite in which the time is set
-	 * @param aFork
-	 *            the fork on which the time is set
+	 *            the suite in which the time was set
+	 * @param someForks
+	 *            the forks on which the time was set (the null element in the list means the master process)
 	 */
-	public abstract void onTimeSet(TimeSet aTimeSet, SuiteDefinition aSuite, ForkDefinition aFork);
+	public abstract void onTimeSetStart(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks);
+
+	/**
+	 * Called when the test time was set.
+	 * 
+	 * @param aTimeSet
+	 *            the time to be set
+	 * @param aSuite
+	 *            the suite in which the time was set
+	 * @param someForks
+	 *            the forks on which the time was set (the null element in the list means the master process)
+	 * @param anErrorMessage
+	 *            if errors happened during timesync, the error message is delivered here (otherwise it is null)
+	 * @param anExceptionStackTrace
+	 *            if errors happened during timesync, the exception is delivered here (otherwise it is null)
+	 */
+	public abstract void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
+			String anErrorMessage, String anExceptionStackTrace);
 
 	/**
 	 * Called when a visible comment is encountered during execution.

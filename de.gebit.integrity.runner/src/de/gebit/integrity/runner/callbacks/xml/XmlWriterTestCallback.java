@@ -31,6 +31,7 @@ import java.util.Map.Entry;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
@@ -352,7 +353,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected static final String TIME_PROGRESSION_FACTOR_ATTRIBUTE = "progressionFactor";
 
 	/** The Constant TIME_FORK_ATTRIBUTE. */
-	protected static final String TIME_FORK_ATTRIBUTE = "fork";
+	protected static final String TIME_FORK_ATTRIBUTE = "forks";
 
 	/** The Constant TIME_TEXT_ATTRIBUTE. */
 	protected static final String TIME_TEXT_ATTRIBUTE = "text";
@@ -1804,7 +1805,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onTimeSet(TimeSet aTimeSet, SuiteDefinition aSuite, ForkDefinition aFork) {
+	public void onTimeSetStart(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks) {
 		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
 				new ConversionContext().withUnresolvableVariableHandlingPolicy(
 						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
@@ -1812,41 +1813,70 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				new ConversionContext().withUnresolvableVariableHandlingPolicy(
 						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
 
-		String tempForkName = null;
-		if (aFork != null) {
-			tempForkName = aFork.getName();
-		} else if (aTimeSet.getForks().size() > 0) {
-			tempForkName = "master";
+		String tempForkNames = null;
+		if (someForks.size() > 1 || (someForks.size() == 1 && someForks.get(0) != null)) {
+			tempForkNames = someForks.stream().map((aFork) -> (aFork != null ? aFork.getName() : "master"))
+					.collect(Collectors.joining(","));
 		}
 
 		Element tempTimeSetElement = new Element(TIME_SET_ELEMENT);
 		tempTimeSetElement.setAttribute(TIME_TEXT_ATTRIBUTE,
-				testFormatter.timeSetToHumanReadableString(aTimeSet, aFork));
+				testFormatter.timeSetToHumanReadableString(aTimeSet, someForks));
 		if (tempStartTime != null) {
 			tempTimeSetElement.setAttribute(TIME_START_ATTRIBUTE, tempStartTime);
 		}
 		if (tempProgressionFactor != null) {
 			tempTimeSetElement.setAttribute(TIME_PROGRESSION_FACTOR_ATTRIBUTE, tempProgressionFactor);
 		}
-		if (tempForkName != null) {
-			tempTimeSetElement.setAttribute(TIME_FORK_ATTRIBUTE, tempForkName);
+		if (tempForkNames != null) {
+			tempTimeSetElement.setAttribute(TIME_FORK_ATTRIBUTE, tempForkNames);
 		}
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET, tempTimeSetElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET_START, tempTimeSetElement);
 			}
-			internalOnTimeSet(tempTimeSetElement);
+			internalOnTimeSetStart(tempTimeSetElement);
 		}
 	}
 
+	@Override
+	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
+			String anErrorMessage, String anExceptionStackTrace) {
+		if (!isDryRun()) {
+			Element tempTimeSetElement = stackPop();
+
+			if (anErrorMessage != null) {
+				tempTimeSetElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, anErrorMessage);
+				tempTimeSetElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE, anExceptionStackTrace);
+			}
+
+			if (isFork()) {
+				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET_FINISH, tempTimeSetElement);
+			}
+			internalOnTimeSetFinish(tempTimeSetElement);
+		}
+
+	}
+
 	/**
-	 * Internal version of {@link #onTimeSet(TimeSet, SuiteDefinition, ForkDefinition)}.
+	 * Internal version of {@link #onTimeSetStart(TimeSet, SuiteDefinition, List)}.
 	 * 
 	 * @param aTimeSetElement
 	 */
-	protected void internalOnTimeSet(Element aTimeSetElement) {
-		stackPeek().addContent(currentElement);
+	protected void internalOnTimeSetStart(Element aTimeSetElement) {
+		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
+		tempCollectionElement.addContent(aTimeSetElement);
+		stackPush(aTimeSetElement);
+	}
+
+	/**
+	 * Internal version of {@link #onTimeSetFinish(TimeSet, SuiteDefinition, List, String, String)}.
+	 * 
+	 * @param aTimeSetElement
+	 */
+	protected void internalOnTimeSetFinish(Element aTimeSetElement) {
+		stackPop();
 	}
 
 	/**
@@ -2236,8 +2266,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		case RETURN_ASSIGNMENT:
 			internalOnReturnVariableAssignment(tempFirstElement);
 			break;
-		case TIME_SET:
-			internalOnTimeSet(tempFirstElement);
+		case TIME_SET_START:
+			internalOnTimeSetStart(tempFirstElement);
+			break;
+		case TIME_SET_FINISH:
+			internalOnTimeSetFinish(tempFirstElement);
 			break;
 		case VISIBLE_COMMENT:
 			internalOnVisibleComment(tempFirstElement);

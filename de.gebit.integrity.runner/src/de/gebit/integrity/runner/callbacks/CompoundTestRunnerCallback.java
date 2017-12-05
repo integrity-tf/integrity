@@ -258,9 +258,17 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onTimeSet(TimeSet aTimeSet, SuiteDefinition aSuite, ForkDefinition aFork) {
+	public void onTimeSetStart(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks) {
 		for (TestRunnerCallback tempCallback : callbacks) {
-			tempCallback.onTimeSet(aTimeSet, aSuite, aFork);
+			tempCallback.onTimeSetStart(aTimeSet, aSuite, someForks);
+		}
+	}
+
+	@Override
+	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
+			String anErrorMessage, String anExceptionStackTrace) {
+		for (TestRunnerCallback tempCallback : callbacks) {
+			tempCallback.onTimeSetFinish(aTimeSet, aSuite, someForks, anErrorMessage, anExceptionStackTrace);
 		}
 	}
 
