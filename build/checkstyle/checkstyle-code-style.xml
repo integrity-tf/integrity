@@ -162,7 +162,8 @@
     <property name="severity" value="error"/>
   </module>
   <module name="FileLength">
-    <property name="max" value="3000"/>
+  	<property name="severity" value="warning"/>
+    <property name="max" value="10000"/>
   </module>
   <module name="SuppressionFilter">
     <property name="file" value="${samedir}/suppressions.xml"/>
