@@ -2762,7 +2762,7 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		@Override
-		public void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor) {
+		public void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor) {
 			// This is called when a master process wants to set the time of a fork. Just set it.
 			ExceptionWrapper tempException = setTestTimeGuarded(aStartDate, aProgressionFactor);
 			if (tempException != null) {
@@ -2774,6 +2774,9 @@ public class DefaultTestRunner implements TestRunner {
 
 		@Override
 		public void onTimeSyncResponse(TimeSyncResultMessage aResult) {
+			// Called when a fork has triggered a time sync via relaying the request to the master, which then
+			// distributed it to the forks. After all forks finished, it will return the result to the fork that
+			// originally triggered the request, and that will end up here.
 			synchronized (timeSyncResultSyncObject) {
 				timeSyncResult = aResult;
 				timeSyncResultSyncObject.notifyAll();

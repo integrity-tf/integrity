@@ -68,8 +68,13 @@ packagedef mypackage with
 		suite bsuite on fork1
 		suite bsuite on fork2
 		
-		timeset 10.10.2001 on fork2
+		timeset 10.10.2001 15:30:01
 				
+		suite bsuite on fork1		
+		suite bsuite on fork2
+		
+		suite csuite on fork1
+		
 		suite bsuite on fork1		
 		suite bsuite on fork2
 		
@@ -80,6 +85,13 @@ packagedef mypackage with
 		
 		test echo echo: "blah" = "blah"
 			
+	suiteend
+	
+	
+	suitedef csuite with
+	
+		timeset 15.10.2000
+	
 	suiteend
 	
 packageend

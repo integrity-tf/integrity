@@ -341,7 +341,15 @@ public class IntegrityRemotingServer {
 
 			@Override
 			public void processMessage(TimeSyncRequestMessage aMessage, Endpoint anEndpoint) {
-				listener.onTimeSync(aMessage.getStartDate(), aMessage.getProgressionFactor());
+				listener.onTimeSyncRequest(aMessage.getStartDate(), aMessage.getProgressionFactor());
+			}
+		});
+
+		tempMap.put(TimeSyncResultMessage.class, new MessageProcessor<TimeSyncResultMessage>() {
+
+			@Override
+			public void processMessage(TimeSyncResultMessage aMessage, Endpoint anEndpoint) {
+				listener.onTimeSyncResponse(aMessage);
 			}
 		});
 

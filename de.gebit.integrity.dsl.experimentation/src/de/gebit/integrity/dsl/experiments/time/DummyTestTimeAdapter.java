@@ -23,9 +23,9 @@ public class DummyTestTimeAdapter implements TestTimeAdapter {
 	@Override
 	public void setTestTime(Date aStartTime, BigDecimal aProgressionFactor) {
 		System.out.println("==> Setting test time to " + aStartTime + " with progression factor " + aProgressionFactor);
-		if (Math.random() < 0.5) {
-			throw new RuntimeException("Random failure!");
-		}
+		// if (Math.random() < 0.5) {
+		// throw new RuntimeException("Random failure!");
+		// }
 	}
 
 }

@@ -131,7 +131,7 @@ public interface IntegrityRemotingServerListener {
 	 * @param aProgressionFactor
 	 *            the progression factor
 	 */
-	void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor);
+	void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor);
 
 	/**
 	 * Called when a timesync response has arrived. If the arguments' error fields are null, this was successful.
