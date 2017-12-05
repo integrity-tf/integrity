@@ -1170,6 +1170,8 @@ public class DefaultTestRunner implements TestRunner {
 	protected SuiteSummaryResult callSuiteSingle(Suite aSuiteCall) {
 		modelChecker.check(aSuiteCall);
 
+		System.out.println(aSuiteCall.getDefinition().getName());
+
 		boolean tempForkInExecutionOnEntry = forkInExecution != null;
 
 		if (aSuiteCall.getFork() != null && !tempForkInExecutionOnEntry) {

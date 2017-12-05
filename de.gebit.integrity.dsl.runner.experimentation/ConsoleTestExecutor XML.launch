@@ -28,5 +28,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-x ../de.gebit.integrity.dsl.experimentation/result.xml --xslt embed mypackage.asuite ../de.gebit.integrity.dsl.experimentation/src/folder/"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="de.gebit.integrity.dsl.runner.experimentation"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Duser.language=en"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Duser.language=en&#13;&#10;-Dintegrity.runner.perflog=false&#13;&#10;-Dintegrity.xmlwriter.trace=true&#13;&#10;-Dintegrity.runner.timeadapter=de.gebit.integrity.dsl.experiments.time.DummyTestTimeAdapter"/>
 </launchConfiguration>

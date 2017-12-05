@@ -385,12 +385,13 @@ public class TestFormatter {
 		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
 				new ConversionContext().withUnresolvableVariableHandlingPolicy(
 						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
-		String tempProgressionFactor = valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false,
-				new ConversionContext().withUnresolvableVariableHandlingPolicy(
-						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
+		String tempProgressionFactor = aTimeSet.getProgressionFactor() != null
+				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
+						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
+				: null;
 
 		String tempForkNames = "";
-		if (someForks != null) {
+		if (someForks != null && someForks.size() > 0) {
 			tempForkNames = "on fork(s) "
 					+ someForks.stream().map((aFork) -> "'" + (aFork != null ? aFork.getName() : "master") + "'")
 							.collect(Collectors.joining(","))

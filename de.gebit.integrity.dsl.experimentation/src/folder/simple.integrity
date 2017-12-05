@@ -61,95 +61,25 @@ packagedef mypackage with
 	* @param nonexistentParameter
 	* 				This one doesn't exist
 	*/
-	private suitedef asuite gets testParameter anotherParameter with
-		--- The first Suite
-	
-		//suite csuite
+	suitedef asuite with
 		
-		suite bsuite on fork1
+		timeset 12.10.2001
 		
-		//suite csuite
+		//suite bsuite on fork1		
+		//suite bsuite on fork2
 		
-		inlined suite bsuite
 		
-		suite csuite
 		
-		suite bsuite on fork2
-		
-		suite bsuite
-		
-		suite bsuite on fork2
-		
-		suite csuite
+		//suite bsuite on fork1		
+		//suite bsuite on fork2
 		
 	suiteend
 	
-	suitedef bsuite requires csuite with
 	
-		call echoCall echo: "blah" -> returnVar
-	
-		suite csuite in deDE
+	suitedef bsuite with
 		
-		suite csuite
-		
-		suite dsuite
-		
-		test echo echo: returnVar = woohoo
+		test echo echo: "blah" = "blah"
 			
 	suiteend
 	
-	private suitedef csuite concludedby dsuite with
-	
-		test echo echo: returnVar = "blahblub"
-	
-	suiteend
-	
-	suitedef dsuite with
-	
-		test echo echo: returnVar = "blahblub"
-		
-		suite csuite
-		
-		suite asuite
-		
-	suiteend
-	
-	
-	
-packageend
-
-packagedef mypackage.deeper with
-
-	suitedef csuite concludedby dsuite with
-	
-		test echo echo: returnVar = "blahblub"
-	
-	suiteend
-	
-	suitedef dsuite with
-	
-		test echo echo: returnVar = "blahblub"
-		
-		suite csuite
-	
-	suiteend
-
-packageend
-
-packagedef mypackage.deeper.evendeeper.end with
-	suitedef emptysuite with
-	suiteend
-packageend
-
-packagedef mypackage.deeper.moredeeper.end with
-	suitedef emptysuite with
-	suiteend
-packageend
-
-packagedef mypackage.deeper2 with
-	suitedef emptysuite with
-	suiteend
-packageend
-
-packagedef mypackage.deeper3.yetmoredeep with
 packageend

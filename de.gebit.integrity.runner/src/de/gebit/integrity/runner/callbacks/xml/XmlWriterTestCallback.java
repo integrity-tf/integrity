@@ -1807,11 +1807,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTimeSetStart(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks) {
 		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
-				new ConversionContext().withUnresolvableVariableHandlingPolicy(
-						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
-		String tempProgressionFactor = valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false,
-				new ConversionContext().withUnresolvableVariableHandlingPolicy(
-						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
+				new ConversionContext()
+						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+		String tempProgressionFactor = aTimeSet.getProgressionFactor() != null
+				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
+						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
+				: null;
 
 		String tempForkNames = null;
 		if (someForks.size() > 1 || (someForks.size() == 1 && someForks.get(0) != null)) {
@@ -1820,6 +1821,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 
 		Element tempTimeSetElement = new Element(TIME_SET_ELEMENT);
+
+		addId(tempTimeSetElement);
+		addLineNumber(tempTimeSetElement, aTimeSet);
+		addCurrentTime(tempTimeSetElement);
+
 		tempTimeSetElement.setAttribute(TIME_TEXT_ATTRIBUTE,
 				testFormatter.timeSetToHumanReadableString(aTimeSet, someForks));
 		if (tempStartTime != null) {
@@ -1843,20 +1849,21 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
 			String anErrorMessage, String anExceptionStackTrace) {
+		// This new element is actually only used as a container to transport arguments to be merged with the
+		// already-existing time set element
+		Element tempTimeSetElement = new Element(TIME_SET_ELEMENT);
+
+		if (anErrorMessage != null) {
+			tempTimeSetElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, anErrorMessage);
+			tempTimeSetElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE, anExceptionStackTrace);
+		}
+
 		if (!isDryRun()) {
-			Element tempTimeSetElement = stackPop();
-
-			if (anErrorMessage != null) {
-				tempTimeSetElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, anErrorMessage);
-				tempTimeSetElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE, anExceptionStackTrace);
-			}
-
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET_FINISH, tempTimeSetElement);
 			}
 			internalOnTimeSetFinish(tempTimeSetElement);
 		}
-
 	}
 
 	/**
@@ -1876,7 +1883,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * @param aTimeSetElement
 	 */
 	protected void internalOnTimeSetFinish(Element aTimeSetElement) {
-		stackPop();
+		Element tempActualTimeSetElement = stackPop();
+		// Merge the attributes of the two elements
+		for (Object tempAttribute : aTimeSetElement.getAttributes()) {
+			tempActualTimeSetElement.setAttribute((Attribute) tempAttribute);
+		}
 	}
 
 	/**

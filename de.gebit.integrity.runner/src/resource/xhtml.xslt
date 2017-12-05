@@ -83,6 +83,8 @@
 		.row2testsuccess { background-color: #E8FFE6; }
 		.row1callsuccess { background-color: #DDDDDD; }
 		.row2callsuccess { background-color: #EEEEEE; }
+		.row1timesetsuccess { background-color: #DDDDDD; }
+		.row2timesetsuccess { background-color: #EEEEEE; }
 		.row1testfailure { background-color: #FF9B9B; }
 		.row2testfailure { background-color: #FFC4C4; }
 		.row1exception { background-color: #FFE6B7; }
@@ -91,6 +93,8 @@
 		.row2testexception { background-color: #FFF7E8; }
 		.row1callexception { background-color: #FFE6B7; }
 		.row2callexception { background-color: #FFF7E8; }
+		.row1timesetexception { background-color: #FFE6B7; }
+		.row2timesetexception { background-color: #FFF7E8; }
 		.row1assign { background-color: #D0CCFF; }
 		.testresults { font-size: 8pt; font-weight: bold; padding: 4px; position; relative; top: 0; }
 		.testresultvalue { font-weight: bold; }
@@ -99,7 +103,7 @@
 		.exceptionmessage { padding: 4px; }
 		.durationandicons { font-size: 8pt; position: absolute; top: 2px; right: 4px; color: #555; }
 		.timestamp { font-size: 8pt; position: absolute; top: 4px; right: 0px; color: #555; }
-		.testparameters { position: relative; top: 0; }
+		.testparameters { position: relative; top: 0; min-height: 20px; }
 		.tabletestresults { position: relative; top: 0; }
 		.test { min-height: 46px; }
 		.callexception { min-height: 46px; }
@@ -807,6 +811,58 @@ function getChildByName(node, childName) {
           <xsl:call-template name="duration">
             <xsl:with-param name="value" select="result/@duration" />
           </xsl:call-template>
+          <span class="testicons">
+            <xsl:call-template name="scriptlink">
+              <xsl:with-param name="line" select="@line" />
+              <xsl:with-param name="suite" select="ancestor::suite[1]/@name" />
+              <xsl:with-param name="class" select="'scriptlink'" />
+            </xsl:call-template>
+          </span>
+        </span>
+      </div>
+    </xsl:template>
+    <xsl:template match="timeSet">
+      <a>
+        <xsl:attribute name="name">
+          <xsl:value-of select="concat('i', @id)" />
+        </xsl:attribute>
+      </a>
+      <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
+        <xsl:attribute name="class">
+          <xsl:text>statement row1timeset</xsl:text>
+          <xsl:choose>
+	          <xsl:when test="@exceptionMessage">
+	          	<xsl:text>exception</xsl:text>
+	          </xsl:when>
+	          <xsl:otherwise>
+	          	<xsl:text>success</xsl:text>
+	          </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+        <xsl:if test="@exceptionMessage">
+          <div class="testicon testiconexception" />
+        </xsl:if>
+        <div class="testdescription">
+          <xsl:value-of select="@text" />
+        </div>
+        <div class="testparameters" style="display: none;">
+          <div class="timestamp">
+            <xsl:value-of select="@timestamp" />
+          </div>
+          <xsl:if test="@exceptionTrace">
+            <div class="exceptiontrace">
+              <xsl:call-template name="formatExceptionTrace">
+                <xsl:with-param name="text" select="@exceptionTrace" />
+              </xsl:call-template>
+            </div>
+          </xsl:if>
+        </div>        
+        <xsl:if test="@exceptionTrace">
+          <div class="value exceptionmessage">
+            <xsl:value-of select="@exceptionMessage" />
+          </div>
+        </xsl:if>
+        <span class="durationandicons">
           <span class="testicons">
             <xsl:call-template name="scriptlink">
               <xsl:with-param name="line" select="@line" />
@@ -1749,7 +1805,7 @@ function getChildByName(node, childName) {
               <xsl:value-of select="concat('nav_suite nav_suite', $result)" />
             </xsl:attribute>
             <xsl:attribute name="style">
-            	<xsl:value-of select="'background-image: none'" />
+              <xsl:value-of select="'background-image: none'" />
             </xsl:attribute>
           </xsl:when>
           <xsl:otherwise>
@@ -1757,7 +1813,7 @@ function getChildByName(node, childName) {
               <xsl:value-of select="concat('nav_suite nav_suite', $result)" />
             </xsl:attribute>
             <xsl:attribute name="style">
-            	<xsl:value-of select="concat('background-position: ', $depth * 16 - 8, 'px 0px;')" />
+              <xsl:value-of select="concat('background-position: ', $depth * 16 - 8, 'px 0px;')" />
             </xsl:attribute>
             <xsl:call-template name="navigationLine">
               <xsl:with-param name="depth" select="$depth" />
