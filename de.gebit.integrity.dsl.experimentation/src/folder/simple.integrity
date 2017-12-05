@@ -65,13 +65,13 @@ packagedef mypackage with
 		
 		timeset 12.10.2001
 		
-		//suite bsuite on fork1		
-		//suite bsuite on fork2
+		suite bsuite on fork1
+		suite bsuite on fork2
 		
-		
-		
-		//suite bsuite on fork1		
-		//suite bsuite on fork2
+		timeset 10.10.2001 on fork2
+				
+		suite bsuite on fork1		
+		suite bsuite on fork2
 		
 	suiteend
 	

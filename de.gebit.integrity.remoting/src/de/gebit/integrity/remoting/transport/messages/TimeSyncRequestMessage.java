@@ -39,6 +39,13 @@ public class TimeSyncRequestMessage extends AbstractMessage {
 	private String[] targetedForks;
 
 	/**
+	 * Constructor.
+	 */
+	public TimeSyncRequestMessage() {
+		// no-arg constructor
+	}
+
+	/**
 	 * Constructs an instance.
 	 * 
 	 * @param aStartDate

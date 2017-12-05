@@ -35,6 +35,7 @@ import de.gebit.integrity.remoting.transport.messages.SetListUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ShutdownRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncRequestMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
@@ -216,9 +217,22 @@ public class IntegrityRemotingServer {
 	 * @param aStartDate
 	 * @param aProgressionFactor
 	 */
-	public void sendTestTimeSync(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
+	public void sendTestTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
 		if (serverEndpoint.isActive()) {
-			serverEndpoint.broadcastMessage(new TimeSyncRequestMessage(aStartDate, aProgressionFactor, someTargetedForks));
+			serverEndpoint
+					.broadcastMessage(new TimeSyncRequestMessage(aStartDate, aProgressionFactor, someTargetedForks));
+		}
+	}
+
+	/**
+	 * Sends a response to a test time sync request.
+	 * 
+	 * @param anExceptionMessage
+	 * @param anExceptionStackTrace
+	 */
+	public void sendTestTimeSyncResponse(String anExceptionMessage, String anExceptionStackTrace) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new TimeSyncResultMessage(anExceptionMessage, anExceptionStackTrace));
 		}
 	}
 

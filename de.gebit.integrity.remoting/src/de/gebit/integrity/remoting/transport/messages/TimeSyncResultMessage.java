@@ -33,6 +33,13 @@ public class TimeSyncResultMessage extends AbstractMessage {
 	private String stackTrace;
 
 	/**
+	 * Constructor.
+	 */
+	public TimeSyncResultMessage() {
+		// no-arg constructor
+	}
+
+	/**
 	 * Constructs an instance.
 	 * 
 	 * @param aStartDate

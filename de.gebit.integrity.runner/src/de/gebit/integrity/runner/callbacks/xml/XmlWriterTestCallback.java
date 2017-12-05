@@ -1886,7 +1886,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		Element tempActualTimeSetElement = stackPop();
 		// Merge the attributes of the two elements
 		for (Object tempAttribute : aTimeSetElement.getAttributes()) {
-			tempActualTimeSetElement.setAttribute((Attribute) tempAttribute);
+			tempActualTimeSetElement.setAttribute(((Attribute) tempAttribute).getName(),
+					((Attribute) tempAttribute).getValue());
 		}
 	}
 

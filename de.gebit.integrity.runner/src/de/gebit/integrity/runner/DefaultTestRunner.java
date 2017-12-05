@@ -1170,8 +1170,6 @@ public class DefaultTestRunner implements TestRunner {
 	protected SuiteSummaryResult callSuiteSingle(Suite aSuiteCall) {
 		modelChecker.check(aSuiteCall);
 
-		System.out.println(aSuiteCall.getDefinition().getName());
-
 		boolean tempForkInExecutionOnEntry = forkInExecution != null;
 
 		if (aSuiteCall.getFork() != null && !tempForkInExecutionOnEntry) {
@@ -1632,9 +1630,7 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
-		for (
-
-		VariableOrConstantEntity tempEntity : tempDefinedVariables) {
+		for (VariableOrConstantEntity tempEntity : tempDefinedVariables) {
 			variableManager.unset(tempEntity);
 		}
 
@@ -2430,8 +2426,16 @@ public class DefaultTestRunner implements TestRunner {
 				currentCallback.onCallbackProcessingEnd();
 			}
 
+			String tempErrorMessage = null;
+			String tempExceptionTrace = null;
+
 			if (shouldExecuteFixtures()) {
 				// Technically this is not a fixture call, but we nevertheless only perform time setting in run mode
+				String[] tempForksToRunOnArray = tempForksToRunOn.size() == 0 ? null
+						: tempForksToRunOn.stream().map((aFork) -> {
+							return aFork != null ? IntegrityDSLUtil.getQualifiedForkName(aFork) : null;
+						}).collect(Collectors.toList()).toArray(new String[0]);
+
 				if (isFork()) {
 					// If on a fork, deliver the timesync request to the master, which will then distribute it to all
 					// forks, which will perform it and respond. The master collects all responses and delivers them
@@ -2439,10 +2443,8 @@ public class DefaultTestRunner implements TestRunner {
 					synchronized (timeSyncResultSyncObject) {
 						timeSyncResult = null;
 						long tempStart = System.nanoTime();
-						remotingServer.sendTestTimeSync(tempStartTime, tempProgressionFactor,
-								tempForksToRunOn.size() == 0 ? null : tempForksToRunOn.stream().map((aFork) -> {
-									return IntegrityDSLUtil.getQualifiedForkName(aFork);
-								}).collect(Collectors.toList()).toArray(new String[0]));
+						remotingServer.sendTestTimeSyncRequest(tempStartTime, tempProgressionFactor,
+								tempForksToRunOnArray);
 
 						while (timeSyncResult == null) {
 							long tempTimeLeft = TimeUnit.SECONDS
@@ -2460,6 +2462,16 @@ public class DefaultTestRunner implements TestRunner {
 							}
 						}
 
+						tempErrorMessage = timeSyncResult.getErrorMessage();
+						tempExceptionTrace = timeSyncResult.getStackTrace();
+					}
+				} else {
+					// On the master, the timesync is just executed and then sent to the forks, if necessary
+					ExceptionWrapper tempException = distributeTimeSyncRequest(tempStartTime, tempProgressionFactor,
+							tempForksToRunOnArray);
+					if (tempException != null) {
+						tempErrorMessage = tempException.getMessage();
+						tempExceptionTrace = tempException.getStackTrace();
 					}
 				}
 			}
@@ -2467,12 +2479,11 @@ public class DefaultTestRunner implements TestRunner {
 			if (currentCallback != null) {
 				currentCallback.onCallbackProcessingStart();
 				currentCallback.onTimeSetFinish(aTimeSet, (SuiteDefinition) aTimeSet.eContainer(), tempForksToRunOn,
-						timeSyncResult == null ? null : timeSyncResult.getErrorMessage(),
-						timeSyncResult == null ? null : timeSyncResult.getStackTrace());
+						tempErrorMessage, tempExceptionTrace);
 				currentCallback.onCallbackProcessingEnd();
 			}
 		} catch (Exception exc) {
-			// Any exception happening during time setting is considered an abort execution case
+			// Any exception happening in Integrity itself during time setting is considered an abort execution case
 			handlePossibleAbortException(new AbortExecutionException("Failed to set test time", exc));
 		}
 	}
@@ -2753,7 +2764,12 @@ public class DefaultTestRunner implements TestRunner {
 		@Override
 		public void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor) {
 			// This is called when a master process wants to set the time of a fork. Just set it.
-			testTimeAdapter.setTestTime(aStartDate, aProgressionFactor);
+			ExceptionWrapper tempException = setTestTimeGuarded(aStartDate, aProgressionFactor);
+			if (tempException != null) {
+				remotingServer.sendTestTimeSyncResponse(tempException.getMessage(), tempException.getStackTrace());
+			} else {
+				remotingServer.sendTestTimeSyncResponse(null, null);
+			}
 		}
 
 		@Override

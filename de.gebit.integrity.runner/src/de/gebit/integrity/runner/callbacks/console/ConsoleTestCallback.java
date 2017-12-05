@@ -437,6 +437,9 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 			} else {
 				System.out.println("!");
 			}
+			if (anAbortExecutionStackTrace != null) {
+				System.err.println(anAbortExecutionStackTrace);
+			}
 		}
 	}
 
