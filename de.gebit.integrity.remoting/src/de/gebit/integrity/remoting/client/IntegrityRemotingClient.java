@@ -9,9 +9,7 @@ package de.gebit.integrity.remoting.client;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.net.UnknownHostException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +36,7 @@ import de.gebit.integrity.remoting.transport.messages.ShutdownRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncStateMessage;
 import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
@@ -192,11 +191,16 @@ public class IntegrityRemotingClient {
 	/**
 	 * Sends a test time sync message.
 	 * 
-	 * @param aStartDate
+	 * @param aRealtimeOffset
+	 *            the offset of our test time from real system time (wall clock)
+	 * @param aRealtimeDecouplingTime
+	 *            the point in real time at which our test time was decoupled from system time
 	 * @param aProgressionFactor
+	 *            the speed at which the test time should progress (1.0 is normal speed, progression factor may be
+	 *            negative too, or 0.0, which means time is frozen)
 	 */
-	public void sendTestTimeSync(Date aStartDate, BigDecimal aProgressionFactor) {
-		sendMessage(new TimeSyncRequestMessage(aStartDate, aProgressionFactor, null));
+	public void sendTestTimeState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
+		sendMessage(new TimeSyncStateMessage(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor));
 	}
 
 	/**

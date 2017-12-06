@@ -7,9 +7,6 @@
  *******************************************************************************/
 package de.gebit.integrity.dsl.experiments.time;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import de.gebit.integrity.runner.time.TestTimeAdapter;
 
 /**
@@ -21,8 +18,9 @@ import de.gebit.integrity.runner.time.TestTimeAdapter;
 public class DummyTestTimeAdapter implements TestTimeAdapter {
 
 	@Override
-	public void setTestTime(Date aStartTime, BigDecimal aProgressionFactor) {
-		System.out.println("==> Setting test time to " + aStartTime + " with progression factor " + aProgressionFactor);
+	public void setTestTime(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
+		System.out.println("==> Setting timekeeper state to realtime offset " + aRealtimeOffset + ", decoupling time "
+				+ aRealtimeDecouplingTime + " and progression factor " + aProgressionFactor);
 		// if (Math.random() < 0.5) {
 		// throw new RuntimeException("Random failure!");
 		// }

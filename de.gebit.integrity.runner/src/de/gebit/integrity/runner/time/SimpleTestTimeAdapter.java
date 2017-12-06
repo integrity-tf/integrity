@@ -7,9 +7,6 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.time;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.google.inject.Inject;
 
 import de.gebit.integrity.runner.IntegrityRunnerModule;
@@ -47,7 +44,7 @@ public class SimpleTestTimeAdapter implements TestTimeAdapter {
 	protected ClassLoader classLoader;
 
 	@Override
-	public void setTestTime(Date aCurrentTime, BigDecimal aProgressionFactor) {
+	public void setTestTime(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
 		if (systemUnderTestAdapter == null) {
 			String tempClass = System.getProperty(SUT_TIME_ADAPTER_CLASS_PROPERTY);
 			if (tempClass == null) {
@@ -74,7 +71,7 @@ public class SimpleTestTimeAdapter implements TestTimeAdapter {
 			}
 		}
 
-		systemUnderTestAdapter.setTestTime(aCurrentTime, aProgressionFactor);
+		systemUnderTestAdapter.setTestTime(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor);
 	}
 
 }

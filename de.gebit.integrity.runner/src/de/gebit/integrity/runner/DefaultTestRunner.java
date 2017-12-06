@@ -2762,9 +2762,10 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		@Override
-		public void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor) {
+		public void onTimeSyncState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
 			// This is called when a master process wants to set the time of a fork. Just set it.
-			ExceptionWrapper tempException = setTestTimeGuarded(aStartDate, aProgressionFactor);
+			ExceptionWrapper tempException = setTestTimeGuarded(aRealtimeOffset, aRealtimeDecouplingTime,
+					aProgressionFactor);
 			if (tempException != null) {
 				remotingServer.sendTestTimeSyncResponse(tempException.getMessage(), tempException.getStackTrace());
 			} else {
@@ -2799,8 +2800,10 @@ public class DefaultTestRunner implements TestRunner {
 	/**
 	 * This will be called when a master process either receives a time sync message from one of its forks and has to
 	 * redistribute it to all the forks that this time sync is intended for, or when a master process encounters a time
-	 * sync command by itself. In both cases it may have to execute it for itself. This method ONLY runs on the
-	 * master!<br>
+	 * sync command by itself. In both cases it may have to execute it for itself. This method ONLY runs on the master!
+	 * It calculates the actual internal state variables necessary for the test time proxies running in the individual
+	 * fork processes and forwards those to the forks (and to the master itself), where these state variable values are
+	 * then being used to call the {@link TestTimeAdapter}.<br>
 	 * <br>
 	 * The method is also responsible for collecting the responses about successful or failed timesyncs and for
 	 * aggregating them into a result object. It blocks until this has finished (or a timeout has hit).
@@ -2837,11 +2840,18 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
+		// These are the parameters used to actually calculate the fake test time in the individual systems under test
+		long tempRealtimeOffset = (aStartTime != null ? aStartTime.getTime() - System.currentTimeMillis() : 0);
+		long tempRealtimeDecouplingTime = System.currentTimeMillis();
+		double tempProgressionFactor = (aProgressionFactor != null ? aProgressionFactor.doubleValue() : 0.0d);
+
+		// These are used to collect result messages (typically in case of errors)
 		String tempMergedResultMessage = "";
 		String tempMergedResultStackTrace = "";
 
 		if (tempMasterHasToSync) {
-			ExceptionWrapper tempExc = setTestTimeGuarded(aStartTime, aProgressionFactor);
+			ExceptionWrapper tempExc = setTestTimeGuarded(tempRealtimeOffset, tempRealtimeDecouplingTime,
+					tempProgressionFactor);
 			if (tempExc != null) {
 				if (tempTargetedForks.size() > 0) {
 					tempMergedResultMessage = "Master process failed with: '" + tempExc.getMessage() + "'";
@@ -2853,7 +2863,8 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 		for (Fork tempFork : tempTargetedForks) {
-			TimeSyncResultMessage tempResult = tempFork.performTimeSync(aStartTime, aProgressionFactor);
+			TimeSyncResultMessage tempResult = tempFork.injectTestTimeState(tempRealtimeOffset,
+					tempRealtimeDecouplingTime, tempProgressionFactor);
 			if (tempResult != null && tempResult.getErrorMessage() != null) {
 				if (tempMergedResultMessage.length() != 0) {
 					tempMergedResultMessage += ", ";
@@ -2904,9 +2915,10 @@ public class DefaultTestRunner implements TestRunner {
 	 * @param aProgressionFactor
 	 * @return null in case of success or an exception wrapper with errors in case of errors
 	 */
-	protected ExceptionWrapper setTestTimeGuarded(Date aStartTime, BigDecimal aProgressionFactor) {
+	protected ExceptionWrapper setTestTimeGuarded(long aRealtimeOffset, long aRealtimeDecouplingTime,
+			double aProgressionFactor) {
 		try {
-			testTimeAdapter.setTestTime(aStartTime, aProgressionFactor);
+			testTimeAdapter.setTestTime(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor);
 		} catch (Throwable exc) {
 			return new ExceptionWrapper(exc);
 		}

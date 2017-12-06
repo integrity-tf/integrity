@@ -36,6 +36,7 @@ import de.gebit.integrity.remoting.transport.messages.ShutdownRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
+import de.gebit.integrity.remoting.transport.messages.TimeSyncStateMessage;
 import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
@@ -337,11 +338,12 @@ public class IntegrityRemotingServer {
 			}
 		});
 
-		tempMap.put(TimeSyncRequestMessage.class, new MessageProcessor<TimeSyncRequestMessage>() {
+		tempMap.put(TimeSyncStateMessage.class, new MessageProcessor<TimeSyncStateMessage>() {
 
 			@Override
-			public void processMessage(TimeSyncRequestMessage aMessage, Endpoint anEndpoint) {
-				listener.onTimeSyncRequest(aMessage.getStartDate(), aMessage.getProgressionFactor());
+			public void processMessage(TimeSyncStateMessage aMessage, Endpoint anEndpoint) {
+				listener.onTimeSyncState(aMessage.getRealtimeOffset(), aMessage.getRealtimeDecouplingTime(),
+						aMessage.getProgressionFactor());
 			}
 		});
 

@@ -68,15 +68,13 @@ packagedef mypackage with
 		suite bsuite on fork1
 		suite bsuite on fork2
 		
-		timeset 10.10.2001 15:30:01
+		timeset 10.10.2001 15:30:01 progressing 3x
 				
-		suite bsuite on fork1		
-		suite bsuite on fork2
+		suite bsuite on fork1
 		
 		suite csuite on fork1
 		
-		suite bsuite on fork1		
-		suite bsuite on fork2
+		suite bsuite on fork1	
 		
 	suiteend
 	

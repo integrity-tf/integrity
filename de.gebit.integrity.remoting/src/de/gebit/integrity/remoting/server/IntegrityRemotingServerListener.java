@@ -8,8 +8,6 @@
 package de.gebit.integrity.remoting.server;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -124,14 +122,17 @@ public interface IntegrityRemotingServerListener {
 	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
 
 	/**
-	 * Called when a timesync command has arrived.
+	 * Called when a timesync state has arrived.
 	 * 
-	 * @param aStartDate
-	 *            the start date
+	 * @param aRealtimeOffset
+	 *            the offset of our test time from real system time (wall clock)
+	 * @param aRealtimeDecouplingTime
+	 *            the point in real time at which our test time was decoupled from system time
 	 * @param aProgressionFactor
-	 *            the progression factor
+	 *            the speed at which the test time should progress (1.0 is normal speed, progression factor may be
+	 *            negative too, or 0.0, which means time is frozen)
 	 */
-	void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor);
+	void onTimeSyncState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor);
 
 	/**
 	 * Called when a timesync response has arrived. If the arguments' error fields are null, this was successful.

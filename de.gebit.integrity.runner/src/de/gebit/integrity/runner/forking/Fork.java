@@ -493,18 +493,19 @@ public class Fork {
 	}
 
 	/**
-	 * Request a time sync of the test time to the provided values. Waits for the result object to be retrieved and
-	 * returns it. In case of a timeout, a runtime exception is thrown.
+	 * Injects the state variables for test time calculation into the fork. Waits for the result object to be retrieved
+	 * and returns it. In case of a timeout, a runtime exception is thrown.
 	 * 
 	 * @param aStartTime
 	 * @param aProgressionFactor
 	 */
-	public TimeSyncResultMessage performTimeSync(Date aStartTime, BigDecimal aProgressionFactor) {
+	public TimeSyncResultMessage injectTestTimeState(long aRealtimeOffset, long aRealtimeDecouplingTime,
+			double aProgressionFactor) {
 		if (isConnected()) {
 			synchronized (timeSyncResultSyncObject) {
 				timeSyncResult = null;
 				long tempStart = System.nanoTime();
-				client.sendTestTimeSync(aStartTime, aProgressionFactor);
+				client.sendTestTimeState(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor);
 
 				while (timeSyncResult == null) {
 					long tempTimeLeft = TimeUnit.SECONDS.toMillis(getForkTimesyncTimeout())
