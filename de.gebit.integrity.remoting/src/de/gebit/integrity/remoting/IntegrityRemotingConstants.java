@@ -23,7 +23,7 @@ public interface IntegrityRemotingConstants {
 	/**
 	 * The minor part of the protocol version.
 	 */
-	int MINOR_PROTOCOL_VERSION = 2;
+	int MINOR_PROTOCOL_VERSION = 3;
 
 	/**
 	 * The major part of the remoting client/server version.
@@ -33,7 +33,7 @@ public interface IntegrityRemotingConstants {
 	/**
 	 * The minor part of the remoting client/server version.
 	 */
-	int MINOR_VERSION = 2;
+	int MINOR_VERSION = 3;
 
 	/**
 	 * The patch part of the remoting client/server version.
