@@ -152,10 +152,10 @@ NamedCallResult:
 	name=ResultName NL '->' NL target=VariableVariable;
 	
 TimeSet:
-	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation)? 'x' NL)?)) ('on' NL (forks+=[ForkDefinition|QualifiedName] | masterFork='master')+ NL)?;
+	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation)? 'x' NL)?)) ('on' NL ((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 	
 Suite:
-	inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] NL)+)?;
+	inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] ','? NL)+)?;
 
 SuiteParameter:
 	name=[VariableOrConstantEntity|QualifiedName] NL ':' NL value=ValueOrEnumValueOrOperationCollection;

@@ -2058,23 +2058,25 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cOnKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Alternatives cAlternatives_3_2 = (Alternatives)cGroup_3.eContents().get(2);
-		private final Assignment cForksAssignment_3_2_0 = (Assignment)cAlternatives_3_2.eContents().get(0);
-		private final CrossReference cForksForkDefinitionCrossReference_3_2_0_0 = (CrossReference)cForksAssignment_3_2_0.eContents().get(0);
-		private final RuleCall cForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_1 = (RuleCall)cForksForkDefinitionCrossReference_3_2_0_0.eContents().get(1);
-		private final Assignment cMasterForkAssignment_3_2_1 = (Assignment)cAlternatives_3_2.eContents().get(1);
-		private final Keyword cMasterForkMasterKeyword_3_2_1_0 = (Keyword)cMasterForkAssignment_3_2_1.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_3_3 = (RuleCall)cGroup_3.eContents().get(3);
+		private final Group cGroup_3_2 = (Group)cGroup_3.eContents().get(2);
+		private final Alternatives cAlternatives_3_2_0 = (Alternatives)cGroup_3_2.eContents().get(0);
+		private final Assignment cForksAssignment_3_2_0_0 = (Assignment)cAlternatives_3_2_0.eContents().get(0);
+		private final CrossReference cForksForkDefinitionCrossReference_3_2_0_0_0 = (CrossReference)cForksAssignment_3_2_0_0.eContents().get(0);
+		private final RuleCall cForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_0_1 = (RuleCall)cForksForkDefinitionCrossReference_3_2_0_0_0.eContents().get(1);
+		private final Assignment cMasterForkAssignment_3_2_0_1 = (Assignment)cAlternatives_3_2_0.eContents().get(1);
+		private final Keyword cMasterForkMasterKeyword_3_2_0_1_0 = (Keyword)cMasterForkAssignment_3_2_0_1.eContents().get(0);
+		private final Keyword cCommaKeyword_3_2_1 = (Keyword)cGroup_3_2.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_3_2_2 = (RuleCall)cGroup_3_2.eContents().get(2);
 		
 		//TimeSet:
 		//	'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-		//	progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL (forks+=[ForkDefinition|QualifiedName] |
-		//	masterFork='master')+ NL)?;
+		//	progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
+		//	masterFork='master') ','? NL)+)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-		//progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL (forks+=[ForkDefinition|QualifiedName] |
-		//masterFork='master')+ NL)?
+		//progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
+		//masterFork='master') ','? NL)+)?
 		public Group getGroup() { return cGroup; }
 
 		//'timeset'
@@ -2136,7 +2138,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_2_1_2_4() { return cNLParserRuleCall_2_1_2_4; }
 
-		//('on' NL (forks+=[ForkDefinition|QualifiedName] | masterFork='master')+ NL)?
+		//('on' NL ((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//'on'
@@ -2145,26 +2147,32 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_3_1() { return cNLParserRuleCall_3_1; }
 
-		//(forks+=[ForkDefinition|QualifiedName] | masterFork='master')+
-		public Alternatives getAlternatives_3_2() { return cAlternatives_3_2; }
+		//((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+
+		public Group getGroup_3_2() { return cGroup_3_2; }
+
+		//(forks+=[ForkDefinition|QualifiedName] | masterFork='master')
+		public Alternatives getAlternatives_3_2_0() { return cAlternatives_3_2_0; }
 
 		//forks+=[ForkDefinition|QualifiedName]
-		public Assignment getForksAssignment_3_2_0() { return cForksAssignment_3_2_0; }
+		public Assignment getForksAssignment_3_2_0_0() { return cForksAssignment_3_2_0_0; }
 
 		//[ForkDefinition|QualifiedName]
-		public CrossReference getForksForkDefinitionCrossReference_3_2_0_0() { return cForksForkDefinitionCrossReference_3_2_0_0; }
+		public CrossReference getForksForkDefinitionCrossReference_3_2_0_0_0() { return cForksForkDefinitionCrossReference_3_2_0_0_0; }
 
 		//QualifiedName
-		public RuleCall getForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_1() { return cForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_1; }
+		public RuleCall getForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_0_1() { return cForksForkDefinitionQualifiedNameParserRuleCall_3_2_0_0_0_1; }
 
 		//masterFork='master'
-		public Assignment getMasterForkAssignment_3_2_1() { return cMasterForkAssignment_3_2_1; }
+		public Assignment getMasterForkAssignment_3_2_0_1() { return cMasterForkAssignment_3_2_0_1; }
 
 		//'master'
-		public Keyword getMasterForkMasterKeyword_3_2_1_0() { return cMasterForkMasterKeyword_3_2_1_0; }
+		public Keyword getMasterForkMasterKeyword_3_2_0_1_0() { return cMasterForkMasterKeyword_3_2_0_1_0; }
+
+		//','?
+		public Keyword getCommaKeyword_3_2_1() { return cCommaKeyword_3_2_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_3_3() { return cNLParserRuleCall_3_3; }
+		public RuleCall getNLParserRuleCall_3_2_2() { return cNLParserRuleCall_3_2_2; }
 	}
 
 	public class SuiteElements extends AbstractParserRuleElementFinder {
@@ -2204,17 +2212,18 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cVariantsAssignment_9_2_0 = (Assignment)cGroup_9_2.eContents().get(0);
 		private final CrossReference cVariantsVariantDefinitionCrossReference_9_2_0_0 = (CrossReference)cVariantsAssignment_9_2_0.eContents().get(0);
 		private final RuleCall cVariantsVariantDefinitionQualifiedNameParserRuleCall_9_2_0_0_1 = (RuleCall)cVariantsVariantDefinitionCrossReference_9_2_0_0.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_9_2_1 = (RuleCall)cGroup_9_2.eContents().get(1);
+		private final Keyword cCommaKeyword_9_2_1 = (Keyword)cGroup_9_2.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_9_2_2 = (RuleCall)cGroup_9_2.eContents().get(2);
 		
 		//Suite:
 		//	inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
 		//	(parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL
-		//	(variants+=[VariantDefinition|QualifiedName] NL)+)?;
+		//	(variants+=[VariantDefinition|QualifiedName] ','? NL)+)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
 		//(parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL
-		//(variants+=[VariantDefinition|QualifiedName] NL)+)?
+		//(variants+=[VariantDefinition|QualifiedName] ','? NL)+)?
 		public Group getGroup() { return cGroup; }
 
 		//inlined='inlined'?
@@ -2298,7 +2307,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_8_3() { return cNLParserRuleCall_8_3; }
 
-		//('in' NL (variants+=[VariantDefinition|QualifiedName] NL)+)?
+		//('in' NL (variants+=[VariantDefinition|QualifiedName] ','? NL)+)?
 		public Group getGroup_9() { return cGroup_9; }
 
 		//'in'
@@ -2307,7 +2316,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_9_1() { return cNLParserRuleCall_9_1; }
 
-		//(variants+=[VariantDefinition|QualifiedName] NL)+
+		//(variants+=[VariantDefinition|QualifiedName] ','? NL)+
 		public Group getGroup_9_2() { return cGroup_9_2; }
 
 		//variants+=[VariantDefinition|QualifiedName]
@@ -2319,8 +2328,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getVariantsVariantDefinitionQualifiedNameParserRuleCall_9_2_0_0_1() { return cVariantsVariantDefinitionQualifiedNameParserRuleCall_9_2_0_0_1; }
 
+		//','?
+		public Keyword getCommaKeyword_9_2_1() { return cCommaKeyword_9_2_1; }
+
 		//NL
-		public RuleCall getNLParserRuleCall_9_2_1() { return cNLParserRuleCall_9_2_1; }
+		public RuleCall getNLParserRuleCall_9_2_2() { return cNLParserRuleCall_9_2_2; }
 	}
 
 	public class SuiteParameterElements extends AbstractParserRuleElementFinder {
@@ -4510,8 +4522,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TimeSet:
 	//	'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-	//	progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL (forks+=[ForkDefinition|QualifiedName] |
-	//	masterFork='master')+ NL)?;
+	//	progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
+	//	masterFork='master') ','? NL)+)?;
 	public TimeSetElements getTimeSetAccess() {
 		return pTimeSet;
 	}
@@ -4523,7 +4535,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//Suite:
 	//	inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL
 	//	(parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL
-	//	(variants+=[VariantDefinition|QualifiedName] NL)+)?;
+	//	(variants+=[VariantDefinition|QualifiedName] ','? NL)+)?;
 	public SuiteElements getSuiteAccess() {
 		return pSuite;
 	}

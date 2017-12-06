@@ -3689,7 +3689,7 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-((
+(((
 (
 		{
 			if ($current==null) {
@@ -3697,7 +3697,7 @@ ruleNL
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getTimeSetAccess().getForksForkDefinitionCrossReference_3_2_0_0()); 
+	        newCompositeNode(grammarAccess.getTimeSetAccess().getForksForkDefinitionCrossReference_3_2_0_0_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -3709,7 +3709,7 @@ ruleNL
 (
 		lv_masterFork_14_0=	'master' 
     {
-        newLeafNode(lv_masterFork_14_0, grammarAccess.getTimeSetAccess().getMasterForkMasterKeyword_3_2_1_0());
+        newLeafNode(lv_masterFork_14_0, grammarAccess.getTimeSetAccess().getMasterForkMasterKeyword_3_2_0_1_0());
     }
  
 	    {
@@ -3720,15 +3720,19 @@ ruleNL
 	    }
 
 )
-))+
+))(	otherlv_15=',' 
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getTimeSetAccess().getCommaKeyword_3_2_1());
+    }
+)?
     { 
-        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_3_3()); 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_3_2_2()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)?)
+)+)?)
 ;
 
 
@@ -3939,9 +3943,13 @@ ruleNL
 	    }
 
 )
-)
+)(	otherlv_18=',' 
+    {
+    	newLeafNode(otherlv_18, grammarAccess.getSuiteAccess().getCommaKeyword_9_2_1());
+    }
+)?
     { 
-        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_9_2_1()); 
+        newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_9_2_2()); 
     }
 ruleNL
     { 

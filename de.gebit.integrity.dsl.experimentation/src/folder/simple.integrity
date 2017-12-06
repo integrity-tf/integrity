@@ -30,8 +30,8 @@ packagedef mypackage with
 	}, "Blahblub Yeah Yeah Yeah"
 	
 	private constant languageString "???"
-	in deDE: "Die deutsche Version"
-	in enUS: "The english version", "Another english version"
+		in deDE: "Die deutsche Version"
+		in enUS: "The english version", "Another english version"
 	
 	/**
 	* A constant with a funny name.
@@ -66,9 +66,9 @@ packagedef mypackage with
 		timeset 12.10.2001
 		
 		suite bsuite on fork1
-		suite bsuite on fork2
+		suite bsuite on fork2 in deDE, enUS
 		
-		timeset 10.10.2001 15:30:01 progressing 3x
+		timeset 10.10.2001 15:30:01 progressing 3x on fork1, fork2
 				
 		suite bsuite on fork1
 		

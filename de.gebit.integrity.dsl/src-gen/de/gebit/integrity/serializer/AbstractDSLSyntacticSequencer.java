@@ -26,6 +26,8 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	protected AbstractElementAlias match_ResultTableHeader_VerticalLineKeyword_3_q;
 	protected AbstractElementAlias match_SuiteDefinition___ConcludedbyKeyword_11_0_NLParserRuleCall_11_1__q;
 	protected AbstractElementAlias match_SuiteDefinition___RequiresKeyword_10_0_NLParserRuleCall_10_1__q;
+	protected AbstractElementAlias match_Suite_CommaKeyword_9_2_1_q;
+	protected AbstractElementAlias match_TimeSet_CommaKeyword_3_2_1_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -35,6 +37,8 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 		match_ResultTableHeader_VerticalLineKeyword_3_q = new TokenAlias(false, true, grammarAccess.getResultTableHeaderAccess().getVerticalLineKeyword_3());
 		match_SuiteDefinition___ConcludedbyKeyword_11_0_NLParserRuleCall_11_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getConcludedbyKeyword_11_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_11_1()));
 		match_SuiteDefinition___RequiresKeyword_10_0_NLParserRuleCall_10_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getRequiresKeyword_10_0()), new TokenAlias(false, false, grammarAccess.getSuiteDefinitionAccess().getNLParserRuleCall_10_1()));
+		match_Suite_CommaKeyword_9_2_1_q = new TokenAlias(false, true, grammarAccess.getSuiteAccess().getCommaKeyword_9_2_1());
+		match_TimeSet_CommaKeyword_3_2_1_q = new TokenAlias(false, true, grammarAccess.getTimeSetAccess().getCommaKeyword_3_2_1());
 	}
 	
 	@Override
@@ -82,6 +86,10 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 				emit_SuiteDefinition___ConcludedbyKeyword_11_0_NLParserRuleCall_11_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_SuiteDefinition___RequiresKeyword_10_0_NLParserRuleCall_10_1__q.equals(syntax))
 				emit_SuiteDefinition___RequiresKeyword_10_0_NLParserRuleCall_10_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_Suite_CommaKeyword_9_2_1_q.equals(syntax))
+				emit_Suite_CommaKeyword_9_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_TimeSet_CommaKeyword_3_2_1_q.equals(syntax))
+				emit_TimeSet_CommaKeyword_3_2_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -153,6 +161,34 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	 *     return+=SuiteReturnDefinition NL (ambiguity) ('concludedby' NL)? 'with' NL statements+=SuiteStatement
 	 */
 	protected void emit_SuiteDefinition___RequiresKeyword_10_0_NLParserRuleCall_10_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ','?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     variants+=[VariantDefinition|QualifiedName] (ambiguity) NL (rule end)
+	 *     variants+=[VariantDefinition|QualifiedName] (ambiguity) NL variants+=[VariantDefinition|QualifiedName]
+	 */
+	protected void emit_Suite_CommaKeyword_9_2_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     ','?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     forks+=[ForkDefinition|QualifiedName] (ambiguity) NL (rule end)
+	 *     forks+=[ForkDefinition|QualifiedName] (ambiguity) NL forks+=[ForkDefinition|QualifiedName]
+	 *     forks+=[ForkDefinition|QualifiedName] (ambiguity) NL masterFork='master'
+	 *     masterFork='master' (ambiguity) NL (rule end)
+	 *     masterFork='master' (ambiguity) NL forks+=[ForkDefinition|QualifiedName]
+	 *     masterFork='master' (ambiguity) NL masterFork='master'
+	 */
+	protected void emit_TimeSet_CommaKeyword_3_2_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -76,6 +76,8 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace().around(tempGrammar.getJavaConstantReferenceAccess().getNumberSignKeyword_1());
 		aConfig.setNoSpace().before(tempGrammar.getKeyValuePairAccess().getColonKeyword_2());
 		aConfig.setNoSpace().around(tempGrammar.getVariableAccess().getNumberSignKeyword_1_0());
+		aConfig.setNoSpace().before(tempGrammar.getTimeSetAccess().getCommaKeyword_3_2_1());
+		aConfig.setNoSpace().before(tempGrammar.getSuiteAccess().getCommaKeyword_9_2_1());
 
 		// No spaces before/after encapsulating <>
 		aConfig.setNoSpace().after(tempGrammar.getJavaConstantValueAccess().getLessThanSignKeyword_0());
@@ -92,6 +94,9 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		// No spaces before the 'T' divider in ISO date/time strings
 		aConfig.setNoSpace()
 				.after(tempGrammar.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0());
+
+		// No space before the 'x' at a timeset multiplier
+		aConfig.setNoSpace().before(tempGrammar.getTimeSetAccess().getXKeyword_2_1_2_3());
 
 		// Indentations
 		// Suites and Packages
