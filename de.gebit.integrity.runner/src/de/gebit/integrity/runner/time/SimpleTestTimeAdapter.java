@@ -7,6 +7,9 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.time;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import com.google.inject.Inject;
 
 import de.gebit.integrity.runner.IntegrityRunnerModule;
@@ -35,7 +38,13 @@ public class SimpleTestTimeAdapter implements TestTimeAdapter {
 	/**
 	 * The adapter provided by the system-under-test.
 	 */
-	protected TestTimeAdapter systemUnderTestAdapter;
+	protected Object systemUnderTestAdapter;
+
+	/**
+	 * The method used to access the adapter. If this is null, the {@link #systemUnderTestAdapter} was found to be an
+	 * implementation of {@link TestTimeAdapter} and thus can be called directly without Reflection.
+	 */
+	protected Method accessorMethod;
 
 	/**
 	 * The classloader to use when resolving {@link #SUT_TIME_ADAPTER_CLASS_PROPERTY}.
@@ -44,7 +53,7 @@ public class SimpleTestTimeAdapter implements TestTimeAdapter {
 	protected ClassLoader classLoader;
 
 	@Override
-	public void setTestTime(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
+	public void setInternalState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
 		if (systemUnderTestAdapter == null) {
 			String tempClass = System.getProperty(SUT_TIME_ADAPTER_CLASS_PROPERTY);
 			if (tempClass == null) {
@@ -56,13 +65,21 @@ public class SimpleTestTimeAdapter implements TestTimeAdapter {
 					Class<?> tempClazz = classLoader.loadClass(tempClass);
 
 					if (!TestTimeAdapter.class.isAssignableFrom(tempClazz)) {
-						throw new IllegalArgumentException("Test time adapter class '" + tempClass
-								+ "' does not implement '" + TestTimeAdapter.class.getName() + "' - see '"
-								+ getClass().getName() + "' and system property '" + SUT_TIME_ADAPTER_CLASS_PROPERTY
-								+ "' for more information regarding deterministic time/date handling.");
+						// Try a fallback - attempt to find the method via reflection
+						try {
+							accessorMethod = tempClazz.getMethod("setInternalState", long.class, long.class,
+									double.class);
+
+						} catch (NoSuchMethodException | SecurityException exc) {
+							throw new IllegalArgumentException("Test time adapter class '" + tempClass
+									+ "' does neither implement '" + TestTimeAdapter.class.getName()
+									+ "' nor does it at least have the method defined by that interface - see '"
+									+ getClass().getName() + "' and system property '" + SUT_TIME_ADAPTER_CLASS_PROPERTY
+									+ "' for more information regarding deterministic time/date handling.");
+						}
 					}
 
-					systemUnderTestAdapter = (TestTimeAdapter) tempClazz.newInstance();
+					systemUnderTestAdapter = tempClazz.newInstance();
 				} catch (ClassNotFoundException exc) {
 					throw new IllegalArgumentException("Did not find test time adapter " + tempClass, exc);
 				} catch (InstantiationException | IllegalAccessException exc) {
@@ -71,7 +88,17 @@ public class SimpleTestTimeAdapter implements TestTimeAdapter {
 			}
 		}
 
-		systemUnderTestAdapter.setTestTime(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor);
+		if (accessorMethod == null) {
+			((TestTimeAdapter) systemUnderTestAdapter).setInternalState(aRealtimeOffset, aRealtimeDecouplingTime,
+					aProgressionFactor);
+		} else {
+			try {
+				accessorMethod.invoke(systemUnderTestAdapter, aRealtimeOffset, aRealtimeDecouplingTime,
+						aProgressionFactor);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException exc) {
+				throw new IllegalArgumentException("Failed to invoke test time adapter " + systemUnderTestAdapter, exc);
+			}
+		}
 	}
 
 }

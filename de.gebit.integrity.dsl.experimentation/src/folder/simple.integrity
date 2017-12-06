@@ -72,9 +72,11 @@ packagedef mypackage with
 				
 		suite bsuite on fork1
 		
+		timeset live
+		
 		suite csuite on fork1
 		
-		suite bsuite on fork1	
+		suite bsuite on fork1
 		
 	suiteend
 	

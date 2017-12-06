@@ -33,6 +33,8 @@ public interface TestTimeAdapter {
 	 * time is intended to be frozen (if no progression factor or one of 0.0 is provided) or to progress at a certain
 	 * speed relative to real-time. From the provided parameters, an accurate test time can be calculated.<br>
 	 * <br>
+	 * If the realtime offset is zero and the progression factor is exactly 1.0, this means that the "fake test time" is
+	 * reverted to actual realtime.
 	 * 
 	 * @param aRealtimeOffset
 	 *            the offset of our test time from real system time (wall clock)
@@ -42,6 +44,6 @@ public interface TestTimeAdapter {
 	 *            the speed at which the test time should progress (1.0 is normal speed, progression factor may be
 	 *            negative too, or 0.0, which means time is frozen)
 	 */
-	void setTestTime(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor);
+	void setInternalState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor);
 
 }

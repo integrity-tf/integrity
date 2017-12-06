@@ -7,18 +7,15 @@
  *******************************************************************************/
 package de.gebit.integrity.dsl.experiments.time;
 
-import de.gebit.integrity.runner.time.TestTimeAdapter;
-
 /**
  * Dummy Test Time Adapter.
  *
  * @author Rene Schneider - initial API and implementation
  *
  */
-public class DummyTestTimeAdapter implements TestTimeAdapter {
+public class DummyTestTimeAdapter {
 
-	@Override
-	public void setTestTime(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
+	public void setInternalState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
 		System.out.println("==> Setting timekeeper state to realtime offset " + aRealtimeOffset + ", decoupling time "
 				+ aRealtimeDecouplingTime + " and progression factor " + aProgressionFactor);
 		// if (Math.random() < 0.5) {

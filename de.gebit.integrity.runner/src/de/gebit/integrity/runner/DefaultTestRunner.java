@@ -2843,7 +2843,8 @@ public class DefaultTestRunner implements TestRunner {
 		// These are the parameters used to actually calculate the fake test time in the individual systems under test
 		long tempRealtimeOffset = (aStartTime != null ? aStartTime.getTime() - System.currentTimeMillis() : 0);
 		long tempRealtimeDecouplingTime = System.currentTimeMillis();
-		double tempProgressionFactor = (aProgressionFactor != null ? aProgressionFactor.doubleValue() : 0.0d);
+		double tempProgressionFactor = (aProgressionFactor != null ? aProgressionFactor.doubleValue()
+				: (aStartTime == null ? 1.0d : 0.0d));
 
 		// These are used to collect result messages (typically in case of errors)
 		String tempMergedResultMessage = "";
@@ -2918,7 +2919,7 @@ public class DefaultTestRunner implements TestRunner {
 	protected ExceptionWrapper setTestTimeGuarded(long aRealtimeOffset, long aRealtimeDecouplingTime,
 			double aProgressionFactor) {
 		try {
-			testTimeAdapter.setTestTime(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor);
+			testTimeAdapter.setInternalState(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor);
 		} catch (Throwable exc) {
 			return new ExceptionWrapper(exc);
 		}
