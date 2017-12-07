@@ -329,6 +329,15 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			return null;
 		}
 
+		// It is possible that we arrive here with a single value, but still a target type that's an array. In that case
+		// we need to create the requested array, but it will only have one element.
+		if (aTargetType != null && aTargetType.isArray()) {
+			Object tempResultArray = Array.newInstance(aTargetType.getComponentType(), 1);
+			Array.set(tempResultArray, 0, convertSingleValueToTargetType(aTargetType.getComponentType(),
+					aParameterizedType, aValue, aConversionContext, someVisitedValues));
+			return tempResultArray;
+		}
+
 		Class<?> tempTargetType = transformPrimitiveTypes(aTargetType);
 		Class<?> tempSourceType = transformPrimitiveTypes(aValue.getClass());
 		String tempSourceTypeName = tempSourceType.getName();
