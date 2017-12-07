@@ -82,7 +82,9 @@ public final class SetListUtil {
 				if (tempSetups != null) {
 					tempTotal.addAll(tempSetups);
 				}
-				tempTotal.addAll(tempStatements);
+				if (tempStatements != null) {
+					tempTotal.addAll(tempStatements);
+				}
 				if (tempTeardowns != null) {
 					tempTotal.addAll(tempTeardowns);
 				}
