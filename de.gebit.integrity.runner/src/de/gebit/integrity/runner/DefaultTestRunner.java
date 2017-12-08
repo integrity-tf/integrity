@@ -157,6 +157,7 @@ import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.runner.time.TestTimeAdapter;
+import de.gebit.integrity.runner.time.TimeSyncState;
 import de.gebit.integrity.runner.wrapper.ExceptionWrapper;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
@@ -315,6 +316,11 @@ public class DefaultTestRunner implements TestRunner {
 	 * fine, but if forks die earlier, this set is used to detect that erroneous situation.
 	 */
 	protected Set<ForkDefinition> diedForks = new HashSet<ForkDefinition>();
+
+	/**
+	 * Maps forks to their (intended) timesync states.
+	 */
+	protected Map<ForkDefinition, TimeSyncState> forkTimeSyncStates = new HashMap<>();
 
 	/**
 	 * The original command line arguments, as given to the test runner by the test runner creator.
@@ -2819,10 +2825,22 @@ public class DefaultTestRunner implements TestRunner {
 		boolean tempMasterHasToSync = false;
 		List<Fork> tempTargetedForks = new ArrayList<Fork>();
 
+		// These are the parameters used to actually calculate the fake test time in the individual systems under test
+		long tempRealtimeDecouplingTime = System.currentTimeMillis();
+		long tempRealtimeOffset = (aStartTime != null ? aStartTime.getTime() - tempRealtimeDecouplingTime : 0);
+		double tempProgressionFactor = (aProgressionFactor != null ? aProgressionFactor.doubleValue()
+				: (aStartTime == null ? 1.0d : 0.0d));
+		TimeSyncState tempNewState = new TimeSyncState(tempRealtimeOffset, tempRealtimeDecouplingTime,
+				tempProgressionFactor);
+
 		if (someTargetedForks == null) {
 			// This should go to all forks, including the master
 			tempMasterHasToSync = true;
 			tempTargetedForks.addAll(forkMap.values());
+			forkTimeSyncStates.put(null, tempNewState);
+			for (ForkDefinition tempFork : model.getAllForks()) {
+				forkTimeSyncStates.put(tempFork, tempNewState);
+			}
 		} else {
 			for (String tempForkName : someTargetedForks) {
 				if (tempForkName == null) {
@@ -2831,6 +2849,7 @@ public class DefaultTestRunner implements TestRunner {
 				} else {
 					ForkDefinition tempForkDef = model.getForkByName(tempForkName);
 					if (tempForkDef != null) {
+						forkTimeSyncStates.put(tempForkDef, tempNewState);
 						Fork tempFork = forkMap.get(tempForkDef);
 						if (tempFork != null) {
 							tempTargetedForks.add(tempFork);
@@ -2839,12 +2858,6 @@ public class DefaultTestRunner implements TestRunner {
 				}
 			}
 		}
-
-		// These are the parameters used to actually calculate the fake test time in the individual systems under test
-		long tempRealtimeDecouplingTime = System.currentTimeMillis();
-		long tempRealtimeOffset = (aStartTime != null ? aStartTime.getTime() - tempRealtimeDecouplingTime : 0);
-		double tempProgressionFactor = (aProgressionFactor != null ? aProgressionFactor.doubleValue()
-				: (aStartTime == null ? 1.0d : 0.0d));
 
 		// These are used to collect result messages (typically in case of errors)
 		String tempMergedResultMessage = "";
@@ -3116,6 +3129,15 @@ public class DefaultTestRunner implements TestRunner {
 								tempFork.getClient().setupFork(model.getInMemoryResourceProviders(), setList,
 										variableManager.dumpVariableState(variantInExecution),
 										lastSuiteForFork.get(tempForkDef));
+
+								TimeSyncState tempTimeSyncState = forkTimeSyncStates.get(tempForkDef);
+								if (tempTimeSyncState != null) {
+									// This fork had a fake test time set before it was started. We need to provide that
+									// time to the fork now.
+									tempFork.getClient().sendTestTimeState(tempTimeSyncState.getRealtimeOffset(),
+											tempTimeSyncState.getRealtimeDecouplingTime(),
+											tempTimeSyncState.getProgressionFactor());
+								}
 							} catch (IOException exc1) {
 								throw new RuntimeException("Failed to read resource providers into memory", exc1);
 							}
