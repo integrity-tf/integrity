@@ -29,9 +29,11 @@ package de.gebit.integrity.runner.time;
 public interface TestTimeAdapter {
 
 	/**
-	 * Sets the current date and time that is to be used for the system under test. Depending on the parameters, the
-	 * time is intended to be frozen (if no progression factor or one of 0.0 is provided) or to progress at a certain
-	 * speed relative to real-time. From the provided parameters, an accurate test time can be calculated.<br>
+	 * Sets the internal state of an entity that can use this state to calculate a "fake" current date and time that is
+	 * to be used for the system under test. Depending on the parameters, the time is intended to be frozen (if no
+	 * progression factor or one of 0.0 is provided) or to progress at a certain speed relative to real-time. From the
+	 * provided parameters, an accurate test time can be calculated. For an example how this can be done, see
+	 * {@link TimeAndDateSingleton}.<br>
 	 * <br>
 	 * If the realtime offset is zero and the progression factor is exactly 1.0, this means that the "fake test time" is
 	 * reverted to actual realtime.
