@@ -26,6 +26,7 @@ Export-Package: de.gebit.integrity.runner,
  de.gebit.integrity.runner.results.call,
  de.gebit.integrity.runner.results.test,
  de.gebit.integrity.runner.variables,
+ de.gebit.integrity.runner.time,
  de.gebit.integrity.runner.wrapper,
  de.gebit.integrity.utils
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
