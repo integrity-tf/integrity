@@ -2841,8 +2841,8 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		// These are the parameters used to actually calculate the fake test time in the individual systems under test
-		long tempRealtimeOffset = (aStartTime != null ? aStartTime.getTime() - System.currentTimeMillis() : 0);
 		long tempRealtimeDecouplingTime = System.currentTimeMillis();
+		long tempRealtimeOffset = (aStartTime != null ? aStartTime.getTime() - tempRealtimeDecouplingTime : 0);
 		double tempProgressionFactor = (aProgressionFactor != null ? aProgressionFactor.doubleValue()
 				: (aStartTime == null ? 1.0d : 0.0d));
 
