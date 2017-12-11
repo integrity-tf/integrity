@@ -604,7 +604,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			tempResultEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG,
 					anErrorMessage == null ? Boolean.TRUE : Boolean.FALSE);
 			if (anExceptionStackTrace != null) {
-				tempEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION, anExceptionStackTrace);
+				tempResultEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION, anExceptionStackTrace);
 			}
 		}
 		setList.addReference(tempEntry, SetListEntryAttributeKeys.RESULT, tempResultEntry);

@@ -2086,6 +2086,22 @@ public class IntegrityTestRunnerView extends ViewPart {
 					}
 					resultLine1Name.setVisible(true);
 					break;
+				case TIMESET:
+					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
+						if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION) != null) {
+							resultLine1Name.setText("Exception occurred while setting the time:");
+							resultLine1Text.setText(
+									(String) tempResultEntry.getAttribute(SetListEntryAttributeKeys.EXCEPTION));
+							resultLine1Border.setForeground(resultExceptionColor);
+							showResultComposite(resultLine1Border, RESULT_TEXTFIELD_HEIGHT);
+						} else {
+							resultLine1Name.setText("Time was set successfully.");
+						}
+					} else {
+						resultLine1Name.setText("No result available - please run the tests first.");
+					}
+					resultLine1Name.setVisible(true);
+					break;
 				case VARIABLE_ASSIGNMENT:
 					List<SetListEntry> tempVarUpdates = setList.resolveReferences(tempResultEntry,
 							SetListEntryAttributeKeys.VARIABLE_UPDATES);

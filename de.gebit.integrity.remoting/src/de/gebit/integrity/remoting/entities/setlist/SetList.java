@@ -176,6 +176,7 @@ public class SetList implements Serializable {
 				}
 				return SetListEntryResultStates.UNKNOWN;
 			case CALL:
+			case TIMESET:
 				if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 					if (Boolean.TRUE
 							.equals(tempResultEntry.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG))) {
@@ -625,6 +626,7 @@ public class SetList implements Serializable {
 			case CALL:
 			case TABLETEST:
 			case VARIABLE_ASSIGNMENT:
+			case TIMESET:
 				return anEntry.getId() == entryInExecutionReference;
 			case SETUP:
 			case SUITE:

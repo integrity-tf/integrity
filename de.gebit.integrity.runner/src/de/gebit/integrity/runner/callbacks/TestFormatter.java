@@ -382,9 +382,10 @@ public class TestFormatter {
 	 * @return
 	 */
 	public String timeSetToHumanReadableString(TimeSet aTimeSet, List<ForkDefinition> someForks) {
-		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
-				new ConversionContext().withUnresolvableVariableHandlingPolicy(
-						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT));
+		String tempStartTime = aTimeSet.getStartTime() != null ? valueConverter.convertValueToString(
+				aTimeSet.getStartTime(), false, new ConversionContext().withUnresolvableVariableHandlingPolicy(
+						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
+				: null;
 		String tempProgressionFactor = aTimeSet.getProgressionFactor() != null
 				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
 						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
