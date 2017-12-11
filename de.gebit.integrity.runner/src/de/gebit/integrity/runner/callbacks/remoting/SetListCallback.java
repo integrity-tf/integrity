@@ -585,6 +585,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	public void onTimeSetStart(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks) {
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TIMESET);
 
+		addLinkToEntry(tempNewEntry, aTimeSet);
+
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.DESCRIPTION,
 				testFormatter.timeSetToHumanReadableString(aTimeSet, someForks));
 
