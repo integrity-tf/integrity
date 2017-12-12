@@ -1822,16 +1822,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addLineNumber(tempTimeSetElement, aTimeSet);
 		addCurrentTime(tempTimeSetElement);
 
-		tempTimeSetElement.setAttribute(TIME_TEXT_ATTRIBUTE,
+		setAttributeGuarded(tempTimeSetElement, TIME_TEXT_ATTRIBUTE,
 				testFormatter.timeSetToHumanReadableString(aTimeSet, someForks));
 		if (tempStartTime != null) {
-			tempTimeSetElement.setAttribute(TIME_START_ATTRIBUTE, tempStartTime);
+			setAttributeGuarded(tempTimeSetElement, TIME_START_ATTRIBUTE, tempStartTime);
 		}
 		if (tempProgressionFactor != null) {
-			tempTimeSetElement.setAttribute(TIME_PROGRESSION_FACTOR_ATTRIBUTE, tempProgressionFactor);
+			setAttributeGuarded(tempTimeSetElement, TIME_PROGRESSION_FACTOR_ATTRIBUTE, tempProgressionFactor);
 		}
 		if (tempForkNames != null) {
-			tempTimeSetElement.setAttribute(TIME_FORK_ATTRIBUTE, tempForkNames);
+			setAttributeGuarded(tempTimeSetElement, TIME_FORK_ATTRIBUTE, tempForkNames);
 		}
 
 		if (!isDryRun()) {
@@ -1850,8 +1850,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		Element tempTimeSetElement = new Element(TIME_SET_ELEMENT);
 
 		if (anErrorMessage != null) {
-			tempTimeSetElement.setAttribute(RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, anErrorMessage);
-			tempTimeSetElement.setAttribute(RESULT_EXCEPTION_TRACE_ATTRIBUTE, anExceptionStackTrace);
+			setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, anErrorMessage);
+			setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE, anExceptionStackTrace);
 		}
 
 		if (!isDryRun()) {
@@ -1882,7 +1882,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		Element tempActualTimeSetElement = stackPop();
 		// Merge the attributes of the two elements
 		for (Object tempAttribute : aTimeSetElement.getAttributes()) {
-			tempActualTimeSetElement.setAttribute(((Attribute) tempAttribute).getName(),
+			setAttributeGuarded(tempActualTimeSetElement, ((Attribute) tempAttribute).getName(),
 					((Attribute) tempAttribute).getValue());
 		}
 	}
