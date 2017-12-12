@@ -213,6 +213,13 @@ public class NoOpFixture {
 		throw new AbortExecutionException(aMessage);
 	}
 
+	@FixtureMethod(description = "Generates a string from the given char code")
+	public String generateCharacter(@FixtureParameter(name = "code") int aCharacterCode) {
+		String tempChar = Character.toString((char) aCharacterCode);
+		System.out.println("Character generated: " + tempChar);
+		return tempChar;
+	}
+
 	public enum Enum {
 
 		VALUE1,
