@@ -1,0 +1,12 @@
+packagedef integrity.basic.xmlresult with
+
+	suitedef specialChars with
+	
+		variable testvar
+		
+		// This tests the fix for issue #156: Illegal XML characters are not escaped when adding console output
+		call integrity.fixtures.basic.noop.generateCharacter code: 27 -> testvar
+	
+	suiteend
+
+packageend
