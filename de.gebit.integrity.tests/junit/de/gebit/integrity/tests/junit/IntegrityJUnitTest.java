@@ -70,6 +70,23 @@ public abstract class IntegrityJUnitTest {
 	 */
 	protected Document executeIntegritySuite(String[] someFileNames, String aSuiteName, String aVariantName)
 			throws ModelLoadException, IOException, JDOMException {
+		return executeIntegritySuite(someFileNames, aSuiteName, aVariantName, false);
+	}
+
+	/**
+	 * Runs a specified Integrity suite in a freshly started test runner. The result XML document is returned.
+	 * 
+	 * @param aSuiteName
+	 *            the name of the root suite
+	 * @param aCaptureConsoleFlag
+	 *            whether the console shall be captured
+	 * @return the result document
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	protected Document executeIntegritySuite(String[] someFileNames, String aSuiteName, String aVariantName,
+			boolean aCaptureConsoleFlag) throws ModelLoadException, IOException, JDOMException {
 		File tempXmlFile = null;
 
 		List<File> tempFileList = new ArrayList<File>();
@@ -92,10 +109,10 @@ public abstract class IntegrityJUnitTest {
 
 			TestRunnerCallback tempCallback = new CompoundTestRunnerCallback(new ConsoleTestCallback(),
 					new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile, "Integrity JUnit Testing",
-							TransformHandling.NO_TRANSFORM, false));
+							TransformHandling.NO_TRANSFORM, aCaptureConsoleFlag));
 
-			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, getParameterizedConstantValues(),
-					null, null, null, null);
+			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, getParameterizedConstantValues(), null,
+					null, null, null);
 			tempRunner.run(tempModel.getSuiteByName(aSuiteName), tempModel.getVariantByName(aVariantName), false);
 			tempRunner.shutdown(true);
 
