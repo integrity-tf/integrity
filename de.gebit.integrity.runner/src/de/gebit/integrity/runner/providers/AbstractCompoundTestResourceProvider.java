@@ -27,7 +27,7 @@ public abstract class AbstractCompoundTestResourceProvider implements TestResour
 	/**
 	 * The resource providers wrapped by this compound provider.
 	 */
-	private List<TestResourceProvider> resourceProviders;
+	protected List<TestResourceProvider> resourceProviders;
 
 	/**
 	 * Creates a new compound provider, wrapping the given resource providers.
