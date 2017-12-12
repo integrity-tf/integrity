@@ -91,5 +91,7 @@ packagedef integrity.fixtures.basic.noop with
 	calldef throwAbortException uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#throwAbortException
 	testdef throwAbortExceptionTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#throwAbortException
 	
+	calldef generateCharacter uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateCharacter
+	
 
 packageend
