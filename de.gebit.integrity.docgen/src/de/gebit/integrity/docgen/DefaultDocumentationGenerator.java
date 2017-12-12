@@ -80,6 +80,10 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		Collections.sort(tempPackages);
 		System.out.println("done!");
 
+		System.out.print("Copying static resources...");
+		copyResources(targetDirectory);
+		System.out.println("done!");
+
 		// Write out the package tree view document
 		System.out.print("Writing package tree...");
 		TreeDataBuilder tempTreeBuilder = new TreeDataBuilder(tempPackages);
@@ -104,10 +108,6 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 			}
 			System.out.println("done!");
 		}
-
-		System.out.print("Copying static resources...");
-		copyResources(targetDirectory);
-		System.out.println("done!");
 
 		System.out.print("Finalizing Lunr index...");
 		tempIndexBuilder.build(new File(targetDirectory, "resources/js/index.js"));
