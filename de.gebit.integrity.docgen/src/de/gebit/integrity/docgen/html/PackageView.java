@@ -29,6 +29,7 @@ import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
@@ -205,7 +206,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 				HtmlDiv<?> tempSuiteDetailsDiv = tempSuiteDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
 				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
 						tempSuite.getDocumentation(),
-						modelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()));
+						modelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()), false);
 				attachFormattedDocumentationText(tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
 						tempParsedComment.getDocumentationTextElements());
 
@@ -220,6 +221,20 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 						HtmlTr<?> tempRow = tempParamTable.tr();
 						tempRow.td().classAttr(CSSClasses.CODE).text(tempParameter.getName().getName());
 						tempRow.td().text(tempParamDoc != null ? tempParamDoc : "");
+					}
+				}
+
+				if (tempSuite.getReturn().size() > 0) {
+					HtmlDiv<?> tempSuiteResultsDiv = tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYPARAMS);
+					tempSuiteResultsDiv.div().classAttr(CSSClasses.DETAILSTITLE).text("Returns");
+					HtmlTable<?> tempResultsTable = tempSuiteResultsDiv.table();
+
+					for (SuiteReturnDefinition tempReturn : tempSuite.getReturn()) {
+						String tempName = tempReturn.getName().getName();
+
+						String tempDocumentation = tempParsedComment == null ? null
+								: tempParsedComment.getResultDocumentationTexts().getOrDefault(tempName, "");
+						tempResultsTable.addChild(createParameterRow(tempName, false, null, tempDocumentation));
 					}
 				}
 			}
@@ -602,7 +617,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 */
 	protected HtmlTr<?> createParameterRow(String aParamName, boolean aMandatory, JvmType aType,
 			String aDocumentation) {
-		String tempTypeName = (aType != null ? JavaTypeUtil.getReadableJavaTypeName(aType) : "(unknown type)");
+		String tempTypeName = (aType != null ? JavaTypeUtil.getReadableJavaTypeName(aType) : "");
 
 		HtmlTr<?> tempRow = new HtmlTr<>();
 		if (aParamName != null) {

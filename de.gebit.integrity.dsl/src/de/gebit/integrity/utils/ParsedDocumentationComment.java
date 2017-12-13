@@ -112,10 +112,28 @@ public class ParsedDocumentationComment {
 	 */
 	public ParsedDocumentationComment(DocumentationComment aComment, ModelSourceInformationElement aModelSourceInfo)
 			throws ParseException {
+		// Unnamed results are allowed by default
+		this(aComment, aModelSourceInfo, true);
+	}
+
+	/**
+	 * Parses a given {@link DocumentationComment} and extracts the documentation info.
+	 * 
+	 * @param aComment
+	 *            the comment element to be parsed
+	 * @param aModelSourceInfo
+	 *            the information about the source of the element, if available
+	 * @param anAllowUnnamedResultsFlag
+	 *            whether to apply a heuristic in determining if we have an unnamed result (false = all results named)
+	 * @throws ParseException
+	 *             in case of parsing errors
+	 */
+	public ParsedDocumentationComment(DocumentationComment aComment, ModelSourceInformationElement aModelSourceInfo,
+			boolean anAllowUnnamedResultsFlag) throws ParseException {
 		origin = aComment;
 		sourceInfo = aModelSourceInfo;
 
-		parse(aComment.getContent(), aModelSourceInfo);
+		parse(aComment.getContent(), aModelSourceInfo, anAllowUnnamedResultsFlag);
 	}
 
 	/**
@@ -125,11 +143,14 @@ public class ParsedDocumentationComment {
 	 *            the string to be parsed, right from the model element
 	 * @param aModelSourceInfo
 	 *            the information about the source of the element, if available
+	 * @param anAllowUnnamedResultsFlag
+	 *            whether to apply a heuristic in determining if we have an unnamed result (false = all results named)
 	 * @throws ParseException
 	 *             in case of parsing errors
 	 */
 	@SuppressWarnings("unchecked")
-	protected void parse(String aCommentString, ModelSourceInformationElement aModelSourceInfo) throws ParseException {
+	protected void parse(String aCommentString, ModelSourceInformationElement aModelSourceInfo,
+			boolean anAllowUnnamedResultsFlag) throws ParseException {
 		String tempCommentString = aCommentString.trim();
 
 		if (!tempCommentString.startsWith(COMMENT_START)) {
@@ -215,18 +236,23 @@ public class ParsedDocumentationComment {
 			}
 		}
 
-		List<String> tempResultDocs = tempTags.getOrDefault(DOCUMENTATION_TAG_RESULT,
-				(List<String>) Collections.EMPTY_LIST);
+		List<String> tempResultDocs = new ArrayList<String>();
+		tempResultDocs.addAll(tempTags.getOrDefault(DOCUMENTATION_TAG_RESULT, (List<String>) Collections.EMPTY_LIST));
 		tempResultDocs.addAll(tempTags.getOrDefault(DOCUMENTATION_TAG_RETURN, (List<String>) Collections.EMPTY_LIST));
 		for (String tempResultLine : tempResultDocs) {
 			String tempNamedResultName = null;
 			String tempResultDocumentation = tempResultLine;
-
-			// This could be a named result. Those have the result name in the beginning, followed by mandatory ':'
 			String[] tempParts = tempResultLine.split("\\s+", 2);
-			if (tempParts.length == 2) {
-				if (tempParts[0].endsWith(":")) {
-					tempNamedResultName = tempParts[0].substring(0, tempParts[0].length() - 1);
+
+			if ((anAllowUnnamedResultsFlag && tempResultDocs.size() == 1) || tempParts.length == 1) {
+				// If we allow an unnamed result and there is only one result documented, assume it is the unnamed
+				// result. Also assume that if the line cannot be splitted because there are no spaces. We do not need
+				// to do anything here in cases of unnamed results.
+			} else {
+				// This is assumed to be a named result. Those have the result name in the beginning.
+				if (tempParts.length == 2) {
+					tempNamedResultName = tempParts[0].substring(0,
+							tempParts[0].length() - (tempParts[0].endsWith(":") ? 1 : 0));
 					tempResultDocumentation = tempParts[1];
 				}
 			}
