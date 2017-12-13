@@ -80,9 +80,3 @@ packagedef mypackage with
 	variable dummy initially 2
 
 packageend
-
-packagedef mypackage.deeper with
-
-	variable yeah initially 10
-
-packageend

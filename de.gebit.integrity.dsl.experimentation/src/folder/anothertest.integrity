@@ -1,9 +1,0 @@
-packagedef otherpackage2 with
-
-	suitedef testsuite with
-	
-		variable blahvar1 initially mypackage.packagevar
-	
-	suiteend
-
-packageend

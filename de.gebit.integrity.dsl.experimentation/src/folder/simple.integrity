@@ -3,72 +3,83 @@ import mysecondpackage.*
 
 /**
 * This is a package. <br>
-* <p><b>Yeah!</b></p>
+* <p><b>And it even has documentation!</b></p>
 */
 packagedef mypackage with
 	
 	/**
-	* Woohoo!
+	* This is the first and only fork defined in this package!
 	*/
 	forkdef fork1
-	forkdef fork2
-	forkdef fork3
 	
 	/**
-	 * A Variant.
+	 * A language variant for Germany.
 	 */
 	variantdef deDE
+	
+	/**
+	 * A language variant for the United States.
+	 */
 	variantdef enUS
 		
 	variable testString initially "test"
 	
 	constant testConstant "abc"
+	
 	private constant anotherConstant 12.245
+	
 	constant complexConstant {
 		someKey: "someValue"
 		someMoreKeys: 123
-	}, "Blahblub Yeah Yeah Yeah"
+	}, "Blahblub"
 	
+	/**
+	 * Here we have a language-dependent constant.
+	 */
 	private constant languageString "???"
 		in deDE: "Die deutsche Version"
 		in enUS: "The english version", "Another english version"
 	
 	/**
-	* A constant with a funny name.
-	* And a multi-line comment.
-	*
-	* - And it also has some lists
-	* - With items 
-	*/
+	 * A constant with a funny name.<br>
+	 * <ul>
+	 * <li>And it also has some lists</li>
+	 * <li>With items</li>
+	 * </ul> 
+	 */
 	private constant woohoo parameterized
-	
-	variable returnVar
 
 	/**
-	* Blah Blub Yeah <i>123.123.</i><br>
-	* And a <b>multi-line</b> comment.
-	* <p>There is even a paragraph!
-	* <h1>And a big header!</h1>
-	* <h2>Small header as well</h2>
-	* <ul>
-	* <li>And it also has some lists
-	* <li><strong>With items</strong></li>
-	* </ul>
-	* <ol><li>first</li><li>second</li><li>third</li></ol>
-	* @param testParameter The first parameter that this suite gets
-	* @param anotherParameter
-	* 				This is the second parameter
-	* @param nonexistentParameter
-	* 				This one doesn't exist
-	*/
-	suitedef asuite with
+	 * This is the suite that's usually started for <i>experimentation</i>.<br>
+	 * It has a <b>multi-line</b> comment.
+	 * <p>There is even a paragraph!
+	 * <h1>And a big header!</h1>
+	 * <h2>Small header as well</h2>
+	 * <ul>
+	 * <li>And it also has some more lists
+	 * <li><strong>With items</strong></li>
+	 * </ul>
+	 * <ol><li>first</li><li>second</li><li>third</li></ol>
+	 * @param testParameter The first parameter that this suite gets
+	 * @param anotherParameter
+	 * 				This is the second parameter
+	 * @return aResult
+	 *              The result that is returned by this suite
+	 */
+	suitedef asuite gets testParameter anotherParameter returns aResult with
 		
+		// Sets date/time on all forks and the master process (= the one that starts all forks) to a specific, frozen date and time 00:00:00
 		timeset 12.10.2001
 		
-		suite bsuite on fork1
-		suite bsuite on fork2 in deDE, enUS
+		// Sets date/time on a specific fork to a specific time, but lets it progress afterwards with 3x normal speed
+		timeset 10.10.2001 15:30:01 progressing 3x on fork1
 		
-		timeset 10.10.2001 15:30:01 progressing 3x on fork1, fork2
+		// Sets date/time on the master process to a specific ISO-formatted time
+		timeset 2003-10-16T20:00:00+0200 on master
+		
+		// Resets date/time on all forks and the master to live system date/time
+		timeset live
+		
 				
 		suite bsuite on fork1
 		
@@ -94,4 +105,11 @@ packagedef mypackage with
 	
 	suiteend
 	
+packageend
+
+
+packagedef mypackage.deeperPackage with
+
+	constant someUnusedConstantJustSoThereIsSomethingInThisPackage
+
 packageend
