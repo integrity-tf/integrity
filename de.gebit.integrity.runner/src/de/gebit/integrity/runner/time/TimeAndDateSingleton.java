@@ -48,8 +48,7 @@ public final class TimeAndDateSingleton implements TestTimeAdapter {
 	}
 
 	/**
-	 * <h2>ONLY FOR TEST PURPOSES</h2> Configure a progressing date, starting at a certain start date, which then
-	 * progresses at a configurable speed.
+	 * Configure a progressing date, starting at a certain start date, which then progresses at a configurable speed.
 	 * 
 	 * @param aDate
 	 *            the start date
@@ -61,8 +60,8 @@ public final class TimeAndDateSingleton implements TestTimeAdapter {
 	}
 
 	/**
-	 * <h2>ONLY FOR TEST PURPOSES</h2> Change the progression factor of time. This only has an effect if the date was
-	 * configured to a progressing date before by calling {@link #setProgressingDate(Date, double)}.
+	 * Change the progression factor of time. This only has an effect if the date was configured to a progressing date
+	 * before by calling {@link #setProgressingDate(Date, double)}.
 	 * 
 	 * @param aTimeProgressionFactor
 	 *            the speed at which time progresses (1.0 is "realtime").
@@ -74,7 +73,7 @@ public final class TimeAndDateSingleton implements TestTimeAdapter {
 	}
 
 	/**
-	 * <h2>ONLY FOR TEST PURPOSES</h2> Sets the "current date" to a static date.
+	 * Sets the "current date" to a static date.
 	 * 
 	 * @param aDate
 	 *            the static date to set (null resets the date to the actual date; see also {@link #reset()})
@@ -88,16 +87,14 @@ public final class TimeAndDateSingleton implements TestTimeAdapter {
 	}
 
 	/**
-	 * <h2>ONLY FOR TEST PURPOSES</h2> Resets any configured static or progressing date. The singleton will then return
-	 * the actual date again.
+	 * Resets any configured static or progressing date. The singleton will then return the actual date again.
 	 */
 	public void reset() {
 		timeKeeper = null;
 	}
 
 	/**
-	 * <h2>ONLY FOR TEST PURPOSES</h2> Directly sets the internal values of the timekeeper. Intended to be used by the
-	 * Integrity Test Framework.
+	 * Directly sets the internal values of the timekeeper. Intended to be used by the Integrity Test Framework.
 	 * 
 	 * @param aRealtimeOffset
 	 * @param aRealtimeDecouplingTime
