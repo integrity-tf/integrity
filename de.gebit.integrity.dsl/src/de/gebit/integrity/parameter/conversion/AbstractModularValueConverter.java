@@ -40,6 +40,7 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.operations.custom.CustomOperationWrapper;
 import de.gebit.integrity.operations.standard.StandardOperationProcessor;
 import de.gebit.integrity.parameter.conversion.Conversion.Priority;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.AbstractNestedObjectToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.ObjectToObject;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
@@ -252,10 +253,28 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			Object tempResultArray;
 			if (aValue.getClass().isArray()) {
 				// both are arrays
+
+				// Just in case there's a nested object path property set in our conversion context: we need to extend
+				// that property by the position within the array, and reset it later to the original plain value. This
+				// is necessary to distinguish between array elements when converting to formatted strings (there's
+				// highlighting being added based on these paths). In all other conversion cases it at least doesn't
+				// hurt.
+				String tempBaseObjectPath = (String) aConversionContext
+						.getProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY);
+
 				tempResultArray = Array.newInstance(tempActualParamType, Array.getLength(aValue));
 				for (int i = 0; i < Array.getLength(aValue); i++) {
+					if (tempBaseObjectPath != null) {
+						aConversionContext.withProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY,
+								tempBaseObjectPath + "#" + i);
+					}
 					Array.set(tempResultArray, i, convertPlainValueToTargetType(tempActualParamType, aParameterizedType,
 							Array.get(aValue, i), aConversionContext, someVisitedValues));
+				}
+
+				if (tempBaseObjectPath != null) {
+					aConversionContext.withProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY,
+							tempBaseObjectPath);
 				}
 			} else {
 				// target is an array, but value is a single value
@@ -289,9 +308,24 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						tempTargetArrayType = tempKey.getTargetType();
 					}
 
+					// Just in case there's a nested object path property set in our conversion context: we need to
+					// extend
+					// that property by the position within the array, and reset it later to the original plain value.
+					// This
+					// is necessary to distinguish between array elements when converting to formatted strings (there's
+					// highlighting being added based on these paths). In all other conversion cases it at least doesn't
+					// hurt.
+					String tempBaseObjectPath = (String) aConversionContext
+							.getProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY);
+
 					Object tempArray = Array.newInstance(tempTargetArrayType, Array.getLength(aValue));
 
 					for (int i = 0; i < Array.getLength(aValue); i++) {
+						if (tempBaseObjectPath != null) {
+							aConversionContext.withProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY,
+									tempBaseObjectPath + "#" + i);
+						}
+
 						Object tempConvertedValue = convertSingleValueToTargetType(aTargetType, aParameterizedType,
 								Array.get(aValue, i), aConversionContext, someVisitedValues);
 
@@ -307,6 +341,11 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 						}
 
 						Array.set(tempArray, i, tempConvertedValue);
+					}
+
+					if (tempBaseObjectPath != null) {
+						aConversionContext.withProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY,
+								tempBaseObjectPath);
 					}
 
 					return tempArray;
@@ -600,14 +639,33 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 
 		if (aCollection.getMoreValues() != null && aCollection.getMoreValues().size() > 0) {
-			// this is actually an array
+			// this is actually an array, so we need to iterate over all the values
+
+			// Just in case there's a nested object path property set in our conversion context: we need to extend
+			// that property by the position within the array, and reset it later to the original plain value. This
+			// is necessary to distinguish between array elements when converting to formatted strings (there's
+			// highlighting being added based on these paths). In all other conversion cases it at least doesn't hurt.
+			String tempBaseObjectPath = (String) aConversionContext
+					.getProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY);
+
 			Object tempResultArray = Array.newInstance(tempTargetArrayType, aCollection.getMoreValues().size() + 1);
 			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
+				if (tempBaseObjectPath != null) {
+					aConversionContext.withProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY,
+							tempBaseObjectPath + "#" + i);
+				}
+
 				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue()
 						: aCollection.getMoreValues().get(i - 1));
 				Object tempResultValue = convertEncapsulatedValueToTargetType(tempTargetType, aParameterizedType,
 						tempValue, aConversionContext, someVisitedValues);
 				Array.set(tempResultArray, i, tempResultValue);
+			}
+
+			if (tempBaseObjectPath != null) {
+				// Here the resetting of the nested object path is done
+				aConversionContext.withProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY,
+						tempBaseObjectPath);
 			}
 
 			// now we need to see whether we're even allowed to return an array

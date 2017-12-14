@@ -423,10 +423,10 @@ public class DefaultResultComparator implements ResultComparator {
 								if (tempInnerResult instanceof MapComparisonResult) {
 									for (String tempSubPath : ((MapComparisonResult) tempInnerResult)
 											.getFailedPaths()) {
-										tempCombinedFailedPaths.add(tempEntry.getKey() + "." + tempSubPath);
+										tempCombinedFailedPaths.add(tempEntry.getKey() + "#" + i + "." + tempSubPath);
 									}
 								} else {
-									tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+									tempCombinedFailedPaths.add(tempEntry.getKey() + "#" + i);
 								}
 								break;
 							}

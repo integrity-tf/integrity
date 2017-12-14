@@ -43,7 +43,7 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 	/**
 	 * The property in the {@link ConversionContext} used to transport the path in the map.
 	 */
-	protected static final String NESTEDOBJECT_PATH_PROPERTY = "path";
+	public static final String NESTEDOBJECT_PATH_PROPERTY = "path";
 
 	/**
 	 * Converts the provided {@link NestedObject} to a {@link FormattedString}.
@@ -77,9 +77,10 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 						+ IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempAttribute);
 				aConversionContext.withProperty(NESTEDOBJECT_PATH_PROPERTY, tempCurrentObjectPath);
 
-				boolean tempCurrentPathFailed = (aConversionContext.getComparisonResult() instanceof MapComparisonResult)
-						&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths().contains(
-								tempCurrentObjectPath);
+				boolean tempCurrentEntirePathFailed = (aConversionContext
+						.getComparisonResult() instanceof MapComparisonResult)
+						&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths()
+								.contains(tempCurrentObjectPath);
 
 				Object tempConvertedValue;
 				try {
@@ -110,24 +111,38 @@ public abstract class AbstractNestedObjectToString<T> extends Conversion<NestedO
 						if (i > 0) {
 							tempConvertedValueStringBuffer.add(", ");
 						}
+
+						boolean tempCurrentSingleElementPathFailed = !tempCurrentEntirePathFailed
+								&& (aConversionContext.getComparisonResult() instanceof MapComparisonResult)
+								&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths()
+										.contains(tempCurrentObjectPath + "#" + i);
+
+						if (tempCurrentSingleElementPathFailed) {
+							tempConvertedValueStringBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_START));
+							tempConvertedValueStringBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_START));
+						}
 						Object tempSingleArrayValue = Array.get(tempConvertedValue, i);
 						if (tempSingleArrayValue instanceof FormattedString) {
 							tempConvertedValueStringBuffer.add((FormattedString) tempSingleArrayValue);
 						} else {
-							tempConvertedValueStringBuffer.add(tempSingleArrayValue != null ? tempSingleArrayValue
-									.toString() : "null");
+							tempConvertedValueStringBuffer
+									.add(tempSingleArrayValue != null ? tempSingleArrayValue.toString() : "null");
+						}
+						if (tempCurrentSingleElementPathFailed) {
+							tempConvertedValueStringBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_END));
+							tempConvertedValueStringBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_END));
 						}
 					}
 				}
 
 				tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
-				if (tempCurrentPathFailed) {
+				if (tempCurrentEntirePathFailed) {
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_START));
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_START));
 				}
 				tempBuffer.add(IntegrityDSLUtil.getIdentifierFromKeyValuePair(tempAttribute) + " = ");
 				tempBuffer.add(tempConvertedValueStringBuffer);
-				if (tempCurrentPathFailed) {
+				if (tempCurrentEntirePathFailed) {
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_END));
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_END));
 				}
