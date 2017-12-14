@@ -86,7 +86,7 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 						+ tempEntry.getKey();
 				aConversionContext.withProperty(MAP_PATH_PROPERTY, tempCurrentMapPath);
 
-				boolean tempCurrentPathFailed = (aConversionContext
+				boolean tempCurrentEntirePathFailed = (aConversionContext
 						.getComparisonResult() instanceof MapComparisonResult)
 						&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths()
 								.contains(tempCurrentMapPath);
@@ -106,18 +106,32 @@ public abstract class AbstractMapToString<T> extends Conversion<Map, T> {
 						if (i > 0) {
 							tempInnerBuffer.add(new FormattedStringElement(", "));
 						}
+
+						boolean tempCurrentSingleElementPathFailed = !tempCurrentEntirePathFailed
+								&& (aConversionContext.getComparisonResult() instanceof MapComparisonResult)
+								&& ((MapComparisonResult) aConversionContext.getComparisonResult()).getFailedPaths()
+										.contains(tempCurrentMapPath + "#" + i);
+
+						if (tempCurrentSingleElementPathFailed) {
+							tempInnerBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_START));
+							tempInnerBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_START));
+						}
 						tempInnerBuffer.add(tempConvertedValues[i]);
+						if (tempCurrentSingleElementPathFailed) {
+							tempInnerBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_END));
+							tempInnerBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_END));
+						}
 					}
 				}
 
 				tempBuffer.addMultiple(new FormatTokenElement(FormatTokenType.TAB), tempDepth);
-				if (tempCurrentPathFailed) {
+				if (tempCurrentEntirePathFailed) {
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_START));
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_START));
 				}
 				tempBuffer.add(tempEntry.getKey() + " = ");
 				tempBuffer.add(tempInnerBuffer);
-				if (tempCurrentPathFailed) {
+				if (tempCurrentEntirePathFailed) {
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.BOLD_END));
 					tempBuffer.add(new FormatTokenElement(FormatTokenType.UNDERLINE_END));
 				}
