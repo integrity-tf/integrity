@@ -1,0 +1,32 @@
+import integrity.fixtures.basic.beans.*
+
+packagedef integrity.basic.beans with
+	
+	suitedef beanBehindConstantTest with
+		
+		constant rightBean {
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.99
+				}
+			}
+		
+		constant wrongBean {
+				firstParameter: "string"
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.98
+				}
+			}
+		
+		
+		-- This should succeed
+		test createSimpleBeanUntyped = rightBean
+		
+		-- This should fail
+		test createSimpleBeanUntyped = wrongBean
+		
+	suiteend
+
+packageend
