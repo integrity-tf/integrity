@@ -239,44 +239,44 @@ public class DefaultResultComparator implements ResultComparator {
 		Object tempConvertedExpectedResult;
 		Object tempConvertedFixtureResult = aSingleFixtureResult;
 
-		if (((aSingleExpectedResult instanceof NestedObject) || (aSingleExpectedResult instanceof TypedNestedObject))
-				&& !(aSingleFixtureResult instanceof Map)) {
+		// First we need to sort out the case that the expected result is a variable or operation. If we don't resolve
+		// those, we may not find maps or nested objects or whatever hidden behind them.
+		Object tempSingleExpectedResult = aSingleExpectedResult;
+		if ((aSingleExpectedResult instanceof Variable) || (aSingleExpectedResult instanceof CustomOperation)) {
+			try {
+				tempSingleExpectedResult = parameterResolver.resolveSingleParameterValue(aSingleExpectedResult,
+						UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			} catch (InstantiationException exc) {
+				throw new UnexecutableException("Failed to resolve an operation", exc);
+			} catch (ClassNotFoundException exc) {
+				throw new UnexecutableException("Failed to resolve an operation", exc);
+			}
+		}
+
+		if (((tempSingleExpectedResult instanceof NestedObject)
+				|| (tempSingleExpectedResult instanceof TypedNestedObject)) && !(aSingleFixtureResult instanceof Map)) {
 			// if the expected result is a (typed) nested object, and the fixture has NOT returned a
 			// map, we assume the fixture result to be a bean class/instance. We'll convert both to maps
 			// for comparison!
 			NestedObject tempNestedObject;
-			if (aSingleExpectedResult instanceof TypedNestedObject) {
-				tempNestedObject = ((TypedNestedObject) aSingleExpectedResult).getNestedObject();
+			if (tempSingleExpectedResult instanceof TypedNestedObject) {
+				tempNestedObject = ((TypedNestedObject) tempSingleExpectedResult).getNestedObject();
 			} else {
-				tempNestedObject = (NestedObject) aSingleExpectedResult;
+				tempNestedObject = (NestedObject) tempSingleExpectedResult;
 			}
 
 			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult, null);
 			tempConvertedExpectedResult = valueConverter.convertValue(Map.class, tempNestedObject, null);
 		} else {
-			// Two special bean-related cases still may apply: expected result may be a map, or a variable or custom
-			// operation which results in a map when resolving. We now check for those.
-			Object tempPossibleMapAsSingleExpectedResult = aSingleExpectedResult;
-			if ((aSingleExpectedResult instanceof Variable) || (aSingleExpectedResult instanceof CustomOperation)) {
-				try {
-					tempPossibleMapAsSingleExpectedResult = parameterResolver.resolveSingleParameterValue(
-							aSingleExpectedResult, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
-				} catch (InstantiationException exc) {
-					throw new UnexecutableException("Failed to resolve an operation", exc);
-				} catch (ClassNotFoundException exc) {
-					throw new UnexecutableException("Failed to resolve an operation", exc);
-				}
-			}
-
-			if (tempPossibleMapAsSingleExpectedResult instanceof Map && !(aSingleFixtureResult instanceof Map)) {
+			if (tempSingleExpectedResult instanceof Map && !(aSingleFixtureResult instanceof Map)) {
 				// if the expected result is a map, and the fixture has NOT returned a map, we also assume the fixture
 				// result to be a bean class/instance. But we only need to convert that to a map for comparison.
 				tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult, null);
-				tempConvertedExpectedResult = tempPossibleMapAsSingleExpectedResult;
+				tempConvertedExpectedResult = tempSingleExpectedResult;
 			} else {
 				// no special bean-related cases apply: convert the expected result to match the given fixture result
-				tempConvertedExpectedResult = valueConverter.convertValue(aConversionTargetType, aSingleExpectedResult,
-						null);
+				tempConvertedExpectedResult = valueConverter.convertValue(aConversionTargetType,
+						tempSingleExpectedResult, null);
 			}
 		}
 
