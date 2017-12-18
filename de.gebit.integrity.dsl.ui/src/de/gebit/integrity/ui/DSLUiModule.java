@@ -16,6 +16,8 @@ import org.eclipse.xtext.formatting.IWhitespaceInformationProvider;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.contentassist.IContentProposalPriorities;
 import org.eclipse.xtext.ui.editor.contentassist.PrefixMatcher;
+import org.eclipse.xtext.ui.editor.doubleClicking.DoubleClickStrategyProvider;
+import org.eclipse.xtext.ui.editor.doubleClicking.LexerTokenAndCharacterPairAwareStrategy;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
 import org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.AbstractAntlrTokenToAttributeIdMapper;
@@ -29,6 +31,7 @@ import de.gebit.integrity.ui.documentation.IntegrityEObjectHoverProvider;
 import de.gebit.integrity.ui.formatting.DSLWhitespaceInformationProvider;
 import de.gebit.integrity.ui.highlighting.DSLAntlrTokenToAttributeIdMapper;
 import de.gebit.integrity.ui.highlighting.DSLHighlightingConfiguration;
+import de.gebit.integrity.ui.highlighting.DSLLexerTokenAndCharacterPairAwareStrategy;
 import de.gebit.integrity.ui.highlighting.DSLSemanticHighlightingCalculator;
 import de.gebit.integrity.ui.linking.DefaultIntegrityURLResolver;
 import de.gebit.integrity.ui.linking.IntegrityURLResolver;
@@ -154,5 +157,14 @@ public class DSLUiModule extends de.gebit.integrity.ui.AbstractDSLUiModule {
 	 */
 	public Class<? extends IContentProposalPriorities> bindContentProposalPriorities() {
 		return DSLContentProposalPriorities.class;
+	}
+
+	/**
+	 * Defines our custom {@link DoubleClickStrategyProvider} implementation.
+	 * 
+	 * @return
+	 */
+	public Class<? extends LexerTokenAndCharacterPairAwareStrategy> bindLexerTokenAndCharacterPairAwareStrategy() {
+		return DSLLexerTokenAndCharacterPairAwareStrategy.class;
 	}
 }
