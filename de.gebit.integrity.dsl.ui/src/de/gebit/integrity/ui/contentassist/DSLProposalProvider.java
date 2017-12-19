@@ -1260,6 +1260,12 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		EObject tempDocumentedStatement = null;
 		boolean tempNextOneIsIt = false;
 		if (aModel instanceof PackageDefinition) {
+			if (aContext.getPreviousModel() == aModel) {
+				// Special case, seems to appear if we are at the first statement of a non-first package. In that case,
+				// the first statement in our package is the one we're interested in.
+				tempNextOneIsIt = true;
+			}
+
 			for (PackageStatement tempStatement : ((PackageDefinition) aModel).getStatements()) {
 				if (tempNextOneIsIt) {
 					tempDocumentedStatement = tempStatement;
