@@ -128,8 +128,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			if (tempForkDef.getForkerClass() != null
 					&& (tempForkDef.getForkerClass().getType() instanceof JvmGenericType)) {
 				ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-				List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil
-						.getAllParamNamesFromForker((JvmGenericType) tempForkDef.getForkerClass().getType());
+				List<ParamAnnotationTypeTriplet> tempParamList = IntegrityDSLUtil.getAllParamNamesFromFork(tempForkDef);
 
 				for (ParamAnnotationTypeTriplet tempParam : tempParamList) {
 					tempList.add(EObjectDescription.create(tempParam.getParamName(), tempParam.getAnnotation()));
