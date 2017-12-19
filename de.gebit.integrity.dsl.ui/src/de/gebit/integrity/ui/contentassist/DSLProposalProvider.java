@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
@@ -28,6 +29,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClassFile;
 import org.eclipse.jdt.internal.core.CompilationUnit;
 import org.eclipse.jface.internal.text.html.BrowserInformationControl;
+import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.swt.graphics.Image;
@@ -51,11 +53,13 @@ import com.google.inject.Injector;
 import de.gebit.integrity.dsl.ArbitraryParameterOrResultName;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.CallDefinition;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.KeyValuePair;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.PackageDefinition;
+import de.gebit.integrity.dsl.PackageStatement;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -1248,6 +1252,78 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 			}
 
 		});
+	}
+
+	@Override
+	public void completeDocumentationComment_Content(EObject aModel, Assignment anAssignment,
+			ContentAssistContext aContext, ICompletionProposalAcceptor anAcceptor) {
+		EObject tempDocumentedStatement = null;
+		boolean tempNextOneIsIt = false;
+		if (aModel instanceof PackageDefinition) {
+			for (PackageStatement tempStatement : ((PackageDefinition) aModel).getStatements()) {
+				if (tempNextOneIsIt) {
+					tempDocumentedStatement = tempStatement;
+					break;
+				}
+
+				if (tempStatement == aContext.getPreviousModel()) {
+					tempNextOneIsIt = true;
+				}
+			}
+		}
+		List<ICompletionProposal> tempSuggestions = null;
+
+		int tempPrefixOffset = aContext.getOffset() - aContext.getCurrentNode().getOffset();
+		String tempPartialPrefix = aContext.getPrefix().substring(0, tempPrefixOffset);
+		int tempLastAt = tempPartialPrefix.lastIndexOf("@");
+		String tempActualPrefix = null;
+		if (tempLastAt >= 0) {
+			tempActualPrefix = tempPartialPrefix.substring(tempLastAt);
+			// We need a special context for these replacements, as we want to use our special matcher that takes the @
+			// into account and because the region to be replaced is not the entire token, but only a part of it.
+			ContentAssistContext tempContext = aContext.copy().setPrefix(tempActualPrefix)
+					.setReplaceRegion(
+							new Region(aContext.getOffset() - tempActualPrefix.length(), tempActualPrefix.length()))
+					.setMatcher(new DocumentationCommentMatcher()).toContext();
+
+			if (tempDocumentedStatement instanceof CallDefinition) {
+				// For calls, we want to generate proposals for all parameters and the return value, if applicable
+				// (catching named return values is hard and currently not done here)
+				tempSuggestions = IntegrityDSLUtil
+						.getAllParamNamesFromFixtureMethod(
+								((CallDefinition) tempDocumentedStatement).getFixtureMethod())
+						.stream().map(ParamAnnotationTypeTriplet::getParamName).sorted()
+						.map((aParamName) -> createCompletionProposal("@param " + aParamName, tempContext))
+						.collect(Collectors.toList());
+				if (!(((CallDefinition) tempDocumentedStatement).getFixtureMethod().getMethod().getReturnType()
+						.getType() instanceof JvmVoid)) {
+					tempSuggestions.add(createCompletionProposal("@return ", tempContext));
+				}
+			} else if (tempDocumentedStatement instanceof TestDefinition) {
+				// For tests, the proposals should include just parameters, as tests may have a return value but that is
+				// not actually treated as a "return value" from the viewpoint of an Integrity test.
+				tempSuggestions = IntegrityDSLUtil
+						.getAllParamNamesFromFixtureMethod(
+								((TestDefinition) tempDocumentedStatement).getFixtureMethod())
+						.stream().map(ParamAnnotationTypeTriplet::getParamName).sorted()
+						.map((aParamName) -> createCompletionProposal("@param " + aParamName, tempContext))
+						.collect(Collectors.toList());
+			} else if (tempDocumentedStatement instanceof ForkDefinition) {
+				// Forker may have parameters as well
+				tempSuggestions = IntegrityDSLUtil.getAllParamNamesFromFork(((ForkDefinition) tempDocumentedStatement))
+						.stream().map(ParamAnnotationTypeTriplet::getParamName).sorted()
+						.map((aParamName) -> createCompletionProposal("@param " + aParamName, tempContext))
+						.collect(Collectors.toList());
+			}
+
+			if (tempSuggestions != null) {
+				tempSuggestions.forEach((aSuggestion) -> anAcceptor.accept(aSuggestion));
+			} else {
+				super.completeDocumentationComment_Content(aModel, anAssignment, aContext, anAcceptor);
+			}
+		} else {
+			super.completeDocumentationComment_Content(aModel, anAssignment, aContext, anAcceptor);
+		}
 	}
 
 	private boolean isCustomProposalFixture(MethodReference aMethod) {

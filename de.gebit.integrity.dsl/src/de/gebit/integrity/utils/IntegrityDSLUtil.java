@@ -9,6 +9,7 @@ package de.gebit.integrity.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -149,14 +150,34 @@ public final class IntegrityDSLUtil {
 	}
 
 	/**
-	 * Returns a list of all defined parameter names in a given forker, each of the results linked to the annotation
+	 * Returns a list of all defined parameter names in a given fork, each of the results linked to the annotation
 	 * reference that's connected to the parameter in the constructor signature. Only one constructor is supported.
 	 * 
-	 * @param aForkerType
-	 *            the forker to inspect
+	 * @param aFork
+	 *            the fork to inspect
 	 * @return a list of parameters and annotation references
 	 */
-	public static List<ParamAnnotationTypeTriplet> getAllParamNamesFromForker(JvmGenericType aForkerType) {
+	@SuppressWarnings("unchecked")
+	public static List<ParamAnnotationTypeTriplet> getAllParamNamesFromFork(ForkDefinition aFork) {
+		if (aFork.getBaseFork() != null) {
+			return getAllParamNamesFromFork(aFork.getBaseFork());
+		} else if (aFork.getForkerClass() != null) {
+			return getAllParamNamesFromForkerClass((JvmGenericType) aFork.getForkerClass().getType());
+		} else {
+			return (List<ParamAnnotationTypeTriplet>) Collections.EMPTY_LIST;
+		}
+	}
+
+	/**
+	 * Returns a list of all defined parameter names in a given forker class, each of the results linked to the
+	 * annotation reference that's connected to the parameter in the constructor signature. Only one constructor is
+	 * supported.
+	 * 
+	 * @param aForkerType
+	 *            the forker class to inspect
+	 * @return a list of parameters and annotation references
+	 */
+	public static List<ParamAnnotationTypeTriplet> getAllParamNamesFromForkerClass(JvmGenericType aForkerType) {
 		ArrayList<ParamAnnotationTypeTriplet> tempList = new ArrayList<ParamAnnotationTypeTriplet>();
 		try {
 			JvmConstructor tempConstructor = aForkerType.getDeclaredConstructors().iterator().next();
