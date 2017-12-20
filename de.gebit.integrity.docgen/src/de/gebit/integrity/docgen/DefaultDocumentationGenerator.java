@@ -113,7 +113,7 @@ public class DefaultDocumentationGenerator implements DocumentationGenerator {
 		tempIndexBuilder.build(new File(targetDirectory, "resources/js/index.js"));
 		System.out.println("done!");
 
-		System.out.println("Finished generating documentation!");
+		System.out.println("Finished generating documentation to '" + targetDirectory.getAbsolutePath() + "'!");
 	}
 
 	/**
