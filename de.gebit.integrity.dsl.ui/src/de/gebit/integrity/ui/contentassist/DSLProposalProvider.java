@@ -69,6 +69,8 @@ import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
@@ -1320,6 +1322,18 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 						.stream().map(ParamAnnotationTypeTriplet::getParamName).sorted()
 						.map((aParamName) -> createCompletionProposal("@param " + aParamName, tempContext))
 						.collect(Collectors.toList());
+			} else if (tempDocumentedStatement instanceof SuiteDefinition) {
+				// Suites can have parameters and named results
+				tempSuggestions = new ArrayList<>();
+				for (SuiteParameterDefinition tempParameter : ((SuiteDefinition) tempDocumentedStatement)
+						.getParameters()) {
+					tempSuggestions
+							.add(createCompletionProposal("@param " + tempParameter.getName().getName(), tempContext));
+				}
+				for (SuiteReturnDefinition tempReturn : ((SuiteDefinition) tempDocumentedStatement).getReturn()) {
+					tempSuggestions
+							.add(createCompletionProposal("@return " + tempReturn.getName().getName(), tempContext));
+				}
 			}
 
 			if (tempSuggestions != null) {
