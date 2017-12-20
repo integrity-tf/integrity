@@ -19,7 +19,7 @@ window.onload = function(event) {
 			var context = document.getElementById('maincontainer');
 			var marker = new Mark(context);
 			marker.mark(highlightTokens, {'diacritics': false, 
-				'accuracy': {'value': "exactly", 'limiters': [" ", ".", ",", "\"", ":"]},
+				'accuracy': {'value': "exactly", 'limiters': [" ", ".", ",", "\"", ":", "-", "!"]},
 				'each': function(element) {
 					highlightedElements.push(element);
 				},
