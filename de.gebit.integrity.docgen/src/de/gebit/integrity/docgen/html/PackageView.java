@@ -219,7 +219,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 						String tempParamDoc = tempParsedComment.getParameterDocumentationTexts()
 								.get(tempParameter.getName().getName());
 						HtmlTr<?> tempRow = tempParamTable.tr();
-						tempRow.td().classAttr(CSSClasses.CODE).text(tempParameter.getName().getName());
+						tempRow.td().classAttr(CSSClasses.PARAMNAME).text(tempParameter.getName().getName());
 						tempRow.td().text(tempParamDoc != null ? tempParamDoc : "");
 					}
 				}
@@ -622,14 +622,17 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		HtmlTr<?> tempRow = new HtmlTr<>();
 		if (aParamName != null) {
 			// Is null for the default result, which only has one line in the table
-			tempRow.td().classAttr(CSSClasses.CODE + (aMandatory ? " " + CSSClasses.MANDATORY : "")).text(aParamName);
+			tempRow.td().classAttr(CSSClasses.PARAMNAME + (aMandatory ? " " + CSSClasses.MANDATORY : ""))
+					.text(aParamName);
 		}
 		HtmlTd<?> tempTypeColumn = tempRow.td();
 		HtmlP<?> tempTypeText = new HtmlP<>();
-		tempTypeText.classAttr(CSSClasses.CODE).text(tempTypeName);
 		tempTypeColumn.addChild(tempTypeText);
 		if (tempTypeName.contains(".")) {
-			// Only in this case it could be an enum
+			// Just display the short type name anyway, but we need the long one to resolve it...
+			tempTypeText.classAttr(CSSClasses.CODE).text(tempTypeName.substring(tempTypeName.lastIndexOf(".") + 1));
+
+			// ...because in this case it could be an enum!
 			try {
 				Class<?> tempClass = classLoader.loadClass(aType);
 				if (tempClass.isEnum()) {
@@ -648,7 +651,10 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 			} catch (ClassNotFoundException exc) {
 				exc.printStackTrace();
 			}
+		} else {
+			tempTypeText.classAttr(CSSClasses.CODE).text(tempTypeName);
 		}
+
 		tempRow.td().text(aDocumentation != null ? aDocumentation : "");
 
 		return tempRow;
