@@ -41,6 +41,11 @@ public interface CSSClasses {
 	String HEADER_2 = "header2";
 
 	/**
+	 * Used for parameter/result names.
+	 */
+	String PARAMNAME = "paramname " + CODE;
+
+	/**
 	 * Used for mandatory stuff (in combination with {@link #CODE}).
 	 */
 	String MANDATORY = "mandatory";
