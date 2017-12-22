@@ -2,7 +2,8 @@ body {
 	color: #000;
 	background-color: #FFF;
 	font-family: Calibri, Arial, sans-serif;
-	font-size: 10pt;
+	font-size: 11pt;
+	line-height: 150%;
 }
 
 .title {
@@ -83,7 +84,7 @@ p {
 }
 
 .fullentityname {
-	font-size: 8pt;
+	font-size: 9pt;
 }
 
 .entitydetails {
@@ -110,10 +111,27 @@ p {
 
 .entityparams table {
 	padding-left: 6px;
+	border-spacing: 0px;
+}
+
+.entityparams tr td {
+	padding: 4px;
 }
 
 .entityparams tr td:first-child {
 	padding-right: 10px;
+}
+
+.entityparams tr:nth-child(even) {
+	background-color: #c9d9ff;
+}
+
+.entityparams tr:nth-child(odd) {
+	background-color: #d8e7ff;
+}
+
+.paramname {
+	font-weight: bold;
 }
 
 .code {
@@ -129,7 +147,7 @@ p {
 }
 
 .mandatory {
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 .hidden {
@@ -199,6 +217,7 @@ table td.expand {
 .detailstitle {
 	font-weight: bold;
 	margin-bottom: 2px;
+	font-size: 12pt;
 }
 
 #packagetree div {
