@@ -2710,6 +2710,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 
 		@Override
+		public void onVariableUnsetRetrieval(String aVariableName) {
+			// not used in this context
+		}
+
+		@Override
 		public void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
 			// not used in this context
 		}

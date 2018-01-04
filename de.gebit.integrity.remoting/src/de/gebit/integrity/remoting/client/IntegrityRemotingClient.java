@@ -37,6 +37,7 @@ import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncStateMessage;
+import de.gebit.integrity.remoting.transport.messages.VariableUnsetMessage;
 import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
@@ -182,6 +183,16 @@ public class IntegrityRemotingClient {
 	}
 
 	/**
+	 * Unsets a variables' value on a fork.
+	 * 
+	 * @param aName
+	 *            the fully qualified variable name
+	 */
+	public void unsetVariableValue(String aName) {
+		sendMessage(new VariableUnsetMessage(aName));
+	}
+
+	/**
 	 * Requests an immediate shutdown.
 	 */
 	public void requestShutdown() {
@@ -303,6 +314,14 @@ public class IntegrityRemotingClient {
 			@Override
 			public void processMessage(VariableUpdateMessage aMessage, Endpoint anEndpoint) {
 				listener.onVariableUpdateRetrieval(aMessage.getName(), aMessage.getValue());
+			}
+		});
+
+		tempMap.put(VariableUnsetMessage.class, new MessageProcessor<VariableUnsetMessage>() {
+
+			@Override
+			public void processMessage(VariableUnsetMessage aMessage, Endpoint anEndpoint) {
+				listener.onVariableUnsetRetrieval(aMessage.getName());
 			}
 		});
 

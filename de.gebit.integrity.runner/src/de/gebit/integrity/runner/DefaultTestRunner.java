@@ -1248,26 +1248,30 @@ public class DefaultTestRunner implements TestRunner {
 		// Define variables for all the parameters provided to the suite call
 		List<VariableOrConstantEntity> tempVariablesSet = new ArrayList<>();
 		for (SuiteParameter tempParam : aSuiteCall.getParameters()) {
+			Object tempValueToSet = null;
 			if (tempParam.getValue() instanceof Variable) {
 				Variable tempVariable = (Variable) tempParam.getValue();
-				defineVariable(tempParam.getName(), variableManager.get(tempVariable), aSuiteCall.getDefinition());
+				tempValueToSet = variableManager.get(tempVariable);
 			} else {
-				defineVariable(tempParam.getName(), tempParam.getValue(), aSuiteCall.getDefinition());
+				tempValueToSet = tempParam.getValue();
 			}
+
+			defineVariable(tempParam.getName(), tempValueToSet, aSuiteCall.getDefinition());
 			tempVariablesSet.add(tempParam.getName());
 		}
 
 		// And for all variables supported by the suite that were missing in the call, their respective default is set
 		for (SuiteParameterDefinition tempParamDefinition : aSuiteCall.getDefinition().getParameters()) {
 			if (tempParamDefinition.getDefault() != null && !tempVariablesSet.contains(tempParamDefinition.getName())) {
+				Object tempValueToSet = null;
 				if (tempParamDefinition.getDefault().getValue() instanceof Variable) {
 					Variable tempVariable = (Variable) tempParamDefinition.getDefault().getValue();
-					defineVariable(tempParamDefinition.getName(), variableManager.get(tempVariable),
-							aSuiteCall.getDefinition());
+					tempValueToSet = variableManager.get(tempVariable);
 				} else {
-					defineVariable(tempParamDefinition.getName(), tempParamDefinition.getDefault(),
-							aSuiteCall.getDefinition());
+					tempValueToSet = tempParamDefinition.getDefault();
 				}
+
+				defineVariable(tempParamDefinition.getName(), tempValueToSet, aSuiteCall.getDefinition());
 				tempVariablesSet.add(tempParamDefinition.getName());
 			}
 		}
@@ -1308,7 +1312,7 @@ public class DefaultTestRunner implements TestRunner {
 
 		// Now unset all the suite-scoped variables again (fixes issue #44)
 		for (VariableOrConstantEntity tempVariableSet : tempVariablesSet) {
-			variableManager.unset(tempVariableSet);
+			undefineVariable(tempVariableSet);
 		}
 
 		if (!checkForAbortion()) {
@@ -1784,6 +1788,17 @@ public class DefaultTestRunner implements TestRunner {
 	}
 
 	/**
+	 * Undefines a variable (= clears its value, which is NOT exactly the same as setting it to null).
+	 * 
+	 * @param anEntity
+	 *            the variable entity
+	 */
+	protected void undefineVariable(final VariableOrConstantEntity anEntity) {
+		// We need to send variable unsets to forks in the main phase here; fixes issue #167
+		unsetVariableValue(anEntity, (!isFork()) && shouldExecuteFixtures());
+	}
+
+	/**
 	 * Sets the value of a variable.
 	 * 
 	 * @param anEntity
@@ -1851,6 +1866,50 @@ public class DefaultTestRunner implements TestRunner {
 		VariableOrConstantEntity tempEntity = model.getVariableOrConstantByName(aQualifiedVariableName);
 		if (tempEntity != null) {
 			setVariableValue(tempEntity, aValue, aDoSendUpdateFlag);
+		} else {
+			throw new ThisShouldNeverHappenException(
+					"Failed to find variable entity for name '" + aQualifiedVariableName + "'!");
+		}
+	}
+
+	/**
+	 * Unsets the value of a variable.
+	 * 
+	 * @param anEntity
+	 *            the variable entity to unset
+	 * @param aDoSendUpdateFlag
+	 *            whether this update should be sent to connected master/slaves
+	 */
+	protected void unsetVariableValue(VariableOrConstantEntity anEntity, boolean aDoSendUpdateFlag) {
+		variableManager.unset(anEntity);
+		if (aDoSendUpdateFlag) {
+			if (isFork()) {
+				// A fork will have to send updates to its master, but not for constants, as the master has those anyway
+				if (remotingServer != null && !(anEntity instanceof ConstantEntity)) {
+					String tempName = model.getFullyQualifiedVariableOrConstantName(anEntity);
+					remotingServer.sendVariableUnset(tempName);
+				}
+			} else {
+				// The master will have to update all active forks.
+				for (Entry<ForkDefinition, Fork> tempEntry : forkMap.entrySet()) {
+					tempEntry.getValue().unsetVariableValue(anEntity);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Unsets a variables' value.
+	 * 
+	 * @param aQualifiedVariableName
+	 *            the name of the variable to unset
+	 * @param aDoSendUpdateFlag
+	 *            whether this update should be sent to connected master/slaves
+	 */
+	protected void unsetVariableValue(String aQualifiedVariableName, boolean aDoSendUpdateFlag) {
+		VariableOrConstantEntity tempEntity = model.getVariableOrConstantByName(aQualifiedVariableName);
+		if (tempEntity != null) {
+			unsetVariableValue(tempEntity, aDoSendUpdateFlag);
 		} else {
 			throw new ThisShouldNeverHappenException(
 					"Failed to find variable entity for name '" + aQualifiedVariableName + "'!");
@@ -2768,6 +2827,11 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		@Override
+		public void onVariableUnsetRetrieval(String aVariableName) {
+			unsetVariableValue(aVariableName, false);
+		}
+
+		@Override
 		public void onTimeSyncState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
 			// This is called when a master process wants to set the time of a fork. Just set it.
 			ExceptionWrapper tempException = setTestTimeGuarded(aRealtimeOffset, aRealtimeDecouplingTime,
@@ -3058,6 +3122,11 @@ public class DefaultTestRunner implements TestRunner {
 					public void onSetVariableValue(String aQualifiedVariableName, Object aValue,
 							boolean aDoSendUpdateFlag) {
 						setVariableValue(aQualifiedVariableName, aValue, aDoSendUpdateFlag);
+					}
+
+					@Override
+					public void onUnsetVariableValue(String aQualifiedVariableName, boolean aDoSendUpdateFlag) {
+						unsetVariableValue(aQualifiedVariableName, aDoSendUpdateFlag);
 					}
 
 					@Override

@@ -122,6 +122,14 @@ public interface IntegrityRemotingServerListener {
 	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
 
 	/**
+	 * Called when an unsetting of a variable was received from a master.
+	 * 
+	 * @param aVariableName
+	 *            the name of the variable
+	 */
+	void onVariableUnsetRetrieval(String aVariableName);
+
+	/**
 	 * Called when a timesync state has arrived.
 	 * 
 	 * @param aRealtimeOffset
