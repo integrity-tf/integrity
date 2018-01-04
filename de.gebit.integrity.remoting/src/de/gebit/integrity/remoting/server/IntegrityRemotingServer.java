@@ -37,6 +37,7 @@ import de.gebit.integrity.remoting.transport.messages.TestRunnerCallbackMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncRequestMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncResultMessage;
 import de.gebit.integrity.remoting.transport.messages.TimeSyncStateMessage;
+import de.gebit.integrity.remoting.transport.messages.VariableUnsetMessage;
 import de.gebit.integrity.remoting.transport.messages.VariableUpdateMessage;
 
 /**
@@ -201,6 +202,18 @@ public class IntegrityRemotingServer {
 	}
 
 	/**
+	 * Transmits an unsetting of a variables' value to the master.
+	 * 
+	 * @param aVariableName
+	 *            the name of the variable
+	 */
+	public void sendVariableUnset(String aVariableName) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new VariableUnsetMessage(aVariableName));
+		}
+	}
+
+	/**
 	 * Transmits an abortion message.
 	 * 
 	 * @param anExceptionMessage
@@ -318,6 +331,14 @@ public class IntegrityRemotingServer {
 			@Override
 			public void processMessage(VariableUpdateMessage aMessage, Endpoint anEndpoint) {
 				listener.onVariableUpdateRetrieval(aMessage.getName(), aMessage.getValue());
+			}
+		});
+
+		tempMap.put(VariableUnsetMessage.class, new MessageProcessor<VariableUnsetMessage>() {
+
+			@Override
+			public void processMessage(VariableUnsetMessage aMessage, Endpoint anEndpoint) {
+				listener.onVariableUnsetRetrieval(aMessage.getName());
 			}
 		});
 

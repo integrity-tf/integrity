@@ -15,7 +15,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import com.google.inject.Inject;
@@ -116,6 +118,11 @@ public class Fork {
 	 * Buffer for variable updates to be transmitted to the fork.
 	 */
 	private HashMap<String, Object> variableUpdates = new HashMap<String, Object>();
+
+	/**
+	 * Buffer for variable unsettings to be transmitted to the fork.
+	 */
+	private Set<String> variableUnsets = new HashSet<String>();
 
 	/**
 	 * Whether the connection to the fork has been confirmed to be active.
@@ -458,6 +465,11 @@ public class Fork {
 				}
 			}
 			variableUpdates.clear();
+
+			for (String tempEntry : variableUnsets) {
+				client.unsetVariableValue(tempEntry);
+			}
+			variableUnsets.clear();
 		}
 	}
 
@@ -489,6 +501,20 @@ public class Fork {
 				System.err.println("SKIPPED SYNCING OF VARIABLE '" + tempKey + "' TO FORK - EXCEPTION OCCURRED");
 				exc.printStackTrace();
 			}
+		}
+	}
+
+	/**
+	 * Unsets a variables' value. Similar to {@link #updateVariableValue(VariableOrConstantEntity, Object)}, but for
+	 * variable clearing.
+	 * 
+	 * @param aVariable
+	 *            the variable entity to unset
+	 */
+	public void unsetVariableValue(VariableOrConstantEntity aVariable) {
+		if (!ignoreVariableUpdates) {
+			String tempKey = IntegrityDSLUtil.getQualifiedVariableEntityName(aVariable, true);
+			variableUnsets.add(tempKey);
 		}
 	}
 
@@ -660,6 +686,15 @@ public class Fork {
 			// However, this fork already has the new value, thus we'll simply ignore this update.
 			ignoreVariableUpdates = true;
 			forkCallback.onSetVariableValue(aVariableName, aValue, true);
+			ignoreVariableUpdates = false;
+		}
+
+		@Override
+		public void onVariableUnsetRetrieval(String aVariableName) {
+			// Updating variables in the testrunner will trigger update messages to all forks, which includes this one.
+			// However, this fork already has the new value, thus we'll simply ignore this update.
+			ignoreVariableUpdates = true;
+			forkCallback.onUnsetVariableValue(aVariableName, true);
 			ignoreVariableUpdates = false;
 		}
 
