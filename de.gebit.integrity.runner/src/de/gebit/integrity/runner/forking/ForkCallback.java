@@ -31,6 +31,16 @@ public interface ForkCallback {
 	void onSetVariableValue(String aQualifiedVariableName, Object aValue, boolean aDoSendUpdateFlag);
 
 	/**
+	 * If the fork unsets variables, it will sync them to the parent using this method.
+	 * 
+	 * @param aQualifiedVariableName
+	 *            the variable name
+	 * @param aDoSendUpdateFlag
+	 *            whether updates should be distributed to other remoting clients
+	 */
+	void onUnsetVariableValue(String aQualifiedVariableName, boolean aDoSendUpdateFlag);
+
+	/**
 	 * If the fork wants to perform a time sync, it sends a respective message to the parent, containing a list of all
 	 * target forks of this timesync. The master then relays the message to these forks (and processes it for himself if
 	 * requested).

@@ -132,6 +132,14 @@ public interface IntegrityRemotingClientListener {
 	void onVariableUpdateRetrieval(String aVariableName, Serializable aValue);
 
 	/**
+	 * Called when an unsetting of a variable was received from a fork.
+	 * 
+	 * @param aVariableName
+	 *            the name of the variable
+	 */
+	void onVariableUnsetRetrieval(String aVariableName);
+
+	/**
 	 * Called when a timesync command has arrived.
 	 * 
 	 * @param aStartDate
