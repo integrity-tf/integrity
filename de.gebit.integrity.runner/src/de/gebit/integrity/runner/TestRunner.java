@@ -59,7 +59,9 @@ public interface TestRunner {
 	 *            the suite to execute
 	 * @param aBlockForRemotingFlag
 	 *            whether execution should pause before actually starting until execution is resumed via remoting
-	 * @return the suite execution result
+	 * @return the suite execution result (this may also be null in case there is no tangible "result", like when the
+	 *         test runner is actually just running the part of a single fork within a bigger test suite - the partial
+	 *         result in this case is not relevant, but is automatically integrated in the result of the master process)
 	 */
 	SuiteSummaryResult run(SuiteDefinition aRootSuite, VariantDefinition aVariant, boolean aBlockForRemotingFlag);
 
