@@ -401,8 +401,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			// No conversion necessary if target type is a superclass or the same as the current type
 			if (tempTargetType != null && tempTargetType.isAssignableFrom(tempSourceType)) {
 				// ...except if the source type is one of Integritys' internal types, which shouldn't generally been
-				// given
-				// to fixtures in an unconverted state.
+				// given to fixtures in an unconverted state.
 				if (!tempSourceTypeName.startsWith("de.gebit.integrity.dsl.")) {
 					return aValue;
 				}

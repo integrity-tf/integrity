@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="05.01.18 14:49" isotimestamp="2018-01-05T14:49:10" duration="23.854">
+  <variables>
+    <variable name="integrity.basic.suitecalls.testPackageConstant" value="BAR!" />
+  </variables>
+  <suite id="0" name="integrity.basic.suitecalls.suiteCallWithListParameter" timestamp="05.01.18 14:49:10.0062">
+    <setup />
+    <variables />
+    <statements>
+      <suite id="1" line="81" name="integrity.basic.suitecalls.suiteCallWithListParameterTestSuite1" timestamp="05.01.18 14:49:10.0063">
+        <setup />
+        <variables>
+          <variable name="param" value="foo, bar" />
+        </variables>
+        <statements>
+          <test id="2" line="85" name="echoObjectTest" description="Echoes an object" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObject" timestamp="05.01.18 14:49:10.0066">
+            <results duration="1.650" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="1.650" description="Echoes an object" type="success">
+                <parameters>
+                  <parameter name="echo" value="foo, bar" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="foo, bar" value="foo, bar" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+          <suite id="3" line="86" name="integrity.basic.suitecalls.suiteCallWithListParameterTestSuite2" timestamp="05.01.18 14:49:10.0076">
+            <setup />
+            <variables>
+              <variable name="param" value="foo, bar" />
+            </variables>
+            <statements>
+              <test id="4" line="90" name="echoObjectTest" description="Echoes an object" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObject" timestamp="05.01.18 14:49:10.0076">
+                <results duration="0.230" successCount="1" failureCount="0" exceptionCount="0">
+                  <result duration="0.230" description="Echoes an object" type="success">
+                    <parameters>
+                      <parameter name="echo" value="foo, bar" />
+                    </parameters>
+                    <comparisons>
+                      <comparison expectedValue="foo, bar" value="foo, bar" type="success" />
+                    </comparisons>
+                  </result>
+                </results>
+              </test>
+            </statements>
+            <returns />
+            <teardown />
+            <result duration="3.468" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+          </suite>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="15.712" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="18.470" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
