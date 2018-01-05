@@ -120,8 +120,8 @@ public class FixtureWrapper<C extends Object> {
 	 * @throws ClassNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
-	public FixtureWrapper(MethodReference aMethodReference, Injector anInjector) throws InstantiationException,
-			IllegalAccessException, ClassNotFoundException {
+	public FixtureWrapper(MethodReference aMethodReference, Injector anInjector)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		anInjector.injectMembers(this);
 		methodReference = aMethodReference;
 
@@ -232,10 +232,10 @@ public class FixtureWrapper<C extends Object> {
 	 *            the name of the result property to be compared (null if it's the default result)
 	 * @return true if comparation was successful, false otherwise
 	 */
-	public ComparisonResult performCustomComparation(Object anExpectedResult, Object aFixtureResult,
-			String aMethodName, String aPropertyName) {
-		return ((CustomComparatorFixture) fixtureInstance).compareResults(anExpectedResult, aFixtureResult,
-				aMethodName, aPropertyName);
+	public ComparisonResult performCustomComparation(Object anExpectedResult, Object aFixtureResult, String aMethodName,
+			String aPropertyName) {
+		return ((CustomComparatorFixture) fixtureInstance).compareResults(anExpectedResult, aFixtureResult, aMethodName,
+				aPropertyName);
 	}
 
 	/**
@@ -253,7 +253,8 @@ public class FixtureWrapper<C extends Object> {
 	 *         conversion that would have been used if the fixture was just a {@link CustomComparatorFixture}", but "the
 	 *         conversion that has the highest priority for the data type found in the script".
 	 */
-	public Class<?> determineCustomConversionTargetType(Object aFixtureResult, String aMethodName, String aPropertyName) {
+	public Class<?> determineCustomConversionTargetType(Object aFixtureResult, String aMethodName,
+			String aPropertyName) {
 		return ((CustomComparatorAndConversionFixture) fixtureInstance).determineConversionTargetType(aFixtureResult,
 				aMethodName, aPropertyName);
 	}
@@ -352,24 +353,29 @@ public class FixtureWrapper<C extends Object> {
 				if (tempValue != null) {
 					Object tempConvertedValue;
 					if (tempValue instanceof Object[]) {
-						if (!tempExpectedType.isArray()) {
-							throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
-									+ aFixtureMethod.getName() + "' in fixture '" + fixtureClass.getName()
-									+ "' is not an array type, thus you cannot put multiple values into it!");
+						Class<?> tempConvertedValueArrayType = Object.class;
+						if (tempExpectedType != Object.class) {
+							if (!tempExpectedType.isArray()) {
+								throw new IllegalArgumentException("The parameter '" + tempName + "' of method '"
+										+ aFixtureMethod.getName() + "' in fixture '" + fixtureClass.getName()
+										+ "' is not an array type, thus you cannot put multiple values into it!");
+							}
+							tempConvertedValueArrayType = tempExpectedType.getComponentType();
 						}
-						Object tempConvertedValueArray = Array.newInstance(tempExpectedType.getComponentType(),
+
+						Object tempConvertedValueArray = Array.newInstance(tempConvertedValueArrayType,
 								((Object[]) tempValue).length);
 						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 							Object tempSingleValue = ((Object[]) tempValue)[k];
-							Array.set(tempConvertedValueArray, k, valueConverter.convertValue(
-									tempExpectedType.getComponentType(), tempSingleValue, null));
+							Array.set(tempConvertedValueArray, k, valueConverter
+									.convertValue(tempExpectedType.getComponentType(), tempSingleValue, null));
 						}
 						tempConvertedValue = tempConvertedValueArray;
 					} else {
 						// if the expected type is an array, we don't want to convert to that array, but to the
 						// component type, of course...
-						Class<?> tempConversionTargetType = tempExpectedType.isArray() ? tempExpectedType
-								.getComponentType() : tempExpectedType;
+						Class<?> tempConversionTargetType = tempExpectedType.isArray()
+								? tempExpectedType.getComponentType() : tempExpectedType;
 
 						// ...except for byte arrays (issue #66), those must be treated specially!
 						boolean tempSpecialByteArrayMode = false;
@@ -403,8 +409,8 @@ public class FixtureWrapper<C extends Object> {
 					// In case of arbitrary parameters, we don't want to perform the default bean-to-map conversion,
 					// because otherwise one couldn't put any objects into the fixture without having them converted to
 					// maps. See also issue #52: https://github.com/integrity-tf/integrity/issues/52
-					tempConvertedValue = valueConverter.convertValue(null, tempValue, conversionContextProvider.get()
-							.skipBeanToMapDefaultConversion());
+					tempConvertedValue = valueConverter.convertValue(null, tempValue,
+							conversionContextProvider.get().skipBeanToMapDefaultConversion());
 					aParameterMap.put(tempName, tempConvertedValue);
 				}
 			}
@@ -444,8 +450,8 @@ public class FixtureWrapper<C extends Object> {
 			Set<String> tempNamedResultSet = new HashSet<>();
 			if (someNamedTargetVariables != null) {
 				for (NamedCallResult tempResult : someNamedTargetVariables) {
-					tempNamedResultSet.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempResult
-							.getName()));
+					tempNamedResultSet
+							.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempResult.getName()));
 				}
 			}
 
@@ -469,8 +475,8 @@ public class FixtureWrapper<C extends Object> {
 			Set<String> tempNamedResultSet = new HashSet<>();
 			if (someNamedResults != null) {
 				for (NamedResult tempResult : someNamedResults) {
-					tempNamedResultSet.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempResult
-							.getName()));
+					tempNamedResultSet
+							.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempResult.getName()));
 				}
 			}
 
@@ -492,8 +498,8 @@ public class FixtureWrapper<C extends Object> {
 			Set<String> tempNamedResultSet = new HashSet<>();
 			if (someResultHeaders != null) {
 				for (ResultTableHeader tempHeader : someResultHeaders) {
-					tempNamedResultSet.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempHeader
-							.getName()));
+					tempNamedResultSet
+							.add(IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempHeader.getName()));
 				}
 			}
 
@@ -513,8 +519,8 @@ public class FixtureWrapper<C extends Object> {
 			Set<String> aNamedResultSet) {
 		// no named result and no explicit default result = implicit default result!
 		boolean tempHasDefaultResult = aDefaultResult != null || aNamedResultSet.size() == 0;
-		((ResultAwareFixture) fixtureInstance)
-				.announceCheckedResults(methodName, tempHasDefaultResult, aNamedResultSet);
+		((ResultAwareFixture) fixtureInstance).announceCheckedResults(methodName, tempHasDefaultResult,
+				aNamedResultSet);
 	}
 
 	@SuppressWarnings("unchecked")
