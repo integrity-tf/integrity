@@ -514,6 +514,16 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					// The same is true in case of collections
 					return convertEncapsulatedValueCollectionToTargetType(aTargetType, aParameterizedType,
 							(ValueOrEnumValueOrOperationCollection) tempResult, aConversionContext, someVisitedValues);
+				} else if (tempResult != null && tempResult.getClass().isArray()) {
+					// A slight variant of the collection case is an array (possibly filled with Integrity types)
+					// We just convert the individual elements in this case.
+					Object tempResultArray = Array.newInstance(tempResult.getClass().getComponentType(),
+							Array.getLength(tempResult));
+					for (int i = 0; i < Array.getLength(tempResult); i++) {
+						Array.set(tempResultArray, i, convertSingleValueToTargetType(aTargetType, aParameterizedType,
+								Array.get(tempResult, i), aConversionContext, someVisitedValues));
+					}
+					return tempResultArray;
 				} else {
 					return convertSingleValueToTargetType(aTargetType, aParameterizedType, tempResult,
 							aConversionContext, someVisitedValues);
@@ -688,9 +698,23 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			if (aTargetType == null) {
 				return tempResult;
 			} else if (tempWrapResultIntoArray) {
-				Object tempResultArray = Array.newInstance(tempTargetArrayType, 1);
-				Array.set(tempResultArray, 0, tempResult);
-				return tempResultArray;
+				if (tempResult != null && tempResult.getClass().isArray()) {
+					// This is already an array -> check if we need to convert it to a different component type
+					if (tempResult.getClass().getComponentType() != tempTargetArrayType) {
+						Object tempResultArray = Array.newInstance(tempTargetArrayType, Array.getLength(tempResult));
+						for (int i = 0; i < Array.getLength(tempResult); i++) {
+							Array.set(tempResultArray, i, Array.get(tempResult, i));
+						}
+						return tempResultArray;
+					} else {
+						return tempResult;
+					}
+				} else {
+					// Not yet an array -> wrap it now!
+					Object tempResultArray = Array.newInstance(tempTargetArrayType, 1);
+					Array.set(tempResultArray, 0, tempResult);
+					return tempResultArray;
+				}
 			} else if (tempCollectionType != null) {
 				return wrapInCollection((Class<? extends Collection>) tempCollectionType, tempResult);
 			} else {
