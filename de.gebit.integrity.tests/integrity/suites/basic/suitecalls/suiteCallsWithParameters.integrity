@@ -76,5 +76,19 @@ packagedef integrity.basic.suitecalls with
 		test integrity.fixtures.basic.noop.echoStringTest string: null = param
 	suiteend
 	
+	
+	suitedef suiteCallWithListParameter with
+		suite suiteCallWithListParameterTestSuite1 param: "foo", "bar"
+	suiteend
+	
+	suitedef suiteCallWithListParameterTestSuite1 gets param with
+		test integrity.fixtures.basic.noop.echoObjectTest echo: param = "foo", "bar"
+		suite suiteCallWithListParameterTestSuite2 param: param
+	suiteend
+	
+	suitedef suiteCallWithListParameterTestSuite2 gets param with
+		test integrity.fixtures.basic.noop.echoObjectTest echo: param = "foo", "bar"
+	suiteend
+	
 
 packageend
