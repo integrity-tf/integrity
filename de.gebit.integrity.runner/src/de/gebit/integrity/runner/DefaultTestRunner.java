@@ -1177,15 +1177,21 @@ public class DefaultTestRunner implements TestRunner {
 		modelChecker.check(aSuiteCall);
 
 		boolean tempForkInExecutionOnEntry = forkInExecution != null;
+		ForkDefinition tempForkSpecifiedBySuite = aSuiteCall.getFork();
 
-		if (aSuiteCall.getFork() != null && !tempForkInExecutionOnEntry) {
-			if (!isFork() && forkInExecution != null && aSuiteCall.getFork() != forkInExecution) {
+		if (tempForkSpecifiedBySuite != null && !tempForkInExecutionOnEntry) {
+			if (!isFork() && forkInExecution != null && tempForkSpecifiedBySuite != forkInExecution) {
 				throw new UnsupportedOperationException(
 						"It is not supported to execute another fork while inside a fork ("
-								+ aSuiteCall.getFork().getName() + " inside " + forkInExecution.getName() + ").");
+								+ tempForkSpecifiedBySuite.getName() + " inside " + forkInExecution.getName() + ").");
 			}
-			forkInExecution = aSuiteCall.getFork();
-			currentCallback.setForkInExecution(forkInExecution);
+			if (forkInExecution == tempForkSpecifiedBySuite) {
+				// We can just ignore fork specifications that specify the fork we are already running
+				tempForkSpecifiedBySuite = null;
+			} else {
+				forkInExecution = tempForkSpecifiedBySuite;
+				currentCallback.setForkInExecution(forkInExecution);
+			}
 		}
 
 		if (currentPhase == Phase.TEST_RUN && !tempForkInExecutionOnEntry) {
@@ -1199,15 +1205,15 @@ public class DefaultTestRunner implements TestRunner {
 						remotingServer.updateSetList(setList.getEntryListPosition(), new SetListEntry[0]);
 					}
 					// we may need to start a new fork
-					if (!forkMap.containsKey(aSuiteCall.getFork())) {
+					if (!forkMap.containsKey(tempForkSpecifiedBySuite)) {
 						// but first see if this fork has already died once. if true, then the fork has died
 						// prematurely, which means we cannot continue execution at all
-						if (diedForks.contains(aSuiteCall.getFork())) {
+						if (diedForks.contains(tempForkSpecifiedBySuite)) {
 							throw new RuntimeException(
-									"Fork " + aSuiteCall.getFork().getName() + " has died prematurely!");
+									"Fork " + tempForkSpecifiedBySuite.getName() + " has died prematurely!");
 						}
 						try {
-							forkMap.put(aSuiteCall.getFork(), createFork(aSuiteCall));
+							forkMap.put(tempForkSpecifiedBySuite, createFork(aSuiteCall));
 						} catch (ForkException exc) {
 							// forking failed -> cannot continue at all :( kill all other still-living forks and
 							// then exit with a runtime exception
@@ -1328,7 +1334,7 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		if (forkInExecution != null && forkInExecution.equals(aSuiteCall.getFork())) {
+		if (forkInExecution != null && forkInExecution.equals(tempForkSpecifiedBySuite)) {
 
 			if (currentPhase == Phase.TEST_RUN) {
 				// all of this only has to be done in case of a real test run
@@ -1349,8 +1355,8 @@ public class DefaultTestRunner implements TestRunner {
 					if (tempFork != null) {
 						// Count backwards during actual execution. When this counter reaches zero, the fork is
 						// executing its last suite and shall terminate afterwards.
-						Integer tempCounter = lastSuiteForFork.get(aSuiteCall.getFork()) - 1;
-						lastSuiteForFork.put(aSuiteCall.getFork(), tempCounter);
+						Integer tempCounter = lastSuiteForFork.get(tempForkSpecifiedBySuite) - 1;
+						lastSuiteForFork.put(tempForkSpecifiedBySuite, tempCounter);
 
 						tempForkResultSummary = tempFork.executeNextSegment(tempCounter <= 0);
 					}
@@ -1398,14 +1404,14 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.setForkInExecution(null);
 		}
 
-		if (currentPhase == Phase.DRY_RUN && aSuiteCall.getFork() != null) {
+		if (currentPhase == Phase.DRY_RUN && tempForkSpecifiedBySuite != null) {
 			// Determining the last suite for all forks is simple: just count suites invoked for each fork in a map
 			// during dry run. At the end of dry run, we know the "number" of the last suite per fork.
-			Integer tempCounter = lastSuiteForFork.get(aSuiteCall.getFork());
+			Integer tempCounter = lastSuiteForFork.get(tempForkSpecifiedBySuite);
 			if (tempCounter == null) {
 				tempCounter = 0;
 			}
-			lastSuiteForFork.put(aSuiteCall.getFork(), tempCounter + 1);
+			lastSuiteForFork.put(tempForkSpecifiedBySuite, tempCounter + 1);
 		}
 
 		return tempResult;
