@@ -113,6 +113,20 @@
   	</dependency>
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
+  		<artifactId>org.apache.commons.lang</artifactId>
+  		<version>2.6.0.v201404270220</version>
+  		<scope>runtime</scope>
+  		<optional>true</optional>
+  	</dependency>
+  	<dependency>
+  		<groupId>p2.osgi.bundle</groupId>
+  		<artifactId>org.apache.commons.logging</artifactId>
+  		<version>1.1.1.v201101211721</version>
+  		<scope>runtime</scope>
+  		<optional>true</optional>
+  	</dependency>
+  	<dependency>
+  		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.antlr.runtime</artifactId>
   		<version>3.2.0.v201101311130</version>
   		<scope>runtime</scope>
