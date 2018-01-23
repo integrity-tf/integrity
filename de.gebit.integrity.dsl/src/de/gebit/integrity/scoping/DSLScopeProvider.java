@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmEnumerationLiteral;
@@ -697,6 +698,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	private IScope addVisibleGlobalConstantsAndVariables(IScope aParentScope, EObject aStatement) {
 		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aStatement);
+		String tempRootModelResourceURI = tempRootModel.eResource().getURI().toString() + "#";
 
 		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 
@@ -709,20 +711,20 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			for (IScope tempScope : new IScope[] { tempVariableScope, tempConstantScope }) {
 				for (IEObjectDescription tempVariableDefDescription : tempScope.getAllElements()) {
 					EObject tempVariableDef = tempVariableDefDescription.getEObjectOrProxy();
-					if (tempVariableDef.eIsProxy()) {
-						tempVariableDef = EcoreUtil.resolve(tempVariableDef, aStatement);
-					}
-					if (tempVariableDef.eContainer() != null) {
-						EObject tempPackageDef = tempVariableDef.eContainer().eContainer();
-						if (tempPackageDef instanceof PackageDefinition) {
-							Model tempPackageHostModel = IntegrityDSLUtil.findUpstreamContainer(Model.class,
-									tempPackageDef);
-
-							// Don't add definitions from current file here; they aren't cacheable and will get invalid
-							if (tempPackageHostModel != tempRootModel) {
-								tempCacheableList.add(tempVariableDefDescription);
-							}
+					boolean tempFromOtherResource = false;
+					if (tempVariableDef.eResource() != null) {
+						if (tempVariableDef.eResource() != tempRootModel.eResource()) {
+							tempFromOtherResource = true;
 						}
+					} else {
+						if (!((InternalEObject) tempVariableDef).eProxyURI().toString()
+								.startsWith(tempRootModelResourceURI)) {
+							tempFromOtherResource = true;
+						}
+					}
+
+					if (tempFromOtherResource) {
+						tempCacheableList.add(tempVariableDefDescription);
 					}
 				}
 			}
