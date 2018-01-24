@@ -122,8 +122,28 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 			String tempName = anEntity.getName().getName();
 			if (tempName != null) {
 				if (tempName.contains(".")) {
-					error("Variable definitions may not be fully or partly qualified. Please put the variable in the according packagedef to qualify it!",
-							null);
+					error("Variable definitions may not be fully or partly qualified (= contain dots). "
+							+ "Please put the variable in the according packagedef to qualify it, or use some other "
+							+ "character in place of the dot!", null);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Checks whether a constant definition contains dots, which would be illegal (issue #171).
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkIfConstantDefinitionsAreValid(ConstantDefinition anEntity) {
+		if (anEntity.getName() != null) {
+			String tempName = anEntity.getName().getName();
+			if (tempName != null) {
+				if (tempName.contains(".")) {
+					error("Constant definitions may not be fully or partly qualified (= contain dots). "
+							+ "Please put the constant in the according packagedef to qualify it, or use some other "
+							+ "character in place of the dot!", null);
 				}
 			}
 		}
