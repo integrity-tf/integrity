@@ -715,6 +715,11 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	 */
 	public static void startFullBuildCycle() {
 		insideFullBuildCycle = true;
+
+		// Clear the cache in this case, so we don't reuse stuff from older builds
+		cachedVisibleGlobalVariables = null;
+		cachedVisibleGlobalVariablesResourceUri = null;
+		cachedVisibleGlobalVariablesResourceFirstURISegments = null;
 	}
 
 	/**
