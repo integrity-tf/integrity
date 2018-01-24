@@ -770,12 +770,12 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		List<IEObjectDescription> tempGlobalEntities;
 
 		if (tempGlobalCacheMiss) {
-			if (insideFullBuildCycle) {
-				System.out.println("Full Build scoping cache miss: " + tempRootModelResourceFirstURISegments + " vs "
-						+ cachedVisibleGlobalVariablesResourceFirstURISegments);
-			} else {
-				System.out.println("Scoping cache miss!");
-			}
+			// if (insideFullBuildCycle) {
+			// System.out.println("Full Build scoping cache miss: " + tempRootModelResourceFirstURISegments + " vs "
+			// + cachedVisibleGlobalVariablesResourceFirstURISegments);
+			// } else {
+			// System.out.println("Scoping cache miss!");
+			// }
 
 			Map<String, List<IEObjectDescription>> tempNewCacheMap = new HashMap<String, List<IEObjectDescription>>();
 			List<IEObjectDescription> tempNewCacheList = new ArrayList<IEObjectDescription>();
@@ -830,8 +830,8 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		List<IEObjectDescription> tempScopeAdditionalList;
 
 		if (tempImportCacheMiss) {
-			System.out
-					.println("Import cache miss: " + tempRootModel + " vs " + cachedVisibleGlobalVariablesCurrentModel);
+			// System.out
+			// .println("Import cache miss: " + tempRootModel + " vs " + cachedVisibleGlobalVariablesCurrentModel);
 
 			// Now use the cache to build a scope of all visible global constants and variables, taking imports into
 			// account
@@ -867,6 +867,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 				}
 			}
 			cachedImportedGlobalVariables = tempScopeAdditionalList;
+			cachedVisibleGlobalVariablesCurrentModel = tempRootModel.toString();
 		} else {
 			tempScopeAdditionalList = cachedImportedGlobalVariables;
 		}
