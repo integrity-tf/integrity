@@ -791,12 +791,21 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 				if (tempEntity.eIsProxy()) {
 					tempEntity = EcoreUtil.resolve(tempEntity, aStatement);
 				}
-				String tempPackageName = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class, tempEntity)
-						.getName();
+				String tempPackageName;
+				if (tempEntity.eContainer() != null
+						&& (tempEntity.eContainer().eContainer() instanceof PackageDefinition)) {
+					tempPackageName = ((PackageDefinition) tempEntity.eContainer().eContainer()).getName();
+				} else {
+					// Not a global variable -> skip here!
+					continue;
+				}
+
 				String tempSimpleEntityName = tempEntityDescription.getQualifiedName().getLastSegment();
 
+				System.out.println("added entity " + tempPackageName + " . " + tempSimpleEntityName);
+
 				boolean tempOriginalIsFullyQualified = (tempEntityDescription.getQualifiedName()
-						.getSegmentCount() == CharMatcher.is('.').countIn(tempPackageName) - 1);
+						.getSegmentCount() == CharMatcher.is('.').countIn(tempPackageName) + 2);
 
 				IEObjectDescription tempNewEntry;
 				if (tempOriginalIsFullyQualified) {
@@ -844,6 +853,11 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 					}
 					tempImports.add(tempImport);
 				}
+			}
+			String tempCurrentPackageName = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class, aStatement)
+					.getName();
+			if (!tempImports.contains(tempCurrentPackageName)) {
+				tempImports.add(tempCurrentPackageName);
 			}
 
 			tempScopeAdditionalList = new ArrayList<IEObjectDescription>();
