@@ -289,5 +289,11 @@
            class="de.gebit.integrity.ui.DSLExecutableExtensionFactory:de.gebit.integrity.ui.IntegrityUIStartup">
      </startup>
   </extension>
+  
+  <extension point="org.eclipse.xtext.ui.shared.overridingGuiceModule">
+    <module
+        class="de.gebit.integrity.ui.IntegrityBuilderModule">
+    </module>
+  </extension>
 
 </plugin>
