@@ -13,6 +13,7 @@ package de.gebit.integrity.scoping;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -581,7 +582,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		if (tempParent instanceof SuiteDefinition) {
 			return determineVariableScope(aVariableDefinition, (SuiteDefinition) tempParent);
 		} else if (tempParent instanceof PackageDefinition) {
-			return determineVariableScope((PackageDefinition) aVariableDefinition);
+			return determineVariableScope((PackageDefinition) tempParent);
 		}
 
 		return null;
@@ -599,7 +600,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		if (tempParent instanceof SuiteDefinition) {
 			return determineVariableScope(aConstantDefinition, (SuiteDefinition) tempParent);
 		} else if (tempParent instanceof PackageDefinition) {
-			return determineVariableScope((PackageDefinition) aConstantDefinition);
+			return determineVariableScope((PackageDefinition) tempParent);
 		}
 
 		return null;
@@ -686,24 +687,71 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	/**
 	 * A small cache for visible global variables. Determining these is rather expensive, thus they're cached as long as
-	 * only one model (file) is being scoped.
+	 * only one model (file) is being scoped or as long as a full build cycle does not switch to a different project
+	 * (just matters inside Eclipse, where project dependencies may lead to different scopes).
 	 */
-	private ArrayList<IEObjectDescription> cachedVisibleGlobalVariables = new ArrayList<IEObjectDescription>();
+	private static ArrayList<IEObjectDescription> cachedVisibleGlobalVariables = new ArrayList<IEObjectDescription>();
 
 	/**
-	 * This is used to invalidate the {@link #cachedVisibleGlobalVariables}, as soon as scoping is done for a different
-	 * model.
+	 * This is used to invalidate the {@link #cachedVisibleGlobalVariables} in case of incremental build cycles as soon
+	 * as scoping is done for a different model.
 	 */
-	private Model cachedVisibleGlobalVariablesResource;
+	private static String cachedVisibleGlobalVariablesResourceUri;
+
+	/**
+	 * This is used to invalidate the {@link #cachedVisibleGlobalVariables} in case of full build cycles as soon as
+	 * scoping is done for a different eclipse project.
+	 */
+	private static String cachedVisibleGlobalVariablesResourceFirstURISegments;
+
+	/**
+	 * A flag whether we are inside an Eclipse full build. Always false for non-Eclipse scoping.
+	 */
+	private static boolean insideFullBuildCycle;
+
+	/**
+	 * Can be called to signify the start of a full build cycle. Must be done from the Xtext builder, which cannot be a
+	 * dependency of this scope provider, thus this is exported as an API for the .ui package to be used.
+	 */
+	public static void startFullBuildCycle() {
+		insideFullBuildCycle = true;
+	}
+
+	/**
+	 * See {@link #startFullBuildCycle()}, just in reverse.
+	 */
+	public static void endFullBuildCycle() {
+		insideFullBuildCycle = false;
+	}
 
 	private IScope addVisibleGlobalConstantsAndVariables(IScope aParentScope, EObject aStatement) {
 		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aStatement);
-		String tempRootModelResourceURI = tempRootModel.eResource().getURI().toString() + "#";
+		URI tempRootModelUri = tempRootModel.eResource().getURI();
+		String tempRootModelUriString = tempRootModelUri.toString();
+		String tempRootModelResourceFirstURISegments = tempRootModelUri
+				.trimSegments(tempRootModelUri.segmentCount() - 2).toString();
+		String tempRootModelResourceURI = tempRootModelUri.toString() + "#";
 
-		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
+		ArrayList<IEObjectDescription> tempList;
+		boolean tempCacheMiss = false;
+		if (insideFullBuildCycle) {
+			// If we are inside a full build cycle, we fully rely on the cache for all global stuff. Therefore a cache
+			// miss is only assumed if we switch to a different Eclipse project (= first segments of URI).
+			tempCacheMiss = (!tempRootModelResourceFirstURISegments
+					.equals(cachedVisibleGlobalVariablesResourceFirstURISegments));
+		} else {
+			// If we are not in a full build cycle, any change of the root model counts as cache miss
+			tempCacheMiss = (!tempRootModelUriString.equals(cachedVisibleGlobalVariablesResourceUri));
+		}
 
-		if (cachedVisibleGlobalVariablesResource != tempRootModel) {
-			// Cache miss! Now we need to search all package vars/constants outside of the current model.
+		if (tempCacheMiss) {
+			// if (insideFullBuildCycle) {
+			// System.out.println("Full Build scoping cache miss: " + tempRootModelResourceFirstURISegments + " vs "
+			// + cachedVisibleGlobalVariablesResourceFirstURISegments);
+			// } else {
+			// System.out.println("Scoping cache miss: " + tempRootModelUriString + " vs "
+			// + cachedVisibleGlobalVariablesResourceUri);
+			// }
 
 			ArrayList<IEObjectDescription> tempCacheableList = new ArrayList<IEObjectDescription>();
 			IScope tempVariableScope = super.getScope(aStatement, DslPackage.Literals.VARIABLE_DEFINITION__NAME);
@@ -711,51 +759,64 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			for (IScope tempScope : new IScope[] { tempVariableScope, tempConstantScope }) {
 				for (IEObjectDescription tempVariableDefDescription : tempScope.getAllElements()) {
 					EObject tempVariableDef = tempVariableDefDescription.getEObjectOrProxy();
-					boolean tempFromOtherResource = false;
-					if (tempVariableDef.eResource() != null) {
-						if (tempVariableDef.eResource() != tempRootModel.eResource()) {
-							tempFromOtherResource = true;
+
+					if (!insideFullBuildCycle) {
+						boolean tempFromOtherResource = false;
+						if (tempVariableDef.eResource() != null) {
+							if (tempVariableDef.eResource() != tempRootModel.eResource()) {
+								tempFromOtherResource = true;
+							}
+						} else {
+							if (!((InternalEObject) tempVariableDef).eProxyURI().toString()
+									.startsWith(tempRootModelResourceURI)) {
+								tempFromOtherResource = true;
+							}
+						}
+
+						if (tempFromOtherResource) {
+							tempCacheableList.add(tempVariableDefDescription);
 						}
 					} else {
-						if (!((InternalEObject) tempVariableDef).eProxyURI().toString()
-								.startsWith(tempRootModelResourceURI)) {
-							tempFromOtherResource = true;
-						}
-					}
-
-					if (tempFromOtherResource) {
 						tempCacheableList.add(tempVariableDefDescription);
 					}
 				}
 			}
 
 			cachedVisibleGlobalVariables = tempCacheableList;
-			cachedVisibleGlobalVariablesResource = tempRootModel;
+			cachedVisibleGlobalVariablesResourceUri = tempRootModelUriString;
+			cachedVisibleGlobalVariablesResourceFirstURISegments = tempRootModelResourceFirstURISegments;
 		}
 
-		tempList.addAll(cachedVisibleGlobalVariables);
+		if (!insideFullBuildCycle) {
+			tempList = new ArrayList<IEObjectDescription>();
+			tempList.addAll(cachedVisibleGlobalVariables);
 
-		// Add definitions from current file (fully qualified and in short form, both are allowed)
-		for (Statement tempStatement : tempRootModel.getStatements()) {
-			if (tempStatement instanceof PackageDefinition) {
-				for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
-					if (tempPackageStatement instanceof VariableDefinition) {
-						VariableEntity tempEntity = ((VariableDefinition) tempPackageStatement).getName();
-						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
-						tempList.add(EObjectDescription.create(
-								qualifiedNameConverter.toQualifiedName(
-										IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false)),
-								tempEntity));
-					} else if (tempPackageStatement instanceof ConstantDefinition) {
-						ConstantEntity tempEntity = ((ConstantDefinition) tempPackageStatement).getName();
-						tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
-						tempList.add(EObjectDescription.create(
-								qualifiedNameConverter.toQualifiedName(
-										IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false)),
-								tempEntity));
+			// Add definitions from current file (fully qualified and in short form, both are allowed). This is not
+			// cached as these will change with each incremental build cycle, because the currently edited file is being
+			// reloaded all the time.
+			for (Statement tempStatement : tempRootModel.getStatements()) {
+				if (tempStatement instanceof PackageDefinition) {
+					for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
+						if (tempPackageStatement instanceof VariableDefinition) {
+							VariableEntity tempEntity = ((VariableDefinition) tempPackageStatement).getName();
+							tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+							tempList.add(EObjectDescription.create(
+									qualifiedNameConverter.toQualifiedName(
+											IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false)),
+									tempEntity));
+						} else if (tempPackageStatement instanceof ConstantDefinition) {
+							ConstantEntity tempEntity = ((ConstantDefinition) tempPackageStatement).getName();
+							tempList.add(EObjectDescription.create(tempEntity.getName(), tempEntity));
+							tempList.add(EObjectDescription.create(
+									qualifiedNameConverter.toQualifiedName(
+											IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, false)),
+									tempEntity));
+						}
 					}
 				}
 			}
+		} else {
+			tempList = cachedVisibleGlobalVariables;
 		}
 
 		// Finally, filter out private variables not in the current package

@@ -1282,7 +1282,11 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 		List<ICompletionProposal> tempSuggestions = null;
 
 		int tempPrefixOffset = aContext.getOffset() - aContext.getCurrentNode().getOffset();
-		String tempPartialPrefix = aContext.getPrefix().substring(0, tempPrefixOffset);
+		String tempPrefix = aContext.getPrefix();
+		if (tempPrefix == null || tempPrefix.length() < tempPrefixOffset) {
+			return;
+		}
+		String tempPartialPrefix = tempPrefix.substring(0, tempPrefixOffset);
 		int tempLastAt = tempPartialPrefix.lastIndexOf("@");
 		String tempActualPrefix = null;
 		if (tempLastAt >= 0) {
