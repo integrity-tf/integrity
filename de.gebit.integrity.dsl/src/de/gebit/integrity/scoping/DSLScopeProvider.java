@@ -854,12 +854,6 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 					}
 				}
 
-				String tempCurrentPackageName = IntegrityDSLUtil
-						.findUpstreamContainer(PackageDefinition.class, aStatement).getName();
-				if (!tempImports.contains(tempCurrentPackageName)) {
-					tempImports.add(tempCurrentPackageName);
-				}
-
 				List<IEObjectDescription> tempAdditionalImportedGlobalVariables = new ArrayList<IEObjectDescription>();
 
 				// Now first of all populate the list with the full imports
