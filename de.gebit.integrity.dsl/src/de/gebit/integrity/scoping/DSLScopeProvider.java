@@ -836,13 +836,24 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			// account
 			try {
 				List<String> tempImports = new ArrayList<>();
+				// Import all packages defined in the current file by default
+				for (Statement tempStatement : tempRootModel.getStatements()) {
+					if (tempStatement instanceof PackageDefinition) {
+						String tempPackageName = tempStatement.getName();
+						tempImports.add(tempPackageName);
+					}
+				}
+
 				for (Import tempStatement : tempRootModel.getImports()) {
 					String tempImport = tempStatement.getImportedNamespace();
 					if (tempImport.endsWith(".*")) {
 						tempImport = tempImport.substring(0, tempImport.length() - 2);
 					}
-					tempImports.add(tempImport);
+					if (!tempImports.contains(tempImport)) {
+						tempImports.add(tempImport);
+					}
 				}
+
 				String tempCurrentPackageName = IntegrityDSLUtil
 						.findUpstreamContainer(PackageDefinition.class, aStatement).getName();
 				if (!tempImports.contains(tempCurrentPackageName)) {
@@ -850,22 +861,35 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 				}
 
 				List<IEObjectDescription> tempAdditionalImportedGlobalVariables = new ArrayList<IEObjectDescription>();
-				for (Entry<String, List<IEObjectDescription>> tempEntry : cachedVisibleGlobalVariablesMap.entrySet()) {
+
+				// Now first of all populate the list with the full imports
+				for (String tempImport : tempImports) {
+					List<IEObjectDescription> tempList = tempEntitiesPerPackage.get(tempImport);
+					for (IEObjectDescription tempDescription : tempList) {
+						tempAdditionalImportedGlobalVariables.add(EObjectDescription.create(
+								tempDescription.getName().getLastSegment(), tempDescription.getEObjectOrProxy()));
+					}
+				}
+
+				// Finally add the partial imports
+				for (Entry<String, List<IEObjectDescription>> tempEntry : tempEntitiesPerPackage.entrySet()) {
 					String tempPackageName = tempEntry.getKey();
 
 					for (String tempImport : tempImports) {
 						boolean tempCanFullyImport = tempPackageName.equals(tempImport);
-						boolean tempCanPartiallyImport = !tempCanFullyImport
-								&& (tempPackageName.length() > tempImport.length()
-										&& tempPackageName.startsWith(tempImport)
-										&& tempPackageName.charAt(tempImport.length()) == '.');
 
-						if (tempCanFullyImport || tempCanPartiallyImport) {
-							int tempSegmentsToSkip = CharMatcher.is('.').countIn(tempImport) + 1;
-							for (IEObjectDescription tempDescription : tempEntry.getValue()) {
-								tempAdditionalImportedGlobalVariables.add(EObjectDescription.create(
-										tempDescription.getName().skipFirst(tempSegmentsToSkip),
-										tempDescription.getEObjectOrProxy()));
+						if (!tempCanFullyImport) {
+							boolean tempCanPartiallyImport = (tempPackageName.length() > tempImport.length()
+									&& tempPackageName.startsWith(tempImport)
+									&& tempPackageName.charAt(tempImport.length()) == '.');
+
+							if (tempCanPartiallyImport) {
+								int tempSegmentsToSkip = CharMatcher.is('.').countIn(tempImport) + 1;
+								for (IEObjectDescription tempDescription : tempEntry.getValue()) {
+									tempAdditionalImportedGlobalVariables.add(EObjectDescription.create(
+											tempDescription.getName().skipFirst(tempSegmentsToSkip),
+											tempDescription.getEObjectOrProxy()));
+								}
 							}
 						}
 					}
