@@ -865,9 +865,11 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 				// Now first of all populate the list with the full imports
 				for (String tempImport : tempImports) {
 					List<IEObjectDescription> tempList = tempEntitiesPerPackage.get(tempImport);
-					for (IEObjectDescription tempDescription : tempList) {
-						tempAdditionalImportedGlobalVariables.add(EObjectDescription.create(
-								tempDescription.getName().getLastSegment(), tempDescription.getEObjectOrProxy()));
+					if (tempList != null) {
+						for (IEObjectDescription tempDescription : tempList) {
+							tempAdditionalImportedGlobalVariables.add(EObjectDescription.create(
+									tempDescription.getName().getLastSegment(), tempDescription.getEObjectOrProxy()));
+						}
 					}
 				}
 
