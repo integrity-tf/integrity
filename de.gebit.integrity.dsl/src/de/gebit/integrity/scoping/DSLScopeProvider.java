@@ -744,7 +744,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		insideFullBuildCycle = false;
 	}
 
-	private IScope addVisibleGlobalConstantsAndVariables(IScope aParentScope, EObject aStatement) {
+	private IScope addVisibleGlobalConstantsAndVariables(EObject aStatement) {
 		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aStatement);
 		URI tempRootModelUri = tempRootModel.eResource().getURI();
 		String tempRootModelResourceFirstURISegments = tempRootModelUri
@@ -888,8 +888,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 
 		// Finally, filter out private variables not in the current package
-		return filterPrivateElements(
-				new SimpleScope(aParentScope, Iterables.concat(tempGlobalEntities, tempScopeAdditionalList)),
+		return filterPrivateElements(new SimpleScope(Iterables.concat(tempGlobalEntities, tempScopeAdditionalList)),
 				aStatement);
 	}
 
@@ -930,10 +929,12 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	private IScope determineVariableScope(EObject aStatement, SuiteDefinition aSuite) {
+		IScope tempScope = addVisibleGlobalConstantsAndVariables(aStatement);
+
 		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 
+		// Add all variables and constants defined in the suite body before the questionable statement
 		EObject tempStop = findSuiteStatementFromSubObject(aStatement);
-
 		for (SuiteStatement tempStatement : aSuite.getStatements()) {
 			if (tempStatement instanceof VariableDefinition) {
 				VariableEntity tempEntity = ((VariableDefinition) tempStatement).getName();
@@ -949,30 +950,24 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 				break;
 			}
 		}
-		IScope tempScope = new SimpleScope(tempList);
-
-		// Now add global constants and variables.
-		tempScope = addVisibleGlobalConstantsAndVariables(tempScope, aStatement);
 
 		// And add suite parameters, which are handled like variables as well.
-		ArrayList<IEObjectDescription> tempSuiteParameterAndReturnList = new ArrayList<IEObjectDescription>();
 		for (VariableEntity tempSuiteParam : ParameterUtil.getVariableEntitiesForSuiteParameters(aSuite)) {
-			tempSuiteParameterAndReturnList.add(EObjectDescription.create(tempSuiteParam.getName(), tempSuiteParam));
+			tempList.add(EObjectDescription.create(tempSuiteParam.getName(), tempSuiteParam));
 		}
 
 		// Just like suite return variables
 		for (SuiteReturnDefinition tempSuiteReturn : aSuite.getReturn()) {
-			tempSuiteParameterAndReturnList
-					.add(EObjectDescription.create(tempSuiteReturn.getName().getName(), tempSuiteReturn.getName()));
+			tempList.add(EObjectDescription.create(tempSuiteReturn.getName().getName(), tempSuiteReturn.getName()));
 		}
 
-		return new SimpleScope(tempScope, tempSuiteParameterAndReturnList);
+		return new SimpleScope(tempScope, tempList);
 	}
 
 	private IScope determineVariableScope(PackageDefinition aPackageDef) {
-		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
-		IScope tempScope = new SimpleScope(tempList);
+		IScope tempScope = addVisibleGlobalConstantsAndVariables(aPackageDef);
 
+		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 		// Add constants/variables defined in current package
 		for (PackageStatement tempStatement : aPackageDef.getStatements()) {
 			if (tempStatement instanceof VariableDefinition) {
@@ -988,26 +983,23 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			}
 		}
 
-		// Add global constants and variables.
-		tempScope = addVisibleGlobalConstantsAndVariables(tempScope, aPackageDef);
-
-		return tempScope;
+		return new SimpleScope(tempScope, tempList);
 	}
 
 	private EObject findSuiteStatementFromSubObject(EObject aSubObject) {
-		EObject tempObject = aSubObject.eContainer();
-		EObject tempParent = tempObject.eContainer();
+		EObject tempParent = aSubObject.eContainer();
 
-		while (tempParent != null) {
-			if (tempParent instanceof SuiteDefinition) {
-				return tempObject;
-			} else {
-				tempObject = tempParent;
-				tempParent = tempObject.eContainer();
-			}
+		if (tempParent == null) {
+			return null;
 		}
 
-		return null;
+		if (tempParent instanceof SuiteDefinition) {
+			// The object before was the suite statement
+			return aSubObject;
+		} else {
+			// recursively ascend further
+			return findSuiteStatementFromSubObject(tempParent);
+		}
 	}
 
 	// This is very useful for debugging scoping problems - it dumps out which declarative methods are actually
