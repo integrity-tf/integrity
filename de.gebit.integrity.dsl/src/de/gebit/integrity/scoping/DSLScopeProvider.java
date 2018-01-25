@@ -37,11 +37,11 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.scoping.impl.FilteringScope;
+import org.eclipse.xtext.scoping.impl.MapBasedScope;
 import org.eclipse.xtext.scoping.impl.SimpleScope;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.inject.Inject;
 
@@ -702,12 +702,12 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	/**
 	 * See {@link #cachedVisibleGlobalVariablesMap}.
 	 */
-	private static List<IEObjectDescription> cachedVisibleGlobalVariables = new ArrayList<>();
+	private static IScope cachedVisibleGlobalVariablesScope;
 
 	/**
 	 * Caches imported versions of global variables.
 	 */
-	private static List<IEObjectDescription> cachedImportedGlobalVariables = new ArrayList<>();
+	private static IScope cachedImportedGlobalVariablesScope;
 
 	/**
 	 * Used to invalidate the cache in case of incremental build cycles when we leave the current document.
@@ -744,7 +744,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 		insideFullBuildCycle = false;
 	}
 
-	private IScope addVisibleGlobalConstantsAndVariables(EObject aStatement) {
+	private IScope getVisibleGlobalConstantsAndVariablesScope(EObject aStatement) {
 		Model tempRootModel = IntegrityDSLUtil.findUpstreamContainer(Model.class, aStatement);
 		URI tempRootModelUri = tempRootModel.eResource().getURI();
 		String tempRootModelResourceFirstURISegments = tempRootModelUri
@@ -756,18 +756,20 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			// If we are inside a full build cycle, we fully rely on the cache for all global stuff. Therefore a cache
 			// miss is only assumed if we switch to a different Eclipse project (= first segments of URI).
 			tempGlobalCacheMiss = (!tempRootModelResourceFirstURISegments
-					.equals(cachedVisibleGlobalVariablesResourceFirstURISegments));
+					.equals(cachedVisibleGlobalVariablesResourceFirstURISegments))
+					| cachedVisibleGlobalVariablesScope == null;
 
 			// But for the locally imported stuff, the cache miss is when the current document changes
-			tempImportCacheMiss = tempGlobalCacheMiss
+			tempImportCacheMiss = tempGlobalCacheMiss | cachedImportedGlobalVariablesScope == null
 					| (!tempRootModel.toString().equals(cachedVisibleGlobalVariablesCurrentModel));
 		} else {
-			tempGlobalCacheMiss = (!tempRootModel.toString().equals(cachedVisibleGlobalVariablesCurrentModel));
-			tempImportCacheMiss = tempGlobalCacheMiss;
+			tempGlobalCacheMiss = (!tempRootModel.toString().equals(cachedVisibleGlobalVariablesCurrentModel))
+					| cachedVisibleGlobalVariablesScope == null;
+			tempImportCacheMiss = tempGlobalCacheMiss | cachedImportedGlobalVariablesScope == null;
 		}
 
 		Map<String, List<IEObjectDescription>> tempEntitiesPerPackage;
-		List<IEObjectDescription> tempGlobalEntities;
+		IScope tempGlobalEntitiesScope;
 
 		if (tempGlobalCacheMiss) {
 			// if (insideFullBuildCycle) {
@@ -787,6 +789,11 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			while (tempIterator.hasNext()) {
 				IEObjectDescription tempEntityDescription = tempIterator.next();
 
+				if (!tempEntityDescription.getName().equals(tempEntityDescription.getQualifiedName())) {
+					// Not fully qualified -> skip here!
+					continue;
+				}
+
 				EObject tempEntity = tempEntityDescription.getEObjectOrProxy();
 				if (tempEntity.eIsProxy()) {
 					tempEntity = EcoreUtil.resolve(tempEntity, aStatement);
@@ -800,96 +807,84 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 					continue;
 				}
 
-				String tempSimpleEntityName = tempEntityDescription.getQualifiedName().getLastSegment();
-
-				// System.out.println("added entity " + tempPackageName + " . " + tempSimpleEntityName);
-
-				boolean tempOriginalIsFullyQualified = (tempEntityDescription.getQualifiedName()
-						.getSegmentCount() == CharMatcher.is('.').countIn(tempPackageName) + 2);
-
-				IEObjectDescription tempNewEntry;
-				if (tempOriginalIsFullyQualified) {
-					tempNewEntry = tempEntityDescription;
-				} else {
-					tempNewEntry = EObjectDescription.create(
-							qualifiedNameConverter.toQualifiedName(tempPackageName + "." + tempSimpleEntityName),
-							tempEntity);
-				}
-
 				List<IEObjectDescription> tempPackageCacheEntries = tempNewCacheMap.get(tempPackageName);
 				if (tempPackageCacheEntries == null) {
 					tempPackageCacheEntries = new ArrayList<IEObjectDescription>();
 					tempNewCacheMap.put(tempPackageName, tempPackageCacheEntries);
 				}
-				tempPackageCacheEntries.add(tempNewEntry);
-				tempNewCacheList.add(tempNewEntry);
+				tempPackageCacheEntries.add(tempEntityDescription);
+				tempNewCacheList.add(tempEntityDescription);
 			}
 
 			tempEntitiesPerPackage = tempNewCacheMap;
-			tempGlobalEntities = tempNewCacheList;
-			cachedVisibleGlobalVariables = tempGlobalEntities;
+			tempGlobalEntitiesScope = MapBasedScope.createScope(IScope.NULLSCOPE, tempNewCacheList);
+			cachedVisibleGlobalVariablesScope = tempGlobalEntitiesScope;
 			cachedVisibleGlobalVariablesMap = tempEntitiesPerPackage;
 			cachedVisibleGlobalVariablesResourceFirstURISegments = tempRootModelResourceFirstURISegments;
 			cachedVisibleGlobalVariablesCurrentModel = tempRootModel.toString();
 		} else {
 			tempEntitiesPerPackage = cachedVisibleGlobalVariablesMap;
-			tempGlobalEntities = cachedVisibleGlobalVariables;
+			tempGlobalEntitiesScope = cachedVisibleGlobalVariablesScope;
 		}
 
-		List<IEObjectDescription> tempScopeAdditionalList;
-
+		IScope tempImportedGlobalVariablesScope = null;
 		if (tempImportCacheMiss) {
 			// System.out
 			// .println("Import cache miss: " + tempRootModel + " vs " + cachedVisibleGlobalVariablesCurrentModel);
 
 			// Now use the cache to build a scope of all visible global constants and variables, taking imports into
 			// account
-			List<String> tempImports = new ArrayList<>();
-			for (Import tempStatement : tempRootModel.getImports()) {
-				String tempImport = tempStatement.getImportedNamespace();
-				if (tempImport.endsWith(".*")) {
-					tempImport = tempImport.substring(0, tempImport.length() - 2);
+			try {
+				List<String> tempImports = new ArrayList<>();
+				for (Import tempStatement : tempRootModel.getImports()) {
+					String tempImport = tempStatement.getImportedNamespace();
+					if (tempImport.endsWith(".*")) {
+						tempImport = tempImport.substring(0, tempImport.length() - 2);
+					}
+					tempImports.add(tempImport);
 				}
-				tempImports.add(tempImport);
-			}
-			String tempCurrentPackageName = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class, aStatement)
-					.getName();
-			if (!tempImports.contains(tempCurrentPackageName)) {
-				tempImports.add(tempCurrentPackageName);
-			}
+				String tempCurrentPackageName = IntegrityDSLUtil
+						.findUpstreamContainer(PackageDefinition.class, aStatement).getName();
+				if (!tempImports.contains(tempCurrentPackageName)) {
+					tempImports.add(tempCurrentPackageName);
+				}
 
-			tempScopeAdditionalList = new ArrayList<IEObjectDescription>();
-			for (Entry<String, List<IEObjectDescription>> tempEntry : cachedVisibleGlobalVariablesMap.entrySet()) {
-				String tempPackageName = tempEntry.getKey();
+				List<IEObjectDescription> tempAdditionalImportedGlobalVariables = new ArrayList<IEObjectDescription>();
+				for (Entry<String, List<IEObjectDescription>> tempEntry : cachedVisibleGlobalVariablesMap.entrySet()) {
+					String tempPackageName = tempEntry.getKey();
 
-				for (String tempImport : tempImports) {
-					boolean tempCanFullyImport = tempPackageName.equals(tempImport);
-					boolean tempCanPartiallyImport = !tempCanFullyImport
-							&& (tempPackageName.length() > tempImport.length() && tempPackageName.startsWith(tempImport)
-									&& tempPackageName.charAt(tempImport.length()) == '.');
+					for (String tempImport : tempImports) {
+						boolean tempCanFullyImport = tempPackageName.equals(tempImport);
+						boolean tempCanPartiallyImport = !tempCanFullyImport
+								&& (tempPackageName.length() > tempImport.length()
+										&& tempPackageName.startsWith(tempImport)
+										&& tempPackageName.charAt(tempImport.length()) == '.');
 
-					if (tempCanFullyImport || tempCanPartiallyImport) {
-						int tempSegmentsToSkip = CharMatcher.is('.').countIn(tempImport) + 1;
-						for (IEObjectDescription tempDescription : tempEntry.getValue()) {
-							tempScopeAdditionalList.add(
-									EObjectDescription.create(tempDescription.getName().skipFirst(tempSegmentsToSkip),
-											tempDescription.getEObjectOrProxy()));
-							// System.out.println("--> added '" +
-							// tempDescription.getName().skipFirst(tempSegmentsToSkip)
-							// + "' to scope due to import '" + tempImport + "'");
+						if (tempCanFullyImport || tempCanPartiallyImport) {
+							int tempSegmentsToSkip = CharMatcher.is('.').countIn(tempImport) + 1;
+							for (IEObjectDescription tempDescription : tempEntry.getValue()) {
+								tempAdditionalImportedGlobalVariables.add(EObjectDescription.create(
+										tempDescription.getName().skipFirst(tempSegmentsToSkip),
+										tempDescription.getEObjectOrProxy()));
+							}
 						}
 					}
 				}
+
+				// The global entities scope is added as parent here
+				tempImportedGlobalVariablesScope = MapBasedScope.createScope(tempGlobalEntitiesScope,
+						tempAdditionalImportedGlobalVariables);
+				cachedImportedGlobalVariablesScope = tempImportedGlobalVariablesScope;
+				cachedVisibleGlobalVariablesCurrentModel = tempRootModel.toString();
+			} catch (Throwable exc) {
+				exc.printStackTrace();
 			}
-			cachedImportedGlobalVariables = tempScopeAdditionalList;
-			cachedVisibleGlobalVariablesCurrentModel = tempRootModel.toString();
 		} else {
-			tempScopeAdditionalList = cachedImportedGlobalVariables;
+			tempImportedGlobalVariablesScope = cachedImportedGlobalVariablesScope;
 		}
 
-		// Finally, filter out private variables not in the current package
-		return filterPrivateElements(new SimpleScope(Iterables.concat(tempGlobalEntities, tempScopeAdditionalList)),
-				aStatement);
+		// Finally, filter out private variables not in the current package by wrapping this in a filtering scope
+		return filterPrivateElements(tempImportedGlobalVariablesScope, aStatement);
 	}
 
 	private IScope filterPrivateElements(IScope aScope, final EObject aStatement) {
@@ -929,7 +924,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	private IScope determineVariableScope(EObject aStatement, SuiteDefinition aSuite) {
-		IScope tempScope = addVisibleGlobalConstantsAndVariables(aStatement);
+		IScope tempScope = getVisibleGlobalConstantsAndVariablesScope(aStatement);
 
 		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 
@@ -965,7 +960,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 
 	private IScope determineVariableScope(PackageDefinition aPackageDef) {
-		IScope tempScope = addVisibleGlobalConstantsAndVariables(aPackageDef);
+		IScope tempScope = getVisibleGlobalConstantsAndVariablesScope(aPackageDef);
 
 		ArrayList<IEObjectDescription> tempList = new ArrayList<IEObjectDescription>();
 		// Add constants/variables defined in current package
