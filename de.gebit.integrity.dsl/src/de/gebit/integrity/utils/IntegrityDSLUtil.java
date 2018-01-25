@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmAnnotationValue;
 import org.eclipse.xtext.common.types.JvmBooleanAnnotationValue;
@@ -634,6 +635,8 @@ public final class IntegrityDSLUtil {
 	 */
 	public static ValueOrEnumValueOrOperationCollection getInitialValueForVariableOrConstantEntity(
 			VariableOrConstantEntity anEntity, VariantDefinition aVariant) {
+		ensureResolved(anEntity);
+
 		EObject tempDefiningStatement = anEntity.eContainer();
 		if (tempDefiningStatement instanceof VariableDefinition) {
 			return ((VariableDefinition) tempDefiningStatement).getInitialValue();
@@ -824,6 +827,17 @@ public final class IntegrityDSLUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Ensures that a given EObject that is possibly a proxy is resolved, resolving it if necessary.
+	 * 
+	 * @param anObject
+	 */
+	public static void ensureResolved(EObject anObject) {
+		if (anObject.eIsProxy()) {
+			EcoreUtil.resolve(anObject, anObject.eResource());
+		}
 	}
 
 }
