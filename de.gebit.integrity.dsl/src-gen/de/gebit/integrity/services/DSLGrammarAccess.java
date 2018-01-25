@@ -22,8 +22,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cModelAction_0 = (Action)cGroup.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		private final Assignment cStatementsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cStatementsStatementParserRuleCall_2_0 = (RuleCall)cStatementsAssignment_2.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Assignment cImportsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cImportsImportParserRuleCall_2_0_0 = (RuleCall)cImportsAssignment_2_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Assignment cStatementsAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cStatementsStatementParserRuleCall_3_0 = (RuleCall)cStatementsAssignment_3.eContents().get(0);
 		
 		/// * This is the Integrity grammar. It's basically just another XText grammar definition, but with one specialty: since
 		// * the Integrity language needs to use line breaks as syntactically relevant elements in one specific place (in order to
@@ -36,10 +40,10 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		// * This works rather well in practice, although one sometimes needs to put some additional effort into the integration of new
 		// * syntactical elements, especially considering content assist and autoformatting.
 		// * / Model:
-		//	{Model} NL statements+=Statement*;
+		//	{Model} NL (imports+=Import NL)* statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{Model} NL statements+=Statement*
+		//{Model} NL (imports+=Import NL)* statements+=Statement*
 		public Group getGroup() { return cGroup; }
 
 		//{Model}
@@ -48,39 +52,47 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 
+		//(imports+=Import NL)*
+		public Group getGroup_2() { return cGroup_2; }
+
+		//imports+=Import
+		public Assignment getImportsAssignment_2_0() { return cImportsAssignment_2_0; }
+
+		//Import
+		public RuleCall getImportsImportParserRuleCall_2_0_0() { return cImportsImportParserRuleCall_2_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_2_1() { return cNLParserRuleCall_2_1; }
+
 		//statements+=Statement*
-		public Assignment getStatementsAssignment_2() { return cStatementsAssignment_2; }
+		public Assignment getStatementsAssignment_3() { return cStatementsAssignment_3; }
 
 		//Statement
-		public RuleCall getStatementsStatementParserRuleCall_2_0() { return cStatementsStatementParserRuleCall_2_0; }
+		public RuleCall getStatementsStatementParserRuleCall_3_0() { return cStatementsStatementParserRuleCall_3_0; }
 	}
 
 	public class StatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.Statement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cImportParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cPackageDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cForkDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cVariantDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cPackageDefinitionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cForkDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cVariantDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//Statement:
-		//	Import | PackageDefinition | ForkDefinition | VariantDefinition;
+		//	PackageDefinition | ForkDefinition | VariantDefinition;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Import | PackageDefinition | ForkDefinition | VariantDefinition
+		//PackageDefinition | ForkDefinition | VariantDefinition
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//Import
-		public RuleCall getImportParserRuleCall_0() { return cImportParserRuleCall_0; }
-
 		//PackageDefinition
-		public RuleCall getPackageDefinitionParserRuleCall_1() { return cPackageDefinitionParserRuleCall_1; }
+		public RuleCall getPackageDefinitionParserRuleCall_0() { return cPackageDefinitionParserRuleCall_0; }
 
 		//ForkDefinition
-		public RuleCall getForkDefinitionParserRuleCall_2() { return cForkDefinitionParserRuleCall_2; }
+		public RuleCall getForkDefinitionParserRuleCall_1() { return cForkDefinitionParserRuleCall_1; }
 
 		//VariantDefinition
-		public RuleCall getVariantDefinitionParserRuleCall_3() { return cVariantDefinitionParserRuleCall_3; }
+		public RuleCall getVariantDefinitionParserRuleCall_2() { return cVariantDefinitionParserRuleCall_2; }
 	}
 
 	public class VisibleCommentElements extends AbstractParserRuleElementFinder {
@@ -328,51 +340,47 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	public class PackageStatementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.PackageStatement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cImportParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cForkDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cVariantDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cTestDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cCallDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cOperationDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cSuiteDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cVariableDefinitionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cConstantDefinitionParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cForkDefinitionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cVariantDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cTestDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cCallDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cOperationDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cSuiteDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cVariableDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cConstantDefinitionParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
 		
 		//PackageStatement:
-		//	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition
-		//	| VariableDefinition | ConstantDefinition;
+		//	ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition |
+		//	VariableDefinition | ConstantDefinition;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition |
+		//ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition |
 		//VariableDefinition | ConstantDefinition
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//Import
-		public RuleCall getImportParserRuleCall_0() { return cImportParserRuleCall_0; }
-
 		//ForkDefinition
-		public RuleCall getForkDefinitionParserRuleCall_1() { return cForkDefinitionParserRuleCall_1; }
+		public RuleCall getForkDefinitionParserRuleCall_0() { return cForkDefinitionParserRuleCall_0; }
 
 		//VariantDefinition
-		public RuleCall getVariantDefinitionParserRuleCall_2() { return cVariantDefinitionParserRuleCall_2; }
+		public RuleCall getVariantDefinitionParserRuleCall_1() { return cVariantDefinitionParserRuleCall_1; }
 
 		//TestDefinition
-		public RuleCall getTestDefinitionParserRuleCall_3() { return cTestDefinitionParserRuleCall_3; }
+		public RuleCall getTestDefinitionParserRuleCall_2() { return cTestDefinitionParserRuleCall_2; }
 
 		//CallDefinition
-		public RuleCall getCallDefinitionParserRuleCall_4() { return cCallDefinitionParserRuleCall_4; }
+		public RuleCall getCallDefinitionParserRuleCall_3() { return cCallDefinitionParserRuleCall_3; }
 
 		//OperationDefinition
-		public RuleCall getOperationDefinitionParserRuleCall_5() { return cOperationDefinitionParserRuleCall_5; }
+		public RuleCall getOperationDefinitionParserRuleCall_4() { return cOperationDefinitionParserRuleCall_4; }
 
 		//SuiteDefinition
-		public RuleCall getSuiteDefinitionParserRuleCall_6() { return cSuiteDefinitionParserRuleCall_6; }
+		public RuleCall getSuiteDefinitionParserRuleCall_5() { return cSuiteDefinitionParserRuleCall_5; }
 
 		//VariableDefinition
-		public RuleCall getVariableDefinitionParserRuleCall_7() { return cVariableDefinitionParserRuleCall_7; }
+		public RuleCall getVariableDefinitionParserRuleCall_6() { return cVariableDefinitionParserRuleCall_6; }
 
 		//ConstantDefinition
-		public RuleCall getConstantDefinitionParserRuleCall_8() { return cConstantDefinitionParserRuleCall_8; }
+		public RuleCall getConstantDefinitionParserRuleCall_7() { return cConstantDefinitionParserRuleCall_7; }
 	}
 
 	public class ImportElements extends AbstractParserRuleElementFinder {
@@ -382,13 +390,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
 		private final Assignment cImportedNamespaceAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cImportedNamespaceQualifiedNameWithWildcardParserRuleCall_2_0 = (RuleCall)cImportedNamespaceAssignment_2.eContents().get(0);
-		private final RuleCall cNLParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
 		//Import:
-		//	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
+		//	'import' NL importedNamespace=QualifiedNameWithWildcard;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'import' NL importedNamespace=QualifiedNameWithWildcard NL
+		//'import' NL importedNamespace=QualifiedNameWithWildcard
 		public Group getGroup() { return cGroup; }
 
 		//'import'
@@ -402,9 +409,6 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//QualifiedNameWithWildcard
 		public RuleCall getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_2_0() { return cImportedNamespaceQualifiedNameWithWildcardParserRuleCall_2_0; }
-
-		//NL
-		public RuleCall getNLParserRuleCall_3() { return cNLParserRuleCall_3; }
 	}
 
 	public class ForkDefinitionElements extends AbstractParserRuleElementFinder {
@@ -4086,7 +4090,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	// * This works rather well in practice, although one sometimes needs to put some additional effort into the integration of new
 	// * syntactical elements, especially considering content assist and autoformatting.
 	// * / Model:
-	//	{Model} NL statements+=Statement*;
+	//	{Model} NL (imports+=Import NL)* statements+=Statement*;
 	public ModelElements getModelAccess() {
 		return pModel;
 	}
@@ -4096,7 +4100,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Statement:
-	//	Import | PackageDefinition | ForkDefinition | VariantDefinition;
+	//	PackageDefinition | ForkDefinition | VariantDefinition;
 	public StatementElements getStatementAccess() {
 		return pStatement;
 	}
@@ -4197,8 +4201,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PackageStatement:
-	//	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition
-	//	| VariableDefinition | ConstantDefinition;
+	//	ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition |
+	//	VariableDefinition | ConstantDefinition;
 	public PackageStatementElements getPackageStatementAccess() {
 		return pPackageStatement;
 	}
@@ -4208,7 +4212,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Import:
-	//	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
+	//	'import' NL importedNamespace=QualifiedNameWithWildcard;
 	public ImportElements getImportAccess() {
 		return pImport;
 	}

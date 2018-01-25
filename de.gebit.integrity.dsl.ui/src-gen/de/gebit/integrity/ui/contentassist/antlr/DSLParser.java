@@ -63,6 +63,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDateAndTimeValueAccess().getAlternatives(), "rule__DateAndTimeValue__Alternatives");
 					put(grammarAccess.getKeyValuePairAccess().getAlternatives_0(), "rule__KeyValuePair__Alternatives_0");
 					put(grammarAccess.getModelAccess().getGroup(), "rule__Model__Group__0");
+					put(grammarAccess.getModelAccess().getGroup_2(), "rule__Model__Group_2__0");
 					put(grammarAccess.getVisibleSingleLineNormalCommentAccess().getGroup(), "rule__VisibleSingleLineNormalComment__Group__0");
 					put(grammarAccess.getVisibleSingleLineTitleCommentAccess().getGroup(), "rule__VisibleSingleLineTitleComment__Group__0");
 					put(grammarAccess.getVisibleMultiLineNormalCommentAccess().getGroup(), "rule__VisibleMultiLineNormalComment__Group__0");
@@ -168,7 +169,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDocumentationCommentAccess().getGroup(), "rule__DocumentationComment__Group__0");
 					put(grammarAccess.getNLAccess().getGroup(), "rule__NL__Group__0");
 					put(grammarAccess.getNLFORCEDAccess().getGroup(), "rule__NLFORCED__Group__0");
-					put(grammarAccess.getModelAccess().getStatementsAssignment_2(), "rule__Model__StatementsAssignment_2");
+					put(grammarAccess.getModelAccess().getImportsAssignment_2_0(), "rule__Model__ImportsAssignment_2_0");
+					put(grammarAccess.getModelAccess().getStatementsAssignment_3(), "rule__Model__StatementsAssignment_3");
 					put(grammarAccess.getVisibleSingleLineNormalCommentAccess().getContentAssignment_0(), "rule__VisibleSingleLineNormalComment__ContentAssignment_0");
 					put(grammarAccess.getVisibleSingleLineTitleCommentAccess().getContentAssignment_0(), "rule__VisibleSingleLineTitleComment__ContentAssignment_0");
 					put(grammarAccess.getVisibleMultiLineNormalCommentAccess().getContentAssignment_0(), "rule__VisibleMultiLineNormalComment__ContentAssignment_0");

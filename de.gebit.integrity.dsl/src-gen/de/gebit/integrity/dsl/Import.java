@@ -2,6 +2,7 @@
  */
 package de.gebit.integrity.dsl;
 
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,7 +20,7 @@ package de.gebit.integrity.dsl;
  * @model
  * @generated
  */
-public interface Import extends Statement, PackageStatement
+public interface Import extends EObject
 {
   /**
    * Returns the value of the '<em><b>Imported Namespace</b></em>' attribute.

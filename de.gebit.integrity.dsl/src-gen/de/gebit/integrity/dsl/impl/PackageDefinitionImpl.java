@@ -2,22 +2,18 @@
  */
 package de.gebit.integrity.dsl.impl;
 
-import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.PackageStatement;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -30,8 +26,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.impl.PackageDefinitionImpl#getDocumentation <em>Documentation</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.impl.PackageDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.PackageDefinitionImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  *
@@ -39,36 +33,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class PackageDefinitionImpl extends StatementImpl implements PackageDefinition
 {
-  /**
-   * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getDocumentation()
-   * @generated
-   * @ordered
-   */
-  protected DocumentationComment documentation;
-
-  /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
-
   /**
    * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
    * <!-- begin-user-doc -->
@@ -105,77 +69,6 @@ public class PackageDefinitionImpl extends StatementImpl implements PackageDefin
    * <!-- end-user-doc -->
    * @generated
    */
-  public DocumentationComment getDocumentation()
-  {
-    return documentation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetDocumentation(DocumentationComment newDocumentation, NotificationChain msgs)
-  {
-    DocumentationComment oldDocumentation = documentation;
-    documentation = newDocumentation;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.PACKAGE_DEFINITION__DOCUMENTATION, oldDocumentation, newDocumentation);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setDocumentation(DocumentationComment newDocumentation)
-  {
-    if (newDocumentation != documentation)
-    {
-      NotificationChain msgs = null;
-      if (documentation != null)
-        msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.PACKAGE_DEFINITION__DOCUMENTATION, null, msgs);
-      if (newDocumentation != null)
-        msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.PACKAGE_DEFINITION__DOCUMENTATION, null, msgs);
-      msgs = basicSetDocumentation(newDocumentation, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.PACKAGE_DEFINITION__DOCUMENTATION, newDocumentation, newDocumentation));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String getName()
-  {
-    return name;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.PACKAGE_DEFINITION__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<PackageStatement> getStatements()
   {
     if (statements == null)
@@ -195,8 +88,6 @@ public class PackageDefinitionImpl extends StatementImpl implements PackageDefin
   {
     switch (featureID)
     {
-      case DslPackage.PACKAGE_DEFINITION__DOCUMENTATION:
-        return basicSetDocumentation(null, msgs);
       case DslPackage.PACKAGE_DEFINITION__STATEMENTS:
         return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
     }
@@ -213,10 +104,6 @@ public class PackageDefinitionImpl extends StatementImpl implements PackageDefin
   {
     switch (featureID)
     {
-      case DslPackage.PACKAGE_DEFINITION__DOCUMENTATION:
-        return getDocumentation();
-      case DslPackage.PACKAGE_DEFINITION__NAME:
-        return getName();
       case DslPackage.PACKAGE_DEFINITION__STATEMENTS:
         return getStatements();
     }
@@ -234,12 +121,6 @@ public class PackageDefinitionImpl extends StatementImpl implements PackageDefin
   {
     switch (featureID)
     {
-      case DslPackage.PACKAGE_DEFINITION__DOCUMENTATION:
-        setDocumentation((DocumentationComment)newValue);
-        return;
-      case DslPackage.PACKAGE_DEFINITION__NAME:
-        setName((String)newValue);
-        return;
       case DslPackage.PACKAGE_DEFINITION__STATEMENTS:
         getStatements().clear();
         getStatements().addAll((Collection<? extends PackageStatement>)newValue);
@@ -258,12 +139,6 @@ public class PackageDefinitionImpl extends StatementImpl implements PackageDefin
   {
     switch (featureID)
     {
-      case DslPackage.PACKAGE_DEFINITION__DOCUMENTATION:
-        setDocumentation((DocumentationComment)null);
-        return;
-      case DslPackage.PACKAGE_DEFINITION__NAME:
-        setName(NAME_EDEFAULT);
-        return;
       case DslPackage.PACKAGE_DEFINITION__STATEMENTS:
         getStatements().clear();
         return;
@@ -281,31 +156,10 @@ public class PackageDefinitionImpl extends StatementImpl implements PackageDefin
   {
     switch (featureID)
     {
-      case DslPackage.PACKAGE_DEFINITION__DOCUMENTATION:
-        return documentation != null;
-      case DslPackage.PACKAGE_DEFINITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case DslPackage.PACKAGE_DEFINITION__STATEMENTS:
         return statements != null && !statements.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(')');
-    return result.toString();
   }
 
 } //PackageDefinitionImpl

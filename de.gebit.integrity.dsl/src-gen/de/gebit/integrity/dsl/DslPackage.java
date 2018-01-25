@@ -67,13 +67,22 @@ public interface DslPackage extends EPackage
   int MODEL = 0;
 
   /**
+   * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MODEL__IMPORTS = 0;
+
+  /**
    * The feature id for the '<em><b>Statements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL__STATEMENTS = 0;
+  int MODEL__STATEMENTS = 1;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -82,7 +91,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int MODEL_FEATURE_COUNT = 1;
+  int MODEL_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.StatementImpl <em>Statement</em>}' class.
@@ -95,13 +104,31 @@ public interface DslPackage extends EPackage
   int STATEMENT = 1;
 
   /**
+   * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATEMENT__DOCUMENTATION = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATEMENT__NAME = 1;
+
+  /**
    * The number of structural features of the '<em>Statement</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STATEMENT_FEATURE_COUNT = 0;
+  int STATEMENT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteStatementImpl <em>Suite Statement</em>}' class.
@@ -363,7 +390,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PACKAGE_DEFINITION__DOCUMENTATION = STATEMENT_FEATURE_COUNT + 0;
+  int PACKAGE_DEFINITION__DOCUMENTATION = STATEMENT__DOCUMENTATION;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -372,7 +399,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PACKAGE_DEFINITION__NAME = STATEMENT_FEATURE_COUNT + 1;
+  int PACKAGE_DEFINITION__NAME = STATEMENT__NAME;
 
   /**
    * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -381,7 +408,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PACKAGE_DEFINITION__STATEMENTS = STATEMENT_FEATURE_COUNT + 2;
+  int PACKAGE_DEFINITION__STATEMENTS = STATEMENT_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Package Definition</em>' class.
@@ -390,7 +417,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PACKAGE_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+  int PACKAGE_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.PackageStatementImpl <em>Package Statement</em>}' class.
@@ -428,7 +455,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int IMPORT__IMPORTED_NAMESPACE = STATEMENT_FEATURE_COUNT + 0;
+  int IMPORT__IMPORTED_NAMESPACE = 0;
 
   /**
    * The number of structural features of the '<em>Import</em>' class.
@@ -437,7 +464,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int IMPORT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
+  int IMPORT_FEATURE_COUNT = 1;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ForkDefinitionImpl <em>Fork Definition</em>}' class.
@@ -456,16 +483,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__DOCUMENTATION = STATEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Private</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FORK_DEFINITION__PRIVATE = STATEMENT_FEATURE_COUNT + 1;
+  int FORK_DEFINITION__DOCUMENTATION = STATEMENT__DOCUMENTATION;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -474,7 +492,16 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__NAME = STATEMENT_FEATURE_COUNT + 2;
+  int FORK_DEFINITION__NAME = STATEMENT__NAME;
+
+  /**
+   * The feature id for the '<em><b>Private</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int FORK_DEFINITION__PRIVATE = STATEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -483,7 +510,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__DESCRIPTION = STATEMENT_FEATURE_COUNT + 3;
+  int FORK_DEFINITION__DESCRIPTION = STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Forker Class</b></em>' containment reference.
@@ -492,7 +519,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__FORKER_CLASS = STATEMENT_FEATURE_COUNT + 4;
+  int FORK_DEFINITION__FORKER_CLASS = STATEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Base Fork</b></em>' reference.
@@ -501,7 +528,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__BASE_FORK = STATEMENT_FEATURE_COUNT + 5;
+  int FORK_DEFINITION__BASE_FORK = STATEMENT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -510,7 +537,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION__PARAMETERS = STATEMENT_FEATURE_COUNT + 6;
+  int FORK_DEFINITION__PARAMETERS = STATEMENT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Fork Definition</em>' class.
@@ -519,7 +546,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FORK_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 7;
+  int FORK_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.ForkParameterImpl <em>Fork Parameter</em>}' class.
@@ -575,7 +602,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIANT_DEFINITION__DOCUMENTATION = STATEMENT_FEATURE_COUNT + 0;
+  int VARIANT_DEFINITION__DOCUMENTATION = STATEMENT__DOCUMENTATION;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -584,7 +611,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIANT_DEFINITION__NAME = STATEMENT_FEATURE_COUNT + 1;
+  int VARIANT_DEFINITION__NAME = STATEMENT__NAME;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -593,7 +620,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIANT_DEFINITION__DESCRIPTION = STATEMENT_FEATURE_COUNT + 2;
+  int VARIANT_DEFINITION__DESCRIPTION = STATEMENT_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Variant Definition</em>' class.
@@ -602,7 +629,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int VARIANT_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+  int VARIANT_DEFINITION_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TestDefinitionImpl <em>Test Definition</em>}' class.
@@ -3200,6 +3227,17 @@ public interface DslPackage extends EPackage
   EClass getModel();
 
   /**
+   * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.Model#getImports <em>Imports</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Imports</em>'.
+   * @see de.gebit.integrity.dsl.Model#getImports()
+   * @see #getModel()
+   * @generated
+   */
+  EReference getModel_Imports();
+
+  /**
    * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.Model#getStatements <em>Statements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3219,6 +3257,28 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getStatement();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.Statement#getDocumentation <em>Documentation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Documentation</em>'.
+   * @see de.gebit.integrity.dsl.Statement#getDocumentation()
+   * @see #getStatement()
+   * @generated
+   */
+  EReference getStatement_Documentation();
+
+  /**
+   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.Statement#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see de.gebit.integrity.dsl.Statement#getName()
+   * @see #getStatement()
+   * @generated
+   */
+  EAttribute getStatement_Name();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.VisibleComment <em>Visible Comment</em>}'.
@@ -3333,28 +3393,6 @@ public interface DslPackage extends EPackage
   EClass getPackageDefinition();
 
   /**
-   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.PackageDefinition#getDocumentation <em>Documentation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Documentation</em>'.
-   * @see de.gebit.integrity.dsl.PackageDefinition#getDocumentation()
-   * @see #getPackageDefinition()
-   * @generated
-   */
-  EReference getPackageDefinition_Documentation();
-
-  /**
-   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.PackageDefinition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see de.gebit.integrity.dsl.PackageDefinition#getName()
-   * @see #getPackageDefinition()
-   * @generated
-   */
-  EAttribute getPackageDefinition_Name();
-
-  /**
    * Returns the meta object for the containment reference list '{@link de.gebit.integrity.dsl.PackageDefinition#getStatements <em>Statements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3407,17 +3445,6 @@ public interface DslPackage extends EPackage
   EClass getForkDefinition();
 
   /**
-   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.ForkDefinition#getDocumentation <em>Documentation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Documentation</em>'.
-   * @see de.gebit.integrity.dsl.ForkDefinition#getDocumentation()
-   * @see #getForkDefinition()
-   * @generated
-   */
-  EReference getForkDefinition_Documentation();
-
-  /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ForkDefinition#getPrivate <em>Private</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3427,17 +3454,6 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EAttribute getForkDefinition_Private();
-
-  /**
-   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ForkDefinition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see de.gebit.integrity.dsl.ForkDefinition#getName()
-   * @see #getForkDefinition()
-   * @generated
-   */
-  EAttribute getForkDefinition_Name();
 
   /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.ForkDefinition#getDescription <em>Description</em>}'.
@@ -3524,28 +3540,6 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getVariantDefinition();
-
-  /**
-   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.VariantDefinition#getDocumentation <em>Documentation</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Documentation</em>'.
-   * @see de.gebit.integrity.dsl.VariantDefinition#getDocumentation()
-   * @see #getVariantDefinition()
-   * @generated
-   */
-  EReference getVariantDefinition_Documentation();
-
-  /**
-   * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.VariantDefinition#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see de.gebit.integrity.dsl.VariantDefinition#getName()
-   * @see #getVariantDefinition()
-   * @generated
-   */
-  EAttribute getVariantDefinition_Name();
 
   /**
    * Returns the meta object for the attribute '{@link de.gebit.integrity.dsl.VariantDefinition#getDescription <em>Description</em>}'.
@@ -5619,6 +5613,14 @@ public interface DslPackage extends EPackage
     EClass MODEL = eINSTANCE.getModel();
 
     /**
+     * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MODEL__IMPORTS = eINSTANCE.getModel_Imports();
+
+    /**
      * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5635,6 +5637,22 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass STATEMENT = eINSTANCE.getStatement();
+
+    /**
+     * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STATEMENT__DOCUMENTATION = eINSTANCE.getStatement_Documentation();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute STATEMENT__NAME = eINSTANCE.getStatement_Name();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.VisibleCommentImpl <em>Visible Comment</em>}' class.
@@ -5743,22 +5761,6 @@ public interface DslPackage extends EPackage
     EClass PACKAGE_DEFINITION = eINSTANCE.getPackageDefinition();
 
     /**
-     * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PACKAGE_DEFINITION__DOCUMENTATION = eINSTANCE.getPackageDefinition_Documentation();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute PACKAGE_DEFINITION__NAME = eINSTANCE.getPackageDefinition_Name();
-
-    /**
      * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5805,28 +5807,12 @@ public interface DslPackage extends EPackage
     EClass FORK_DEFINITION = eINSTANCE.getForkDefinition();
 
     /**
-     * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FORK_DEFINITION__DOCUMENTATION = eINSTANCE.getForkDefinition_Documentation();
-
-    /**
      * The meta object literal for the '<em><b>Private</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute FORK_DEFINITION__PRIVATE = eINSTANCE.getForkDefinition_Private();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute FORK_DEFINITION__NAME = eINSTANCE.getForkDefinition_Name();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
@@ -5895,22 +5881,6 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass VARIANT_DEFINITION = eINSTANCE.getVariantDefinition();
-
-    /**
-     * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VARIANT_DEFINITION__DOCUMENTATION = eINSTANCE.getVariantDefinition_Documentation();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VARIANT_DEFINITION__NAME = eINSTANCE.getVariantDefinition_Name();
 
     /**
      * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
