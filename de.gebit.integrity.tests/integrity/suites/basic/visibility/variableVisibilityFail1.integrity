@@ -1,5 +1,5 @@
 import integrity.fixtures.basic.noop.*
-
+import integrity.basic.visibility.variables.other.*
 
 packagedef integrity.basic.visibility.variables with
 
