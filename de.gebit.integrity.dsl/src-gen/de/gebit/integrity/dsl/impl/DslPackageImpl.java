@@ -823,9 +823,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getModel_Statements()
+  public EReference getModel_Imports()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getModel_Statements()
+  {
+    return (EReference)modelEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -836,6 +846,26 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EClass getStatement()
   {
     return statementEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStatement_Documentation()
+  {
+    return (EReference)statementEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getStatement_Name()
+  {
+    return (EAttribute)statementEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -953,29 +983,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getPackageDefinition_Documentation()
-  {
-    return (EReference)packageDefinitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getPackageDefinition_Name()
-  {
-    return (EAttribute)packageDefinitionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getPackageDefinition_Statements()
   {
-    return (EReference)packageDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EReference)packageDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1023,29 +1033,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getForkDefinition_Documentation()
-  {
-    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getForkDefinition_Private()
   {
-    return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getForkDefinition_Name()
-  {
-    return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1055,7 +1045,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EAttribute getForkDefinition_Description()
   {
-    return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1065,7 +1055,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getForkDefinition_ForkerClass()
   {
-    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(4);
+    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1075,7 +1065,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getForkDefinition_BaseFork()
   {
-    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(5);
+    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -1085,7 +1075,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    */
   public EReference getForkDefinition_Parameters()
   {
-    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(6);
+    return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1133,29 +1123,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getVariantDefinition_Documentation()
-  {
-    return (EReference)variantDefinitionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getVariantDefinition_Name()
-  {
-    return (EAttribute)variantDefinitionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getVariantDefinition_Description()
   {
-    return (EAttribute)variantDefinitionEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)variantDefinitionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -3099,9 +3069,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     // Create classes and their features
     modelEClass = createEClass(MODEL);
+    createEReference(modelEClass, MODEL__IMPORTS);
     createEReference(modelEClass, MODEL__STATEMENTS);
 
     statementEClass = createEClass(STATEMENT);
+    createEReference(statementEClass, STATEMENT__DOCUMENTATION);
+    createEAttribute(statementEClass, STATEMENT__NAME);
 
     visibleCommentEClass = createEClass(VISIBLE_COMMENT);
     createEAttribute(visibleCommentEClass, VISIBLE_COMMENT__CONTENT);
@@ -3122,8 +3095,6 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(visibleDividerEClass, VISIBLE_DIVIDER__CONTENT);
 
     packageDefinitionEClass = createEClass(PACKAGE_DEFINITION);
-    createEReference(packageDefinitionEClass, PACKAGE_DEFINITION__DOCUMENTATION);
-    createEAttribute(packageDefinitionEClass, PACKAGE_DEFINITION__NAME);
     createEReference(packageDefinitionEClass, PACKAGE_DEFINITION__STATEMENTS);
 
     packageStatementEClass = createEClass(PACKAGE_STATEMENT);
@@ -3132,9 +3103,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
 
     forkDefinitionEClass = createEClass(FORK_DEFINITION);
-    createEReference(forkDefinitionEClass, FORK_DEFINITION__DOCUMENTATION);
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__PRIVATE);
-    createEAttribute(forkDefinitionEClass, FORK_DEFINITION__NAME);
     createEAttribute(forkDefinitionEClass, FORK_DEFINITION__DESCRIPTION);
     createEReference(forkDefinitionEClass, FORK_DEFINITION__FORKER_CLASS);
     createEReference(forkDefinitionEClass, FORK_DEFINITION__BASE_FORK);
@@ -3145,8 +3114,6 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(forkParameterEClass, FORK_PARAMETER__VALUE);
 
     variantDefinitionEClass = createEClass(VARIANT_DEFINITION);
-    createEReference(variantDefinitionEClass, VARIANT_DEFINITION__DOCUMENTATION);
-    createEAttribute(variantDefinitionEClass, VARIANT_DEFINITION__NAME);
     createEAttribute(variantDefinitionEClass, VARIANT_DEFINITION__DESCRIPTION);
 
     testDefinitionEClass = createEClass(TEST_DEFINITION);
@@ -3456,8 +3423,6 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     visibleMultiLineTitleCommentEClass.getESuperTypes().add(this.getVisibleMultiLineComment());
     visibleDividerEClass.getESuperTypes().add(this.getSuiteStatement());
     packageDefinitionEClass.getESuperTypes().add(this.getStatement());
-    importEClass.getESuperTypes().add(this.getStatement());
-    importEClass.getESuperTypes().add(this.getPackageStatement());
     forkDefinitionEClass.getESuperTypes().add(this.getStatement());
     forkDefinitionEClass.getESuperTypes().add(this.getPackageStatement());
     variantDefinitionEClass.getESuperTypes().add(this.getStatement());
@@ -3517,9 +3482,12 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     // Initialize classes and features; add operations and parameters
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getModel_Imports(), this.getImport(), null, "imports", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getModel_Statements(), this.getStatement(), null, "statements", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getStatement_Documentation(), this.getDocumentationComment(), null, "documentation", null, 0, 1, Statement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStatement_Name(), ecorePackage.getEString(), "name", null, 0, 1, Statement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(visibleCommentEClass, VisibleComment.class, "VisibleComment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVisibleComment_Content(), ecorePackage.getEString(), "content", null, 0, 1, VisibleComment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3540,8 +3508,6 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getVisibleDivider_Content(), ecorePackage.getEString(), "content", null, 0, 1, VisibleDivider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(packageDefinitionEClass, PackageDefinition.class, "PackageDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPackageDefinition_Documentation(), this.getDocumentationComment(), null, "documentation", null, 0, 1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getPackageDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getPackageDefinition_Statements(), this.getPackageStatement(), null, "statements", null, 0, -1, PackageDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(packageStatementEClass, PackageStatement.class, "PackageStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3550,9 +3516,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEAttribute(getImport_ImportedNamespace(), ecorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(forkDefinitionEClass, ForkDefinition.class, "ForkDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getForkDefinition_Documentation(), this.getDocumentationComment(), null, "documentation", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getForkDefinition_Private(), ecorePackage.getEString(), "private", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getForkDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getForkDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForkDefinition_ForkerClass(), this.getJavaClassReference(), null, "forkerClass", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getForkDefinition_BaseFork(), this.getForkDefinition(), null, "baseFork", null, 0, 1, ForkDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3563,8 +3527,6 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getForkParameter_Value(), this.getValueOrEnumValueOrOperation(), null, "value", null, 0, 1, ForkParameter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(variantDefinitionEClass, VariantDefinition.class, "VariantDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getVariantDefinition_Documentation(), this.getDocumentationComment(), null, "documentation", null, 0, 1, VariantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getVariantDefinition_Name(), ecorePackage.getEString(), "name", null, 0, 1, VariantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getVariantDefinition_Description(), ecorePackage.getEString(), "description", null, 0, 1, VariantDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(testDefinitionEClass, TestDefinition.class, "TestDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

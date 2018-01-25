@@ -8,9 +8,13 @@
   <genPackages prefix="Dsl" basePackage="de.gebit.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
     <genClasses ecoreClass="DSL.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Model/imports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Model/statements"/>
     </genClasses>
-    <genClasses ecoreClass="DSL.ecore#//Statement"/>
+    <genClasses ecoreClass="DSL.ecore#//Statement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//Statement/documentation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Statement/name"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//VisibleComment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleComment/content"/>
     </genClasses>
@@ -24,8 +28,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VisibleDivider/content"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//PackageDefinition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//PackageDefinition/documentation"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//PackageDefinition/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//PackageDefinition/statements"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//PackageStatement"/>
@@ -33,9 +35,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Import/importedNamespace"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//ForkDefinition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkDefinition/documentation"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/private"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//ForkDefinition/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkDefinition/forkerClass"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkDefinition/baseFork"/>
@@ -46,8 +46,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//ForkParameter/value"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//VariantDefinition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//VariantDefinition/documentation"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariantDefinition/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//VariantDefinition/description"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//TestDefinition">

@@ -693,8 +693,6 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Contexts:
-	 *     Statement returns Import
-	 *     PackageStatement returns Import
 	 *     Import returns Import
 	 *
 	 * Constraint:
@@ -904,7 +902,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     Model returns Model
 	 *
 	 * Constraint:
-	 *     statements+=Statement*
+	 *     (imports+=Import* statements+=Statement*)
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

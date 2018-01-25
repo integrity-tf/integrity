@@ -25,10 +25,10 @@ generate dsl "http://integrity.dsl"
  */
 
 Model:
-	{Model} NL statements+=Statement*;
+	{Model} NL (imports+=Import NL)* statements+=Statement*;
 	
 Statement:
-	Import | PackageDefinition | ForkDefinition | VariantDefinition;
+	PackageDefinition | ForkDefinition | VariantDefinition;
 	
 VisibleComment:
 	VisibleSingleLineComment | VisibleMultiLineComment;
@@ -58,10 +58,10 @@ PackageDefinition:
 	documentation=DocumentationComment? 'packagedef' NL name=QualifiedName 'with' NL statements+=PackageStatement* 'packageend' NL;
 	
 PackageStatement:
-	Import | ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
+	ForkDefinition | VariantDefinition | TestDefinition | CallDefinition | OperationDefinition | SuiteDefinition | VariableDefinition | ConstantDefinition;
 
 Import:
-	'import' NL importedNamespace=QualifiedNameWithWildcard NL;
+	'import' NL importedNamespace=QualifiedNameWithWildcard;
 	
 ForkDefinition:
 	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ((('uses' NL forkerClass=JavaClassReference) | ('based on' NL baseFork=[ForkDefinition|QualifiedName])) NL)? (parameters+=ForkParameter NL)*;

@@ -179,8 +179,6 @@ public class DslSwitch<T> extends Switch<T>
       {
         Import import_ = (Import)theEObject;
         T result = caseImport(import_);
-        if (result == null) result = caseStatement(import_);
-        if (result == null) result = casePackageStatement(import_);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }

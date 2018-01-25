@@ -845,14 +845,12 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			// Now use the cache to build a scope of all visible global constants and variables, taking imports into
 			// account
 			List<String> tempImports = new ArrayList<>();
-			for (Statement tempStatement : tempRootModel.getStatements()) {
-				if (tempStatement instanceof Import) {
-					String tempImport = ((Import) tempStatement).getImportedNamespace();
-					if (tempImport.endsWith(".*")) {
-						tempImport = tempImport.substring(0, tempImport.length() - 2);
-					}
-					tempImports.add(tempImport);
+			for (Import tempStatement : tempRootModel.getImports()) {
+				String tempImport = tempStatement.getImportedNamespace();
+				if (tempImport.endsWith(".*")) {
+					tempImport = tempImport.substring(0, tempImport.length() - 2);
 				}
+				tempImports.add(tempImport);
 			}
 			String tempCurrentPackageName = IntegrityDSLUtil.findUpstreamContainer(PackageDefinition.class, aStatement)
 					.getName();

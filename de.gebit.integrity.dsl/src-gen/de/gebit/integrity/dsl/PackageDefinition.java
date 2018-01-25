@@ -13,8 +13,6 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.PackageDefinition#getDocumentation <em>Documentation</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.PackageDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.PackageDefinition#getStatements <em>Statements</em>}</li>
  * </ul>
  *
@@ -24,58 +22,6 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface PackageDefinition extends Statement
 {
-  /**
-   * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Documentation</em>' containment reference.
-   * @see #setDocumentation(DocumentationComment)
-   * @see de.gebit.integrity.dsl.DslPackage#getPackageDefinition_Documentation()
-   * @model containment="true"
-   * @generated
-   */
-  DocumentationComment getDocumentation();
-
-  /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.PackageDefinition#getDocumentation <em>Documentation</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Documentation</em>' containment reference.
-   * @see #getDocumentation()
-   * @generated
-   */
-  void setDocumentation(DocumentationComment value);
-
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see de.gebit.integrity.dsl.DslPackage#getPackageDefinition_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.PackageDefinition#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
-
   /**
    * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.PackageStatement}.
