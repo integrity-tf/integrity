@@ -802,7 +802,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 
 				String tempSimpleEntityName = tempEntityDescription.getQualifiedName().getLastSegment();
 
-				System.out.println("added entity " + tempPackageName + " . " + tempSimpleEntityName);
+				// System.out.println("added entity " + tempPackageName + " . " + tempSimpleEntityName);
 
 				boolean tempOriginalIsFullyQualified = (tempEntityDescription.getQualifiedName()
 						.getSegmentCount() == CharMatcher.is('.').countIn(tempPackageName) + 2);
@@ -865,9 +865,12 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 				String tempPackageName = tempEntry.getKey();
 
 				for (String tempImport : tempImports) {
-					if (tempPackageName.equals(tempImport)
-							|| (tempPackageName.length() > tempImport.length() && tempPackageName.startsWith(tempImport)
-									&& tempPackageName.charAt(tempImport.length()) == '.')) {
+					boolean tempCanFullyImport = tempPackageName.equals(tempImport);
+					boolean tempCanPartiallyImport = !tempCanFullyImport
+							&& (tempPackageName.length() > tempImport.length() && tempPackageName.startsWith(tempImport)
+									&& tempPackageName.charAt(tempImport.length()) == '.');
+
+					if (tempCanFullyImport || tempCanPartiallyImport) {
 						int tempSegmentsToSkip = CharMatcher.is('.').countIn(tempImport) + 1;
 						for (IEObjectDescription tempDescription : tempEntry.getValue()) {
 							tempScopeAdditionalList.add(
