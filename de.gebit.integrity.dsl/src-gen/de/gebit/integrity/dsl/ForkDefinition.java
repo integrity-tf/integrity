@@ -13,9 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getDocumentation <em>Documentation</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getPrivate <em>Private</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getName <em>Name</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getDescription <em>Description</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getForkerClass <em>Forker Class</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.ForkDefinition#getBaseFork <em>Base Fork</em>}</li>
@@ -28,32 +26,6 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ForkDefinition extends Statement, PackageStatement
 {
-  /**
-   * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Documentation</em>' containment reference.
-   * @see #setDocumentation(DocumentationComment)
-   * @see de.gebit.integrity.dsl.DslPackage#getForkDefinition_Documentation()
-   * @model containment="true"
-   * @generated
-   */
-  DocumentationComment getDocumentation();
-
-  /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.ForkDefinition#getDocumentation <em>Documentation</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Documentation</em>' containment reference.
-   * @see #getDocumentation()
-   * @generated
-   */
-  void setDocumentation(DocumentationComment value);
-
   /**
    * Returns the value of the '<em><b>Private</b></em>' attribute.
    * <!-- begin-user-doc -->
@@ -79,32 +51,6 @@ public interface ForkDefinition extends Statement, PackageStatement
    * @generated
    */
   void setPrivate(String value);
-
-  /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see de.gebit.integrity.dsl.DslPackage#getForkDefinition_Name()
-   * @model
-   * @generated
-   */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link de.gebit.integrity.dsl.ForkDefinition#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' attribute.
