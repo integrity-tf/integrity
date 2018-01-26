@@ -831,8 +831,7 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			// Now use the cache to build a scope of all visible global constants and variables, taking imports into
 			// account
 			try {
-				// Import all packages defined in the current file by default. This is mostly to get global stuff
-				// defined in other packagedefs that have the same name as ours.
+				// Import all packages defined in the current file by default.
 				List<String> tempImports = new ArrayList<>();
 				for (Statement tempStatement : tempRootModel.getStatements()) {
 					if (tempStatement instanceof PackageDefinition) {
@@ -866,27 +865,33 @@ public class DSLScopeProvider extends AbstractDeclarativeScopeProvider {
 			tempImportedGlobalVariablesScope = cachedImportedGlobalVariablesScope;
 		}
 
-		// Import all vars/consts from the packages defined in the current file by default. This is the highest-priority
-		// outermost scope, and it is not cached or generated from cached data, because if it was, we would generate
-		// dangling references while files are being edited and partially parsed in the Eclipse editor.
-		List<IEObjectDescription> tempImportedGlobalVariablesFromLocalPackages = new ArrayList<IEObjectDescription>();
-		for (Statement tempStatement : tempRootModel.getStatements()) {
-			if (tempStatement instanceof PackageDefinition) {
-				for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
-					if (tempPackageStatement instanceof VariableDefinition) {
-						tempImportedGlobalVariablesFromLocalPackages.add(EObjectDescription.create(
-								((VariableDefinition) tempPackageStatement).getName().getName(),
-								((VariableDefinition) tempPackageStatement).getName()));
-					} else if (tempPackageStatement instanceof ConstantDefinition) {
-						tempImportedGlobalVariablesFromLocalPackages.add(EObjectDescription.create(
-								((ConstantDefinition) tempPackageStatement).getName().getName(),
-								((ConstantDefinition) tempPackageStatement).getName()));
+		IScope tempScope = tempImportedGlobalVariablesScope;
+		if (!insideFullBuildCycle) {
+			// Import all vars/consts from the packages defined in the current file by default. This is the
+			// highest-priority outermost scope, it just imports stuff that is already imported by the cache, so we
+			// don't need this in case we largely rely on cached data (like with full builds). In case of incremental
+			// builds however, this thing is used, and it is not cached or generated from cached data, because if it
+			// was, we would generate dangling references while files are being edited and partially parsed in the
+			// Eclipse editor.
+			List<IEObjectDescription> tempImportedGlobalVariablesFromLocalPackages = new ArrayList<IEObjectDescription>();
+			for (Statement tempStatement : tempRootModel.getStatements()) {
+				if (tempStatement instanceof PackageDefinition) {
+					for (PackageStatement tempPackageStatement : ((PackageDefinition) tempStatement).getStatements()) {
+						if (tempPackageStatement instanceof VariableDefinition) {
+							tempImportedGlobalVariablesFromLocalPackages.add(EObjectDescription.create(
+									((VariableDefinition) tempPackageStatement).getName().getName(),
+									((VariableDefinition) tempPackageStatement).getName()));
+						} else if (tempPackageStatement instanceof ConstantDefinition) {
+							tempImportedGlobalVariablesFromLocalPackages.add(EObjectDescription.create(
+									((ConstantDefinition) tempPackageStatement).getName().getName(),
+									((ConstantDefinition) tempPackageStatement).getName()));
+						}
 					}
 				}
 			}
+
+			tempScope = new SimpleScope(tempImportedGlobalVariablesScope, tempImportedGlobalVariablesFromLocalPackages);
 		}
-		IScope tempScope = new SimpleScope(tempImportedGlobalVariablesScope,
-				tempImportedGlobalVariablesFromLocalPackages);
 
 		// Finally, filter out private variables not in the current package by wrapping this in a filtering scope
 		return filterPrivateElements(tempScope, aStatement);
