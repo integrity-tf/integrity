@@ -778,6 +778,17 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.INEXISTENT_VALUE:
+      {
+        InexistentValue inexistentValue = (InexistentValue)theEObject;
+        T result = caseInexistentValue(inexistentValue);
+        if (result == null) result = caseStaticValue(inexistentValue);
+        if (result == null) result = caseValue(inexistentValue);
+        if (result == null) result = caseConstantValue(inexistentValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(inexistentValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.ENUM_VALUE:
       {
         EnumValue enumValue = (EnumValue)theEObject;
@@ -855,6 +866,18 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = caseValue(null_);
         if (result == null) result = caseConstantValue(null_);
         if (result == null) result = caseValueOrEnumValueOrOperation(null_);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.INEXISTENT:
+      {
+        Inexistent inexistent = (Inexistent)theEObject;
+        T result = caseInexistent(inexistent);
+        if (result == null) result = caseInexistentValue(inexistent);
+        if (result == null) result = caseStaticValue(inexistent);
+        if (result == null) result = caseValue(inexistent);
+        if (result == null) result = caseConstantValue(inexistent);
+        if (result == null) result = caseValueOrEnumValueOrOperation(inexistent);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -2143,6 +2166,22 @@ public class DslSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Inexistent Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Inexistent Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseInexistentValue(InexistentValue object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Enum Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -2298,6 +2337,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseNull(Null object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Inexistent</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Inexistent</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseInexistent(Inexistent object)
   {
     return null;
   }

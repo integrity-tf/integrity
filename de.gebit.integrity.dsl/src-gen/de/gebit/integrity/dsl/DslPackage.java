@@ -2900,6 +2900,25 @@ public interface DslPackage extends EPackage
   int NULL_VALUE_FEATURE_COUNT = STATIC_VALUE_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.InexistentValueImpl <em>Inexistent Value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.InexistentValueImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getInexistentValue()
+   * @generated
+   */
+  int INEXISTENT_VALUE = 80;
+
+  /**
+   * The number of structural features of the '<em>Inexistent Value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INEXISTENT_VALUE_FEATURE_COUNT = STATIC_VALUE_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.EnumValueImpl <em>Enum Value</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2907,7 +2926,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getEnumValue()
    * @generated
    */
-  int ENUM_VALUE = 80;
+  int ENUM_VALUE = 81;
 
   /**
    * The feature id for the '<em><b>Enum Value</b></em>' reference.
@@ -2935,7 +2954,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNestedObject()
    * @generated
    */
-  int NESTED_OBJECT = 81;
+  int NESTED_OBJECT = 82;
 
   /**
    * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -2963,7 +2982,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getTypedNestedObject()
    * @generated
    */
-  int TYPED_NESTED_OBJECT = 82;
+  int TYPED_NESTED_OBJECT = 83;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -3000,7 +3019,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getKeyValuePair()
    * @generated
    */
-  int KEY_VALUE_PAIR = 83;
+  int KEY_VALUE_PAIR = 84;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -3046,7 +3065,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaClassReference()
    * @generated
    */
-  int JAVA_CLASS_REFERENCE = 84;
+  int JAVA_CLASS_REFERENCE = 85;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -3074,7 +3093,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getMethodReference()
    * @generated
    */
-  int METHOD_REFERENCE = 85;
+  int METHOD_REFERENCE = 86;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -3111,7 +3130,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getJavaConstantReference()
    * @generated
    */
-  int JAVA_CONSTANT_REFERENCE = 86;
+  int JAVA_CONSTANT_REFERENCE = 87;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -3148,7 +3167,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getExecutionMultiplier()
    * @generated
    */
-  int EXECUTION_MULTIPLIER = 87;
+  int EXECUTION_MULTIPLIER = 88;
 
   /**
    * The feature id for the '<em><b>Count</b></em>' containment reference.
@@ -3176,7 +3195,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getDocumentationComment()
    * @generated
    */
-  int DOCUMENTATION_COMMENT = 88;
+  int DOCUMENTATION_COMMENT = 89;
 
   /**
    * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -3204,7 +3223,7 @@ public interface DslPackage extends EPackage
    * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getNull()
    * @generated
    */
-  int NULL = 89;
+  int NULL = 90;
 
   /**
    * The number of structural features of the '<em>Null</em>' class.
@@ -3214,6 +3233,25 @@ public interface DslPackage extends EPackage
    * @ordered
    */
   int NULL_FEATURE_COUNT = NULL_VALUE_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link de.gebit.integrity.dsl.impl.InexistentImpl <em>Inexistent</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see de.gebit.integrity.dsl.impl.InexistentImpl
+   * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getInexistent()
+   * @generated
+   */
+  int INEXISTENT = 91;
+
+  /**
+   * The number of structural features of the '<em>Inexistent</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INEXISTENT_FEATURE_COUNT = INEXISTENT_VALUE_FEATURE_COUNT + 0;
 
 
   /**
@@ -5326,6 +5364,16 @@ public interface DslPackage extends EPackage
   EClass getNullValue();
 
   /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.InexistentValue <em>Inexistent Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Inexistent Value</em>'.
+   * @see de.gebit.integrity.dsl.InexistentValue
+   * @generated
+   */
+  EClass getInexistentValue();
+
+  /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.EnumValue <em>Enum Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5578,6 +5626,16 @@ public interface DslPackage extends EPackage
    * @generated
    */
   EClass getNull();
+
+  /**
+   * Returns the meta object for class '{@link de.gebit.integrity.dsl.Inexistent <em>Inexistent</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Inexistent</em>'.
+   * @see de.gebit.integrity.dsl.Inexistent
+   * @generated
+   */
+  EClass getInexistent();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -7355,6 +7413,16 @@ public interface DslPackage extends EPackage
     EClass NULL_VALUE = eINSTANCE.getNullValue();
 
     /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.InexistentValueImpl <em>Inexistent Value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.InexistentValueImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getInexistentValue()
+     * @generated
+     */
+    EClass INEXISTENT_VALUE = eINSTANCE.getInexistentValue();
+
+    /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.EnumValueImpl <em>Enum Value</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7565,6 +7633,16 @@ public interface DslPackage extends EPackage
      * @generated
      */
     EClass NULL = eINSTANCE.getNull();
+
+    /**
+     * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.InexistentImpl <em>Inexistent</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see de.gebit.integrity.dsl.impl.InexistentImpl
+     * @see de.gebit.integrity.dsl.impl.DslPackageImpl#getInexistent()
+     * @generated
+     */
+    EClass INEXISTENT = eINSTANCE.getInexistent();
 
   }
 

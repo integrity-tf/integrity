@@ -2858,15 +2858,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTimeValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		private final RuleCall cDateAndTimeValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
 		private final RuleCall cNullValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cJavaConstantValueParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cInexistentValueParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cJavaConstantValueParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
 		
 		//StaticValue:
 		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
-		//	JavaConstantValue;
+		//	InexistentValue | JavaConstantValue;
 		@Override public ParserRule getRule() { return rule; }
 
 		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
-		//JavaConstantValue
+		//InexistentValue | JavaConstantValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StringValue
@@ -2893,8 +2894,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NullValue
 		public RuleCall getNullValueParserRuleCall_7() { return cNullValueParserRuleCall_7; }
 
+		//InexistentValue
+		public RuleCall getInexistentValueParserRuleCall_8() { return cInexistentValueParserRuleCall_8; }
+
 		//JavaConstantValue
-		public RuleCall getJavaConstantValueParserRuleCall_8() { return cJavaConstantValueParserRuleCall_8; }
+		public RuleCall getJavaConstantValueParserRuleCall_9() { return cJavaConstantValueParserRuleCall_9; }
 	}
 
 	public class IntegerValueElements extends AbstractParserRuleElementFinder {
@@ -3391,6 +3395,26 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//'null'
 		public Keyword getNullKeyword_1() { return cNullKeyword_1; }
+	}
+
+	public class InexistentValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.InexistentValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cInexistentAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cInexistentKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//InexistentValue:
+		//	{Inexistent} 'inexistent';
+		@Override public ParserRule getRule() { return rule; }
+
+		//{Inexistent} 'inexistent'
+		public Group getGroup() { return cGroup; }
+
+		//{Inexistent}
+		public Action getInexistentAction_0() { return cInexistentAction_0; }
+
+		//'inexistent'
+		public Keyword getInexistentKeyword_1() { return cInexistentKeyword_1; }
 	}
 
 	public class EnumValueElements extends AbstractParserRuleElementFinder {
@@ -3890,6 +3914,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final VariableVariableElements pVariableVariable;
 	private final ConstantElements pConstant;
 	private final NullValueElements pNullValue;
+	private final InexistentValueElements pInexistentValue;
 	private final EnumValueElements pEnumValue;
 	private final NestedObjectElements pNestedObject;
 	private final TypedNestedObjectElements pTypedNestedObject;
@@ -4015,6 +4040,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pVariableVariable = new VariableVariableElements();
 		this.pConstant = new ConstantElements();
 		this.pNullValue = new NullValueElements();
+		this.pInexistentValue = new InexistentValueElements();
 		this.pEnumValue = new EnumValueElements();
 		this.pNestedObject = new NestedObjectElements();
 		this.pTypedNestedObject = new TypedNestedObjectElements();
@@ -4682,7 +4708,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StaticValue:
 	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
-	//	JavaConstantValue;
+	//	InexistentValue | JavaConstantValue;
 	public StaticValueElements getStaticValueAccess() {
 		return pStaticValue;
 	}
@@ -4909,6 +4935,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNullValueRule() {
 		return getNullValueAccess().getRule();
+	}
+
+	//InexistentValue:
+	//	{Inexistent} 'inexistent';
+	public InexistentValueElements getInexistentValueAccess() {
+		return pInexistentValue;
+	}
+	
+	public ParserRule getInexistentValueRule() {
+		return getInexistentValueAccess().getRule();
 	}
 
 	//EnumValue:

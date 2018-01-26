@@ -155,6 +155,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVariableAccess().getGroup(), "rule__Variable__Group__0");
 					put(grammarAccess.getVariableAccess().getGroup_1(), "rule__Variable__Group_1__0");
 					put(grammarAccess.getNullValueAccess().getGroup(), "rule__NullValue__Group__0");
+					put(grammarAccess.getInexistentValueAccess().getGroup(), "rule__InexistentValue__Group__0");
 					put(grammarAccess.getNestedObjectAccess().getGroup(), "rule__NestedObject__Group__0");
 					put(grammarAccess.getNestedObjectAccess().getGroup_2(), "rule__NestedObject__Group_2__0");
 					put(grammarAccess.getTypedNestedObjectAccess().getGroup(), "rule__TypedNestedObject__Group__0");

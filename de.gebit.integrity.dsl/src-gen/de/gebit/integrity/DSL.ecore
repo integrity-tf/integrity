@@ -321,6 +321,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//ConstantEntity"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NullValue" eSuperTypes="#//StaticValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InexistentValue" eSuperTypes="#//StaticValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumValue" eSuperTypes="#//ValueOrEnumValueOrOperation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumValue" eType="ecore:EClass platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmEnumerationLiteral"/>
   </eClassifiers>
@@ -359,4 +360,5 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Null" eSuperTypes="#//NullValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Inexistent" eSuperTypes="#//InexistentValue"/>
 </ecore:EPackage>

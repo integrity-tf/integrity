@@ -25,6 +25,7 @@ import de.gebit.integrity.dsl.FixedResultName;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.ForkParameter;
 import de.gebit.integrity.dsl.Import;
+import de.gebit.integrity.dsl.Inexistent;
 import de.gebit.integrity.dsl.IntegerValue;
 import de.gebit.integrity.dsl.IsoDateAndTimeValue;
 import de.gebit.integrity.dsl.IsoDateValue;
@@ -160,6 +161,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.IMPORT:
 				sequence_Import(context, (Import) semanticObject); 
+				return; 
+			case DslPackage.INEXISTENT:
+				sequence_InexistentValue(context, (Inexistent) semanticObject); 
 				return; 
 			case DslPackage.INTEGER_VALUE:
 				sequence_IntegerValue(context, (IntegerValue) semanticObject); 
@@ -706,6 +710,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getImportAccess().getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_2_0(), semanticObject.getImportedNamespace());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns Inexistent
+	 *     Value returns Inexistent
+	 *     ConstantValue returns Inexistent
+	 *     StaticValue returns Inexistent
+	 *     InexistentValue returns Inexistent
+	 *
+	 * Constraint:
+	 *     {Inexistent}
+	 */
+	protected void sequence_InexistentValue(ISerializationContext context, Inexistent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

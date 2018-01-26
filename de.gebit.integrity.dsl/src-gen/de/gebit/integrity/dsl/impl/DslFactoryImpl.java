@@ -144,6 +144,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.VARIABLE_VARIABLE: return createVariableVariable();
       case DslPackage.CONSTANT: return createConstant();
       case DslPackage.NULL_VALUE: return createNullValue();
+      case DslPackage.INEXISTENT_VALUE: return createInexistentValue();
       case DslPackage.ENUM_VALUE: return createEnumValue();
       case DslPackage.NESTED_OBJECT: return createNestedObject();
       case DslPackage.TYPED_NESTED_OBJECT: return createTypedNestedObject();
@@ -154,6 +155,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.EXECUTION_MULTIPLIER: return createExecutionMultiplier();
       case DslPackage.DOCUMENTATION_COMMENT: return createDocumentationComment();
       case DslPackage.NULL: return createNull();
+      case DslPackage.INEXISTENT: return createInexistent();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -1044,6 +1046,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public InexistentValue createInexistentValue()
+  {
+    InexistentValueImpl inexistentValue = new InexistentValueImpl();
+    return inexistentValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EnumValue createEnumValue()
   {
     EnumValueImpl enumValue = new EnumValueImpl();
@@ -1147,6 +1160,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     NullImpl null_ = new NullImpl();
     return null_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Inexistent createInexistent()
+  {
+    InexistentImpl inexistent = new InexistentImpl();
+    return inexistent;
   }
 
   /**
