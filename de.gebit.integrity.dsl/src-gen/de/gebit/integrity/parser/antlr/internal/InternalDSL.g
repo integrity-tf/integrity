@@ -5188,11 +5188,21 @@ ruleStaticValue returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_8()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getInexistentValueParserRuleCall_8()); 
     }
-    this_JavaConstantValue_8=ruleJavaConstantValue
+    this_InexistentValue_8=ruleInexistentValue
     { 
-        $current = $this_JavaConstantValue_8.current; 
+        $current = $this_InexistentValue_8.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_9()); 
+    }
+    this_JavaConstantValue_9=ruleJavaConstantValue
+    { 
+        $current = $this_JavaConstantValue_9.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -6222,6 +6232,37 @@ ruleNullValue returns [EObject current=null]
 )	otherlv_1='null' 
     {
     	newLeafNode(otherlv_1, grammarAccess.getNullValueAccess().getNullKeyword_1());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleInexistentValue
+entryRuleInexistentValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getInexistentValueRule()); }
+	 iv_ruleInexistentValue=ruleInexistentValue 
+	 { $current=$iv_ruleInexistentValue.current; } 
+	 EOF 
+;
+
+// Rule InexistentValue
+ruleInexistentValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getInexistentValueAccess().getInexistentAction_0(),
+            $current);
+    }
+)	otherlv_1='inexistent' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getInexistentValueAccess().getInexistentKeyword_1());
     }
 )
 ;

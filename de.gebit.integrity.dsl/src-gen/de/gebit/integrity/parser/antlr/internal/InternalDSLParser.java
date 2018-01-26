@@ -21,18 +21,14 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_SL_VISIBLE_COMMENT", "RULE_SL_VISIBLE_TITLE_COMMENT", "RULE_ML_VISIBLE_COMMENT", "RULE_ML_VISIBLE_TITLE_COMMENT", "RULE_DIVIDER", "RULE_STRING", "RULE_ID", "RULE_MULTIPLIER", "RULE_TIMESPAN", "RULE_INTEGER", "RULE_DECIMAL", "RULE_BOOLEAN_TRUE", "RULE_BOOLEAN_FALSE", "RULE_ISODATE", "RULE_EURODATE", "RULE_USDATE", "RULE_ISOTIME", "RULE_TWENTYFOURHRSTIME", "RULE_TWELVEHRSTIME", "RULE_UPPERCASE_ID", "RULE_ML_DOC_COMMENT", "RULE_NEWLINE", "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ISOTIMEZONE", "RULE_ANY_OTHER", "'packagedef'", "'with'", "'packageend'", "'import'", "'private'", "'forkdef'", "'uses'", "'based on'", "':'", "'variantdef'", "'testdef'", "'calldef'", "'single-run'", "'inlined'", "'suitedef'", "'gets'", "'returns'", "'requires'", "'concludedby'", "'suiteend'", "'by default'", "'operationdef'", "'variable'", "'initially'", "'constant'", "'parameterized'", "'assign'", "'->'", "'in'", "'checkpoint'", "'test'", "'='", "'tabletest'", "'|'", "'call'", "'timeset'", "'live'", "'progressing'", "'on'", "'master'", "','", "'+'", "'-'", "'suite'", "'('", "'*'", "'/'", "'%'", "'..'", "')'", "'['", "']'", "'<'", "'>'", "'#'", "'null'", "'{'", "'}'", "'.'", "'.*'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_SL_VISIBLE_COMMENT", "RULE_SL_VISIBLE_TITLE_COMMENT", "RULE_ML_VISIBLE_COMMENT", "RULE_ML_VISIBLE_TITLE_COMMENT", "RULE_DIVIDER", "RULE_STRING", "RULE_ID", "RULE_MULTIPLIER", "RULE_TIMESPAN", "RULE_INTEGER", "RULE_DECIMAL", "RULE_BOOLEAN_TRUE", "RULE_BOOLEAN_FALSE", "RULE_ISODATE", "RULE_EURODATE", "RULE_USDATE", "RULE_ISOTIME", "RULE_TWENTYFOURHRSTIME", "RULE_TWELVEHRSTIME", "RULE_UPPERCASE_ID", "RULE_ML_DOC_COMMENT", "RULE_NEWLINE", "RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_ISOTIMEZONE", "RULE_ANY_OTHER", "'packagedef'", "'with'", "'packageend'", "'import'", "'private'", "'forkdef'", "'uses'", "'based on'", "':'", "'variantdef'", "'testdef'", "'calldef'", "'single-run'", "'inlined'", "'suitedef'", "'gets'", "'returns'", "'requires'", "'concludedby'", "'suiteend'", "'by default'", "'operationdef'", "'variable'", "'initially'", "'constant'", "'parameterized'", "'assign'", "'->'", "'in'", "'checkpoint'", "'test'", "'='", "'tabletest'", "'|'", "'call'", "'timeset'", "'live'", "'progressing'", "'on'", "'master'", "','", "'+'", "'-'", "'suite'", "'('", "'*'", "'/'", "'%'", "'..'", "')'", "'['", "']'", "'<'", "'>'", "'#'", "'null'", "'inexistent'", "'{'", "'}'", "'.'", "'.*'"
     };
     public static final int RULE_ISOTIME=20;
     public static final int T__50=50;
-    public static final int T__90=90;
     public static final int RULE_MULTIPLIER=11;
-    public static final int RULE_DIVIDER=8;
-    public static final int RULE_TIMESPAN=12;
     public static final int RULE_UPPERCASE_ID=23;
     public static final int RULE_ML_DOC_COMMENT=24;
     public static final int T__59=59;
-    public static final int RULE_BOOLEAN_TRUE=15;
     public static final int T__55=55;
     public static final int T__56=56;
     public static final int T__57=57;
@@ -41,13 +37,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final int T__52=52;
     public static final int T__53=53;
     public static final int T__54=54;
-    public static final int RULE_ML_VISIBLE_COMMENT=6;
     public static final int T__60=60;
     public static final int T__61=61;
     public static final int RULE_ID=10;
     public static final int RULE_TWENTYFOURHRSTIME=21;
     public static final int RULE_ISOTIMEZONE=29;
-    public static final int RULE_DECIMAL=14;
     public static final int RULE_ISODATE=17;
     public static final int T__66=66;
     public static final int RULE_ML_COMMENT=27;
@@ -58,33 +52,52 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final int T__62=62;
     public static final int RULE_USDATE=19;
     public static final int T__63=63;
-    public static final int RULE_BOOLEAN_FALSE=16;
     public static final int T__64=64;
     public static final int T__65=65;
-    public static final int T__70=70;
-    public static final int T__71=71;
-    public static final int T__72=72;
     public static final int RULE_NEWLINE=25;
-    public static final int RULE_STRING=9;
-    public static final int RULE_SL_VISIBLE_TITLE_COMMENT=5;
-    public static final int RULE_SL_COMMENT=28;
     public static final int T__37=37;
     public static final int T__38=38;
     public static final int T__39=39;
     public static final int T__33=33;
-    public static final int T__77=77;
     public static final int T__34=34;
-    public static final int T__78=78;
     public static final int T__35=35;
-    public static final int T__79=79;
     public static final int T__36=36;
+    public static final int T__31=31;
+    public static final int T__32=32;
+    public static final int RULE_EURODATE=18;
+    public static final int RULE_ML_VISIBLE_TITLE_COMMENT=7;
+    public static final int T__48=48;
+    public static final int T__49=49;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__42=42;
+    public static final int T__43=43;
+    public static final int T__91=91;
+    public static final int T__90=90;
+    public static final int RULE_DIVIDER=8;
+    public static final int RULE_TIMESPAN=12;
+    public static final int RULE_BOOLEAN_TRUE=15;
+    public static final int RULE_ML_VISIBLE_COMMENT=6;
+    public static final int RULE_DECIMAL=14;
+    public static final int RULE_BOOLEAN_FALSE=16;
+    public static final int T__70=70;
+    public static final int T__71=71;
+    public static final int T__72=72;
+    public static final int RULE_STRING=9;
+    public static final int RULE_SL_VISIBLE_TITLE_COMMENT=5;
+    public static final int RULE_SL_COMMENT=28;
+    public static final int T__77=77;
+    public static final int T__78=78;
+    public static final int T__79=79;
     public static final int T__73=73;
     public static final int EOF=-1;
     public static final int T__74=74;
-    public static final int T__31=31;
     public static final int T__75=75;
     public static final int RULE_TWELVEHRSTIME=22;
-    public static final int T__32=32;
     public static final int T__76=76;
     public static final int T__80=80;
     public static final int T__81=81;
@@ -92,24 +105,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final int T__83=83;
     public static final int RULE_WS=26;
     public static final int RULE_ANY_OTHER=30;
-    public static final int RULE_EURODATE=18;
-    public static final int RULE_ML_VISIBLE_TITLE_COMMENT=7;
-    public static final int T__48=48;
-    public static final int T__49=49;
-    public static final int T__44=44;
     public static final int T__88=88;
-    public static final int T__45=45;
     public static final int T__89=89;
-    public static final int T__46=46;
-    public static final int T__47=47;
-    public static final int T__40=40;
     public static final int T__84=84;
-    public static final int T__41=41;
     public static final int T__85=85;
     public static final int RULE_INTEGER=13;
-    public static final int T__42=42;
     public static final int T__86=86;
-    public static final int T__43=43;
     public static final int T__87=87;
 
     // delegates
@@ -4649,11 +4650,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                 {
                 int LA34_2 = input.LA(2);
 
-                if ( (LA34_2==53) ) {
-                    alt34=2;
-                }
-                else if ( (LA34_2==55) ) {
+                if ( (LA34_2==55) ) {
                     alt34=3;
+                }
+                else if ( (LA34_2==53) ) {
+                    alt34=2;
                 }
                 else {
                     NoViableAltException nvae =
@@ -5477,7 +5478,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             int alt40=2;
             int LA40_0 = input.LA(1);
 
-            if ( ((LA40_0>=RULE_STRING && LA40_0<=RULE_ID)||(LA40_0>=RULE_INTEGER && LA40_0<=RULE_UPPERCASE_ID)||LA40_0==75||LA40_0==81||LA40_0==83||(LA40_0>=86 && LA40_0<=87)) ) {
+            if ( ((LA40_0>=RULE_STRING && LA40_0<=RULE_ID)||(LA40_0>=RULE_INTEGER && LA40_0<=RULE_UPPERCASE_ID)||LA40_0==75||LA40_0==81||LA40_0==83||(LA40_0>=86 && LA40_0<=88)) ) {
                 alt40=1;
             }
             switch (alt40) {
@@ -6806,18 +6807,18 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     int LA49_1 = input.LA(2);
 
                     if ( (LA49_1==RULE_ID) ) {
-                        int LA49_2 = input.LA(3);
+                        int LA49_3 = input.LA(3);
 
-                        if ( (LA49_2==64) ) {
+                        if ( (LA49_3==64) ) {
                             alt49=1;
                         }
 
 
                     }
                     else if ( (LA49_1==72) ) {
-                        int LA49_3 = input.LA(3);
+                        int LA49_4 = input.LA(3);
 
-                        if ( (LA49_3==RULE_ID) ) {
+                        if ( (LA49_4==RULE_ID) ) {
                             int LA49_6 = input.LA(4);
 
                             if ( (LA49_6==64) ) {
@@ -6826,7 +6827,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
                         }
-                        else if ( (LA49_3==RULE_STRING) ) {
+                        else if ( (LA49_4==RULE_STRING) ) {
                             int LA49_7 = input.LA(4);
 
                             if ( (LA49_7==64) ) {
@@ -8632,7 +8633,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             if ( (LA65_0==67) ) {
                 alt65=1;
             }
-            else if ( ((LA65_0>=RULE_STRING && LA65_0<=RULE_ID)||(LA65_0>=RULE_INTEGER && LA65_0<=RULE_UPPERCASE_ID)||(LA65_0>=72 && LA65_0<=73)||LA65_0==75||LA65_0==81||LA65_0==83||(LA65_0>=86 && LA65_0<=87)) ) {
+            else if ( ((LA65_0>=RULE_STRING && LA65_0<=RULE_ID)||(LA65_0>=RULE_INTEGER && LA65_0<=RULE_UPPERCASE_ID)||(LA65_0>=72 && LA65_0<=73)||LA65_0==75||LA65_0==81||LA65_0==83||(LA65_0>=86 && LA65_0<=88)) ) {
                 alt65=2;
             }
             else {
@@ -8697,7 +8698,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     int alt62=2;
                     int LA62_0 = input.LA(1);
 
-                    if ( ((LA62_0>=RULE_STRING && LA62_0<=RULE_ID)||(LA62_0>=RULE_INTEGER && LA62_0<=RULE_UPPERCASE_ID)||LA62_0==75||LA62_0==81||LA62_0==83||(LA62_0>=86 && LA62_0<=87)) ) {
+                    if ( ((LA62_0>=RULE_STRING && LA62_0<=RULE_ID)||(LA62_0>=RULE_INTEGER && LA62_0<=RULE_UPPERCASE_ID)||LA62_0==75||LA62_0==81||LA62_0==83||(LA62_0>=86 && LA62_0<=88)) ) {
                         alt62=1;
                     }
                     else if ( ((LA62_0>=72 && LA62_0<=73)) ) {
@@ -12046,6 +12047,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             case 83:
             case 86:
             case 87:
+            case 88:
                 {
                 alt92=1;
                 }
@@ -12351,7 +12353,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             int alt94=2;
             int LA94_0 = input.LA(1);
 
-            if ( (LA94_0==RULE_STRING||(LA94_0>=RULE_INTEGER && LA94_0<=RULE_TWELVEHRSTIME)||LA94_0==83||LA94_0==86) ) {
+            if ( (LA94_0==RULE_STRING||(LA94_0>=RULE_INTEGER && LA94_0<=RULE_TWELVEHRSTIME)||LA94_0==83||(LA94_0>=86 && LA94_0<=87)) ) {
                 alt94=1;
             }
             else if ( (LA94_0==RULE_ID) ) {
@@ -12457,7 +12459,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStaticValue"
-    // InternalDSL.g:5105:1: ruleStaticValue returns [EObject current=null] : (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_JavaConstantValue_8= ruleJavaConstantValue ) ;
+    // InternalDSL.g:5105:1: ruleStaticValue returns [EObject current=null] : (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_InexistentValue_8= ruleInexistentValue | this_JavaConstantValue_9= ruleJavaConstantValue ) ;
     public final EObject ruleStaticValue() throws RecognitionException {
         EObject current = null;
 
@@ -12477,17 +12479,19 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
         EObject this_NullValue_7 = null;
 
-        EObject this_JavaConstantValue_8 = null;
+        EObject this_InexistentValue_8 = null;
+
+        EObject this_JavaConstantValue_9 = null;
 
 
          enterRule(); 
             
         try {
-            // InternalDSL.g:5108:28: ( (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_JavaConstantValue_8= ruleJavaConstantValue ) )
-            // InternalDSL.g:5109:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_JavaConstantValue_8= ruleJavaConstantValue )
+            // InternalDSL.g:5108:28: ( (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_InexistentValue_8= ruleInexistentValue | this_JavaConstantValue_9= ruleJavaConstantValue ) )
+            // InternalDSL.g:5109:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_InexistentValue_8= ruleInexistentValue | this_JavaConstantValue_9= ruleJavaConstantValue )
             {
-            // InternalDSL.g:5109:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_JavaConstantValue_8= ruleJavaConstantValue )
-            int alt95=9;
+            // InternalDSL.g:5109:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_InexistentValue_8= ruleInexistentValue | this_JavaConstantValue_9= ruleJavaConstantValue )
+            int alt95=10;
             alt95 = dfa95.predict(input);
             switch (alt95) {
                 case 1 :
@@ -12635,18 +12639,36 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 9 :
-                    // InternalDSL.g:5190:5: this_JavaConstantValue_8= ruleJavaConstantValue
+                    // InternalDSL.g:5190:5: this_InexistentValue_8= ruleInexistentValue
                     {
                      
-                            newCompositeNode(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_8()); 
+                            newCompositeNode(grammarAccess.getStaticValueAccess().getInexistentValueParserRuleCall_8()); 
                         
                     pushFollow(FOLLOW_2);
-                    this_JavaConstantValue_8=ruleJavaConstantValue();
+                    this_InexistentValue_8=ruleInexistentValue();
 
                     state._fsp--;
 
                      
-                            current = this_JavaConstantValue_8; 
+                            current = this_InexistentValue_8; 
+                            afterParserOrEnumRuleCall();
+                        
+
+                    }
+                    break;
+                case 10 :
+                    // InternalDSL.g:5200:5: this_JavaConstantValue_9= ruleJavaConstantValue
+                    {
+                     
+                            newCompositeNode(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_9()); 
+                        
+                    pushFollow(FOLLOW_2);
+                    this_JavaConstantValue_9=ruleJavaConstantValue();
+
+                    state._fsp--;
+
+                     
+                            current = this_JavaConstantValue_9; 
                             afterParserOrEnumRuleCall();
                         
 
@@ -12673,7 +12695,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIntegerValue"
-    // InternalDSL.g:5206:1: entryRuleIntegerValue returns [EObject current=null] : iv_ruleIntegerValue= ruleIntegerValue EOF ;
+    // InternalDSL.g:5216:1: entryRuleIntegerValue returns [EObject current=null] : iv_ruleIntegerValue= ruleIntegerValue EOF ;
     public final EObject entryRuleIntegerValue() throws RecognitionException {
         EObject current = null;
 
@@ -12681,8 +12703,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5207:2: (iv_ruleIntegerValue= ruleIntegerValue EOF )
-            // InternalDSL.g:5208:2: iv_ruleIntegerValue= ruleIntegerValue EOF
+            // InternalDSL.g:5217:2: (iv_ruleIntegerValue= ruleIntegerValue EOF )
+            // InternalDSL.g:5218:2: iv_ruleIntegerValue= ruleIntegerValue EOF
             {
              newCompositeNode(grammarAccess.getIntegerValueRule()); 
             pushFollow(FOLLOW_1);
@@ -12709,7 +12731,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIntegerValue"
-    // InternalDSL.g:5215:1: ruleIntegerValue returns [EObject current=null] : ( (lv_integerValue_0_0= RULE_INTEGER ) ) ;
+    // InternalDSL.g:5225:1: ruleIntegerValue returns [EObject current=null] : ( (lv_integerValue_0_0= RULE_INTEGER ) ) ;
     public final EObject ruleIntegerValue() throws RecognitionException {
         EObject current = null;
 
@@ -12718,14 +12740,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5218:28: ( ( (lv_integerValue_0_0= RULE_INTEGER ) ) )
-            // InternalDSL.g:5219:1: ( (lv_integerValue_0_0= RULE_INTEGER ) )
+            // InternalDSL.g:5228:28: ( ( (lv_integerValue_0_0= RULE_INTEGER ) ) )
+            // InternalDSL.g:5229:1: ( (lv_integerValue_0_0= RULE_INTEGER ) )
             {
-            // InternalDSL.g:5219:1: ( (lv_integerValue_0_0= RULE_INTEGER ) )
-            // InternalDSL.g:5220:1: (lv_integerValue_0_0= RULE_INTEGER )
+            // InternalDSL.g:5229:1: ( (lv_integerValue_0_0= RULE_INTEGER ) )
+            // InternalDSL.g:5230:1: (lv_integerValue_0_0= RULE_INTEGER )
             {
-            // InternalDSL.g:5220:1: (lv_integerValue_0_0= RULE_INTEGER )
-            // InternalDSL.g:5221:3: lv_integerValue_0_0= RULE_INTEGER
+            // InternalDSL.g:5230:1: (lv_integerValue_0_0= RULE_INTEGER )
+            // InternalDSL.g:5231:3: lv_integerValue_0_0= RULE_INTEGER
             {
             lv_integerValue_0_0=(Token)match(input,RULE_INTEGER,FOLLOW_2); 
 
@@ -12765,7 +12787,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDecimalValue"
-    // InternalDSL.g:5245:1: entryRuleDecimalValue returns [EObject current=null] : iv_ruleDecimalValue= ruleDecimalValue EOF ;
+    // InternalDSL.g:5255:1: entryRuleDecimalValue returns [EObject current=null] : iv_ruleDecimalValue= ruleDecimalValue EOF ;
     public final EObject entryRuleDecimalValue() throws RecognitionException {
         EObject current = null;
 
@@ -12773,8 +12795,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5246:2: (iv_ruleDecimalValue= ruleDecimalValue EOF )
-            // InternalDSL.g:5247:2: iv_ruleDecimalValue= ruleDecimalValue EOF
+            // InternalDSL.g:5256:2: (iv_ruleDecimalValue= ruleDecimalValue EOF )
+            // InternalDSL.g:5257:2: iv_ruleDecimalValue= ruleDecimalValue EOF
             {
              newCompositeNode(grammarAccess.getDecimalValueRule()); 
             pushFollow(FOLLOW_1);
@@ -12801,7 +12823,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDecimalValue"
-    // InternalDSL.g:5254:1: ruleDecimalValue returns [EObject current=null] : ( (lv_decimalValue_0_0= RULE_DECIMAL ) ) ;
+    // InternalDSL.g:5264:1: ruleDecimalValue returns [EObject current=null] : ( (lv_decimalValue_0_0= RULE_DECIMAL ) ) ;
     public final EObject ruleDecimalValue() throws RecognitionException {
         EObject current = null;
 
@@ -12810,14 +12832,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5257:28: ( ( (lv_decimalValue_0_0= RULE_DECIMAL ) ) )
-            // InternalDSL.g:5258:1: ( (lv_decimalValue_0_0= RULE_DECIMAL ) )
+            // InternalDSL.g:5267:28: ( ( (lv_decimalValue_0_0= RULE_DECIMAL ) ) )
+            // InternalDSL.g:5268:1: ( (lv_decimalValue_0_0= RULE_DECIMAL ) )
             {
-            // InternalDSL.g:5258:1: ( (lv_decimalValue_0_0= RULE_DECIMAL ) )
-            // InternalDSL.g:5259:1: (lv_decimalValue_0_0= RULE_DECIMAL )
+            // InternalDSL.g:5268:1: ( (lv_decimalValue_0_0= RULE_DECIMAL ) )
+            // InternalDSL.g:5269:1: (lv_decimalValue_0_0= RULE_DECIMAL )
             {
-            // InternalDSL.g:5259:1: (lv_decimalValue_0_0= RULE_DECIMAL )
-            // InternalDSL.g:5260:3: lv_decimalValue_0_0= RULE_DECIMAL
+            // InternalDSL.g:5269:1: (lv_decimalValue_0_0= RULE_DECIMAL )
+            // InternalDSL.g:5270:3: lv_decimalValue_0_0= RULE_DECIMAL
             {
             lv_decimalValue_0_0=(Token)match(input,RULE_DECIMAL,FOLLOW_2); 
 
@@ -12857,7 +12879,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleStringValue"
-    // InternalDSL.g:5284:1: entryRuleStringValue returns [EObject current=null] : iv_ruleStringValue= ruleStringValue EOF ;
+    // InternalDSL.g:5294:1: entryRuleStringValue returns [EObject current=null] : iv_ruleStringValue= ruleStringValue EOF ;
     public final EObject entryRuleStringValue() throws RecognitionException {
         EObject current = null;
 
@@ -12865,8 +12887,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5285:2: (iv_ruleStringValue= ruleStringValue EOF )
-            // InternalDSL.g:5286:2: iv_ruleStringValue= ruleStringValue EOF
+            // InternalDSL.g:5295:2: (iv_ruleStringValue= ruleStringValue EOF )
+            // InternalDSL.g:5296:2: iv_ruleStringValue= ruleStringValue EOF
             {
              newCompositeNode(grammarAccess.getStringValueRule()); 
             pushFollow(FOLLOW_1);
@@ -12893,7 +12915,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStringValue"
-    // InternalDSL.g:5293:1: ruleStringValue returns [EObject current=null] : ( (lv_stringValue_0_0= RULE_STRING ) ) ;
+    // InternalDSL.g:5303:1: ruleStringValue returns [EObject current=null] : ( (lv_stringValue_0_0= RULE_STRING ) ) ;
     public final EObject ruleStringValue() throws RecognitionException {
         EObject current = null;
 
@@ -12902,14 +12924,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5296:28: ( ( (lv_stringValue_0_0= RULE_STRING ) ) )
-            // InternalDSL.g:5297:1: ( (lv_stringValue_0_0= RULE_STRING ) )
+            // InternalDSL.g:5306:28: ( ( (lv_stringValue_0_0= RULE_STRING ) ) )
+            // InternalDSL.g:5307:1: ( (lv_stringValue_0_0= RULE_STRING ) )
             {
-            // InternalDSL.g:5297:1: ( (lv_stringValue_0_0= RULE_STRING ) )
-            // InternalDSL.g:5298:1: (lv_stringValue_0_0= RULE_STRING )
+            // InternalDSL.g:5307:1: ( (lv_stringValue_0_0= RULE_STRING ) )
+            // InternalDSL.g:5308:1: (lv_stringValue_0_0= RULE_STRING )
             {
-            // InternalDSL.g:5298:1: (lv_stringValue_0_0= RULE_STRING )
-            // InternalDSL.g:5299:3: lv_stringValue_0_0= RULE_STRING
+            // InternalDSL.g:5308:1: (lv_stringValue_0_0= RULE_STRING )
+            // InternalDSL.g:5309:3: lv_stringValue_0_0= RULE_STRING
             {
             lv_stringValue_0_0=(Token)match(input,RULE_STRING,FOLLOW_2); 
 
@@ -12949,7 +12971,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleBooleanValue"
-    // InternalDSL.g:5323:1: entryRuleBooleanValue returns [EObject current=null] : iv_ruleBooleanValue= ruleBooleanValue EOF ;
+    // InternalDSL.g:5333:1: entryRuleBooleanValue returns [EObject current=null] : iv_ruleBooleanValue= ruleBooleanValue EOF ;
     public final EObject entryRuleBooleanValue() throws RecognitionException {
         EObject current = null;
 
@@ -12957,8 +12979,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5324:2: (iv_ruleBooleanValue= ruleBooleanValue EOF )
-            // InternalDSL.g:5325:2: iv_ruleBooleanValue= ruleBooleanValue EOF
+            // InternalDSL.g:5334:2: (iv_ruleBooleanValue= ruleBooleanValue EOF )
+            // InternalDSL.g:5335:2: iv_ruleBooleanValue= ruleBooleanValue EOF
             {
              newCompositeNode(grammarAccess.getBooleanValueRule()); 
             pushFollow(FOLLOW_1);
@@ -12985,7 +13007,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBooleanValue"
-    // InternalDSL.g:5332:1: ruleBooleanValue returns [EObject current=null] : ( ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) ) ) ;
+    // InternalDSL.g:5342:1: ruleBooleanValue returns [EObject current=null] : ( ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) ) ) ;
     public final EObject ruleBooleanValue() throws RecognitionException {
         EObject current = null;
 
@@ -12995,16 +13017,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5335:28: ( ( ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) ) ) )
-            // InternalDSL.g:5336:1: ( ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) ) )
+            // InternalDSL.g:5345:28: ( ( ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) ) ) )
+            // InternalDSL.g:5346:1: ( ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) ) )
             {
-            // InternalDSL.g:5336:1: ( ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) ) )
-            // InternalDSL.g:5337:1: ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) )
+            // InternalDSL.g:5346:1: ( ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) ) )
+            // InternalDSL.g:5347:1: ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) )
             {
-            // InternalDSL.g:5337:1: ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) )
-            // InternalDSL.g:5338:1: (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE )
+            // InternalDSL.g:5347:1: ( (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE ) )
+            // InternalDSL.g:5348:1: (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE )
             {
-            // InternalDSL.g:5338:1: (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE )
+            // InternalDSL.g:5348:1: (lv_booleanValue_0_1= RULE_BOOLEAN_TRUE | lv_booleanValue_0_2= RULE_BOOLEAN_FALSE )
             int alt96=2;
             int LA96_0 = input.LA(1);
 
@@ -13022,7 +13044,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt96) {
                 case 1 :
-                    // InternalDSL.g:5339:3: lv_booleanValue_0_1= RULE_BOOLEAN_TRUE
+                    // InternalDSL.g:5349:3: lv_booleanValue_0_1= RULE_BOOLEAN_TRUE
                     {
                     lv_booleanValue_0_1=(Token)match(input,RULE_BOOLEAN_TRUE,FOLLOW_2); 
 
@@ -13042,7 +13064,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:5354:8: lv_booleanValue_0_2= RULE_BOOLEAN_FALSE
+                    // InternalDSL.g:5364:8: lv_booleanValue_0_2= RULE_BOOLEAN_FALSE
                     {
                     lv_booleanValue_0_2=(Token)match(input,RULE_BOOLEAN_FALSE,FOLLOW_2); 
 
@@ -13088,7 +13110,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDateValue"
-    // InternalDSL.g:5380:1: entryRuleDateValue returns [EObject current=null] : iv_ruleDateValue= ruleDateValue EOF ;
+    // InternalDSL.g:5390:1: entryRuleDateValue returns [EObject current=null] : iv_ruleDateValue= ruleDateValue EOF ;
     public final EObject entryRuleDateValue() throws RecognitionException {
         EObject current = null;
 
@@ -13096,8 +13118,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5381:2: (iv_ruleDateValue= ruleDateValue EOF )
-            // InternalDSL.g:5382:2: iv_ruleDateValue= ruleDateValue EOF
+            // InternalDSL.g:5391:2: (iv_ruleDateValue= ruleDateValue EOF )
+            // InternalDSL.g:5392:2: iv_ruleDateValue= ruleDateValue EOF
             {
              newCompositeNode(grammarAccess.getDateValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13124,7 +13146,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDateValue"
-    // InternalDSL.g:5389:1: ruleDateValue returns [EObject current=null] : (this_IsoDateValue_0= ruleIsoDateValue | this_EuropeanDateValue_1= ruleEuropeanDateValue | this_USDateValue_2= ruleUSDateValue ) ;
+    // InternalDSL.g:5399:1: ruleDateValue returns [EObject current=null] : (this_IsoDateValue_0= ruleIsoDateValue | this_EuropeanDateValue_1= ruleEuropeanDateValue | this_USDateValue_2= ruleUSDateValue ) ;
     public final EObject ruleDateValue() throws RecognitionException {
         EObject current = null;
 
@@ -13138,10 +13160,10 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5392:28: ( (this_IsoDateValue_0= ruleIsoDateValue | this_EuropeanDateValue_1= ruleEuropeanDateValue | this_USDateValue_2= ruleUSDateValue ) )
-            // InternalDSL.g:5393:1: (this_IsoDateValue_0= ruleIsoDateValue | this_EuropeanDateValue_1= ruleEuropeanDateValue | this_USDateValue_2= ruleUSDateValue )
+            // InternalDSL.g:5402:28: ( (this_IsoDateValue_0= ruleIsoDateValue | this_EuropeanDateValue_1= ruleEuropeanDateValue | this_USDateValue_2= ruleUSDateValue ) )
+            // InternalDSL.g:5403:1: (this_IsoDateValue_0= ruleIsoDateValue | this_EuropeanDateValue_1= ruleEuropeanDateValue | this_USDateValue_2= ruleUSDateValue )
             {
-            // InternalDSL.g:5393:1: (this_IsoDateValue_0= ruleIsoDateValue | this_EuropeanDateValue_1= ruleEuropeanDateValue | this_USDateValue_2= ruleUSDateValue )
+            // InternalDSL.g:5403:1: (this_IsoDateValue_0= ruleIsoDateValue | this_EuropeanDateValue_1= ruleEuropeanDateValue | this_USDateValue_2= ruleUSDateValue )
             int alt97=3;
             switch ( input.LA(1) ) {
             case RULE_ISODATE:
@@ -13168,7 +13190,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             switch (alt97) {
                 case 1 :
-                    // InternalDSL.g:5394:5: this_IsoDateValue_0= ruleIsoDateValue
+                    // InternalDSL.g:5404:5: this_IsoDateValue_0= ruleIsoDateValue
                     {
                      
                             newCompositeNode(grammarAccess.getDateValueAccess().getIsoDateValueParserRuleCall_0()); 
@@ -13186,7 +13208,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:5404:5: this_EuropeanDateValue_1= ruleEuropeanDateValue
+                    // InternalDSL.g:5414:5: this_EuropeanDateValue_1= ruleEuropeanDateValue
                     {
                      
                             newCompositeNode(grammarAccess.getDateValueAccess().getEuropeanDateValueParserRuleCall_1()); 
@@ -13204,7 +13226,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalDSL.g:5414:5: this_USDateValue_2= ruleUSDateValue
+                    // InternalDSL.g:5424:5: this_USDateValue_2= ruleUSDateValue
                     {
                      
                             newCompositeNode(grammarAccess.getDateValueAccess().getUSDateValueParserRuleCall_2()); 
@@ -13242,7 +13264,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIsoDateValue"
-    // InternalDSL.g:5430:1: entryRuleIsoDateValue returns [EObject current=null] : iv_ruleIsoDateValue= ruleIsoDateValue EOF ;
+    // InternalDSL.g:5440:1: entryRuleIsoDateValue returns [EObject current=null] : iv_ruleIsoDateValue= ruleIsoDateValue EOF ;
     public final EObject entryRuleIsoDateValue() throws RecognitionException {
         EObject current = null;
 
@@ -13250,8 +13272,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5431:2: (iv_ruleIsoDateValue= ruleIsoDateValue EOF )
-            // InternalDSL.g:5432:2: iv_ruleIsoDateValue= ruleIsoDateValue EOF
+            // InternalDSL.g:5441:2: (iv_ruleIsoDateValue= ruleIsoDateValue EOF )
+            // InternalDSL.g:5442:2: iv_ruleIsoDateValue= ruleIsoDateValue EOF
             {
              newCompositeNode(grammarAccess.getIsoDateValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13278,7 +13300,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIsoDateValue"
-    // InternalDSL.g:5439:1: ruleIsoDateValue returns [EObject current=null] : ( (lv_dateValue_0_0= RULE_ISODATE ) ) ;
+    // InternalDSL.g:5449:1: ruleIsoDateValue returns [EObject current=null] : ( (lv_dateValue_0_0= RULE_ISODATE ) ) ;
     public final EObject ruleIsoDateValue() throws RecognitionException {
         EObject current = null;
 
@@ -13287,14 +13309,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5442:28: ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) )
-            // InternalDSL.g:5443:1: ( (lv_dateValue_0_0= RULE_ISODATE ) )
+            // InternalDSL.g:5452:28: ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) )
+            // InternalDSL.g:5453:1: ( (lv_dateValue_0_0= RULE_ISODATE ) )
             {
-            // InternalDSL.g:5443:1: ( (lv_dateValue_0_0= RULE_ISODATE ) )
-            // InternalDSL.g:5444:1: (lv_dateValue_0_0= RULE_ISODATE )
+            // InternalDSL.g:5453:1: ( (lv_dateValue_0_0= RULE_ISODATE ) )
+            // InternalDSL.g:5454:1: (lv_dateValue_0_0= RULE_ISODATE )
             {
-            // InternalDSL.g:5444:1: (lv_dateValue_0_0= RULE_ISODATE )
-            // InternalDSL.g:5445:3: lv_dateValue_0_0= RULE_ISODATE
+            // InternalDSL.g:5454:1: (lv_dateValue_0_0= RULE_ISODATE )
+            // InternalDSL.g:5455:3: lv_dateValue_0_0= RULE_ISODATE
             {
             lv_dateValue_0_0=(Token)match(input,RULE_ISODATE,FOLLOW_2); 
 
@@ -13334,7 +13356,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEuropeanDateValue"
-    // InternalDSL.g:5469:1: entryRuleEuropeanDateValue returns [EObject current=null] : iv_ruleEuropeanDateValue= ruleEuropeanDateValue EOF ;
+    // InternalDSL.g:5479:1: entryRuleEuropeanDateValue returns [EObject current=null] : iv_ruleEuropeanDateValue= ruleEuropeanDateValue EOF ;
     public final EObject entryRuleEuropeanDateValue() throws RecognitionException {
         EObject current = null;
 
@@ -13342,8 +13364,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5470:2: (iv_ruleEuropeanDateValue= ruleEuropeanDateValue EOF )
-            // InternalDSL.g:5471:2: iv_ruleEuropeanDateValue= ruleEuropeanDateValue EOF
+            // InternalDSL.g:5480:2: (iv_ruleEuropeanDateValue= ruleEuropeanDateValue EOF )
+            // InternalDSL.g:5481:2: iv_ruleEuropeanDateValue= ruleEuropeanDateValue EOF
             {
              newCompositeNode(grammarAccess.getEuropeanDateValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13370,7 +13392,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEuropeanDateValue"
-    // InternalDSL.g:5478:1: ruleEuropeanDateValue returns [EObject current=null] : ( (lv_dateValue_0_0= RULE_EURODATE ) ) ;
+    // InternalDSL.g:5488:1: ruleEuropeanDateValue returns [EObject current=null] : ( (lv_dateValue_0_0= RULE_EURODATE ) ) ;
     public final EObject ruleEuropeanDateValue() throws RecognitionException {
         EObject current = null;
 
@@ -13379,14 +13401,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5481:28: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) )
-            // InternalDSL.g:5482:1: ( (lv_dateValue_0_0= RULE_EURODATE ) )
+            // InternalDSL.g:5491:28: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) )
+            // InternalDSL.g:5492:1: ( (lv_dateValue_0_0= RULE_EURODATE ) )
             {
-            // InternalDSL.g:5482:1: ( (lv_dateValue_0_0= RULE_EURODATE ) )
-            // InternalDSL.g:5483:1: (lv_dateValue_0_0= RULE_EURODATE )
+            // InternalDSL.g:5492:1: ( (lv_dateValue_0_0= RULE_EURODATE ) )
+            // InternalDSL.g:5493:1: (lv_dateValue_0_0= RULE_EURODATE )
             {
-            // InternalDSL.g:5483:1: (lv_dateValue_0_0= RULE_EURODATE )
-            // InternalDSL.g:5484:3: lv_dateValue_0_0= RULE_EURODATE
+            // InternalDSL.g:5493:1: (lv_dateValue_0_0= RULE_EURODATE )
+            // InternalDSL.g:5494:3: lv_dateValue_0_0= RULE_EURODATE
             {
             lv_dateValue_0_0=(Token)match(input,RULE_EURODATE,FOLLOW_2); 
 
@@ -13426,7 +13448,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleUSDateValue"
-    // InternalDSL.g:5508:1: entryRuleUSDateValue returns [EObject current=null] : iv_ruleUSDateValue= ruleUSDateValue EOF ;
+    // InternalDSL.g:5518:1: entryRuleUSDateValue returns [EObject current=null] : iv_ruleUSDateValue= ruleUSDateValue EOF ;
     public final EObject entryRuleUSDateValue() throws RecognitionException {
         EObject current = null;
 
@@ -13434,8 +13456,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5509:2: (iv_ruleUSDateValue= ruleUSDateValue EOF )
-            // InternalDSL.g:5510:2: iv_ruleUSDateValue= ruleUSDateValue EOF
+            // InternalDSL.g:5519:2: (iv_ruleUSDateValue= ruleUSDateValue EOF )
+            // InternalDSL.g:5520:2: iv_ruleUSDateValue= ruleUSDateValue EOF
             {
              newCompositeNode(grammarAccess.getUSDateValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13462,7 +13484,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUSDateValue"
-    // InternalDSL.g:5517:1: ruleUSDateValue returns [EObject current=null] : ( (lv_dateValue_0_0= RULE_USDATE ) ) ;
+    // InternalDSL.g:5527:1: ruleUSDateValue returns [EObject current=null] : ( (lv_dateValue_0_0= RULE_USDATE ) ) ;
     public final EObject ruleUSDateValue() throws RecognitionException {
         EObject current = null;
 
@@ -13471,14 +13493,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5520:28: ( ( (lv_dateValue_0_0= RULE_USDATE ) ) )
-            // InternalDSL.g:5521:1: ( (lv_dateValue_0_0= RULE_USDATE ) )
+            // InternalDSL.g:5530:28: ( ( (lv_dateValue_0_0= RULE_USDATE ) ) )
+            // InternalDSL.g:5531:1: ( (lv_dateValue_0_0= RULE_USDATE ) )
             {
-            // InternalDSL.g:5521:1: ( (lv_dateValue_0_0= RULE_USDATE ) )
-            // InternalDSL.g:5522:1: (lv_dateValue_0_0= RULE_USDATE )
+            // InternalDSL.g:5531:1: ( (lv_dateValue_0_0= RULE_USDATE ) )
+            // InternalDSL.g:5532:1: (lv_dateValue_0_0= RULE_USDATE )
             {
-            // InternalDSL.g:5522:1: (lv_dateValue_0_0= RULE_USDATE )
-            // InternalDSL.g:5523:3: lv_dateValue_0_0= RULE_USDATE
+            // InternalDSL.g:5532:1: (lv_dateValue_0_0= RULE_USDATE )
+            // InternalDSL.g:5533:3: lv_dateValue_0_0= RULE_USDATE
             {
             lv_dateValue_0_0=(Token)match(input,RULE_USDATE,FOLLOW_2); 
 
@@ -13518,7 +13540,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTimeValue"
-    // InternalDSL.g:5547:1: entryRuleTimeValue returns [EObject current=null] : iv_ruleTimeValue= ruleTimeValue EOF ;
+    // InternalDSL.g:5557:1: entryRuleTimeValue returns [EObject current=null] : iv_ruleTimeValue= ruleTimeValue EOF ;
     public final EObject entryRuleTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13526,8 +13548,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5548:2: (iv_ruleTimeValue= ruleTimeValue EOF )
-            // InternalDSL.g:5549:2: iv_ruleTimeValue= ruleTimeValue EOF
+            // InternalDSL.g:5558:2: (iv_ruleTimeValue= ruleTimeValue EOF )
+            // InternalDSL.g:5559:2: iv_ruleTimeValue= ruleTimeValue EOF
             {
              newCompositeNode(grammarAccess.getTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13554,7 +13576,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTimeValue"
-    // InternalDSL.g:5556:1: ruleTimeValue returns [EObject current=null] : (this_IsoTimeValue_0= ruleIsoTimeValue | this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue | this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue ) ;
+    // InternalDSL.g:5566:1: ruleTimeValue returns [EObject current=null] : (this_IsoTimeValue_0= ruleIsoTimeValue | this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue | this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue ) ;
     public final EObject ruleTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13568,10 +13590,10 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5559:28: ( (this_IsoTimeValue_0= ruleIsoTimeValue | this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue | this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue ) )
-            // InternalDSL.g:5560:1: (this_IsoTimeValue_0= ruleIsoTimeValue | this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue | this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue )
+            // InternalDSL.g:5569:28: ( (this_IsoTimeValue_0= ruleIsoTimeValue | this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue | this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue ) )
+            // InternalDSL.g:5570:1: (this_IsoTimeValue_0= ruleIsoTimeValue | this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue | this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue )
             {
-            // InternalDSL.g:5560:1: (this_IsoTimeValue_0= ruleIsoTimeValue | this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue | this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue )
+            // InternalDSL.g:5570:1: (this_IsoTimeValue_0= ruleIsoTimeValue | this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue | this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue )
             int alt98=3;
             switch ( input.LA(1) ) {
             case RULE_ISOTIME:
@@ -13598,7 +13620,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             switch (alt98) {
                 case 1 :
-                    // InternalDSL.g:5561:5: this_IsoTimeValue_0= ruleIsoTimeValue
+                    // InternalDSL.g:5571:5: this_IsoTimeValue_0= ruleIsoTimeValue
                     {
                      
                             newCompositeNode(grammarAccess.getTimeValueAccess().getIsoTimeValueParserRuleCall_0()); 
@@ -13616,7 +13638,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:5571:5: this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue
+                    // InternalDSL.g:5581:5: this_Simple24HrsTimeValue_1= ruleSimple24HrsTimeValue
                     {
                      
                             newCompositeNode(grammarAccess.getTimeValueAccess().getSimple24HrsTimeValueParserRuleCall_1()); 
@@ -13634,7 +13656,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalDSL.g:5581:5: this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue
+                    // InternalDSL.g:5591:5: this_Simple12HrsTimeValue_2= ruleSimple12HrsTimeValue
                     {
                      
                             newCompositeNode(grammarAccess.getTimeValueAccess().getSimple12HrsTimeValueParserRuleCall_2()); 
@@ -13672,7 +13694,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIsoTimeValue"
-    // InternalDSL.g:5597:1: entryRuleIsoTimeValue returns [EObject current=null] : iv_ruleIsoTimeValue= ruleIsoTimeValue EOF ;
+    // InternalDSL.g:5607:1: entryRuleIsoTimeValue returns [EObject current=null] : iv_ruleIsoTimeValue= ruleIsoTimeValue EOF ;
     public final EObject entryRuleIsoTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13680,8 +13702,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5598:2: (iv_ruleIsoTimeValue= ruleIsoTimeValue EOF )
-            // InternalDSL.g:5599:2: iv_ruleIsoTimeValue= ruleIsoTimeValue EOF
+            // InternalDSL.g:5608:2: (iv_ruleIsoTimeValue= ruleIsoTimeValue EOF )
+            // InternalDSL.g:5609:2: iv_ruleIsoTimeValue= ruleIsoTimeValue EOF
             {
              newCompositeNode(grammarAccess.getIsoTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13708,7 +13730,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIsoTimeValue"
-    // InternalDSL.g:5606:1: ruleIsoTimeValue returns [EObject current=null] : ( (lv_timeValue_0_0= RULE_ISOTIME ) ) ;
+    // InternalDSL.g:5616:1: ruleIsoTimeValue returns [EObject current=null] : ( (lv_timeValue_0_0= RULE_ISOTIME ) ) ;
     public final EObject ruleIsoTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13717,14 +13739,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5609:28: ( ( (lv_timeValue_0_0= RULE_ISOTIME ) ) )
-            // InternalDSL.g:5610:1: ( (lv_timeValue_0_0= RULE_ISOTIME ) )
+            // InternalDSL.g:5619:28: ( ( (lv_timeValue_0_0= RULE_ISOTIME ) ) )
+            // InternalDSL.g:5620:1: ( (lv_timeValue_0_0= RULE_ISOTIME ) )
             {
-            // InternalDSL.g:5610:1: ( (lv_timeValue_0_0= RULE_ISOTIME ) )
-            // InternalDSL.g:5611:1: (lv_timeValue_0_0= RULE_ISOTIME )
+            // InternalDSL.g:5620:1: ( (lv_timeValue_0_0= RULE_ISOTIME ) )
+            // InternalDSL.g:5621:1: (lv_timeValue_0_0= RULE_ISOTIME )
             {
-            // InternalDSL.g:5611:1: (lv_timeValue_0_0= RULE_ISOTIME )
-            // InternalDSL.g:5612:3: lv_timeValue_0_0= RULE_ISOTIME
+            // InternalDSL.g:5621:1: (lv_timeValue_0_0= RULE_ISOTIME )
+            // InternalDSL.g:5622:3: lv_timeValue_0_0= RULE_ISOTIME
             {
             lv_timeValue_0_0=(Token)match(input,RULE_ISOTIME,FOLLOW_2); 
 
@@ -13764,7 +13786,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSimple24HrsTimeValue"
-    // InternalDSL.g:5636:1: entryRuleSimple24HrsTimeValue returns [EObject current=null] : iv_ruleSimple24HrsTimeValue= ruleSimple24HrsTimeValue EOF ;
+    // InternalDSL.g:5646:1: entryRuleSimple24HrsTimeValue returns [EObject current=null] : iv_ruleSimple24HrsTimeValue= ruleSimple24HrsTimeValue EOF ;
     public final EObject entryRuleSimple24HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13772,8 +13794,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5637:2: (iv_ruleSimple24HrsTimeValue= ruleSimple24HrsTimeValue EOF )
-            // InternalDSL.g:5638:2: iv_ruleSimple24HrsTimeValue= ruleSimple24HrsTimeValue EOF
+            // InternalDSL.g:5647:2: (iv_ruleSimple24HrsTimeValue= ruleSimple24HrsTimeValue EOF )
+            // InternalDSL.g:5648:2: iv_ruleSimple24HrsTimeValue= ruleSimple24HrsTimeValue EOF
             {
              newCompositeNode(grammarAccess.getSimple24HrsTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13800,7 +13822,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSimple24HrsTimeValue"
-    // InternalDSL.g:5645:1: ruleSimple24HrsTimeValue returns [EObject current=null] : ( (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME ) ) ;
+    // InternalDSL.g:5655:1: ruleSimple24HrsTimeValue returns [EObject current=null] : ( (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME ) ) ;
     public final EObject ruleSimple24HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13809,14 +13831,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5648:28: ( ( (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME ) ) )
-            // InternalDSL.g:5649:1: ( (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME ) )
+            // InternalDSL.g:5658:28: ( ( (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME ) ) )
+            // InternalDSL.g:5659:1: ( (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME ) )
             {
-            // InternalDSL.g:5649:1: ( (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME ) )
-            // InternalDSL.g:5650:1: (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME )
+            // InternalDSL.g:5659:1: ( (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME ) )
+            // InternalDSL.g:5660:1: (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME )
             {
-            // InternalDSL.g:5650:1: (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME )
-            // InternalDSL.g:5651:3: lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME
+            // InternalDSL.g:5660:1: (lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME )
+            // InternalDSL.g:5661:3: lv_timeValue_0_0= RULE_TWENTYFOURHRSTIME
             {
             lv_timeValue_0_0=(Token)match(input,RULE_TWENTYFOURHRSTIME,FOLLOW_2); 
 
@@ -13856,7 +13878,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSimple12HrsTimeValue"
-    // InternalDSL.g:5675:1: entryRuleSimple12HrsTimeValue returns [EObject current=null] : iv_ruleSimple12HrsTimeValue= ruleSimple12HrsTimeValue EOF ;
+    // InternalDSL.g:5685:1: entryRuleSimple12HrsTimeValue returns [EObject current=null] : iv_ruleSimple12HrsTimeValue= ruleSimple12HrsTimeValue EOF ;
     public final EObject entryRuleSimple12HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13864,8 +13886,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5676:2: (iv_ruleSimple12HrsTimeValue= ruleSimple12HrsTimeValue EOF )
-            // InternalDSL.g:5677:2: iv_ruleSimple12HrsTimeValue= ruleSimple12HrsTimeValue EOF
+            // InternalDSL.g:5686:2: (iv_ruleSimple12HrsTimeValue= ruleSimple12HrsTimeValue EOF )
+            // InternalDSL.g:5687:2: iv_ruleSimple12HrsTimeValue= ruleSimple12HrsTimeValue EOF
             {
              newCompositeNode(grammarAccess.getSimple12HrsTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13892,7 +13914,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSimple12HrsTimeValue"
-    // InternalDSL.g:5684:1: ruleSimple12HrsTimeValue returns [EObject current=null] : ( (lv_timeValue_0_0= RULE_TWELVEHRSTIME ) ) ;
+    // InternalDSL.g:5694:1: ruleSimple12HrsTimeValue returns [EObject current=null] : ( (lv_timeValue_0_0= RULE_TWELVEHRSTIME ) ) ;
     public final EObject ruleSimple12HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13901,14 +13923,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5687:28: ( ( (lv_timeValue_0_0= RULE_TWELVEHRSTIME ) ) )
-            // InternalDSL.g:5688:1: ( (lv_timeValue_0_0= RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:5697:28: ( ( (lv_timeValue_0_0= RULE_TWELVEHRSTIME ) ) )
+            // InternalDSL.g:5698:1: ( (lv_timeValue_0_0= RULE_TWELVEHRSTIME ) )
             {
-            // InternalDSL.g:5688:1: ( (lv_timeValue_0_0= RULE_TWELVEHRSTIME ) )
-            // InternalDSL.g:5689:1: (lv_timeValue_0_0= RULE_TWELVEHRSTIME )
+            // InternalDSL.g:5698:1: ( (lv_timeValue_0_0= RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:5699:1: (lv_timeValue_0_0= RULE_TWELVEHRSTIME )
             {
-            // InternalDSL.g:5689:1: (lv_timeValue_0_0= RULE_TWELVEHRSTIME )
-            // InternalDSL.g:5690:3: lv_timeValue_0_0= RULE_TWELVEHRSTIME
+            // InternalDSL.g:5699:1: (lv_timeValue_0_0= RULE_TWELVEHRSTIME )
+            // InternalDSL.g:5700:3: lv_timeValue_0_0= RULE_TWELVEHRSTIME
             {
             lv_timeValue_0_0=(Token)match(input,RULE_TWELVEHRSTIME,FOLLOW_2); 
 
@@ -13948,7 +13970,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDateAndTimeValue"
-    // InternalDSL.g:5714:1: entryRuleDateAndTimeValue returns [EObject current=null] : iv_ruleDateAndTimeValue= ruleDateAndTimeValue EOF ;
+    // InternalDSL.g:5724:1: entryRuleDateAndTimeValue returns [EObject current=null] : iv_ruleDateAndTimeValue= ruleDateAndTimeValue EOF ;
     public final EObject entryRuleDateAndTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -13956,8 +13978,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5715:2: (iv_ruleDateAndTimeValue= ruleDateAndTimeValue EOF )
-            // InternalDSL.g:5716:2: iv_ruleDateAndTimeValue= ruleDateAndTimeValue EOF
+            // InternalDSL.g:5725:2: (iv_ruleDateAndTimeValue= ruleDateAndTimeValue EOF )
+            // InternalDSL.g:5726:2: iv_ruleDateAndTimeValue= ruleDateAndTimeValue EOF
             {
              newCompositeNode(grammarAccess.getDateAndTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -13984,7 +14006,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDateAndTimeValue"
-    // InternalDSL.g:5723:1: ruleDateAndTimeValue returns [EObject current=null] : (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue ) ;
+    // InternalDSL.g:5733:1: ruleDateAndTimeValue returns [EObject current=null] : (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue ) ;
     public final EObject ruleDateAndTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14000,15 +14022,15 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5726:28: ( (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue ) )
-            // InternalDSL.g:5727:1: (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue )
+            // InternalDSL.g:5736:28: ( (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue ) )
+            // InternalDSL.g:5737:1: (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue )
             {
-            // InternalDSL.g:5727:1: (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue )
+            // InternalDSL.g:5737:1: (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue )
             int alt99=4;
             alt99 = dfa99.predict(input);
             switch (alt99) {
                 case 1 :
-                    // InternalDSL.g:5728:5: this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue
+                    // InternalDSL.g:5738:5: this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue
                     {
                      
                             newCompositeNode(grammarAccess.getDateAndTimeValueAccess().getIsoDateAndTimeValueParserRuleCall_0()); 
@@ -14026,7 +14048,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:5738:5: this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue
+                    // InternalDSL.g:5748:5: this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue
                     {
                      
                             newCompositeNode(grammarAccess.getDateAndTimeValueAccess().getEuropeanDateAnd24HrsTimeValueParserRuleCall_1()); 
@@ -14044,7 +14066,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // InternalDSL.g:5748:5: this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue
+                    // InternalDSL.g:5758:5: this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue
                     {
                      
                             newCompositeNode(grammarAccess.getDateAndTimeValueAccess().getEuropeanDateAnd12HrsTimeValueParserRuleCall_2()); 
@@ -14062,7 +14084,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // InternalDSL.g:5758:5: this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue
+                    // InternalDSL.g:5768:5: this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue
                     {
                      
                             newCompositeNode(grammarAccess.getDateAndTimeValueAccess().getUSDateAnd12HrsTimeValueParserRuleCall_3()); 
@@ -14100,7 +14122,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIsoDateAndTimeValue"
-    // InternalDSL.g:5774:1: entryRuleIsoDateAndTimeValue returns [EObject current=null] : iv_ruleIsoDateAndTimeValue= ruleIsoDateAndTimeValue EOF ;
+    // InternalDSL.g:5784:1: entryRuleIsoDateAndTimeValue returns [EObject current=null] : iv_ruleIsoDateAndTimeValue= ruleIsoDateAndTimeValue EOF ;
     public final EObject entryRuleIsoDateAndTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14108,8 +14130,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5775:2: (iv_ruleIsoDateAndTimeValue= ruleIsoDateAndTimeValue EOF )
-            // InternalDSL.g:5776:2: iv_ruleIsoDateAndTimeValue= ruleIsoDateAndTimeValue EOF
+            // InternalDSL.g:5785:2: (iv_ruleIsoDateAndTimeValue= ruleIsoDateAndTimeValue EOF )
+            // InternalDSL.g:5786:2: iv_ruleIsoDateAndTimeValue= ruleIsoDateAndTimeValue EOF
             {
              newCompositeNode(grammarAccess.getIsoDateAndTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -14136,7 +14158,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIsoDateAndTimeValue"
-    // InternalDSL.g:5783:1: ruleIsoDateAndTimeValue returns [EObject current=null] : ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) ) ) ;
+    // InternalDSL.g:5793:1: ruleIsoDateAndTimeValue returns [EObject current=null] : ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) ) ) ;
     public final EObject ruleIsoDateAndTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14146,17 +14168,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5786:28: ( ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) ) ) )
-            // InternalDSL.g:5787:1: ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) ) )
+            // InternalDSL.g:5796:28: ( ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) ) ) )
+            // InternalDSL.g:5797:1: ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) ) )
             {
-            // InternalDSL.g:5787:1: ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) ) )
-            // InternalDSL.g:5787:2: ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) )
+            // InternalDSL.g:5797:1: ( ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) ) )
+            // InternalDSL.g:5797:2: ( (lv_dateValue_0_0= RULE_ISODATE ) ) ( (lv_timeValue_1_0= RULE_ISOTIME ) )
             {
-            // InternalDSL.g:5787:2: ( (lv_dateValue_0_0= RULE_ISODATE ) )
-            // InternalDSL.g:5788:1: (lv_dateValue_0_0= RULE_ISODATE )
+            // InternalDSL.g:5797:2: ( (lv_dateValue_0_0= RULE_ISODATE ) )
+            // InternalDSL.g:5798:1: (lv_dateValue_0_0= RULE_ISODATE )
             {
-            // InternalDSL.g:5788:1: (lv_dateValue_0_0= RULE_ISODATE )
-            // InternalDSL.g:5789:3: lv_dateValue_0_0= RULE_ISODATE
+            // InternalDSL.g:5798:1: (lv_dateValue_0_0= RULE_ISODATE )
+            // InternalDSL.g:5799:3: lv_dateValue_0_0= RULE_ISODATE
             {
             lv_dateValue_0_0=(Token)match(input,RULE_ISODATE,FOLLOW_94); 
 
@@ -14178,11 +14200,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalDSL.g:5805:2: ( (lv_timeValue_1_0= RULE_ISOTIME ) )
-            // InternalDSL.g:5806:1: (lv_timeValue_1_0= RULE_ISOTIME )
+            // InternalDSL.g:5815:2: ( (lv_timeValue_1_0= RULE_ISOTIME ) )
+            // InternalDSL.g:5816:1: (lv_timeValue_1_0= RULE_ISOTIME )
             {
-            // InternalDSL.g:5806:1: (lv_timeValue_1_0= RULE_ISOTIME )
-            // InternalDSL.g:5807:3: lv_timeValue_1_0= RULE_ISOTIME
+            // InternalDSL.g:5816:1: (lv_timeValue_1_0= RULE_ISOTIME )
+            // InternalDSL.g:5817:3: lv_timeValue_1_0= RULE_ISOTIME
             {
             lv_timeValue_1_0=(Token)match(input,RULE_ISOTIME,FOLLOW_2); 
 
@@ -14225,7 +14247,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEuropeanDateAnd24HrsTimeValue"
-    // InternalDSL.g:5831:1: entryRuleEuropeanDateAnd24HrsTimeValue returns [EObject current=null] : iv_ruleEuropeanDateAnd24HrsTimeValue= ruleEuropeanDateAnd24HrsTimeValue EOF ;
+    // InternalDSL.g:5841:1: entryRuleEuropeanDateAnd24HrsTimeValue returns [EObject current=null] : iv_ruleEuropeanDateAnd24HrsTimeValue= ruleEuropeanDateAnd24HrsTimeValue EOF ;
     public final EObject entryRuleEuropeanDateAnd24HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14233,8 +14255,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5832:2: (iv_ruleEuropeanDateAnd24HrsTimeValue= ruleEuropeanDateAnd24HrsTimeValue EOF )
-            // InternalDSL.g:5833:2: iv_ruleEuropeanDateAnd24HrsTimeValue= ruleEuropeanDateAnd24HrsTimeValue EOF
+            // InternalDSL.g:5842:2: (iv_ruleEuropeanDateAnd24HrsTimeValue= ruleEuropeanDateAnd24HrsTimeValue EOF )
+            // InternalDSL.g:5843:2: iv_ruleEuropeanDateAnd24HrsTimeValue= ruleEuropeanDateAnd24HrsTimeValue EOF
             {
              newCompositeNode(grammarAccess.getEuropeanDateAnd24HrsTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -14261,7 +14283,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEuropeanDateAnd24HrsTimeValue"
-    // InternalDSL.g:5840:1: ruleEuropeanDateAnd24HrsTimeValue returns [EObject current=null] : ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) ) ) ;
+    // InternalDSL.g:5850:1: ruleEuropeanDateAnd24HrsTimeValue returns [EObject current=null] : ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) ) ) ;
     public final EObject ruleEuropeanDateAnd24HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14271,17 +14293,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5843:28: ( ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) ) ) )
-            // InternalDSL.g:5844:1: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) ) )
+            // InternalDSL.g:5853:28: ( ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) ) ) )
+            // InternalDSL.g:5854:1: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) ) )
             {
-            // InternalDSL.g:5844:1: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) ) )
-            // InternalDSL.g:5844:2: ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) )
+            // InternalDSL.g:5854:1: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) ) )
+            // InternalDSL.g:5854:2: ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) )
             {
-            // InternalDSL.g:5844:2: ( (lv_dateValue_0_0= RULE_EURODATE ) )
-            // InternalDSL.g:5845:1: (lv_dateValue_0_0= RULE_EURODATE )
+            // InternalDSL.g:5854:2: ( (lv_dateValue_0_0= RULE_EURODATE ) )
+            // InternalDSL.g:5855:1: (lv_dateValue_0_0= RULE_EURODATE )
             {
-            // InternalDSL.g:5845:1: (lv_dateValue_0_0= RULE_EURODATE )
-            // InternalDSL.g:5846:3: lv_dateValue_0_0= RULE_EURODATE
+            // InternalDSL.g:5855:1: (lv_dateValue_0_0= RULE_EURODATE )
+            // InternalDSL.g:5856:3: lv_dateValue_0_0= RULE_EURODATE
             {
             lv_dateValue_0_0=(Token)match(input,RULE_EURODATE,FOLLOW_95); 
 
@@ -14314,11 +14336,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // InternalDSL.g:5870:1: ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) )
-            // InternalDSL.g:5871:1: (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME )
+            // InternalDSL.g:5880:1: ( (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME ) )
+            // InternalDSL.g:5881:1: (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME )
             {
-            // InternalDSL.g:5871:1: (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME )
-            // InternalDSL.g:5872:3: lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME
+            // InternalDSL.g:5881:1: (lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME )
+            // InternalDSL.g:5882:3: lv_timeValue_2_0= RULE_TWENTYFOURHRSTIME
             {
             lv_timeValue_2_0=(Token)match(input,RULE_TWENTYFOURHRSTIME,FOLLOW_2); 
 
@@ -14361,7 +14383,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEuropeanDateAnd12HrsTimeValue"
-    // InternalDSL.g:5896:1: entryRuleEuropeanDateAnd12HrsTimeValue returns [EObject current=null] : iv_ruleEuropeanDateAnd12HrsTimeValue= ruleEuropeanDateAnd12HrsTimeValue EOF ;
+    // InternalDSL.g:5906:1: entryRuleEuropeanDateAnd12HrsTimeValue returns [EObject current=null] : iv_ruleEuropeanDateAnd12HrsTimeValue= ruleEuropeanDateAnd12HrsTimeValue EOF ;
     public final EObject entryRuleEuropeanDateAnd12HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14369,8 +14391,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5897:2: (iv_ruleEuropeanDateAnd12HrsTimeValue= ruleEuropeanDateAnd12HrsTimeValue EOF )
-            // InternalDSL.g:5898:2: iv_ruleEuropeanDateAnd12HrsTimeValue= ruleEuropeanDateAnd12HrsTimeValue EOF
+            // InternalDSL.g:5907:2: (iv_ruleEuropeanDateAnd12HrsTimeValue= ruleEuropeanDateAnd12HrsTimeValue EOF )
+            // InternalDSL.g:5908:2: iv_ruleEuropeanDateAnd12HrsTimeValue= ruleEuropeanDateAnd12HrsTimeValue EOF
             {
              newCompositeNode(grammarAccess.getEuropeanDateAnd12HrsTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -14397,7 +14419,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEuropeanDateAnd12HrsTimeValue"
-    // InternalDSL.g:5905:1: ruleEuropeanDateAnd12HrsTimeValue returns [EObject current=null] : ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) ) ;
+    // InternalDSL.g:5915:1: ruleEuropeanDateAnd12HrsTimeValue returns [EObject current=null] : ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) ) ;
     public final EObject ruleEuropeanDateAnd12HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14407,17 +14429,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5908:28: ( ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) ) )
-            // InternalDSL.g:5909:1: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) )
+            // InternalDSL.g:5918:28: ( ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) ) )
+            // InternalDSL.g:5919:1: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) )
             {
-            // InternalDSL.g:5909:1: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) )
-            // InternalDSL.g:5909:2: ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:5919:1: ( ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) )
+            // InternalDSL.g:5919:2: ( (lv_dateValue_0_0= RULE_EURODATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) )
             {
-            // InternalDSL.g:5909:2: ( (lv_dateValue_0_0= RULE_EURODATE ) )
-            // InternalDSL.g:5910:1: (lv_dateValue_0_0= RULE_EURODATE )
+            // InternalDSL.g:5919:2: ( (lv_dateValue_0_0= RULE_EURODATE ) )
+            // InternalDSL.g:5920:1: (lv_dateValue_0_0= RULE_EURODATE )
             {
-            // InternalDSL.g:5910:1: (lv_dateValue_0_0= RULE_EURODATE )
-            // InternalDSL.g:5911:3: lv_dateValue_0_0= RULE_EURODATE
+            // InternalDSL.g:5920:1: (lv_dateValue_0_0= RULE_EURODATE )
+            // InternalDSL.g:5921:3: lv_dateValue_0_0= RULE_EURODATE
             {
             lv_dateValue_0_0=(Token)match(input,RULE_EURODATE,FOLLOW_97); 
 
@@ -14450,11 +14472,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // InternalDSL.g:5935:1: ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) )
-            // InternalDSL.g:5936:1: (lv_timeValue_2_0= RULE_TWELVEHRSTIME )
+            // InternalDSL.g:5945:1: ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:5946:1: (lv_timeValue_2_0= RULE_TWELVEHRSTIME )
             {
-            // InternalDSL.g:5936:1: (lv_timeValue_2_0= RULE_TWELVEHRSTIME )
-            // InternalDSL.g:5937:3: lv_timeValue_2_0= RULE_TWELVEHRSTIME
+            // InternalDSL.g:5946:1: (lv_timeValue_2_0= RULE_TWELVEHRSTIME )
+            // InternalDSL.g:5947:3: lv_timeValue_2_0= RULE_TWELVEHRSTIME
             {
             lv_timeValue_2_0=(Token)match(input,RULE_TWELVEHRSTIME,FOLLOW_2); 
 
@@ -14497,7 +14519,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleUSDateAnd12HrsTimeValue"
-    // InternalDSL.g:5961:1: entryRuleUSDateAnd12HrsTimeValue returns [EObject current=null] : iv_ruleUSDateAnd12HrsTimeValue= ruleUSDateAnd12HrsTimeValue EOF ;
+    // InternalDSL.g:5971:1: entryRuleUSDateAnd12HrsTimeValue returns [EObject current=null] : iv_ruleUSDateAnd12HrsTimeValue= ruleUSDateAnd12HrsTimeValue EOF ;
     public final EObject entryRuleUSDateAnd12HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14505,8 +14527,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:5962:2: (iv_ruleUSDateAnd12HrsTimeValue= ruleUSDateAnd12HrsTimeValue EOF )
-            // InternalDSL.g:5963:2: iv_ruleUSDateAnd12HrsTimeValue= ruleUSDateAnd12HrsTimeValue EOF
+            // InternalDSL.g:5972:2: (iv_ruleUSDateAnd12HrsTimeValue= ruleUSDateAnd12HrsTimeValue EOF )
+            // InternalDSL.g:5973:2: iv_ruleUSDateAnd12HrsTimeValue= ruleUSDateAnd12HrsTimeValue EOF
             {
              newCompositeNode(grammarAccess.getUSDateAnd12HrsTimeValueRule()); 
             pushFollow(FOLLOW_1);
@@ -14533,7 +14555,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUSDateAnd12HrsTimeValue"
-    // InternalDSL.g:5970:1: ruleUSDateAnd12HrsTimeValue returns [EObject current=null] : ( ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) ) ;
+    // InternalDSL.g:5980:1: ruleUSDateAnd12HrsTimeValue returns [EObject current=null] : ( ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) ) ;
     public final EObject ruleUSDateAnd12HrsTimeValue() throws RecognitionException {
         EObject current = null;
 
@@ -14543,17 +14565,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:5973:28: ( ( ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) ) )
-            // InternalDSL.g:5974:1: ( ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) )
+            // InternalDSL.g:5983:28: ( ( ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) ) )
+            // InternalDSL.g:5984:1: ( ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) )
             {
-            // InternalDSL.g:5974:1: ( ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) )
-            // InternalDSL.g:5974:2: ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:5984:1: ( ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) ) )
+            // InternalDSL.g:5984:2: ( (lv_dateValue_0_0= RULE_USDATE ) ) ruleNL ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) )
             {
-            // InternalDSL.g:5974:2: ( (lv_dateValue_0_0= RULE_USDATE ) )
-            // InternalDSL.g:5975:1: (lv_dateValue_0_0= RULE_USDATE )
+            // InternalDSL.g:5984:2: ( (lv_dateValue_0_0= RULE_USDATE ) )
+            // InternalDSL.g:5985:1: (lv_dateValue_0_0= RULE_USDATE )
             {
-            // InternalDSL.g:5975:1: (lv_dateValue_0_0= RULE_USDATE )
-            // InternalDSL.g:5976:3: lv_dateValue_0_0= RULE_USDATE
+            // InternalDSL.g:5985:1: (lv_dateValue_0_0= RULE_USDATE )
+            // InternalDSL.g:5986:3: lv_dateValue_0_0= RULE_USDATE
             {
             lv_dateValue_0_0=(Token)match(input,RULE_USDATE,FOLLOW_97); 
 
@@ -14586,11 +14608,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // InternalDSL.g:6000:1: ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) )
-            // InternalDSL.g:6001:1: (lv_timeValue_2_0= RULE_TWELVEHRSTIME )
+            // InternalDSL.g:6010:1: ( (lv_timeValue_2_0= RULE_TWELVEHRSTIME ) )
+            // InternalDSL.g:6011:1: (lv_timeValue_2_0= RULE_TWELVEHRSTIME )
             {
-            // InternalDSL.g:6001:1: (lv_timeValue_2_0= RULE_TWELVEHRSTIME )
-            // InternalDSL.g:6002:3: lv_timeValue_2_0= RULE_TWELVEHRSTIME
+            // InternalDSL.g:6011:1: (lv_timeValue_2_0= RULE_TWELVEHRSTIME )
+            // InternalDSL.g:6012:3: lv_timeValue_2_0= RULE_TWELVEHRSTIME
             {
             lv_timeValue_2_0=(Token)match(input,RULE_TWELVEHRSTIME,FOLLOW_2); 
 
@@ -14633,7 +14655,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleJavaConstantValue"
-    // InternalDSL.g:6026:1: entryRuleJavaConstantValue returns [EObject current=null] : iv_ruleJavaConstantValue= ruleJavaConstantValue EOF ;
+    // InternalDSL.g:6036:1: entryRuleJavaConstantValue returns [EObject current=null] : iv_ruleJavaConstantValue= ruleJavaConstantValue EOF ;
     public final EObject entryRuleJavaConstantValue() throws RecognitionException {
         EObject current = null;
 
@@ -14641,8 +14663,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6027:2: (iv_ruleJavaConstantValue= ruleJavaConstantValue EOF )
-            // InternalDSL.g:6028:2: iv_ruleJavaConstantValue= ruleJavaConstantValue EOF
+            // InternalDSL.g:6037:2: (iv_ruleJavaConstantValue= ruleJavaConstantValue EOF )
+            // InternalDSL.g:6038:2: iv_ruleJavaConstantValue= ruleJavaConstantValue EOF
             {
              newCompositeNode(grammarAccess.getJavaConstantValueRule()); 
             pushFollow(FOLLOW_1);
@@ -14669,7 +14691,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleJavaConstantValue"
-    // InternalDSL.g:6035:1: ruleJavaConstantValue returns [EObject current=null] : (otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>' ) ;
+    // InternalDSL.g:6045:1: ruleJavaConstantValue returns [EObject current=null] : (otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>' ) ;
     public final EObject ruleJavaConstantValue() throws RecognitionException {
         EObject current = null;
 
@@ -14681,21 +14703,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6038:28: ( (otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>' ) )
-            // InternalDSL.g:6039:1: (otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>' )
+            // InternalDSL.g:6048:28: ( (otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>' ) )
+            // InternalDSL.g:6049:1: (otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>' )
             {
-            // InternalDSL.g:6039:1: (otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>' )
-            // InternalDSL.g:6039:3: otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>'
+            // InternalDSL.g:6049:1: (otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>' )
+            // InternalDSL.g:6049:3: otherlv_0= '<' ( (lv_constant_1_0= ruleJavaConstantReference ) ) otherlv_2= '>'
             {
             otherlv_0=(Token)match(input,83,FOLLOW_8); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getJavaConstantValueAccess().getLessThanSignKeyword_0());
                 
-            // InternalDSL.g:6043:1: ( (lv_constant_1_0= ruleJavaConstantReference ) )
-            // InternalDSL.g:6044:1: (lv_constant_1_0= ruleJavaConstantReference )
+            // InternalDSL.g:6053:1: ( (lv_constant_1_0= ruleJavaConstantReference ) )
+            // InternalDSL.g:6054:1: (lv_constant_1_0= ruleJavaConstantReference )
             {
-            // InternalDSL.g:6044:1: (lv_constant_1_0= ruleJavaConstantReference )
-            // InternalDSL.g:6045:3: lv_constant_1_0= ruleJavaConstantReference
+            // InternalDSL.g:6054:1: (lv_constant_1_0= ruleJavaConstantReference )
+            // InternalDSL.g:6055:3: lv_constant_1_0= ruleJavaConstantReference
             {
              
             	        newCompositeNode(grammarAccess.getJavaConstantValueAccess().getConstantJavaConstantReferenceParserRuleCall_1_0()); 
@@ -14747,7 +14769,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVariable"
-    // InternalDSL.g:6073:1: entryRuleVariable returns [EObject current=null] : iv_ruleVariable= ruleVariable EOF ;
+    // InternalDSL.g:6083:1: entryRuleVariable returns [EObject current=null] : iv_ruleVariable= ruleVariable EOF ;
     public final EObject entryRuleVariable() throws RecognitionException {
         EObject current = null;
 
@@ -14755,8 +14777,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6074:2: (iv_ruleVariable= ruleVariable EOF )
-            // InternalDSL.g:6075:2: iv_ruleVariable= ruleVariable EOF
+            // InternalDSL.g:6084:2: (iv_ruleVariable= ruleVariable EOF )
+            // InternalDSL.g:6085:2: iv_ruleVariable= ruleVariable EOF
             {
              newCompositeNode(grammarAccess.getVariableRule()); 
             pushFollow(FOLLOW_1);
@@ -14783,7 +14805,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVariable"
-    // InternalDSL.g:6082:1: ruleVariable returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )? ) ;
+    // InternalDSL.g:6092:1: ruleVariable returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )? ) ;
     public final EObject ruleVariable() throws RecognitionException {
         EObject current = null;
 
@@ -14794,17 +14816,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6085:28: ( ( ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )? ) )
-            // InternalDSL.g:6086:1: ( ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )? )
+            // InternalDSL.g:6095:28: ( ( ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )? ) )
+            // InternalDSL.g:6096:1: ( ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )? )
             {
-            // InternalDSL.g:6086:1: ( ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )? )
-            // InternalDSL.g:6086:2: ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )?
+            // InternalDSL.g:6096:1: ( ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )? )
+            // InternalDSL.g:6096:2: ( ( ruleQualifiedName ) ) (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )?
             {
-            // InternalDSL.g:6086:2: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:6087:1: ( ruleQualifiedName )
+            // InternalDSL.g:6096:2: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:6097:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:6087:1: ( ruleQualifiedName )
-            // InternalDSL.g:6088:3: ruleQualifiedName
+            // InternalDSL.g:6097:1: ( ruleQualifiedName )
+            // InternalDSL.g:6098:3: ruleQualifiedName
             {
 
             			if (current==null) {
@@ -14828,7 +14850,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalDSL.g:6101:2: (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )?
+            // InternalDSL.g:6111:2: (otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) ) )?
             int alt100=2;
             int LA100_0 = input.LA(1);
 
@@ -14837,17 +14859,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt100) {
                 case 1 :
-                    // InternalDSL.g:6101:4: otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) )
+                    // InternalDSL.g:6111:4: otherlv_1= '#' ( (lv_attribute_2_0= ruleQualifiedName ) )
                     {
                     otherlv_1=(Token)match(input,85,FOLLOW_8); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getVariableAccess().getNumberSignKeyword_1_0());
                         
-                    // InternalDSL.g:6105:1: ( (lv_attribute_2_0= ruleQualifiedName ) )
-                    // InternalDSL.g:6106:1: (lv_attribute_2_0= ruleQualifiedName )
+                    // InternalDSL.g:6115:1: ( (lv_attribute_2_0= ruleQualifiedName ) )
+                    // InternalDSL.g:6116:1: (lv_attribute_2_0= ruleQualifiedName )
                     {
-                    // InternalDSL.g:6106:1: (lv_attribute_2_0= ruleQualifiedName )
-                    // InternalDSL.g:6107:3: lv_attribute_2_0= ruleQualifiedName
+                    // InternalDSL.g:6116:1: (lv_attribute_2_0= ruleQualifiedName )
+                    // InternalDSL.g:6117:3: lv_attribute_2_0= ruleQualifiedName
                     {
                      
                     	        newCompositeNode(grammarAccess.getVariableAccess().getAttributeQualifiedNameParserRuleCall_1_1_0()); 
@@ -14901,7 +14923,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleVariableVariable"
-    // InternalDSL.g:6131:1: entryRuleVariableVariable returns [EObject current=null] : iv_ruleVariableVariable= ruleVariableVariable EOF ;
+    // InternalDSL.g:6141:1: entryRuleVariableVariable returns [EObject current=null] : iv_ruleVariableVariable= ruleVariableVariable EOF ;
     public final EObject entryRuleVariableVariable() throws RecognitionException {
         EObject current = null;
 
@@ -14909,8 +14931,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6132:2: (iv_ruleVariableVariable= ruleVariableVariable EOF )
-            // InternalDSL.g:6133:2: iv_ruleVariableVariable= ruleVariableVariable EOF
+            // InternalDSL.g:6142:2: (iv_ruleVariableVariable= ruleVariableVariable EOF )
+            // InternalDSL.g:6143:2: iv_ruleVariableVariable= ruleVariableVariable EOF
             {
              newCompositeNode(grammarAccess.getVariableVariableRule()); 
             pushFollow(FOLLOW_1);
@@ -14937,21 +14959,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleVariableVariable"
-    // InternalDSL.g:6140:1: ruleVariableVariable returns [EObject current=null] : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:6150:1: ruleVariableVariable returns [EObject current=null] : ( ( ruleQualifiedName ) ) ;
     public final EObject ruleVariableVariable() throws RecognitionException {
         EObject current = null;
 
          enterRule(); 
             
         try {
-            // InternalDSL.g:6143:28: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:6144:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:6153:28: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:6154:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:6144:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:6145:1: ( ruleQualifiedName )
+            // InternalDSL.g:6154:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:6155:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:6145:1: ( ruleQualifiedName )
-            // InternalDSL.g:6146:3: ruleQualifiedName
+            // InternalDSL.g:6155:1: ( ruleQualifiedName )
+            // InternalDSL.g:6156:3: ruleQualifiedName
             {
 
             			if (current==null) {
@@ -14993,7 +15015,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleConstant"
-    // InternalDSL.g:6167:1: entryRuleConstant returns [EObject current=null] : iv_ruleConstant= ruleConstant EOF ;
+    // InternalDSL.g:6177:1: entryRuleConstant returns [EObject current=null] : iv_ruleConstant= ruleConstant EOF ;
     public final EObject entryRuleConstant() throws RecognitionException {
         EObject current = null;
 
@@ -15001,8 +15023,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6168:2: (iv_ruleConstant= ruleConstant EOF )
-            // InternalDSL.g:6169:2: iv_ruleConstant= ruleConstant EOF
+            // InternalDSL.g:6178:2: (iv_ruleConstant= ruleConstant EOF )
+            // InternalDSL.g:6179:2: iv_ruleConstant= ruleConstant EOF
             {
              newCompositeNode(grammarAccess.getConstantRule()); 
             pushFollow(FOLLOW_1);
@@ -15029,21 +15051,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleConstant"
-    // InternalDSL.g:6176:1: ruleConstant returns [EObject current=null] : ( ( ruleQualifiedName ) ) ;
+    // InternalDSL.g:6186:1: ruleConstant returns [EObject current=null] : ( ( ruleQualifiedName ) ) ;
     public final EObject ruleConstant() throws RecognitionException {
         EObject current = null;
 
          enterRule(); 
             
         try {
-            // InternalDSL.g:6179:28: ( ( ( ruleQualifiedName ) ) )
-            // InternalDSL.g:6180:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:6189:28: ( ( ( ruleQualifiedName ) ) )
+            // InternalDSL.g:6190:1: ( ( ruleQualifiedName ) )
             {
-            // InternalDSL.g:6180:1: ( ( ruleQualifiedName ) )
-            // InternalDSL.g:6181:1: ( ruleQualifiedName )
+            // InternalDSL.g:6190:1: ( ( ruleQualifiedName ) )
+            // InternalDSL.g:6191:1: ( ruleQualifiedName )
             {
-            // InternalDSL.g:6181:1: ( ruleQualifiedName )
-            // InternalDSL.g:6182:3: ruleQualifiedName
+            // InternalDSL.g:6191:1: ( ruleQualifiedName )
+            // InternalDSL.g:6192:3: ruleQualifiedName
             {
 
             			if (current==null) {
@@ -15085,7 +15107,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNullValue"
-    // InternalDSL.g:6203:1: entryRuleNullValue returns [EObject current=null] : iv_ruleNullValue= ruleNullValue EOF ;
+    // InternalDSL.g:6213:1: entryRuleNullValue returns [EObject current=null] : iv_ruleNullValue= ruleNullValue EOF ;
     public final EObject entryRuleNullValue() throws RecognitionException {
         EObject current = null;
 
@@ -15093,8 +15115,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6204:2: (iv_ruleNullValue= ruleNullValue EOF )
-            // InternalDSL.g:6205:2: iv_ruleNullValue= ruleNullValue EOF
+            // InternalDSL.g:6214:2: (iv_ruleNullValue= ruleNullValue EOF )
+            // InternalDSL.g:6215:2: iv_ruleNullValue= ruleNullValue EOF
             {
              newCompositeNode(grammarAccess.getNullValueRule()); 
             pushFollow(FOLLOW_1);
@@ -15121,7 +15143,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNullValue"
-    // InternalDSL.g:6212:1: ruleNullValue returns [EObject current=null] : ( () otherlv_1= 'null' ) ;
+    // InternalDSL.g:6222:1: ruleNullValue returns [EObject current=null] : ( () otherlv_1= 'null' ) ;
     public final EObject ruleNullValue() throws RecognitionException {
         EObject current = null;
 
@@ -15130,14 +15152,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6215:28: ( ( () otherlv_1= 'null' ) )
-            // InternalDSL.g:6216:1: ( () otherlv_1= 'null' )
+            // InternalDSL.g:6225:28: ( ( () otherlv_1= 'null' ) )
+            // InternalDSL.g:6226:1: ( () otherlv_1= 'null' )
             {
-            // InternalDSL.g:6216:1: ( () otherlv_1= 'null' )
-            // InternalDSL.g:6216:2: () otherlv_1= 'null'
+            // InternalDSL.g:6226:1: ( () otherlv_1= 'null' )
+            // InternalDSL.g:6226:2: () otherlv_1= 'null'
             {
-            // InternalDSL.g:6216:2: ()
-            // InternalDSL.g:6217:5: 
+            // InternalDSL.g:6226:2: ()
+            // InternalDSL.g:6227:5: 
             {
 
                     current = forceCreateModelElement(
@@ -15171,8 +15193,95 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleNullValue"
 
 
+    // $ANTLR start "entryRuleInexistentValue"
+    // InternalDSL.g:6244:1: entryRuleInexistentValue returns [EObject current=null] : iv_ruleInexistentValue= ruleInexistentValue EOF ;
+    public final EObject entryRuleInexistentValue() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleInexistentValue = null;
+
+
+        try {
+            // InternalDSL.g:6245:2: (iv_ruleInexistentValue= ruleInexistentValue EOF )
+            // InternalDSL.g:6246:2: iv_ruleInexistentValue= ruleInexistentValue EOF
+            {
+             newCompositeNode(grammarAccess.getInexistentValueRule()); 
+            pushFollow(FOLLOW_1);
+            iv_ruleInexistentValue=ruleInexistentValue();
+
+            state._fsp--;
+
+             current =iv_ruleInexistentValue; 
+            match(input,EOF,FOLLOW_2); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleInexistentValue"
+
+
+    // $ANTLR start "ruleInexistentValue"
+    // InternalDSL.g:6253:1: ruleInexistentValue returns [EObject current=null] : ( () otherlv_1= 'inexistent' ) ;
+    public final EObject ruleInexistentValue() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+
+         enterRule(); 
+            
+        try {
+            // InternalDSL.g:6256:28: ( ( () otherlv_1= 'inexistent' ) )
+            // InternalDSL.g:6257:1: ( () otherlv_1= 'inexistent' )
+            {
+            // InternalDSL.g:6257:1: ( () otherlv_1= 'inexistent' )
+            // InternalDSL.g:6257:2: () otherlv_1= 'inexistent'
+            {
+            // InternalDSL.g:6257:2: ()
+            // InternalDSL.g:6258:5: 
+            {
+
+                    current = forceCreateModelElement(
+                        grammarAccess.getInexistentValueAccess().getInexistentAction_0(),
+                        current);
+                
+
+            }
+
+            otherlv_1=(Token)match(input,87,FOLLOW_2); 
+
+                	newLeafNode(otherlv_1, grammarAccess.getInexistentValueAccess().getInexistentKeyword_1());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleInexistentValue"
+
+
     // $ANTLR start "entryRuleEnumValue"
-    // InternalDSL.g:6234:1: entryRuleEnumValue returns [EObject current=null] : iv_ruleEnumValue= ruleEnumValue EOF ;
+    // InternalDSL.g:6275:1: entryRuleEnumValue returns [EObject current=null] : iv_ruleEnumValue= ruleEnumValue EOF ;
     public final EObject entryRuleEnumValue() throws RecognitionException {
         EObject current = null;
 
@@ -15180,8 +15289,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6235:2: (iv_ruleEnumValue= ruleEnumValue EOF )
-            // InternalDSL.g:6236:2: iv_ruleEnumValue= ruleEnumValue EOF
+            // InternalDSL.g:6276:2: (iv_ruleEnumValue= ruleEnumValue EOF )
+            // InternalDSL.g:6277:2: iv_ruleEnumValue= ruleEnumValue EOF
             {
              newCompositeNode(grammarAccess.getEnumValueRule()); 
             pushFollow(FOLLOW_1);
@@ -15208,7 +15317,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEnumValue"
-    // InternalDSL.g:6243:1: ruleEnumValue returns [EObject current=null] : ( (otherlv_0= RULE_UPPERCASE_ID ) ) ;
+    // InternalDSL.g:6284:1: ruleEnumValue returns [EObject current=null] : ( (otherlv_0= RULE_UPPERCASE_ID ) ) ;
     public final EObject ruleEnumValue() throws RecognitionException {
         EObject current = null;
 
@@ -15217,14 +15326,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6246:28: ( ( (otherlv_0= RULE_UPPERCASE_ID ) ) )
-            // InternalDSL.g:6247:1: ( (otherlv_0= RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:6287:28: ( ( (otherlv_0= RULE_UPPERCASE_ID ) ) )
+            // InternalDSL.g:6288:1: ( (otherlv_0= RULE_UPPERCASE_ID ) )
             {
-            // InternalDSL.g:6247:1: ( (otherlv_0= RULE_UPPERCASE_ID ) )
-            // InternalDSL.g:6248:1: (otherlv_0= RULE_UPPERCASE_ID )
+            // InternalDSL.g:6288:1: ( (otherlv_0= RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:6289:1: (otherlv_0= RULE_UPPERCASE_ID )
             {
-            // InternalDSL.g:6248:1: (otherlv_0= RULE_UPPERCASE_ID )
-            // InternalDSL.g:6249:3: otherlv_0= RULE_UPPERCASE_ID
+            // InternalDSL.g:6289:1: (otherlv_0= RULE_UPPERCASE_ID )
+            // InternalDSL.g:6290:3: otherlv_0= RULE_UPPERCASE_ID
             {
 
             			if (current==null) {
@@ -15259,7 +15368,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNestedObject"
-    // InternalDSL.g:6268:1: entryRuleNestedObject returns [EObject current=null] : iv_ruleNestedObject= ruleNestedObject EOF ;
+    // InternalDSL.g:6309:1: entryRuleNestedObject returns [EObject current=null] : iv_ruleNestedObject= ruleNestedObject EOF ;
     public final EObject entryRuleNestedObject() throws RecognitionException {
         EObject current = null;
 
@@ -15267,8 +15376,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6269:2: (iv_ruleNestedObject= ruleNestedObject EOF )
-            // InternalDSL.g:6270:2: iv_ruleNestedObject= ruleNestedObject EOF
+            // InternalDSL.g:6310:2: (iv_ruleNestedObject= ruleNestedObject EOF )
+            // InternalDSL.g:6311:2: iv_ruleNestedObject= ruleNestedObject EOF
             {
              newCompositeNode(grammarAccess.getNestedObjectRule()); 
             pushFollow(FOLLOW_1);
@@ -15295,7 +15404,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNestedObject"
-    // InternalDSL.g:6277:1: ruleNestedObject returns [EObject current=null] : (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' ) ;
+    // InternalDSL.g:6318:1: ruleNestedObject returns [EObject current=null] : (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' ) ;
     public final EObject ruleNestedObject() throws RecognitionException {
         EObject current = null;
 
@@ -15307,13 +15416,13 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6280:28: ( (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' ) )
-            // InternalDSL.g:6281:1: (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' )
+            // InternalDSL.g:6321:28: ( (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' ) )
+            // InternalDSL.g:6322:1: (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' )
             {
-            // InternalDSL.g:6281:1: (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' )
-            // InternalDSL.g:6281:3: otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}'
+            // InternalDSL.g:6322:1: (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' )
+            // InternalDSL.g:6322:3: otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}'
             {
-            otherlv_0=(Token)match(input,87,FOLLOW_101); 
+            otherlv_0=(Token)match(input,88,FOLLOW_101); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getNestedObjectAccess().getLeftCurlyBracketKeyword_0());
                 
@@ -15328,7 +15437,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // InternalDSL.g:6293:1: ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+
+            // InternalDSL.g:6334:1: ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+
             int cnt101=0;
             loop101:
             do {
@@ -15342,13 +15451,13 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
                 switch (alt101) {
             	case 1 :
-            	    // InternalDSL.g:6293:2: ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL
+            	    // InternalDSL.g:6334:2: ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL
             	    {
-            	    // InternalDSL.g:6293:2: ( (lv_attributes_2_0= ruleKeyValuePair ) )
-            	    // InternalDSL.g:6294:1: (lv_attributes_2_0= ruleKeyValuePair )
+            	    // InternalDSL.g:6334:2: ( (lv_attributes_2_0= ruleKeyValuePair ) )
+            	    // InternalDSL.g:6335:1: (lv_attributes_2_0= ruleKeyValuePair )
             	    {
-            	    // InternalDSL.g:6294:1: (lv_attributes_2_0= ruleKeyValuePair )
-            	    // InternalDSL.g:6295:3: lv_attributes_2_0= ruleKeyValuePair
+            	    // InternalDSL.g:6335:1: (lv_attributes_2_0= ruleKeyValuePair )
+            	    // InternalDSL.g:6336:3: lv_attributes_2_0= ruleKeyValuePair
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getNestedObjectAccess().getAttributesKeyValuePairParserRuleCall_2_0_0()); 
@@ -15399,7 +15508,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                 cnt101++;
             } while (true);
 
-            otherlv_4=(Token)match(input,88,FOLLOW_2); 
+            otherlv_4=(Token)match(input,89,FOLLOW_2); 
 
                 	newLeafNode(otherlv_4, grammarAccess.getNestedObjectAccess().getRightCurlyBracketKeyword_3());
                 
@@ -15424,7 +15533,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTypedNestedObject"
-    // InternalDSL.g:6331:1: entryRuleTypedNestedObject returns [EObject current=null] : iv_ruleTypedNestedObject= ruleTypedNestedObject EOF ;
+    // InternalDSL.g:6372:1: entryRuleTypedNestedObject returns [EObject current=null] : iv_ruleTypedNestedObject= ruleTypedNestedObject EOF ;
     public final EObject entryRuleTypedNestedObject() throws RecognitionException {
         EObject current = null;
 
@@ -15432,8 +15541,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6332:2: (iv_ruleTypedNestedObject= ruleTypedNestedObject EOF )
-            // InternalDSL.g:6333:2: iv_ruleTypedNestedObject= ruleTypedNestedObject EOF
+            // InternalDSL.g:6373:2: (iv_ruleTypedNestedObject= ruleTypedNestedObject EOF )
+            // InternalDSL.g:6374:2: iv_ruleTypedNestedObject= ruleTypedNestedObject EOF
             {
              newCompositeNode(grammarAccess.getTypedNestedObjectRule()); 
             pushFollow(FOLLOW_1);
@@ -15460,7 +15569,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypedNestedObject"
-    // InternalDSL.g:6340:1: ruleTypedNestedObject returns [EObject current=null] : (otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) ) ) ;
+    // InternalDSL.g:6381:1: ruleTypedNestedObject returns [EObject current=null] : (otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) ) ) ;
     public final EObject ruleTypedNestedObject() throws RecognitionException {
         EObject current = null;
 
@@ -15474,21 +15583,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6343:28: ( (otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) ) ) )
-            // InternalDSL.g:6344:1: (otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) ) )
+            // InternalDSL.g:6384:28: ( (otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) ) ) )
+            // InternalDSL.g:6385:1: (otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) ) )
             {
-            // InternalDSL.g:6344:1: (otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) ) )
-            // InternalDSL.g:6344:3: otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) )
+            // InternalDSL.g:6385:1: (otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) ) )
+            // InternalDSL.g:6385:3: otherlv_0= '<' ( (lv_type_1_0= ruleJavaClassReference ) ) otherlv_2= '>' ruleNL ( (lv_nestedObject_4_0= ruleNestedObject ) )
             {
             otherlv_0=(Token)match(input,83,FOLLOW_8); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getTypedNestedObjectAccess().getLessThanSignKeyword_0());
                 
-            // InternalDSL.g:6348:1: ( (lv_type_1_0= ruleJavaClassReference ) )
-            // InternalDSL.g:6349:1: (lv_type_1_0= ruleJavaClassReference )
+            // InternalDSL.g:6389:1: ( (lv_type_1_0= ruleJavaClassReference ) )
+            // InternalDSL.g:6390:1: (lv_type_1_0= ruleJavaClassReference )
             {
-            // InternalDSL.g:6349:1: (lv_type_1_0= ruleJavaClassReference )
-            // InternalDSL.g:6350:3: lv_type_1_0= ruleJavaClassReference
+            // InternalDSL.g:6390:1: (lv_type_1_0= ruleJavaClassReference )
+            // InternalDSL.g:6391:3: lv_type_1_0= ruleJavaClassReference
             {
              
             	        newCompositeNode(grammarAccess.getTypedNestedObjectAccess().getTypeJavaClassReferenceParserRuleCall_1_0()); 
@@ -15530,11 +15639,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // InternalDSL.g:6378:1: ( (lv_nestedObject_4_0= ruleNestedObject ) )
-            // InternalDSL.g:6379:1: (lv_nestedObject_4_0= ruleNestedObject )
+            // InternalDSL.g:6419:1: ( (lv_nestedObject_4_0= ruleNestedObject ) )
+            // InternalDSL.g:6420:1: (lv_nestedObject_4_0= ruleNestedObject )
             {
-            // InternalDSL.g:6379:1: (lv_nestedObject_4_0= ruleNestedObject )
-            // InternalDSL.g:6380:3: lv_nestedObject_4_0= ruleNestedObject
+            // InternalDSL.g:6420:1: (lv_nestedObject_4_0= ruleNestedObject )
+            // InternalDSL.g:6421:3: lv_nestedObject_4_0= ruleNestedObject
             {
              
             	        newCompositeNode(grammarAccess.getTypedNestedObjectAccess().getNestedObjectNestedObjectParserRuleCall_4_0()); 
@@ -15582,7 +15691,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleKeyValuePair"
-    // InternalDSL.g:6404:1: entryRuleKeyValuePair returns [EObject current=null] : iv_ruleKeyValuePair= ruleKeyValuePair EOF ;
+    // InternalDSL.g:6445:1: entryRuleKeyValuePair returns [EObject current=null] : iv_ruleKeyValuePair= ruleKeyValuePair EOF ;
     public final EObject entryRuleKeyValuePair() throws RecognitionException {
         EObject current = null;
 
@@ -15590,8 +15699,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6405:2: (iv_ruleKeyValuePair= ruleKeyValuePair EOF )
-            // InternalDSL.g:6406:2: iv_ruleKeyValuePair= ruleKeyValuePair EOF
+            // InternalDSL.g:6446:2: (iv_ruleKeyValuePair= ruleKeyValuePair EOF )
+            // InternalDSL.g:6447:2: iv_ruleKeyValuePair= ruleKeyValuePair EOF
             {
              newCompositeNode(grammarAccess.getKeyValuePairRule()); 
             pushFollow(FOLLOW_1);
@@ -15618,7 +15727,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleKeyValuePair"
-    // InternalDSL.g:6413:1: ruleKeyValuePair returns [EObject current=null] : ( ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) ) ) ;
+    // InternalDSL.g:6454:1: ruleKeyValuePair returns [EObject current=null] : ( ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) ) ) ;
     public final EObject ruleKeyValuePair() throws RecognitionException {
         EObject current = null;
 
@@ -15631,13 +15740,13 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6416:28: ( ( ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) ) ) )
-            // InternalDSL.g:6417:1: ( ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) ) )
+            // InternalDSL.g:6457:28: ( ( ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) ) ) )
+            // InternalDSL.g:6458:1: ( ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) ) )
             {
-            // InternalDSL.g:6417:1: ( ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) ) )
-            // InternalDSL.g:6417:2: ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:6458:1: ( ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) ) )
+            // InternalDSL.g:6458:2: ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) ) ruleNL otherlv_3= ':' ruleNL ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) )
             {
-            // InternalDSL.g:6417:2: ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) )
+            // InternalDSL.g:6458:2: ( ( (lv_identifier_0_0= RULE_ID ) ) | ( (lv_stringIdentifier_1_0= RULE_STRING ) ) )
             int alt102=2;
             int LA102_0 = input.LA(1);
 
@@ -15655,13 +15764,13 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt102) {
                 case 1 :
-                    // InternalDSL.g:6417:3: ( (lv_identifier_0_0= RULE_ID ) )
+                    // InternalDSL.g:6458:3: ( (lv_identifier_0_0= RULE_ID ) )
                     {
-                    // InternalDSL.g:6417:3: ( (lv_identifier_0_0= RULE_ID ) )
-                    // InternalDSL.g:6418:1: (lv_identifier_0_0= RULE_ID )
+                    // InternalDSL.g:6458:3: ( (lv_identifier_0_0= RULE_ID ) )
+                    // InternalDSL.g:6459:1: (lv_identifier_0_0= RULE_ID )
                     {
-                    // InternalDSL.g:6418:1: (lv_identifier_0_0= RULE_ID )
-                    // InternalDSL.g:6419:3: lv_identifier_0_0= RULE_ID
+                    // InternalDSL.g:6459:1: (lv_identifier_0_0= RULE_ID )
+                    // InternalDSL.g:6460:3: lv_identifier_0_0= RULE_ID
                     {
                     lv_identifier_0_0=(Token)match(input,RULE_ID,FOLLOW_19); 
 
@@ -15687,13 +15796,13 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:6436:6: ( (lv_stringIdentifier_1_0= RULE_STRING ) )
+                    // InternalDSL.g:6477:6: ( (lv_stringIdentifier_1_0= RULE_STRING ) )
                     {
-                    // InternalDSL.g:6436:6: ( (lv_stringIdentifier_1_0= RULE_STRING ) )
-                    // InternalDSL.g:6437:1: (lv_stringIdentifier_1_0= RULE_STRING )
+                    // InternalDSL.g:6477:6: ( (lv_stringIdentifier_1_0= RULE_STRING ) )
+                    // InternalDSL.g:6478:1: (lv_stringIdentifier_1_0= RULE_STRING )
                     {
-                    // InternalDSL.g:6437:1: (lv_stringIdentifier_1_0= RULE_STRING )
-                    // InternalDSL.g:6438:3: lv_stringIdentifier_1_0= RULE_STRING
+                    // InternalDSL.g:6478:1: (lv_stringIdentifier_1_0= RULE_STRING )
+                    // InternalDSL.g:6479:3: lv_stringIdentifier_1_0= RULE_STRING
                     {
                     lv_stringIdentifier_1_0=(Token)match(input,RULE_STRING,FOLLOW_19); 
 
@@ -15747,11 +15856,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // InternalDSL.g:6474:1: ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) )
-            // InternalDSL.g:6475:1: (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:6515:1: ( (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection ) )
+            // InternalDSL.g:6516:1: (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection )
             {
-            // InternalDSL.g:6475:1: (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection )
-            // InternalDSL.g:6476:3: lv_value_5_0= ruleValueOrEnumValueOrOperationCollection
+            // InternalDSL.g:6516:1: (lv_value_5_0= ruleValueOrEnumValueOrOperationCollection )
+            // InternalDSL.g:6517:3: lv_value_5_0= ruleValueOrEnumValueOrOperationCollection
             {
              
             	        newCompositeNode(grammarAccess.getKeyValuePairAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0()); 
@@ -15799,7 +15908,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleJavaClassReference"
-    // InternalDSL.g:6500:1: entryRuleJavaClassReference returns [EObject current=null] : iv_ruleJavaClassReference= ruleJavaClassReference EOF ;
+    // InternalDSL.g:6541:1: entryRuleJavaClassReference returns [EObject current=null] : iv_ruleJavaClassReference= ruleJavaClassReference EOF ;
     public final EObject entryRuleJavaClassReference() throws RecognitionException {
         EObject current = null;
 
@@ -15807,8 +15916,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6501:2: (iv_ruleJavaClassReference= ruleJavaClassReference EOF )
-            // InternalDSL.g:6502:2: iv_ruleJavaClassReference= ruleJavaClassReference EOF
+            // InternalDSL.g:6542:2: (iv_ruleJavaClassReference= ruleJavaClassReference EOF )
+            // InternalDSL.g:6543:2: iv_ruleJavaClassReference= ruleJavaClassReference EOF
             {
              newCompositeNode(grammarAccess.getJavaClassReferenceRule()); 
             pushFollow(FOLLOW_1);
@@ -15835,21 +15944,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleJavaClassReference"
-    // InternalDSL.g:6509:1: ruleJavaClassReference returns [EObject current=null] : ( ( ruleQualifiedJavaClassName ) ) ;
+    // InternalDSL.g:6550:1: ruleJavaClassReference returns [EObject current=null] : ( ( ruleQualifiedJavaClassName ) ) ;
     public final EObject ruleJavaClassReference() throws RecognitionException {
         EObject current = null;
 
          enterRule(); 
             
         try {
-            // InternalDSL.g:6512:28: ( ( ( ruleQualifiedJavaClassName ) ) )
-            // InternalDSL.g:6513:1: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:6553:28: ( ( ( ruleQualifiedJavaClassName ) ) )
+            // InternalDSL.g:6554:1: ( ( ruleQualifiedJavaClassName ) )
             {
-            // InternalDSL.g:6513:1: ( ( ruleQualifiedJavaClassName ) )
-            // InternalDSL.g:6514:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:6554:1: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:6555:1: ( ruleQualifiedJavaClassName )
             {
-            // InternalDSL.g:6514:1: ( ruleQualifiedJavaClassName )
-            // InternalDSL.g:6515:3: ruleQualifiedJavaClassName
+            // InternalDSL.g:6555:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:6556:3: ruleQualifiedJavaClassName
             {
 
             			if (current==null) {
@@ -15891,7 +16000,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleMethodReference"
-    // InternalDSL.g:6536:1: entryRuleMethodReference returns [EObject current=null] : iv_ruleMethodReference= ruleMethodReference EOF ;
+    // InternalDSL.g:6577:1: entryRuleMethodReference returns [EObject current=null] : iv_ruleMethodReference= ruleMethodReference EOF ;
     public final EObject entryRuleMethodReference() throws RecognitionException {
         EObject current = null;
 
@@ -15899,8 +16008,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6537:2: (iv_ruleMethodReference= ruleMethodReference EOF )
-            // InternalDSL.g:6538:2: iv_ruleMethodReference= ruleMethodReference EOF
+            // InternalDSL.g:6578:2: (iv_ruleMethodReference= ruleMethodReference EOF )
+            // InternalDSL.g:6579:2: iv_ruleMethodReference= ruleMethodReference EOF
             {
              newCompositeNode(grammarAccess.getMethodReferenceRule()); 
             pushFollow(FOLLOW_1);
@@ -15927,7 +16036,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleMethodReference"
-    // InternalDSL.g:6545:1: ruleMethodReference returns [EObject current=null] : ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) ) ;
+    // InternalDSL.g:6586:1: ruleMethodReference returns [EObject current=null] : ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) ) ;
     public final EObject ruleMethodReference() throws RecognitionException {
         EObject current = null;
 
@@ -15937,17 +16046,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6548:28: ( ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) ) )
-            // InternalDSL.g:6549:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) )
+            // InternalDSL.g:6589:28: ( ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) ) )
+            // InternalDSL.g:6590:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) )
             {
-            // InternalDSL.g:6549:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) )
-            // InternalDSL.g:6549:2: ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) )
+            // InternalDSL.g:6590:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) ) )
+            // InternalDSL.g:6590:2: ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_ID ) )
             {
-            // InternalDSL.g:6549:2: ( ( ruleQualifiedJavaClassName ) )
-            // InternalDSL.g:6550:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:6590:2: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:6591:1: ( ruleQualifiedJavaClassName )
             {
-            // InternalDSL.g:6550:1: ( ruleQualifiedJavaClassName )
-            // InternalDSL.g:6551:3: ruleQualifiedJavaClassName
+            // InternalDSL.g:6591:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:6592:3: ruleQualifiedJavaClassName
             {
 
             			if (current==null) {
@@ -15975,11 +16084,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getMethodReferenceAccess().getNumberSignKeyword_1());
                 
-            // InternalDSL.g:6568:1: ( (otherlv_2= RULE_ID ) )
-            // InternalDSL.g:6569:1: (otherlv_2= RULE_ID )
+            // InternalDSL.g:6609:1: ( (otherlv_2= RULE_ID ) )
+            // InternalDSL.g:6610:1: (otherlv_2= RULE_ID )
             {
-            // InternalDSL.g:6569:1: (otherlv_2= RULE_ID )
-            // InternalDSL.g:6570:3: otherlv_2= RULE_ID
+            // InternalDSL.g:6610:1: (otherlv_2= RULE_ID )
+            // InternalDSL.g:6611:3: otherlv_2= RULE_ID
             {
 
             			if (current==null) {
@@ -16017,7 +16126,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleJavaConstantReference"
-    // InternalDSL.g:6589:1: entryRuleJavaConstantReference returns [EObject current=null] : iv_ruleJavaConstantReference= ruleJavaConstantReference EOF ;
+    // InternalDSL.g:6630:1: entryRuleJavaConstantReference returns [EObject current=null] : iv_ruleJavaConstantReference= ruleJavaConstantReference EOF ;
     public final EObject entryRuleJavaConstantReference() throws RecognitionException {
         EObject current = null;
 
@@ -16025,8 +16134,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6590:2: (iv_ruleJavaConstantReference= ruleJavaConstantReference EOF )
-            // InternalDSL.g:6591:2: iv_ruleJavaConstantReference= ruleJavaConstantReference EOF
+            // InternalDSL.g:6631:2: (iv_ruleJavaConstantReference= ruleJavaConstantReference EOF )
+            // InternalDSL.g:6632:2: iv_ruleJavaConstantReference= ruleJavaConstantReference EOF
             {
              newCompositeNode(grammarAccess.getJavaConstantReferenceRule()); 
             pushFollow(FOLLOW_1);
@@ -16053,7 +16162,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleJavaConstantReference"
-    // InternalDSL.g:6598:1: ruleJavaConstantReference returns [EObject current=null] : ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) ) ) ;
+    // InternalDSL.g:6639:1: ruleJavaConstantReference returns [EObject current=null] : ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) ) ) ;
     public final EObject ruleJavaConstantReference() throws RecognitionException {
         EObject current = null;
 
@@ -16063,17 +16172,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6601:28: ( ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) ) ) )
-            // InternalDSL.g:6602:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) ) )
+            // InternalDSL.g:6642:28: ( ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) ) ) )
+            // InternalDSL.g:6643:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) ) )
             {
-            // InternalDSL.g:6602:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) ) )
-            // InternalDSL.g:6602:2: ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:6643:1: ( ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) ) )
+            // InternalDSL.g:6643:2: ( ( ruleQualifiedJavaClassName ) ) otherlv_1= '#' ( (otherlv_2= RULE_UPPERCASE_ID ) )
             {
-            // InternalDSL.g:6602:2: ( ( ruleQualifiedJavaClassName ) )
-            // InternalDSL.g:6603:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:6643:2: ( ( ruleQualifiedJavaClassName ) )
+            // InternalDSL.g:6644:1: ( ruleQualifiedJavaClassName )
             {
-            // InternalDSL.g:6603:1: ( ruleQualifiedJavaClassName )
-            // InternalDSL.g:6604:3: ruleQualifiedJavaClassName
+            // InternalDSL.g:6644:1: ( ruleQualifiedJavaClassName )
+            // InternalDSL.g:6645:3: ruleQualifiedJavaClassName
             {
 
             			if (current==null) {
@@ -16101,11 +16210,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getJavaConstantReferenceAccess().getNumberSignKeyword_1());
                 
-            // InternalDSL.g:6621:1: ( (otherlv_2= RULE_UPPERCASE_ID ) )
-            // InternalDSL.g:6622:1: (otherlv_2= RULE_UPPERCASE_ID )
+            // InternalDSL.g:6662:1: ( (otherlv_2= RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:6663:1: (otherlv_2= RULE_UPPERCASE_ID )
             {
-            // InternalDSL.g:6622:1: (otherlv_2= RULE_UPPERCASE_ID )
-            // InternalDSL.g:6623:3: otherlv_2= RULE_UPPERCASE_ID
+            // InternalDSL.g:6663:1: (otherlv_2= RULE_UPPERCASE_ID )
+            // InternalDSL.g:6664:3: otherlv_2= RULE_UPPERCASE_ID
             {
 
             			if (current==null) {
@@ -16143,7 +16252,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleExecutionMultiplier"
-    // InternalDSL.g:6642:1: entryRuleExecutionMultiplier returns [EObject current=null] : iv_ruleExecutionMultiplier= ruleExecutionMultiplier EOF ;
+    // InternalDSL.g:6683:1: entryRuleExecutionMultiplier returns [EObject current=null] : iv_ruleExecutionMultiplier= ruleExecutionMultiplier EOF ;
     public final EObject entryRuleExecutionMultiplier() throws RecognitionException {
         EObject current = null;
 
@@ -16151,8 +16260,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6643:2: (iv_ruleExecutionMultiplier= ruleExecutionMultiplier EOF )
-            // InternalDSL.g:6644:2: iv_ruleExecutionMultiplier= ruleExecutionMultiplier EOF
+            // InternalDSL.g:6684:2: (iv_ruleExecutionMultiplier= ruleExecutionMultiplier EOF )
+            // InternalDSL.g:6685:2: iv_ruleExecutionMultiplier= ruleExecutionMultiplier EOF
             {
              newCompositeNode(grammarAccess.getExecutionMultiplierRule()); 
             pushFollow(FOLLOW_1);
@@ -16179,7 +16288,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleExecutionMultiplier"
-    // InternalDSL.g:6651:1: ruleExecutionMultiplier returns [EObject current=null] : ( ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*' ) ;
+    // InternalDSL.g:6692:1: ruleExecutionMultiplier returns [EObject current=null] : ( ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*' ) ;
     public final EObject ruleExecutionMultiplier() throws RecognitionException {
         EObject current = null;
 
@@ -16190,17 +16299,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6654:28: ( ( ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*' ) )
-            // InternalDSL.g:6655:1: ( ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*' )
+            // InternalDSL.g:6695:28: ( ( ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*' ) )
+            // InternalDSL.g:6696:1: ( ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*' )
             {
-            // InternalDSL.g:6655:1: ( ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*' )
-            // InternalDSL.g:6655:2: ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*'
+            // InternalDSL.g:6696:1: ( ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*' )
+            // InternalDSL.g:6696:2: ( (lv_count_0_0= ruleConstantValue ) ) otherlv_1= '*'
             {
-            // InternalDSL.g:6655:2: ( (lv_count_0_0= ruleConstantValue ) )
-            // InternalDSL.g:6656:1: (lv_count_0_0= ruleConstantValue )
+            // InternalDSL.g:6696:2: ( (lv_count_0_0= ruleConstantValue ) )
+            // InternalDSL.g:6697:1: (lv_count_0_0= ruleConstantValue )
             {
-            // InternalDSL.g:6656:1: (lv_count_0_0= ruleConstantValue )
-            // InternalDSL.g:6657:3: lv_count_0_0= ruleConstantValue
+            // InternalDSL.g:6697:1: (lv_count_0_0= ruleConstantValue )
+            // InternalDSL.g:6698:3: lv_count_0_0= ruleConstantValue
             {
              
             	        newCompositeNode(grammarAccess.getExecutionMultiplierAccess().getCountConstantValueParserRuleCall_0_0()); 
@@ -16252,7 +16361,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedName"
-    // InternalDSL.g:6685:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
+    // InternalDSL.g:6726:1: entryRuleQualifiedName returns [String current=null] : iv_ruleQualifiedName= ruleQualifiedName EOF ;
     public final String entryRuleQualifiedName() throws RecognitionException {
         String current = null;
 
@@ -16260,8 +16369,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6686:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
-            // InternalDSL.g:6687:2: iv_ruleQualifiedName= ruleQualifiedName EOF
+            // InternalDSL.g:6727:2: (iv_ruleQualifiedName= ruleQualifiedName EOF )
+            // InternalDSL.g:6728:2: iv_ruleQualifiedName= ruleQualifiedName EOF
             {
              newCompositeNode(grammarAccess.getQualifiedNameRule()); 
             pushFollow(FOLLOW_1);
@@ -16288,7 +16397,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedName"
-    // InternalDSL.g:6694:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
+    // InternalDSL.g:6735:1: ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -16299,11 +16408,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6697:28: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
-            // InternalDSL.g:6698:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // InternalDSL.g:6738:28: ( (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* ) )
+            // InternalDSL.g:6739:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
             {
-            // InternalDSL.g:6698:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
-            // InternalDSL.g:6698:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
+            // InternalDSL.g:6739:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
+            // InternalDSL.g:6739:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
             {
             this_ID_0=(Token)match(input,RULE_ID,FOLLOW_109); 
 
@@ -16312,13 +16421,13 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                 newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
                 
-            // InternalDSL.g:6705:1: (kw= '.' this_ID_2= RULE_ID )*
+            // InternalDSL.g:6746:1: (kw= '.' this_ID_2= RULE_ID )*
             loop103:
             do {
                 int alt103=2;
                 int LA103_0 = input.LA(1);
 
-                if ( (LA103_0==89) ) {
+                if ( (LA103_0==90) ) {
                     int LA103_2 = input.LA(2);
 
                     if ( (LA103_2==RULE_ID) ) {
@@ -16331,9 +16440,9 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
                 switch (alt103) {
             	case 1 :
-            	    // InternalDSL.g:6706:2: kw= '.' this_ID_2= RULE_ID
+            	    // InternalDSL.g:6747:2: kw= '.' this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,89,FOLLOW_106); 
+            	    kw=(Token)match(input,90,FOLLOW_106); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
@@ -16375,7 +16484,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedJavaClassName"
-    // InternalDSL.g:6726:1: entryRuleQualifiedJavaClassName returns [String current=null] : iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF ;
+    // InternalDSL.g:6767:1: entryRuleQualifiedJavaClassName returns [String current=null] : iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF ;
     public final String entryRuleQualifiedJavaClassName() throws RecognitionException {
         String current = null;
 
@@ -16383,8 +16492,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6727:2: (iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF )
-            // InternalDSL.g:6728:2: iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF
+            // InternalDSL.g:6768:2: (iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF )
+            // InternalDSL.g:6769:2: iv_ruleQualifiedJavaClassName= ruleQualifiedJavaClassName EOF
             {
              newCompositeNode(grammarAccess.getQualifiedJavaClassNameRule()); 
             pushFollow(FOLLOW_1);
@@ -16411,7 +16520,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedJavaClassName"
-    // InternalDSL.g:6735:1: ruleQualifiedJavaClassName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID ) ;
+    // InternalDSL.g:6776:1: ruleQualifiedJavaClassName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedJavaClassName() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -16423,11 +16532,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6738:28: ( (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID ) )
-            // InternalDSL.g:6739:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID )
+            // InternalDSL.g:6779:28: ( (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID ) )
+            // InternalDSL.g:6780:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID )
             {
-            // InternalDSL.g:6739:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID )
-            // InternalDSL.g:6740:5: this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID
+            // InternalDSL.g:6780:1: (this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID )
+            // InternalDSL.g:6781:5: this_QualifiedName_0= ruleQualifiedName kw= '.' this_UPPERCASE_ID_2= RULE_UPPERCASE_ID
             {
              
                     newCompositeNode(grammarAccess.getQualifiedJavaClassNameAccess().getQualifiedNameParserRuleCall_0()); 
@@ -16443,7 +16552,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            kw=(Token)match(input,89,FOLLOW_107); 
+            kw=(Token)match(input,90,FOLLOW_107); 
 
                     current.merge(kw);
                     newLeafNode(kw, grammarAccess.getQualifiedJavaClassNameAccess().getFullStopKeyword_1()); 
@@ -16476,7 +16585,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQualifiedNameWithWildcard"
-    // InternalDSL.g:6771:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
+    // InternalDSL.g:6812:1: entryRuleQualifiedNameWithWildcard returns [String current=null] : iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF ;
     public final String entryRuleQualifiedNameWithWildcard() throws RecognitionException {
         String current = null;
 
@@ -16484,8 +16593,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6772:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
-            // InternalDSL.g:6773:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
+            // InternalDSL.g:6813:2: (iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF )
+            // InternalDSL.g:6814:2: iv_ruleQualifiedNameWithWildcard= ruleQualifiedNameWithWildcard EOF
             {
              newCompositeNode(grammarAccess.getQualifiedNameWithWildcardRule()); 
             pushFollow(FOLLOW_1);
@@ -16512,7 +16621,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQualifiedNameWithWildcard"
-    // InternalDSL.g:6780:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) ;
+    // InternalDSL.g:6821:1: ruleQualifiedNameWithWildcard returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) ;
     public final AntlrDatatypeRuleToken ruleQualifiedNameWithWildcard() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -16523,11 +16632,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6783:28: ( (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) )
-            // InternalDSL.g:6784:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
+            // InternalDSL.g:6824:28: ( (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? ) )
+            // InternalDSL.g:6825:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
             {
-            // InternalDSL.g:6784:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
-            // InternalDSL.g:6785:5: this_QualifiedName_0= ruleQualifiedName (kw= '.*' )?
+            // InternalDSL.g:6825:1: (this_QualifiedName_0= ruleQualifiedName (kw= '.*' )? )
+            // InternalDSL.g:6826:5: this_QualifiedName_0= ruleQualifiedName (kw= '.*' )?
             {
              
                     newCompositeNode(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
@@ -16543,18 +16652,18 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // InternalDSL.g:6795:1: (kw= '.*' )?
+            // InternalDSL.g:6836:1: (kw= '.*' )?
             int alt104=2;
             int LA104_0 = input.LA(1);
 
-            if ( (LA104_0==90) ) {
+            if ( (LA104_0==91) ) {
                 alt104=1;
             }
             switch (alt104) {
                 case 1 :
-                    // InternalDSL.g:6796:2: kw= '.*'
+                    // InternalDSL.g:6837:2: kw= '.*'
                     {
-                    kw=(Token)match(input,90,FOLLOW_2); 
+                    kw=(Token)match(input,91,FOLLOW_2); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getQualifiedNameWithWildcardAccess().getFullStopAsteriskKeyword_1()); 
@@ -16586,7 +16695,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDocumentationComment"
-    // InternalDSL.g:6809:1: entryRuleDocumentationComment returns [EObject current=null] : iv_ruleDocumentationComment= ruleDocumentationComment EOF ;
+    // InternalDSL.g:6850:1: entryRuleDocumentationComment returns [EObject current=null] : iv_ruleDocumentationComment= ruleDocumentationComment EOF ;
     public final EObject entryRuleDocumentationComment() throws RecognitionException {
         EObject current = null;
 
@@ -16594,8 +16703,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6810:2: (iv_ruleDocumentationComment= ruleDocumentationComment EOF )
-            // InternalDSL.g:6811:2: iv_ruleDocumentationComment= ruleDocumentationComment EOF
+            // InternalDSL.g:6851:2: (iv_ruleDocumentationComment= ruleDocumentationComment EOF )
+            // InternalDSL.g:6852:2: iv_ruleDocumentationComment= ruleDocumentationComment EOF
             {
              newCompositeNode(grammarAccess.getDocumentationCommentRule()); 
             pushFollow(FOLLOW_1);
@@ -16622,7 +16731,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDocumentationComment"
-    // InternalDSL.g:6818:1: ruleDocumentationComment returns [EObject current=null] : ( ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL ) ;
+    // InternalDSL.g:6859:1: ruleDocumentationComment returns [EObject current=null] : ( ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL ) ;
     public final EObject ruleDocumentationComment() throws RecognitionException {
         EObject current = null;
 
@@ -16631,17 +16740,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6821:28: ( ( ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL ) )
-            // InternalDSL.g:6822:1: ( ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL )
+            // InternalDSL.g:6862:28: ( ( ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL ) )
+            // InternalDSL.g:6863:1: ( ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL )
             {
-            // InternalDSL.g:6822:1: ( ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL )
-            // InternalDSL.g:6822:2: ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL
+            // InternalDSL.g:6863:1: ( ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL )
+            // InternalDSL.g:6863:2: ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) ) ruleNL
             {
-            // InternalDSL.g:6822:2: ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) )
-            // InternalDSL.g:6823:1: (lv_content_0_0= RULE_ML_DOC_COMMENT )
+            // InternalDSL.g:6863:2: ( (lv_content_0_0= RULE_ML_DOC_COMMENT ) )
+            // InternalDSL.g:6864:1: (lv_content_0_0= RULE_ML_DOC_COMMENT )
             {
-            // InternalDSL.g:6823:1: (lv_content_0_0= RULE_ML_DOC_COMMENT )
-            // InternalDSL.g:6824:3: lv_content_0_0= RULE_ML_DOC_COMMENT
+            // InternalDSL.g:6864:1: (lv_content_0_0= RULE_ML_DOC_COMMENT )
+            // InternalDSL.g:6865:3: lv_content_0_0= RULE_ML_DOC_COMMENT
             {
             lv_content_0_0=(Token)match(input,RULE_ML_DOC_COMMENT,FOLLOW_6); 
 
@@ -16695,7 +16804,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNL"
-    // InternalDSL.g:6856:1: entryRuleNL returns [String current=null] : iv_ruleNL= ruleNL EOF ;
+    // InternalDSL.g:6897:1: entryRuleNL returns [String current=null] : iv_ruleNL= ruleNL EOF ;
     public final String entryRuleNL() throws RecognitionException {
         String current = null;
 
@@ -16703,8 +16812,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6857:2: (iv_ruleNL= ruleNL EOF )
-            // InternalDSL.g:6858:2: iv_ruleNL= ruleNL EOF
+            // InternalDSL.g:6898:2: (iv_ruleNL= ruleNL EOF )
+            // InternalDSL.g:6899:2: iv_ruleNL= ruleNL EOF
             {
              newCompositeNode(grammarAccess.getNLRule()); 
             pushFollow(FOLLOW_1);
@@ -16731,7 +16840,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNL"
-    // InternalDSL.g:6865:1: ruleNL returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? )* ;
+    // InternalDSL.g:6906:1: ruleNL returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? )* ;
     public final AntlrDatatypeRuleToken ruleNL() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -16741,10 +16850,10 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6868:28: ( (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? )* )
-            // InternalDSL.g:6869:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? )*
+            // InternalDSL.g:6909:28: ( (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? )* )
+            // InternalDSL.g:6910:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? )*
             {
-            // InternalDSL.g:6869:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? )*
+            // InternalDSL.g:6910:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? )*
             loop106:
             do {
                 int alt106=2;
@@ -16757,7 +16866,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
                 switch (alt106) {
             	case 1 :
-            	    // InternalDSL.g:6869:6: this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )?
+            	    // InternalDSL.g:6910:6: this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )?
             	    {
             	    this_NEWLINE_0=(Token)match(input,RULE_NEWLINE,FOLLOW_112); 
 
@@ -16766,7 +16875,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	        newLeafNode(this_NEWLINE_0, grammarAccess.getNLAccess().getNEWLINETerminalRuleCall_0()); 
             	        
-            	    // InternalDSL.g:6876:1: (this_WS_1= RULE_WS )?
+            	    // InternalDSL.g:6917:1: (this_WS_1= RULE_WS )?
             	    int alt105=2;
             	    int LA105_0 = input.LA(1);
 
@@ -16775,7 +16884,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	    }
             	    switch (alt105) {
             	        case 1 :
-            	            // InternalDSL.g:6876:6: this_WS_1= RULE_WS
+            	            // InternalDSL.g:6917:6: this_WS_1= RULE_WS
             	            {
             	            this_WS_1=(Token)match(input,RULE_WS,FOLLOW_113); 
 
@@ -16817,7 +16926,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNLFORCED"
-    // InternalDSL.g:6891:1: entryRuleNLFORCED returns [String current=null] : iv_ruleNLFORCED= ruleNLFORCED EOF ;
+    // InternalDSL.g:6932:1: entryRuleNLFORCED returns [String current=null] : iv_ruleNLFORCED= ruleNLFORCED EOF ;
     public final String entryRuleNLFORCED() throws RecognitionException {
         String current = null;
 
@@ -16825,8 +16934,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalDSL.g:6892:2: (iv_ruleNLFORCED= ruleNLFORCED EOF )
-            // InternalDSL.g:6893:2: iv_ruleNLFORCED= ruleNLFORCED EOF
+            // InternalDSL.g:6933:2: (iv_ruleNLFORCED= ruleNLFORCED EOF )
+            // InternalDSL.g:6934:2: iv_ruleNLFORCED= ruleNLFORCED EOF
             {
              newCompositeNode(grammarAccess.getNLFORCEDRule()); 
             pushFollow(FOLLOW_1);
@@ -16853,7 +16962,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNLFORCED"
-    // InternalDSL.g:6900:1: ruleNLFORCED returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL ) ;
+    // InternalDSL.g:6941:1: ruleNLFORCED returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL ) ;
     public final AntlrDatatypeRuleToken ruleNLFORCED() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -16865,11 +16974,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:6903:28: ( (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL ) )
-            // InternalDSL.g:6904:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL )
+            // InternalDSL.g:6944:28: ( (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL ) )
+            // InternalDSL.g:6945:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL )
             {
-            // InternalDSL.g:6904:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL )
-            // InternalDSL.g:6904:6: this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL
+            // InternalDSL.g:6945:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL )
+            // InternalDSL.g:6945:6: this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL
             {
             this_NEWLINE_0=(Token)match(input,RULE_NEWLINE,FOLLOW_114); 
 
@@ -16878,7 +16987,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                 newLeafNode(this_NEWLINE_0, grammarAccess.getNLFORCEDAccess().getNEWLINETerminalRuleCall_0()); 
                 
-            // InternalDSL.g:6911:1: (this_WS_1= RULE_WS )?
+            // InternalDSL.g:6952:1: (this_WS_1= RULE_WS )?
             int alt107=2;
             int LA107_0 = input.LA(1);
 
@@ -16887,7 +16996,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt107) {
                 case 1 :
-                    // InternalDSL.g:6911:6: this_WS_1= RULE_WS
+                    // InternalDSL.g:6952:6: this_WS_1= RULE_WS
                     {
                     this_WS_1=(Token)match(input,RULE_WS,FOLLOW_6); 
 
@@ -17225,18 +17334,18 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             return "()* loopback of 2825:2: ( ruleNL ( (lv_parameters_4_0= ruleParameter ) ) )*";
         }
     }
-    static final String dfa_38s = "\1\uffff\3\5\2\uffff\1\5";
+    static final String dfa_38s = "\1\uffff\3\4\2\uffff\1\4";
     static final String dfa_39s = "\1\31\3\4\2\uffff\1\4";
     static final String dfa_40s = "\1\31\3\112\2\uffff\1\112";
-    static final String dfa_41s = "\4\uffff\1\1\1\2\1\uffff";
+    static final String dfa_41s = "\4\uffff\1\2\1\1\1\uffff";
     static final String[] dfa_42s = {
             "\1\1",
-            "\5\5\17\uffff\1\5\1\3\1\2\10\uffff\1\5\10\uffff\1\5\5\uffff\1\5\2\uffff\1\5\1\uffff\1\5\1\uffff\1\5\2\uffff\2\5\1\uffff\1\5\1\4\2\5\7\uffff\1\5",
-            "\5\5\17\uffff\1\5\1\3\11\uffff\1\5\10\uffff\1\5\5\uffff\1\5\2\uffff\1\5\1\uffff\1\5\1\uffff\1\5\2\uffff\2\5\1\uffff\1\5\1\4\2\5\7\uffff\1\5",
-            "\5\5\17\uffff\1\5\1\3\1\6\10\uffff\1\5\10\uffff\1\5\5\uffff\1\5\2\uffff\1\5\1\uffff\1\5\1\uffff\1\5\2\uffff\2\5\1\uffff\1\5\1\4\2\5\7\uffff\1\5",
+            "\5\4\17\uffff\1\4\1\3\1\2\10\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\1\4\2\uffff\2\4\1\uffff\1\4\1\5\2\4\7\uffff\1\4",
+            "\5\4\17\uffff\1\4\1\3\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\1\4\2\uffff\2\4\1\uffff\1\4\1\5\2\4\7\uffff\1\4",
+            "\5\4\17\uffff\1\4\1\3\1\6\10\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\1\4\2\uffff\2\4\1\uffff\1\4\1\5\2\4\7\uffff\1\4",
             "",
             "",
-            "\5\5\17\uffff\1\5\1\3\11\uffff\1\5\10\uffff\1\5\5\uffff\1\5\2\uffff\1\5\1\uffff\1\5\1\uffff\1\5\2\uffff\2\5\1\uffff\1\5\1\4\2\5\7\uffff\1\5"
+            "\5\4\17\uffff\1\4\1\3\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\1\4\2\uffff\2\4\1\uffff\1\4\1\5\2\4\7\uffff\1\4"
     };
     static final short[] dfa_38 = DFA.unpackEncodedString(dfa_38s);
     static final char[] dfa_39 = DFA.unpackEncodedStringToUnsignedChars(dfa_39s);
@@ -17264,16 +17373,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     static final String dfa_43s = "\6\uffff";
     static final String dfa_44s = "\2\uffff\1\4\2\uffff\1\4";
     static final String dfa_45s = "\1\11\1\uffff\1\4\1\12\1\uffff\1\4";
-    static final String dfa_46s = "\1\126\1\uffff\1\131\1\12\1\uffff\1\131";
+    static final String dfa_46s = "\1\127\1\uffff\1\132\1\12\1\uffff\1\132";
     static final String dfa_47s = "\1\uffff\1\1\2\uffff\1\2\1\uffff";
     static final String dfa_48s = "\6\uffff}>";
     static final String[] dfa_49s = {
-            "\1\1\1\2\2\uffff\12\1\74\uffff\1\1\2\uffff\1\1",
+            "\1\1\1\2\2\uffff\12\1\74\uffff\1\1\2\uffff\2\1",
             "",
-            "\5\4\1\uffff\1\4\15\uffff\2\4\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\2\4\1\uffff\2\4\1\uffff\1\4\1\uffff\2\4\5\uffff\1\4\1\uffff\1\4\1\uffff\1\1\14\uffff\1\3",
+            "\5\4\1\uffff\1\4\15\uffff\2\4\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\2\4\1\uffff\2\4\1\uffff\1\4\1\uffff\2\4\5\uffff\1\4\1\uffff\1\4\1\uffff\1\1\15\uffff\1\3",
             "\1\5",
             "",
-            "\5\4\1\uffff\1\4\15\uffff\2\4\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\2\4\1\uffff\2\4\1\uffff\1\4\1\uffff\2\4\5\uffff\1\4\1\uffff\1\4\1\uffff\1\1\14\uffff\1\3"
+            "\5\4\1\uffff\1\4\15\uffff\2\4\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\2\4\1\uffff\2\4\1\uffff\1\4\1\uffff\2\4\5\uffff\1\4\1\uffff\1\4\1\uffff\1\1\15\uffff\1\3"
     };
 
     static final short[] dfa_43 = DFA.unpackEncodedString(dfa_43s);
@@ -17442,12 +17551,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
         }
     }
     static final String[] dfa_57s = {
-            "\1\1\1\2\2\uffff\12\1\74\uffff\1\1\2\uffff\1\1",
+            "\1\1\1\2\2\uffff\12\1\74\uffff\1\1\2\uffff\2\1",
             "",
-            "\5\4\1\uffff\1\4\15\uffff\2\4\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\2\4\2\uffff\1\4\4\uffff\1\4\1\uffff\1\1\14\uffff\1\3",
+            "\5\4\1\uffff\1\4\15\uffff\2\4\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\2\4\2\uffff\1\4\4\uffff\1\4\1\uffff\1\1\15\uffff\1\3",
             "\1\5",
             "",
-            "\5\4\1\uffff\1\4\15\uffff\2\4\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\2\4\2\uffff\1\4\4\uffff\1\4\1\uffff\1\1\14\uffff\1\3"
+            "\5\4\1\uffff\1\4\15\uffff\2\4\11\uffff\1\4\10\uffff\1\4\5\uffff\1\4\2\uffff\1\4\1\uffff\1\4\1\uffff\1\4\1\uffff\3\4\1\uffff\1\4\1\uffff\2\4\2\uffff\1\4\4\uffff\1\4\1\uffff\1\1\15\uffff\1\3"
     };
     static final short[][] dfa_57 = unpackEncodedStringArray(dfa_57s);
 
@@ -17471,17 +17580,17 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     static final String dfa_58s = "\10\uffff";
     static final String dfa_59s = "\1\2\7\uffff";
     static final String dfa_60s = "\1\4\1\31\1\uffff\1\12\1\31\1\uffff\2\31";
-    static final String dfa_61s = "\1\112\1\131\1\uffff\1\12\1\72\1\uffff\1\131\1\72";
+    static final String dfa_61s = "\1\112\1\132\1\uffff\1\12\1\72\1\uffff\1\132\1\72";
     static final String dfa_62s = "\2\uffff\1\2\2\uffff\1\1\2\uffff";
     static final String dfa_63s = "\10\uffff}>";
     static final String[] dfa_64s = {
             "\5\2\1\uffff\1\1\15\uffff\1\2\12\uffff\1\2\10\uffff\1\2\5\uffff\1\2\2\uffff\1\2\1\uffff\1\2\1\uffff\1\2\1\uffff\3\2\1\uffff\1\2\1\uffff\2\2\2\uffff\1\2\4\uffff\1\2",
-            "\1\4\15\uffff\1\5\22\uffff\1\2\36\uffff\1\3",
+            "\1\4\15\uffff\1\5\22\uffff\1\2\37\uffff\1\3",
             "",
             "\1\6",
             "\1\4\1\7\14\uffff\1\5\22\uffff\1\2",
             "",
-            "\1\4\15\uffff\1\5\22\uffff\1\2\36\uffff\1\3",
+            "\1\4\15\uffff\1\5\22\uffff\1\2\37\uffff\1\3",
             "\1\4\15\uffff\1\5\22\uffff\1\2"
     };
 
@@ -17511,16 +17620,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
         }
     }
     static final String dfa_65s = "\1\11\1\uffff\3\12\1\uffff\2\12";
-    static final String dfa_66s = "\1\127\1\uffff\1\131\1\12\1\122\1\uffff\1\131\1\122";
+    static final String dfa_66s = "\1\130\1\uffff\1\132\1\12\1\122\1\uffff\1\132\1\122";
     static final String dfa_67s = "\1\uffff\1\1\3\uffff\1\2\2\uffff";
     static final String[] dfa_68s = {
-            "\1\1\1\2\2\uffff\13\1\63\uffff\1\1\5\uffff\1\1\1\uffff\1\1\2\uffff\2\1",
+            "\1\1\1\2\2\uffff\13\1\63\uffff\1\1\5\uffff\1\1\1\uffff\1\1\2\uffff\3\1",
             "",
-            "\1\1\16\uffff\1\4\6\uffff\1\5\46\uffff\1\1\12\uffff\1\5\2\uffff\1\1\3\uffff\1\3",
+            "\1\1\16\uffff\1\4\6\uffff\1\5\46\uffff\1\1\12\uffff\1\5\2\uffff\1\1\4\uffff\1\3",
             "\1\6",
             "\1\1\16\uffff\1\4\1\7\5\uffff\1\5\46\uffff\1\1\12\uffff\1\5",
             "",
-            "\1\1\16\uffff\1\4\6\uffff\1\5\46\uffff\1\1\12\uffff\1\5\2\uffff\1\1\3\uffff\1\3",
+            "\1\1\16\uffff\1\4\6\uffff\1\5\46\uffff\1\1\12\uffff\1\5\2\uffff\1\1\4\uffff\1\3",
             "\1\1\16\uffff\1\4\6\uffff\1\5\46\uffff\1\1\12\uffff\1\5"
     };
     static final char[] dfa_65 = DFA.unpackEncodedStringToUnsignedChars(dfa_65s);
@@ -17577,16 +17686,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     }
     static final String dfa_72s = "\2\2\2\uffff\3\2";
     static final String dfa_73s = "\2\4\2\uffff\3\4";
-    static final String dfa_74s = "\2\130\2\uffff\3\130";
+    static final String dfa_74s = "\2\131\2\uffff\3\131";
     static final String dfa_75s = "\2\uffff\1\2\1\1\3\uffff";
     static final String[] dfa_76s = {
-            "\7\2\15\uffff\1\2\1\1\6\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\5\uffff\1\2",
-            "\7\2\15\uffff\1\2\1\5\1\4\5\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\5\uffff\1\2",
+            "\7\2\15\uffff\1\2\1\1\6\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\6\uffff\1\2",
+            "\7\2\15\uffff\1\2\1\5\1\4\5\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\6\uffff\1\2",
             "",
             "",
-            "\7\2\15\uffff\1\2\1\5\6\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\5\uffff\1\2",
-            "\7\2\15\uffff\1\2\1\5\1\6\5\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\5\uffff\1\2",
-            "\7\2\15\uffff\1\2\1\5\6\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\5\uffff\1\2"
+            "\7\2\15\uffff\1\2\1\5\6\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\6\uffff\1\2",
+            "\7\2\15\uffff\1\2\1\5\1\6\5\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\6\uffff\1\2",
+            "\7\2\15\uffff\1\2\1\5\6\uffff\2\2\1\uffff\2\2\3\uffff\6\2\1\uffff\4\2\1\uffff\2\2\1\uffff\14\2\2\uffff\1\2\1\uffff\1\3\1\2\1\uffff\1\2\7\uffff\1\2\6\uffff\1\2"
     };
     static final short[] dfa_72 = DFA.unpackEncodedString(dfa_72s);
     static final char[] dfa_73 = DFA.unpackEncodedStringToUnsignedChars(dfa_73s);
@@ -17612,20 +17721,20 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
         }
     }
     static final String dfa_77s = "\12\uffff";
-    static final String dfa_78s = "\1\11\1\uffff\1\12\2\uffff\1\131\1\12\1\131\1\124\1\uffff";
-    static final String dfa_79s = "\1\127\1\uffff\1\12\2\uffff\1\131\1\27\1\131\1\125\1\uffff";
+    static final String dfa_78s = "\1\11\1\uffff\1\12\2\uffff\1\132\1\12\1\124\1\132\1\uffff";
+    static final String dfa_79s = "\1\130\1\uffff\1\12\2\uffff\1\132\1\27\1\125\1\132\1\uffff";
     static final String dfa_80s = "\1\uffff\1\1\1\uffff\1\2\1\3\4\uffff\1\4";
     static final String dfa_81s = "\12\uffff}>";
     static final String[] dfa_82s = {
-            "\1\1\1\3\2\uffff\12\1\74\uffff\1\2\2\uffff\1\1\1\4",
+            "\1\1\1\3\2\uffff\12\1\74\uffff\1\2\2\uffff\2\1\1\4",
             "",
             "\1\5",
             "",
             "",
             "\1\6",
-            "\1\7\14\uffff\1\10",
-            "\1\6",
+            "\1\10\14\uffff\1\7",
             "\1\11\1\1",
+            "\1\6",
             ""
     };
 
@@ -17653,34 +17762,35 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             return "5009:1: (this_StaticValue_0= ruleStaticValue | this_Variable_1= ruleVariable | this_NestedObject_2= ruleNestedObject | this_TypedNestedObject_3= ruleTypedNestedObject )";
         }
     }
-    static final String dfa_83s = "\25\uffff";
-    static final String dfa_84s = "\5\uffff\3\14\5\uffff\10\14";
-    static final String dfa_85s = "\1\11\4\uffff\3\4\5\uffff\10\4";
-    static final String dfa_86s = "\1\126\4\uffff\3\130\5\uffff\10\130";
-    static final String dfa_87s = "\1\uffff\1\1\1\2\1\3\1\4\3\uffff\1\6\1\10\1\11\1\7\1\5\10\uffff";
-    static final String dfa_88s = "\25\uffff}>";
+    static final String dfa_83s = "\26\uffff";
+    static final String dfa_84s = "\5\uffff\3\14\6\uffff\10\14";
+    static final String dfa_85s = "\1\11\4\uffff\3\4\6\uffff\10\4";
+    static final String dfa_86s = "\1\127\4\uffff\3\131\6\uffff\10\131";
+    static final String dfa_87s = "\1\uffff\1\1\1\2\1\3\1\4\3\uffff\1\6\1\10\1\11\1\12\1\5\1\7\10\uffff";
+    static final String dfa_88s = "\26\uffff}>";
     static final String[] dfa_89s = {
-            "\1\1\3\uffff\1\2\1\3\2\4\1\5\1\6\1\7\3\10\74\uffff\1\12\2\uffff\1\11",
+            "\1\1\3\uffff\1\2\1\3\2\4\1\5\1\6\1\7\3\10\74\uffff\1\13\2\uffff\1\11\1\12",
             "",
             "",
             "",
             "",
-            "\7\14\11\uffff\1\13\3\uffff\2\14\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\12\uffff\2\13\1\uffff\1\14\1\15\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\13\uffff\1\13\1\uffff\1\14\1\16\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
+            "\7\14\11\uffff\1\15\3\uffff\2\14\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\12\uffff\2\15\1\uffff\1\14\1\16\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\13\uffff\1\15\1\uffff\1\14\1\17\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
             "",
             "",
             "",
             "",
             "",
-            "\7\14\12\uffff\2\13\1\uffff\1\14\1\20\1\17\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\13\uffff\1\13\1\uffff\1\14\1\22\1\21\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\12\uffff\2\13\1\uffff\1\14\1\20\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\12\uffff\2\13\1\uffff\1\14\1\20\1\23\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\13\uffff\1\13\1\uffff\1\14\1\22\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\13\uffff\1\13\1\uffff\1\14\1\22\1\24\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\12\uffff\2\13\1\uffff\1\14\1\20\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14",
-            "\7\14\13\uffff\1\13\1\uffff\1\14\1\22\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\5\uffff\1\14"
+            "",
+            "\7\14\12\uffff\2\15\1\uffff\1\14\1\21\1\20\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\13\uffff\1\15\1\uffff\1\14\1\23\1\22\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\12\uffff\2\15\1\uffff\1\14\1\21\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\12\uffff\2\15\1\uffff\1\14\1\21\1\24\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\13\uffff\1\15\1\uffff\1\14\1\23\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\13\uffff\1\15\1\uffff\1\14\1\23\1\25\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\12\uffff\2\15\1\uffff\1\14\1\21\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\14\13\uffff\1\15\1\uffff\1\14\1\23\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\2\14\1\uffff\4\14\1\uffff\5\14\1\uffff\1\14\6\uffff\1\14"
     };
 
     static final short[] dfa_83 = DFA.unpackEncodedString(dfa_83s);
@@ -17705,21 +17815,21 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             this.transition = dfa_89;
         }
         public String getDescription() {
-            return "5109:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_JavaConstantValue_8= ruleJavaConstantValue )";
+            return "5109:1: (this_StringValue_0= ruleStringValue | this_IntegerValue_1= ruleIntegerValue | this_DecimalValue_2= ruleDecimalValue | this_BooleanValue_3= ruleBooleanValue | this_DateValue_4= ruleDateValue | this_TimeValue_5= ruleTimeValue | this_DateAndTimeValue_6= ruleDateAndTimeValue | this_NullValue_7= ruleNullValue | this_InexistentValue_8= ruleInexistentValue | this_JavaConstantValue_9= ruleJavaConstantValue )";
         }
     }
     static final String dfa_90s = "\1\21\1\uffff\1\25\1\uffff\1\25\2\uffff\1\25";
     static final String dfa_91s = "\1\23\1\uffff\1\31\1\uffff\1\32\2\uffff\1\31";
-    static final String dfa_92s = "\1\uffff\1\1\1\uffff\1\4\1\uffff\1\2\1\3\1\uffff";
+    static final String dfa_92s = "\1\uffff\1\1\1\uffff\1\4\1\uffff\1\3\1\2\1\uffff";
     static final String[] dfa_93s = {
             "\1\1\1\2\1\3",
             "",
-            "\1\5\1\6\2\uffff\1\4",
+            "\1\6\1\5\2\uffff\1\4",
             "",
-            "\1\5\1\6\2\uffff\1\4\1\7",
+            "\1\6\1\5\2\uffff\1\4\1\7",
             "",
             "",
-            "\1\5\1\6\2\uffff\1\4"
+            "\1\6\1\5\2\uffff\1\4"
     };
     static final char[] dfa_90 = DFA.unpackEncodedStringToUnsignedChars(dfa_90s);
     static final char[] dfa_91 = DFA.unpackEncodedStringToUnsignedChars(dfa_91s);
@@ -17740,7 +17850,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             this.transition = dfa_93;
         }
         public String getDescription() {
-            return "5727:1: (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue )";
+            return "5737:1: (this_IsoDateAndTimeValue_0= ruleIsoDateAndTimeValue | this_EuropeanDateAnd24HrsTimeValue_1= ruleEuropeanDateAnd24HrsTimeValue | this_EuropeanDateAnd12HrsTimeValue_2= ruleEuropeanDateAnd12HrsTimeValue | this_USDateAnd12HrsTimeValue_3= ruleUSDateAnd12HrsTimeValue )";
         }
     }
  
@@ -17765,7 +17875,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000000402L});
     public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000008002000000L});
     public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000002FFE600L,0x0000000000CA0800L});
+    public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000002FFE600L,0x0000000001CA0800L});
     public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000010000000000L});
     public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000002000200L});
     public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000000000202L});
@@ -17792,8 +17902,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_45 = new BitSet(new long[]{0x0040000000000002L});
     public static final BitSet FOLLOW_46 = new BitSet(new long[]{0x0080000800000000L});
     public static final BitSet FOLLOW_47 = new BitSet(new long[]{0x0080000000000000L});
-    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0900000002FFE600L,0x0000000000CA0800L});
-    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0900000002FFE602L,0x0000000000CA0800L});
+    public static final BitSet FOLLOW_48 = new BitSet(new long[]{0x0900000002FFE600L,0x0000000001CA0800L});
+    public static final BitSet FOLLOW_49 = new BitSet(new long[]{0x0900000002FFE602L,0x0000000001CA0800L});
     public static final BitSet FOLLOW_50 = new BitSet(new long[]{0x0900000002000000L});
     public static final BitSet FOLLOW_51 = new BitSet(new long[]{0x0900000000000002L});
     public static final BitSet FOLLOW_52 = new BitSet(new long[]{0x0400000002000000L});
@@ -17806,19 +17916,19 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_59 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
     public static final BitSet FOLLOW_60 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000001L});
     public static final BitSet FOLLOW_61 = new BitSet(new long[]{0x4000000002000000L});
-    public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x00000000027FE600L,0x0000000000480000L});
+    public static final BitSet FOLLOW_62 = new BitSet(new long[]{0x00000000027FE600L,0x0000000000C80000L});
     public static final BitSet FOLLOW_63 = new BitSet(new long[]{0x0400000002000400L,0x0000000000000100L});
-    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0000000002FFE600L,0x0000000000CA0B08L});
+    public static final BitSet FOLLOW_64 = new BitSet(new long[]{0x0000000002FFE600L,0x0000000001CA0B08L});
     public static final BitSet FOLLOW_65 = new BitSet(new long[]{0x0000000002000000L,0x0000000000000020L});
     public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000020L});
     public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000002000000L,0x0000000000000030L});
     public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000030L});
-    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000002FFEE00L,0x0000000000CA0820L});
-    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000002FFEE02L,0x0000000000CA0820L});
+    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000002FFEE00L,0x0000000001CA0820L});
+    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000002FFEE02L,0x0000000001CA0820L});
     public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000002000400L,0x0000000000000040L});
     public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000002000400L,0x00000000000000C0L});
     public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000002000402L,0x0000000000000040L});
-    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000002FFF600L,0x0000000000CA0800L});
+    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000002FFF600L,0x0000000001CA0800L});
     public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0000000002001002L});
     public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
@@ -17846,16 +17956,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_99 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
     public static final BitSet FOLLOW_100 = new BitSet(new long[]{0x0000000000000002L,0x0000000000200000L});
     public static final BitSet FOLLOW_101 = new BitSet(new long[]{0x0000000002000600L});
-    public static final BitSet FOLLOW_102 = new BitSet(new long[]{0x0000000002000600L,0x0000000001000000L});
-    public static final BitSet FOLLOW_103 = new BitSet(new long[]{0x0000000002000000L,0x0000000000800000L});
-    public static final BitSet FOLLOW_104 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
+    public static final BitSet FOLLOW_102 = new BitSet(new long[]{0x0000000002000600L,0x0000000002000000L});
+    public static final BitSet FOLLOW_103 = new BitSet(new long[]{0x0000000002000000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_104 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
     public static final BitSet FOLLOW_105 = new BitSet(new long[]{0x0000000000000000L,0x0000000000200000L});
     public static final BitSet FOLLOW_106 = new BitSet(new long[]{0x0000000000000400L});
     public static final BitSet FOLLOW_107 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_108 = new BitSet(new long[]{0x0000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_109 = new BitSet(new long[]{0x0000000000000002L,0x0000000002000000L});
-    public static final BitSet FOLLOW_110 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-    public static final BitSet FOLLOW_111 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
+    public static final BitSet FOLLOW_109 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
+    public static final BitSet FOLLOW_110 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
+    public static final BitSet FOLLOW_111 = new BitSet(new long[]{0x0000000000000002L,0x0000000008000000L});
     public static final BitSet FOLLOW_112 = new BitSet(new long[]{0x0000000006000002L});
     public static final BitSet FOLLOW_113 = new BitSet(new long[]{0x0000000002000002L});
     public static final BitSet FOLLOW_114 = new BitSet(new long[]{0x0000000006000000L});

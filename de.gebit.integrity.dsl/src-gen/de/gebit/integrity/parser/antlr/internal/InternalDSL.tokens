@@ -7,8 +7,8 @@
 ','=71
 '-'=73
 '->'=58
-'.'=89
-'.*'=90
+'.'=90
+'.*'=91
 '..'=79
 '/'=77
 ':'=39
@@ -29,6 +29,7 @@
 'gets'=46
 'import'=34
 'in'=59
+'inexistent'=87
 'initially'=54
 'inlined'=44
 'live'=67
@@ -55,9 +56,9 @@
 'variable'=53
 'variantdef'=40
 'with'=32
-'{'=87
+'{'=88
 '|'=64
-'}'=88
+'}'=89
 RULE_ANY_OTHER=30
 RULE_BOOLEAN_FALSE=16
 RULE_BOOLEAN_TRUE=15
@@ -145,3 +146,4 @@ T__87=87
 T__88=88
 T__89=89
 T__90=90
+T__91=91

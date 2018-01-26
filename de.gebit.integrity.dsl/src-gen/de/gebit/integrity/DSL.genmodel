@@ -267,6 +267,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//Constant/name"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//NullValue"/>
+    <genClasses ecoreClass="DSL.ecore#//InexistentValue"/>
     <genClasses ecoreClass="DSL.ecore#//EnumValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//EnumValue/enumValue"/>
     </genClasses>
@@ -300,5 +301,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//DocumentationComment/content"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Null"/>
+    <genClasses ecoreClass="DSL.ecore#//Inexistent"/>
   </genPackages>
 </genmodel:GenModel>
