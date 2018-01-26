@@ -42,7 +42,9 @@ public abstract class AbstractTestResourceProvider implements TestResourceProvid
 
 	/**
 	 * The resources in this provider. This abstract class supports an "early-evaluation" model: resources are
-	 * discovered and added early, before they're actually requested.
+	 * discovered and added early, before they're actually requested. This thing does not have to be thread-safe, as the
+	 * resource discovery phase is not expected to be run in parallel on multiple threads (and if an implementor would
+	 * do such a thing, he is responsible to protect against thread interferences).
 	 */
 	protected Set<TestResource> resourceFiles = new HashSet<TestResource>();
 

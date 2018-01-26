@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Stack;
 import java.util.zip.ZipEntry;
@@ -43,7 +43,7 @@ public class ArchiveTestResourceProvider extends AbstractTestResourceProvider {
 	/**
 	 * A map to keep track of opened {@link ZipInputStream}s. Used to close the streams.
 	 */
-	Map<InputStream, Stack<ZipInputStream>> openedResourceToStreamsMap = new HashMap<InputStream, Stack<ZipInputStream>>();
+	Map<InputStream, Stack<ZipInputStream>> openedResourceToStreamsMap = new Hashtable<InputStream, Stack<ZipInputStream>>();
 
 	/**
 	 * Adds an archive (all contained .integrity files) to the resource provider.
@@ -81,11 +81,10 @@ public class ArchiveTestResourceProvider extends AbstractTestResourceProvider {
 				String tempEntryName = aPrefix + "/" + tempEntry.getName();
 				String tempLowerCaseName = tempEntry.getName().toLowerCase();
 				if (tempLowerCaseName.endsWith(INTEGRITY_TEST_FILES_SUFFIX)) {
-					addResource(new ArchivedTestResource(tempEntryName, this, anArchiveFileNameStack,
-							tempEntry.getName()));
-				} else if (aRecursiveFlag
-						&& (tempLowerCaseName.endsWith(ARCHIVE_ENDING_ZIP) || tempLowerCaseName
-								.endsWith(ARCHIVE_ENDING_JAR))) {
+					addResource(
+							new ArchivedTestResource(tempEntryName, this, anArchiveFileNameStack, tempEntry.getName()));
+				} else if (aRecursiveFlag && (tempLowerCaseName.endsWith(ARCHIVE_ENDING_ZIP)
+						|| tempLowerCaseName.endsWith(ARCHIVE_ENDING_JAR))) {
 					Stack<String> tempSubArchiveStack = (Stack<String>) anArchiveFileNameStack.clone();
 					tempSubArchiveStack.push(tempEntry.getName());
 					addArchive(new ZipInputStream(anArchiveInputStream), tempEntryName, aRecursiveFlag,
@@ -132,8 +131,10 @@ public class ArchiveTestResourceProvider extends AbstractTestResourceProvider {
 	public void closeResource(TestResource aResourceName, InputStream aResourceStream) throws IOException {
 		Stack<ZipInputStream> tempOpenStreams = openedResourceToStreamsMap.remove(aResourceStream);
 
-		for (ZipInputStream tempOpenStream : tempOpenStreams) {
-			tempOpenStream.close();
+		if (tempOpenStreams != null) {
+			for (ZipInputStream tempOpenStream : tempOpenStreams) {
+				tempOpenStream.close();
+			}
 		}
 	}
 

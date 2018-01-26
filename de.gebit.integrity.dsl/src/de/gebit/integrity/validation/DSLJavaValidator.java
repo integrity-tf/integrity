@@ -20,6 +20,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.util.Pair;
@@ -35,11 +36,14 @@ import com.google.common.collect.Sets.SetView;
 import de.gebit.integrity.annotation.FixtureParameterAssessment;
 import de.gebit.integrity.annotation.JvmFixtureEvaluation;
 import de.gebit.integrity.dsl.Call;
+import de.gebit.integrity.dsl.CallDefinition;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
@@ -47,8 +51,10 @@ import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.VariableDefinition;
+import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
@@ -119,14 +125,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	@Check
 	public void checkIfVariableDefinitionsAreValid(VariableDefinition anEntity) {
 		if (anEntity.getName() != null) {
-			String tempName = anEntity.getName().getName();
-			if (tempName != null) {
-				if (tempName.contains(".")) {
-					error("Variable definitions may not be fully or partly qualified (= contain dots). "
-							+ "Please put the variable in the according packagedef to qualify it, or use some other "
-							+ "character in place of the dot!", null);
-				}
-			}
+			performDotCheck(anEntity.getName().getName(), "variable",
+					anEntity.eClass().getEStructuralFeature(DslPackage.VARIABLE_DEFINITION__NAME));
 		}
 	}
 
@@ -138,13 +138,112 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	@Check
 	public void checkIfConstantDefinitionsAreValid(ConstantDefinition anEntity) {
 		if (anEntity.getName() != null) {
-			String tempName = anEntity.getName().getName();
-			if (tempName != null) {
-				if (tempName.contains(".")) {
-					error("Constant definitions may not be fully or partly qualified (= contain dots). "
-							+ "Please put the constant in the according packagedef to qualify it, or use some other "
-							+ "character in place of the dot!", null);
-				}
+			performDotCheck(anEntity.getName().getName(), "constant",
+					anEntity.eClass().getEStructuralFeature(DslPackage.CONSTANT_DEFINITION__NAME));
+		}
+	}
+
+	/**
+	 * Checks whether a definition contains dots, which would be illegal (issue #174).
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkIfForkDefinitionsAreValid(ForkDefinition anEntity) {
+		if (anEntity.getName() != null) {
+			performDotCheck(anEntity.getName(), "fork",
+					anEntity.eClass().getEStructuralFeature(DslPackage.FORK_DEFINITION__NAME));
+		}
+	}
+
+	/**
+	 * Checks whether a definition contains dots, which would be illegal (issue #174).
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkIfVariantDefinitionsAreValid(VariantDefinition anEntity) {
+		if (anEntity.getName() != null) {
+			performDotCheck(anEntity.getName(), "variant",
+					anEntity.eClass().getEStructuralFeature(DslPackage.VARIANT_DEFINITION__NAME));
+		}
+	}
+
+	/**
+	 * Checks whether a definition contains dots, which would be illegal (issue #174).
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkIfSuiteDefinitionsAreValid(SuiteDefinition anEntity) {
+		if (anEntity.getName() != null) {
+			performDotCheck(anEntity.getName(), "suite",
+					anEntity.eClass().getEStructuralFeature(DslPackage.SUITE_DEFINITION__NAME));
+		}
+	}
+
+	/**
+	 * Checks whether a definition contains dots, which would be illegal (issue #174).
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkIfOperationDefinitionsAreValid(OperationDefinition anEntity) {
+		if (anEntity.getName() != null) {
+			performDotCheck(anEntity.getName(), "operation",
+					anEntity.eClass().getEStructuralFeature(DslPackage.OPERATION_DEFINITION__NAME));
+		}
+	}
+
+	/**
+	 * Checks whether a definition contains dots, which would be illegal (issue #174).
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkIfCallDefinitionsAreValid(CallDefinition anEntity) {
+		if (anEntity.getName() != null) {
+			performDotCheck(anEntity.getName(), "call",
+					anEntity.eClass().getEStructuralFeature(DslPackage.CALL_DEFINITION__NAME));
+		}
+	}
+
+	/**
+	 * Checks whether a definition contains dots, which would be illegal (issue #174).
+	 * 
+	 * @param anEntity
+	 */
+	@Check
+	public void checkIfTestDefinitionsAreValid(TestDefinition anEntity) {
+		if (anEntity.getName() != null) {
+			performDotCheck(anEntity.getName(), "test",
+					anEntity.eClass().getEStructuralFeature(DslPackage.TEST_DEFINITION__NAME));
+		}
+	}
+
+	/**
+	 * A generic dot-checking method for entity names. Generates a nice error message.
+	 * 
+	 * @param aName
+	 * @param anEntity
+	 */
+	protected void performDotCheck(String aName, String anEntity) {
+		performDotCheck(aName, anEntity, null);
+	}
+
+	/**
+	 * A generic dot-checking method for entity names. Generates a nice error message.
+	 * 
+	 * @param aName
+	 * @param anEntity
+	 */
+	protected void performDotCheck(String aName, String anEntity, EStructuralFeature aStructuralFeature) {
+		if (aName != null) {
+			if (aName.contains(".")) {
+				error(anEntity.substring(0, 1).toUpperCase() + anEntity.substring(1)
+						+ " definitions may not be fully or partly qualified (= contain dots). " + "Please put the "
+						+ anEntity + " in the according packagedef to qualify it, or use some other "
+						+ "character in place of the dot!", aStructuralFeature);
 			}
 		}
 	}
@@ -329,17 +428,27 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		return Sets.newLinkedHashSet(tempMandatoryNames);
 	}
 
-	/** Maps parameters to their names. */
+	/**
+	 * Maps parameters to their names.
+	 */
 	private final Function<Parameter, String> FUNC_PARAMETER_NAME = new Function<Parameter, String>() {
+
+		@Override
 		public String apply(Parameter aParameter) {
 			return evaluator.getParameterNameOf(aParameter.getName());
 		};
+
 	};
 
-	/** Maps parameters to their names. */
+	/**
+	 * Maps parameters to their names.
+	 */
 	private final Function<ParameterTableHeader, String> FUNC_PARAMETER_HEADER_NAME = new Function<ParameterTableHeader, String>() {
+
+		@Override
 		public String apply(ParameterTableHeader aParameterHeader) {
 			return evaluator.getParameterNameOf(aParameterHeader.getName());
 		};
+
 	};
 }
