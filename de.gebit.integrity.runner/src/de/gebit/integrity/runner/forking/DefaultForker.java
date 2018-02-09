@@ -11,11 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
-import java.net.DatagramSocket;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -38,10 +33,8 @@ public class DefaultForker implements Forker {
 	@Override
 	public ForkedProcess fork(String[] someCommandLineArguments, String aForkName, long aRandomSeed)
 			throws ForkException {
-		int tempPortNumber = getPortToUse();
-
-		List<String> tempArgs = createArgumentList(someCommandLineArguments, tempPortNumber, aForkName, aRandomSeed);
-		return createProcess(tempArgs, tempPortNumber);
+		List<String> tempArgs = createArgumentList(someCommandLineArguments, aForkName, aRandomSeed);
+		return createProcess(tempArgs);
 	}
 
 	/**
@@ -49,23 +42,20 @@ public class DefaultForker implements Forker {
 	 * 
 	 * @param someCommandLineArguments
 	 *            the command line arguments provided to {@link #fork(String[], int, String)}.
-	 * @param aPortNumber
-	 *            the port number to use by the fork
 	 * @param aForkName
 	 *            the name for the new fork
 	 * @param aRandomSeed
 	 *            the seed for the RNG of the fork
 	 * @return the argument list
 	 */
-	protected List<String> createArgumentList(String[] someCommandLineArguments, int aPortNumber, String aForkName,
-			long aRandomSeed) {
+	protected List<String> createArgumentList(String[] someCommandLineArguments, String aForkName, long aRandomSeed) {
 		List<String> tempArgs = new ArrayList<String>();
 
 		addJavaExecutable(tempArgs);
 
 		addClassPath(tempArgs);
 
-		addForkInformation(tempArgs, aPortNumber, aForkName, aRandomSeed);
+		addForkInformation(tempArgs, aForkName, aRandomSeed);
 
 		addJVMArguments(tempArgs);
 
@@ -107,22 +97,39 @@ public class DefaultForker implements Forker {
 	 * 
 	 * @param anArgumentList
 	 *            the argument list to extend
-	 * @param aPortNumber
-	 *            the port number for the fork
 	 * @param aForkName
 	 *            the name for the fork
 	 * @param aRandomSeed
 	 *            the seed for the RNG of the fork
 	 */
-	protected void addForkInformation(List<String> anArgumentList, int aPortNumber, String aForkName,
-			long aRandomSeed) {
-		String tempHostInterface = getHostInterfaceToUse();
-		if (tempHostInterface != null) {
-			anArgumentList.add("-D" + Forker.SYSPARAM_FORK_REMOTING_HOST + "=" + tempHostInterface);
+	protected void addForkInformation(List<String> anArgumentList, String aForkName, long aRandomSeed) {
+		if (getForkHost() != null) {
+			anArgumentList.add("-D" + Forker.SYSPARAM_FORK_REMOTING_HOST + "=" + getForkHost());
 		}
-		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_REMOTING_PORT + "=" + aPortNumber);
+		if (getForkPort() != null) {
+			anArgumentList.add("-D" + Forker.SYSPARAM_FORK_REMOTING_PORT + "=" + getForkPort());
+		}
+
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_NAME + "=" + aForkName);
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_SEED + "=" + aRandomSeed);
+	}
+
+	/**
+	 * The host name / IP to which the fork should be bound.
+	 * 
+	 * @return
+	 */
+	protected String getForkHost() {
+		return "localhost";
+	}
+
+	/**
+	 * The port to which the fork should be bound.
+	 * 
+	 * @return
+	 */
+	protected Integer getForkPort() {
+		return 0;
 	}
 
 	/**
@@ -177,10 +184,10 @@ public class DefaultForker implements Forker {
 	 * @return the forked process
 	 * @throws ForkException
 	 */
-	protected LocalForkedProcess createProcess(List<String> anArgumentList, int aPortNumber) throws ForkException {
+	protected LocalForkedProcess createProcess(List<String> anArgumentList) throws ForkException {
 		ProcessBuilder tempBuilder = new ProcessBuilder(anArgumentList);
 		try {
-			return new LocalForkedProcess(tempBuilder.start(), aPortNumber);
+			return new LocalForkedProcess(tempBuilder.start());
 		} catch (IOException exc) {
 			throw new ForkException("Error forking process", exc);
 		}
@@ -202,79 +209,4 @@ public class DefaultForker implements Forker {
 				"Could not determine main class name. You probably need to implement your own Forker in order to use forking!");
 	}
 
-	/**
-	 * The maximum possible port number.
-	 */
-	private static final int MAX_PORT_NUMBER = 65535;
-
-	/**
-	 * The minimum possible port number.
-	 */
-	private static final int MIN_PORT_NUMBER = 1024;
-
-	/**
-	 * This determines the port to use by the fork to communicate with the master. The fork must be able to bind to this
-	 * port. The default implementation finds a free port on the machine by randomly checking ports above
-	 * {@link #MIN_PORT_NUMBER}.
-	 * 
-	 * @return the port to use
-	 */
-	protected int getPortToUse() {
-		int tempPort = 0;
-		do {
-			tempPort = (int) Math.floor(Math.random() * (double) (MAX_PORT_NUMBER - MIN_PORT_NUMBER)) + MIN_PORT_NUMBER;
-		} while (!isPortAvailable(tempPort));
-		return tempPort;
-	}
-
-	/**
-	 * Determines the host interface to bind the fork to.
-	 * 
-	 * @return the host interface name (IP or hostname)
-	 */
-	protected String getHostInterfaceToUse() {
-		return "localhost";
-	}
-
-	/**
-	 * Checks whether a given port is available on the local machine.
-	 * 
-	 * @param aPort
-	 *            the port to check
-	 * @return true if the port is available, false if not
-	 */
-	protected boolean isPortAvailable(int aPort) {
-		InetAddress tempInterface;
-		try {
-			tempInterface = Inet4Address.getByName("localhost");
-		} catch (UnknownHostException exc1) {
-			// This is almost impossible to occur!
-			throw new RuntimeException(exc1);
-		}
-		ServerSocket tempServerSocket = null;
-		DatagramSocket tempDatagramSocket = null;
-		try {
-			tempServerSocket = new ServerSocket(aPort, 1, tempInterface);
-			tempServerSocket.setReuseAddress(true);
-			tempDatagramSocket = new DatagramSocket(aPort, tempInterface);
-			tempDatagramSocket.setReuseAddress(true);
-			return true;
-		} catch (IOException exc) {
-			// nothing to do
-		} finally {
-			if (tempDatagramSocket != null) {
-				tempDatagramSocket.close();
-			}
-
-			if (tempServerSocket != null) {
-				try {
-					tempServerSocket.close();
-				} catch (IOException exc) {
-					// ignore
-				}
-			}
-		}
-
-		return false;
-	}
 }

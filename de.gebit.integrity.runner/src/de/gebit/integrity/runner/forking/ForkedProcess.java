@@ -60,15 +60,23 @@ public interface ForkedProcess {
 	/**
 	 * Returns the network host name where this process is running. In case of local processes, "localhost" shall be
 	 * returned, but distributed processes on other machines might of course return different values. This is a
-	 * mandatory method.
+	 * mandatory method if the forks' STDOUT stream is not available (through which host and port would otherwise be
+	 * communicated to the master) OR if the host communicated via STDOUT is a wildcard address, otherwise it is
+	 * optional and will not be called. It may return "null" as long as the fork has not yet brought up its remoting
+	 * network binding - in that case, the connection attempts are paused until remoting is available.
 	 * 
-	 * @return the network host name where the process is running
+	 * @return the network host name where the process is running, or null if the process is not yet available for
+	 *         connection
 	 */
 	String getHost();
 
 	/**
 	 * Returns the port where this processes' Integrity Test Runner is open for management connections. This is a
-	 * mandatory method.
+	 * mandatory method if the forks' STDOUT stream is not available (through which host and port would otherwise be
+	 * communicated to the master), otherwise it is optional and will not be called. If {@link #getHost()} returns a
+	 * non-null value, this method must return a meaningful value as well (it will also not be called before
+	 * {@link #getHost()} was called and returned a non-null value, so it doesn't matter what it returns before that
+	 * point in time, or if it is even callable).
 	 * 
 	 * @return the remoting port of the test runner
 	 */

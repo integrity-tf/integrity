@@ -591,26 +591,58 @@ public class DefaultTestRunner implements TestRunner {
 
 		parameterizedConstantValues = someParameterizedConstants;
 		commandLineArguments = someCommandLineArguments;
+
+		performRemotingBinding(aRemotingPort, aRemotingBindHost);
+
+		waitForSetListInjection();
+	}
+
+	/**
+	 * Performs the remoting port binding.
+	 * 
+	 * @param aRemotingPort
+	 *            the port to bind to, or null if no remoting is desired
+	 * @param aRemotingBindHost
+	 *            the host/IP to bind to
+	 * @throws IOException
+	 */
+	protected void performRemotingBinding(Integer aRemotingPort, String aRemotingBindHost) throws IOException {
 		Integer tempRemotingPort = aRemotingPort;
-		String tempRemotingBindHost = aRemotingBindHost;
-		if (isFork()) {
-			tempRemotingPort = Integer.parseInt(System.getProperty(Forker.SYSPARAM_FORK_REMOTING_PORT));
-			tempRemotingBindHost = System.getProperty(Forker.SYSPARAM_FORK_REMOTING_HOST, aRemotingBindHost);
+		String tempRemotingHost = aRemotingBindHost;
+		if (isFork() && System.getProperty(Forker.SYSPARAM_FORK_REMOTING_HOST) != null) {
+			tempRemotingHost = System.getProperty(Forker.SYSPARAM_FORK_REMOTING_HOST);
 		}
+		if (isFork() && System.getProperty(Forker.SYSPARAM_FORK_REMOTING_PORT) != null) {
+			tempRemotingPort = Integer.parseInt(System.getProperty(Forker.SYSPARAM_FORK_REMOTING_PORT));
+		}
+
 		if (tempRemotingPort != null) {
 			remotingListener = new RemotingListener();
 			try {
-				remotingServer = new IntegrityRemotingServer(tempRemotingBindHost, tempRemotingPort, remotingListener,
+				remotingServer = new IntegrityRemotingServer(tempRemotingHost, tempRemotingPort, remotingListener,
 						javaClassLoader, isFork());
 			} catch (BindException exc) {
-				System.err.println("FAILED TO BIND REMOTING SERVER TO " + aRemotingBindHost + ":" + aRemotingPort);
+				System.err.println("FAILED TO BIND REMOTING SERVER TO " + tempRemotingHost + ":" + tempRemotingPort);
 				throw exc;
 			}
-		}
 
+			if (tempRemotingPort == 0) {
+				// This message is important! It is being parsed by the master to find out the auto-generated fork port
+				// (see de.gebit.integrity.runner.forking.Fork.FORK_HOST_AND_PORT_PATTERN).
+				System.out
+						.println("Integrity Test Runner bound to " + tempRemotingHost + ":" + remotingServer.getPort());
+			}
+		}
+	}
+
+	/**
+	 * If this is a fork, we now need to wait for the setlist and test scripts to be injected by the master! Otherwise
+	 * this method returns immediately.
+	 * 
+	 * @throws IOException
+	 */
+	protected void waitForSetListInjection() throws IOException {
 		if (isFork()) {
-			// If this is a fork, we now need to wait for the setlist and test scripts to be injected by
-			// the master!
 			long tempTimeout = System.nanoTime() + TimeUnit.SECONDS.toNanos(getForkConnectionTimeout());
 
 			synchronized (setListWaiter) {
