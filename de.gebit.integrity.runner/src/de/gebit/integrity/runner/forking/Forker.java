@@ -24,7 +24,8 @@ public interface Forker {
 	String SYSPARAM_FORK_REMOTING_HOST = "integrity.fork.host";
 
 	/**
-	 * System parameter name for the remoting port to use to communicate with the fork.
+	 * System parameter name for the remoting port to use to communicate with the fork. If this is set, it overrides the
+	 * setting that is provided to the test runner for general remoting.
 	 */
 	String SYSPARAM_FORK_REMOTING_PORT = "integrity.fork.port";
 

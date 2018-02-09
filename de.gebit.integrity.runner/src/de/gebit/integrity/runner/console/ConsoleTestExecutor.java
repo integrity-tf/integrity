@@ -200,7 +200,7 @@ public class ConsoleTestExecutor {
 				"variant", "Specify the variant to execute (must be defined in the scripts!)", "[{-v,--variant}]");
 		SimpleCommandLineParser.BooleanOption tempNoremoteOption = new SimpleCommandLineParser.BooleanOption(null,
 				"noremote", "Disables remoting", "[{--noremote}]");
-		SimpleCommandLineParser.IntegerOption tempRemoteportOption = new SimpleCommandLineParser.IntegerOption("r",
+		SimpleCommandLineParser.IntegerOption tempRemotePortOption = new SimpleCommandLineParser.IntegerOption("r",
 				"remoteport", "Set the port number to bind to for remoting (default is "
 						+ IntegrityRemotingConstants.DEFAULT_PORT + ")",
 				"[{-r,--remoteport} port]");
@@ -222,7 +222,7 @@ public class ConsoleTestExecutor {
 				null, "noconsole", "Do not capture stdout & stderr for test XML/HTML output", "[{--noconsole}]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
-				tempNoremoteOption, tempRemoteportOption, tempRemoteHostOption, tempWaitForPlayOption,
+				tempNoremoteOption, tempRemotePortOption, tempRemoteHostOption, tempWaitForPlayOption,
 				tempSkipModelCheck, tempParameterizedConstantOption, tempSeedOption, tempExcludeConsoleStreamsOption);
 
 		if (someArgs.length == 0) {
@@ -301,7 +301,7 @@ public class ConsoleTestExecutor {
 			Integer tempRemotePort = null;
 			String tempRemoteHost = null;
 			if (!tempNoremoteOption.isSet()) {
-				tempRemotePort = tempRemoteportOption.getValue(IntegrityRemotingConstants.DEFAULT_PORT);
+				tempRemotePort = tempRemotePortOption.getValue(IntegrityRemotingConstants.DEFAULT_PORT);
 				tempRemoteHost = tempRemoteHostOption.getValue("0.0.0.0");
 			}
 
