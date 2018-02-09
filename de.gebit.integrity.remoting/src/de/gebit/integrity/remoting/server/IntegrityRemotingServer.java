@@ -79,7 +79,7 @@ public class IntegrityRemotingServer {
 	 * @param aHostIP
 	 *            the host IP to listen on
 	 * @param aPort
-	 *            the port to listen on
+	 *            the port to listen on (0 = auto-choose a free port)
 	 * @param aListener
 	 *            the listener
 	 * @param aClassLoader
@@ -95,9 +95,9 @@ public class IntegrityRemotingServer {
 			throw new IllegalArgumentException("A listener must be provided.");
 		}
 		listener = aListener;
-		port = aPort;
 		isFork = anIsForkFlag;
 		serverEndpoint = new ServerEndpoint(aHostIP, aPort, createProcessors(), aClassLoader, anIsForkFlag);
+		port = serverEndpoint.getPort();
 	}
 
 	/**

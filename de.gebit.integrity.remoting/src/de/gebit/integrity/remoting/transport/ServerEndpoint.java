@@ -65,7 +65,7 @@ public class ServerEndpoint {
 	 * @param aHostIP
 	 *            the host IP to listen on
 	 * @param aPort
-	 *            the port to bind to
+	 *            the port to bind to (0 = auto-choose a free port)
 	 * @param aProcessorMap
 	 *            the map of processors to use for processing incoming messages
 	 * @param aClassLoader
@@ -77,8 +77,7 @@ public class ServerEndpoint {
 	 */
 	public ServerEndpoint(String aHostIP, int aPort,
 			Map<Class<? extends AbstractMessage>, MessageProcessor<?>> aProcessorMap, ClassLoader aClassLoader,
-			boolean anIsForkFlag)
-			throws UnknownHostException, IOException {
+			boolean anIsForkFlag) throws UnknownHostException, IOException {
 		messageProcessors = aProcessorMap;
 		serverSocket = new ServerSocket(aPort, 0, Inet4Address.getByName(aHostIP));
 		connectionWaiter = new ConnectionWaiter(aClassLoader);
@@ -93,6 +92,15 @@ public class ServerEndpoint {
 
 	public boolean isActive() {
 		return serverSocket.isBound() && !serverSocket.isClosed();
+	}
+
+	/**
+	 * Returns the port number on which the server endpoint is listening.
+	 * 
+	 * @return
+	 */
+	public int getPort() {
+		return serverSocket.getLocalPort();
 	}
 
 	/**
@@ -122,7 +130,7 @@ public class ServerEndpoint {
 
 		if (shutdownHookThread != null) {
 			try {
-			Runtime.getRuntime().removeShutdownHook(shutdownHookThread);
+				Runtime.getRuntime().removeShutdownHook(shutdownHookThread);
 			} catch (IllegalStateException exc) {
 				// ignored - may be thrown if this code is run during VM shutdown, but we don't care about that
 			}

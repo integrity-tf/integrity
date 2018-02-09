@@ -23,19 +23,13 @@ public class LocalForkedProcess implements ForkedProcess {
 	protected Process process;
 
 	/**
-	 * The port at which the fork listens for remoting connections.
-	 */
-	private Integer port;
-
-	/**
 	 * Creates a new instance.
 	 * 
 	 * @param aProcess
 	 *            the process to wrap
 	 */
-	public LocalForkedProcess(Process aProcess, Integer aPort) {
+	public LocalForkedProcess(Process aProcess) {
 		process = aProcess;
-		port = aPort;
 	}
 
 	@Override
@@ -66,12 +60,12 @@ public class LocalForkedProcess implements ForkedProcess {
 
 	@Override
 	public String getHost() {
-		return "localhost";
+		throw new UnsupportedOperationException("Not supported; host/port is communicated via STDOUT.");
 	}
 
 	@Override
 	public int getPort() {
-		return port;
+		throw new UnsupportedOperationException("Not supported; host/port is communicated via STDOUT.");
 	}
 
 }

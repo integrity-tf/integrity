@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -77,6 +79,16 @@ public class Fork {
 	 * The actual process running the fork.
 	 */
 	private ForkedProcess process;
+
+	/**
+	 * The {@link FilteringStreamCopier} for STDOUT, if the forked process supplies it.
+	 */
+	private FilteringStreamCopier stdoutCopier;
+
+	/**
+	 * The {@link FilteringStreamCopier} for STDERR, if the forked process supplies it.
+	 */
+	private FilteringStreamCopier stderrCopier;
 
 	/**
 	 * A flag remembering whether the fork has been started once.
@@ -228,6 +240,12 @@ public class Fork {
 	private static final int FORK_TIMESYNC_TIMEOUT_DEFAULT = 30;
 
 	/**
+	 * The pattern to use for filtering.
+	 */
+	private static final Pattern FORK_HOST_AND_PORT_PATTERN = Pattern
+			.compile("Integrity Test Runner bound to ([^ :]+):(\\d+)");
+
+	/**
 	 * The fork timesync timeout, in seconds.
 	 */
 	public static int getForkTimesyncTimeout() {
@@ -297,13 +315,15 @@ public class Fork {
 
 		InputStream tempStdOut = process.getInputStream();
 		if (tempStdOut != null) {
-			new StreamCopier("\tFORK '" + definition.getName() + "': ",
-					"Integrity - stdout copy: " + definition.getName(), tempStdOut, false).start();
+			stdoutCopier = new FilteringStreamCopier("\tFORK '" + definition.getName() + "': ",
+					"Integrity - stdout copy: " + definition.getName(), tempStdOut, false, true);
+			stdoutCopier.start();
 		}
 		InputStream tempStdErr = process.getErrorStream();
 		if (tempStdErr != null) {
-			new StreamCopier("\tFORK '" + definition.getName() + "': ",
-					"Integrity - stderr copy: " + definition.getName(), tempStdErr, true).start();
+			stderrCopier = new FilteringStreamCopier("\tFORK '" + definition.getName() + "': ",
+					"Integrity - stderr copy: " + definition.getName(), tempStdErr, true, false);
+			stderrCopier.start();
 		}
 	}
 
@@ -379,13 +399,29 @@ public class Fork {
 	 *            the timeout after which the method shall return in milliseconds
 	 * @param aClassLoader
 	 *            the classloader to use when deserializing objects
-	 * @return true if successful, false if the timeout was hit
+	 * @return true if successful, false if the timeout was hit or if the process cannot be connected to yet (in this
+	 *         case this method will return immediately)
 	 * @throws IOException
 	 */
 	public boolean connect(long aTimeout, ClassLoader aClassLoader) throws IOException {
+		// If the forked process is able to supply its STDOUT stream, it will be able to communicate its host and port
+		// via the stream. If not, the forked process is mandated to implement getHost() and getPort() and supply the
+		// host and port this way.
+		String tempHost = (stdoutCopier != null ? stdoutCopier.getForkHostName() : getProcess().getHost());
+		if (tempHost == null) {
+			return false;
+		}
+		if ("0.0.0.0".equals(tempHost)) {
+			// The host communicated via STDOUT is a wildcard address. We cannot use that to connect to the host, so
+			// fall back to getting the host from the process, which has to be able to supply a host name in this case
+			// according to the interface documentation.
+			tempHost = getProcess().getHost();
+		}
+		int tempPort = (stdoutCopier != null ? stdoutCopier.getForkPort() : getProcess().getPort());
+
 		synchronized (this) {
-			IntegrityRemotingClient tempClient = new IntegrityRemotingClient(getProcess().getHost(),
-					getProcess().getPort(), new ForkRemotingClientListener(), aClassLoader);
+			IntegrityRemotingClient tempClient = new IntegrityRemotingClient(tempHost, tempPort,
+					new ForkRemotingClientListener(), aClassLoader);
 
 			try {
 				wait(aTimeout);
@@ -723,7 +759,7 @@ public class Fork {
 		}
 	}
 
-	private class StreamCopier extends Thread {
+	private class FilteringStreamCopier extends Thread {
 
 		/**
 		 * The prefix to add in front of each line.
@@ -740,11 +776,28 @@ public class Fork {
 		 */
 		private boolean stdErr;
 
-		StreamCopier(String aPrefix, String aThreadName, InputStream aSource, boolean anStdErrFlag) {
+		/**
+		 * Whether the stream is to be scanned for host/port that the fork binds to.
+		 */
+		private boolean isFilteringForHostAndPort;
+
+		/**
+		 * The forks' host name, as filtered from the stream.
+		 */
+		private String forkHostName;
+
+		/**
+		 * The forks' port, as filtered from the stream.
+		 */
+		private Integer forkPort;
+
+		FilteringStreamCopier(String aPrefix, String aThreadName, InputStream aSource, boolean anStdErrFlag,
+				boolean aFilterForHostAndPortFlag) {
 			super(aThreadName);
 			prefix = aPrefix;
 			source = new BufferedReader(new InputStreamReader(aSource));
 			stdErr = anStdErrFlag;
+			isFilteringForHostAndPort = aFilterForHostAndPortFlag;
 		}
 
 		private void println(String aLine) {
@@ -770,11 +823,27 @@ public class Fork {
 				if (tempLine == null) {
 					break;
 				} else {
+					if (isFilteringForHostAndPort) {
+						Matcher tempMatcher = FORK_HOST_AND_PORT_PATTERN.matcher(tempLine);
+						if (tempMatcher.matches()) {
+							forkPort = Integer.parseInt(tempMatcher.group(2));
+							forkHostName = tempMatcher.group(1);
+							isFilteringForHostAndPort = false;
+						}
+					}
 					println(prefix + tempLine);
 				}
 			} while (true);
 
 			println(prefix + "Process terminated!");
+		}
+
+		public String getForkHostName() {
+			return forkHostName;
+		}
+
+		public Integer getForkPort() {
+			return forkPort;
 		}
 	}
 
