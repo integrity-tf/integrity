@@ -247,9 +247,17 @@ public class ConsoleTestExecutor {
 		TransformHandling tempTransformHandling = evaluateTransformHandling(tempXsltOption);
 		String tempExecutionName = tempNameOption.getValue("unnamed");
 		String tempRootSuiteName = getRootSuiteNameFrom(tempRemainingParameters);
+
+		List<File> tempScriptFiles = getScriptsList(tempRemainingParameters);
+		if (tempScriptFiles.size() == 0) {
+			getStdErr().println("Missing at least one script name/directory definition!");
+			getStdOut().println(tempParser.getHelp(REMAINING_ARGS_HELP));
+			return EXIT_CODE_PARAMETER_ERROR;
+		}
+
 		TestResourceProvider tempResourceProvider;
 		try {
-			tempResourceProvider = createResourceProvider(getScriptsList(tempRemainingParameters));
+			tempResourceProvider = createResourceProvider(tempScriptFiles);
 		} catch (IOException exc) {
 			getStdErr().println("Encountered an I/O error when preparing the test script resources.");
 			exc.printStackTrace(getStdErr());
