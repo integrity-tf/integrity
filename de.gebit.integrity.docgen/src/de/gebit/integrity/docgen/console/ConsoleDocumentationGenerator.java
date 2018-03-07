@@ -14,11 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-
 import de.gebit.integrity.docgen.DefaultDocumentationGenerator;
 import de.gebit.integrity.docgen.DocumentationGenerator;
 import de.gebit.integrity.providers.TestResourceProvider;
+import de.gebit.integrity.runner.Diagnostic;
 import de.gebit.integrity.runner.IntegrityDSLSetup;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.console.SimpleCommandLineParser;
@@ -107,8 +106,12 @@ public class ConsoleDocumentationGenerator {
 				"nomodelcheck",
 				"Disables model checking. This can decrease startup time, especially with big script collections, but you greatly increase the risk of getting strange NullPointerExceptions during execution due to unresolved links.",
 				"[{--nomodelcheck}]");
+		SimpleCommandLineParser.BooleanOption tempModelValidate = new SimpleCommandLineParser.BooleanOption(null,
+				"validate",
+				"Enables script validation on startup. Turning this on finds many typical errors that came past the simple parser, but it can really increase startup time.",
+				"[{--validate}]");
 
-		tempParser.addOptions(tempOutputDirOption, tempSkipModelCheck);
+		tempParser.addOptions(tempOutputDirOption, tempSkipModelCheck, tempModelValidate);
 
 		if (someArgs.length == 0) {
 			getStdOut().print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -140,7 +143,8 @@ public class ConsoleDocumentationGenerator {
 		}
 
 		try {
-			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
+			TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(),
+					tempModelValidate.isSet(), setupClass);
 
 			DocumentationGenerator tempDocGen = createDocumentationGenerator();
 

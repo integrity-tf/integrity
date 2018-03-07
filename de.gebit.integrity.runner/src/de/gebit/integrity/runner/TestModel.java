@@ -26,12 +26,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
@@ -199,6 +201,12 @@ public class TestModel {
 	protected static final String MULTITHREADED_SECTIONS_THREAD_COUNT_PROPERTY = "integrity.runner.threadcount";
 
 	/**
+	 * The maximum of multithreaded threads if default determination is used. This is not taken into account if a custom
+	 * number of threads is set via {@link #MULTITHREADED_SECTIONS_THREAD_COUNT_PROPERTY}.
+	 */
+	protected static final int MULTITHREADED_SECTIONS_THREAD_COUNT_DEFAULT_MAX = 16;
+
+	/**
 	 * Returns the number of threads to use during multithreaded sections, such as defining constants and variables.
 	 * This public method is located here for practical reasons - the test model and test runner both need this
 	 * information, but the model needs it first, so I've placed it here.
@@ -214,7 +222,10 @@ public class TestModel {
 	 * variables.
 	 */
 	protected int getMultithreadedSectionsThreadCountDefault() {
-		return Runtime.getRuntime().availableProcessors();
+		int tempCount = Runtime.getRuntime().availableProcessors();
+
+		return (tempCount < MULTITHREADED_SECTIONS_THREAD_COUNT_DEFAULT_MAX) ? tempCount
+				: MULTITHREADED_SECTIONS_THREAD_COUNT_DEFAULT_MAX;
 	}
 
 	/**
@@ -331,12 +342,14 @@ public class TestModel {
 	 * retrieved by {@link #getLoadedResourceProviders()} and {@link #getLoadedResources()}.
 	 * 
 	 * @param aResourceProvider
-	 * @param aSkipModelChecksFlag
-	 * @param aSetupClass
+	 *            the resource provider to use for loading
+	 * @param aPerformModelValidationFlag
+	 *            whether model validation is to be done
+	 * @return any errors that happened while loading or validating
 	 * @throws ModelLoadException
 	 */
-	public List<Diagnostic> readIntegrityScriptFiles(final TestResourceProvider aResourceProvider)
-			throws ModelLoadException {
+	public List<Diagnostic> readIntegrityScriptFiles(final TestResourceProvider aResourceProvider,
+			boolean aPerformModelValidationFlag) throws ModelLoadException {
 		final XtextResourceSet tempResourceSet = injector.getInstance(XtextResourceSet.class);
 		final IResourceFactory tempResourceFactory = injector.getInstance(IResourceFactory.class);
 		final ArrayList<Diagnostic> tempErrors = new ArrayList<Diagnostic>();
@@ -357,7 +370,17 @@ public class TestModel {
 								+ tempNumberOfThreads + " threads...");
 						long tempStart = System.nanoTime();
 
-						ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads);
+						ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads,
+								new ThreadFactory() {
+
+									private int count;
+
+									@Override
+									public Thread newThread(Runnable aRunnable) {
+										count++;
+										return new Thread(aRunnable, "Integrity Resource Loader Thread #" + count);
+									}
+								});
 						List<Future<List<Diagnostic>>> tempFutures = new ArrayList<>(tempAllResources.length);
 						for (final TestResource tempResourceName : tempAllResources) {
 							tempFutures.add(tempExecutor.submit(new Callable<List<Diagnostic>>() {
@@ -404,6 +427,71 @@ public class TestModel {
 					}
 
 				});
+
+		if (tempErrors.size() == 0 && aPerformModelValidationFlag) {
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
+					"Validate Scripts", new TestRunnerPerformanceLogger.RunnableWithException<ModelLoadException>() {
+
+						@Override
+						public void run() throws ModelLoadException {
+							int tempNumberOfThreads = getMultithreadedSectionsThreadCount();
+							if (tempNumberOfThreads > models.size()) {
+								tempNumberOfThreads = models.size();
+							}
+
+							System.out.println("Now validating " + models.size() + " test script(s)...");
+							long tempStart = System.nanoTime();
+
+							// Validation is not multi-thread-safe, so we need to perform this in a single-threaded way.
+							// Still using an executor here because maybe this will become thread-safe some time in the
+							// future...
+							ExecutorService tempExecutor = Executors.newFixedThreadPool(1, new ThreadFactory() {
+
+								@Override
+								public Thread newThread(Runnable aRunnable) {
+									return new Thread(aRunnable, "Integrity Validation Thread");
+								}
+							});
+							List<Future<List<Diagnostic>>> tempFutures = new ArrayList<>(models.size());
+							for (final Model tempModel : models) {
+								tempFutures.add(tempExecutor.submit(new Callable<List<Diagnostic>>() {
+
+									@Override
+									public List<Diagnostic> call() throws Exception {
+										return customValidateSingleModel(tempModel);
+									}
+
+								}));
+							}
+
+							tempExecutor.shutdown();
+							try {
+								// Practically we want to wait forever, but since that's not possible...
+								tempExecutor.awaitTermination(1, TimeUnit.DAYS);
+							} catch (InterruptedException exc) {
+								throw new ModelLoadException("Was interrupted while waiting for scripts to validate",
+										exc);
+							}
+
+							for (Future<List<Diagnostic>> tempFuture : tempFutures) {
+								try {
+									tempErrors.addAll(tempFuture.get());
+								} catch (InterruptedException exc) {
+									throw new ModelLoadException(
+											"Was interrupted while waiting for scripts to validate", exc);
+								} catch (ExecutionException exc) {
+									throw new RuntimeException(exc.getCause());
+								}
+							}
+
+							System.out.println(
+									"Finished validating " + models.size() + " test script(s) with " + tempErrors.size()
+											+ " error(s) in " + DateUtil.convertNanosecondTimespanToHumanReadableFormat(
+													System.nanoTime() - tempStart, false, false));
+						}
+
+					});
+		}
 
 		loadedResourceProviders.add(aResourceProvider);
 		inMemoryResourceProviders = null;
@@ -485,7 +573,35 @@ public class TestModel {
 
 		loadedResources.add(aResourceName);
 
-		return tempResource.getErrors();
+		return tempResource.getErrors().stream().map(tempError -> new Diagnostic(tempError))
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Performs validation of a single model. THIS IS NOT THREAD-SAFE, as the model is being lazy-resolved during
+	 * validation, which may trigger modifications to other models' internal structures.
+	 * 
+	 * @param aModel
+	 *            the model to validate
+	 * @return a list of validation errors (only errors are reported)
+	 */
+	protected List<Diagnostic> customValidateSingleModel(Model aModel) {
+		org.eclipse.emf.common.util.Diagnostic tempDiagnostic = Diagnostician.INSTANCE.validate(aModel);
+		List<org.eclipse.emf.common.util.Diagnostic> tempDiagnostics = new ArrayList<>();
+		if (tempDiagnostic.getChildren() != null && tempDiagnostic.getChildren().size() > 0) {
+			tempDiagnostics.addAll(tempDiagnostic.getChildren());
+		} else {
+			tempDiagnostics.add(tempDiagnostic);
+		}
+
+		List<Diagnostic> tempResults = new ArrayList<>();
+		for (org.eclipse.emf.common.util.Diagnostic tempCandidate : tempDiagnostics) {
+			if (((tempCandidate.getSeverity() & org.eclipse.emf.common.util.Diagnostic.ERROR) != 0)) {
+				tempResults.add(new Diagnostic(tempCandidate, modelSourceExplorer));
+			}
+		}
+
+		return tempResults;
 	}
 
 	public Injector getInjector() {
@@ -711,6 +827,8 @@ public class TestModel {
 	 * @param aSkipModelChecksFlag
 	 *            if true, the test runner will skip the model consistency checks it would otherwise perform during the
 	 *            dry run
+	 * @param aPerformModelValidationFlag
+	 *            if true, the test runner will perform extensive model validation
 	 * @param aSetupClass
 	 *            the setup class to use for EMF setup and Guice initialization (if null, the default class is used)
 	 * @return the test model ready for execution
@@ -718,10 +836,12 @@ public class TestModel {
 	 *             if any errors occur during loading (syntax errors or unresolvable references)
 	 */
 	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aSkipModelChecksFlag,
-			Class<? extends IntegrityDSLSetup> aSetupClass) throws ModelLoadException {
+			boolean aPerformModelValidationFlag, Class<? extends IntegrityDSLSetup> aSetupClass)
+			throws ModelLoadException {
 		TestModel tempModel = instantiateTestModel(aResourceProvider.getClassLoader(), aSetupClass,
 				aSkipModelChecksFlag);
-		List<Diagnostic> tempErrors = tempModel.readIntegrityScriptFiles(aResourceProvider);
+		List<Diagnostic> tempErrors = tempModel.readIntegrityScriptFiles(aResourceProvider,
+				aPerformModelValidationFlag);
 		if (!tempErrors.isEmpty()) {
 			throw new ModelParseException("Encountered " + tempErrors.size() + " errors while parsing test model.",
 					tempErrors);

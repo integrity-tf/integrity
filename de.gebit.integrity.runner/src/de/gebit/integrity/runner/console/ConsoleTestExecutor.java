@@ -17,14 +17,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
 import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.runner.DefaultTestRunner;
+import de.gebit.integrity.runner.Diagnostic;
 import de.gebit.integrity.runner.IntegrityDSLSetup;
 import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.TestRunner;
@@ -213,6 +212,10 @@ public class ConsoleTestExecutor {
 				"nomodelcheck",
 				"Disables model checking. This can decrease startup time, especially with big script collections, but you greatly increase the risk of getting strange NullPointerExceptions during execution due to unresolved links.",
 				"[{--nomodelcheck}]");
+		SimpleCommandLineParser.BooleanOption tempModelValidate = new SimpleCommandLineParser.BooleanOption(null,
+				"validate",
+				"Enables script validation on startup. Turning this on finds many typical errors that came past the simple parser, but it can really increase startup time.",
+				"[{--validate}]");
 		SimpleCommandLineParser.StringOption tempParameterizedConstantOption = new SimpleCommandLineParser.StringOption(
 				"p", "parameter", "Define a parameterized constants' value (can be used multiple times!)",
 				"[{-p,--parameter} fully.qualified.constant.name=value]");
@@ -223,7 +226,8 @@ public class ConsoleTestExecutor {
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
 				tempNoremoteOption, tempRemotePortOption, tempRemoteHostOption, tempWaitForPlayOption,
-				tempSkipModelCheck, tempParameterizedConstantOption, tempSeedOption, tempExcludeConsoleStreamsOption);
+				tempSkipModelCheck, tempModelValidate, tempParameterizedConstantOption, tempSeedOption,
+				tempExcludeConsoleStreamsOption);
 
 		if (someArgs.length == 0) {
 			getStdOut().print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -268,7 +272,8 @@ public class ConsoleTestExecutor {
 			TestModel tempModel;
 			if (!DefaultTestRunner.isFork()) {
 				// If not a fork, perform a full test model load
-				tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(), setupClass);
+				tempModel = TestModel.loadTestModel(tempResourceProvider, tempSkipModelCheck.isSet(),
+						tempModelValidate.isSet(), setupClass);
 			} else {
 				// For forks, we only instantiate an empty model (with no test scripts - those are injected by the
 				// master). We also always set this model to skip checks.
@@ -343,7 +348,8 @@ public class ConsoleTestExecutor {
 			}
 		} catch (ModelParseException exc) {
 			for (Diagnostic tempDiag : exc.getErrors()) {
-				getStdErr().println("Parse error in " + tempDiag.getLocation() + ": " + tempDiag.getMessage());
+				getStdErr()
+						.println("Parse/Validation error in " + tempDiag.getLocation() + ": " + tempDiag.getMessage());
 			}
 		} catch (ValidationException exc) {
 			// Print no stacktrace as the message should include a line number to the cause, which is more interesting

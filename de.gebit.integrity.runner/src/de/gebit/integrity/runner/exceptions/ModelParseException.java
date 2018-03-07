@@ -9,7 +9,7 @@ package de.gebit.integrity.runner.exceptions;
 
 import java.util.List;
 
-import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import de.gebit.integrity.runner.Diagnostic;
 
 /**
  * Exception thrown if any errors appear during parsing of the data model.

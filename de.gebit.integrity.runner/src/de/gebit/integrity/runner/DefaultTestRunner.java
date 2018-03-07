@@ -2787,7 +2787,7 @@ public class DefaultTestRunner implements TestRunner {
 								setList = aSetList;
 								for (TestResourceProvider tempProvider : someResourceProviders) {
 									try {
-										model.readIntegrityScriptFiles(tempProvider);
+										model.readIntegrityScriptFiles(tempProvider, false);
 									} catch (ModelLoadException exc) {
 										throw new RuntimeException("Failed to parse scripts received from master!",
 												exc);
