@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:50" duration="2.310">
-  <variables>
-    <variable name="integrity.basic.variants.myConstant" value="100" />
-  </variables>
-  <suite id="0" name="integrity.basic.variants.varyingSuite0" timestamp="14.01.16 10:58:50.0164">
+<integrity name="Integrity JUnit Testing" timestamp="15.03.18 10:26" isotimestamp="2018-03-15T10:26:51" duration="10.482">
+  <variables />
+  <suite id="0" name="integrity.basic.variants.varyingSuite0" timestamp="15.03.18 10:26:51.0112">
     <setup />
     <variables />
     <statements>
-      <suite id="1" line="31" name="integrity.basic.variants.varyingSuite" timestamp="14.01.16 10:58:50.0164">
+      <suite id="1" line="31" name="integrity.basic.variants.varyingSuite" timestamp="15.03.18 10:26:51.0115">
         <setup />
         <variables />
         <statements>
-          <suite id="2" line="25" name="integrity.basic.variants.otherSuite0" timestamp="14.01.16 10:58:50.0164">
+          <suite id="2" line="25" name="integrity.basic.variants.otherSuite0" timestamp="15.03.18 10:26:51.0115">
             <setup />
             <variables />
             <statements>
-              <call id="3" line="45" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="14.01.16 10:58:50.0164">
+              <call id="3" line="45" name="noOp" description="Do absolutely nothing." fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp" timestamp="15.03.18 10:26:51.0116">
                 <parameters />
-                <result duration="0.021" type="success" />
+                <result duration="0.253" type="success" />
               </call>
             </statements>
             <returns />
             <teardown />
-            <result duration="0.707" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+            <result duration="4.175" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
           </suite>
         </statements>
         <returns />
         <teardown />
-        <result duration="1.253" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="6.343" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
     </statements>
     <returns />
     <teardown />
-    <result duration="1.625" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="7.480" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
