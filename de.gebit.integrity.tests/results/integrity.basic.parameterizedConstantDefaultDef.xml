@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <integrity name="Integrity JUnit Testing" timestamp="03.01.17 12:37" isotimestamp="2017-01-03T12:37:37" duration="23.749">
   <variables>
+  	<variable name="integrity.basic.testParameterizedConst" />
     <variable name="integrity.basic.testParameterizedConstWithDefault" value="foo" />
   </variables>
   <suite id="0" name="integrity.basic.parameterizedConstantDefaultDef" timestamp="03.01.17 12:37:37.0198">

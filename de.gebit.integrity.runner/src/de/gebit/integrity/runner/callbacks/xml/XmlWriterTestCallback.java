@@ -1923,10 +1923,18 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 
 		if (!isDryRun()) {
+			boolean tempGlobalFlag = (aSuite == null);
 			if (isFork()) {
-				sendElementsToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement);
+				// This is a really ugly hack. We use the fact that a second element is transmitted to communicate the
+				// one-bit information about whether this was a global definition or a local one.
+				if (tempGlobalFlag) {
+					sendElementsToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement,
+							tempVariableElement);
+				} else {
+					sendElementsToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement);
+				}
 			}
-			internalOnVariableDefinition(tempVariableElement);
+			internalOnVariableDefinition(tempVariableElement, tempGlobalFlag);
 		}
 	}
 
@@ -1936,8 +1944,13 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * @param aVariableElement
 	 *            the a variable element
 	 */
-	protected void internalOnVariableDefinition(Element aVariableElement) {
-		Element tempCollectionElement = stackPeek().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
+	protected void internalOnVariableDefinition(Element aVariableElement, boolean aGlobalFlag) {
+		Element tempCollectionElement;
+		if (aGlobalFlag) {
+			tempCollectionElement = document.getRootElement().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
+		} else {
+			tempCollectionElement = stackPeek().getChild(VARIABLE_DEFINITION_COLLECTION_ELEMENT);
+		}
 		tempCollectionElement.addContent(aVariableElement);
 	}
 
@@ -2266,7 +2279,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			internalOnSuiteFinish(tempFirstElement);
 			break;
 		case VARIABLE_DEFINITION:
-			internalOnVariableDefinition(tempFirstElement);
+			internalOnVariableDefinition(tempFirstElement, someObjects.length > 1);
 			break;
 		case VARIABLE_ASSIGNMENT:
 			internalOnVariableAssignment(tempFirstElement);

@@ -30,7 +30,9 @@ import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.variables.VariableManager;
+import de.gebit.integrity.parameter.variables.VariableOrConstantEntityInitialValueDefinitionCallback;
 import de.gebit.integrity.runner.TestModel;
+import de.gebit.integrity.runner.TestRunner;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -93,14 +95,49 @@ public class DefaultVariableManager implements VariableManager {
 	@Inject
 	protected ValueConverter valueConverter;
 
+	/**
+	 * A callback that can be used to trigger a lazy definition of the initial value of a constant or variable, if such
+	 * a definition has not already been found to be done (= there is a value present in the {@link #variableMap}). This
+	 * callback must be injected from the outside, as the variable manager is not able to actually perform a
+	 * variable/constant resolving by itself, but relies on someone else (usually the {@link TestRunner}) to perform any
+	 * variable value setting.
+	 */
+	protected VariableOrConstantEntityInitialValueDefinitionCallback constantResolver;
+
+	@Override
+	public void setInitialValueResolverCallback(
+			VariableOrConstantEntityInitialValueDefinitionCallback aConstantResolver) {
+		constantResolver = aConstantResolver;
+	}
+
 	@Override
 	public Object get(VariableOrConstantEntity anEntity) {
+		performLazyDefinitionIfNecessary(anEntity);
+
 		return restoreNull(variableMap.get(anEntity));
+	}
+
+	/**
+	 * Checks whether a given {@link VariableOrConstantEntity} is already defined in our map. If it isn't and we had a
+	 * {@link VariableOrConstantEntityInitialValueDefinitionCallback} provided to us, a lazy initial value definition is
+	 * triggered through this callback.
+	 */
+	protected void performLazyDefinitionIfNecessary(VariableOrConstantEntity anEntity) {
+		if (!variableMap.containsKey(anEntity)) {
+			if (constantResolver != null) {
+				constantResolver.triggerDefinition(anEntity);
+			}
+		}
 	}
 
 	@Override
 	public boolean isDefined(VariableOrConstantEntity anEntity) {
-		return variableMap.containsKey(anEntity);
+		if (variableMap.containsKey(anEntity)) {
+			return true;
+		} else {
+			performLazyDefinitionIfNecessary(anEntity);
+			return variableMap.containsKey(anEntity);
+		}
 	}
 
 	@Override
@@ -153,19 +190,21 @@ public class DefaultVariableManager implements VariableManager {
 
 	@Override
 	public boolean isDefined(Variable aVariable) {
-		Object tempObject = get(aVariable.getName());
-
-		if (aVariable.getAttribute() != null && tempObject != null) {
-			// Probe for a runtime exception during resolving of a potentially embedded nested object path
-			try {
-				get(aVariable);
-			} catch (RuntimeException exc) {
+		if (aVariable.getAttribute() != null) {
+			if (isDefined(aVariable.getName())) {
+				// Probe for a runtime exception during resolving of a potentially embedded nested object path
+				try {
+					get(aVariable);
+				} catch (RuntimeException exc) {
+					return false;
+				}
+				return true;
+			} else {
 				return false;
 			}
-			return true;
+		} else {
+			return isDefined(aVariable.getName());
 		}
-
-		return tempObject != null || variableMap.containsKey(aVariable.getName());
 	}
 
 	@Override
