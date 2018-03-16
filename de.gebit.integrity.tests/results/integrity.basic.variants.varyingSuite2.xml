@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:50" duration="3.021">
   <variant name="var2" description="Variant 2" />
-  <variables>
-    <variable name="integrity.basic.variants.myConstant" value="300" />
-  </variables>
+  <variables />
   <suite id="0" name="integrity.basic.variants.varyingSuite2" timestamp="14.01.16 10:58:50.0242">
     <setup />
     <variables />

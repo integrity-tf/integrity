@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <integrity name="Integrity JUnit Testing" timestamp="14.01.16 10:58" isotimestamp="2016-01-14T10:58:51" duration="10.569">
-  <variables>
-    <variable name="integrity.basic.suitecalls.testPackageConstant" value="BAR!" />
-  </variables>
+  <variables />
   <suite id="0" name="integrity.basic.suitecalls.simpleSuiteCallsWithParameters" timestamp="14.01.16 10:58:51.0573">
     <setup />
     <variables>

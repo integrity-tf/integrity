@@ -72,6 +72,17 @@ public interface VariableManager {
 	void set(VariableOrConstantEntity anEntity, Object aValue);
 
 	/**
+	 * Provides the {@link VariableManager} with a resolver callback for initial values of variables and constants. If
+	 * the manager is asked for the value of a not-yet-known {@link VariableOrConstantEntity}, it may use this callback
+	 * (if one is present) to trigger a definition of the value in question. It should however never rely on anything to
+	 * be defined in this case. Execution of callback invocations can be expected to be synchronous.
+	 * 
+	 * @param aResolver
+	 *            the callback to use
+	 */
+	void setInitialValueResolverCallback(VariableOrConstantEntityInitialValueDefinitionCallback aResolver);
+
+	/**
 	 * Unsets the specific variable or constant.
 	 * 
 	 * @param anEntity

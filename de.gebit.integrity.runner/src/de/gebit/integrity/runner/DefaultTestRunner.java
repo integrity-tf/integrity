@@ -15,14 +15,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.net.BindException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,12 +27,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -111,6 +102,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
 import de.gebit.integrity.parameter.variables.VariableManager;
+import de.gebit.integrity.parameter.variables.VariableOrConstantEntityInitialValueDefinitionCallback;
 import de.gebit.integrity.providers.TestResourceProvider;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
@@ -721,10 +713,9 @@ public class DefaultTestRunner implements TestRunner {
 
 							@Override
 							public void run() {
-								// TODO Auto-generated method stub
 								currentPhase = Phase.DRY_RUN;
 								SetList tempSetList = new SetList();
-								reset(false);
+								reset();
 								setListCallback = new SetListCallback(tempSetList, remotingServer);
 								injector.injectMembers(setListCallback);
 								currentCallback = setListCallback;
@@ -770,8 +761,8 @@ public class DefaultTestRunner implements TestRunner {
 			currentPhase = Phase.TEST_RUN;
 
 			if (tempDryRunHasHappened) {
-				// The soft reset is only necessary if we have actually performed a dry run.
-				reset(true);
+				// The reset is only necessary if we have actually performed a dry run.
+				reset();
 			}
 
 			if (isFork()) {
@@ -834,243 +825,26 @@ public class DefaultTestRunner implements TestRunner {
 	 * Initializes the parameterized constants from the {@link #parameterizedConstantValues} map.
 	 */
 	protected void initializeParameterizedConstants() {
-		// We first initialize the parameterized constants, since those are often dependencies for non-parameterized
-		// ones. It's not possible for this dependency to be the other way round.
-		List<ConstantDefinition> tempOutstandingDefinitions = new ArrayList<ConstantDefinition>();
 		for (ConstantDefinition tempDefinition : model.getConstantDefinitionsInPackages()) {
 			if (tempDefinition.getParameterized() != null) {
-				tempOutstandingDefinitions.add(tempDefinition);
-			}
-		}
-
-		performParallelInitialization(tempOutstandingDefinitions, new ParallelInitCallable<ConstantDefinition>() {
-
-			@Override
-			public void run(ConstantDefinition anObjectToInit)
-					throws UnexecutableException, ClassNotFoundException, InstantiationException {
-				String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(anObjectToInit.getName(), false);
+				String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempDefinition.getName(), false);
 				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
 						: null;
 				try {
-					defineConstant(anObjectToInit, tempValue, (anObjectToInit.eContainer() instanceof SuiteDefinition)
-							? ((SuiteDefinition) anObjectToInit.eContainer()) : null);
+					defineConstant(tempDefinition, tempValue, (tempDefinition.eContainer() instanceof SuiteDefinition)
+							? ((SuiteDefinition) tempDefinition.eContainer()) : null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
 			}
-		});
-	}
-
-	/**
-	 * Initializes all (non-parameterized) constants with the values given in the scripts.
-	 */
-	protected void initializeConstants() {
-		// Parameterized constants have been already defined separately.
-		List<ConstantDefinition> tempOutstandingDefinitions = new ArrayList<ConstantDefinition>();
-		for (ConstantDefinition tempDefinition : model.getConstantDefinitionsInPackages()) {
-			if (tempDefinition.getParameterized() == null) {
-				tempOutstandingDefinitions.add(tempDefinition);
-			}
-		}
-
-		performParallelInitialization(tempOutstandingDefinitions, new ParallelInitCallable<ConstantDefinition>() {
-
-			@Override
-			public void run(ConstantDefinition anObjectToInit)
-					throws UnexecutableException, ClassNotFoundException, InstantiationException {
-				defineConstant(anObjectToInit, null);
-			}
-		});
-	}
-
-	/**
-	 * Initializes all variables with the initial values given in the scripts.
-	 */
-	protected void initializeVariables() {
-		performParallelInitialization(model.getVariableDefinitionsInPackages(),
-				new ParallelInitCallable<VariableDefinition>() {
-
-					@Override
-					public void run(VariableDefinition anObjectToInit)
-							throws UnexecutableException, ClassNotFoundException, InstantiationException {
-						defineVariable(anObjectToInit, null);
-					}
-				});
-	}
-
-	/**
-	 * Helper interface for {@link DefaultTestRunner#performParallelInitialization(List)}.
-	 *
-	 * @author Rene Schneider - initial API and implementation
-	 *
-	 * @param <P>
-	 *            the type to init
-	 */
-	protected interface ParallelInitCallable<P extends EObject> {
-
-		/**
-		 * This method should perform the required init. This is expected to succeed on success, and throw an exception
-		 * on failure. It is also expected to be runnable in parallel with multiple threads!
-		 * 
-		 * @param anObjectToInit
-		 *            the object to init
-		 */
-		void run(P anObjectToInit) throws UnexecutableException, ClassNotFoundException, InstantiationException;
-
-	}
-
-	/**
-	 * This method provides the actual logic to perform parallel initialization of constants and variables. It is
-	 * designed in an abstract way, such that it may be used to init all the necessary types.
-	 * 
-	 * @param someThingsToInitialize
-	 *            what it shall initialize
-	 * @param aCallable
-	 *            a callable doing the init
-	 */
-	protected <T extends EObject> void performParallelInitialization(Collection<T> someThingsToInitialize,
-			final ParallelInitCallable<T> aCallable) {
-		List<T> tempOutstandingDefinitions = new LinkedList<T>(someThingsToInitialize);
-		int tempTotalCount = tempOutstandingDefinitions.size();
-		if (tempTotalCount == 0) {
-			return;
-		}
-
-		boolean tempReachedEndOfTryBlock = false;
-		constantAndVariableDefinitionDelayedCallbackInvocations = new ConcurrentLinkedQueue<>();
-		try {
-			// In the first step, we attempt to initialize as many <T>s as possible in parallel. This could probably
-			// fail for some, either due to concurrency or interdependency problems, but we'll collect all those
-			// failures
-			// and proceed with them later...
-			int tempNumberOfThreads = model.getMultithreadedSectionsThreadCount();
-			if (tempNumberOfThreads > tempTotalCount) {
-				tempNumberOfThreads = tempTotalCount;
-			}
-			ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads);
-			List<Future<Boolean>> tempFutures = new ArrayList<>(tempTotalCount);
-			Iterator<T> tempIter = tempOutstandingDefinitions.iterator();
-			while (tempIter.hasNext()) {
-				final T tempDefinition = tempIter.next();
-				tempFutures.add(tempExecutor.submit(new Callable<Boolean>() {
-
-					@Override
-					public Boolean call() throws Exception {
-						try {
-							aCallable.run(tempDefinition);
-							return true;
-						} catch (UnexecutableException exc) {
-							// Delay definition of this <T> - it most likely depends on the successful init of other
-							// <T>s which are used in operations that make up the value of this constant
-							return false;
-						} catch (ClassNotFoundException | InstantiationException exc) {
-							throw exc;
-						}
-					}
-
-				}));
-			}
-			tempExecutor.shutdown();
-			try {
-				// Practically we want to wait forever, but since that's not possible...
-				tempExecutor.awaitTermination(1, TimeUnit.DAYS);
-
-				// The futures are sorted in the same way as the original <T>s. This is important here!
-				tempIter = tempOutstandingDefinitions.iterator();
-				Iterator<Future<Boolean>> tempFutureIter = tempFutures.iterator();
-				while (tempIter.hasNext()) {
-					T tempDefinition = tempIter.next();
-					try {
-						if (tempFutureIter.next().get()) {
-							// This definition was successful -> remove corresponding object from list
-							tempIter.remove();
-						}
-					} catch (ExecutionException exc) {
-						if (exc.getCause() instanceof RuntimeException) {
-							throw (RuntimeException) exc.getCause();
-						} else {
-							throw new RuntimeException("Failed to define " + tempDefinition, exc.getCause());
-						}
-					}
-				}
-			} catch (InterruptedException exc) {
-				throw new RuntimeException("Was interrupted while defining constants/variables", exc);
-			}
-
-			// This is the end of the parallel execution cycle. The remaining <T>s are initialized in a serialized
-			// fashion in order to eliminate possible problems during init and to guarantee that we eventually reach a
-			// fully initialized state (if at all possible with regard to <T> interdependency).
-			// We now loop through the <T>s to be defined until the number of <T>s to be defined does not change
-			// anymore. When that happens, we either have finished defining everything or we have run into a dead end.
-			boolean tempSuccess;
-			do {
-				tempSuccess = false;
-				tempIter = tempOutstandingDefinitions.iterator();
-				while (tempIter.hasNext()) {
-					T tempDefinition = tempIter.next();
-					try {
-						aCallable.run(tempDefinition);
-						tempIter.remove();
-						tempSuccess = true;
-					} catch (UnexecutableException exc) {
-						// Delay definition of this constant - it most likely depends on the successful init of other
-						// constants which are used in operations that make up the value of this constant
-					} catch (ClassNotFoundException | InstantiationException exc) {
-						throw new RuntimeException("Failed to define " + tempDefinition, exc);
-					}
-				}
-			} while (tempSuccess);
-
-			// All <T>s that could not be defined until now apparently miss some information and thus can't be defined.
-			// Try it a last time, just to get an exception to return. This only returns the first one, but a counter
-			// indicating that there are more if there's more than one.
-			for (T tempDefinition : tempOutstandingDefinitions) {
-				try {
-					aCallable.run(tempDefinition);
-				} catch (UnexecutableException | ClassNotFoundException | InstantiationException exc) {
-					throw new RuntimeException(
-							"Failed to define constant/variable" + (tempOutstandingDefinitions.size() > 1
-									? " (" + (tempOutstandingDefinitions.size() - 1) + " more have failed too)" : ""),
-							exc);
-				}
-			}
-
-			tempReachedEndOfTryBlock = true;
-		} finally {
-			if (tempReachedEndOfTryBlock) {
-				// If we have not run into an exception, sort the outstanding callback invocations by variable name (so
-				// they are deterministic, even though the actual definitions aren't) and then execute them.
-				List<Pair<String, Runnable>> tempInvocationList = new ArrayList<Pair<String, Runnable>>(
-						constantAndVariableDefinitionDelayedCallbackInvocations);
-
-				Collections.sort(tempInvocationList, new Comparator<Pair<String, Runnable>>() {
-
-					@Override
-					public int compare(Pair<String, Runnable> aFirst, Pair<String, Runnable> aSecond) {
-						return aFirst.getFirst().compareTo(aSecond.getFirst());
-					}
-				});
-
-				for (
-
-				Pair<String, Runnable> tempInvocation : tempInvocationList) {
-					tempInvocation.getSecond().run();
-				}
-			}
-			constantAndVariableDefinitionDelayedCallbackInvocations = null;
 		}
 	}
 
 	/**
 	 * Resets the internal variable state.
-	 * 
-	 * @param aSoftResetFlag
-	 *            Whether to perform a "soft" reset only. Soft resets are supposed to be performed between the dry run
-	 *            and the actual test run.
 	 */
-	protected void reset(boolean aSoftResetFlag) {
-		// Soft reset doesn't clear constants
-		variableManager.clear(!aSoftResetFlag);
+	protected void reset() {
+		variableManager.clear(true);
 		setupSuitesExecuted.clear();
 		singleRunSuitesExecuted.clear();
 	}
@@ -1093,8 +867,26 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
+		variableManager.setInitialValueResolverCallback(new VariableOrConstantEntityInitialValueDefinitionCallback() {
+
+			@Override
+			public void triggerDefinition(VariableOrConstantEntity anEntity) {
+				if (anEntity instanceof ConstantEntity) {
+					try {
+						defineConstant((ConstantDefinition) anEntity.eContainer(), null);
+					} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
+						throw new RuntimeException("Failed to lazily define constant", exc);
+					}
+				} else if (anEntity instanceof VariableEntity
+						&& (anEntity.eContainer() instanceof VariableDefinition)) {
+					// The condition above filters out variables that are actually suite parameters
+					defineVariable((VariableDefinition) anEntity.eContainer(), null);
+				}
+			}
+		});
+
 		if (!isFork()) {
-			// Forks get their variables injected by the master on initial connect.
+			// Forks get their parameterized constants injected by the master on initial connect.
 			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
 					"Parameterized Constant Definition", new Runnable() {
 
@@ -1105,25 +897,10 @@ public class DefaultTestRunner implements TestRunner {
 
 					});
 
-			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
-					"Constant Definition", new Runnable() {
-
-						@Override
-						public void run() {
-							initializeConstants();
-						}
-
-					});
-
-			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_INIT,
-					"Variable Definition", new Runnable() {
-
-						@Override
-						public void run() {
-							initializeVariables();
-						}
-
-					});
+			// In earlier versions there was a parallelized constant and variable initialization happening here.
+			// That was removed, as it turned out to be susceptible of (very rare) concurrency issues, and because
+			// the lazy-init approach that is implemented now via the callback seen above is better performance-wise
+			// anyway, especially in case of large numbers of global constants.
 		}
 
 		SuiteSummaryResult tempResult = performanceLogger.executeAndLog(
@@ -1729,56 +1506,54 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void defineConstant(final ConstantDefinition aDefinition, Object aValue, final SuiteDefinition aSuite)
 			throws ClassNotFoundException, InstantiationException, UnexecutableException {
-		boolean tempHasToBeDefined = false;
-		if (!isFork()) {
-			// If we are not a fork, we need to define global constants only in the dry run, because we keep them
-			// defined when going into the test run. For non-global constants, which are undefined when we leave the
-			// definition scope, we have to define them in dry and test run.
-			tempHasToBeDefined = !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())
-					|| currentPhase == Phase.DRY_RUN;
+		// boolean tempHasToBeDefined = false;
+		// if (!isFork()) {
+		// // If we are not a fork, we need to define global constants only in the dry run, because we keep them
+		// // defined when going into the test run. For non-global constants, which are undefined when we leave the
+		// // definition scope, we have to define them in dry and test run.
+		// tempHasToBeDefined = !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())
+		// || currentPhase == Phase.DRY_RUN;
+		// } else {
+		// // If we are a fork, we just need to define non-global constants that are defined in the suites to be
+		// // executed by this fork. All others - global constants as well as local constants from suites further above
+		// // in the suite call stack - are already defined and their values were injected from the master.
+		// tempHasToBeDefined = !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())
+		// && currentPhase == Phase.TEST_RUN && shouldExecuteFixtures();
+		// }
+		//
+		// if (tempHasToBeDefined) {
+		Object tempValue;
+		if (aValue == null) {
+			tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
 		} else {
-			// If we are a fork, we just need to define non-global constants that are defined in the suites to be
-			// executed by this fork. All others - global constants as well as local constants from suites further above
-			// in the suite call stack - are already defined and their values were injected from the master.
-			tempHasToBeDefined = !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())
-					&& currentPhase == Phase.TEST_RUN && shouldExecuteFixtures();
+			tempValue = aValue;
 		}
-
-		if (tempHasToBeDefined) {
-			Object tempValue;
-			if (aValue == null) {
-				tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
-			} else {
-				tempValue = aValue;
-			}
-			if (tempValue != null) {
-				defineVariable(aDefinition.getName(), tempValue, aSuite);
-			}
-		} else {
-			// The constant must be already defined, but in order for the calls to the callbacks to be consistent, we
-			// need to perform that call, basically just as if we had determined the value just now.
-			if (currentCallback != null) {
-				final Object tempConstantValue = variableManager.get(aDefinition.getName());
-				if (tempConstantValue != null) {
-					Runnable tempRunnable = new Runnable() {
-
-						@Override
-						public void run() {
-							currentCallback.onCallbackProcessingStart();
-							currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
-									(aDefinition.getParameterized() != null));
-							currentCallback.onCallbackProcessingEnd();
-						}
-					};
-					if (constantAndVariableDefinitionDelayedCallbackInvocations != null) {
-						constantAndVariableDefinitionDelayedCallbackInvocations.add(Tuples.create(
-								model.getFullyQualifiedVariableOrConstantName(aDefinition.getName()), tempRunnable));
-					} else {
-						tempRunnable.run();
-					}
-				}
-			}
-		}
+		defineVariable(aDefinition.getName(), tempValue, aSuite);
+		// } else {
+		// // The constant must be already defined, but in order for the calls to the callbacks to be consistent, we
+		// // need to perform that call, basically just as if we had determined the value just now.
+		// if (currentCallback != null) {
+		// final Object tempConstantValue = variableManager.get(aDefinition.getName());
+		// if (tempConstantValue != null) {
+		// Runnable tempRunnable = new Runnable() {
+		//
+		// @Override
+		// public void run() {
+		// currentCallback.onCallbackProcessingStart();
+		// currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
+		// (aDefinition.getParameterized() != null));
+		// currentCallback.onCallbackProcessingEnd();
+		// }
+		// };
+		// if (constantAndVariableDefinitionDelayedCallbackInvocations != null) {
+		// constantAndVariableDefinitionDelayedCallbackInvocations.add(Tuples.create(
+		// model.getFullyQualifiedVariableOrConstantName(aDefinition.getName()), tempRunnable));
+		// } else {
+		// tempRunnable.run();
+		// }
+		// }
+		// }
+		// }
 	}
 
 	/**
@@ -2343,7 +2118,6 @@ public class DefaultTestRunner implements TestRunner {
 	 * @throws ClassNotFoundException
 	 */
 	protected Class<?> getClassForJvmType(JvmType aType) throws ClassNotFoundException {
-		// TODO replace with call to our own classloader
 		return javaClassLoader.loadClass(aType.getQualifiedName());
 	}
 
