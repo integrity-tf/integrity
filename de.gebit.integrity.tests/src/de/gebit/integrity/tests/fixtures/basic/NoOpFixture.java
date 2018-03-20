@@ -56,6 +56,12 @@ public class NoOpFixture {
 		return aStringToEcho;
 	}
 
+	@FixtureMethod(description = "Echo the string '$string1$' and '$string2$' concatenated")
+	public String echoTwoStrings(@FixtureParameter(name = "string1") String aString1ToEcho,
+			@FixtureParameter(name = "string2") String aString2ToEcho) {
+		return aString1ToEcho + aString2ToEcho;
+	}
+
 	@FixtureMethod(description = "Echo the string array '$strings$'")
 	public String[] echoStringArray(@FixtureParameter(name = "strings") String[] someStringsToEcho) {
 		return someStringsToEcho;
