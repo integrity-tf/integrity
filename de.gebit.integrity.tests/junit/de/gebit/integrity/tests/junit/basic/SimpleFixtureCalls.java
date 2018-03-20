@@ -70,4 +70,19 @@ public class SimpleFixtureCalls extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs a suite which does tests and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testSimpleFixtureCallWithTwoParams() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/simpleFixtureCalls.integrity" },
+				"integrity.basic.simpleFixtureCallWithTwoParams", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }
