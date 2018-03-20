@@ -57,6 +57,16 @@ packagedef integrity.basic with
 	
 	suiteend
 	
+	
+	suitedef simpleFixtureCallWithTwoParams with
+	
+		// The description of these calls was crap before issue #183 was fixed (Fixture description parameters replaced with values containing $ leads to problems)
+		call integrity.fixtures.basic.noop.echoTwoStrings string1: "1.6.0" string2: "^[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+$"
+		call integrity.fixtures.basic.noop.echoTwoStrings string1: "^[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+$" string2: "1.6.0"
+		call integrity.fixtures.basic.noop.echoTwoStrings string1: "^[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+$" string2: "^[\\d]+\\.[\\d]+\\.[\\d]+\\.[\\d]+$"
+	
+	suiteend
+	
 
 
 packageend

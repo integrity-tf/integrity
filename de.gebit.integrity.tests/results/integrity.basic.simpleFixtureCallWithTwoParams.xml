@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="20.03.18 13:38" isotimestamp="2018-03-20T13:38:35" duration="34.981">
+  <variables />
+  <suite id="0" name="integrity.basic.simpleFixtureCallWithTwoParams" timestamp="20.03.18 13:38:35.0375">
+    <setup />
+    <variables />
+    <statements>
+      <call id="1" line="64" name="echoTwoStrings" description="Echo the string '1.6.0' and '^[\d]+\.[\d]+\.[\d]+\.[\d]+$' concatenated" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoTwoStrings" timestamp="20.03.18 13:38:35.0383">
+        <parameters>
+          <parameter name="string1" value="1.6.0" />
+          <parameter name="string2" value="[FORMATTED]^[[\d]+\.[[\d]+\.[[\d]+\.[[\d]+$" />
+        </parameters>
+        <result duration="4.371" type="success" />
+      </call>
+      <call id="2" line="65" name="echoTwoStrings" description="Echo the string '^[\d]+\.[\d]+\.[\d]+\.[\d]+$' and '1.6.0' concatenated" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoTwoStrings" timestamp="20.03.18 13:38:35.0400">
+        <parameters>
+          <parameter name="string1" value="[FORMATTED]^[[\d]+\.[[\d]+\.[[\d]+\.[[\d]+$" />
+          <parameter name="string2" value="1.6.0" />
+        </parameters>
+        <result duration="1.534" type="success" />
+      </call>
+      <call id="3" line="66" name="echoTwoStrings" description="Echo the string '^[\d]+\.[\d]+\.[\d]+\.[\d]+$' and '^[\d]+\.[\d]+\.[\d]+\.[\d]+$' concatenated" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoTwoStrings" timestamp="20.03.18 13:38:35.0406">
+        <parameters>
+          <parameter name="string1" value="[FORMATTED]^[[\d]+\.[[\d]+\.[[\d]+\.[[\d]+$" />
+          <parameter name="string2" value="[FORMATTED]^[[\d]+\.[[\d]+\.[[\d]+\.[[\d]+$" />
+        </parameters>
+        <result duration="1.041" type="success" />
+      </call>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="29.121" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

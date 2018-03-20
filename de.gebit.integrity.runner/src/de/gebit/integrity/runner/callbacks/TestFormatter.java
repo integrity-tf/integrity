@@ -51,7 +51,7 @@ public class TestFormatter {
 	/**
 	 * Escape pattern for parameters in descriptions.
 	 */
-	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*)\\$(.*)\\$(.*)$");
+	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*?)\\$([^$]*)\\$(.*)$");
 
 	/**
 	 * The classloader to use.
@@ -334,6 +334,8 @@ public class TestFormatter {
 			ConversionContext aConversionContext) {
 		String tempString = anInput;
 
+		StringBuilder tempBuilder = new StringBuilder();
+
 		Matcher tempMatcher = PARAMETER_PATTERN.matcher(tempString);
 		while (tempMatcher.matches()) {
 			// classloader and variable maps are not supplied here because the parameters are already expected to be
@@ -349,11 +351,15 @@ public class TestFormatter {
 				tempValue = valueConverter.convertValueToString(tempValueBeforeConversion, false, aConversionContext);
 			}
 
-			tempString = tempMatcher.group(1) + tempValue + tempMatcher.group(3);
+			tempBuilder.append(tempMatcher.group(1));
+			tempBuilder.append(tempValue);
+
+			tempString = tempMatcher.group(3);
 			tempMatcher = PARAMETER_PATTERN.matcher(tempString);
 		}
+		tempBuilder.append(tempString);
 
-		return tempString;
+		return tempBuilder.toString();
 	}
 
 	/**
