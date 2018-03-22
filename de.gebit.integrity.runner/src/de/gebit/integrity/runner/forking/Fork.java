@@ -491,6 +491,11 @@ public class Fork {
 	 */
 	protected void transmitVariableUpdates() {
 		if (client != null) {
+			for (String tempEntry : variableUnsets) {
+				client.unsetVariableValue(tempEntry);
+			}
+			variableUnsets.clear();
+
 			for (Entry<String, Object> tempEntry : variableUpdates.entrySet()) {
 				if (tempEntry.getValue() == null || (tempEntry.getValue() instanceof Serializable)) {
 					client.updateVariableValue(tempEntry.getKey(), (Serializable) tempEntry.getValue());
@@ -501,11 +506,6 @@ public class Fork {
 				}
 			}
 			variableUpdates.clear();
-
-			for (String tempEntry : variableUnsets) {
-				client.unsetVariableValue(tempEntry);
-			}
-			variableUnsets.clear();
 		}
 	}
 
