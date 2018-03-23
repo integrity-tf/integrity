@@ -588,14 +588,17 @@ public class SetList implements Serializable {
 	 */
 	public void setEntryInExecutionReference(Integer anEntryReference) {
 		entryInExecutionReference = anEntryReference;
-		pathOfEntriesInExecution.clear();
+		List<SetListEntry> tempNewPathOfEntriesInExecution = new ArrayList<SetListEntry>();
+
 		if (anEntryReference != null) {
 			SetListEntry tempCurrent = resolveReference(anEntryReference);
 			while (tempCurrent != null) {
-				pathOfEntriesInExecution.add(tempCurrent);
+				tempNewPathOfEntriesInExecution.add(tempCurrent);
 				tempCurrent = getParent(tempCurrent);
 			}
 		}
+
+		pathOfEntriesInExecution = tempNewPathOfEntriesInExecution;
 	}
 
 	public SetListEntry getEntryInExecution() {
