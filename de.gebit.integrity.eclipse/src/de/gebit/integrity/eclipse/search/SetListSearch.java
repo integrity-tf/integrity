@@ -10,6 +10,10 @@ package de.gebit.integrity.eclipse.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+
+import de.gebit.integrity.eclipse.Activator;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
@@ -59,65 +63,73 @@ public class SetListSearch {
 	protected void createIndex(SetListEntry anEntry, SetList aSetList) {
 		boolean tempRecurse = false;
 
-		if (anEntry.getType() == SetListEntryTypes.SUITE) {
-			String tempSuiteName = anEntry.getAttribute(String.class, SetListEntryAttributeKeys.NAME);
-			if (tempSuiteName != null) {
-				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
-				if (tempResultState != null) {
-					entries.add(new SearchResult(tempSuiteName, !tempResultState.isUnsuccessful(), true, anEntry));
+		try {
+			if (anEntry.getType() == SetListEntryTypes.SUITE) {
+				String tempSuiteName = anEntry.getAttribute(String.class, SetListEntryAttributeKeys.NAME);
+				if (tempSuiteName != null) {
+					SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
+					if (tempResultState != null) {
+						entries.add(new SearchResult(tempSuiteName, !tempResultState.isUnsuccessful(), true, anEntry));
+					}
 				}
-			}
-			tempRecurse = true;
-		} else if (anEntry.getType() == SetListEntryTypes.COMMENT) {
-			String tempCommentText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
-			if (tempCommentText != null) {
-				// Comments can't "fail"
-				entries.add(new SearchResult(tempCommentText, true, false, anEntry));
-			}
+				tempRecurse = true;
+			} else if (anEntry.getType() == SetListEntryTypes.COMMENT) {
+				String tempCommentText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
+				if (tempCommentText != null) {
+					// Comments can't "fail"
+					entries.add(new SearchResult(tempCommentText, true, false, anEntry));
+				}
 
-		} else if (anEntry.getType() == SetListEntryTypes.TIMESET) {
-			String tempText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
-			if (tempText != null) {
-				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
-				if (tempResultState != null) {
-					entries.add(new SearchResult(tempText, !tempResultState.isUnsuccessful(), false, anEntry));
+			} else if (anEntry.getType() == SetListEntryTypes.TIMESET) {
+				String tempText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+				if (tempText != null) {
+					SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
+					if (tempResultState != null) {
+						entries.add(new SearchResult(tempText, !tempResultState.isUnsuccessful(), false, anEntry));
+					}
 				}
-			}
-		} else if (anEntry.getType() == SetListEntryTypes.EXECUTION) {
-			// Always recurse into the root entry
-			tempRecurse = true;
-		} else if (anEntry.getType() == SetListEntryTypes.TEST || anEntry.getType() == SetListEntryTypes.CALL) {
-			String tempTestText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
-			if (tempTestText != null) {
-				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
-				if (tempResultState != null) {
-					entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), false, anEntry));
+			} else if (anEntry.getType() == SetListEntryTypes.EXECUTION) {
+				// Always recurse into the root entry
+				tempRecurse = true;
+			} else if (anEntry.getType() == SetListEntryTypes.TEST || anEntry.getType() == SetListEntryTypes.CALL) {
+				String tempTestText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+				if (tempTestText != null) {
+					SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
+					if (tempResultState != null) {
+						entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), false, anEntry));
+					}
 				}
-			}
-		} else if (anEntry.getType() == SetListEntryTypes.TABLETEST) {
-			String tempTestText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
-			if (tempTestText != null) {
-				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
-				if (tempResultState != null) {
-					entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), true, anEntry));
+			} else if (anEntry.getType() == SetListEntryTypes.TABLETEST) {
+				String tempTestText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+				if (tempTestText != null) {
+					SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
+					if (tempResultState != null) {
+						entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), true, anEntry));
+					}
 				}
-			}
 
-			// For tabletests, we fetch all sub-entries with the results for each line here and index them instead of
-			// triggering on "result" elements and finding out whether they belong to a tabletest.
-			List<SetListEntry> tempResultEntries = SetListUtil.getSetListEntryChilds((SetListEntry) anEntry, aSetList);
-			for (SetListEntry tempResultEntry : tempResultEntries) {
-				if (tempResultEntry.getType() == SetListEntryTypes.RESULT) {
-					String tempLineText = (String) tempResultEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
-					if (tempLineText != null) {
-						SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempResultEntry);
-						if (tempResultState != null) {
-							entries.add(new SearchResult(tempLineText, !tempResultState.isUnsuccessful(), false,
-									tempResultEntry));
+				// For tabletests, we fetch all sub-entries with the results for each line here and index them instead
+				// of
+				// triggering on "result" elements and finding out whether they belong to a tabletest.
+				List<SetListEntry> tempResultEntries = SetListUtil.getSetListEntryChilds((SetListEntry) anEntry,
+						aSetList);
+				for (SetListEntry tempResultEntry : tempResultEntries) {
+					if (tempResultEntry.getType() == SetListEntryTypes.RESULT) {
+						String tempLineText = (String) tempResultEntry
+								.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+						if (tempLineText != null) {
+							SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempResultEntry);
+							if (tempResultState != null) {
+								entries.add(new SearchResult(tempLineText, !tempResultState.isUnsuccessful(), false,
+										tempResultEntry));
+							}
 						}
 					}
 				}
 			}
+		} catch (Exception exc) {
+			Activator.getInstance().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+					"Failed to parse setlist entry for search: '" + anEntry + "'", exc));
 		}
 
 		if (tempRecurse) {
