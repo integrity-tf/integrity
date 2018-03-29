@@ -74,6 +74,15 @@ public class SetListSearch {
 				// Comments can't "fail"
 				entries.add(new SearchResult(tempCommentText, true, false, anEntry));
 			}
+
+		} else if (anEntry.getType() == SetListEntryTypes.TIMESET) {
+			String tempText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+			if (tempText != null) {
+				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
+				if (tempResultState != null) {
+					entries.add(new SearchResult(tempText, !tempResultState.isUnsuccessful(), false, anEntry));
+				}
+			}
 		} else if (anEntry.getType() == SetListEntryTypes.EXECUTION) {
 			// Always recurse into the root entry
 			tempRecurse = true;
