@@ -80,13 +80,23 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext.util" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext.common.types" } });
-		addToList(tempEntryList, new String[][] { new String[] { "org.jdom" } });
+		addToList(tempEntryList, new String[][] { new String[] { "org.jdom" }, new String[] { "org.jdom_jaxen" } });
 
 		// convert the list to an array and return it
 		IClasspathEntry[] tempEntryArray = new IClasspathEntry[tempEntryList.size()];
 		return (IClasspathEntry[]) tempEntryList.toArray(tempEntryArray);
 	}
 
+	/**
+	 * Finds one of the provided combination of bundles and adds it to the classpath. If no combination is found, an
+	 * error is logged.
+	 * 
+	 * @param aList
+	 *            the classpath
+	 * @param someBundleNames
+	 *            an array of combinations of bundle names (outer array contains combinations, inner array contains the
+	 *            bundles that are part of a single combination)
+	 */
 	private void addToList(List<IClasspathEntry> aList, String[][] someBundleNames) {
 		StringBuffer tempBuffer = new StringBuffer();
 		for (String[] tempBundleNames : someBundleNames) {

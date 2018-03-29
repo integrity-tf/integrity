@@ -1809,6 +1809,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
 						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
 				: null;
+		if (aTimeSet.getProgressionMode() != null && tempProgressionFactor == null) {
+			tempProgressionFactor = "1";
+		}
 
 		String tempForkNames = null;
 		if (someForks.size() > 1 || (someForks.size() == 1 && someForks.get(0) != null)) {

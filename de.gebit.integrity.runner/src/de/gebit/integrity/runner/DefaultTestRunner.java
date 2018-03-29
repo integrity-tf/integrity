@@ -1506,22 +1506,6 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void defineConstant(final ConstantDefinition aDefinition, Object aValue, final SuiteDefinition aSuite)
 			throws ClassNotFoundException, InstantiationException, UnexecutableException {
-		// boolean tempHasToBeDefined = false;
-		// if (!isFork()) {
-		// // If we are not a fork, we need to define global constants only in the dry run, because we keep them
-		// // defined when going into the test run. For non-global constants, which are undefined when we leave the
-		// // definition scope, we have to define them in dry and test run.
-		// tempHasToBeDefined = !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())
-		// || currentPhase == Phase.DRY_RUN;
-		// } else {
-		// // If we are a fork, we just need to define non-global constants that are defined in the suites to be
-		// // executed by this fork. All others - global constants as well as local constants from suites further above
-		// // in the suite call stack - are already defined and their values were injected from the master.
-		// tempHasToBeDefined = !IntegrityDSLUtil.isGlobalVariableOrConstant(aDefinition.getName())
-		// && currentPhase == Phase.TEST_RUN && shouldExecuteFixtures();
-		// }
-		//
-		// if (tempHasToBeDefined) {
 		Object tempValue;
 		if (aValue == null) {
 			tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
@@ -1529,31 +1513,6 @@ public class DefaultTestRunner implements TestRunner {
 			tempValue = aValue;
 		}
 		defineVariable(aDefinition.getName(), tempValue, aSuite);
-		// } else {
-		// // The constant must be already defined, but in order for the calls to the callbacks to be consistent, we
-		// // need to perform that call, basically just as if we had determined the value just now.
-		// if (currentCallback != null) {
-		// final Object tempConstantValue = variableManager.get(aDefinition.getName());
-		// if (tempConstantValue != null) {
-		// Runnable tempRunnable = new Runnable() {
-		//
-		// @Override
-		// public void run() {
-		// currentCallback.onCallbackProcessingStart();
-		// currentCallback.onConstantDefinition(aDefinition.getName(), aSuite, tempConstantValue,
-		// (aDefinition.getParameterized() != null));
-		// currentCallback.onCallbackProcessingEnd();
-		// }
-		// };
-		// if (constantAndVariableDefinitionDelayedCallbackInvocations != null) {
-		// constantAndVariableDefinitionDelayedCallbackInvocations.add(Tuples.create(
-		// model.getFullyQualifiedVariableOrConstantName(aDefinition.getName()), tempRunnable));
-		// } else {
-		// tempRunnable.run();
-		// }
-		// }
-		// }
-		// }
 	}
 
 	/**
@@ -1571,10 +1530,10 @@ public class DefaultTestRunner implements TestRunner {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
 				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
 
-		// We need to send variable updates to forks in the main phase here
-		// This fixes issue #140: Constant defined within suite and then provided as suite parameter to a suite on a
-		// fork is nulled out (https://github.com/integrity-tf/integrity/issues/140)
-		setVariableValue(anEntity, tempInitialValue, (!isFork()) && shouldExecuteFixtures());
+		// We need to send variable updates to forks in the main phase here.
+		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
+
+		setVariableValue(anEntity, tempInitialValue, tempSendToForks);
 
 		if (currentCallback != null) {
 			Runnable tempRunnable = new Runnable() {
@@ -2282,9 +2241,14 @@ public class DefaultTestRunner implements TestRunner {
 			if (aTimeSet.getStartTime() != null) {
 				tempStartTime = (Date) valueConverter.convertValue(Date.class, aTimeSet.getStartTime(), null);
 			}
-			if (aTimeSet.getProgressionFactor() != null) {
-				tempProgressionFactor = (BigDecimal) valueConverter.convertValue(BigDecimal.class,
-						aTimeSet.getProgressionFactor(), null);
+
+			if (aTimeSet.getProgressionMode() != null) {
+				if (aTimeSet.getProgressionFactor() != null) {
+					tempProgressionFactor = (BigDecimal) valueConverter.convertValue(BigDecimal.class,
+							aTimeSet.getProgressionFactor(), null);
+				} else {
+					tempProgressionFactor = new BigDecimal(1);
+				}
 			}
 
 			List<ForkDefinition> tempForksToRunOn = new ArrayList<>();

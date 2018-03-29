@@ -211,8 +211,13 @@ public class DefaultVariableManager implements VariableManager {
 	public void set(VariableOrConstantEntity anEntity, Object aValue) {
 		if (anEntity instanceof ConstantEntity) {
 			if (variableMap.containsKey(anEntity)) {
-				throw new RuntimeException("Illegal attempt to redefine a constant: "
-						+ IntegrityDSLUtil.getQualifiedVariableEntityName(anEntity, true));
+				// Already known; ignoring this redefinition. Constant redefinitions can happen due to fork/master
+				// communication, but they aren't a problem, so we can silently ignore them. In earlier versions, an
+				// exception was thrown in this case and situations of redefinitions were actively prevented from
+				// occurring. With the implementation of lazy constant definition however, actively preventing such
+				// situations got even more complex than it was (and it was already some kind of hell), which is why
+				// this was changed in response to issue #188 to just ignore redefinitions.
+				return;
 			}
 		}
 		variableMap.put(anEntity, makeNull(aValue));
