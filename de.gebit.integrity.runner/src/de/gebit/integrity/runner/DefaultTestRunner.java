@@ -2282,9 +2282,14 @@ public class DefaultTestRunner implements TestRunner {
 			if (aTimeSet.getStartTime() != null) {
 				tempStartTime = (Date) valueConverter.convertValue(Date.class, aTimeSet.getStartTime(), null);
 			}
-			if (aTimeSet.getProgressionFactor() != null) {
-				tempProgressionFactor = (BigDecimal) valueConverter.convertValue(BigDecimal.class,
-						aTimeSet.getProgressionFactor(), null);
+
+			if (aTimeSet.getProgressionMode() != null) {
+				if (aTimeSet.getProgressionFactor() != null) {
+					tempProgressionFactor = (BigDecimal) valueConverter.convertValue(BigDecimal.class,
+							aTimeSet.getProgressionFactor(), null);
+				} else {
+					tempProgressionFactor = new BigDecimal(1);
+				}
 			}
 
 			List<ForkDefinition> tempForksToRunOn = new ArrayList<>();

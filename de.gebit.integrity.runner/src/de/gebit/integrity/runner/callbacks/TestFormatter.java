@@ -396,6 +396,9 @@ public class TestFormatter {
 				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
 						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
 				: null;
+		if (aTimeSet.getProgressionMode() != null && tempProgressionFactor == null) {
+			tempProgressionFactor = "1";
+		}
 
 		String tempForkNames = "";
 		if (someForks != null && someForks.size() > 0) {
