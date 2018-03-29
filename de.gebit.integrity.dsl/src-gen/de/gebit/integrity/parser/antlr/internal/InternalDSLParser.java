@@ -8583,7 +8583,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTimeSet"
-    // InternalDSL.g:3559:1: ruleTimeSet returns [EObject current=null] : (otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )? ) ;
+    // InternalDSL.g:3559:1: ruleTimeSet returns [EObject current=null] : (otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )? ) ;
     public final EObject ruleTimeSet() throws RecognitionException {
         EObject current = null;
 
@@ -8602,11 +8602,11 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalDSL.g:3562:28: ( (otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )? ) )
-            // InternalDSL.g:3563:1: (otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )? )
+            // InternalDSL.g:3562:28: ( (otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )? ) )
+            // InternalDSL.g:3563:1: (otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )? )
             {
-            // InternalDSL.g:3563:1: (otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )? )
-            // InternalDSL.g:3563:3: otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )?
+            // InternalDSL.g:3563:1: (otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )? )
+            // InternalDSL.g:3563:3: otherlv_0= 'timeset' ruleNL ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )? ) ) (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )?
             {
             otherlv_0=(Token)match(input,64,FOLLOW_64); 
 
@@ -8623,7 +8623,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            // InternalDSL.g:3575:1: ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )? ) )
+            // InternalDSL.g:3575:1: ( ( ( (lv_live_2_0= 'live' ) ) ruleNL ) | ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )? ) )
             int alt64=2;
             int LA64_0 = input.LA(1);
 
@@ -8686,10 +8686,10 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:3599:6: ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )? )
+                    // InternalDSL.g:3599:6: ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )? )
                     {
-                    // InternalDSL.g:3599:6: ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )? )
-                    // InternalDSL.g:3599:7: ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )?
+                    // InternalDSL.g:3599:6: ( ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )? )
+                    // InternalDSL.g:3599:7: ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) ) ruleNL ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )?
                     {
                     // InternalDSL.g:3599:7: ( (lv_startTime_4_0= ruleValueOrEnumValueOrOperation ) )
                     // InternalDSL.g:3600:1: (lv_startTime_4_0= ruleValueOrEnumValueOrOperation )
@@ -8733,7 +8733,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                      
                             afterParserOrEnumRuleCall();
                         
-                    // InternalDSL.g:3625:1: ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL )?
+                    // InternalDSL.g:3625:1: ( ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )? )?
                     int alt63=2;
                     int LA63_0 = input.LA(1);
 
@@ -8742,7 +8742,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt63) {
                         case 1 :
-                            // InternalDSL.g:3625:2: ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )? otherlv_9= 'x' ruleNL
+                            // InternalDSL.g:3625:2: ( (lv_progressionMode_6_0= 'progressing' ) ) ruleNL ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )?
                             {
                             // InternalDSL.g:3625:2: ( (lv_progressionMode_6_0= 'progressing' ) )
                             // InternalDSL.g:3626:1: (lv_progressionMode_6_0= 'progressing' )
@@ -8769,7 +8769,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                              
                                     newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_1()); 
                                 
-                            pushFollow(FOLLOW_69);
+                            pushFollow(FOLLOW_70);
                             ruleNL();
 
                             state._fsp--;
@@ -8777,7 +8777,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                              
                                     afterParserOrEnumRuleCall();
                                 
-                            // InternalDSL.g:3648:1: ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )?
+                            // InternalDSL.g:3648:1: ( ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL )?
                             int alt62=2;
                             int LA62_0 = input.LA(1);
 
@@ -8786,15 +8786,18 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                             }
                             switch (alt62) {
                                 case 1 :
+                                    // InternalDSL.g:3648:2: ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) ) otherlv_9= 'x' ruleNL
+                                    {
+                                    // InternalDSL.g:3648:2: ( (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation ) )
                                     // InternalDSL.g:3649:1: (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation )
                                     {
                                     // InternalDSL.g:3649:1: (lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation )
                                     // InternalDSL.g:3650:3: lv_progressionFactor_8_0= ruleValueOrEnumValueOrOperation
                                     {
                                      
-                                    	        newCompositeNode(grammarAccess.getTimeSetAccess().getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0()); 
+                                    	        newCompositeNode(grammarAccess.getTimeSetAccess().getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0()); 
                                     	    
-                                    pushFollow(FOLLOW_70);
+                                    pushFollow(FOLLOW_71);
                                     lv_progressionFactor_8_0=ruleValueOrEnumValueOrOperation();
 
                                     state._fsp--;
@@ -8815,25 +8818,28 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
 
                                     }
+
+                                    otherlv_9=(Token)match(input,67,FOLLOW_65); 
+
+                                        	newLeafNode(otherlv_9, grammarAccess.getTimeSetAccess().getXKeyword_2_1_2_2_1());
+                                        
+                                     
+                                            newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_2_2()); 
+                                        
+                                    pushFollow(FOLLOW_66);
+                                    ruleNL();
+
+                                    state._fsp--;
+
+                                     
+                                            afterParserOrEnumRuleCall();
+                                        
+
+                                    }
                                     break;
 
                             }
 
-                            otherlv_9=(Token)match(input,67,FOLLOW_65); 
-
-                                	newLeafNode(otherlv_9, grammarAccess.getTimeSetAccess().getXKeyword_2_1_2_3());
-                                
-                             
-                                    newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_4()); 
-                                
-                            pushFollow(FOLLOW_66);
-                            ruleNL();
-
-                            state._fsp--;
-
-                             
-                                    afterParserOrEnumRuleCall();
-                                
 
                             }
                             break;
@@ -8849,7 +8855,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalDSL.g:3678:5: (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )?
+            // InternalDSL.g:3678:7: (otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+ )?
             int alt68=2;
             int LA68_0 = input.LA(1);
 
@@ -8858,16 +8864,16 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             }
             switch (alt68) {
                 case 1 :
-                    // InternalDSL.g:3678:7: otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+
+                    // InternalDSL.g:3678:9: otherlv_11= 'on' ruleNL ( ( ( ( ruleQualifiedName ) ) | ( (lv_masterFork_14_0= 'master' ) ) ) (otherlv_15= ',' )? ruleNL )+
                     {
-                    otherlv_11=(Token)match(input,68,FOLLOW_71); 
+                    otherlv_11=(Token)match(input,68,FOLLOW_72); 
 
                         	newLeafNode(otherlv_11, grammarAccess.getTimeSetAccess().getOnKeyword_3_0());
                         
                      
                             newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_3_1()); 
                         
-                    pushFollow(FOLLOW_71);
+                    pushFollow(FOLLOW_72);
                     ruleNL();
 
                     state._fsp--;
@@ -8925,7 +8931,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	             
                     	            	        newCompositeNode(grammarAccess.getTimeSetAccess().getForksForkDefinitionCrossReference_3_2_0_0_0()); 
                     	            	    
-                    	            pushFollow(FOLLOW_72);
+                    	            pushFollow(FOLLOW_73);
                     	            ruleQualifiedName();
 
                     	            state._fsp--;
@@ -8951,7 +8957,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	            // InternalDSL.g:3707:1: (lv_masterFork_14_0= 'master' )
                     	            // InternalDSL.g:3708:3: lv_masterFork_14_0= 'master'
                     	            {
-                    	            lv_masterFork_14_0=(Token)match(input,69,FOLLOW_72); 
+                    	            lv_masterFork_14_0=(Token)match(input,69,FOLLOW_73); 
 
                     	                    newLeafNode(lv_masterFork_14_0, grammarAccess.getTimeSetAccess().getMasterForkMasterKeyword_3_2_0_1_0());
                     	                
@@ -8984,7 +8990,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	        case 1 :
                     	            // InternalDSL.g:3721:5: otherlv_15= ','
                     	            {
-                    	            otherlv_15=(Token)match(input,70,FOLLOW_71); 
+                    	            otherlv_15=(Token)match(input,70,FOLLOW_72); 
 
                     	                	newLeafNode(otherlv_15, grammarAccess.getTimeSetAccess().getCommaKeyword_3_2_1());
                     	                
@@ -8997,7 +9003,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	     
                     	            newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_3_2_2()); 
                     	        
-                    	    pushFollow(FOLLOW_73);
+                    	    pushFollow(FOLLOW_74);
                     	    ruleNL();
 
                     	    state._fsp--;
@@ -9120,7 +9126,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     // InternalDSL.g:3755:1: (lv_inlined_0_0= 'inlined' )
                     // InternalDSL.g:3756:3: lv_inlined_0_0= 'inlined'
                     {
-                    lv_inlined_0_0=(Token)match(input,42,FOLLOW_74); 
+                    lv_inlined_0_0=(Token)match(input,42,FOLLOW_75); 
 
                             newLeafNode(lv_inlined_0_0, grammarAccess.getSuiteAccess().getInlinedInlinedKeyword_0_0());
                         
@@ -9223,7 +9229,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSuiteAccess().getDefinitionSuiteDefinitionCrossReference_4_0()); 
             	    
-            pushFollow(FOLLOW_75);
+            pushFollow(FOLLOW_76);
             ruleQualifiedName();
 
             state._fsp--;
@@ -9240,7 +9246,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_5()); 
                 
-            pushFollow(FOLLOW_76);
+            pushFollow(FOLLOW_77);
             ruleNL();
 
             state._fsp--;
@@ -9266,7 +9272,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getSuiteAccess().getParametersSuiteParameterParserRuleCall_6_0_0()); 
             	    	    
-            	    pushFollow(FOLLOW_75);
+            	    pushFollow(FOLLOW_76);
             	    lv_parameters_7_0=ruleSuiteParameter();
 
             	    state._fsp--;
@@ -9291,7 +9297,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	            newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_6_1()); 
             	        
-            	    pushFollow(FOLLOW_76);
+            	    pushFollow(FOLLOW_77);
             	    ruleNL();
 
             	    state._fsp--;
@@ -9332,7 +9338,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getSuiteAccess().getReturnSuiteReturnParserRuleCall_7_0_0()); 
             	    	    
-            	    pushFollow(FOLLOW_75);
+            	    pushFollow(FOLLOW_76);
             	    lv_return_9_0=ruleSuiteReturn();
 
             	    state._fsp--;
@@ -9357,7 +9363,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	            newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_7_1()); 
             	        
-            	    pushFollow(FOLLOW_76);
+            	    pushFollow(FOLLOW_77);
             	    ruleNL();
 
             	    state._fsp--;
@@ -9414,7 +9420,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getSuiteAccess().getForkForkDefinitionCrossReference_8_2_0()); 
                     	    
-                    pushFollow(FOLLOW_77);
+                    pushFollow(FOLLOW_78);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -9431,7 +9437,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                      
                             newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_8_3()); 
                         
-                    pushFollow(FOLLOW_78);
+                    pushFollow(FOLLOW_79);
                     ruleNL();
 
                     state._fsp--;
@@ -9501,7 +9507,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	     
                     	    	        newCompositeNode(grammarAccess.getSuiteAccess().getVariantsVariantDefinitionCrossReference_9_2_0_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_79);
+                    	    pushFollow(FOLLOW_80);
                     	    ruleQualifiedName();
 
                     	    state._fsp--;
@@ -9539,7 +9545,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                     	     
                     	            newCompositeNode(grammarAccess.getSuiteAccess().getNLParserRuleCall_9_2_2()); 
                     	        
-                    	    pushFollow(FOLLOW_80);
+                    	    pushFollow(FOLLOW_81);
                     	    ruleNL();
 
                     	    state._fsp--;
@@ -10334,7 +10340,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             // InternalDSL.g:4276:1: (otherlv_0= '+' ( ( (lv_identifier_1_0= RULE_ID ) ) | ( (lv_stringIdentifier_2_0= RULE_STRING ) ) ) )
             // InternalDSL.g:4276:3: otherlv_0= '+' ( ( (lv_identifier_1_0= RULE_ID ) ) | ( (lv_stringIdentifier_2_0= RULE_STRING ) ) )
             {
-            otherlv_0=(Token)match(input,72,FOLLOW_81); 
+            otherlv_0=(Token)match(input,72,FOLLOW_82); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getArbitraryParameterOrResultNameAccess().getPlusSignKeyword_0());
                 
@@ -10654,7 +10660,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getStandardOperationAccess().getFirstOperandValueOrEnumValueOrOperationParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_82);
+            pushFollow(FOLLOW_83);
             lv_firstOperand_2_0=ruleValueOrEnumValueOrOperation();
 
             state._fsp--;
@@ -10679,7 +10685,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_3()); 
                 
-            pushFollow(FOLLOW_83);
+            pushFollow(FOLLOW_84);
             ruleNL();
 
             state._fsp--;
@@ -10875,7 +10881,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getStandardOperationAccess().getMoreOperandsValueOrEnumValueOrOperationParserRuleCall_4_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_84);
+            	    pushFollow(FOLLOW_85);
             	    lv_moreOperands_6_0=ruleValueOrEnumValueOrOperation();
 
             	    state._fsp--;
@@ -10900,7 +10906,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	            newCompositeNode(grammarAccess.getStandardOperationAccess().getNLParserRuleCall_4_3()); 
             	        
-            	    pushFollow(FOLLOW_85);
+            	    pushFollow(FOLLOW_86);
             	    ruleNL();
 
             	    state._fsp--;
@@ -11087,7 +11093,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getCustomOperationAccess().getDefinitionOperationDefinitionCrossReference_3_0()); 
             	    
-            pushFollow(FOLLOW_86);
+            pushFollow(FOLLOW_87);
             ruleQualifiedName();
 
             state._fsp--;
@@ -11132,7 +11138,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getCustomOperationAccess().getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0()); 
                     	    
-                    pushFollow(FOLLOW_87);
+                    pushFollow(FOLLOW_88);
                     lv_postfixOperand_7_0=ruleValueOrEnumValueOrOperationCollection();
 
                     state._fsp--;
@@ -11163,7 +11169,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getCustomOperationAccess().getNLParserRuleCall_5()); 
                 
-            pushFollow(FOLLOW_88);
+            pushFollow(FOLLOW_89);
             ruleNL();
 
             state._fsp--;
@@ -11260,7 +11266,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getValueValueOrEnumValueOrOperationParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_89);
+            pushFollow(FOLLOW_90);
             lv_value_0_0=ruleValueOrEnumValueOrOperation();
 
             state._fsp--;
@@ -11294,7 +11300,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	            newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getNLParserRuleCall_1_0()); 
             	        
-            	    pushFollow(FOLLOW_90);
+            	    pushFollow(FOLLOW_91);
             	    ruleNL();
 
             	    state._fsp--;
@@ -11326,7 +11332,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getValueOrEnumValueOrOperationCollectionAccess().getMoreValuesValueOrEnumValueOrOperationParserRuleCall_1_3_0()); 
             	    	    
-            	    pushFollow(FOLLOW_89);
+            	    pushFollow(FOLLOW_90);
             	    lv_moreValues_4_0=ruleValueOrEnumValueOrOperation();
 
             	    state._fsp--;
@@ -13582,7 +13588,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             // InternalDSL.g:5585:1: (lv_dateValue_0_0= RULE_ISODATE )
             // InternalDSL.g:5586:3: lv_dateValue_0_0= RULE_ISODATE
             {
-            lv_dateValue_0_0=(Token)match(input,RULE_ISODATE,FOLLOW_91); 
+            lv_dateValue_0_0=(Token)match(input,RULE_ISODATE,FOLLOW_92); 
 
             			newLeafNode(lv_dateValue_0_0, grammarAccess.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0()); 
             		
@@ -13707,7 +13713,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             // InternalDSL.g:5642:1: (lv_dateValue_0_0= RULE_EURODATE )
             // InternalDSL.g:5643:3: lv_dateValue_0_0= RULE_EURODATE
             {
-            lv_dateValue_0_0=(Token)match(input,RULE_EURODATE,FOLLOW_92); 
+            lv_dateValue_0_0=(Token)match(input,RULE_EURODATE,FOLLOW_93); 
 
             			newLeafNode(lv_dateValue_0_0, grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0()); 
             		
@@ -13730,7 +13736,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getEuropeanDateAnd24HrsTimeValueAccess().getNLParserRuleCall_1()); 
                 
-            pushFollow(FOLLOW_93);
+            pushFollow(FOLLOW_94);
             ruleNL();
 
             state._fsp--;
@@ -13843,7 +13849,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             // InternalDSL.g:5707:1: (lv_dateValue_0_0= RULE_EURODATE )
             // InternalDSL.g:5708:3: lv_dateValue_0_0= RULE_EURODATE
             {
-            lv_dateValue_0_0=(Token)match(input,RULE_EURODATE,FOLLOW_94); 
+            lv_dateValue_0_0=(Token)match(input,RULE_EURODATE,FOLLOW_95); 
 
             			newLeafNode(lv_dateValue_0_0, grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getDateValueEURODATETerminalRuleCall_0_0()); 
             		
@@ -13866,7 +13872,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getEuropeanDateAnd12HrsTimeValueAccess().getNLParserRuleCall_1()); 
                 
-            pushFollow(FOLLOW_95);
+            pushFollow(FOLLOW_96);
             ruleNL();
 
             state._fsp--;
@@ -13979,7 +13985,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             // InternalDSL.g:5772:1: (lv_dateValue_0_0= RULE_USDATE )
             // InternalDSL.g:5773:3: lv_dateValue_0_0= RULE_USDATE
             {
-            lv_dateValue_0_0=(Token)match(input,RULE_USDATE,FOLLOW_94); 
+            lv_dateValue_0_0=(Token)match(input,RULE_USDATE,FOLLOW_95); 
 
             			newLeafNode(lv_dateValue_0_0, grammarAccess.getUSDateAnd12HrsTimeValueAccess().getDateValueUSDATETerminalRuleCall_0_0()); 
             		
@@ -14002,7 +14008,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getUSDateAnd12HrsTimeValueAccess().getNLParserRuleCall_1()); 
                 
-            pushFollow(FOLLOW_95);
+            pushFollow(FOLLOW_96);
             ruleNL();
 
             state._fsp--;
@@ -14124,7 +14130,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getJavaConstantValueAccess().getConstantJavaConstantReferenceParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_96);
+            pushFollow(FOLLOW_97);
             lv_constant_1_0=ruleJavaConstantReference();
 
             state._fsp--;
@@ -14238,7 +14244,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getVariableAccess().getNameVariableOrConstantEntityCrossReference_0_0()); 
             	    
-            pushFollow(FOLLOW_97);
+            pushFollow(FOLLOW_98);
             ruleQualifiedName();
 
             state._fsp--;
@@ -14824,14 +14830,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             // InternalDSL.g:6109:1: (otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}' )
             // InternalDSL.g:6109:3: otherlv_0= '{' ruleNL ( ( (lv_attributes_2_0= ruleKeyValuePair ) ) ruleNL )+ otherlv_4= '}'
             {
-            otherlv_0=(Token)match(input,87,FOLLOW_98); 
+            otherlv_0=(Token)match(input,87,FOLLOW_99); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getNestedObjectAccess().getLeftCurlyBracketKeyword_0());
                 
              
                     newCompositeNode(grammarAccess.getNestedObjectAccess().getNLParserRuleCall_1()); 
                 
-            pushFollow(FOLLOW_98);
+            pushFollow(FOLLOW_99);
             ruleNL();
 
             state._fsp--;
@@ -14864,7 +14870,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	    	        newCompositeNode(grammarAccess.getNestedObjectAccess().getAttributesKeyValuePairParserRuleCall_2_0_0()); 
             	    	    
-            	    pushFollow(FOLLOW_99);
+            	    pushFollow(FOLLOW_100);
             	    lv_attributes_2_0=ruleKeyValuePair();
 
             	    state._fsp--;
@@ -14889,7 +14895,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	     
             	            newCompositeNode(grammarAccess.getNestedObjectAccess().getNLParserRuleCall_2_1()); 
             	        
-            	    pushFollow(FOLLOW_99);
+            	    pushFollow(FOLLOW_100);
             	    ruleNL();
 
             	    state._fsp--;
@@ -15004,7 +15010,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getTypedNestedObjectAccess().getTypeJavaClassReferenceParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_96);
+            pushFollow(FOLLOW_97);
             lv_type_1_0=ruleJavaClassReference();
 
             state._fsp--;
@@ -15026,14 +15032,14 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,83,FOLLOW_100); 
+            otherlv_2=(Token)match(input,83,FOLLOW_101); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getTypedNestedObjectAccess().getGreaterThanSignKeyword_2());
                 
              
                     newCompositeNode(grammarAccess.getTypedNestedObjectAccess().getNLParserRuleCall_3()); 
                 
-            pushFollow(FOLLOW_101);
+            pushFollow(FOLLOW_102);
             ruleNL();
 
             state._fsp--;
@@ -15468,7 +15474,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeCrossReference_0_0()); 
             	    
-            pushFollow(FOLLOW_102);
+            pushFollow(FOLLOW_103);
             ruleQualifiedJavaClassName();
 
             state._fsp--;
@@ -15482,7 +15488,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,84,FOLLOW_103); 
+            otherlv_1=(Token)match(input,84,FOLLOW_104); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getMethodReferenceAccess().getNumberSignKeyword_1());
                 
@@ -15594,7 +15600,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getJavaConstantReferenceAccess().getTypeJvmTypeCrossReference_0_0()); 
             	    
-            pushFollow(FOLLOW_102);
+            pushFollow(FOLLOW_103);
             ruleQualifiedJavaClassName();
 
             state._fsp--;
@@ -15608,7 +15614,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,84,FOLLOW_104); 
+            otherlv_1=(Token)match(input,84,FOLLOW_105); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getJavaConstantReferenceAccess().getNumberSignKeyword_1());
                 
@@ -15716,7 +15722,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getExecutionMultiplierAccess().getCountConstantValueParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_105);
+            pushFollow(FOLLOW_106);
             lv_count_0_0=ruleConstantValue();
 
             state._fsp--;
@@ -15816,7 +15822,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             // InternalDSL.g:6526:1: (this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )* )
             // InternalDSL.g:6526:6: this_ID_0= RULE_ID (kw= '.' this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_106); 
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_107); 
 
             		current.merge(this_ID_0);
                 
@@ -15844,12 +15850,12 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // InternalDSL.g:6534:2: kw= '.' this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,89,FOLLOW_103); 
+            	    kw=(Token)match(input,89,FOLLOW_104); 
 
             	            current.merge(kw);
             	            newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             	        
-            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_106); 
+            	    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_107); 
 
             	    		current.merge(this_ID_2);
             	        
@@ -15943,7 +15949,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getQualifiedJavaClassNameAccess().getQualifiedNameParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_107);
+            pushFollow(FOLLOW_108);
             this_QualifiedName_0=ruleQualifiedName();
 
             state._fsp--;
@@ -15954,7 +15960,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     afterParserOrEnumRuleCall();
                 
-            kw=(Token)match(input,89,FOLLOW_104); 
+            kw=(Token)match(input,89,FOLLOW_105); 
 
                     current.merge(kw);
                     newLeafNode(kw, grammarAccess.getQualifiedJavaClassNameAccess().getFullStopKeyword_1()); 
@@ -16043,7 +16049,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
              
                     newCompositeNode(grammarAccess.getQualifiedNameWithWildcardAccess().getQualifiedNameParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_108);
+            pushFollow(FOLLOW_109);
             this_QualifiedName_0=ruleQualifiedName();
 
             state._fsp--;
@@ -16270,7 +16276,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // InternalDSL.g:6697:6: this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )?
             	    {
-            	    this_NEWLINE_0=(Token)match(input,RULE_NEWLINE,FOLLOW_109); 
+            	    this_NEWLINE_0=(Token)match(input,RULE_NEWLINE,FOLLOW_110); 
 
             	    		current.merge(this_NEWLINE_0);
             	        
@@ -16288,7 +16294,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             	        case 1 :
             	            // InternalDSL.g:6704:6: this_WS_1= RULE_WS
             	            {
-            	            this_WS_1=(Token)match(input,RULE_WS,FOLLOW_110); 
+            	            this_WS_1=(Token)match(input,RULE_WS,FOLLOW_111); 
 
             	            		current.merge(this_WS_1);
             	                
@@ -16382,7 +16388,7 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             // InternalDSL.g:6732:1: (this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL )
             // InternalDSL.g:6732:6: this_NEWLINE_0= RULE_NEWLINE (this_WS_1= RULE_WS )? this_NL_2= ruleNL
             {
-            this_NEWLINE_0=(Token)match(input,RULE_NEWLINE,FOLLOW_111); 
+            this_NEWLINE_0=(Token)match(input,RULE_NEWLINE,FOLLOW_112); 
 
             		current.merge(this_NEWLINE_0);
                 
@@ -17069,8 +17075,8 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
         }
     }
     static final String dfa_75s = "\12\uffff";
-    static final String dfa_76s = "\1\11\1\uffff\1\12\2\uffff\1\131\1\12\1\123\1\131\1\uffff";
-    static final String dfa_77s = "\1\127\1\uffff\1\12\2\uffff\1\131\1\25\1\124\1\131\1\uffff";
+    static final String dfa_76s = "\1\11\1\uffff\1\12\2\uffff\1\131\1\12\1\131\1\123\1\uffff";
+    static final String dfa_77s = "\1\127\1\uffff\1\12\2\uffff\1\131\1\25\1\131\1\124\1\uffff";
     static final String dfa_78s = "\1\uffff\1\1\1\uffff\1\2\1\3\4\uffff\1\4";
     static final String dfa_79s = "\12\uffff}>";
     static final String[] dfa_80s = {
@@ -17080,9 +17086,9 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             "",
             "",
             "\1\6",
-            "\1\10\12\uffff\1\7",
-            "\1\11\1\1",
+            "\1\7\12\uffff\1\10",
             "\1\6",
+            "\1\11\1\1",
             ""
     };
 
@@ -17111,10 +17117,10 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
         }
     }
     static final String dfa_81s = "\26\uffff";
-    static final String dfa_82s = "\5\uffff\3\14\6\uffff\10\14";
+    static final String dfa_82s = "\5\uffff\3\15\6\uffff\10\15";
     static final String dfa_83s = "\1\11\4\uffff\3\4\6\uffff\10\4";
     static final String dfa_84s = "\1\126\4\uffff\3\130\6\uffff\10\130";
-    static final String dfa_85s = "\1\uffff\1\1\1\2\1\3\1\4\3\uffff\1\6\1\10\1\11\1\12\1\5\1\7\10\uffff";
+    static final String dfa_85s = "\1\uffff\1\1\1\2\1\3\1\4\3\uffff\1\6\1\10\1\11\1\12\1\7\1\5\10\uffff";
     static final String dfa_86s = "\26\uffff}>";
     static final String[] dfa_87s = {
             "\1\1\1\uffff\1\2\1\3\2\4\1\5\1\6\1\7\3\10\75\uffff\1\13\2\uffff\1\11\1\12",
@@ -17122,23 +17128,23 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\7\14\7\uffff\1\15\3\uffff\2\14\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\3\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\10\uffff\2\15\1\uffff\1\14\1\16\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\3\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\11\uffff\1\15\1\uffff\1\14\1\17\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\3\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
+            "\7\15\7\uffff\1\14\3\uffff\2\15\5\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\3\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\10\uffff\2\14\1\uffff\1\15\1\16\5\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\3\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\11\uffff\1\14\1\uffff\1\15\1\17\5\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\3\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
             "",
             "",
             "",
             "",
             "",
             "",
-            "\7\14\10\uffff\2\15\1\uffff\1\14\1\21\1\20\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\1\14\1\uffff\1\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\11\uffff\1\15\1\uffff\1\14\1\23\1\22\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\1\14\1\uffff\1\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\10\uffff\2\15\1\uffff\1\14\1\21\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\1\14\1\uffff\1\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\10\uffff\2\15\1\uffff\1\14\1\21\1\24\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\1\14\1\uffff\1\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\11\uffff\1\15\1\uffff\1\14\1\23\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\1\14\1\uffff\1\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\11\uffff\1\15\1\uffff\1\14\1\23\1\25\4\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\1\14\1\uffff\1\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\10\uffff\2\15\1\uffff\1\14\1\21\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\1\14\1\uffff\1\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14",
-            "\7\14\11\uffff\1\15\1\uffff\1\14\1\23\5\uffff\3\14\1\uffff\2\14\3\uffff\6\14\1\uffff\4\14\1\uffff\2\14\1\uffff\14\14\1\uffff\1\14\1\uffff\1\14\1\uffff\3\14\1\uffff\6\14\1\uffff\1\14\6\uffff\1\14"
+            "\7\15\10\uffff\2\14\1\uffff\1\15\1\21\1\20\4\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\1\15\1\uffff\1\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\11\uffff\1\14\1\uffff\1\15\1\23\1\22\4\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\1\15\1\uffff\1\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\10\uffff\2\14\1\uffff\1\15\1\21\5\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\1\15\1\uffff\1\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\10\uffff\2\14\1\uffff\1\15\1\21\1\24\4\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\1\15\1\uffff\1\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\11\uffff\1\14\1\uffff\1\15\1\23\5\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\1\15\1\uffff\1\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\11\uffff\1\14\1\uffff\1\15\1\23\1\25\4\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\1\15\1\uffff\1\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\10\uffff\2\14\1\uffff\1\15\1\21\5\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\1\15\1\uffff\1\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15",
+            "\7\15\11\uffff\1\14\1\uffff\1\15\1\23\5\uffff\3\15\1\uffff\2\15\3\uffff\6\15\1\uffff\4\15\1\uffff\2\15\1\uffff\14\15\1\uffff\1\15\1\uffff\1\15\1\uffff\3\15\1\uffff\6\15\1\uffff\1\15\6\uffff\1\15"
     };
 
     static final short[] dfa_81 = DFA.unpackEncodedString(dfa_81s);
@@ -17271,48 +17277,49 @@ public class InternalDSLParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_66 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000010L});
     public static final BitSet FOLLOW_67 = new BitSet(new long[]{0x0000000000800000L,0x0000000000000014L});
     public static final BitSet FOLLOW_68 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000014L});
-    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000000BFFE00L,0x0000000000E50208L});
-    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000000800400L,0x0000000000000020L});
-    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000800400L,0x0000000000000060L});
-    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000800402L,0x0000000000000020L});
-    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0200000000800400L,0x0000000000000010L});
-    public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0200000000800402L,0x0000000000000010L});
-    public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0200000000800000L});
-    public static final BitSet FOLLOW_78 = new BitSet(new long[]{0x0200000000000002L});
-    public static final BitSet FOLLOW_79 = new BitSet(new long[]{0x0000000000800400L,0x0000000000000040L});
-    public static final BitSet FOLLOW_80 = new BitSet(new long[]{0x0000000000800402L});
-    public static final BitSet FOLLOW_81 = new BitSet(new long[]{0x0000000000000600L});
-    public static final BitSet FOLLOW_82 = new BitSet(new long[]{0x0000000000800000L,0x0000000000007D00L});
-    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x0000000000000000L,0x0000000000007D00L});
-    public static final BitSet FOLLOW_84 = new BitSet(new long[]{0x0000000000800000L,0x000000000000FD00L});
-    public static final BitSet FOLLOW_85 = new BitSet(new long[]{0x0000000000000000L,0x000000000000FD00L});
-    public static final BitSet FOLLOW_86 = new BitSet(new long[]{0x0000000040800000L,0x0000000000020000L});
-    public static final BitSet FOLLOW_87 = new BitSet(new long[]{0x0000000000800000L,0x0000000000020000L});
-    public static final BitSet FOLLOW_88 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
-    public static final BitSet FOLLOW_89 = new BitSet(new long[]{0x0000000000800002L,0x0000000000000040L});
-    public static final BitSet FOLLOW_90 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_91 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_92 = new BitSet(new long[]{0x0000000000880000L});
-    public static final BitSet FOLLOW_93 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_94 = new BitSet(new long[]{0x0000000000900000L});
-    public static final BitSet FOLLOW_95 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_96 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
-    public static final BitSet FOLLOW_97 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
-    public static final BitSet FOLLOW_98 = new BitSet(new long[]{0x0000000000800600L});
-    public static final BitSet FOLLOW_99 = new BitSet(new long[]{0x0000000000800600L,0x0000000001000000L});
-    public static final BitSet FOLLOW_100 = new BitSet(new long[]{0x0000000000800000L,0x0000000000800000L});
-    public static final BitSet FOLLOW_101 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
-    public static final BitSet FOLLOW_102 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
-    public static final BitSet FOLLOW_103 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_104 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_105 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_106 = new BitSet(new long[]{0x0000000000000002L,0x0000000002000000L});
-    public static final BitSet FOLLOW_107 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-    public static final BitSet FOLLOW_108 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
-    public static final BitSet FOLLOW_109 = new BitSet(new long[]{0x0000000001800002L});
-    public static final BitSet FOLLOW_110 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_111 = new BitSet(new long[]{0x0000000001800000L});
+    public static final BitSet FOLLOW_69 = new BitSet(new long[]{0x0000000000BFFE00L,0x0000000000E50210L});
+    public static final BitSet FOLLOW_70 = new BitSet(new long[]{0x0000000000BFFE02L,0x0000000000E50210L});
+    public static final BitSet FOLLOW_71 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+    public static final BitSet FOLLOW_72 = new BitSet(new long[]{0x0000000000800400L,0x0000000000000020L});
+    public static final BitSet FOLLOW_73 = new BitSet(new long[]{0x0000000000800400L,0x0000000000000060L});
+    public static final BitSet FOLLOW_74 = new BitSet(new long[]{0x0000000000800402L,0x0000000000000020L});
+    public static final BitSet FOLLOW_75 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_76 = new BitSet(new long[]{0x0200000000800400L,0x0000000000000010L});
+    public static final BitSet FOLLOW_77 = new BitSet(new long[]{0x0200000000800402L,0x0000000000000010L});
+    public static final BitSet FOLLOW_78 = new BitSet(new long[]{0x0200000000800000L});
+    public static final BitSet FOLLOW_79 = new BitSet(new long[]{0x0200000000000002L});
+    public static final BitSet FOLLOW_80 = new BitSet(new long[]{0x0000000000800400L,0x0000000000000040L});
+    public static final BitSet FOLLOW_81 = new BitSet(new long[]{0x0000000000800402L});
+    public static final BitSet FOLLOW_82 = new BitSet(new long[]{0x0000000000000600L});
+    public static final BitSet FOLLOW_83 = new BitSet(new long[]{0x0000000000800000L,0x0000000000007D00L});
+    public static final BitSet FOLLOW_84 = new BitSet(new long[]{0x0000000000000000L,0x0000000000007D00L});
+    public static final BitSet FOLLOW_85 = new BitSet(new long[]{0x0000000000800000L,0x000000000000FD00L});
+    public static final BitSet FOLLOW_86 = new BitSet(new long[]{0x0000000000000000L,0x000000000000FD00L});
+    public static final BitSet FOLLOW_87 = new BitSet(new long[]{0x0000000040800000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_88 = new BitSet(new long[]{0x0000000000800000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_89 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
+    public static final BitSet FOLLOW_90 = new BitSet(new long[]{0x0000000000800002L,0x0000000000000040L});
+    public static final BitSet FOLLOW_91 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_92 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_93 = new BitSet(new long[]{0x0000000000880000L});
+    public static final BitSet FOLLOW_94 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_95 = new BitSet(new long[]{0x0000000000900000L});
+    public static final BitSet FOLLOW_96 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_97 = new BitSet(new long[]{0x0000000000000000L,0x0000000000080000L});
+    public static final BitSet FOLLOW_98 = new BitSet(new long[]{0x0000000000000002L,0x0000000000100000L});
+    public static final BitSet FOLLOW_99 = new BitSet(new long[]{0x0000000000800600L});
+    public static final BitSet FOLLOW_100 = new BitSet(new long[]{0x0000000000800600L,0x0000000001000000L});
+    public static final BitSet FOLLOW_101 = new BitSet(new long[]{0x0000000000800000L,0x0000000000800000L});
+    public static final BitSet FOLLOW_102 = new BitSet(new long[]{0x0000000000000000L,0x0000000000800000L});
+    public static final BitSet FOLLOW_103 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_104 = new BitSet(new long[]{0x0000000000000400L});
+    public static final BitSet FOLLOW_105 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_106 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_107 = new BitSet(new long[]{0x0000000000000002L,0x0000000002000000L});
+    public static final BitSet FOLLOW_108 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+    public static final BitSet FOLLOW_109 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
+    public static final BitSet FOLLOW_110 = new BitSet(new long[]{0x0000000001800002L});
+    public static final BitSet FOLLOW_111 = new BitSet(new long[]{0x0000000000800002L});
+    public static final BitSet FOLLOW_112 = new BitSet(new long[]{0x0000000001800000L});
 
 }

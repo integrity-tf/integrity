@@ -51,6 +51,14 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 				.getPostfixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_4_2_0());
 		aConfig.setNoSpace().before(tempGrammar.getCustomOperationAccess().getRightSquareBracketKeyword_6());
 
+		// Put no space in front of the custom operation definition, but put a space behind a prefix operand, if
+		// present. This results in the custom operation not having a space between the opening bracket and the
+		// definition if there is no prefix, but having a space between a prefix and the definition if there is one.
+		// Fixes issue #189.
+		aConfig.setNoSpace().before(tempGrammar.getCustomOperationAccess().getDefinitionAssignment_3());
+		aConfig.setSpace(" ").after(tempGrammar.getCustomOperationAccess()
+				.getPrefixOperandValueOrEnumValueOrOperationCollectionParserRuleCall_2_0_0());
+
 		// ...and the same with standard operations
 		aConfig.setNoSpace().after(tempGrammar.getStandardOperationAccess().getLeftParenthesisKeyword_0());
 		aConfig.setNoSpace().before(tempGrammar.getStandardOperationAccess()
@@ -96,7 +104,7 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 				.after(tempGrammar.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0());
 
 		// No space before the 'x' at a timeset multiplier
-		aConfig.setNoSpace().before(tempGrammar.getTimeSetAccess().getXKeyword_2_1_2_3());
+		aConfig.setNoSpace().before(tempGrammar.getTimeSetAccess().getXKeyword_2_1_2_2_1());
 
 		// Indentations
 		// Suites and Packages

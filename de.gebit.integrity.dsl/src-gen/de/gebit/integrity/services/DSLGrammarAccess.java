@@ -2055,10 +2055,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cProgressionModeAssignment_2_1_2_0 = (Assignment)cGroup_2_1_2.eContents().get(0);
 		private final Keyword cProgressionModeProgressingKeyword_2_1_2_0_0 = (Keyword)cProgressionModeAssignment_2_1_2_0.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_2_1_2_1 = (RuleCall)cGroup_2_1_2.eContents().get(1);
-		private final Assignment cProgressionFactorAssignment_2_1_2_2 = (Assignment)cGroup_2_1_2.eContents().get(2);
-		private final RuleCall cProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0 = (RuleCall)cProgressionFactorAssignment_2_1_2_2.eContents().get(0);
-		private final Keyword cXKeyword_2_1_2_3 = (Keyword)cGroup_2_1_2.eContents().get(3);
-		private final RuleCall cNLParserRuleCall_2_1_2_4 = (RuleCall)cGroup_2_1_2.eContents().get(4);
+		private final Group cGroup_2_1_2_2 = (Group)cGroup_2_1_2.eContents().get(2);
+		private final Assignment cProgressionFactorAssignment_2_1_2_2_0 = (Assignment)cGroup_2_1_2_2.eContents().get(0);
+		private final RuleCall cProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0 = (RuleCall)cProgressionFactorAssignment_2_1_2_2_0.eContents().get(0);
+		private final Keyword cXKeyword_2_1_2_2_1 = (Keyword)cGroup_2_1_2_2.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_2_1_2_2_2 = (RuleCall)cGroup_2_1_2_2.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cOnKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
@@ -2074,12 +2075,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TimeSet:
 		//	'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-		//	progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
+		//	(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
 		//	masterFork='master') ','? NL)+)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-		//progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
+		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
 		//masterFork='master') ','? NL)+)?
 		public Group getGroup() { return cGroup; }
 
@@ -2090,7 +2091,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 
 		//(live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-		//progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?)
+		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?)
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//live='live' NL
@@ -2106,7 +2107,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNLParserRuleCall_2_0_1() { return cNLParserRuleCall_2_0_1; }
 
 		//startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-		//progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?
+		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//startTime=ValueOrEnumValueOrOperation
@@ -2118,7 +2119,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_2_1_1() { return cNLParserRuleCall_2_1_1; }
 
-		//(progressionMode='progressing' NL progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?
+		//(progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?
 		public Group getGroup_2_1_2() { return cGroup_2_1_2; }
 
 		//progressionMode='progressing'
@@ -2130,17 +2131,20 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_2_1_2_1() { return cNLParserRuleCall_2_1_2_1; }
 
-		//progressionFactor=ValueOrEnumValueOrOperation?
-		public Assignment getProgressionFactorAssignment_2_1_2_2() { return cProgressionFactorAssignment_2_1_2_2; }
+		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?
+		public Group getGroup_2_1_2_2() { return cGroup_2_1_2_2; }
+
+		//progressionFactor=ValueOrEnumValueOrOperation
+		public Assignment getProgressionFactorAssignment_2_1_2_2_0() { return cProgressionFactorAssignment_2_1_2_2_0; }
 
 		//ValueOrEnumValueOrOperation
-		public RuleCall getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0() { return cProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0; }
+		public RuleCall getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0() { return cProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0; }
 
 		//'x'
-		public Keyword getXKeyword_2_1_2_3() { return cXKeyword_2_1_2_3; }
+		public Keyword getXKeyword_2_1_2_2_1() { return cXKeyword_2_1_2_2_1; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_2_1_2_4() { return cNLParserRuleCall_2_1_2_4; }
+		public RuleCall getNLParserRuleCall_2_1_2_2_2() { return cNLParserRuleCall_2_1_2_2_2; }
 
 		//('on' NL ((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -4552,7 +4556,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TimeSet:
 	//	'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-	//	progressionFactor=ValueOrEnumValueOrOperation? 'x' NL)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
+	//	(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
 	//	masterFork='master') ','? NL)+)?;
 	public TimeSetElements getTimeSetAccess() {
 		return pTimeSet;

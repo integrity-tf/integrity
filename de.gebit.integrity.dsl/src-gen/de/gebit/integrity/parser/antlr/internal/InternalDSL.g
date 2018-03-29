@@ -3645,10 +3645,10 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTimeSetAccess().getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0()); 
+	        newCompositeNode(grammarAccess.getTimeSetAccess().getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0()); 
 	    }
 		lv_progressionFactor_8_0=ruleValueOrEnumValueOrOperation		{
 	        if ($current==null) {
@@ -3663,19 +3663,19 @@ ruleNL
 	    }
 
 )
-)?	otherlv_9='x' 
+)	otherlv_9='x' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getTimeSetAccess().getXKeyword_2_1_2_3());
+    	newLeafNode(otherlv_9, grammarAccess.getTimeSetAccess().getXKeyword_2_1_2_2_1());
     }
 
     { 
-        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_4()); 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_2_2()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)?))(	otherlv_11='on' 
+)?)?))(	otherlv_11='on' 
     {
     	newLeafNode(otherlv_11, grammarAccess.getTimeSetAccess().getOnKeyword_3_0());
     }
