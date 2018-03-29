@@ -112,8 +112,12 @@ public class SetListSearch {
 		}
 
 		if (tempRecurse) {
-			for (SetListEntry tempChild : SetListUtil.getSetListEntryChilds(anEntry, aSetList)) {
-				createIndex(tempChild, aSetList);
+			List<SetListEntry> tempList = SetListUtil.getSetListEntryChilds(anEntry, aSetList);
+
+			if (tempList != null) {
+				for (SetListEntry tempChild : tempList) {
+					createIndex(tempChild, aSetList);
+				}
 			}
 		}
 	}
