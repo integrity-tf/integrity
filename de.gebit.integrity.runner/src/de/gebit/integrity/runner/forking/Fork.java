@@ -48,6 +48,7 @@ import de.gebit.integrity.runner.console.intercept.ConsoleOutputInterceptor;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.runner.operations.RandomNumberOperation;
 import de.gebit.integrity.runner.time.TestTimeAdapter;
+import de.gebit.integrity.runner.time.TimeSyncState;
 import de.gebit.integrity.runner.wrapper.ExceptionWrapper;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -291,10 +292,14 @@ public class Fork {
 	/**
 	 * Actually start the fork. May only be called once!
 	 * 
+	 * @param aTimeSyncState
+	 *            time synchronization state info for this particular fork (will be provided just in case the forker or
+	 *            fork wants to do something with it - time synchronization also happens right after the connection to
+	 *            the fork was established by the master) or null if no test time sync state is to be set
 	 * @throws ForkException
 	 *             in case of errors
 	 */
-	public void start() throws ForkException {
+	public void start(TimeSyncState aTimeSyncState) throws ForkException {
 		if (wasStarted) {
 			throw new IllegalStateException("The fork has already been started. A fork can only be started once!");
 		}
@@ -302,7 +307,8 @@ public class Fork {
 		String tempFullyQualifiedForkName = IntegrityDSLUtil.getQualifiedForkName(definition);
 
 		wasStarted = true;
-		process = forker.fork(commandLineArguments, tempFullyQualifiedForkName, RandomNumberOperation.getSeed());
+		process = forker.fork(commandLineArguments, tempFullyQualifiedForkName, RandomNumberOperation.getSeed(),
+				aTimeSyncState);
 
 		if (!process.isAlive()) {
 			throw new ForkException("Failed to create forked process - new process died immediately.");
