@@ -2931,7 +2931,7 @@ public class DefaultTestRunner implements TestRunner {
 
 					@Override
 					public void run() throws ForkException {
-						tempFork.start();
+						tempFork.start(forkTimeSyncStates.get(aSuiteCall.getFork()));
 					}
 				});
 

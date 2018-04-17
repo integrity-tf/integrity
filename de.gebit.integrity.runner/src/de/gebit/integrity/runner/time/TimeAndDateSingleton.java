@@ -7,6 +7,7 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.time;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -111,6 +112,56 @@ public final class TimeAndDateSingleton implements TestTimeAdapter {
 	}
 
 	/**
+	 * Returns the internal values of this {@link TestingTimeAndDateSingleton} as a String. This string is intended to
+	 * be fed into another {@link TestingTimeAndDateSingleton} in order to synchronize it with the source. The string
+	 * consists of pipe-divided values "realtime offset", "realtime decoupling time" and "multiplier" (first two are
+	 * long values, third is a double-precision floating point number in normal notation with decimal point). If the
+	 * singleton is in "live" operation mode, the returned value is just null.
+	 *
+	 * @return the internal values as string without spaces
+	 */
+	public String getInternalsAsString() {
+		if (timeKeeper != null) {
+			StringBuilder tempBuilder = new StringBuilder();
+			tempBuilder.append(timeKeeper.getInternalRealtimeOffset());
+			tempBuilder.append("|");
+			tempBuilder.append(timeKeeper.getInternalRealtimeDecouplingTime());
+			tempBuilder.append("|");
+			tempBuilder.append(new BigDecimal(timeKeeper.getInternalMultiplier()).toPlainString());
+
+			return tempBuilder.toString();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Takes the string returned by {@link #getInternalsAsString()} and inserts the internals into this
+	 * {@link TimeAndDateSingleton}.
+	 *
+	 * @param anInternalsString
+	 *            the string to use as source
+	 */
+	public void setInternalsFromString(String anInternalsString) {
+		if (anInternalsString == null || "null".equals(anInternalsString)) {
+			setInternalState(0, 0, 0.0);
+		} else {
+			String[] tempParts = anInternalsString.split("\\|");
+			if (tempParts.length != 3) {
+				throw new IllegalArgumentException(
+						"Unexpected date/time singleton internals string formatting: " + anInternalsString);
+			}
+			try {
+				setInternalState(Long.parseLong(tempParts[0]), Long.parseLong(tempParts[1]),
+						new BigDecimal(tempParts[2]).doubleValue());
+			} catch (NumberFormatException exc) {
+				throw new IllegalArgumentException(
+						"Unexpected date/time singleton internals string formatting: " + anInternalsString, exc);
+			}
+		}
+	}
+
+	/**
 	 * Returns the current system date or - if a static or progressing "fake" date was set - this fake date for testing
 	 * purposes.
 	 * 
@@ -206,6 +257,18 @@ public final class TimeAndDateSingleton implements TestTimeAdapter {
 			realtimeOffset = currentTimeMillis() - System.currentTimeMillis();
 			realtimeDecouplingTime = System.currentTimeMillis();
 			multiplier = aMultiplier;
+		}
+
+		public long getInternalRealtimeOffset() {
+			return realtimeOffset;
+		}
+
+		public long getInternalRealtimeDecouplingTime() {
+			return realtimeDecouplingTime;
+		}
+
+		public double getInternalMultiplier() {
+			return multiplier;
 		}
 	}
 }
