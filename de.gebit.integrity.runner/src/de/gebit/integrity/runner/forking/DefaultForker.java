@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.runner.time.TimeSyncState;
+
 /**
  * A default forking implementation. This should be suitable for most execution environments. If not, it is designed to
  * be easily extensible, or alternatively you can of course create an entirely own {@link Forker} implementation.
@@ -31,9 +33,9 @@ public class DefaultForker implements Forker {
 			+ "bin" + File.separatorChar + "java";
 
 	@Override
-	public ForkedProcess fork(String[] someCommandLineArguments, String aForkName, long aRandomSeed)
-			throws ForkException {
-		List<String> tempArgs = createArgumentList(someCommandLineArguments, aForkName, aRandomSeed);
+	public ForkedProcess fork(String[] someCommandLineArguments, String aForkName, long aRandomSeed,
+			TimeSyncState aTimeSyncState) throws ForkException {
+		List<String> tempArgs = createArgumentList(someCommandLineArguments, aForkName, aRandomSeed, aTimeSyncState);
 		return createProcess(tempArgs);
 	}
 
@@ -46,16 +48,21 @@ public class DefaultForker implements Forker {
 	 *            the name for the new fork
 	 * @param aRandomSeed
 	 *            the seed for the RNG of the fork
+	 * @param aTimeSyncState
+	 *            time synchronization state info for this particular fork (will be provided just in case the forker or
+	 *            fork wants to do something with it - time synchronization also happens right after the connection to
+	 *            the fork was established by the master) or null if no test time sync state is to be set
 	 * @return the argument list
 	 */
-	protected List<String> createArgumentList(String[] someCommandLineArguments, String aForkName, long aRandomSeed) {
+	protected List<String> createArgumentList(String[] someCommandLineArguments, String aForkName, long aRandomSeed,
+			TimeSyncState aTimeSyncState) {
 		List<String> tempArgs = new ArrayList<String>();
 
 		addJavaExecutable(tempArgs);
 
 		addClassPath(tempArgs);
 
-		addForkInformation(tempArgs, aForkName, aRandomSeed);
+		addForkInformation(tempArgs, aForkName, aRandomSeed, aTimeSyncState);
 
 		addJVMArguments(tempArgs);
 
@@ -101,8 +108,13 @@ public class DefaultForker implements Forker {
 	 *            the name for the fork
 	 * @param aRandomSeed
 	 *            the seed for the RNG of the fork
+	 * @param aTimeSyncState
+	 *            time synchronization state info for this particular fork (will be provided just in case the fork wants
+	 *            to do something with it - time synchronization also happens right after the connection to the fork was
+	 *            established by the master) or null if no test time sync state is to be provided
 	 */
-	protected void addForkInformation(List<String> anArgumentList, String aForkName, long aRandomSeed) {
+	protected void addForkInformation(List<String> anArgumentList, String aForkName, long aRandomSeed,
+			TimeSyncState aTimeSyncState) {
 		if (getForkHost() != null) {
 			anArgumentList.add("-D" + Forker.SYSPARAM_FORK_REMOTING_HOST + "=" + getForkHost());
 		}
@@ -112,6 +124,24 @@ public class DefaultForker implements Forker {
 
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_NAME + "=" + aForkName);
 		anArgumentList.add("-D" + Forker.SYSPARAM_FORK_SEED + "=" + aRandomSeed);
+
+		addTimeSyncInformation(anArgumentList, aTimeSyncState);
+	}
+
+	/**
+	 * Adds time sync information, if provided for this fork.
+	 * 
+	 * @param anArgumentList
+	 *            the argument list to extend
+	 * @param aTimeSyncState
+	 *            time synchronization state info for this particular fork (will be provided just in case the fork wants
+	 *            to do something with it - time synchronization also happens right after the connection to the fork was
+	 *            established by the master) or null if no test time sync state is to be provided
+	 */
+	protected void addTimeSyncInformation(List<String> anArgumentList, TimeSyncState aTimeSyncState) {
+		if (aTimeSyncState != null) {
+			anArgumentList.add("-D" + Forker.SYSPARAM_FORK_TIMESTATE + "=" + aTimeSyncState.getValuesAsString());
+		}
 	}
 
 	/**

@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.forking;
 
+import de.gebit.integrity.runner.time.TimeSyncState;
+
 /**
  * A forker is an implementation of an execution forking mechanism. Its task is to create another process, which ideally
  * is an exact clone of the current (parent) process. The idea is similar to a UNIX fork, but the child process is
@@ -40,6 +42,11 @@ public interface Forker {
 	String SYSPARAM_FORK_SEED = "integrity.fork.seed";
 
 	/**
+	 * System parameter for the forks' test time generator state.
+	 */
+	String SYSPARAM_FORK_TIMESTATE = "integrity.fork.timestate";
+
+	/**
 	 * Performs the actual forking.
 	 * 
 	 * @param someCommandLineArguments
@@ -48,10 +55,15 @@ public interface Forker {
 	 *            the name of the fork
 	 * @param aRandomSeed
 	 *            the seed for the RNG of the fork
+	 * @param aTimeSyncState
+	 *            time synchronization state info for this particular fork (will be provided just in case the forker
+	 *            wants to do something with it - time synchronization also happens right after the connection to the
+	 *            fork was established by the master) or null if no test time sync state is to be set
 	 * @return the newly created process
 	 * @throws ForkException
 	 *             if something goes wrong
 	 */
-	ForkedProcess fork(String[] someCommandLineArguments, String aForkName, long aRandomSeed) throws ForkException;
+	ForkedProcess fork(String[] someCommandLineArguments, String aForkName, long aRandomSeed,
+			TimeSyncState aTimeSyncState) throws ForkException;
 
 }
