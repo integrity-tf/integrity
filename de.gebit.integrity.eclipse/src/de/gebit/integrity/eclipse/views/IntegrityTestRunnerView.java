@@ -2768,6 +2768,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 				} catch (IOException exc) {
 					// exceptions are expected, that just means we need to retry
 				}
+
+				// Wait a few milliseconds between attempts
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException exc) {
+					// don't care
+				}
 			}
 			executeTestAction.setEnabled(true);
 			executeDebugTestAction.setEnabled(true);
