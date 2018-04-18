@@ -2276,13 +2276,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 			@Override
 			public void run() {
+				boolean tempSuccess = false;
 				try {
 					connectToTestRunner(aHost, aPort);
+					tempSuccess = true;
 					return;
 				} catch (UnknownHostException exc) {
 					showMessage("Target host name '" + aHost + "' could not be resolved.");
 				} catch (IOException exc) {
 					showMessage("Error while connecting to '" + aHost + "': " + exc.getMessage());
+				} finally {
+					if (!tempSuccess) {
+						updateStatus("Not connected");
+					}
 				}
 			}
 
@@ -2291,16 +2297,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 	private void connectToTestRunner(final String aHost, final int aPort) throws UnknownHostException, IOException {
 		updateStatus("Connecting...");
-		boolean tempSuccessful = false;
-		try {
-			client = new IntegrityRemotingClient(aHost, aPort, new RemotingListener(), null);
-			tempSuccessful = true;
-			updateStatus("Connected, downloading test data...");
-		} finally {
-			if (!tempSuccessful) {
-				updateStatus("Not connected");
-			}
-		}
+		client = new IntegrityRemotingClient(aHost, aPort, new RemotingListener(), null);
+		// If we arrive here without an exception throwing us out, we are connected
+		updateStatus("Connected, downloading test data...");
 	}
 
 	private void disconnectFromTestRunner() {
