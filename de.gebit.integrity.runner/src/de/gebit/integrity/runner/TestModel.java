@@ -352,6 +352,9 @@ public class TestModel {
 						if (tempNumberOfThreads > tempAllResources.length) {
 							tempNumberOfThreads = tempAllResources.length;
 						}
+						if (tempNumberOfThreads == 0) {
+							tempNumberOfThreads = 1;
+						}
 
 						System.out.println("Now loading " + tempAllResources.length + " test script(s) using "
 								+ tempNumberOfThreads + " threads...");
