@@ -1721,13 +1721,12 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		if (shouldExecuteFixtures()) {
-			// Only perform variable assignments if we are not in dry run mode
-			try {
-				setVariableValueConverted(anAssignment.getTarget().getName(), anAssignment.getValue(), true);
-			} catch (InstantiationException | ClassNotFoundException | UnexecutableException exc) {
-				exc.printStackTrace();
-			}
+		// Assignments are very much like variable definitions with default value - we perform them regardless of dry
+		// run or test run mode.
+		try {
+			setVariableValueConverted(anAssignment.getTarget().getName(), anAssignment.getValue(), true);
+		} catch (InstantiationException | ClassNotFoundException | UnexecutableException exc) {
+			exc.printStackTrace();
 		}
 	}
 
