@@ -46,6 +46,27 @@ import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 public class DefaultVariableManager implements VariableManager {
 
 	/**
+	 * System property to enable writing variable access trace output.
+	 */
+	protected static final String ENABLE_VARIABLES_TRACE_OUTPUT = "integrity.variables.trace";
+
+	/**
+	 * System property to enable writing variable access stacktrace output. If this is set,
+	 * {@link #ENABLE_VARIABLES_TRACE_OUTPUT} is automatically true as well.
+	 */
+	protected static final String ENABLE_VARIABLES_STACKTRACE_OUTPUT = "integrity.variables.stacktrace";
+
+	/**
+	 * Whether variable tracing is enabled.
+	 */
+	protected boolean isStacktracingEnabled = Boolean.getBoolean(ENABLE_VARIABLES_STACKTRACE_OUTPUT);
+
+	/**
+	 * Whether variable tracing is enabled.
+	 */
+	protected boolean isTracingEnabled = isStacktracingEnabled || Boolean.getBoolean(ENABLE_VARIABLES_TRACE_OUTPUT);
+
+	/**
 	 * The map used to store variables.
 	 */
 	protected Map<VariableOrConstantEntity, Object> variableMap = new ConcurrentHashMap<VariableOrConstantEntity, Object>();
@@ -209,6 +230,18 @@ public class DefaultVariableManager implements VariableManager {
 
 	@Override
 	public void set(VariableOrConstantEntity anEntity, Object aValue) {
+		set(anEntity, aValue, false);
+	}
+
+	/**
+	 * Internal variant of {@link #set(VariableOrConstantEntity, Object)}. Exists to add the suppression of trace
+	 * output.
+	 * 
+	 * @param anEntity
+	 * @param aValue
+	 * @param aSuppressTraceLogFlag
+	 */
+	protected void set(VariableOrConstantEntity anEntity, Object aValue, boolean aSuppressTraceLogFlag) {
 		if (anEntity instanceof ConstantEntity) {
 			if (variableMap.containsKey(anEntity)) {
 				// Already known; ignoring this redefinition. Constant redefinitions can happen due to fork/master
@@ -220,11 +253,21 @@ public class DefaultVariableManager implements VariableManager {
 				return;
 			}
 		}
+
+		if (isTracingEnabled && !aSuppressTraceLogFlag) {
+			traceLog("set", IntegrityDSLUtil.getQualifiedVariableEntityName(anEntity, true) + " = "
+					+ valueConverter.convertValueToString(aValue, false, null));
+		}
+
 		variableMap.put(anEntity, makeNull(aValue));
 	}
 
 	@Override
 	public void unset(VariableOrConstantEntity anEntity) {
+		if (isTracingEnabled) {
+			traceLog("unset", IntegrityDSLUtil.getQualifiedVariableEntityName(anEntity, true));
+		}
+
 		variableMap.remove(anEntity);
 	}
 
@@ -241,6 +284,11 @@ public class DefaultVariableManager implements VariableManager {
 				tempValue = null;
 			}
 
+			if (isTracingEnabled) {
+				traceLog("dumped", IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntry.getKey(), true) + " = "
+						+ valueConverter.convertValueToString(tempValue, false, null));
+			}
+
 			tempResult.put(IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntry.getKey(), true), tempValue);
 		}
 
@@ -251,8 +299,14 @@ public class DefaultVariableManager implements VariableManager {
 	public void importVariableState(Map<String, Object> aState) {
 		for (Entry<String, Object> tempEntry : aState.entrySet()) {
 			VariableOrConstantEntity tempEntity = model.getVariableOrConstantByName(tempEntry.getKey());
+
+			if (isTracingEnabled) {
+				traceLog("imported", IntegrityDSLUtil.getQualifiedVariableEntityName(tempEntity, true) + " = "
+						+ valueConverter.convertValueToString(tempEntry.getValue(), false, null));
+			}
+
 			if (tempEntity != null) {
-				set(tempEntity, tempEntry.getValue());
+				set(tempEntity, tempEntry.getValue(), true);
 			}
 		}
 	}
@@ -268,6 +322,24 @@ public class DefaultVariableManager implements VariableManager {
 				if (!(tempIterator.next().getKey() instanceof ConstantEntity)) {
 					tempIterator.remove();
 				}
+			}
+		}
+	}
+
+	/**
+	 * Outputs a trace log. Although this checks for {@link #isTracingEnabled}, the caller may also check to save some
+	 * cycles when generating expensive parameters.
+	 * 
+	 * @param anAction
+	 *            the action
+	 * @param aLogMessage
+	 *            the message to log
+	 */
+	protected void traceLog(String anAction, String aLogMessage) {
+		if (isTracingEnabled) {
+			System.out.println("--> VARIABLE " + anAction.toUpperCase() + ": " + aLogMessage);
+			if (isStacktracingEnabled) {
+				Thread.dumpStack();
 			}
 		}
 	}
