@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Integrity JUnit Tests
 Bundle-SymbolicName: de.gebit.integrity.tests
-Bundle-Version: 0.17.12.qualifier
+Bundle-Version: 0.17.13.qualifier
 Export-Package: de.gebit.integrity.tests.fixtures.basic,
  de.gebit.integrity.tests.junit,
  de.gebit.integrity.tests.junit.basic
