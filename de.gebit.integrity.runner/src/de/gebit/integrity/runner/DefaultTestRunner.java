@@ -1533,7 +1533,13 @@ public class DefaultTestRunner implements TestRunner {
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
 
-		setVariableValue(anEntity, tempInitialValue, tempSendToForks);
+		if (isFork() && !shouldExecuteFixtures()) {
+			// Skip the variable definition if we are on a fork AND the fork is not currently executing stuff
+			// The initial value of these variables should have already been provided by the master, re-setting
+			// could cause trouble, as we might literally reset the value to an old one! See issue #194.
+		} else {
+			setVariableValue(anEntity, tempInitialValue, tempSendToForks);
+		}
 
 		if (currentCallback != null) {
 			Runnable tempRunnable = new Runnable() {
