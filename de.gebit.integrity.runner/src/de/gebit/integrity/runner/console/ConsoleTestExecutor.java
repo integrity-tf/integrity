@@ -87,6 +87,11 @@ public class ConsoleTestExecutor {
 	protected WeakHashMap<Thread, Boolean> threadsRunningBeforeTestExecution = new WeakHashMap<Thread, Boolean>();
 
 	/**
+	 * Whether to check for zombie threads at the end of test execution.
+	 */
+	protected boolean enableZombieThreadWarning;
+
+	/**
 	 * Creates a new instance using the default setup class.
 	 */
 	public ConsoleTestExecutor() {
@@ -142,7 +147,7 @@ public class ConsoleTestExecutor {
 
 		List<Thread> tempZombieThreads = new LinkedList<Thread>();
 		for (Thread tempThread : tempArray) {
-			if ((tempThread.getName() != null && tempThread.getName().startsWith("Integrity - "))
+			if ((tempThread.getName() != null && !tempThread.getName().startsWith("Integrity - "))
 					&& !threadsRunningBeforeTestExecution.containsKey(tempThread) && tempThread.isAlive()
 					&& !tempThread.isDaemon()) {
 				tempZombieThreads.add(tempThread);
@@ -156,6 +161,9 @@ public class ConsoleTestExecutor {
 					+ "all threads being started during test execution!");
 			for (Thread tempThread : tempZombieThreads) {
 				getStdOut().println("  Thread #" + tempThread.getId() + ": " + tempThread.getName());
+				for (StackTraceElement tempTraceElement : tempThread.getStackTrace()) {
+					getStdOut().println("   - " + tempTraceElement);
+				}
 			}
 		}
 	}
@@ -174,7 +182,9 @@ public class ConsoleTestExecutor {
 			return run(someArgs);
 		} finally {
 			// At this point, all threads started by the test run should have finished.
-			checkForZombieThreads();
+			if (enableZombieThreadWarning) {
+				checkForZombieThreads();
+			}
 		}
 	}
 
@@ -220,10 +230,15 @@ public class ConsoleTestExecutor {
 				"Sets the seed number to use for the RNG custom operation", "[{--seed} number]");
 		SimpleCommandLineParser.BooleanOption tempExcludeConsoleStreamsOption = new SimpleCommandLineParser.BooleanOption(
 				null, "noconsole", "Do not capture stdout & stderr for test XML/HTML output", "[{--noconsole}]");
+		SimpleCommandLineParser.BooleanOption tempZombieThreadDetectionOption = new SimpleCommandLineParser.BooleanOption(
+				null, "zombiewarn", "Do warn about threads started during test execution, "
+						+ "but not terminated until the end (zombie threads)",
+				"[{--zombiewarn}]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
 				tempNoremoteOption, tempRemotePortOption, tempRemoteHostOption, tempWaitForPlayOption,
-				tempSkipModelCheck, tempParameterizedConstantOption, tempSeedOption, tempExcludeConsoleStreamsOption);
+				tempSkipModelCheck, tempParameterizedConstantOption, tempSeedOption, tempExcludeConsoleStreamsOption,
+				tempZombieThreadDetectionOption);
 
 		if (someArgs.length == 0) {
 			getStdOut().print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -243,6 +258,8 @@ public class ConsoleTestExecutor {
 			getStdOut().println(tempParser.getHelp(REMAINING_ARGS_HELP));
 			return EXIT_CODE_PARAMETER_ERROR;
 		}
+
+		enableZombieThreadWarning = tempZombieThreadDetectionOption.isSet();
 
 		TransformHandling tempTransformHandling = evaluateTransformHandling(tempXsltOption);
 		String tempExecutionName = tempNameOption.getValue("unnamed");

@@ -800,6 +800,7 @@ public class Fork {
 		FilteringStreamCopier(String aPrefix, String aThreadName, InputStream aSource, boolean anStdErrFlag,
 				boolean aFilterForHostAndPortFlag) {
 			super(aThreadName);
+			setDaemon(true);
 			prefix = aPrefix;
 			source = new BufferedReader(new InputStreamReader(aSource));
 			stdErr = anStdErrFlag;
@@ -857,6 +858,7 @@ public class Fork {
 
 		ForkMonitor() {
 			super("Integrity - Fork Monitor Thread");
+			setDaemon(true);
 		}
 
 		/**
