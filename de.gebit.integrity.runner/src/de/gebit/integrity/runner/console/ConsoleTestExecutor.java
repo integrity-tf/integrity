@@ -142,7 +142,7 @@ public class ConsoleTestExecutor {
 
 		List<Thread> tempZombieThreads = new LinkedList<Thread>();
 		for (Thread tempThread : tempArray) {
-			if ((tempThread.getName() != null && tempThread.getName().startsWith("Integrity - "))
+			if ((tempThread.getName() != null && !tempThread.getName().startsWith("Integrity - "))
 					&& !threadsRunningBeforeTestExecution.containsKey(tempThread) && tempThread.isAlive()
 					&& !tempThread.isDaemon()) {
 				tempZombieThreads.add(tempThread);
