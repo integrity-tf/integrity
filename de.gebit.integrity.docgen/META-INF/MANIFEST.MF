@@ -5,8 +5,8 @@ Bundle-SymbolicName: de.gebit.integrity.docgen
 Bundle-Version: 0.18.0.qualifier
 Require-Bundle: org.eclipse.xtext;bundle-version="2.8.3",
  org.eclipse.xtext.common.types;bundle-version="2.8.3",
- de.gebit.integrity.dsl;bundle-version="0.17.0",
- de.gebit.integrity.runner;bundle-version="0.17.0"
+ de.gebit.integrity.dsl,
+ de.gebit.integrity.runner
 Export-Package: de.gebit.integrity.docgen,
  de.gebit.integrity.docgen.console,
  de.gebit.integrity.docgen.html,
