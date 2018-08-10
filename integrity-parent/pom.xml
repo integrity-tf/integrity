@@ -41,7 +41,7 @@
 			      <groupId>de.gebit.integrity</groupId>
 			      <artifactId>integrity-target</artifactId>
 			      <version>${project.version}</version>
-			      <classifier>neon</classifier>
+			      <classifier>oxygen</classifier>
 			    </artifact>
 			  </target>
 			  <ignoreTychoRepositories>true</ignoreTychoRepositories>
