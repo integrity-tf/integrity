@@ -6,7 +6,7 @@
 <booleanAttribute key="M2_OFFLINE" value="false"/>
 <stringAttribute key="M2_PROFILES" value=""/>
 <listAttribute key="M2_PROPERTIES">
-<listEntry value="newVersion=0.17.14-SNAPSHOT"/>
+<listEntry value="newVersion=0.17.15-SNAPSHOT"/>
 <listEntry value="artifacts=integrity-all,integrity-parent"/>
 </listAttribute>
 <stringAttribute key="M2_RUNTIME" value="EMBEDDED"/>
@@ -15,5 +15,6 @@
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="true"/>
 <stringAttribute key="M2_USER_SETTINGS" value=""/>
 <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
+<booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:/build}/../"/>
 </launchConfiguration>
