@@ -831,8 +831,10 @@ public class DefaultTestRunner implements TestRunner {
 				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
 						: null;
 				try {
-					defineConstant(tempDefinition, tempValue, (tempDefinition.eContainer() instanceof SuiteDefinition)
-							? ((SuiteDefinition) tempDefinition.eContainer()) : null);
+					defineConstant(tempDefinition, tempValue,
+							(tempDefinition.eContainer() instanceof SuiteDefinition)
+									? ((SuiteDefinition) tempDefinition.eContainer())
+									: null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
@@ -1182,19 +1184,17 @@ public class DefaultTestRunner implements TestRunner {
 						// TODO make this nicer, it's kind of ugly to create a fake object with null values
 						abortExecutionCause = new ExceptionWrapper(null, null);
 
-						if (tempResult == null && tempForkResultSummary == null) {
-							// We may not have any result at this point, as the fork has aborted without providing us
-							// one. In order to ensure that at least the exception that triggered the abortion is logged
-							// in the counts (and thus a user who typically only looks at the total counts is alerted to
-							// the problem), we generate a result here with one exception. This might be wrong actually
-							// (for example there could have been a successful test before the exception, which may not
-							// be counted in this case), but that's basically what's meant by "test result total numbers
-							// may be inaccurate" which is printed out in this case, and the current structure of the
-							// master-fork sync protocol makes it hard to perfectly fix this inaccuracy in cases of
-							// sudden execution path deviations. Thus, this "forced result" was deemed a good-enough
-							// solution. This fixes issue #145: https://github.com/integrity-tf/integrity/issues/145
-							tempResult = new SuiteSummaryResult(0, 0, 1, 0, tempSuiteDuration);
-						}
+						// We may not have any result at this point, as the fork has aborted without providing us
+						// one. In order to ensure that at least the exception that triggered the abortion is logged
+						// in the counts (and thus a user who typically only looks at the total counts is alerted to
+						// the problem), we generate a result here with one exception. This might be wrong actually
+						// (for example there could have been a successful test before the exception, which may not
+						// be counted in this case), but that's basically what's meant by "test result total numbers
+						// may be inaccurate" which is printed out in this case, and the current structure of the
+						// master-fork sync protocol makes it hard to perfectly fix this inaccuracy in cases of
+						// sudden execution path deviations. Thus, this "forced result" was deemed a good-enough
+						// solution. This fixes issue #145: https://github.com/integrity-tf/integrity/issues/145
+						tempResult = new SuiteSummaryResult(0, 0, 1, 0, tempSuiteDuration);
 					}
 
 					// and afterwards we'll switch back to real test mode
@@ -1528,7 +1528,8 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
 			final SuiteDefinition aSuite) {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
-				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
+				? variableManager.get(((Variable) anInitialValue).getName())
+				: anInitialValue;
 
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
