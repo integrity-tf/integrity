@@ -831,8 +831,10 @@ public class DefaultTestRunner implements TestRunner {
 				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
 						: null;
 				try {
-					defineConstant(tempDefinition, tempValue, (tempDefinition.eContainer() instanceof SuiteDefinition)
-							? ((SuiteDefinition) tempDefinition.eContainer()) : null);
+					defineConstant(tempDefinition, tempValue,
+							(tempDefinition.eContainer() instanceof SuiteDefinition)
+									? ((SuiteDefinition) tempDefinition.eContainer())
+									: null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
@@ -1134,8 +1136,10 @@ public class DefaultTestRunner implements TestRunner {
 			executeTearDownSuites(tempSetupSuitesExecuted, tempTearDownResults);
 		}
 
-		SuiteSummaryResult tempResult = (!shouldExecuteFixtures()) ? null
-				: new SuiteResult(tempResults, tempSetupResults, tempTearDownResults, tempSuiteDuration);
+		SuiteSummaryResult tempResult = null;
+		if (shouldExecuteFixtures()) {
+			tempResult = new SuiteResult(tempResults, tempSetupResults, tempTearDownResults, tempSuiteDuration);
+		}
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -1200,7 +1204,13 @@ public class DefaultTestRunner implements TestRunner {
 					// and afterwards we'll switch back to real test mode
 					currentCallback.setDryRun(false);
 				} else {
-					// we're a fork and will return to dry run mode
+					// we're a fork and will return to dry run mode, but first, we'll send the fork result summary
+					if (tempResult != null) {
+						remotingServer.sendForkResultSummaryMessage(tempResult.getTestSuccessCount(),
+								tempResult.getTestFailCount(), tempResult.getTestExceptionCount(),
+								tempResult.getCallExceptionCount());
+					}
+
 					currentCallback.setDryRun(true);
 
 					if (shouldExecuteFixtures()) {
@@ -1528,7 +1538,8 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
 			final SuiteDefinition aSuite) {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
-				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
+				? variableManager.get(((Variable) anInitialValue).getName())
+				: anInitialValue;
 
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
