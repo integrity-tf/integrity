@@ -7,12 +7,19 @@
  *******************************************************************************/
 package de.gebit.integrity.runner.forking;
 
+import de.gebit.integrity.fixtures.FixtureParameter;
+import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.runner.time.TimeSyncState;
 
 /**
  * A forker is an implementation of an execution forking mechanism. Its task is to create another process, which ideally
  * is an exact clone of the current (parent) process. The idea is similar to a UNIX fork, but the child process is
  * expected to start "fresh" instead of continuing at the current instruction.
+ * <p>
+ * The implementations of this interface are usually instantiated once per created fork via their default constructor.
+ * If you'd like to have a parameterizable forker, you may add a constructor that accepts parameters. Use the
+ * {@link ForkerParameter} annotation to annotate parameters in the constructor and provide names for them, very much
+ * like you do with Fixture method and {@link FixtureParameter}.
  * 
  * @author Rene Schneider - initial API and implementation
  * 
