@@ -1518,7 +1518,17 @@ public class DefaultTestRunner implements TestRunner {
 			throws ClassNotFoundException, InstantiationException, UnexecutableException {
 		Object tempValue;
 		if (aValue == null) {
-			tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
+			if (isFork() && !shouldExecuteFixtures()) {
+				// Skip the value evaluation if we are on a fork AND the fork is not currently executing stuff.
+				// This complements a similar piece of code seen in the variable definition code that prevents
+				// the variable/constant to be defined if we're on a fork and the fork is in dry run mode.
+				// Values that are thrown away later anyway don't need to be computed, and if the are, this can
+				// even cause exceptions, because some input for those values might not be defined, as seen in
+				// issue #198, which this exception here intends to fix.
+				tempValue = null;
+			} else {
+				tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
+			}
 		} else {
 			tempValue = aValue;
 		}
