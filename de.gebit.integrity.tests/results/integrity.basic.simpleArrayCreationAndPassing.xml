@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="27.09.18 15:05" isotimestamp="2018-09-27T15:05:32" duration="1.244">
+  <variables />
+  <suite id="0" name="integrity.basic.simpleArrayCreationAndPassing" timestamp="27.09.18 15:05:32.0137">
+    <setup />
+    <variables>
+      <variable name="someVariable" />
+    </variables>
+    <statements>
+      <call id="1" line="75" name="generateArray" description="Creates an array" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateArray" timestamp="27.09.18 15:05:32.0138">
+        <parameters />
+        <result duration="0.030" type="success">
+          <variableUpdate name="someVariable" value="0, 1, 2, 3, 4" />
+        </result>
+      </call>
+      <call id="2" line="76" name="echoObject" description="Echoes an object" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoObject" timestamp="27.09.18 15:05:32.0138">
+        <parameters>
+          <parameter name="echo" value="0, 1, 2, 3, 4" />
+        </parameters>
+        <result duration="0.146" type="success" />
+      </call>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="1.081" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

@@ -831,8 +831,10 @@ public class DefaultTestRunner implements TestRunner {
 				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
 						: null;
 				try {
-					defineConstant(tempDefinition, tempValue, (tempDefinition.eContainer() instanceof SuiteDefinition)
-							? ((SuiteDefinition) tempDefinition.eContainer()) : null);
+					defineConstant(tempDefinition, tempValue,
+							(tempDefinition.eContainer() instanceof SuiteDefinition)
+									? ((SuiteDefinition) tempDefinition.eContainer())
+									: null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
@@ -1182,19 +1184,17 @@ public class DefaultTestRunner implements TestRunner {
 						// TODO make this nicer, it's kind of ugly to create a fake object with null values
 						abortExecutionCause = new ExceptionWrapper(null, null);
 
-						if (tempResult == null && tempForkResultSummary == null) {
-							// We may not have any result at this point, as the fork has aborted without providing us
-							// one. In order to ensure that at least the exception that triggered the abortion is logged
-							// in the counts (and thus a user who typically only looks at the total counts is alerted to
-							// the problem), we generate a result here with one exception. This might be wrong actually
-							// (for example there could have been a successful test before the exception, which may not
-							// be counted in this case), but that's basically what's meant by "test result total numbers
-							// may be inaccurate" which is printed out in this case, and the current structure of the
-							// master-fork sync protocol makes it hard to perfectly fix this inaccuracy in cases of
-							// sudden execution path deviations. Thus, this "forced result" was deemed a good-enough
-							// solution. This fixes issue #145: https://github.com/integrity-tf/integrity/issues/145
-							tempResult = new SuiteSummaryResult(0, 0, 1, 0, tempSuiteDuration);
-						}
+						// We may not have any result at this point, as the fork has aborted without providing us
+						// one. In order to ensure that at least the exception that triggered the abortion is logged
+						// in the counts (and thus a user who typically only looks at the total counts is alerted to
+						// the problem), we generate a result here with one exception. This might be wrong actually
+						// (for example there could have been a successful test before the exception, which may not
+						// be counted in this case), but that's basically what's meant by "test result total numbers
+						// may be inaccurate" which is printed out in this case, and the current structure of the
+						// master-fork sync protocol makes it hard to perfectly fix this inaccuracy in cases of
+						// sudden execution path deviations. Thus, this "forced result" was deemed a good-enough
+						// solution. This fixes issue #145: https://github.com/integrity-tf/integrity/issues/145
+						tempResult = new SuiteSummaryResult(0, 0, 1, 0, tempSuiteDuration);
 					}
 
 					// and afterwards we'll switch back to real test mode
@@ -1508,7 +1508,17 @@ public class DefaultTestRunner implements TestRunner {
 			throws ClassNotFoundException, InstantiationException, UnexecutableException {
 		Object tempValue;
 		if (aValue == null) {
-			tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
+			if (isFork() && !shouldExecuteFixtures()) {
+				// Skip the value evaluation if we are on a fork AND the fork is not currently executing stuff.
+				// This complements a similar piece of code seen in the variable definition code that prevents
+				// the variable/constant to be defined if we're on a fork and the fork is in dry run mode.
+				// Values that are thrown away later anyway don't need to be computed, and if the are, this can
+				// even cause exceptions, because some input for those values might not be defined, as seen in
+				// issue #198, which this exception here intends to fix.
+				tempValue = null;
+			} else {
+				tempValue = parameterResolver.resolveStatically(aDefinition, variantInExecution);
+			}
 		} else {
 			tempValue = aValue;
 		}
@@ -1528,7 +1538,8 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
 			final SuiteDefinition aSuite) {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
-				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
+				? variableManager.get(((Variable) anInitialValue).getName())
+				: anInitialValue;
 
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
@@ -1731,7 +1742,17 @@ public class DefaultTestRunner implements TestRunner {
 		// run or test run mode.
 		try {
 			setVariableValueConverted(anAssignment.getTarget().getName(), anAssignment.getValue(), true);
-		} catch (InstantiationException | ClassNotFoundException | UnexecutableException exc) {
+		} catch (UnexecutableException exc) {
+			// This is expected to happen in some cases during dry run, namely on operations to be executed on
+			// assignment which use variables that are dynamically assigned from call results. But that is not a
+			// problem, we can safely ignore this, the variable will then not be assigned. In the real test run
+			// however it should not happen, so let's print it on stderr in that case.
+			// This fixes issue #197: Exception thrown before test runs in case of assigns having operations
+			// with variables filled via call (https://github.com/integrity-tf/integrity/issues/197)
+			if (shouldExecuteFixtures()) {
+				exc.printStackTrace();
+			}
+		} catch (InstantiationException | ClassNotFoundException exc) {
 			exc.printStackTrace();
 		}
 	}

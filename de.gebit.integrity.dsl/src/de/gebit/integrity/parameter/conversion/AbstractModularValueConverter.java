@@ -516,8 +516,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				} else if (tempResult != null && tempResult.getClass().isArray()) {
 					// A slight variant of the collection case is an array (possibly filled with Integrity types)
 					// We just convert the individual elements in this case.
-					Object tempResultArray = Array.newInstance(tempResult.getClass().getComponentType(),
-							Array.getLength(tempResult));
+					Object tempResultArray = Array.newInstance(aTargetType, Array.getLength(tempResult));
 					for (int i = 0; i < Array.getLength(tempResult); i++) {
 						Array.set(tempResultArray, i, convertSingleValueToTargetType(aTargetType, aParameterizedType,
 								Array.get(tempResult, i), aConversionContext, someVisitedValues));
