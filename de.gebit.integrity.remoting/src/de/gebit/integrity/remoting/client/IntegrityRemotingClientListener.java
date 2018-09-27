@@ -169,4 +169,15 @@ public interface IntegrityRemotingClientListener {
 	 */
 	void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace);
 
+	/**
+	 * Called when a fork has finished an execution block and has returned the summary result data.
+	 * 
+	 * @param aSuccessCount
+	 * @param aFailureCount
+	 * @param aTestExceptionCount
+	 * @param aCallExceptionCount
+	 */
+	void onForkResultSummaryRetrieval(Integer aSuccessCount, Integer aFailureCount, Integer aTestExceptionCount,
+			Integer aCallExceptionCount);
+
 }

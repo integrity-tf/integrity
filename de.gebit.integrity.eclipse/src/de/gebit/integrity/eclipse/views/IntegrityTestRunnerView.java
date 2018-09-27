@@ -2727,6 +2727,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 		public void onAbortExecution(String anAbortExecutionMessage, String anAbortExecutionStackTrace) {
 			// not used in this context
 		}
+
+		@Override
+		public void onForkResultSummaryRetrieval(Integer aSuccessCount, Integer aFailureCount,
+				Integer aTestExceptionCount, Integer aCallExceptionCount) {
+			// not used in this context
+		}
 	}
 
 	private class AutoConnectThread extends Thread {

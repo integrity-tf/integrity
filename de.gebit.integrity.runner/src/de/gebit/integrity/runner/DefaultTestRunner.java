@@ -1136,8 +1136,10 @@ public class DefaultTestRunner implements TestRunner {
 			executeTearDownSuites(tempSetupSuitesExecuted, tempTearDownResults);
 		}
 
-		SuiteSummaryResult tempResult = (!shouldExecuteFixtures()) ? null
-				: new SuiteResult(tempResults, tempSetupResults, tempTearDownResults, tempSuiteDuration);
+		SuiteSummaryResult tempResult = null;
+		if (shouldExecuteFixtures()) {
+			tempResult = new SuiteResult(tempResults, tempSetupResults, tempTearDownResults, tempSuiteDuration);
+		}
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -1184,23 +1186,31 @@ public class DefaultTestRunner implements TestRunner {
 						// TODO make this nicer, it's kind of ugly to create a fake object with null values
 						abortExecutionCause = new ExceptionWrapper(null, null);
 
-						// We may not have any result at this point, as the fork has aborted without providing us
-						// one. In order to ensure that at least the exception that triggered the abortion is logged
-						// in the counts (and thus a user who typically only looks at the total counts is alerted to
-						// the problem), we generate a result here with one exception. This might be wrong actually
-						// (for example there could have been a successful test before the exception, which may not
-						// be counted in this case), but that's basically what's meant by "test result total numbers
-						// may be inaccurate" which is printed out in this case, and the current structure of the
-						// master-fork sync protocol makes it hard to perfectly fix this inaccuracy in cases of
-						// sudden execution path deviations. Thus, this "forced result" was deemed a good-enough
-						// solution. This fixes issue #145: https://github.com/integrity-tf/integrity/issues/145
-						tempResult = new SuiteSummaryResult(0, 0, 1, 0, tempSuiteDuration);
+						if (tempResult == null && tempForkResultSummary == null) {
+							// We may not have any result at this point, as the fork has aborted without providing us
+							// one. In order to ensure that at least the exception that triggered the abortion is logged
+							// in the counts (and thus a user who typically only looks at the total counts is alerted to
+							// the problem), we generate a result here with one exception. This might be wrong actually
+							// (for example there could have been a successful test before the exception, which may not
+							// be counted in this case), but that's basically what's meant by "test result total numbers
+							// may be inaccurate" which is printed out in this case, and the current structure of the
+							// master-fork sync protocol makes it hard to perfectly fix this inaccuracy in cases of
+							// sudden execution path deviations. Thus, this "forced result" was deemed a good-enough
+							// solution. This fixes issue #145: https://github.com/integrity-tf/integrity/issues/145
+							tempResult = new SuiteSummaryResult(0, 0, 1, 0, tempSuiteDuration);
+						}
 					}
 
 					// and afterwards we'll switch back to real test mode
 					currentCallback.setDryRun(false);
 				} else {
-					// we're a fork and will return to dry run mode
+					// we're a fork and will return to dry run mode, but first, we'll send the fork result summary
+					if (tempResult != null) {
+						remotingServer.sendForkResultSummaryMessage(tempResult.getTestSuccessCount(),
+								tempResult.getTestFailCount(), tempResult.getTestExceptionCount(),
+								tempResult.getCallExceptionCount());
+					}
+
 					currentCallback.setDryRun(true);
 
 					if (shouldExecuteFixtures()) {

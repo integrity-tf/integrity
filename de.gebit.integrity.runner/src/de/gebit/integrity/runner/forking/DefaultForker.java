@@ -15,11 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import de.gebit.integrity.forker.ForkerParameter;
 import de.gebit.integrity.runner.time.TimeSyncState;
 
 /**
  * A default forking implementation. This should be suitable for most execution environments. If not, it is designed to
  * be easily extensible, or alternatively you can of course create an entirely own {@link Forker} implementation.
+ * <p>
+ * This default forker does effectively create a "mirror" of the current process, runnning the same main class with the
+ * same arguments as the main process. It therefore does not accept any parameters (= it does not have a constructor
+ * with parameters), since there is no need to do that. However, if you want to create a forker that modifies this
+ * behavior, you may very well subclass this one or create one from scratch. You may also use a constructor with
+ * parameters (use {@link ForkerParameter} just like you would for fixture methods) if you want to parameterize your
+ * forker in the test scripts.
  * 
  * @author Rene Schneider - initial API and implementation
  * 

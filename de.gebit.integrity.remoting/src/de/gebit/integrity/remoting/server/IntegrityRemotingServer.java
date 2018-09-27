@@ -28,6 +28,7 @@ import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionControlMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
+import de.gebit.integrity.remoting.transport.messages.ForkResultSummaryMessage;
 import de.gebit.integrity.remoting.transport.messages.ForkSetupMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
@@ -247,6 +248,24 @@ public class IntegrityRemotingServer {
 	public void sendTestTimeSyncResponse(String anExceptionMessage, String anExceptionStackTrace) {
 		if (serverEndpoint.isActive()) {
 			serverEndpoint.broadcastMessage(new TimeSyncResultMessage(anExceptionMessage, anExceptionStackTrace));
+		}
+	}
+	
+	/**
+	 * Sends a fork result summary message.
+	 * 
+	 * @param aSuccessCount
+	 *            the number of successful tests
+	 * @param aFailureCount
+	 *            the number of failed tests
+	 * @param aTestExceptionCount
+	 *            the number of exceptions in tests
+	 * @param aCallExceptionCount
+	 *            the number of call exceptions in tests
+	 */
+	public void sendForkResultSummaryMessage(Integer aSuccessCount, Integer aFailureCount, Integer aTestExceptionCount, Integer aCallExceptionCount) {
+		if(serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new ForkResultSummaryMessage(aSuccessCount, aFailureCount, aTestExceptionCount, aCallExceptionCount));
 		}
 	}
 

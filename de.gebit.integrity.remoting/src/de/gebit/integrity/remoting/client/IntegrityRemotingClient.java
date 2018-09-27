@@ -28,6 +28,7 @@ import de.gebit.integrity.remoting.transport.messages.AbstractMessage;
 import de.gebit.integrity.remoting.transport.messages.BreakpointUpdateMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionControlMessage;
 import de.gebit.integrity.remoting.transport.messages.ExecutionStateMessage;
+import de.gebit.integrity.remoting.transport.messages.ForkResultSummaryMessage;
 import de.gebit.integrity.remoting.transport.messages.ForkSetupMessage;
 import de.gebit.integrity.remoting.transport.messages.IntegrityRemotingVersionMessage;
 import de.gebit.integrity.remoting.transport.messages.SetListBaselineMessage;
@@ -347,6 +348,16 @@ public class IntegrityRemotingClient {
 			@Override
 			public void processMessage(TimeSyncResultMessage aMessage, Endpoint anEndpoint) {
 				listener.onTimeSyncResponse(aMessage);
+			}
+		});
+
+		tempMap.put(ForkResultSummaryMessage.class, new MessageProcessor<ForkResultSummaryMessage>() {
+
+			@Override
+			public void processMessage(ForkResultSummaryMessage aMessage, Endpoint anEndpoint) {
+				listener.onForkResultSummaryRetrieval(aMessage.getSuccessCount(), aMessage.getFailureCount(),
+						aMessage.getCallExceptionCount(), aMessage.getTestExceptionCount());
+				;
 			}
 		});
 

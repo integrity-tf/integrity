@@ -34,8 +34,6 @@ import de.gebit.integrity.remoting.client.IntegrityRemotingClient;
 import de.gebit.integrity.remoting.client.IntegrityRemotingClientListener;
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
-import de.gebit.integrity.remoting.entities.setlist.SetListEntryAttributeKeys;
-import de.gebit.integrity.remoting.entities.setlist.SetListEntryTypes;
 import de.gebit.integrity.remoting.server.IntegrityRemotingServer;
 import de.gebit.integrity.remoting.transport.Endpoint;
 import de.gebit.integrity.remoting.transport.enums.ExecutionCommands;
@@ -251,7 +249,8 @@ public class Fork {
 	 */
 	public static int getForkTimesyncTimeout() {
 		return System.getProperty(FORK_TIMESYNC_TIMEOUT_PROPERTY) != null
-				? Integer.parseInt(System.getProperty(FORK_TIMESYNC_TIMEOUT_PROPERTY)) : FORK_TIMESYNC_TIMEOUT_DEFAULT;
+				? Integer.parseInt(System.getProperty(FORK_TIMESYNC_TIMEOUT_PROPERTY))
+				: FORK_TIMESYNC_TIMEOUT_DEFAULT;
 	}
 
 	/**
@@ -640,26 +639,13 @@ public class Fork {
 			if (server != null) {
 				server.updateSetList(anEntryInExecution, someUpdatedEntries);
 			}
+		}
 
-			for (SetListEntry tempEntry : someUpdatedEntries) {
-				if (SetListEntryTypes.RESULT.equals(tempEntry.getType())) {
-					// It is a result...
-					Integer tempSuccessCount = tempEntry.getAttribute(Integer.class,
-							SetListEntryAttributeKeys.SUCCESS_COUNT);
-					Integer tempFailureCount = tempEntry.getAttribute(Integer.class,
-							SetListEntryAttributeKeys.FAILURE_COUNT);
-					Integer tempTestExceptionCount = tempEntry.getAttribute(Integer.class,
-							SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT);
-					Integer tempCallExceptionCount = tempEntry.getAttribute(Integer.class,
-							SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT);
-					if (tempSuccessCount != null && tempFailureCount != null && tempTestExceptionCount != null
-							&& tempCallExceptionCount != null) {
-						// ...must be a suite result!
-						lastResultSummary = new ForkResultSummary(tempSuccessCount, tempFailureCount,
-								tempTestExceptionCount, tempCallExceptionCount);
-					}
-				}
-			}
+		@Override
+		public void onForkResultSummaryRetrieval(Integer aSuccessCount, Integer aFailureCount,
+				Integer aTestExceptionCount, Integer aCallExceptionCount) {
+			lastResultSummary = new ForkResultSummary(aSuccessCount, aFailureCount, aTestExceptionCount,
+					aCallExceptionCount);
 		}
 
 		@Override
