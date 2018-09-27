@@ -226,6 +226,15 @@ public class NoOpFixture {
 		return tempChar;
 	}
 
+	@FixtureMethod(description = "Creates an array")
+	public Long[] generateArray() {
+		Long[] tempTestArray = new Long[5];
+		for (int i = 0; i < 5; i++) {
+			tempTestArray[i] = new Long(i);
+		}
+		return tempTestArray;
+	}
+
 	public enum Enum {
 
 		VALUE1,

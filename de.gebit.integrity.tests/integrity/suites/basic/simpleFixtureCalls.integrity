@@ -67,6 +67,16 @@ packagedef integrity.basic with
 	
 	suiteend
 	
+	
+	suitedef simpleArrayCreationAndPassing with
+	
+		// This failed because of issue 199
+		variable someVariable
+		call integrity.fixtures.basic.noop.generateArray -> someVariable
+		call integrity.fixtures.basic.noop.echoObject echo: someVariable	
+	
+	suiteend
+	
 
 
 packageend
