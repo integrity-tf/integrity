@@ -146,6 +146,21 @@ public class AdditionFixture {
 		return anEnum;
 	}
 
+	@FixtureMethod
+	public Object returnObject(@FixtureParameter(name = "value") Object anObject) {
+		return anObject;
+	}
+
+	@FixtureMethod(description = "Check that '$object$' is not null.")
+	public Boolean isNotNull(@FixtureParameter(name = "object", mandatory = true) Object anObject) {
+		return anObject != null;
+	}
+
+	@FixtureMethod(description = "Returns the integer 10.")
+	public Integer return10() {
+		return 10;
+	}
+
 	private void pause() {
 		try {
 			Thread.sleep(1000);

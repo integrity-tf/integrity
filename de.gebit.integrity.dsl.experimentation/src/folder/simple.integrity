@@ -1,115 +1,130 @@
-import mypackage.*
-import mysecondpackage.*
+// This is for issue 200
+packagedef somevariablepackage with
+	
+	forkdef aFork1
+		
+	testdef isEqual uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnObject
+		
+	private variable aVariable
+	
+	suitedef test1 requires innerTest with
+	
+	suiteend
 
-/**
-* This is a package. <br>
-* <p><b>And it even has documentation!</b></p>
-*/
-packagedef mypackage with
+	private suitedef innerTest concludedby realNoopSuite with
 	
-	/**
-	* This is the first and only fork defined in this package!
-	*/
-	forkdef fork1
+		suite test2
 	
-	/**
-	 * A language variant for Germany.
-	 */
-	variantdef deDE
-	
-	/**
-	 * A language variant for the United States.
-	 */
-	variantdef enUS
-		
-	variable testString initially "test"
-	
-	constant testConstant "abc"
-	
-	private constant anotherConstant 12.245
-	
-	constant complexConstant {
-		someKey: "someValue"
-		someMoreKeys: 123
-	}, "Blahblub"
-	
-	/**
-	 * Here we have a language-dependent constant.
-	 */
-	private constant languageString "???"
-		in deDE: "Die deutsche Version"
-		in enUS: "The english version", "Another english version"
-	
-	/**
-	 * A constant with a funny name.<br>
-	 * <ul>
-	 * <li>And it also has some lists</li>
-	 * <li>With items</li>
-	 * </ul> 
-	 */
-	private constant woohoo parameterized
+	suiteend
 
-	/**
-	 * This is the suite that's usually started for <i>experimentation</i>.<br>
-	 * It has a <b>multi-line</b> comment.
-	 * <p>There is even a paragraph!
-	 * <h1>And a big header!</h1>
-	 * <h2>Small header as well</h2>
-	 * <ul>
-	 * <li>And it also has some more lists
-	 * <li><strong>With items</strong></li>
-	 * </ul>
-	 * <ol><li>first</li><li>second</li><li>third</li></ol>
-	 * @param testParameter The first parameter that this suite gets
-	 * @param anotherParameter
-	 * 				This is the second parameter
-	 * @return aResult
-	 *              The result that is returned by this suite
-	 */
-	suitedef asuite gets testParameter anotherParameter returns aResult with
-		
-		// Sets date/time on all forks and the master process (= the one that starts all forks) to a specific, frozen date and time 00:00:00
-		timeset 12.10.2001
-		
-		// Sets date/time on a specific fork to a specific time, but lets it progress afterwards with 3x normal speed
-		timeset 10.10.2001 15:30:01 progressing 3x on fork1
-		
-		// Sets date/time on the master process to a specific ISO-formatted time
-		timeset 2003-10-16T20:00:00+0200 on master
-		
-		// Resets date/time on all forks and the master to live system date/time
-		timeset live
-		
-				
-		suite bsuite on fork1
-		
-		timeset live
-		
-		suite csuite on fork1
-		
-		suite bsuite on fork1
+	private suitedef test2 with
+
+		assign 10 -> aVariable
+		test isEqual value: aVariable = 10 // optional
+		suite noopSuite on aFork1
+		test isEqual value: aVariable = 10 // optional, but fails because value is 12
+		assign (aVariable + 2) -> aVariable
+		test isEqual value: aVariable = 12 // optional, but fails because value is 14
 		
 	suiteend
-	
-	
-	suitedef bsuite with
 		
-		test echo echo: "blah" = "blah"
-			
+	private suitedef noopSuite with
+		test isEqual value: aVariable = 10 // optional
 	suiteend
 	
+	suitedef realNoopSuite with
+		suite emptySuite on aFork1
+	suiteend
 	
-	suitedef csuite with
-	
-		timeset 15.10.2000
-	
+	private suitedef emptySuite with
 	suiteend
 	
 packageend
 
 
-packagedef mypackage.deeperPackage with
 
-	constant someUnusedConstantJustSoThereIsSomethingInThisPackage
 
+// This is for issue 192
+packagedef somepackage with
+	
+	forkdef aFork1
+	forkdef aFork2
+	forkdef aFork3
+	forkdef aFork4
+		
+	testdef isNotNull uses de.gebit.integrity.experiments.fixtures.AdditionFixture#isNotNull
+		
+	suitedef test1 with
+			
+		variable aVariable
+		assign 10 -> aVariable
+		suite testNotNull aParameterValue: aVariable on aFork2
+			
+		variable aVariable2
+		suite generateAFour aReturnValue -> aVariable2 on aFork3
+		test isNotNull object: aVariable2
+			
+		variable aVariable3
+		assign 20 -> aVariable3
+			
+		suite testNotNull aParameterValue: aVariable3 on aFork1 // L1
+		suite testNotNull aParameterValue: aVariable3 on aFork2 // L2
+		suite testNotNull aParameterValue: aVariable3 on aFork3 // L3
+		suite testNotNull aParameterValue: aVariable3 on aFork4 // L4
+			
+	suiteend
+		
+	private suitedef generateAFour returns aReturnValue with
+		assign 4 -> aReturnValue
+	suiteend
+		
+	private suitedef testNotNull gets aParameterValue with
+		test isNotNull object: aParameterValue
+	suiteend
+	
+packageend
+
+
+// This is for issue 194
+packagedef somepackage2 with
+	
+	forkdef aFork1
+	forkdef aFork2
+	forkdef aFork3
+	forkdef aFork4
+		
+	testdef isNotNull uses de.gebit.integrity.experiments.fixtures.AdditionFixture#isNotNull
+	calldef return10 uses de.gebit.integrity.experiments.fixtures.AdditionFixture#return10
+		
+	suitedef test1 with
+			
+		variable aVariable
+		// assign 10 -> aVariable
+		call return10 -> aVariable
+		suite testNotNull aParameterValue: aVariable on aFork2
+			
+		variable aVariable2
+		suite generateAFour aReturnValue -> aVariable2 on aFork3
+		test isNotNull object: aVariable2
+			
+		variable aVariable3
+		// assign 10 -> aVariable3
+		call return10 -> aVariable3
+			
+		suite testNotNull aParameterValue: aVariable3 on aFork1 // L1
+		suite testNotNull aParameterValue: aVariable3 on aFork2 // L2
+		suite testNotNull aParameterValue: aVariable3 on aFork3 // L3
+		suite testNotNull aParameterValue: aVariable3 on aFork4 // L4
+		
+	suiteend
+		
+	private suitedef generateAFour returns aReturnValue with
+		call return10 -> aReturnValue
+		// assign 10 -> aReturnValue
+	suiteend
+		
+	private suitedef testNotNull gets aParameterValue with
+		test isNotNull object: aParameterValue
+	suiteend
+	
 packageend
