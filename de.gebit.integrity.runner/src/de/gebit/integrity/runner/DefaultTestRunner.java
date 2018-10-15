@@ -1738,22 +1738,23 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		// Assignments are very much like variable definitions with default value - we perform them regardless of dry
-		// run or test run mode.
-		try {
-			setVariableValueConverted(anAssignment.getTarget().getName(), anAssignment.getValue(), true);
-		} catch (UnexecutableException exc) {
-			// This is expected to happen in some cases during dry run, namely on operations to be executed on
-			// assignment which use variables that are dynamically assigned from call results. But that is not a
-			// problem, we can safely ignore this, the variable will then not be assigned. In the real test run
-			// however it should not happen, so let's print it on stderr in that case.
-			// This fixes issue #197: Exception thrown before test runs in case of assigns having operations
-			// with variables filled via call (https://github.com/integrity-tf/integrity/issues/197)
-			if (shouldExecuteFixtures()) {
+		if (shouldExecuteFixtures()) {
+			// Only perform variable assignments if we are not in dry run mode
+			try {
+				setVariableValueConverted(anAssignment.getTarget().getName(), anAssignment.getValue(), true);
+			} catch (UnexecutableException exc) {
+				// This is expected to happen in some cases during dry run, namely on operations to be executed on
+				// assignment which use variables that are dynamically assigned from call results. But that is not a
+				// problem, we can safely ignore this, the variable will then not be assigned. In the real test run
+				// however it should not happen, so let's print it on stderr in that case.
+				// This fixes issue #197: Exception thrown before test runs in case of assigns having operations
+				// with variables filled via call (https://github.com/integrity-tf/integrity/issues/197)
+				if (shouldExecuteFixtures()) {
+					exc.printStackTrace();
+				}
+			} catch (InstantiationException | ClassNotFoundException exc) {
 				exc.printStackTrace();
 			}
-		} catch (InstantiationException | ClassNotFoundException exc) {
-			exc.printStackTrace();
 		}
 	}
 
