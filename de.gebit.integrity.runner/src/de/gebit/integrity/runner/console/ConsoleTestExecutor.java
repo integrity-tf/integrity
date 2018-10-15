@@ -126,11 +126,8 @@ public class ConsoleTestExecutor {
 	 * map. This is used in conjunction with {@link #checkForZombieThreads()}.
 	 */
 	public void prepareZombieThreadCheck() {
-		Thread[] tempArray = new Thread[Thread.activeCount()];
-		Thread.enumerate(tempArray);
-
 		threadsRunningBeforeTestExecution.clear();
-		for (Thread tempThread : tempArray) {
+		for (Thread tempThread : retrieveListOfAllThreads()) {
 			if (tempThread.isAlive() && !tempThread.isDaemon()) {
 				threadsRunningBeforeTestExecution.put(tempThread, true);
 			}
@@ -138,15 +135,32 @@ public class ConsoleTestExecutor {
 	}
 
 	/**
+	 * Gets a list of all threads known to the JVM. Due to the Thread API it is non-trivial to get such a list reliably,
+	 * which is why that is encapsulated here. The returned list is guaranteed to not contain null items.
+	 * 
+	 * @return a list of threads
+	 */
+	protected List<Thread> retrieveListOfAllThreads() {
+		List<Thread> tempList = new ArrayList<>();
+		Thread[] tempArray = new Thread[Thread.activeCount() + 10];
+		Thread.enumerate(tempArray);
+
+		for (Thread tempThread : tempArray) {
+			if (tempThread != null) {
+				tempList.add(tempThread);
+			}
+		}
+
+		return tempList;
+	}
+
+	/**
 	 * Searches for any threads still running which were not running when {@link #prepareZombieThreadCheck()} was
 	 * executed and prints them on the console. This mechanism is designed to find
 	 */
 	public void checkForZombieThreads() {
-		Thread[] tempArray = new Thread[Thread.activeCount()];
-		Thread.enumerate(tempArray);
-
 		List<Thread> tempZombieThreads = new LinkedList<Thread>();
-		for (Thread tempThread : tempArray) {
+		for (Thread tempThread : retrieveListOfAllThreads()) {
 			if ((tempThread.getName() != null && !tempThread.getName().startsWith("Integrity - "))
 					&& !threadsRunningBeforeTestExecution.containsKey(tempThread) && tempThread.isAlive()
 					&& !tempThread.isDaemon()) {
