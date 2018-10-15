@@ -10,6 +10,7 @@ package de.gebit.integrity.docgen.html;
 import java.util.Collection;
 
 import de.gebit.integrity.docgen.IntegrityPackage;
+import htmlflow.HtmlWriter;
 import htmlflow.elements.HtmlA;
 import htmlflow.elements.HtmlBody;
 import htmlflow.elements.HtmlDiv;
@@ -58,7 +59,7 @@ public class PackageIndexView extends IntegrityHtmlView<Collection<String>> {
 		tempSearchFormButton.addAttr("id", "searchbutton");
 		tempSearchFormButton.addAttr("type", "button");
 		tempSearchFormButton.addAttr("value", "Search");
-		tempSearchForm.addChild(tempSearchFormInput);
+		tempSearchForm.addChild((HtmlWriter<?>) tempSearchFormInput);
 		tempSearchForm.addChild(tempSearchFormButton);
 
 		tempMainContainerDiv.div().idAttr("searchresults");
