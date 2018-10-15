@@ -321,7 +321,7 @@ terminal STRING:
 			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
 			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'";
 terminal ML_COMMENT: '/*' !('*') -> '*/';
-terminal SL_COMMENT: '//' !('\n'|'\r')* ('\r'? '\n')?;
+terminal SL_COMMENT: '//' !('\n'|'\r')*;
 terminal SL_VISIBLE_COMMENT: '-- ' !('\n'|'\r')*;
 terminal SL_VISIBLE_TITLE_COMMENT: '--- ' !('\n'|'\r')*;
 terminal ML_VISIBLE_COMMENT: '/- ' -> '-/';

@@ -5141,7 +5141,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal SL_COMMENT:
-	//	'//' !('\n' | '\r')* ('\r'? '\n')?;
+	//	'//' !('\n' | '\r')*;
 	public TerminalRule getSL_COMMENTRule() {
 		return tSL_COMMENT;
 	} 
