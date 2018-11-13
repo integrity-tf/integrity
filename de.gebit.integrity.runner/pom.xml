@@ -4,7 +4,7 @@
   <parent>
     <artifactId>integrity-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>0.16.6-SNAPSHOT</version>
+    <version>0.16.7-SNAPSHOT</version>
     <relativePath>../integrity-parent/pom.xml</relativePath>
   </parent>
   <artifactId>de.gebit.integrity.runner</artifactId>
