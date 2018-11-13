@@ -22,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
+import org.objenesis.strategy.StdInstantiatorStrategy;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
@@ -438,6 +440,7 @@ public class Endpoint {
 		Kryo tempKryo = new Kryo();
 
 		tempKryo.register(org.jdom.Element.class, new JavaSerializer());
+		tempKryo.setInstantiatorStrategy(new Kryo.DefaultInstantiatorStrategy(new StdInstantiatorStrategy()));
 
 		return tempKryo;
 	}
