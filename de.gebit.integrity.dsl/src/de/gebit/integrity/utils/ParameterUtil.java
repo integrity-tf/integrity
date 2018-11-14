@@ -44,6 +44,12 @@ public final class ParameterUtil {
 	public static final String DEFAULT_PARAMETER_NAME = "";
 
 	/**
+	 * A fixed result "value" object indicating that a result value actually did not even exist in the named results
+	 * returned by a fixture (not even with a "null" value, which is a different kind of statement).
+	 */
+	public static final String INEXISTENT_VALUE = "[inexistent]";
+
+	/**
 	 * Returns a map of named result names to values acquired from a given named result container. This container is
 	 * assumed to be a simple Java Bean, with accessible accessor methods useable to retrieve the values of fields. The
 	 * field names are used as result names and thus keys in the map. Unreachable fields are ignored.
