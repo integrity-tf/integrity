@@ -17,11 +17,14 @@ packagedef integrity.basic with
 		test echoStringArrayTest strings: null, null = null
 		test echoStringArrayTest strings: null = null, null
 	
-		// Arbitrary parameters with null values and null checks; this must succeed
-		test arbitraryParamEchoTest fixparam: null +param1 = null fixedresult = null +result1 = null +result2 = null
+		// Arbitrary parameters with null values and null checks and one inexistent value; this must succeed
+		test arbitraryParamEchoTest fixparam: null +testparam1: null fixedresult = null +testresult1 = null +testresult2 = inexistent
 		
 		// This must fail
-		test arbitraryParamEchoTest fixparam: 1 +param1 = 2 +param2 = "foo" fixedresult = null +result1 = null +result2 = null
+		test arbitraryParamEchoTest fixparam: 1 +testparam1: 2 +testparam2: "foo" fixedresult = null +testresult1 = null +testresult2 = null +"testresult 3" = null
+	
+		// This must also fail (because testparam1 goes into testresult1 so we have a result, albeit it being null)
+		test arbitraryParamEchoTest fixparam: null +testparam1: null fixedresult = null +testresult1 = inexistent
 	
 	suiteend
 

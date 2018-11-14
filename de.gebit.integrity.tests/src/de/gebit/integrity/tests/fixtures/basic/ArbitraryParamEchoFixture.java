@@ -19,14 +19,19 @@ import de.gebit.integrity.fixtures.FixtureParameter;
 public class ArbitraryParamEchoFixture implements ArbitraryParameterFixture {
 
 	@FixtureMethod(description = "echoes the values: $fixparam$, $testparam1$, $testparam2${testparam 3?, $testparam 3$}")
-	public ResultClass echo(@FixtureParameter(name = "fixparam") Integer aFixParam, Map<String, Object> someMoreParams) {
+	public ResultClass echo(@FixtureParameter(name = "fixparam") Integer aFixParam,
+			Map<String, Object> someMoreParams) {
 		ResultClass tempResultObject = new ResultClass();
 		tempResultObject.setFixedresult(aFixParam);
 
 		Map<String, Object> tempMap = new HashMap<String, Object>();
-		tempMap.put("testresult1", someMoreParams.get("testparam1"));
-		tempMap.put("testresult2", someMoreParams.get("testparam2"));
-		if (someMoreParams.get("testparam 3") != null) {
+		if (someMoreParams.containsKey("testparam1")) {
+			tempMap.put("testresult1", someMoreParams.get("testparam1"));
+		}
+		if (someMoreParams.containsKey("testparam2")) {
+			tempMap.put("testresult2", someMoreParams.get("testparam2"));
+		}
+		if (someMoreParams.containsKey("testparam 3")) {
 			tempMap.put("testresult 3", someMoreParams.get("testparam 3"));
 		}
 
