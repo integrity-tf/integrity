@@ -8,6 +8,7 @@
 package de.gebit.integrity.ui.highlighting;
 
 import java.text.BreakIterator;
+import java.text.CharacterIterator;
 import java.util.Iterator;
 
 import org.eclipse.jface.text.BadLocationException;
@@ -78,7 +79,7 @@ public class DSLLexerTokenAndCharacterPairAwareStrategy extends LexerTokenAndCha
 			}
 
 			com.ibm.icu.text.BreakIterator tempBreakIter = createBreakIterator();
-			tempBreakIter.setText(new DocumentCharacterIterator(aDocument));
+			tempBreakIter.setText((CharacterIterator) new DocumentCharacterIterator(aDocument));
 			int tempStart = tempBreakIter.preceding(anOffset);
 			if (tempStart == BreakIterator.DONE) {
 				tempStart = tempLine.getOffset();

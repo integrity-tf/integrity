@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Test Runner
 Bundle-SymbolicName: de.gebit.integrity.runner
 Bundle-Version: 0.18.0.qualifier
-Require-Bundle: org.eclipse.xtext;bundle-version="2.8.3",
+Require-Bundle: org.eclipse.xtext;bundle-version="2.15.0",
  de.gebit.integrity.dsl,
- org.eclipse.xtext.common.types;bundle-version="2.8.3",
+ org.eclipse.xtext.common.types;bundle-version="2.15.0",
  de.gebit.integrity.remoting;visibility:=reexport
 Export-Package: de.gebit.integrity.runner,
  de.gebit.integrity.runner.callbacks,
