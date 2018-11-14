@@ -1821,7 +1821,9 @@ public class DefaultTestRunner implements TestRunner {
 					for (NamedResult tempNamedResult : aTest.getResults()) {
 						String tempResultName = IntegrityDSLUtil
 								.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
-						Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
+						Object tempSingleFixtureResult = tempFixtureResultMap.containsKey(tempResultName)
+								? tempFixtureResultMap.get(tempResultName)
+								: ParameterUtil.INEXISTENT_VALUE;
 						ComparisonResult tempResult = resultComparator.compareResult(tempSingleFixtureResult,
 								tempNamedResult.getValue(), tempFixtureInstance,
 								aTest.getDefinition().getFixtureMethod(), tempResultName);

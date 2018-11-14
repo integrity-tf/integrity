@@ -62,6 +62,8 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.Int
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToEnumConstant;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.InexistentValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.InexistentValueToInexistentString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NullValueToNull;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigInteger;
@@ -315,6 +317,8 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(EnumValueToEnumConstant.class);
 		addConversion(EnumValueToString.class);
 		addConversion(EnumValueToFormattedString.class);
+		addConversion(InexistentValueToInexistentString.class);
+		addConversion(InexistentValueToFormattedString.class);
 
 		// java constants, Integrity -> Java
 		addConversion(JavaConstantToAnything.class);
