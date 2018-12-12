@@ -128,3 +128,35 @@ packagedef somepackage2 with
 	suiteend
 	
 packageend
+
+
+
+// This is for issue 205
+packagedef somepackage3 with
+	
+	forkdef aFork1
+		
+	calldef echoStringArray uses de.gebit.integrity.experiments.fixtures.ArrayFixture#echoStringArray
+	testdef isEqual uses de.gebit.integrity.experiments.fixtures.AdditionFixture#returnObject
+	
+	suitedef test1 with
+		
+		variable innerVariable
+		suite empty on aFork1
+		
+		call echoStringArray strings: "a", "b", "c" -> innerVariable
+		
+		suite test2 someArray: innerVariable
+		
+		suite empty on aFork1
+			
+	suiteend
+
+	private suitedef test2 gets someArray with
+		test isEqual value: someArray = "a", "b", "c"
+	suiteend
+	
+	private suitedef empty with
+	suiteend
+	
+packageend
