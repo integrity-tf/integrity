@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.TimeSet#getLive <em>Live</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TimeSet#getStartTime <em>Start Time</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.TimeSet#getDiffTime <em>Diff Time</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TimeSet#getProgressionMode <em>Progression Mode</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TimeSet#getProgressionFactor <em>Progression Factor</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.TimeSet#getForks <em>Forks</em>}</li>
@@ -78,6 +79,32 @@ public interface TimeSet extends SuiteStatement
    * @generated
    */
   void setStartTime(ValueOrEnumValueOrOperation value);
+
+  /**
+   * Returns the value of the '<em><b>Diff Time</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Diff Time</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Diff Time</em>' containment reference.
+   * @see #setDiffTime(TimeDifference)
+   * @see de.gebit.integrity.dsl.DslPackage#getTimeSet_DiffTime()
+   * @model containment="true"
+   * @generated
+   */
+  TimeDifference getDiffTime();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.TimeSet#getDiffTime <em>Diff Time</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Diff Time</em>' containment reference.
+   * @see #getDiffTime()
+   * @generated
+   */
+  void setDiffTime(TimeDifference value);
 
   /**
    * Returns the value of the '<em><b>Progression Mode</b></em>' attribute.

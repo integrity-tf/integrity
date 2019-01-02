@@ -8,6 +8,13 @@
 package de.gebit.integrity.runner.time;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.TemporalUnit;
+import java.util.List;
+
+import org.eclipse.xtext.util.Pair;
 
 /**
  * An object encapsulating the necessary internal parameters for fake test time generation.
@@ -105,6 +112,34 @@ public class TimeSyncState {
 		tempBuilder.append(new BigDecimal(progressionFactor).toPlainString());
 
 		return tempBuilder.toString();
+	}
+
+	/**
+	 * Returns a new instance of this {@link TimeSyncState} to which the given duration was added. This does NOT modify
+	 * the state that it is called upon!
+	 * 
+	 * @param aDiffTime
+	 *            the time to add (negative = subtract)
+	 * @return a new {@link TimeSyncState} instance
+	 */
+	public TimeSyncState plus(List<Pair<Long, TemporalUnit>> aDiffTime) {
+		// We need to know the current date/time in order to add the duration, because some specifications of a duration
+		// (like in months or years) actually result in different lengths of time, depending on the current date (for
+		// example the length of a month differs depending on the month).
+		long tempTimeSinceDecoupling = System.currentTimeMillis() - realtimeDecouplingTime;
+		long tempStartingTimeMillis = realtimeDecouplingTime + realtimeOffset
+				+ (long) (tempTimeSinceDecoupling * progressionFactor);
+		LocalDateTime tempCurrentTime = Instant.ofEpochMilli(tempStartingTimeMillis).atZone(ZoneId.systemDefault())
+				.toLocalDateTime();
+
+		for (Pair<Long, TemporalUnit> tempPair : aDiffTime) {
+			tempCurrentTime = tempCurrentTime.plus(tempPair.getFirst(), tempPair.getSecond());
+		}
+
+		long tempResultingTimeMillis = tempCurrentTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+		long tempTimeDifference = tempResultingTimeMillis - tempStartingTimeMillis;
+
+		return new TimeSyncState(realtimeOffset + tempTimeDifference, realtimeDecouplingTime, progressionFactor);
 	}
 
 }

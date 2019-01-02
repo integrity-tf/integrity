@@ -460,6 +460,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		}
 	}
 
+	private boolean isIntegrityType(Class<?> aType) {
+		return aType != null && aType.getName().startsWith("de.gebit.integrity");
+	}
+
 	/**
 	 * Converts a given {@link ValueOrEnumValueOrOperation} to a given Java type class, if possible.
 	 * 
@@ -516,7 +520,21 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				} else if (tempResult != null && tempResult.getClass().isArray()) {
 					// A slight variant of the collection case is an array (possibly filled with Integrity types)
 					// We just convert the individual elements in this case.
-					Object tempResultArray = Array.newInstance(aTargetType, Array.getLength(tempResult));
+					Class<?> tempArrayTargetType = aTargetType;
+					if (tempArrayTargetType == null) {
+						// The "null" type - for default conversion - cannot be used to instantiate an array.
+						// See if we have Integrity data types that may be converted to unpredictable Java default
+						// types. If yes, use an Object array to catch them all. Otherwise it should be safe to use
+						// the source array type as target type since no actual conversion should take place
+						// anyway. Fixes issue #205.
+						if (isIntegrityType(tempResult.getClass().getComponentType())) {
+							tempArrayTargetType = Object.class;
+						} else {
+							tempArrayTargetType = tempResult.getClass().getComponentType();
+						}
+					}
+
+					Object tempResultArray = Array.newInstance(tempArrayTargetType, Array.getLength(tempResult));
 					for (int i = 0; i < Array.getLength(tempResult); i++) {
 						Array.set(tempResultArray, i, convertSingleValueToTargetType(aTargetType, aParameterizedType,
 								Array.get(tempResult, i), aConversionContext, someVisitedValues));

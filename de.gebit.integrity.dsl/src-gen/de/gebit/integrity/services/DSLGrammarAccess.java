@@ -2048,8 +2048,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLiveLiveKeyword_2_0_0_0 = (Keyword)cLiveAssignment_2_0_0.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_2_0_1 = (RuleCall)cGroup_2_0.eContents().get(1);
 		private final Group cGroup_2_1 = (Group)cAlternatives_2.eContents().get(1);
-		private final Assignment cStartTimeAssignment_2_1_0 = (Assignment)cGroup_2_1.eContents().get(0);
-		private final RuleCall cStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0 = (RuleCall)cStartTimeAssignment_2_1_0.eContents().get(0);
+		private final Alternatives cAlternatives_2_1_0 = (Alternatives)cGroup_2_1.eContents().get(0);
+		private final Assignment cStartTimeAssignment_2_1_0_0 = (Assignment)cAlternatives_2_1_0.eContents().get(0);
+		private final RuleCall cStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0_0 = (RuleCall)cStartTimeAssignment_2_1_0_0.eContents().get(0);
+		private final Assignment cDiffTimeAssignment_2_1_0_1 = (Assignment)cAlternatives_2_1_0.eContents().get(1);
+		private final RuleCall cDiffTimeTimeDifferenceParserRuleCall_2_1_0_1_0 = (RuleCall)cDiffTimeAssignment_2_1_0_1.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_2_1_1 = (RuleCall)cGroup_2_1.eContents().get(1);
 		private final Group cGroup_2_1_2 = (Group)cGroup_2_1.eContents().get(2);
 		private final Assignment cProgressionModeAssignment_2_1_2_0 = (Assignment)cGroup_2_1_2.eContents().get(0);
@@ -2074,14 +2077,14 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_3_2_2 = (RuleCall)cGroup_3_2.eContents().get(2);
 		
 		//TimeSet:
-		//	'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-		//	(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
-		//	masterFork='master') ','? NL)+)?;
+		//	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
+		//	(progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL
+		//	((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
-		//masterFork='master') ','? NL)+)?
+		//'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
+		//(progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL
+		//((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?
 		public Group getGroup() { return cGroup; }
 
 		//'timeset'
@@ -2090,7 +2093,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 
-		//(live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
+		//(live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL
 		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?)
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
@@ -2106,15 +2109,24 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_2_0_1() { return cNLParserRuleCall_2_0_1; }
 
-		//startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
+		//(startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL
 		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
+		//(startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference)
+		public Alternatives getAlternatives_2_1_0() { return cAlternatives_2_1_0; }
+
 		//startTime=ValueOrEnumValueOrOperation
-		public Assignment getStartTimeAssignment_2_1_0() { return cStartTimeAssignment_2_1_0; }
+		public Assignment getStartTimeAssignment_2_1_0_0() { return cStartTimeAssignment_2_1_0_0; }
 
 		//ValueOrEnumValueOrOperation
-		public RuleCall getStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0() { return cStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0; }
+		public RuleCall getStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0_0() { return cStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0_0; }
+
+		//diffTime=TimeDifference
+		public Assignment getDiffTimeAssignment_2_1_0_1() { return cDiffTimeAssignment_2_1_0_1; }
+
+		//TimeDifference
+		public RuleCall getDiffTimeTimeDifferenceParserRuleCall_2_1_0_1_0() { return cDiffTimeTimeDifferenceParserRuleCall_2_1_0_1_0; }
 
 		//NL
 		public RuleCall getNLParserRuleCall_2_1_1() { return cNLParserRuleCall_2_1_1; }
@@ -2181,6 +2193,170 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//NL
 		public RuleCall getNLParserRuleCall_3_2_2() { return cNLParserRuleCall_3_2_2; }
+	}
+
+	public class TimeDifferenceElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TimeDifference");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cDirectionAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Alternatives cDirectionAlternatives_0_0 = (Alternatives)cDirectionAssignment_0.eContents().get(0);
+		private final Keyword cDirectionPlusSignKeyword_0_0_0 = (Keyword)cDirectionAlternatives_0_0.eContents().get(0);
+		private final Keyword cDirectionHyphenMinusKeyword_0_0_1 = (Keyword)cDirectionAlternatives_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
+		private final Assignment cValuesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cValuesTimeDifferencePartParserRuleCall_1_1_0 = (RuleCall)cValuesAssignment_1_1.eContents().get(0);
+		
+		//TimeDifference:
+		//	direction=('+' | '-') (NL values+=TimeDifferencePart)+;
+		@Override public ParserRule getRule() { return rule; }
+
+		//direction=('+' | '-') (NL values+=TimeDifferencePart)+
+		public Group getGroup() { return cGroup; }
+
+		//direction=('+' | '-')
+		public Assignment getDirectionAssignment_0() { return cDirectionAssignment_0; }
+
+		//('+' | '-')
+		public Alternatives getDirectionAlternatives_0_0() { return cDirectionAlternatives_0_0; }
+
+		//'+'
+		public Keyword getDirectionPlusSignKeyword_0_0_0() { return cDirectionPlusSignKeyword_0_0_0; }
+
+		//'-'
+		public Keyword getDirectionHyphenMinusKeyword_0_0_1() { return cDirectionHyphenMinusKeyword_0_0_1; }
+
+		//(NL values+=TimeDifferencePart)+
+		public Group getGroup_1() { return cGroup_1; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1_0() { return cNLParserRuleCall_1_0; }
+
+		//values+=TimeDifferencePart
+		public Assignment getValuesAssignment_1_1() { return cValuesAssignment_1_1; }
+
+		//TimeDifferencePart
+		public RuleCall getValuesTimeDifferencePartParserRuleCall_1_1_0() { return cValuesTimeDifferencePartParserRuleCall_1_1_0; }
+	}
+
+	public class TimeDifferencePartElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TimeDifferencePart");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cValueINTEGERTerminalRuleCall_0_0 = (RuleCall)cValueAssignment_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cTemporalUnitAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final Alternatives cTemporalUnitAlternatives_2_0 = (Alternatives)cTemporalUnitAssignment_2.eContents().get(0);
+		private final Keyword cTemporalUnitYKeyword_2_0_0 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(0);
+		private final Keyword cTemporalUnitYearKeyword_2_0_1 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(1);
+		private final Keyword cTemporalUnitYearsKeyword_2_0_2 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(2);
+		private final Keyword cTemporalUnitMonKeyword_2_0_3 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(3);
+		private final Keyword cTemporalUnitMonthKeyword_2_0_4 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(4);
+		private final Keyword cTemporalUnitMonthsKeyword_2_0_5 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(5);
+		private final Keyword cTemporalUnitDKeyword_2_0_6 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(6);
+		private final Keyword cTemporalUnitDayKeyword_2_0_7 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(7);
+		private final Keyword cTemporalUnitDaysKeyword_2_0_8 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(8);
+		private final Keyword cTemporalUnitHKeyword_2_0_9 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(9);
+		private final Keyword cTemporalUnitHourKeyword_2_0_10 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(10);
+		private final Keyword cTemporalUnitHoursKeyword_2_0_11 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(11);
+		private final Keyword cTemporalUnitMKeyword_2_0_12 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(12);
+		private final Keyword cTemporalUnitMinuteKeyword_2_0_13 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(13);
+		private final Keyword cTemporalUnitMinutesKeyword_2_0_14 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(14);
+		private final Keyword cTemporalUnitSKeyword_2_0_15 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(15);
+		private final Keyword cTemporalUnitSecondKeyword_2_0_16 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(16);
+		private final Keyword cTemporalUnitSecondsKeyword_2_0_17 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(17);
+		private final Keyword cTemporalUnitMsKeyword_2_0_18 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(18);
+		private final Keyword cTemporalUnitMillisecondKeyword_2_0_19 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(19);
+		private final Keyword cTemporalUnitMillisecondsKeyword_2_0_20 = (Keyword)cTemporalUnitAlternatives_2_0.eContents().get(20);
+		
+		//TimeDifferencePart:
+		//	value=INTEGER NL temporalUnit=('y' | 'year' | 'years' | 'mon' | 'month' | 'months' | 'd' | 'day' | 'days' | 'h' |
+		//	'hour' | 'hours' | 'm' | 'minute' | 'minutes' | 's' | 'second' | 'seconds' | 'ms' | 'millisecond' | 'milliseconds');
+		@Override public ParserRule getRule() { return rule; }
+
+		//value=INTEGER NL temporalUnit=('y' | 'year' | 'years' | 'mon' | 'month' | 'months' | 'd' | 'day' | 'days' | 'h' | 'hour'
+		//| 'hours' | 'm' | 'minute' | 'minutes' | 's' | 'second' | 'seconds' | 'ms' | 'millisecond' | 'milliseconds')
+		public Group getGroup() { return cGroup; }
+
+		//value=INTEGER
+		public Assignment getValueAssignment_0() { return cValueAssignment_0; }
+
+		//INTEGER
+		public RuleCall getValueINTEGERTerminalRuleCall_0_0() { return cValueINTEGERTerminalRuleCall_0_0; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
+
+		//temporalUnit=('y' | 'year' | 'years' | 'mon' | 'month' | 'months' | 'd' | 'day' | 'days' | 'h' | 'hour' | 'hours' | 'm'
+		//| 'minute' | 'minutes' | 's' | 'second' | 'seconds' | 'ms' | 'millisecond' | 'milliseconds')
+		public Assignment getTemporalUnitAssignment_2() { return cTemporalUnitAssignment_2; }
+
+		//('y' | 'year' | 'years' | 'mon' | 'month' | 'months' | 'd' | 'day' | 'days' | 'h' | 'hour' | 'hours' | 'm' | 'minute' |
+		//'minutes' | 's' | 'second' | 'seconds' | 'ms' | 'millisecond' | 'milliseconds')
+		public Alternatives getTemporalUnitAlternatives_2_0() { return cTemporalUnitAlternatives_2_0; }
+
+		//'y'
+		public Keyword getTemporalUnitYKeyword_2_0_0() { return cTemporalUnitYKeyword_2_0_0; }
+
+		//'year'
+		public Keyword getTemporalUnitYearKeyword_2_0_1() { return cTemporalUnitYearKeyword_2_0_1; }
+
+		//'years'
+		public Keyword getTemporalUnitYearsKeyword_2_0_2() { return cTemporalUnitYearsKeyword_2_0_2; }
+
+		//'mon'
+		public Keyword getTemporalUnitMonKeyword_2_0_3() { return cTemporalUnitMonKeyword_2_0_3; }
+
+		//'month'
+		public Keyword getTemporalUnitMonthKeyword_2_0_4() { return cTemporalUnitMonthKeyword_2_0_4; }
+
+		//'months'
+		public Keyword getTemporalUnitMonthsKeyword_2_0_5() { return cTemporalUnitMonthsKeyword_2_0_5; }
+
+		//'d'
+		public Keyword getTemporalUnitDKeyword_2_0_6() { return cTemporalUnitDKeyword_2_0_6; }
+
+		//'day'
+		public Keyword getTemporalUnitDayKeyword_2_0_7() { return cTemporalUnitDayKeyword_2_0_7; }
+
+		//'days'
+		public Keyword getTemporalUnitDaysKeyword_2_0_8() { return cTemporalUnitDaysKeyword_2_0_8; }
+
+		//'h'
+		public Keyword getTemporalUnitHKeyword_2_0_9() { return cTemporalUnitHKeyword_2_0_9; }
+
+		//'hour'
+		public Keyword getTemporalUnitHourKeyword_2_0_10() { return cTemporalUnitHourKeyword_2_0_10; }
+
+		//'hours'
+		public Keyword getTemporalUnitHoursKeyword_2_0_11() { return cTemporalUnitHoursKeyword_2_0_11; }
+
+		//'m'
+		public Keyword getTemporalUnitMKeyword_2_0_12() { return cTemporalUnitMKeyword_2_0_12; }
+
+		//'minute'
+		public Keyword getTemporalUnitMinuteKeyword_2_0_13() { return cTemporalUnitMinuteKeyword_2_0_13; }
+
+		//'minutes'
+		public Keyword getTemporalUnitMinutesKeyword_2_0_14() { return cTemporalUnitMinutesKeyword_2_0_14; }
+
+		//'s'
+		public Keyword getTemporalUnitSKeyword_2_0_15() { return cTemporalUnitSKeyword_2_0_15; }
+
+		//'second'
+		public Keyword getTemporalUnitSecondKeyword_2_0_16() { return cTemporalUnitSecondKeyword_2_0_16; }
+
+		//'seconds'
+		public Keyword getTemporalUnitSecondsKeyword_2_0_17() { return cTemporalUnitSecondsKeyword_2_0_17; }
+
+		//'ms'
+		public Keyword getTemporalUnitMsKeyword_2_0_18() { return cTemporalUnitMsKeyword_2_0_18; }
+
+		//'millisecond'
+		public Keyword getTemporalUnitMillisecondKeyword_2_0_19() { return cTemporalUnitMillisecondKeyword_2_0_19; }
+
+		//'milliseconds'
+		public Keyword getTemporalUnitMillisecondsKeyword_2_0_20() { return cTemporalUnitMillisecondsKeyword_2_0_20; }
 	}
 
 	public class SuiteElements extends AbstractParserRuleElementFinder {
@@ -3857,6 +4033,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final CallElements pCall;
 	private final NamedCallResultElements pNamedCallResult;
 	private final TimeSetElements pTimeSet;
+	private final TimeDifferenceElements pTimeDifference;
+	private final TimeDifferencePartElements pTimeDifferencePart;
 	private final SuiteElements pSuite;
 	private final SuiteParameterElements pSuiteParameter;
 	private final SuiteReturnElements pSuiteReturn;
@@ -3982,6 +4160,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pCall = new CallElements();
 		this.pNamedCallResult = new NamedCallResultElements();
 		this.pTimeSet = new TimeSetElements();
+		this.pTimeDifference = new TimeDifferenceElements();
+		this.pTimeDifferencePart = new TimeDifferencePartElements();
 		this.pSuite = new SuiteElements();
 		this.pSuiteParameter = new SuiteParameterElements();
 		this.pSuiteReturn = new SuiteReturnElements();
@@ -4529,15 +4709,36 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TimeSet:
-	//	'timeset' NL (live='live' NL | startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL
-	//	(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL ((forks+=[ForkDefinition|QualifiedName] |
-	//	masterFork='master') ','? NL)+)?;
+	//	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
+	//	(progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL
+	//	((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 	public TimeSetElements getTimeSetAccess() {
 		return pTimeSet;
 	}
 	
 	public ParserRule getTimeSetRule() {
 		return getTimeSetAccess().getRule();
+	}
+
+	//TimeDifference:
+	//	direction=('+' | '-') (NL values+=TimeDifferencePart)+;
+	public TimeDifferenceElements getTimeDifferenceAccess() {
+		return pTimeDifference;
+	}
+	
+	public ParserRule getTimeDifferenceRule() {
+		return getTimeDifferenceAccess().getRule();
+	}
+
+	//TimeDifferencePart:
+	//	value=INTEGER NL temporalUnit=('y' | 'year' | 'years' | 'mon' | 'month' | 'months' | 'd' | 'day' | 'days' | 'h' |
+	//	'hour' | 'hours' | 'm' | 'minute' | 'minutes' | 's' | 'second' | 'seconds' | 'ms' | 'millisecond' | 'milliseconds');
+	public TimeDifferencePartElements getTimeDifferencePartAccess() {
+		return pTimeDifferencePart;
+	}
+	
+	public ParserRule getTimeDifferencePartRule() {
+		return getTimeDifferencePartAccess().getRule();
 	}
 
 	//Suite:

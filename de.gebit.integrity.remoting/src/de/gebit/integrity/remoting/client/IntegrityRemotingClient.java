@@ -337,8 +337,8 @@ public class IntegrityRemotingClient {
 
 			@Override
 			public void processMessage(TimeSyncRequestMessage aMessage, Endpoint anEndpoint) {
-				listener.onTimeSyncRequest(aMessage.getStartDate(), aMessage.getProgressionFactor(),
-						aMessage.getTargetedForks());
+				listener.onTimeSyncRequest(aMessage.getStartDate(), aMessage.getDiffTime(),
+						aMessage.getProgressionFactor(), aMessage.getTargetedForks());
 			}
 		});
 
