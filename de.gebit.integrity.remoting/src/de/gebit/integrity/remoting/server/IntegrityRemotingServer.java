@@ -11,9 +11,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.UnknownHostException;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.eclipse.xtext.util.Pair;
 
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
@@ -232,10 +236,11 @@ public class IntegrityRemotingServer {
 	 * @param aStartDate
 	 * @param aProgressionFactor
 	 */
-	public void sendTestTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
+	public void sendTestTimeSyncRequest(Date aStartDate, List<Pair<Long, TemporalUnit>> aDiffTime,
+			BigDecimal aProgressionFactor, String[] someTargetedForks) {
 		if (serverEndpoint.isActive()) {
-			serverEndpoint
-					.broadcastMessage(new TimeSyncRequestMessage(aStartDate, aProgressionFactor, someTargetedForks));
+			serverEndpoint.broadcastMessage(
+					new TimeSyncRequestMessage(aStartDate, aDiffTime, aProgressionFactor, someTargetedForks));
 		}
 	}
 

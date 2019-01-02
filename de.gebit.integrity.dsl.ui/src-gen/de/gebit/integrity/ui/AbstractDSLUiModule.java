@@ -192,5 +192,10 @@ public abstract class AbstractDSLUiModule extends org.eclipse.xtext.common.types
 		return org.eclipse.xtext.ui.compare.DefaultViewerCreator.class;
 	}
 
+	// contributed by org.eclipse.xtext.ui.generator.compare.CompareFragment
+	public void configureCompareViewerTitle(com.google.inject.Binder binder) {
+		binder.bind(String.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.ui.UIBindings.COMPARE_VIEWER_TITLE)).toInstance("DSL Compare");
+	}
+
 
 }

@@ -420,7 +420,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (private: ");
     result.append(private_);
     result.append(", description: ");

@@ -13,14 +13,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -727,10 +731,11 @@ public class Fork {
 		}
 
 		@Override
-		public void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
+		public void onTimeSyncRequest(Date aStartDate, List<Pair<Long, TemporalUnit>> aDiffTime,
+				BigDecimal aProgressionFactor, String[] someTargetedForks) {
 			// If we receive this from a fork, it means that we have to evaluate the target list and forward it
 			// appropriately, and possibly also set this on ourselves
-			forkCallback.onTimeSync(aStartDate, aProgressionFactor, someTargetedForks, Fork.this);
+			forkCallback.onTimeSync(aStartDate, aDiffTime, aProgressionFactor, someTargetedForks, Fork.this);
 		}
 
 		@Override

@@ -152,7 +152,13 @@ NamedCallResult:
 	name=ResultName NL '->' NL target=VariableVariable;
 	
 TimeSet:
-	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation NL (progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?)) ('on' NL ((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
+	'timeset' NL (live='live' NL | ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?)) ('on' NL ((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
+
+TimeDifference:
+	direction=('+'|'-') (NL values+=TimeDifferencePart)+;
+	
+TimeDifferencePart:
+	value=INTEGER NL temporalUnit=('y'|'year'|'years'|'mon'|'month'|'months'|'d'|'day'|'days'|'h'|'hour'|'hours'|'m'|'minute'|'minutes'|'s'|'second'|'seconds'|'ms'|'millisecond'|'milliseconds');
 	
 Suite:
 	inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] ','? NL)+)?;

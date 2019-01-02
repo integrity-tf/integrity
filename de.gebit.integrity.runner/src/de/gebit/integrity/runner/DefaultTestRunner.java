@@ -14,6 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.net.BindException;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -151,6 +152,7 @@ import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.runner.time.TestTimeAdapter;
 import de.gebit.integrity.runner.time.TimeSyncState;
 import de.gebit.integrity.runner.wrapper.ExceptionWrapper;
+import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
@@ -831,10 +833,8 @@ public class DefaultTestRunner implements TestRunner {
 				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
 						: null;
 				try {
-					defineConstant(tempDefinition, tempValue,
-							(tempDefinition.eContainer() instanceof SuiteDefinition)
-									? ((SuiteDefinition) tempDefinition.eContainer())
-									: null);
+					defineConstant(tempDefinition, tempValue, (tempDefinition.eContainer() instanceof SuiteDefinition)
+							? ((SuiteDefinition) tempDefinition.eContainer()) : null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
@@ -1548,8 +1548,7 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
 			final SuiteDefinition aSuite) {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
-				? variableManager.get(((Variable) anInitialValue).getName())
-				: anInitialValue;
+				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
 
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
@@ -2274,11 +2273,14 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void executeTimeSet(TimeSet aTimeSet) {
 		Date tempStartTime = null;
+		List<Pair<Long, TemporalUnit>> tempDiffTime = null;
 		BigDecimal tempProgressionFactor = null;
 
 		try {
 			if (aTimeSet.getStartTime() != null) {
 				tempStartTime = (Date) valueConverter.convertValue(Date.class, aTimeSet.getStartTime(), null);
+			} else if (aTimeSet.getDiffTime() != null) {
+				tempDiffTime = DateUtil.convertTimeDifference(aTimeSet.getDiffTime());
 			}
 
 			if (aTimeSet.getProgressionMode() != null) {
@@ -2323,7 +2325,7 @@ public class DefaultTestRunner implements TestRunner {
 					synchronized (timeSyncResultSyncObject) {
 						timeSyncResult = null;
 						long tempStart = System.nanoTime();
-						remotingServer.sendTestTimeSyncRequest(tempStartTime, tempProgressionFactor,
+						remotingServer.sendTestTimeSyncRequest(tempStartTime, tempDiffTime, tempProgressionFactor,
 								tempForksToRunOnArray);
 
 						while (timeSyncResult == null) {
@@ -2347,8 +2349,8 @@ public class DefaultTestRunner implements TestRunner {
 					}
 				} else {
 					// On the master, the timesync is just executed and then sent to the forks, if necessary
-					ExceptionWrapper tempException = distributeTimeSyncRequest(tempStartTime, tempProgressionFactor,
-							tempForksToRunOnArray);
+					ExceptionWrapper tempException = distributeTimeSyncRequest(tempStartTime, tempDiffTime,
+							tempProgressionFactor, tempForksToRunOnArray);
 					if (tempException != null) {
 						tempErrorMessage = tempException.getMessage();
 						tempExceptionTrace = tempException.getStackTrace();
@@ -2694,41 +2696,46 @@ public class DefaultTestRunner implements TestRunner {
 	 * aggregating them into a result object. It blocks until this has finished (or a timeout has hit).
 	 * 
 	 * @param aStartTime
+	 *            the time to set to (if null, use current system time)
+	 * @param aDiffTime
+	 *            the time difference in case of relative timesetting (if used, start time is ignored, because relative
+	 *            time setting always works with the previously-set fake test time as basis)
 	 * @param aProgressionFactor
 	 * @param someTargetedForks
 	 * @return null if nothing went wrong, an exception wrapper containing all messages and all exceptions (textually
 	 *         merged) in case of (non-critical) errors
 	 */
-	protected ExceptionWrapper distributeTimeSyncRequest(Date aStartTime, BigDecimal aProgressionFactor,
-			String[] someTargetedForks) {
+	protected ExceptionWrapper distributeTimeSyncRequest(Date aStartTime, List<Pair<Long, TemporalUnit>> aDiffTime,
+			BigDecimal aProgressionFactor, String[] someTargetedForks) {
 		boolean tempMasterHasToSync = false;
 		List<Fork> tempTargetedForks = new ArrayList<Fork>();
 
-		// These are the parameters used to actually calculate the fake test time in the individual systems under test
+		TimeSyncState tempBaseState;
+		// These are the parameters used to actually calculate the fake test time in the individual systems.
 		long tempRealtimeDecouplingTime = System.currentTimeMillis();
 		long tempRealtimeOffset = (aStartTime != null ? aStartTime.getTime() - tempRealtimeDecouplingTime : 0);
 		double tempProgressionFactor = (aProgressionFactor != null ? aProgressionFactor.doubleValue()
 				: (aStartTime == null ? 1.0d : 0.0d));
-		TimeSyncState tempNewState = new TimeSyncState(tempRealtimeOffset, tempRealtimeDecouplingTime,
-				tempProgressionFactor);
+		tempBaseState = new TimeSyncState(tempRealtimeOffset, tempRealtimeDecouplingTime, tempProgressionFactor);
 
+		// Now calculate the TimeSyncStates for each fork individually (and the master, of course)
+		List<ForkDefinition> tempForkDefinitionsToCalculate = new ArrayList<>();
 		if (someTargetedForks == null) {
 			// This should go to all forks, including the master
 			tempMasterHasToSync = true;
 			tempTargetedForks.addAll(forkMap.values());
-			forkTimeSyncStates.put(null, tempNewState);
-			for (ForkDefinition tempFork : model.getAllForks()) {
-				forkTimeSyncStates.put(tempFork, tempNewState);
-			}
+			tempForkDefinitionsToCalculate.add(null);
+			tempForkDefinitionsToCalculate.addAll(model.getAllForks());
 		} else {
 			for (String tempForkName : someTargetedForks) {
 				if (tempForkName == null) {
 					// The null name is the master fork
 					tempMasterHasToSync = true;
+					tempForkDefinitionsToCalculate.add(null);
 				} else {
 					ForkDefinition tempForkDef = model.getForkByName(tempForkName);
 					if (tempForkDef != null) {
-						forkTimeSyncStates.put(tempForkDef, tempNewState);
+						tempForkDefinitionsToCalculate.add(tempForkDef);
 						Fork tempFork = forkMap.get(tempForkDef);
 						if (tempFork != null) {
 							tempTargetedForks.add(tempFork);
@@ -2738,13 +2745,29 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
+		for (ForkDefinition tempForkDef : tempForkDefinitionsToCalculate) {
+			TimeSyncState tempForkNewState;
+			if (aDiffTime != null) {
+				TimeSyncState tempForkBaseState = forkTimeSyncStates.get(tempForkDef);
+				if (tempForkBaseState == null) {
+					tempForkBaseState = tempBaseState;
+				}
+				tempForkNewState = tempForkBaseState.plus(aDiffTime);
+			} else {
+				tempForkNewState = tempBaseState;
+			}
+			forkTimeSyncStates.put(tempForkDef, tempForkNewState);
+		}
+
 		// These are used to collect result messages (typically in case of errors)
 		String tempMergedResultMessage = "";
 		String tempMergedResultStackTrace = "";
 
+		// Now actually set the new fake time settings into effect, on master and forks
 		if (tempMasterHasToSync) {
-			ExceptionWrapper tempExc = setTestTimeGuarded(tempRealtimeOffset, tempRealtimeDecouplingTime,
-					tempProgressionFactor);
+			ExceptionWrapper tempExc = setTestTimeGuarded(forkTimeSyncStates.get(null).getRealtimeOffset(),
+					forkTimeSyncStates.get(null).getRealtimeDecouplingTime(),
+					forkTimeSyncStates.get(null).getProgressionFactor());
 			if (tempExc != null) {
 				if (tempTargetedForks.size() > 0) {
 					tempMergedResultMessage = "Master process failed with: '" + tempExc.getMessage() + "'";
@@ -2756,8 +2779,10 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 		for (Fork tempFork : tempTargetedForks) {
-			TimeSyncResultMessage tempResult = tempFork.injectTestTimeState(tempRealtimeOffset,
-					tempRealtimeDecouplingTime, tempProgressionFactor);
+			TimeSyncResultMessage tempResult = tempFork.injectTestTimeState(
+					forkTimeSyncStates.get(tempFork.getDefinition()).getRealtimeOffset(),
+					forkTimeSyncStates.get(tempFork.getDefinition()).getRealtimeDecouplingTime(),
+					forkTimeSyncStates.get(tempFork.getDefinition()).getProgressionFactor());
 			if (tempResult != null && tempResult.getErrorMessage() != null) {
 				if (tempMergedResultMessage.length() != 0) {
 					tempMergedResultMessage += ", ";
@@ -2783,16 +2808,18 @@ public class DefaultTestRunner implements TestRunner {
 	 * thread, so it returns instantly. The result of the operation is sent to the provided fork that shall receive it.
 	 * 
 	 * @param aStartTime
+	 * @param aDiffTime
 	 * @param aProgressionFactor
 	 * @param someTargetedForks
 	 */
-	protected void distributeTimeSyncRequestAsync(Date aStartTime, BigDecimal aProgressionFactor,
-			String[] someTargetedForks, Fork aResultTarget) {
+	protected void distributeTimeSyncRequestAsync(Date aStartTime, List<Pair<Long, TemporalUnit>> aDiffTime,
+			BigDecimal aProgressionFactor, String[] someTargetedForks, Fork aResultTarget) {
 		Thread tempThread = new Thread("Integrity Test Runner - Timesync Distribution") {
 
 			@Override
 			public void run() {
-				ExceptionWrapper tempExc = distributeTimeSyncRequest(aStartTime, aProgressionFactor, someTargetedForks);
+				ExceptionWrapper tempExc = distributeTimeSyncRequest(aStartTime, aDiffTime, aProgressionFactor,
+						someTargetedForks);
 				aResultTarget.deliverTimeSyncResult(tempExc);
 			}
 
@@ -2956,9 +2983,9 @@ public class DefaultTestRunner implements TestRunner {
 					}
 
 					@Override
-					public void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks,
-							Fork aResultTarget) {
-						distributeTimeSyncRequestAsync(aStartDate, aProgressionFactor, someTargetedForks,
+					public void onTimeSync(Date aStartDate, List<Pair<Long, TemporalUnit>> aDiffTime,
+							BigDecimal aProgressionFactor, String[] someTargetedForks, Fork aResultTarget) {
+						distributeTimeSyncRequestAsync(aStartDate, aDiffTime, aProgressionFactor, someTargetedForks,
 								aResultTarget);
 					}
 				});

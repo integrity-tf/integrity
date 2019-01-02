@@ -4,6 +4,7 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.TimeDifference;
 import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.TimeSetImpl#getLive <em>Live</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TimeSetImpl#getStartTime <em>Start Time</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.TimeSetImpl#getDiffTime <em>Diff Time</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TimeSetImpl#getProgressionMode <em>Progression Mode</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TimeSetImpl#getProgressionFactor <em>Progression Factor</em>}</li>
  *   <li>{@link de.gebit.integrity.dsl.impl.TimeSetImpl#getForks <em>Forks</em>}</li>
@@ -70,6 +72,16 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
    * @ordered
    */
   protected ValueOrEnumValueOrOperation startTime;
+
+  /**
+   * The cached value of the '{@link #getDiffTime() <em>Diff Time</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getDiffTime()
+   * @generated
+   * @ordered
+   */
+  protected TimeDifference diffTime;
 
   /**
    * The default value of the '{@link #getProgressionMode() <em>Progression Mode</em>}' attribute.
@@ -228,6 +240,54 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  public TimeDifference getDiffTime()
+  {
+    return diffTime;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetDiffTime(TimeDifference newDiffTime, NotificationChain msgs)
+  {
+    TimeDifference oldDiffTime = diffTime;
+    diffTime = newDiffTime;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.TIME_SET__DIFF_TIME, oldDiffTime, newDiffTime);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setDiffTime(TimeDifference newDiffTime)
+  {
+    if (newDiffTime != diffTime)
+    {
+      NotificationChain msgs = null;
+      if (diffTime != null)
+        msgs = ((InternalEObject)diffTime).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.TIME_SET__DIFF_TIME, null, msgs);
+      if (newDiffTime != null)
+        msgs = ((InternalEObject)newDiffTime).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.TIME_SET__DIFF_TIME, null, msgs);
+      msgs = basicSetDiffTime(newDiffTime, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.TIME_SET__DIFF_TIME, newDiffTime, newDiffTime));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getProgressionMode()
   {
     return progressionMode;
@@ -343,6 +403,8 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
     {
       case DslPackage.TIME_SET__START_TIME:
         return basicSetStartTime(null, msgs);
+      case DslPackage.TIME_SET__DIFF_TIME:
+        return basicSetDiffTime(null, msgs);
       case DslPackage.TIME_SET__PROGRESSION_FACTOR:
         return basicSetProgressionFactor(null, msgs);
     }
@@ -363,6 +425,8 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
         return getLive();
       case DslPackage.TIME_SET__START_TIME:
         return getStartTime();
+      case DslPackage.TIME_SET__DIFF_TIME:
+        return getDiffTime();
       case DslPackage.TIME_SET__PROGRESSION_MODE:
         return getProgressionMode();
       case DslPackage.TIME_SET__PROGRESSION_FACTOR:
@@ -391,6 +455,9 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
         return;
       case DslPackage.TIME_SET__START_TIME:
         setStartTime((ValueOrEnumValueOrOperation)newValue);
+        return;
+      case DslPackage.TIME_SET__DIFF_TIME:
+        setDiffTime((TimeDifference)newValue);
         return;
       case DslPackage.TIME_SET__PROGRESSION_MODE:
         setProgressionMode((String)newValue);
@@ -425,6 +492,9 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
       case DslPackage.TIME_SET__START_TIME:
         setStartTime((ValueOrEnumValueOrOperation)null);
         return;
+      case DslPackage.TIME_SET__DIFF_TIME:
+        setDiffTime((TimeDifference)null);
+        return;
       case DslPackage.TIME_SET__PROGRESSION_MODE:
         setProgressionMode(PROGRESSION_MODE_EDEFAULT);
         return;
@@ -455,6 +525,8 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
         return LIVE_EDEFAULT == null ? live != null : !LIVE_EDEFAULT.equals(live);
       case DslPackage.TIME_SET__START_TIME:
         return startTime != null;
+      case DslPackage.TIME_SET__DIFF_TIME:
+        return diffTime != null;
       case DslPackage.TIME_SET__PROGRESSION_MODE:
         return PROGRESSION_MODE_EDEFAULT == null ? progressionMode != null : !PROGRESSION_MODE_EDEFAULT.equals(progressionMode);
       case DslPackage.TIME_SET__PROGRESSION_FACTOR:
@@ -477,7 +549,7 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (live: ");
     result.append(live);
     result.append(", progressionMode: ");

@@ -3596,10 +3596,10 @@ ruleNL
         afterParserOrEnumRuleCall();
     }
 )
-    |((
+    |(((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTimeSetAccess().getStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0()); 
+	        newCompositeNode(grammarAccess.getTimeSetAccess().getStartTimeValueOrEnumValueOrOperationParserRuleCall_2_1_0_0_0()); 
 	    }
 		lv_startTime_4_0=ruleValueOrEnumValueOrOperation		{
 	        if ($current==null) {
@@ -3615,6 +3615,25 @@ ruleNL
 
 )
 )
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTimeSetAccess().getDiffTimeTimeDifferenceParserRuleCall_2_1_0_1_0()); 
+	    }
+		lv_diffTime_5_0=ruleTimeDifference		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTimeSetRule());
+	        }
+       		set(
+       			$current, 
+       			"diffTime",
+        		lv_diffTime_5_0, 
+        		"de.gebit.integrity.DSL.TimeDifference");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
     { 
         newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_1()); 
     }
@@ -3624,16 +3643,16 @@ ruleNL
     }
 ((
 (
-		lv_progressionMode_6_0=	'progressing' 
+		lv_progressionMode_7_0=	'progressing' 
     {
-        newLeafNode(lv_progressionMode_6_0, grammarAccess.getTimeSetAccess().getProgressionModeProgressingKeyword_2_1_2_0_0());
+        newLeafNode(lv_progressionMode_7_0, grammarAccess.getTimeSetAccess().getProgressionModeProgressingKeyword_2_1_2_0_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getTimeSetRule());
 	        }
-       		setWithLastConsumed($current, "progressionMode", lv_progressionMode_6_0, "progressing");
+       		setWithLastConsumed($current, "progressionMode", lv_progressionMode_7_0, "progressing");
 	    }
 
 )
@@ -3650,22 +3669,22 @@ ruleNL
 		{ 
 	        newCompositeNode(grammarAccess.getTimeSetAccess().getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0()); 
 	    }
-		lv_progressionFactor_8_0=ruleValueOrEnumValueOrOperation		{
+		lv_progressionFactor_9_0=ruleValueOrEnumValueOrOperation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTimeSetRule());
 	        }
        		set(
        			$current, 
        			"progressionFactor",
-        		lv_progressionFactor_8_0, 
+        		lv_progressionFactor_9_0, 
         		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_9='x' 
+)	otherlv_10='x' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getTimeSetAccess().getXKeyword_2_1_2_2_1());
+    	newLeafNode(otherlv_10, grammarAccess.getTimeSetAccess().getXKeyword_2_1_2_2_1());
     }
 
     { 
@@ -3675,9 +3694,9 @@ ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)?)?))(	otherlv_11='on' 
+)?)?))(	otherlv_12='on' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getTimeSetAccess().getOnKeyword_3_0());
+    	newLeafNode(otherlv_12, grammarAccess.getTimeSetAccess().getOnKeyword_3_0());
     }
 
     { 
@@ -3705,22 +3724,22 @@ ruleNL
 )
     |(
 (
-		lv_masterFork_14_0=	'master' 
+		lv_masterFork_15_0=	'master' 
     {
-        newLeafNode(lv_masterFork_14_0, grammarAccess.getTimeSetAccess().getMasterForkMasterKeyword_3_2_0_1_0());
+        newLeafNode(lv_masterFork_15_0, grammarAccess.getTimeSetAccess().getMasterForkMasterKeyword_3_2_0_1_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getTimeSetRule());
 	        }
-       		setWithLastConsumed($current, "masterFork", lv_masterFork_14_0, "master");
+       		setWithLastConsumed($current, "masterFork", lv_masterFork_15_0, "master");
 	    }
 
 )
-))(	otherlv_15=',' 
+))(	otherlv_16=',' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getTimeSetAccess().getCommaKeyword_3_2_1());
+    	newLeafNode(otherlv_16, grammarAccess.getTimeSetAccess().getCommaKeyword_3_2_1());
     }
 )?
     { 
@@ -3731,6 +3750,388 @@ ruleNL
         afterParserOrEnumRuleCall();
     }
 )+)?)
+;
+
+
+
+
+
+// Entry rule entryRuleTimeDifference
+entryRuleTimeDifference returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTimeDifferenceRule()); }
+	 iv_ruleTimeDifference=ruleTimeDifference 
+	 { $current=$iv_ruleTimeDifference.current; } 
+	 EOF 
+;
+
+// Rule TimeDifference
+ruleTimeDifference returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+(
+		lv_direction_0_1=	'+' 
+    {
+        newLeafNode(lv_direction_0_1, grammarAccess.getTimeDifferenceAccess().getDirectionPlusSignKeyword_0_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferenceRule());
+	        }
+       		setWithLastConsumed($current, "direction", lv_direction_0_1, null);
+	    }
+
+    |		lv_direction_0_2=	'-' 
+    {
+        newLeafNode(lv_direction_0_2, grammarAccess.getTimeDifferenceAccess().getDirectionHyphenMinusKeyword_0_0_1());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferenceRule());
+	        }
+       		setWithLastConsumed($current, "direction", lv_direction_0_2, null);
+	    }
+
+)
+
+)
+)(
+    { 
+        newCompositeNode(grammarAccess.getTimeDifferenceAccess().getNLParserRuleCall_1_0()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTimeDifferenceAccess().getValuesTimeDifferencePartParserRuleCall_1_1_0()); 
+	    }
+		lv_values_2_0=ruleTimeDifferencePart		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTimeDifferenceRule());
+	        }
+       		add(
+       			$current, 
+       			"values",
+        		lv_values_2_0, 
+        		"de.gebit.integrity.DSL.TimeDifferencePart");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))+)
+;
+
+
+
+
+
+// Entry rule entryRuleTimeDifferencePart
+entryRuleTimeDifferencePart returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTimeDifferencePartRule()); }
+	 iv_ruleTimeDifferencePart=ruleTimeDifferencePart 
+	 { $current=$iv_ruleTimeDifferencePart.current; } 
+	 EOF 
+;
+
+// Rule TimeDifferencePart
+ruleTimeDifferencePart returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_value_0_0=RULE_INTEGER
+		{
+			newLeafNode(lv_value_0_0, grammarAccess.getTimeDifferencePartAccess().getValueINTEGERTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"value",
+        		lv_value_0_0, 
+        		"de.gebit.integrity.DSL.INTEGER");
+	    }
+
+)
+)
+    { 
+        newCompositeNode(grammarAccess.getTimeDifferencePartAccess().getNLParserRuleCall_1()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+(
+		lv_temporalUnit_2_1=	'y' 
+    {
+        newLeafNode(lv_temporalUnit_2_1, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitYKeyword_2_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_1, null);
+	    }
+
+    |		lv_temporalUnit_2_2=	'year' 
+    {
+        newLeafNode(lv_temporalUnit_2_2, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitYearKeyword_2_0_1());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_2, null);
+	    }
+
+    |		lv_temporalUnit_2_3=	'years' 
+    {
+        newLeafNode(lv_temporalUnit_2_3, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitYearsKeyword_2_0_2());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_3, null);
+	    }
+
+    |		lv_temporalUnit_2_4=	'mon' 
+    {
+        newLeafNode(lv_temporalUnit_2_4, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMonKeyword_2_0_3());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_4, null);
+	    }
+
+    |		lv_temporalUnit_2_5=	'month' 
+    {
+        newLeafNode(lv_temporalUnit_2_5, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMonthKeyword_2_0_4());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_5, null);
+	    }
+
+    |		lv_temporalUnit_2_6=	'months' 
+    {
+        newLeafNode(lv_temporalUnit_2_6, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMonthsKeyword_2_0_5());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_6, null);
+	    }
+
+    |		lv_temporalUnit_2_7=	'd' 
+    {
+        newLeafNode(lv_temporalUnit_2_7, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitDKeyword_2_0_6());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_7, null);
+	    }
+
+    |		lv_temporalUnit_2_8=	'day' 
+    {
+        newLeafNode(lv_temporalUnit_2_8, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitDayKeyword_2_0_7());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_8, null);
+	    }
+
+    |		lv_temporalUnit_2_9=	'days' 
+    {
+        newLeafNode(lv_temporalUnit_2_9, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitDaysKeyword_2_0_8());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_9, null);
+	    }
+
+    |		lv_temporalUnit_2_10=	'h' 
+    {
+        newLeafNode(lv_temporalUnit_2_10, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitHKeyword_2_0_9());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_10, null);
+	    }
+
+    |		lv_temporalUnit_2_11=	'hour' 
+    {
+        newLeafNode(lv_temporalUnit_2_11, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitHourKeyword_2_0_10());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_11, null);
+	    }
+
+    |		lv_temporalUnit_2_12=	'hours' 
+    {
+        newLeafNode(lv_temporalUnit_2_12, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitHoursKeyword_2_0_11());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_12, null);
+	    }
+
+    |		lv_temporalUnit_2_13=	'm' 
+    {
+        newLeafNode(lv_temporalUnit_2_13, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMKeyword_2_0_12());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_13, null);
+	    }
+
+    |		lv_temporalUnit_2_14=	'minute' 
+    {
+        newLeafNode(lv_temporalUnit_2_14, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMinuteKeyword_2_0_13());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_14, null);
+	    }
+
+    |		lv_temporalUnit_2_15=	'minutes' 
+    {
+        newLeafNode(lv_temporalUnit_2_15, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMinutesKeyword_2_0_14());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_15, null);
+	    }
+
+    |		lv_temporalUnit_2_16=	's' 
+    {
+        newLeafNode(lv_temporalUnit_2_16, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitSKeyword_2_0_15());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_16, null);
+	    }
+
+    |		lv_temporalUnit_2_17=	'second' 
+    {
+        newLeafNode(lv_temporalUnit_2_17, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitSecondKeyword_2_0_16());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_17, null);
+	    }
+
+    |		lv_temporalUnit_2_18=	'seconds' 
+    {
+        newLeafNode(lv_temporalUnit_2_18, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitSecondsKeyword_2_0_17());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_18, null);
+	    }
+
+    |		lv_temporalUnit_2_19=	'ms' 
+    {
+        newLeafNode(lv_temporalUnit_2_19, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMsKeyword_2_0_18());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_19, null);
+	    }
+
+    |		lv_temporalUnit_2_20=	'millisecond' 
+    {
+        newLeafNode(lv_temporalUnit_2_20, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMillisecondKeyword_2_0_19());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_20, null);
+	    }
+
+    |		lv_temporalUnit_2_21=	'milliseconds' 
+    {
+        newLeafNode(lv_temporalUnit_2_21, grammarAccess.getTimeDifferencePartAccess().getTemporalUnitMillisecondsKeyword_2_0_20());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeDifferencePartRule());
+	        }
+       		setWithLastConsumed($current, "temporalUnit", lv_temporalUnit_2_21, null);
+	    }
+
+)
+
+)
+))
 ;
 
 

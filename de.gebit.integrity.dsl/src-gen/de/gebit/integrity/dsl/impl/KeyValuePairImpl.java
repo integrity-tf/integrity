@@ -309,7 +309,7 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (identifier: ");
     result.append(identifier);
     result.append(", stringIdentifier: ");

@@ -25,6 +25,7 @@ import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
+import de.gebit.integrity.dsl.TimeDifference;
 import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.exceptions.MethodNotFoundException;
@@ -419,13 +420,33 @@ public class TestFormatter {
 			} else {
 				return "Setting test time " + tempForkNames + "to " + tempStartTime;
 			}
+		} else if (aTimeSet.getDiffTime() != null) {
+			String tempDiffTime = timeDifferenceToHumanReadableString(aTimeSet.getDiffTime());
+			return "Moving test time " + tempForkNames
+					+ ("-".equals(aTimeSet.getDiffTime().getDirection()) ? "backward " : "forward ") + "by "
+					+ tempDiffTime;
 		} else {
 			if (tempProgressionFactor != null) {
-				return "Setting test time " + tempForkNames + "to current system  time, progressing with "
+				return "Setting test time " + tempForkNames + "to current system time, progressing with "
 						+ tempProgressionFactor + "x speed";
 			} else {
 				return "Resetting test time override " + tempForkNames + "- normal system time is used again";
 			}
 		}
+	}
+
+	/**
+	 * Converts a {@link TimeDifference} to a human-readable string.
+	 * 
+	 * @param aTimeDiff
+	 *            the command to convert
+	 * @return
+	 */
+	public String timeDifferenceToHumanReadableString(TimeDifference aTimeDiff) {
+		return aTimeDiff.getValues().stream().map((aPart) -> {
+			return aPart.getValue()
+					+ ((aPart.getTemporalUnit().length() > 2 && !"mon".equals(aPart.getTemporalUnit())) ? " " : "")
+					+ aPart.getTemporalUnit();
+		}).collect(Collectors.joining(" "));
 	}
 }

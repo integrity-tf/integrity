@@ -166,7 +166,7 @@ public class StringValueImpl extends StaticValueImpl implements StringValue
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (stringValue: ");
     result.append(stringValue);
     result.append(')');

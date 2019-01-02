@@ -107,6 +107,8 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.CALL: return createCall();
       case DslPackage.NAMED_CALL_RESULT: return createNamedCallResult();
       case DslPackage.TIME_SET: return createTimeSet();
+      case DslPackage.TIME_DIFFERENCE: return createTimeDifference();
+      case DslPackage.TIME_DIFFERENCE_PART: return createTimeDifferencePart();
       case DslPackage.SUITE: return createSuite();
       case DslPackage.SUITE_PARAMETER: return createSuiteParameter();
       case DslPackage.SUITE_RETURN: return createSuiteReturn();
@@ -632,6 +634,28 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     TimeSetImpl timeSet = new TimeSetImpl();
     return timeSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TimeDifference createTimeDifference()
+  {
+    TimeDifferenceImpl timeDifference = new TimeDifferenceImpl();
+    return timeDifference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TimeDifferencePart createTimeDifferencePart()
+  {
+    TimeDifferencePartImpl timeDifferencePart = new TimeDifferencePartImpl();
+    return timeDifferencePart;
   }
 
   /**

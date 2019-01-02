@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.net.UnknownHostException;
+import java.time.temporal.TemporalUnit;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -113,6 +114,7 @@ import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 
@@ -2714,7 +2716,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		}
 
 		@Override
-		public void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks) {
+		public void onTimeSyncRequest(Date aStartDate, List<Pair<Long, TemporalUnit>> aDiffTime,
+				BigDecimal aProgressionFactor, String[] someTargetedForks) {
 			// not used in this context
 		}
 

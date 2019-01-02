@@ -167,7 +167,7 @@ public class DocumentationCommentImpl extends MinimalEObjectImpl.Container imple
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (content: ");
     result.append(content);
     result.append(')');

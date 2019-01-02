@@ -14,12 +14,9 @@ import java.util.ArrayList;
 public class InternalDSLLexer extends Lexer {
     public static final int RULE_ISOTIME=21;
     public static final int T__50=50;
-    public static final int T__90=90;
-    public static final int RULE_DIVIDER=14;
     public static final int RULE_UPPERCASE_ID=7;
     public static final int RULE_ML_DOC_COMMENT=24;
     public static final int T__59=59;
-    public static final int RULE_BOOLEAN_TRUE=4;
     public static final int T__55=55;
     public static final int T__56=56;
     public static final int T__57=57;
@@ -28,14 +25,11 @@ public class InternalDSLLexer extends Lexer {
     public static final int T__52=52;
     public static final int T__53=53;
     public static final int T__54=54;
-    public static final int RULE_ML_VISIBLE_COMMENT=12;
     public static final int T__60=60;
     public static final int T__61=61;
     public static final int RULE_ID=6;
     public static final int RULE_TWENTYFOURHRSTIME=22;
     public static final int RULE_ISOTIMEZONE=27;
-    public static final int RULE_DECIMAL=17;
-    public static final int T__29=29;
     public static final int RULE_ISODATE=18;
     public static final int T__66=66;
     public static final int RULE_ML_COMMENT=25;
@@ -46,60 +40,87 @@ public class InternalDSLLexer extends Lexer {
     public static final int T__62=62;
     public static final int RULE_USDATE=20;
     public static final int T__63=63;
-    public static final int RULE_BOOLEAN_FALSE=5;
     public static final int T__64=64;
     public static final int T__65=65;
-    public static final int T__70=70;
-    public static final int T__71=71;
-    public static final int T__72=72;
     public static final int RULE_NEWLINE=8;
-    public static final int RULE_STRING=15;
-    public static final int RULE_SL_VISIBLE_TITLE_COMMENT=11;
-    public static final int RULE_SL_COMMENT=26;
     public static final int T__37=37;
     public static final int T__38=38;
     public static final int T__39=39;
     public static final int T__33=33;
-    public static final int T__77=77;
     public static final int T__34=34;
-    public static final int T__78=78;
     public static final int T__35=35;
-    public static final int T__79=79;
     public static final int T__36=36;
-    public static final int T__73=73;
-    public static final int EOF=-1;
     public static final int T__30=30;
-    public static final int T__74=74;
     public static final int T__31=31;
-    public static final int T__75=75;
-    public static final int RULE_TWELVEHRSTIME=23;
     public static final int T__32=32;
-    public static final int T__76=76;
-    public static final int T__80=80;
-    public static final int T__81=81;
-    public static final int T__82=82;
-    public static final int T__83=83;
-    public static final int RULE_WS=9;
-    public static final int RULE_ANY_OTHER=28;
     public static final int RULE_EURODATE=19;
     public static final int RULE_ML_VISIBLE_TITLE_COMMENT=13;
     public static final int T__48=48;
     public static final int T__49=49;
     public static final int T__44=44;
-    public static final int T__88=88;
     public static final int T__45=45;
-    public static final int T__89=89;
     public static final int T__46=46;
     public static final int T__47=47;
     public static final int T__40=40;
-    public static final int T__84=84;
     public static final int T__41=41;
-    public static final int T__85=85;
-    public static final int RULE_INTEGER=16;
     public static final int T__42=42;
-    public static final int T__86=86;
     public static final int T__43=43;
+    public static final int T__91=91;
+    public static final int T__100=100;
+    public static final int T__92=92;
+    public static final int T__93=93;
+    public static final int T__102=102;
+    public static final int T__94=94;
+    public static final int T__101=101;
+    public static final int T__90=90;
+    public static final int RULE_DIVIDER=14;
+    public static final int RULE_BOOLEAN_TRUE=4;
+    public static final int T__99=99;
+    public static final int T__95=95;
+    public static final int T__96=96;
+    public static final int T__97=97;
+    public static final int T__98=98;
+    public static final int RULE_ML_VISIBLE_COMMENT=12;
+    public static final int RULE_DECIMAL=17;
+    public static final int T__29=29;
+    public static final int RULE_BOOLEAN_FALSE=5;
+    public static final int T__70=70;
+    public static final int T__71=71;
+    public static final int T__72=72;
+    public static final int RULE_STRING=15;
+    public static final int RULE_SL_VISIBLE_TITLE_COMMENT=11;
+    public static final int RULE_SL_COMMENT=26;
+    public static final int T__77=77;
+    public static final int T__78=78;
+    public static final int T__79=79;
+    public static final int T__73=73;
+    public static final int EOF=-1;
+    public static final int T__74=74;
+    public static final int T__75=75;
+    public static final int RULE_TWELVEHRSTIME=23;
+    public static final int T__76=76;
+    public static final int T__80=80;
+    public static final int T__111=111;
+    public static final int T__81=81;
+    public static final int T__110=110;
+    public static final int T__82=82;
+    public static final int T__83=83;
+    public static final int RULE_WS=9;
+    public static final int RULE_ANY_OTHER=28;
+    public static final int T__88=88;
+    public static final int T__108=108;
+    public static final int T__89=89;
+    public static final int T__107=107;
+    public static final int T__109=109;
+    public static final int T__84=84;
+    public static final int T__104=104;
+    public static final int T__85=85;
+    public static final int T__103=103;
+    public static final int RULE_INTEGER=16;
+    public static final int T__86=86;
+    public static final int T__106=106;
     public static final int T__87=87;
+    public static final int T__105=105;
 
     // delegates
     // delegators
@@ -159,10 +180,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:13:7: ( '*' )
-            // InternalDSL.g:13:9: '*'
+            // InternalDSL.g:13:7: ( 'y' )
+            // InternalDSL.g:13:9: 'y'
             {
-            match('*'); 
+            match('y'); 
 
             }
 
@@ -179,10 +200,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:14:7: ( '/' )
-            // InternalDSL.g:14:9: '/'
+            // InternalDSL.g:14:7: ( 'year' )
+            // InternalDSL.g:14:9: 'year'
             {
-            match('/'); 
+            match("year"); 
+
 
             }
 
@@ -199,10 +221,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:15:7: ( '%' )
-            // InternalDSL.g:15:9: '%'
+            // InternalDSL.g:15:7: ( 'years' )
+            // InternalDSL.g:15:9: 'years'
             {
-            match('%'); 
+            match("years"); 
+
 
             }
 
@@ -219,10 +242,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:16:7: ( '..' )
-            // InternalDSL.g:16:9: '..'
+            // InternalDSL.g:16:7: ( 'mon' )
+            // InternalDSL.g:16:9: 'mon'
             {
-            match(".."); 
+            match("mon"); 
 
 
             }
@@ -240,10 +263,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:17:7: ( 'packagedef' )
-            // InternalDSL.g:17:9: 'packagedef'
+            // InternalDSL.g:17:7: ( 'month' )
+            // InternalDSL.g:17:9: 'month'
             {
-            match("packagedef"); 
+            match("month"); 
 
 
             }
@@ -261,10 +284,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18:7: ( 'with' )
-            // InternalDSL.g:18:9: 'with'
+            // InternalDSL.g:18:7: ( 'months' )
+            // InternalDSL.g:18:9: 'months'
             {
-            match("with"); 
+            match("months"); 
 
 
             }
@@ -282,11 +305,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:19:7: ( 'packageend' )
-            // InternalDSL.g:19:9: 'packageend'
+            // InternalDSL.g:19:7: ( 'd' )
+            // InternalDSL.g:19:9: 'd'
             {
-            match("packageend"); 
-
+            match('d'); 
 
             }
 
@@ -303,10 +325,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:20:7: ( 'import' )
-            // InternalDSL.g:20:9: 'import'
+            // InternalDSL.g:20:7: ( 'day' )
+            // InternalDSL.g:20:9: 'day'
             {
-            match("import"); 
+            match("day"); 
 
 
             }
@@ -324,10 +346,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:21:7: ( 'forkdef' )
-            // InternalDSL.g:21:9: 'forkdef'
+            // InternalDSL.g:21:7: ( 'days' )
+            // InternalDSL.g:21:9: 'days'
             {
-            match("forkdef"); 
+            match("days"); 
 
 
             }
@@ -345,11 +367,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:22:7: ( 'uses' )
-            // InternalDSL.g:22:9: 'uses'
+            // InternalDSL.g:22:7: ( 'h' )
+            // InternalDSL.g:22:9: 'h'
             {
-            match("uses"); 
-
+            match('h'); 
 
             }
 
@@ -366,10 +387,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:23:7: ( 'based on' )
-            // InternalDSL.g:23:9: 'based on'
+            // InternalDSL.g:23:7: ( 'hour' )
+            // InternalDSL.g:23:9: 'hour'
             {
-            match("based on"); 
+            match("hour"); 
 
 
             }
@@ -387,10 +408,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:24:7: ( ':' )
-            // InternalDSL.g:24:9: ':'
+            // InternalDSL.g:24:7: ( 'hours' )
+            // InternalDSL.g:24:9: 'hours'
             {
-            match(':'); 
+            match("hours"); 
+
 
             }
 
@@ -407,11 +429,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:25:7: ( 'variantdef' )
-            // InternalDSL.g:25:9: 'variantdef'
+            // InternalDSL.g:25:7: ( 'm' )
+            // InternalDSL.g:25:9: 'm'
             {
-            match("variantdef"); 
-
+            match('m'); 
 
             }
 
@@ -428,10 +449,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:26:7: ( 'testdef' )
-            // InternalDSL.g:26:9: 'testdef'
+            // InternalDSL.g:26:7: ( 'minute' )
+            // InternalDSL.g:26:9: 'minute'
             {
-            match("testdef"); 
+            match("minute"); 
 
 
             }
@@ -449,10 +470,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:27:7: ( 'calldef' )
-            // InternalDSL.g:27:9: 'calldef'
+            // InternalDSL.g:27:7: ( 'minutes' )
+            // InternalDSL.g:27:9: 'minutes'
             {
-            match("calldef"); 
+            match("minutes"); 
 
 
             }
@@ -470,11 +491,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:28:7: ( 'suitedef' )
-            // InternalDSL.g:28:9: 'suitedef'
+            // InternalDSL.g:28:7: ( 's' )
+            // InternalDSL.g:28:9: 's'
             {
-            match("suitedef"); 
-
+            match('s'); 
 
             }
 
@@ -491,10 +511,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:29:7: ( 'suiteend' )
-            // InternalDSL.g:29:9: 'suiteend'
+            // InternalDSL.g:29:7: ( 'second' )
+            // InternalDSL.g:29:9: 'second'
             {
-            match("suiteend"); 
+            match("second"); 
 
 
             }
@@ -512,10 +532,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:30:7: ( 'gets' )
-            // InternalDSL.g:30:9: 'gets'
+            // InternalDSL.g:30:7: ( 'seconds' )
+            // InternalDSL.g:30:9: 'seconds'
             {
-            match("gets"); 
+            match("seconds"); 
 
 
             }
@@ -533,10 +553,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:31:7: ( 'returns' )
-            // InternalDSL.g:31:9: 'returns'
+            // InternalDSL.g:31:7: ( 'ms' )
+            // InternalDSL.g:31:9: 'ms'
             {
-            match("returns"); 
+            match("ms"); 
 
 
             }
@@ -554,10 +574,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:32:7: ( 'requires' )
-            // InternalDSL.g:32:9: 'requires'
+            // InternalDSL.g:32:7: ( 'millisecond' )
+            // InternalDSL.g:32:9: 'millisecond'
             {
-            match("requires"); 
+            match("millisecond"); 
 
 
             }
@@ -575,10 +595,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:33:7: ( 'concludedby' )
-            // InternalDSL.g:33:9: 'concludedby'
+            // InternalDSL.g:33:7: ( 'milliseconds' )
+            // InternalDSL.g:33:9: 'milliseconds'
             {
-            match("concludedby"); 
+            match("milliseconds"); 
 
 
             }
@@ -596,11 +616,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:34:7: ( 'by default' )
-            // InternalDSL.g:34:9: 'by default'
+            // InternalDSL.g:34:7: ( '*' )
+            // InternalDSL.g:34:9: '*'
             {
-            match("by default"); 
-
+            match('*'); 
 
             }
 
@@ -617,11 +636,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:35:7: ( 'operationdef' )
-            // InternalDSL.g:35:9: 'operationdef'
+            // InternalDSL.g:35:7: ( '/' )
+            // InternalDSL.g:35:9: '/'
             {
-            match("operationdef"); 
-
+            match('/'); 
 
             }
 
@@ -638,11 +656,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:36:7: ( 'variable' )
-            // InternalDSL.g:36:9: 'variable'
+            // InternalDSL.g:36:7: ( '%' )
+            // InternalDSL.g:36:9: '%'
             {
-            match("variable"); 
-
+            match('%'); 
 
             }
 
@@ -659,10 +676,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:37:7: ( 'initially' )
-            // InternalDSL.g:37:9: 'initially'
+            // InternalDSL.g:37:7: ( '..' )
+            // InternalDSL.g:37:9: '..'
             {
-            match("initially"); 
+            match(".."); 
 
 
             }
@@ -680,10 +697,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:38:7: ( 'constant' )
-            // InternalDSL.g:38:9: 'constant'
+            // InternalDSL.g:38:7: ( 'packagedef' )
+            // InternalDSL.g:38:9: 'packagedef'
             {
-            match("constant"); 
+            match("packagedef"); 
 
 
             }
@@ -701,10 +718,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:39:7: ( 'assign' )
-            // InternalDSL.g:39:9: 'assign'
+            // InternalDSL.g:39:7: ( 'with' )
+            // InternalDSL.g:39:9: 'with'
             {
-            match("assign"); 
+            match("with"); 
 
 
             }
@@ -722,10 +739,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:40:7: ( '->' )
-            // InternalDSL.g:40:9: '->'
+            // InternalDSL.g:40:7: ( 'packageend' )
+            // InternalDSL.g:40:9: 'packageend'
             {
-            match("->"); 
+            match("packageend"); 
 
 
             }
@@ -743,10 +760,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:41:7: ( 'in' )
-            // InternalDSL.g:41:9: 'in'
+            // InternalDSL.g:41:7: ( 'import' )
+            // InternalDSL.g:41:9: 'import'
             {
-            match("in"); 
+            match("import"); 
 
 
             }
@@ -764,10 +781,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:42:7: ( 'test' )
-            // InternalDSL.g:42:9: 'test'
+            // InternalDSL.g:42:7: ( 'forkdef' )
+            // InternalDSL.g:42:9: 'forkdef'
             {
-            match("test"); 
+            match("forkdef"); 
 
 
             }
@@ -785,10 +802,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:43:7: ( '=' )
-            // InternalDSL.g:43:9: '='
+            // InternalDSL.g:43:7: ( 'uses' )
+            // InternalDSL.g:43:9: 'uses'
             {
-            match('='); 
+            match("uses"); 
+
 
             }
 
@@ -805,10 +823,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:44:7: ( 'tabletest' )
-            // InternalDSL.g:44:9: 'tabletest'
+            // InternalDSL.g:44:7: ( 'based on' )
+            // InternalDSL.g:44:9: 'based on'
             {
-            match("tabletest"); 
+            match("based on"); 
 
 
             }
@@ -826,10 +844,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__63;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:45:7: ( '|' )
-            // InternalDSL.g:45:9: '|'
+            // InternalDSL.g:45:7: ( ':' )
+            // InternalDSL.g:45:9: ':'
             {
-            match('|'); 
+            match(':'); 
 
             }
 
@@ -846,10 +864,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__64;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:46:7: ( 'call' )
-            // InternalDSL.g:46:9: 'call'
+            // InternalDSL.g:46:7: ( 'variantdef' )
+            // InternalDSL.g:46:9: 'variantdef'
             {
-            match("call"); 
+            match("variantdef"); 
 
 
             }
@@ -867,10 +885,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__65;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:47:7: ( 'timeset' )
-            // InternalDSL.g:47:9: 'timeset'
+            // InternalDSL.g:47:7: ( 'testdef' )
+            // InternalDSL.g:47:9: 'testdef'
             {
-            match("timeset"); 
+            match("testdef"); 
 
 
             }
@@ -888,10 +906,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:48:7: ( 'x' )
-            // InternalDSL.g:48:9: 'x'
+            // InternalDSL.g:48:7: ( 'calldef' )
+            // InternalDSL.g:48:9: 'calldef'
             {
-            match('x'); 
+            match("calldef"); 
+
 
             }
 
@@ -908,10 +927,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:49:7: ( 'on' )
-            // InternalDSL.g:49:9: 'on'
+            // InternalDSL.g:49:7: ( 'suitedef' )
+            // InternalDSL.g:49:9: 'suitedef'
             {
-            match("on"); 
+            match("suitedef"); 
 
 
             }
@@ -929,10 +948,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:50:7: ( ',' )
-            // InternalDSL.g:50:9: ','
+            // InternalDSL.g:50:7: ( 'suiteend' )
+            // InternalDSL.g:50:9: 'suiteend'
             {
-            match(','); 
+            match("suiteend"); 
+
 
             }
 
@@ -949,10 +969,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:51:7: ( 'suite' )
-            // InternalDSL.g:51:9: 'suite'
+            // InternalDSL.g:51:7: ( 'gets' )
+            // InternalDSL.g:51:9: 'gets'
             {
-            match("suite"); 
+            match("gets"); 
 
 
             }
@@ -970,10 +990,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:52:7: ( '(' )
-            // InternalDSL.g:52:9: '('
+            // InternalDSL.g:52:7: ( 'returns' )
+            // InternalDSL.g:52:9: 'returns'
             {
-            match('('); 
+            match("returns"); 
+
 
             }
 
@@ -990,10 +1011,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:53:7: ( ')' )
-            // InternalDSL.g:53:9: ')'
+            // InternalDSL.g:53:7: ( 'requires' )
+            // InternalDSL.g:53:9: 'requires'
             {
-            match(')'); 
+            match("requires"); 
+
 
             }
 
@@ -1010,10 +1032,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:54:7: ( '[' )
-            // InternalDSL.g:54:9: '['
+            // InternalDSL.g:54:7: ( 'concludedby' )
+            // InternalDSL.g:54:9: 'concludedby'
             {
-            match('['); 
+            match("concludedby"); 
+
 
             }
 
@@ -1030,10 +1053,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__73;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:55:7: ( ']' )
-            // InternalDSL.g:55:9: ']'
+            // InternalDSL.g:55:7: ( 'by default' )
+            // InternalDSL.g:55:9: 'by default'
             {
-            match(']'); 
+            match("by default"); 
+
 
             }
 
@@ -1050,10 +1074,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__74;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:56:7: ( '<' )
-            // InternalDSL.g:56:9: '<'
+            // InternalDSL.g:56:7: ( 'operationdef' )
+            // InternalDSL.g:56:9: 'operationdef'
             {
-            match('<'); 
+            match("operationdef"); 
+
 
             }
 
@@ -1070,10 +1095,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__75;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:57:7: ( '>' )
-            // InternalDSL.g:57:9: '>'
+            // InternalDSL.g:57:7: ( 'variable' )
+            // InternalDSL.g:57:9: 'variable'
             {
-            match('>'); 
+            match("variable"); 
+
 
             }
 
@@ -1090,10 +1116,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__76;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:58:7: ( '#' )
-            // InternalDSL.g:58:9: '#'
+            // InternalDSL.g:58:7: ( 'initially' )
+            // InternalDSL.g:58:9: 'initially'
             {
-            match('#'); 
+            match("initially"); 
+
 
             }
 
@@ -1110,10 +1137,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__77;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:59:7: ( 'null' )
-            // InternalDSL.g:59:9: 'null'
+            // InternalDSL.g:59:7: ( 'constant' )
+            // InternalDSL.g:59:9: 'constant'
             {
-            match("null"); 
+            match("constant"); 
 
 
             }
@@ -1131,10 +1158,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__78;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:60:7: ( 'inexistent' )
-            // InternalDSL.g:60:9: 'inexistent'
+            // InternalDSL.g:60:7: ( 'assign' )
+            // InternalDSL.g:60:9: 'assign'
             {
-            match("inexistent"); 
+            match("assign"); 
 
 
             }
@@ -1152,10 +1179,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__79;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:61:7: ( '{' )
-            // InternalDSL.g:61:9: '{'
+            // InternalDSL.g:61:7: ( '->' )
+            // InternalDSL.g:61:9: '->'
             {
-            match('{'); 
+            match("->"); 
+
 
             }
 
@@ -1172,10 +1200,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__80;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:62:7: ( '}' )
-            // InternalDSL.g:62:9: '}'
+            // InternalDSL.g:62:7: ( 'in' )
+            // InternalDSL.g:62:9: 'in'
             {
-            match('}'); 
+            match("in"); 
+
 
             }
 
@@ -1192,10 +1221,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__81;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:63:7: ( '.' )
-            // InternalDSL.g:63:9: '.'
+            // InternalDSL.g:63:7: ( 'test' )
+            // InternalDSL.g:63:9: 'test'
             {
-            match('.'); 
+            match("test"); 
+
 
             }
 
@@ -1212,11 +1242,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__82;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:64:7: ( '.*' )
-            // InternalDSL.g:64:9: '.*'
+            // InternalDSL.g:64:7: ( '=' )
+            // InternalDSL.g:64:9: '='
             {
-            match(".*"); 
-
+            match('='); 
 
             }
 
@@ -1233,10 +1262,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__83;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:65:7: ( 'private' )
-            // InternalDSL.g:65:9: 'private'
+            // InternalDSL.g:65:7: ( 'tabletest' )
+            // InternalDSL.g:65:9: 'tabletest'
             {
-            match("private"); 
+            match("tabletest"); 
 
 
             }
@@ -1254,11 +1283,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__84;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:66:7: ( 'single-run' )
-            // InternalDSL.g:66:9: 'single-run'
+            // InternalDSL.g:66:7: ( '|' )
+            // InternalDSL.g:66:9: '|'
             {
-            match("single-run"); 
-
+            match('|'); 
 
             }
 
@@ -1275,10 +1303,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__85;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:67:7: ( 'inlined' )
-            // InternalDSL.g:67:9: 'inlined'
+            // InternalDSL.g:67:7: ( 'call' )
+            // InternalDSL.g:67:9: 'call'
             {
-            match("inlined"); 
+            match("call"); 
 
 
             }
@@ -1296,10 +1324,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__86;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:68:7: ( 'parameterized' )
-            // InternalDSL.g:68:9: 'parameterized'
+            // InternalDSL.g:68:7: ( 'timeset' )
+            // InternalDSL.g:68:9: 'timeset'
             {
-            match("parameterized"); 
+            match("timeset"); 
 
 
             }
@@ -1317,11 +1345,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__87;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:69:7: ( 'checkpoint' )
-            // InternalDSL.g:69:9: 'checkpoint'
+            // InternalDSL.g:69:7: ( 'x' )
+            // InternalDSL.g:69:9: 'x'
             {
-            match("checkpoint"); 
-
+            match('x'); 
 
             }
 
@@ -1338,10 +1365,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__88;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:70:7: ( 'live' )
-            // InternalDSL.g:70:9: 'live'
+            // InternalDSL.g:70:7: ( 'on' )
+            // InternalDSL.g:70:9: 'on'
             {
-            match("live"); 
+            match("on"); 
 
 
             }
@@ -1359,11 +1386,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__89;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:71:7: ( 'progressing' )
-            // InternalDSL.g:71:9: 'progressing'
+            // InternalDSL.g:71:7: ( ',' )
+            // InternalDSL.g:71:9: ','
             {
-            match("progressing"); 
-
+            match(','); 
 
             }
 
@@ -1380,10 +1406,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = T__90;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:72:7: ( 'master' )
-            // InternalDSL.g:72:9: 'master'
+            // InternalDSL.g:72:7: ( 'suite' )
+            // InternalDSL.g:72:9: 'suite'
             {
-            match("master"); 
+            match("suite"); 
 
 
             }
@@ -1396,13 +1422,444 @@ public class InternalDSLLexer extends Lexer {
     }
     // $ANTLR end "T__90"
 
+    // $ANTLR start "T__91"
+    public final void mT__91() throws RecognitionException {
+        try {
+            int _type = T__91;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:73:7: ( '(' )
+            // InternalDSL.g:73:9: '('
+            {
+            match('('); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__91"
+
+    // $ANTLR start "T__92"
+    public final void mT__92() throws RecognitionException {
+        try {
+            int _type = T__92;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:74:7: ( ')' )
+            // InternalDSL.g:74:9: ')'
+            {
+            match(')'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__92"
+
+    // $ANTLR start "T__93"
+    public final void mT__93() throws RecognitionException {
+        try {
+            int _type = T__93;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:75:7: ( '[' )
+            // InternalDSL.g:75:9: '['
+            {
+            match('['); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__93"
+
+    // $ANTLR start "T__94"
+    public final void mT__94() throws RecognitionException {
+        try {
+            int _type = T__94;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:76:7: ( ']' )
+            // InternalDSL.g:76:9: ']'
+            {
+            match(']'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__94"
+
+    // $ANTLR start "T__95"
+    public final void mT__95() throws RecognitionException {
+        try {
+            int _type = T__95;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:77:7: ( '<' )
+            // InternalDSL.g:77:9: '<'
+            {
+            match('<'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__95"
+
+    // $ANTLR start "T__96"
+    public final void mT__96() throws RecognitionException {
+        try {
+            int _type = T__96;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:78:7: ( '>' )
+            // InternalDSL.g:78:9: '>'
+            {
+            match('>'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__96"
+
+    // $ANTLR start "T__97"
+    public final void mT__97() throws RecognitionException {
+        try {
+            int _type = T__97;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:79:7: ( '#' )
+            // InternalDSL.g:79:9: '#'
+            {
+            match('#'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__97"
+
+    // $ANTLR start "T__98"
+    public final void mT__98() throws RecognitionException {
+        try {
+            int _type = T__98;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:80:7: ( 'null' )
+            // InternalDSL.g:80:9: 'null'
+            {
+            match("null"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__98"
+
+    // $ANTLR start "T__99"
+    public final void mT__99() throws RecognitionException {
+        try {
+            int _type = T__99;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:81:7: ( 'inexistent' )
+            // InternalDSL.g:81:9: 'inexistent'
+            {
+            match("inexistent"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__99"
+
+    // $ANTLR start "T__100"
+    public final void mT__100() throws RecognitionException {
+        try {
+            int _type = T__100;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:82:8: ( '{' )
+            // InternalDSL.g:82:10: '{'
+            {
+            match('{'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__100"
+
+    // $ANTLR start "T__101"
+    public final void mT__101() throws RecognitionException {
+        try {
+            int _type = T__101;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:83:8: ( '}' )
+            // InternalDSL.g:83:10: '}'
+            {
+            match('}'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__101"
+
+    // $ANTLR start "T__102"
+    public final void mT__102() throws RecognitionException {
+        try {
+            int _type = T__102;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:84:8: ( '.' )
+            // InternalDSL.g:84:10: '.'
+            {
+            match('.'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__102"
+
+    // $ANTLR start "T__103"
+    public final void mT__103() throws RecognitionException {
+        try {
+            int _type = T__103;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:85:8: ( '.*' )
+            // InternalDSL.g:85:10: '.*'
+            {
+            match(".*"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__103"
+
+    // $ANTLR start "T__104"
+    public final void mT__104() throws RecognitionException {
+        try {
+            int _type = T__104;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:86:8: ( 'private' )
+            // InternalDSL.g:86:10: 'private'
+            {
+            match("private"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__104"
+
+    // $ANTLR start "T__105"
+    public final void mT__105() throws RecognitionException {
+        try {
+            int _type = T__105;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:87:8: ( 'single-run' )
+            // InternalDSL.g:87:10: 'single-run'
+            {
+            match("single-run"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__105"
+
+    // $ANTLR start "T__106"
+    public final void mT__106() throws RecognitionException {
+        try {
+            int _type = T__106;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:88:8: ( 'inlined' )
+            // InternalDSL.g:88:10: 'inlined'
+            {
+            match("inlined"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__106"
+
+    // $ANTLR start "T__107"
+    public final void mT__107() throws RecognitionException {
+        try {
+            int _type = T__107;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:89:8: ( 'parameterized' )
+            // InternalDSL.g:89:10: 'parameterized'
+            {
+            match("parameterized"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__107"
+
+    // $ANTLR start "T__108"
+    public final void mT__108() throws RecognitionException {
+        try {
+            int _type = T__108;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:90:8: ( 'checkpoint' )
+            // InternalDSL.g:90:10: 'checkpoint'
+            {
+            match("checkpoint"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__108"
+
+    // $ANTLR start "T__109"
+    public final void mT__109() throws RecognitionException {
+        try {
+            int _type = T__109;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:91:8: ( 'live' )
+            // InternalDSL.g:91:10: 'live'
+            {
+            match("live"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__109"
+
+    // $ANTLR start "T__110"
+    public final void mT__110() throws RecognitionException {
+        try {
+            int _type = T__110;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:92:8: ( 'progressing' )
+            // InternalDSL.g:92:10: 'progressing'
+            {
+            match("progressing"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__110"
+
+    // $ANTLR start "T__111"
+    public final void mT__111() throws RecognitionException {
+        try {
+            int _type = T__111;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // InternalDSL.g:93:8: ( 'master' )
+            // InternalDSL.g:93:10: 'master'
+            {
+            match("master"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__111"
+
     // $ANTLR start "RULE_BOOLEAN_TRUE"
     public final void mRULE_BOOLEAN_TRUE() throws RecognitionException {
         try {
             int _type = RULE_BOOLEAN_TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18337:19: ( 'true' )
-            // InternalDSL.g:18337:21: 'true'
+            // InternalDSL.g:18917:19: ( 'true' )
+            // InternalDSL.g:18917:21: 'true'
             {
             match("true"); 
 
@@ -1422,8 +1879,8 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_BOOLEAN_FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18339:20: ( 'false' )
-            // InternalDSL.g:18339:22: 'false'
+            // InternalDSL.g:18919:20: ( 'false' )
+            // InternalDSL.g:18919:22: 'false'
             {
             match("false"); 
 
@@ -1443,11 +1900,11 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_UPPERCASE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18341:19: ( 'A' .. 'Z' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* )
-            // InternalDSL.g:18341:21: 'A' .. 'Z' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+            // InternalDSL.g:18921:19: ( 'A' .. 'Z' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )* )
+            // InternalDSL.g:18921:21: 'A' .. 'Z' ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
             {
             matchRange('A','Z'); 
-            // InternalDSL.g:18341:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
+            // InternalDSL.g:18921:30: ( 'A' .. 'Z' | 'a' .. 'z' | '_' | '0' .. '9' )*
             loop1:
             do {
                 int alt1=2;
@@ -1496,10 +1953,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18343:9: ( ( '^' )? ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // InternalDSL.g:18343:11: ( '^' )? ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalDSL.g:18923:9: ( ( '^' )? ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalDSL.g:18923:11: ( '^' )? ( 'a' .. 'z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // InternalDSL.g:18343:11: ( '^' )?
+            // InternalDSL.g:18923:11: ( '^' )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -1508,7 +1965,7 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // InternalDSL.g:18343:11: '^'
+                    // InternalDSL.g:18923:11: '^'
                     {
                     match('^'); 
 
@@ -1526,7 +1983,7 @@ public class InternalDSLLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalDSL.g:18343:31: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalDSL.g:18923:31: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop3:
             do {
                 int alt3=2;
@@ -1575,10 +2032,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_INTEGER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18345:14: ( ( '-' )? ( '0' .. '9' )+ )
-            // InternalDSL.g:18345:16: ( '-' )? ( '0' .. '9' )+
+            // InternalDSL.g:18925:14: ( ( '-' )? ( '0' .. '9' )+ )
+            // InternalDSL.g:18925:16: ( '-' )? ( '0' .. '9' )+
             {
-            // InternalDSL.g:18345:16: ( '-' )?
+            // InternalDSL.g:18925:16: ( '-' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1587,7 +2044,7 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // InternalDSL.g:18345:16: '-'
+                    // InternalDSL.g:18925:16: '-'
                     {
                     match('-'); 
 
@@ -1596,7 +2053,7 @@ public class InternalDSLLexer extends Lexer {
 
             }
 
-            // InternalDSL.g:18345:21: ( '0' .. '9' )+
+            // InternalDSL.g:18925:21: ( '0' .. '9' )+
             int cnt5=0;
             loop5:
             do {
@@ -1610,7 +2067,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // InternalDSL.g:18345:22: '0' .. '9'
+            	    // InternalDSL.g:18925:22: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1642,10 +2099,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18347:14: ( ( '-' )? ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
-            // InternalDSL.g:18347:16: ( '-' )? ( '0' .. '9' )+ '.' ( '0' .. '9' )+
+            // InternalDSL.g:18927:14: ( ( '-' )? ( '0' .. '9' )+ '.' ( '0' .. '9' )+ )
+            // InternalDSL.g:18927:16: ( '-' )? ( '0' .. '9' )+ '.' ( '0' .. '9' )+
             {
-            // InternalDSL.g:18347:16: ( '-' )?
+            // InternalDSL.g:18927:16: ( '-' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1654,7 +2111,7 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // InternalDSL.g:18347:16: '-'
+                    // InternalDSL.g:18927:16: '-'
                     {
                     match('-'); 
 
@@ -1663,7 +2120,7 @@ public class InternalDSLLexer extends Lexer {
 
             }
 
-            // InternalDSL.g:18347:21: ( '0' .. '9' )+
+            // InternalDSL.g:18927:21: ( '0' .. '9' )+
             int cnt7=0;
             loop7:
             do {
@@ -1677,7 +2134,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // InternalDSL.g:18347:22: '0' .. '9'
+            	    // InternalDSL.g:18927:22: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1694,7 +2151,7 @@ public class InternalDSLLexer extends Lexer {
             } while (true);
 
             match('.'); 
-            // InternalDSL.g:18347:37: ( '0' .. '9' )+
+            // InternalDSL.g:18927:37: ( '0' .. '9' )+
             int cnt8=0;
             loop8:
             do {
@@ -1708,7 +2165,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // InternalDSL.g:18347:38: '0' .. '9'
+            	    // InternalDSL.g:18927:38: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1740,10 +2197,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18349:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // InternalDSL.g:18349:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalDSL.g:18929:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalDSL.g:18929:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // InternalDSL.g:18349:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalDSL.g:18929:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -1761,10 +2218,10 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt11) {
                 case 1 :
-                    // InternalDSL.g:18349:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalDSL.g:18929:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // InternalDSL.g:18349:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalDSL.g:18929:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop9:
                     do {
                         int alt9=3;
@@ -1780,7 +2237,7 @@ public class InternalDSLLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // InternalDSL.g:18349:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // InternalDSL.g:18929:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -1796,7 +2253,7 @@ public class InternalDSLLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalDSL.g:18349:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalDSL.g:18929:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1821,10 +2278,10 @@ public class InternalDSLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:18349:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalDSL.g:18929:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // InternalDSL.g:18349:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalDSL.g:18929:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop10:
                     do {
                         int alt10=3;
@@ -1840,7 +2297,7 @@ public class InternalDSLLexer extends Lexer {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // InternalDSL.g:18349:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // InternalDSL.g:18929:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -1856,7 +2313,7 @@ public class InternalDSLLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // InternalDSL.g:18349:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalDSL.g:18929:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1899,8 +2356,8 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18351:17: ( '/*' ~ ( '*' ) ( options {greedy=false; } : . )* '*/' )
-            // InternalDSL.g:18351:19: '/*' ~ ( '*' ) ( options {greedy=false; } : . )* '*/'
+            // InternalDSL.g:18931:17: ( '/*' ~ ( '*' ) ( options {greedy=false; } : . )* '*/' )
+            // InternalDSL.g:18931:19: '/*' ~ ( '*' ) ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
@@ -1913,7 +2370,7 @@ public class InternalDSLLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // InternalDSL.g:18351:31: ( options {greedy=false; } : . )*
+            // InternalDSL.g:18931:31: ( options {greedy=false; } : . )*
             loop12:
             do {
                 int alt12=2;
@@ -1938,7 +2395,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // InternalDSL.g:18351:59: .
+            	    // InternalDSL.g:18931:59: .
             	    {
             	    matchAny(); 
 
@@ -1968,12 +2425,12 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18353:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* )
-            // InternalDSL.g:18353:19: '//' (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalDSL.g:18933:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* )
+            // InternalDSL.g:18933:19: '//' (~ ( ( '\\n' | '\\r' ) ) )*
             {
             match("//"); 
 
-            // InternalDSL.g:18353:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalDSL.g:18933:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop13:
             do {
                 int alt13=2;
@@ -1986,7 +2443,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // InternalDSL.g:18353:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalDSL.g:18933:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2022,12 +2479,12 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_SL_VISIBLE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18355:25: ( '-- ' (~ ( ( '\\n' | '\\r' ) ) )* )
-            // InternalDSL.g:18355:27: '-- ' (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalDSL.g:18935:25: ( '-- ' (~ ( ( '\\n' | '\\r' ) ) )* )
+            // InternalDSL.g:18935:27: '-- ' (~ ( ( '\\n' | '\\r' ) ) )*
             {
             match("-- "); 
 
-            // InternalDSL.g:18355:33: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalDSL.g:18935:33: (~ ( ( '\\n' | '\\r' ) ) )*
             loop14:
             do {
                 int alt14=2;
@@ -2040,7 +2497,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // InternalDSL.g:18355:33: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalDSL.g:18935:33: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2076,12 +2533,12 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_SL_VISIBLE_TITLE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18357:31: ( '--- ' (~ ( ( '\\n' | '\\r' ) ) )* )
-            // InternalDSL.g:18357:33: '--- ' (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalDSL.g:18937:31: ( '--- ' (~ ( ( '\\n' | '\\r' ) ) )* )
+            // InternalDSL.g:18937:33: '--- ' (~ ( ( '\\n' | '\\r' ) ) )*
             {
             match("--- "); 
 
-            // InternalDSL.g:18357:40: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalDSL.g:18937:40: (~ ( ( '\\n' | '\\r' ) ) )*
             loop15:
             do {
                 int alt15=2;
@@ -2094,7 +2551,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // InternalDSL.g:18357:40: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalDSL.g:18937:40: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2130,12 +2587,12 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_ML_VISIBLE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18359:25: ( '/- ' ( options {greedy=false; } : . )* '-/' )
-            // InternalDSL.g:18359:27: '/- ' ( options {greedy=false; } : . )* '-/'
+            // InternalDSL.g:18939:25: ( '/- ' ( options {greedy=false; } : . )* '-/' )
+            // InternalDSL.g:18939:27: '/- ' ( options {greedy=false; } : . )* '-/'
             {
             match("/- "); 
 
-            // InternalDSL.g:18359:33: ( options {greedy=false; } : . )*
+            // InternalDSL.g:18939:33: ( options {greedy=false; } : . )*
             loop16:
             do {
                 int alt16=2;
@@ -2160,7 +2617,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt16) {
             	case 1 :
-            	    // InternalDSL.g:18359:61: .
+            	    // InternalDSL.g:18939:61: .
             	    {
             	    matchAny(); 
 
@@ -2190,12 +2647,12 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_ML_VISIBLE_TITLE_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18361:31: ( '/-- ' ( options {greedy=false; } : . )* '--/' )
-            // InternalDSL.g:18361:33: '/-- ' ( options {greedy=false; } : . )* '--/'
+            // InternalDSL.g:18941:31: ( '/-- ' ( options {greedy=false; } : . )* '--/' )
+            // InternalDSL.g:18941:33: '/-- ' ( options {greedy=false; } : . )* '--/'
             {
             match("/-- "); 
 
-            // InternalDSL.g:18361:40: ( options {greedy=false; } : . )*
+            // InternalDSL.g:18941:40: ( options {greedy=false; } : . )*
             loop17:
             do {
                 int alt17=2;
@@ -2229,7 +2686,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // InternalDSL.g:18361:68: .
+            	    // InternalDSL.g:18941:68: .
             	    {
             	    matchAny(); 
 
@@ -2259,12 +2716,12 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_ML_DOC_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18363:21: ( '/**' ( options {greedy=false; } : . )* '*/' )
-            // InternalDSL.g:18363:23: '/**' ( options {greedy=false; } : . )* '*/'
+            // InternalDSL.g:18943:21: ( '/**' ( options {greedy=false; } : . )* '*/' )
+            // InternalDSL.g:18943:23: '/**' ( options {greedy=false; } : . )* '*/'
             {
             match("/**"); 
 
-            // InternalDSL.g:18363:29: ( options {greedy=false; } : . )*
+            // InternalDSL.g:18943:29: ( options {greedy=false; } : . )*
             loop18:
             do {
                 int alt18=2;
@@ -2289,7 +2746,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // InternalDSL.g:18363:57: .
+            	    // InternalDSL.g:18943:57: .
             	    {
             	    matchAny(); 
 
@@ -2319,12 +2776,12 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_DIVIDER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18365:14: ( '----' ( '-' )* )
-            // InternalDSL.g:18365:16: '----' ( '-' )*
+            // InternalDSL.g:18945:14: ( '----' ( '-' )* )
+            // InternalDSL.g:18945:16: '----' ( '-' )*
             {
             match("----"); 
 
-            // InternalDSL.g:18365:23: ( '-' )*
+            // InternalDSL.g:18945:23: ( '-' )*
             loop19:
             do {
                 int alt19=2;
@@ -2337,7 +2794,7 @@ public class InternalDSLLexer extends Lexer {
 
                 switch (alt19) {
             	case 1 :
-            	    // InternalDSL.g:18365:23: '-'
+            	    // InternalDSL.g:18945:23: '-'
             	    {
             	    match('-'); 
 
@@ -2365,10 +2822,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18367:9: ( ( ' ' | '\\t' )+ )
-            // InternalDSL.g:18367:11: ( ' ' | '\\t' )+
+            // InternalDSL.g:18947:9: ( ( ' ' | '\\t' )+ )
+            // InternalDSL.g:18947:11: ( ' ' | '\\t' )+
             {
-            // InternalDSL.g:18367:11: ( ' ' | '\\t' )+
+            // InternalDSL.g:18947:11: ( ' ' | '\\t' )+
             int cnt20=0;
             loop20:
             do {
@@ -2422,10 +2879,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18369:14: ( ( '\\r' | '\\n' )+ )
-            // InternalDSL.g:18369:16: ( '\\r' | '\\n' )+
+            // InternalDSL.g:18949:14: ( ( '\\r' | '\\n' )+ )
+            // InternalDSL.g:18949:16: ( '\\r' | '\\n' )+
             {
-            // InternalDSL.g:18369:16: ( '\\r' | '\\n' )+
+            // InternalDSL.g:18949:16: ( '\\r' | '\\n' )+
             int cnt21=0;
             loop21:
             do {
@@ -2479,8 +2936,8 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_ISODATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18371:14: ( '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' '-' '0' .. '1' '0' .. '9' '-' '0' .. '3' '0' .. '9' )
-            // InternalDSL.g:18371:16: '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' '-' '0' .. '1' '0' .. '9' '-' '0' .. '3' '0' .. '9'
+            // InternalDSL.g:18951:14: ( '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' '-' '0' .. '1' '0' .. '9' '-' '0' .. '3' '0' .. '9' )
+            // InternalDSL.g:18951:16: '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' '-' '0' .. '1' '0' .. '9' '-' '0' .. '3' '0' .. '9'
             {
             matchRange('0','9'); 
             matchRange('0','9'); 
@@ -2508,10 +2965,10 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_ISOTIME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18373:14: ( ( 'T' RULE_TWENTYFOURHRSTIME ( RULE_ISOTIMEZONE )? | RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE ) )
-            // InternalDSL.g:18373:16: ( 'T' RULE_TWENTYFOURHRSTIME ( RULE_ISOTIMEZONE )? | RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE )
+            // InternalDSL.g:18953:14: ( ( 'T' RULE_TWENTYFOURHRSTIME ( RULE_ISOTIMEZONE )? | RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE ) )
+            // InternalDSL.g:18953:16: ( 'T' RULE_TWENTYFOURHRSTIME ( RULE_ISOTIMEZONE )? | RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE )
             {
-            // InternalDSL.g:18373:16: ( 'T' RULE_TWENTYFOURHRSTIME ( RULE_ISOTIMEZONE )? | RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE )
+            // InternalDSL.g:18953:16: ( 'T' RULE_TWENTYFOURHRSTIME ( RULE_ISOTIMEZONE )? | RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE )
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2529,11 +2986,11 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // InternalDSL.g:18373:17: 'T' RULE_TWENTYFOURHRSTIME ( RULE_ISOTIMEZONE )?
+                    // InternalDSL.g:18953:17: 'T' RULE_TWENTYFOURHRSTIME ( RULE_ISOTIMEZONE )?
                     {
                     match('T'); 
                     mRULE_TWENTYFOURHRSTIME(); 
-                    // InternalDSL.g:18373:44: ( RULE_ISOTIMEZONE )?
+                    // InternalDSL.g:18953:44: ( RULE_ISOTIMEZONE )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -2542,7 +2999,7 @@ public class InternalDSLLexer extends Lexer {
                     }
                     switch (alt22) {
                         case 1 :
-                            // InternalDSL.g:18373:44: RULE_ISOTIMEZONE
+                            // InternalDSL.g:18953:44: RULE_ISOTIMEZONE
                             {
                             mRULE_ISOTIMEZONE(); 
 
@@ -2555,7 +3012,7 @@ public class InternalDSLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:18373:62: RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE
+                    // InternalDSL.g:18953:62: RULE_TWENTYFOURHRSTIME RULE_ISOTIMEZONE
                     {
                     mRULE_TWENTYFOURHRSTIME(); 
                     mRULE_ISOTIMEZONE(); 
@@ -2579,10 +3036,10 @@ public class InternalDSLLexer extends Lexer {
     // $ANTLR start "RULE_ISOTIMEZONE"
     public final void mRULE_ISOTIMEZONE() throws RecognitionException {
         try {
-            // InternalDSL.g:18375:27: ( ( 'Z' | ( '+' | '-' ) '0' .. '2' '0' .. '9' ( ':' )? '0' .. '5' '0' .. '9' ) )
-            // InternalDSL.g:18375:29: ( 'Z' | ( '+' | '-' ) '0' .. '2' '0' .. '9' ( ':' )? '0' .. '5' '0' .. '9' )
+            // InternalDSL.g:18955:27: ( ( 'Z' | ( '+' | '-' ) '0' .. '2' '0' .. '9' ( ':' )? '0' .. '5' '0' .. '9' ) )
+            // InternalDSL.g:18955:29: ( 'Z' | ( '+' | '-' ) '0' .. '2' '0' .. '9' ( ':' )? '0' .. '5' '0' .. '9' )
             {
-            // InternalDSL.g:18375:29: ( 'Z' | ( '+' | '-' ) '0' .. '2' '0' .. '9' ( ':' )? '0' .. '5' '0' .. '9' )
+            // InternalDSL.g:18955:29: ( 'Z' | ( '+' | '-' ) '0' .. '2' '0' .. '9' ( ':' )? '0' .. '5' '0' .. '9' )
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -2600,14 +3057,14 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt25) {
                 case 1 :
-                    // InternalDSL.g:18375:30: 'Z'
+                    // InternalDSL.g:18955:30: 'Z'
                     {
                     match('Z'); 
 
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:18375:34: ( '+' | '-' ) '0' .. '2' '0' .. '9' ( ':' )? '0' .. '5' '0' .. '9'
+                    // InternalDSL.g:18955:34: ( '+' | '-' ) '0' .. '2' '0' .. '9' ( ':' )? '0' .. '5' '0' .. '9'
                     {
                     if ( input.LA(1)=='+'||input.LA(1)=='-' ) {
                         input.consume();
@@ -2620,7 +3077,7 @@ public class InternalDSLLexer extends Lexer {
 
                     matchRange('0','2'); 
                     matchRange('0','9'); 
-                    // InternalDSL.g:18375:62: ( ':' )?
+                    // InternalDSL.g:18955:62: ( ':' )?
                     int alt24=2;
                     int LA24_0 = input.LA(1);
 
@@ -2629,7 +3086,7 @@ public class InternalDSLLexer extends Lexer {
                     }
                     switch (alt24) {
                         case 1 :
-                            // InternalDSL.g:18375:62: ':'
+                            // InternalDSL.g:18955:62: ':'
                             {
                             match(':'); 
 
@@ -2660,8 +3117,8 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_EURODATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18377:15: ( '0' .. '3' '0' .. '9' '.' '0' .. '1' '0' .. '9' '.' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' )
-            // InternalDSL.g:18377:17: '0' .. '3' '0' .. '9' '.' '0' .. '1' '0' .. '9' '.' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9'
+            // InternalDSL.g:18957:15: ( '0' .. '3' '0' .. '9' '.' '0' .. '1' '0' .. '9' '.' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' )
+            // InternalDSL.g:18957:17: '0' .. '3' '0' .. '9' '.' '0' .. '1' '0' .. '9' '.' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9'
             {
             matchRange('0','3'); 
             matchRange('0','9'); 
@@ -2689,8 +3146,8 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_USDATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18379:13: ( '0' .. '1' '0' .. '9' '/' '0' .. '3' '0' .. '9' '/' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' )
-            // InternalDSL.g:18379:15: '0' .. '1' '0' .. '9' '/' '0' .. '3' '0' .. '9' '/' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9'
+            // InternalDSL.g:18959:13: ( '0' .. '1' '0' .. '9' '/' '0' .. '3' '0' .. '9' '/' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9' )
+            // InternalDSL.g:18959:15: '0' .. '1' '0' .. '9' '/' '0' .. '3' '0' .. '9' '/' '0' .. '9' '0' .. '9' '0' .. '9' '0' .. '9'
             {
             matchRange('0','1'); 
             matchRange('0','9'); 
@@ -2718,15 +3175,15 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_TWENTYFOURHRSTIME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18381:24: ( '0' .. '2' '0' .. '9' ':' '0' .. '5' '0' .. '9' ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )? )
-            // InternalDSL.g:18381:26: '0' .. '2' '0' .. '9' ':' '0' .. '5' '0' .. '9' ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )?
+            // InternalDSL.g:18961:24: ( '0' .. '2' '0' .. '9' ':' '0' .. '5' '0' .. '9' ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )? )
+            // InternalDSL.g:18961:26: '0' .. '2' '0' .. '9' ':' '0' .. '5' '0' .. '9' ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )?
             {
             matchRange('0','2'); 
             matchRange('0','9'); 
             match(':'); 
             matchRange('0','5'); 
             matchRange('0','9'); 
-            // InternalDSL.g:18381:66: ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )?
+            // InternalDSL.g:18961:66: ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )?
             int alt27=2;
             int LA27_0 = input.LA(1);
 
@@ -2735,12 +3192,12 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt27) {
                 case 1 :
-                    // InternalDSL.g:18381:67: ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )?
+                    // InternalDSL.g:18961:67: ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )?
                     {
                     match(':'); 
                     matchRange('0','6'); 
                     matchRange('0','9'); 
-                    // InternalDSL.g:18381:89: ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )?
+                    // InternalDSL.g:18961:89: ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )?
                     int alt26=2;
                     int LA26_0 = input.LA(1);
 
@@ -2749,7 +3206,7 @@ public class InternalDSLLexer extends Lexer {
                     }
                     switch (alt26) {
                         case 1 :
-                            // InternalDSL.g:18381:90: '.' '0' .. '9' '0' .. '9' '0' .. '9'
+                            // InternalDSL.g:18961:90: '.' '0' .. '9' '0' .. '9' '0' .. '9'
                             {
                             match('.'); 
                             matchRange('0','9'); 
@@ -2783,15 +3240,15 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_TWELVEHRSTIME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18383:20: ( '0' .. '1' '0' .. '9' ':' '0' .. '5' '0' .. '9' ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )? ( 'am' | 'pm' ) )
-            // InternalDSL.g:18383:22: '0' .. '1' '0' .. '9' ':' '0' .. '5' '0' .. '9' ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )? ( 'am' | 'pm' )
+            // InternalDSL.g:18963:20: ( '0' .. '1' '0' .. '9' ':' '0' .. '5' '0' .. '9' ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )? ( 'am' | 'pm' ) )
+            // InternalDSL.g:18963:22: '0' .. '1' '0' .. '9' ':' '0' .. '5' '0' .. '9' ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )? ( 'am' | 'pm' )
             {
             matchRange('0','1'); 
             matchRange('0','9'); 
             match(':'); 
             matchRange('0','5'); 
             matchRange('0','9'); 
-            // InternalDSL.g:18383:62: ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )?
+            // InternalDSL.g:18963:62: ( ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )? )?
             int alt29=2;
             int LA29_0 = input.LA(1);
 
@@ -2800,12 +3257,12 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt29) {
                 case 1 :
-                    // InternalDSL.g:18383:63: ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )?
+                    // InternalDSL.g:18963:63: ':' '0' .. '6' '0' .. '9' ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )?
                     {
                     match(':'); 
                     matchRange('0','6'); 
                     matchRange('0','9'); 
-                    // InternalDSL.g:18383:85: ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )?
+                    // InternalDSL.g:18963:85: ( '.' '0' .. '9' '0' .. '9' '0' .. '9' )?
                     int alt28=2;
                     int LA28_0 = input.LA(1);
 
@@ -2814,7 +3271,7 @@ public class InternalDSLLexer extends Lexer {
                     }
                     switch (alt28) {
                         case 1 :
-                            // InternalDSL.g:18383:86: '.' '0' .. '9' '0' .. '9' '0' .. '9'
+                            // InternalDSL.g:18963:86: '.' '0' .. '9' '0' .. '9' '0' .. '9'
                             {
                             match('.'); 
                             matchRange('0','9'); 
@@ -2832,7 +3289,7 @@ public class InternalDSLLexer extends Lexer {
 
             }
 
-            // InternalDSL.g:18383:121: ( 'am' | 'pm' )
+            // InternalDSL.g:18963:121: ( 'am' | 'pm' )
             int alt30=2;
             int LA30_0 = input.LA(1);
 
@@ -2850,7 +3307,7 @@ public class InternalDSLLexer extends Lexer {
             }
             switch (alt30) {
                 case 1 :
-                    // InternalDSL.g:18383:122: 'am'
+                    // InternalDSL.g:18963:122: 'am'
                     {
                     match("am"); 
 
@@ -2858,7 +3315,7 @@ public class InternalDSLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:18383:127: 'pm'
+                    // InternalDSL.g:18963:127: 'pm'
                     {
                     match("pm"); 
 
@@ -2884,8 +3341,8 @@ public class InternalDSLLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // InternalDSL.g:18385:16: ( . )
-            // InternalDSL.g:18385:18: .
+            // InternalDSL.g:18965:16: ( . )
+            // InternalDSL.g:18965:18: .
             {
             matchAny(); 
 
@@ -2900,8 +3357,8 @@ public class InternalDSLLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // InternalDSL.g:1:8: ( T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | RULE_BOOLEAN_TRUE | RULE_BOOLEAN_FALSE | RULE_UPPERCASE_ID | RULE_ID | RULE_INTEGER | RULE_DECIMAL | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_SL_VISIBLE_COMMENT | RULE_SL_VISIBLE_TITLE_COMMENT | RULE_ML_VISIBLE_COMMENT | RULE_ML_VISIBLE_TITLE_COMMENT | RULE_ML_DOC_COMMENT | RULE_DIVIDER | RULE_WS | RULE_NEWLINE | RULE_ISODATE | RULE_ISOTIME | RULE_EURODATE | RULE_USDATE | RULE_TWENTYFOURHRSTIME | RULE_TWELVEHRSTIME | RULE_ANY_OTHER )
-        int alt31=86;
+        // InternalDSL.g:1:8: ( T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | RULE_BOOLEAN_TRUE | RULE_BOOLEAN_FALSE | RULE_UPPERCASE_ID | RULE_ID | RULE_INTEGER | RULE_DECIMAL | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_SL_VISIBLE_COMMENT | RULE_SL_VISIBLE_TITLE_COMMENT | RULE_ML_VISIBLE_COMMENT | RULE_ML_VISIBLE_TITLE_COMMENT | RULE_ML_DOC_COMMENT | RULE_DIVIDER | RULE_WS | RULE_NEWLINE | RULE_ISODATE | RULE_ISOTIME | RULE_EURODATE | RULE_USDATE | RULE_TWENTYFOURHRSTIME | RULE_TWELVEHRSTIME | RULE_ANY_OTHER )
+        int alt31=107;
         alt31 = dfa31.predict(input);
         switch (alt31) {
             case 1 :
@@ -3339,168 +3796,315 @@ public class InternalDSLLexer extends Lexer {
                 }
                 break;
             case 63 :
-                // InternalDSL.g:1:382: RULE_BOOLEAN_TRUE
+                // InternalDSL.g:1:382: T__91
+                {
+                mT__91(); 
+
+                }
+                break;
+            case 64 :
+                // InternalDSL.g:1:388: T__92
+                {
+                mT__92(); 
+
+                }
+                break;
+            case 65 :
+                // InternalDSL.g:1:394: T__93
+                {
+                mT__93(); 
+
+                }
+                break;
+            case 66 :
+                // InternalDSL.g:1:400: T__94
+                {
+                mT__94(); 
+
+                }
+                break;
+            case 67 :
+                // InternalDSL.g:1:406: T__95
+                {
+                mT__95(); 
+
+                }
+                break;
+            case 68 :
+                // InternalDSL.g:1:412: T__96
+                {
+                mT__96(); 
+
+                }
+                break;
+            case 69 :
+                // InternalDSL.g:1:418: T__97
+                {
+                mT__97(); 
+
+                }
+                break;
+            case 70 :
+                // InternalDSL.g:1:424: T__98
+                {
+                mT__98(); 
+
+                }
+                break;
+            case 71 :
+                // InternalDSL.g:1:430: T__99
+                {
+                mT__99(); 
+
+                }
+                break;
+            case 72 :
+                // InternalDSL.g:1:436: T__100
+                {
+                mT__100(); 
+
+                }
+                break;
+            case 73 :
+                // InternalDSL.g:1:443: T__101
+                {
+                mT__101(); 
+
+                }
+                break;
+            case 74 :
+                // InternalDSL.g:1:450: T__102
+                {
+                mT__102(); 
+
+                }
+                break;
+            case 75 :
+                // InternalDSL.g:1:457: T__103
+                {
+                mT__103(); 
+
+                }
+                break;
+            case 76 :
+                // InternalDSL.g:1:464: T__104
+                {
+                mT__104(); 
+
+                }
+                break;
+            case 77 :
+                // InternalDSL.g:1:471: T__105
+                {
+                mT__105(); 
+
+                }
+                break;
+            case 78 :
+                // InternalDSL.g:1:478: T__106
+                {
+                mT__106(); 
+
+                }
+                break;
+            case 79 :
+                // InternalDSL.g:1:485: T__107
+                {
+                mT__107(); 
+
+                }
+                break;
+            case 80 :
+                // InternalDSL.g:1:492: T__108
+                {
+                mT__108(); 
+
+                }
+                break;
+            case 81 :
+                // InternalDSL.g:1:499: T__109
+                {
+                mT__109(); 
+
+                }
+                break;
+            case 82 :
+                // InternalDSL.g:1:506: T__110
+                {
+                mT__110(); 
+
+                }
+                break;
+            case 83 :
+                // InternalDSL.g:1:513: T__111
+                {
+                mT__111(); 
+
+                }
+                break;
+            case 84 :
+                // InternalDSL.g:1:520: RULE_BOOLEAN_TRUE
                 {
                 mRULE_BOOLEAN_TRUE(); 
 
                 }
                 break;
-            case 64 :
-                // InternalDSL.g:1:400: RULE_BOOLEAN_FALSE
+            case 85 :
+                // InternalDSL.g:1:538: RULE_BOOLEAN_FALSE
                 {
                 mRULE_BOOLEAN_FALSE(); 
 
                 }
                 break;
-            case 65 :
-                // InternalDSL.g:1:419: RULE_UPPERCASE_ID
+            case 86 :
+                // InternalDSL.g:1:557: RULE_UPPERCASE_ID
                 {
                 mRULE_UPPERCASE_ID(); 
 
                 }
                 break;
-            case 66 :
-                // InternalDSL.g:1:437: RULE_ID
+            case 87 :
+                // InternalDSL.g:1:575: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 67 :
-                // InternalDSL.g:1:445: RULE_INTEGER
+            case 88 :
+                // InternalDSL.g:1:583: RULE_INTEGER
                 {
                 mRULE_INTEGER(); 
 
                 }
                 break;
-            case 68 :
-                // InternalDSL.g:1:458: RULE_DECIMAL
+            case 89 :
+                // InternalDSL.g:1:596: RULE_DECIMAL
                 {
                 mRULE_DECIMAL(); 
 
                 }
                 break;
-            case 69 :
-                // InternalDSL.g:1:471: RULE_STRING
+            case 90 :
+                // InternalDSL.g:1:609: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 70 :
-                // InternalDSL.g:1:483: RULE_ML_COMMENT
+            case 91 :
+                // InternalDSL.g:1:621: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 71 :
-                // InternalDSL.g:1:499: RULE_SL_COMMENT
+            case 92 :
+                // InternalDSL.g:1:637: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 72 :
-                // InternalDSL.g:1:515: RULE_SL_VISIBLE_COMMENT
+            case 93 :
+                // InternalDSL.g:1:653: RULE_SL_VISIBLE_COMMENT
                 {
                 mRULE_SL_VISIBLE_COMMENT(); 
 
                 }
                 break;
-            case 73 :
-                // InternalDSL.g:1:539: RULE_SL_VISIBLE_TITLE_COMMENT
+            case 94 :
+                // InternalDSL.g:1:677: RULE_SL_VISIBLE_TITLE_COMMENT
                 {
                 mRULE_SL_VISIBLE_TITLE_COMMENT(); 
 
                 }
                 break;
-            case 74 :
-                // InternalDSL.g:1:569: RULE_ML_VISIBLE_COMMENT
+            case 95 :
+                // InternalDSL.g:1:707: RULE_ML_VISIBLE_COMMENT
                 {
                 mRULE_ML_VISIBLE_COMMENT(); 
 
                 }
                 break;
-            case 75 :
-                // InternalDSL.g:1:593: RULE_ML_VISIBLE_TITLE_COMMENT
+            case 96 :
+                // InternalDSL.g:1:731: RULE_ML_VISIBLE_TITLE_COMMENT
                 {
                 mRULE_ML_VISIBLE_TITLE_COMMENT(); 
 
                 }
                 break;
-            case 76 :
-                // InternalDSL.g:1:623: RULE_ML_DOC_COMMENT
+            case 97 :
+                // InternalDSL.g:1:761: RULE_ML_DOC_COMMENT
                 {
                 mRULE_ML_DOC_COMMENT(); 
 
                 }
                 break;
-            case 77 :
-                // InternalDSL.g:1:643: RULE_DIVIDER
+            case 98 :
+                // InternalDSL.g:1:781: RULE_DIVIDER
                 {
                 mRULE_DIVIDER(); 
 
                 }
                 break;
-            case 78 :
-                // InternalDSL.g:1:656: RULE_WS
+            case 99 :
+                // InternalDSL.g:1:794: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 79 :
-                // InternalDSL.g:1:664: RULE_NEWLINE
+            case 100 :
+                // InternalDSL.g:1:802: RULE_NEWLINE
                 {
                 mRULE_NEWLINE(); 
 
                 }
                 break;
-            case 80 :
-                // InternalDSL.g:1:677: RULE_ISODATE
+            case 101 :
+                // InternalDSL.g:1:815: RULE_ISODATE
                 {
                 mRULE_ISODATE(); 
 
                 }
                 break;
-            case 81 :
-                // InternalDSL.g:1:690: RULE_ISOTIME
+            case 102 :
+                // InternalDSL.g:1:828: RULE_ISOTIME
                 {
                 mRULE_ISOTIME(); 
 
                 }
                 break;
-            case 82 :
-                // InternalDSL.g:1:703: RULE_EURODATE
+            case 103 :
+                // InternalDSL.g:1:841: RULE_EURODATE
                 {
                 mRULE_EURODATE(); 
 
                 }
                 break;
-            case 83 :
-                // InternalDSL.g:1:717: RULE_USDATE
+            case 104 :
+                // InternalDSL.g:1:855: RULE_USDATE
                 {
                 mRULE_USDATE(); 
 
                 }
                 break;
-            case 84 :
-                // InternalDSL.g:1:729: RULE_TWENTYFOURHRSTIME
+            case 105 :
+                // InternalDSL.g:1:867: RULE_TWENTYFOURHRSTIME
                 {
                 mRULE_TWENTYFOURHRSTIME(); 
 
                 }
                 break;
-            case 85 :
-                // InternalDSL.g:1:752: RULE_TWELVEHRSTIME
+            case 106 :
+                // InternalDSL.g:1:890: RULE_TWELVEHRSTIME
                 {
                 mRULE_TWELVEHRSTIME(); 
 
                 }
                 break;
-            case 86 :
-                // InternalDSL.g:1:771: RULE_ANY_OTHER
+            case 107 :
+                // InternalDSL.g:1:909: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -3514,143 +4118,114 @@ public class InternalDSLLexer extends Lexer {
 
     protected DFA31 dfa31 = new DFA31(this);
     static final String DFA31_eotS =
-        "\2\uffff\1\67\1\uffff\1\74\1\uffff\1\100\6\103\1\uffff\10\103\2\uffff\1\136\10\uffff\1\103\2\uffff\2\103\1\154\1\62\1\uffff\1\157\2\62\3\uffff\3\157\4\uffff\1\157\12\uffff\2\103\1\uffff\2\103\1\u0086\5\103\1\uffff\15\103\1\u009a\1\103\13\uffff\1\103\2\uffff\2\103\1\uffff\1\154\1\157\5\uffff\3\157\6\uffff\11\103\1\uffff\4\103\1\uffff\16\103\1\uffff\4\103\1\154\1\157\6\uffff\4\103\1\u00d0\6\103\1\u00d7\2\103\1\u00db\2\103\1\u00de\1\u00e0\5\103\1\u00e6\4\103\1\u00eb\1\u00ec\1\103\1\uffff\1\157\1\uffff\1\160\1\uffff\4\103\1\uffff\5\103\1\u00fb\1\uffff\3\103\1\uffff\2\103\1\uffff\1\103\1\uffff\3\103\1\u0108\1\103\1\uffff\4\103\2\uffff\1\103\1\uffff\1\u0111\1\160\1\u0111\4\103\1\u0118\4\103\2\uffff\13\103\1\uffff\4\103\1\u012c\1\u012d\5\uffff\2\103\1\u0133\1\103\1\uffff\2\103\1\u0137\1\u0138\2\103\1\u013b\1\103\1\u013d\1\u013e\5\103\1\uffff\1\u0144\2\103\4\uffff\3\103\1\uffff\3\103\2\uffff\1\103\1\u0150\1\uffff\1\103\2\uffff\1\103\1\u0153\1\103\1\u0155\1\u0156\1\uffff\1\u0157\1\103\2\u0111\4\103\1\u015f\2\103\1\uffff\1\u0162\1\103\1\uffff\1\103\3\uffff\1\103\2\uffff\1\u0168\1\u0169\2\103\1\uffff\1\u016c\1\u016d\1\uffff\1\103\1\u016f\1\103\4\uffff\1\103\1\u0174\2\uffff\1\u0175\1\uffff\1\103\2\uffff\1\103\2\uffff\1\u017a\2\u0111\1\u017b\2\uffff";
+        "\2\uffff\1\72\1\74\1\102\1\104\1\106\1\112\1\uffff\1\117\1\uffff\1\123\6\75\1\uffff\7\75\2\uffff\1\156\10\uffff\1\75\2\uffff\1\75\1\174\1\65\1\uffff\1\176\2\65\3\uffff\3\176\4\uffff\1\176\1\uffff\1\75\2\uffff\2\75\1\u008c\1\75\1\uffff\1\75\1\uffff\1\75\1\uffff\3\75\12\uffff\4\75\1\u00a0\5\75\1\uffff\13\75\1\u00b2\1\75\13\uffff\1\75\2\uffff\1\75\1\174\1\uffff\1\176\5\uffff\3\176\2\uffff\1\75\1\u00c0\2\75\1\uffff\1\75\1\u00c5\4\75\4\uffff\11\75\1\uffff\4\75\1\uffff\14\75\1\uffff\3\75\1\174\1\176\6\uffff\1\u00ed\1\75\1\uffff\3\75\1\u00f2\1\uffff\1\u00f4\7\75\1\u00fc\6\75\1\u0103\2\75\1\u0107\2\75\1\u010a\1\u010c\3\75\1\u0110\4\75\1\u0115\1\u0116\1\uffff\1\176\1\uffff\1\177\1\uffff\1\u011b\1\uffff\1\u011d\3\75\1\uffff\1\u0121\1\uffff\1\75\1\u0125\5\75\1\uffff\5\75\1\u0130\1\uffff\3\75\1\uffff\2\75\1\uffff\1\75\1\uffff\3\75\1\uffff\4\75\3\uffff\1\u0140\1\177\1\u0140\1\uffff\1\u0144\1\uffff\1\u0146\1\75\1\u0148\1\uffff\1\u014a\2\75\1\uffff\5\75\1\u0152\4\75\2\uffff\14\75\1\u0163\6\uffff\1\u0166\1\uffff\1\75\1\uffff\1\u0168\1\uffff\2\75\1\uffff\2\75\1\u016e\1\75\1\uffff\2\75\1\u0172\1\u0173\2\75\1\u0176\1\75\1\u0178\1\u0179\3\75\1\u017d\2\75\4\uffff\1\75\1\uffff\1\u0183\1\u0184\3\75\1\uffff\3\75\2\uffff\1\75\1\u018c\1\uffff\1\75\2\uffff\1\75\1\u018f\1\75\1\uffff\1\u0191\1\75\2\u0140\1\75\2\uffff\4\75\1\u019a\2\75\1\uffff\1\u019d\1\75\1\uffff\1\75\1\uffff\1\75\2\uffff\1\75\1\u01a4\1\u01a5\2\75\1\uffff\1\u01a8\1\u01a9\1\uffff\1\75\1\u01ab\1\75\2\uffff\1\u01b0\2\uffff\1\75\1\u01b2\2\uffff\1\u01b3\1\uffff\1\75\2\uffff\1\u01b7\1\uffff\1\75\2\uffff\1\u01b9\2\u0140\1\uffff\1\u01ba\2\uffff";
     static final String DFA31_eofS =
-        "\u017c\uffff";
+        "\u01bb\uffff";
     static final String DFA31_minS =
-        "\1\0\1\uffff\1\55\1\uffff\1\52\1\uffff\1\52\1\141\1\151\1\155\1\141\1\163\1\141\1\uffff\3\141\1\151\2\145\1\156\1\163\2\uffff\1\60\10\uffff\1\165\2\uffff\1\151\1\141\1\60\1\137\1\uffff\1\56\2\0\3\uffff\3\56\3\uffff\1\40\1\56\2\uffff\1\0\1\uffff\1\40\5\uffff\1\143\1\151\1\uffff\1\164\1\160\1\60\1\162\1\154\1\145\1\163\1\40\1\uffff\1\162\1\163\1\142\1\155\1\165\1\154\1\156\1\145\1\151\1\156\1\164\1\161\1\145\1\60\1\163\13\uffff\1\154\2\uffff\1\166\1\163\1\uffff\1\60\1\56\5\uffff\3\56\1\uffff\1\40\4\uffff\1\153\1\141\1\166\1\147\1\150\1\157\1\164\1\170\1\151\1\uffff\1\153\2\163\1\145\1\uffff\1\151\1\164\1\154\2\145\1\154\2\143\1\164\1\147\1\163\2\165\1\162\1\uffff\1\151\1\154\1\145\1\164\1\72\1\56\2\60\1\uffff\1\60\2\uffff\1\141\1\155\1\141\1\162\1\60\1\162\2\151\1\156\1\144\1\145\1\60\1\144\1\141\1\60\1\145\1\163\2\60\1\154\1\164\1\153\1\145\1\154\1\60\1\162\1\151\1\141\1\147\2\60\1\145\1\uffff\1\55\3\60\1\147\1\145\1\164\1\145\1\uffff\1\164\1\141\1\163\2\145\1\60\1\uffff\1\40\1\142\1\145\1\uffff\1\164\1\145\1\uffff\1\145\1\uffff\1\165\1\141\1\160\1\60\1\145\1\uffff\1\156\1\162\1\164\1\156\2\uffff\1\162\1\uffff\1\53\1\56\1\53\1\145\1\164\1\145\1\163\1\60\1\154\1\164\1\144\1\146\2\uffff\1\164\1\154\1\146\1\145\1\164\1\146\1\144\1\156\1\157\1\145\1\156\1\uffff\1\55\1\163\1\145\1\151\3\60\3\uffff\1\60\1\144\1\145\1\60\1\163\1\uffff\1\154\1\145\2\60\1\144\1\145\1\60\1\163\2\60\1\145\1\164\1\151\1\146\1\144\1\uffff\1\60\1\163\1\157\2\uffff\2\60\1\145\1\156\1\162\1\uffff\1\151\1\171\1\156\2\uffff\1\145\1\60\1\uffff\1\164\2\uffff\1\144\1\60\1\156\2\60\1\uffff\1\60\1\156\2\53\1\146\1\144\1\151\1\156\1\60\1\164\1\146\1\uffff\1\60\1\142\1\uffff\1\164\3\uffff\1\144\4\60\1\172\1\147\1\uffff\2\60\1\uffff\1\171\1\60\1\145\2\60\2\uffff\1\145\1\60\2\uffff\1\60\1\uffff\1\146\2\60\1\144\2\uffff\1\60\2\53\1\60\2\uffff";
+        "\1\0\1\uffff\1\55\5\60\1\uffff\1\52\1\uffff\1\52\1\141\1\151\1\155\1\141\1\163\1\141\1\uffff\3\141\2\145\1\156\1\163\2\uffff\1\60\10\uffff\1\165\2\uffff\1\151\1\60\1\137\1\uffff\1\56\2\0\3\uffff\3\56\3\uffff\1\40\1\56\1\uffff\1\141\2\uffff\1\156\1\154\1\60\1\163\1\uffff\1\171\1\uffff\1\165\1\uffff\1\143\1\151\1\156\2\uffff\1\0\1\uffff\1\40\5\uffff\1\143\1\151\1\164\1\160\1\60\1\162\1\154\1\145\1\163\1\40\1\uffff\1\162\1\163\1\142\1\155\1\165\1\154\1\156\1\145\1\164\1\161\1\145\1\60\1\163\13\uffff\1\154\2\uffff\1\166\1\60\1\uffff\1\56\5\uffff\3\56\1\uffff\1\40\1\162\1\60\1\165\1\154\1\uffff\1\164\1\60\1\162\1\157\1\164\1\147\4\uffff\1\153\1\141\1\166\1\147\1\150\1\157\1\164\1\170\1\151\1\uffff\1\153\2\163\1\145\1\uffff\1\151\1\164\1\154\2\145\1\154\2\143\1\163\2\165\1\162\1\uffff\1\151\1\154\1\145\1\72\1\56\2\60\1\uffff\1\60\2\uffff\1\60\1\150\1\uffff\1\164\1\151\1\145\1\60\1\uffff\1\60\1\156\1\145\1\154\1\141\1\155\1\141\1\162\1\60\1\162\2\151\1\156\1\144\1\145\1\60\1\144\1\141\1\60\1\145\1\163\2\60\1\154\1\164\1\153\1\60\1\162\1\151\1\141\1\147\2\60\1\uffff\1\55\4\60\1\uffff\1\60\1\145\1\163\1\162\1\uffff\1\60\1\uffff\1\144\1\60\1\145\1\147\1\145\1\164\1\145\1\uffff\1\164\1\141\1\163\2\145\1\60\1\uffff\1\40\1\142\1\145\1\uffff\1\164\1\145\1\uffff\1\145\1\uffff\1\165\1\141\1\160\1\uffff\1\156\1\162\1\164\1\156\3\uffff\1\53\1\56\1\53\1\uffff\1\60\1\uffff\1\60\1\145\1\60\1\uffff\1\60\1\145\1\156\1\uffff\1\55\1\145\1\164\1\145\1\163\1\60\1\154\1\164\1\144\1\146\2\uffff\1\164\1\154\1\146\1\145\1\164\1\146\1\144\1\156\1\157\1\163\1\145\1\151\2\60\3\uffff\1\60\1\uffff\1\60\1\uffff\1\143\1\uffff\1\60\1\uffff\1\146\1\144\1\uffff\1\144\1\145\1\60\1\163\1\uffff\1\154\1\145\2\60\1\144\1\145\1\60\1\163\2\60\1\145\1\164\1\151\1\60\1\163\1\157\1\uffff\2\60\1\uffff\1\157\1\uffff\2\60\1\145\1\156\1\162\1\uffff\1\151\1\171\1\156\2\uffff\1\145\1\60\1\uffff\1\164\2\uffff\1\144\1\60\1\156\1\uffff\1\60\1\156\2\53\1\156\2\uffff\1\146\1\144\1\151\1\156\1\60\1\164\1\146\1\uffff\1\60\1\142\1\uffff\1\164\1\uffff\1\144\2\60\1\144\2\60\1\172\1\147\1\uffff\2\60\1\uffff\1\171\1\60\1\145\3\60\2\uffff\1\145\1\60\2\uffff\1\60\1\uffff\1\146\3\60\1\uffff\1\144\2\uffff\1\60\2\53\1\uffff\1\60\2\uffff";
     static final String DFA31_maxS =
-        "\1\uffff\1\uffff\1\76\1\uffff\1\57\1\uffff\1\56\1\162\1\151\1\156\1\157\1\163\1\171\1\uffff\1\141\1\162\1\157\1\165\2\145\1\160\1\163\2\uffff\1\172\10\uffff\1\165\2\uffff\1\151\1\141\1\62\1\172\1\uffff\1\71\2\uffff\3\uffff\3\71\3\uffff\1\55\1\71\2\uffff\1\uffff\1\uffff\1\55\5\uffff\1\162\1\157\1\uffff\1\164\1\160\1\172\1\162\1\154\1\145\1\163\1\40\1\uffff\1\162\1\163\1\142\1\155\1\165\1\154\1\156\1\145\1\151\1\156\2\164\1\145\1\172\1\163\13\uffff\1\154\2\uffff\1\166\1\163\1\uffff\1\71\1\72\5\uffff\2\71\1\72\1\uffff\1\55\4\uffff\1\153\1\141\1\166\1\147\1\150\1\157\1\164\1\170\1\151\1\uffff\1\153\2\163\1\145\1\uffff\1\151\1\164\1\154\2\145\1\154\1\163\1\143\1\164\1\147\1\163\2\165\1\162\1\uffff\1\151\1\154\1\145\1\164\1\72\1\71\1\65\1\71\1\uffff\1\65\2\uffff\1\141\1\155\1\141\1\162\1\172\1\162\2\151\1\156\1\144\1\145\1\172\1\144\1\141\1\172\1\145\1\163\2\172\1\154\1\164\1\153\1\145\1\154\1\172\1\162\1\151\1\141\1\147\2\172\1\145\1\uffff\4\71\1\147\1\145\1\164\1\145\1\uffff\1\164\1\141\1\163\2\145\1\172\1\uffff\1\40\1\156\1\145\1\uffff\1\164\1\145\1\uffff\1\145\1\uffff\1\165\1\141\1\160\1\172\1\145\1\uffff\1\156\1\162\1\164\1\156\2\uffff\1\162\1\uffff\1\160\1\56\1\132\1\145\1\164\1\145\1\163\1\172\1\154\1\164\1\144\1\146\2\uffff\1\164\1\154\1\146\1\145\1\164\1\146\1\144\1\156\1\157\1\145\1\156\1\uffff\1\55\1\163\1\145\1\151\2\172\1\66\3\uffff\1\66\2\145\1\172\1\163\1\uffff\1\154\1\145\2\172\1\144\1\145\1\172\1\163\2\172\1\145\1\164\1\151\1\146\1\144\1\uffff\1\172\1\163\1\157\2\uffff\2\71\1\145\1\156\1\162\1\uffff\1\151\1\171\1\156\2\uffff\1\145\1\172\1\uffff\1\164\2\uffff\1\144\1\172\1\156\2\172\1\uffff\1\172\1\156\1\160\1\132\1\146\1\144\1\151\1\156\1\172\1\164\1\146\1\uffff\1\172\1\142\1\uffff\1\164\3\uffff\1\144\2\71\3\172\1\147\1\uffff\2\172\1\uffff\1\171\1\172\1\145\2\71\2\uffff\1\145\1\172\2\uffff\1\172\1\uffff\1\146\2\71\1\144\2\uffff\1\172\1\160\1\132\1\172\2\uffff";
+        "\1\uffff\1\uffff\1\76\5\172\1\uffff\1\57\1\uffff\1\56\1\162\1\151\1\156\1\157\1\163\1\171\1\uffff\1\141\1\162\1\157\2\145\1\160\1\163\2\uffff\1\172\10\uffff\1\165\2\uffff\1\151\1\62\1\172\1\uffff\1\71\2\uffff\3\uffff\3\71\3\uffff\1\55\1\71\1\uffff\1\141\2\uffff\2\156\1\172\1\163\1\uffff\1\171\1\uffff\1\165\1\uffff\1\143\1\151\1\156\2\uffff\1\uffff\1\uffff\1\55\5\uffff\1\162\1\157\1\164\1\160\1\172\1\162\1\154\1\145\1\163\1\40\1\uffff\1\162\1\163\1\142\1\155\1\165\1\154\1\156\1\145\2\164\1\145\1\172\1\163\13\uffff\1\154\2\uffff\1\166\1\71\1\uffff\1\72\5\uffff\2\71\1\72\1\uffff\1\55\1\162\1\172\1\165\1\154\1\uffff\1\164\1\172\1\162\1\157\1\164\1\147\4\uffff\1\153\1\141\1\166\1\147\1\150\1\157\1\164\1\170\1\151\1\uffff\1\153\2\163\1\145\1\uffff\1\151\1\164\1\154\2\145\1\154\1\163\1\143\1\163\2\165\1\162\1\uffff\1\151\1\154\1\145\1\72\1\71\1\65\1\71\1\uffff\1\65\2\uffff\1\172\1\150\1\uffff\1\164\1\151\1\145\1\172\1\uffff\1\172\1\156\1\145\1\154\1\141\1\155\1\141\1\162\1\172\1\162\2\151\1\156\1\144\1\145\1\172\1\144\1\141\1\172\1\145\1\163\2\172\1\154\1\164\1\153\1\172\1\162\1\151\1\141\1\147\2\172\1\uffff\4\71\1\172\1\uffff\1\172\1\145\1\163\1\162\1\uffff\1\172\1\uffff\1\144\1\172\1\145\1\147\1\145\1\164\1\145\1\uffff\1\164\1\141\1\163\2\145\1\172\1\uffff\1\40\1\156\1\145\1\uffff\1\164\1\145\1\uffff\1\145\1\uffff\1\165\1\141\1\160\1\uffff\1\156\1\162\1\164\1\156\3\uffff\1\160\1\56\1\132\1\uffff\1\172\1\uffff\1\172\1\145\1\172\1\uffff\1\172\1\145\1\156\1\uffff\1\55\1\145\1\164\1\145\1\163\1\172\1\154\1\164\1\144\1\146\2\uffff\1\164\1\154\1\146\1\145\1\164\1\146\1\144\1\156\1\157\1\163\1\145\1\151\1\172\1\66\3\uffff\1\66\1\uffff\1\172\1\uffff\1\143\1\uffff\1\172\1\uffff\1\146\1\144\1\uffff\2\145\1\172\1\163\1\uffff\1\154\1\145\2\172\1\144\1\145\1\172\1\163\2\172\1\145\1\164\1\151\1\172\1\163\1\157\1\uffff\2\71\1\uffff\1\157\1\uffff\2\172\1\145\1\156\1\162\1\uffff\1\151\1\171\1\156\2\uffff\1\145\1\172\1\uffff\1\164\2\uffff\1\144\1\172\1\156\1\uffff\1\172\1\156\1\160\1\132\1\156\2\uffff\1\146\1\144\1\151\1\156\1\172\1\164\1\146\1\uffff\1\172\1\142\1\uffff\1\164\1\uffff\1\144\2\71\1\144\3\172\1\147\1\uffff\2\172\1\uffff\1\171\1\172\1\145\2\71\1\172\2\uffff\1\145\1\172\2\uffff\1\172\1\uffff\1\146\2\71\1\172\1\uffff\1\144\2\uffff\1\172\1\160\1\132\1\uffff\1\172\2\uffff";
     static final String DFA31_acceptS =
-        "\1\uffff\1\1\1\uffff\1\3\1\uffff\1\5\7\uffff\1\16\10\uffff\1\41\1\43\1\uffff\1\50\1\52\1\53\1\54\1\55\1\56\1\57\1\60\1\uffff\1\63\1\64\4\uffff\1\102\3\uffff\1\116\1\117\1\101\3\uffff\1\126\1\1\1\36\2\uffff\1\2\1\3\1\uffff\1\107\1\uffff\1\4\1\5\1\6\1\66\1\65\2\uffff\1\102\10\uffff\1\16\17\uffff\1\41\1\43\1\46\1\50\1\52\1\53\1\54\1\55\1\56\1\57\1\60\1\uffff\1\63\1\64\2\uffff\1\101\2\uffff\1\103\1\104\1\105\1\116\1\117\3\uffff\1\110\1\uffff\1\106\1\114\1\112\1\113\11\uffff\1\37\4\uffff\1\30\16\uffff\1\47\10\uffff\1\123\1\uffff\1\111\1\115\40\uffff\1\121\10\uffff\1\10\6\uffff\1\14\3\uffff\1\40\2\uffff\1\77\1\uffff\1\44\5\uffff\1\24\4\uffff\1\61\1\74\1\uffff\1\120\14\uffff\1\100\1\15\13\uffff\1\51\7\uffff\1\125\1\124\1\122\5\uffff\1\12\17\uffff\1\70\3\uffff\1\35\1\76\5\uffff\1\67\3\uffff\1\71\1\13\2\uffff\1\20\1\uffff\1\45\1\21\5\uffff\1\25\13\uffff\1\32\2\uffff\1\34\1\uffff\1\22\1\23\1\26\7\uffff\1\33\2\uffff\1\42\5\uffff\1\7\1\11\2\uffff\1\62\1\17\1\uffff\1\73\4\uffff\1\75\1\27\4\uffff\1\31\1\72";
+        "\1\uffff\1\1\6\uffff\1\30\1\uffff\1\32\7\uffff\1\43\7\uffff\1\66\1\70\1\uffff\1\75\1\77\1\100\1\101\1\102\1\103\1\104\1\105\1\uffff\1\110\1\111\3\uffff\1\127\3\uffff\1\143\1\144\1\126\3\uffff\1\153\1\1\1\63\2\uffff\1\2\1\uffff\1\3\1\127\4\uffff\1\17\1\uffff\1\11\1\uffff\1\14\3\uffff\1\22\1\30\1\uffff\1\134\1\uffff\1\31\1\32\1\33\1\113\1\112\12\uffff\1\43\15\uffff\1\66\1\70\1\73\1\75\1\77\1\100\1\101\1\102\1\103\1\104\1\105\1\uffff\1\110\1\111\2\uffff\1\126\1\uffff\1\130\1\131\1\132\1\143\1\144\3\uffff\1\135\5\uffff\1\25\6\uffff\1\133\1\141\1\137\1\140\11\uffff\1\64\4\uffff\1\55\14\uffff\1\74\7\uffff\1\150\1\uffff\1\136\1\142\2\uffff\1\6\4\uffff\1\12\41\uffff\1\146\5\uffff\1\4\4\uffff\1\13\1\uffff\1\15\7\uffff\1\35\6\uffff\1\41\3\uffff\1\65\2\uffff\1\124\1\uffff\1\71\3\uffff\1\51\4\uffff\1\106\1\121\1\145\3\uffff\1\5\1\uffff\1\7\3\uffff\1\16\3\uffff\1\76\12\uffff\1\125\1\42\16\uffff\1\151\1\152\1\147\1\uffff\1\10\1\uffff\1\20\1\uffff\1\123\1\uffff\1\23\2\uffff\1\115\4\uffff\1\37\20\uffff\1\62\2\uffff\1\21\1\uffff\1\24\5\uffff\1\114\3\uffff\1\116\1\40\2\uffff\1\45\1\uffff\1\72\1\46\3\uffff\1\52\5\uffff\1\47\1\50\7\uffff\1\57\2\uffff\1\61\1\uffff\1\53\10\uffff\1\60\2\uffff\1\67\6\uffff\1\34\1\36\2\uffff\1\107\1\44\1\uffff\1\120\4\uffff\1\26\1\uffff\1\122\1\54\3\uffff\1\27\1\uffff\1\56\1\117";
     static final String DFA31_specialS =
-        "\1\3\51\uffff\1\0\1\2\15\uffff\1\1\u0142\uffff}>";
+        "\1\3\54\uffff\1\1\1\2\35\uffff\1\0\u016e\uffff}>";
     static final String[] DFA31_transitionS = {
-            "\11\62\1\54\1\55\2\62\1\55\22\62\1\54\1\62\1\52\1\40\1\62\1\5\1\62\1\53\1\32\1\33\1\3\1\1\1\31\1\2\1\6\1\4\2\51\1\61\1\57\6\60\1\15\1\62\1\36\1\26\1\37\2\62\23\56\1\46\6\56\1\34\1\62\1\35\1\47\1\50\1\62\1\25\1\14\1\20\2\50\1\12\1\22\1\50\1\11\2\50\1\44\1\45\1\41\1\24\1\7\1\50\1\23\1\21\1\17\1\13\1\16\1\10\1\30\2\50\1\42\1\27\1\43\uff82\62",
+            "\11\65\1\57\1\60\2\65\1\60\22\65\1\57\1\65\1\55\1\44\1\65\1\12\1\65\1\56\1\36\1\37\1\10\1\1\1\35\1\2\1\13\1\11\2\54\1\64\1\62\6\63\1\22\1\65\1\42\1\32\1\43\2\65\23\61\1\51\6\61\1\40\1\65\1\41\1\52\1\53\1\65\1\31\1\21\1\25\1\5\1\53\1\17\1\26\1\6\1\16\2\53\1\50\1\4\1\45\1\30\1\14\1\53\1\27\1\7\1\24\1\20\1\23\1\15\1\34\1\3\1\53\1\46\1\33\1\47\uff82\65",
             "",
-            "\1\65\2\uffff\12\66\4\uffff\1\64",
+            "\1\70\2\uffff\12\71\4\uffff\1\67",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\4\75\1\73\25\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\1\101\7\75\1\77\5\75\1\76\3\75\1\100\7\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\1\103\31\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\16\75\1\105\13\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\4\75\1\107\3\75\1\111\13\75\1\110\5\75",
             "",
-            "\1\71\2\uffff\1\73\1\uffff\1\72",
+            "\1\114\2\uffff\1\116\1\uffff\1\115",
             "",
-            "\1\77\3\uffff\1\76",
-            "\1\101\20\uffff\1\102",
-            "\1\104",
-            "\1\105\1\106",
-            "\1\110\15\uffff\1\107",
-            "\1\111",
-            "\1\112\27\uffff\1\113",
-            "",
-            "\1\115",
-            "\1\117\3\uffff\1\116\3\uffff\1\120\10\uffff\1\121",
-            "\1\122\6\uffff\1\124\6\uffff\1\123",
-            "\1\126\13\uffff\1\125",
-            "\1\127",
-            "\1\130",
-            "\1\132\1\uffff\1\131",
+            "\1\122\3\uffff\1\121",
+            "\1\124\20\uffff\1\125",
+            "\1\126",
+            "\1\127\1\130",
+            "\1\132\15\uffff\1\131",
             "\1\133",
+            "\1\134\27\uffff\1\135",
             "",
-            "",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\137",
+            "\1\141\3\uffff\1\140\3\uffff\1\142\10\uffff\1\143",
+            "\1\144\6\uffff\1\146\6\uffff\1\145",
             "\1\147",
-            "",
-            "",
-            "\1\152",
+            "\1\150",
+            "\1\152\1\uffff\1\151",
             "\1\153",
-            "\3\155",
-            "\1\103\1\uffff\32\103",
-            "",
-            "\1\160\1\uffff\12\156",
-            "\0\161",
-            "\0\161",
             "",
             "",
-            "",
-            "\1\160\1\uffff\12\164",
-            "\1\160\1\uffff\12\165",
-            "\1\160\1\uffff\12\166",
-            "",
-            "",
-            "",
-            "\1\167\14\uffff\1\170",
-            "\1\160\1\uffff\12\66",
-            "",
-            "",
-            "\52\171\1\172\uffd5\171",
-            "",
-            "\1\173\14\uffff\1\174",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "",
             "",
             "",
             "",
             "",
-            "\1\175\16\uffff\1\176",
-            "\1\177\5\uffff\1\u0080",
             "",
-            "\1\u0081",
-            "\1\u0082",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\4\103\1\u0084\3\103\1\u0083\2\103\1\u0085\16\103",
-            "\1\u0087",
+            "",
+            "",
+            "\1\167",
+            "",
+            "",
+            "\1\172",
+            "\3\173",
+            "\1\75\1\uffff\32\75",
+            "",
+            "\1\177\1\uffff\12\175",
+            "\0\u0080",
+            "\0\u0080",
+            "",
+            "",
+            "",
+            "\1\177\1\uffff\12\u0083",
+            "\1\177\1\uffff\12\u0084",
+            "\1\177\1\uffff\12\u0085",
+            "",
+            "",
+            "",
+            "\1\u0086\14\uffff\1\u0087",
+            "\1\177\1\uffff\12\71",
+            "",
             "\1\u0088",
-            "\1\u0089",
-            "\1\u008a",
-            "\1\u008b",
             "",
-            "\1\u008c",
+            "",
+            "\1\u0089",
+            "\1\u008b\1\uffff\1\u008a",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "\1\u008d",
+            "",
             "\1\u008e",
+            "",
             "\1\u008f",
+            "",
             "\1\u0090",
             "\1\u0091",
             "\1\u0092",
-            "\1\u0093",
-            "\1\u0094",
-            "\1\u0095",
-            "\1\u0096",
-            "\1\u0098\2\uffff\1\u0097",
-            "\1\u0099",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "",
+            "",
+            "\52\u0093\1\u0094\uffd5\u0093",
+            "",
+            "\1\u0095\14\uffff\1\u0096",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\u0097\16\uffff\1\u0098",
+            "\1\u0099\5\uffff\1\u009a",
             "\1\u009b",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "\1\u009c",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\4\75\1\u009e\3\75\1\u009d\2\75\1\u009f\16\75",
+            "\1\u00a1",
+            "\1\u00a2",
+            "\1\u00a3",
+            "\1\u00a4",
+            "\1\u00a5",
             "",
-            "",
-            "\1\u009d",
-            "\1\u009e",
-            "",
-            "\12\u009f",
-            "\1\u00a2\1\u00a3\12\u00a0\1\u00a1",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\u00a2\1\uffff\12\u00a0",
-            "\1\160\1\uffff\12\u00a0",
-            "\1\u00a2\1\uffff\12\u00a0\1\u00a4",
-            "",
-            "\1\u00a5\14\uffff\1\u00a6",
-            "",
-            "",
-            "",
-            "",
+            "\1\u00a6",
             "\1\u00a7",
             "\1\u00a8",
             "\1\u00a9",
@@ -3659,251 +4234,343 @@ public class InternalDSLLexer extends Lexer {
             "\1\u00ac",
             "\1\u00ad",
             "\1\u00ae",
-            "\1\u00af",
-            "",
-            "\1\u00b0",
+            "\1\u00b0\2\uffff\1\u00af",
             "\1\u00b1",
-            "\1\u00b2",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "\1\u00b3",
             "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\u00b4",
+            "",
+            "",
             "\1\u00b5",
-            "\1\u00b6",
-            "\1\u00b7",
-            "\1\u00b8",
-            "\1\u00b9",
-            "\1\u00ba\17\uffff\1\u00bb",
-            "\1\u00bc",
-            "\1\u00bd",
+            "\12\u00b6",
+            "",
+            "\1\u00b9\1\u00ba\12\u00b7\1\u00b8",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\u00b9\1\uffff\12\u00b7",
+            "\1\177\1\uffff\12\u00b7",
+            "\1\u00b9\1\uffff\12\u00b7\1\u00bb",
+            "",
+            "\1\u00bc\14\uffff\1\u00bd",
             "\1\u00be",
-            "\1\u00bf",
-            "\1\u00c0",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\23\75\1\u00bf\6\75",
             "\1\u00c1",
             "\1\u00c2",
             "",
             "\1\u00c3",
-            "\1\u00c4",
-            "\1\u00c5",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\22\75\1\u00c4\7\75",
             "\1\u00c6",
             "\1\u00c7",
-            "\1\160\1\uffff\12\u00c8",
-            "\6\u00c9",
-            "\2\u00ca\10\160",
-            "",
-            "\6\u00cb",
+            "\1\u00c8",
+            "\1\u00c9",
             "",
             "",
+            "",
+            "",
+            "\1\u00ca",
+            "\1\u00cb",
             "\1\u00cc",
             "\1\u00cd",
             "\1\u00ce",
             "\1\u00cf",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u00d0",
             "\1\u00d1",
             "\1\u00d2",
+            "",
             "\1\u00d3",
             "\1\u00d4",
             "\1\u00d5",
             "\1\u00d6",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "",
+            "\1\u00d7",
             "\1\u00d8",
             "\1\u00d9",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\3\103\1\u00da\26\103",
+            "\1\u00da",
+            "\1\u00db",
             "\1\u00dc",
-            "\1\u00dd",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\3\103\1\u00df\26\103",
+            "\1\u00dd\17\uffff\1\u00de",
+            "\1\u00df",
+            "\1\u00e0",
             "\1\u00e1",
             "\1\u00e2",
             "\1\u00e3",
+            "",
             "\1\u00e4",
             "\1\u00e5",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u00e6",
             "\1\u00e7",
-            "\1\u00e8",
-            "\1\u00e9",
-            "\1\u00ea",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\1\u00ed",
+            "\1\177\1\uffff\12\u00e8",
+            "\6\u00e9",
+            "\2\u00ea\10\177",
             "",
-            "\1\u00ee\1\160\1\uffff\12\66",
-            "\12\u00ef",
-            "\12\u00f0",
-            "\12\u00f1",
-            "\1\u00f2",
-            "\1\u00f3",
-            "\1\u00f4",
+            "\6\u00eb",
+            "",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\22\75\1\u00ec\7\75",
+            "\1\u00ee",
+            "",
+            "\1\u00ef",
+            "\1\u00f0",
+            "\1\u00f1",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\22\75\1\u00f3\7\75",
             "\1\u00f5",
-            "",
             "\1\u00f6",
             "\1\u00f7",
             "\1\u00f8",
             "\1\u00f9",
             "\1\u00fa",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "",
-            "\1\u00fc",
-            "\1\u00fe\13\uffff\1\u00fd",
+            "\1\u00fb",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u00fd",
+            "\1\u00fe",
             "\1\u00ff",
-            "",
             "\1\u0100",
             "\1\u0101",
-            "",
             "\1\u0102",
-            "",
-            "\1\u0103",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "\1\u0104",
             "\1\u0105",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\3\103\1\u0106\1\u0107\25\103",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\3\75\1\u0106\26\75",
+            "\1\u0108",
             "\1\u0109",
-            "",
-            "\1\u010a",
-            "\1\u010b",
-            "\1\u010c",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\3\75\1\u010b\26\75",
             "\1\u010d",
-            "",
-            "",
             "\1\u010e",
-            "",
-            "\1\u00c7\1\uffff\1\u00c7\14\uffff\1\u010f\37\uffff\1\u00c7\6\uffff\1\u0110\16\uffff\1\u0110",
+            "\1\u010f",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u0111",
             "\1\u0112",
-            "\1\u00c7\1\uffff\1\u00c7\14\uffff\1\u0113\37\uffff\1\u00c7",
+            "\1\u0113",
             "\1\u0114",
-            "\1\u0115",
-            "\1\u0116",
-            "\1\u0117",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\1\u0119",
-            "\1\u011a",
-            "\1\u011b",
-            "\1\u011c",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "",
+            "\1\u0117\1\177\1\uffff\12\71",
+            "\12\u0118",
+            "\12\u0119",
+            "\12\u011a",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "",
-            "\1\u011d",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\22\75\1\u011c\7\75",
             "\1\u011e",
             "\1\u011f",
             "\1\u0120",
-            "\1\u0121",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
             "\1\u0122",
-            "\1\u0123",
-            "\1\u0124",
-            "\1\u0125",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\3\75\1\u0123\1\u0124\25\75",
             "\1\u0126",
             "\1\u0127",
-            "",
             "\1\u0128",
             "\1\u0129",
             "\1\u012a",
+            "",
             "\1\u012b",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\7\u012e",
+            "\1\u012c",
+            "\1\u012d",
+            "\1\u012e",
+            "\1\u012f",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "",
-            "",
-            "",
-            "\7\u012f",
-            "\1\u0130\1\u0131",
-            "\1\u0132",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u0131",
+            "\1\u0133\13\uffff\1\u0132",
             "\1\u0134",
             "",
             "\1\u0135",
             "\1\u0136",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "",
+            "\1\u0137",
+            "",
+            "\1\u0138",
             "\1\u0139",
             "\1\u013a",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "",
+            "\1\u013b",
             "\1\u013c",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\1\u013f",
-            "\1\u0140",
-            "\1\u0141",
+            "\1\u013d",
+            "\1\u013e",
+            "",
+            "",
+            "",
+            "\1\u00e7\1\uffff\1\u00e7\14\uffff\1\u013f\37\uffff\1\u00e7\6\uffff\1\u0141\16\uffff\1\u0141",
             "\1\u0142",
-            "\1\u0143",
+            "\1\u00e7\1\uffff\1\u00e7\14\uffff\1\u0143\37\uffff\1\u00e7",
             "",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\1\u0145",
-            "\1\u0146",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\22\75\1\u0145\7\75",
+            "\1\u0147",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "",
-            "\12\u0147",
-            "\12\u0148",
-            "\1\u0149",
-            "\1\u014a",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\22\75\1\u0149\7\75",
             "\1\u014b",
-            "",
             "\1\u014c",
+            "",
             "\1\u014d",
             "\1\u014e",
-            "",
-            "",
             "\1\u014f",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "",
+            "\1\u0150",
             "\1\u0151",
-            "",
-            "",
-            "\1\u0152",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u0153",
             "\1\u0154",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u0155",
+            "\1\u0156",
             "",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "",
+            "\1\u0157",
             "\1\u0158",
-            "\1\u00c7\1\uffff\1\u00c7\1\u0159\53\uffff\1\u00c7\6\uffff\1\u0110\16\uffff\1\u0110",
-            "\1\u00c7\1\uffff\1\u00c7\1\u015a\53\uffff\1\u00c7",
+            "\1\u0159",
+            "\1\u015a",
             "\1\u015b",
             "\1\u015c",
             "\1\u015d",
             "\1\u015e",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u015f",
             "\1\u0160",
             "\1\u0161",
-            "",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\1\u0163",
-            "",
-            "\1\u0164",
+            "\1\u0162",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\7\u0164",
             "",
             "",
             "",
-            "\1\u0165",
-            "\12\u0166",
-            "\12\u0167",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\7\u0165",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
+            "\1\u0167",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
+            "\1\u0169",
             "\1\u016a",
-            "\1\u016b",
             "",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u016b\1\u016c",
+            "\1\u016d",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u016f",
             "",
-            "\1\u016e",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
             "\1\u0170",
-            "\12\u0171",
-            "\12\u0172",
+            "\1\u0171",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u0174",
+            "\1\u0175",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u0177",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u017a",
+            "\1\u017b",
+            "\1\u017c",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u017e",
+            "\1\u017f",
+            "",
+            "\12\u0180",
+            "\12\u0181",
+            "",
+            "\1\u0182",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u0185",
+            "\1\u0186",
+            "\1\u0187",
+            "",
+            "\1\u0188",
+            "\1\u0189",
+            "\1\u018a",
             "",
             "",
-            "\1\u0173",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u018b",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
+            "\1\u018d",
             "",
             "",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u018e",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u0190",
             "",
-            "\1\u0176",
-            "\12\u0177",
-            "\12\u0178",
-            "\1\u0179",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u0192",
+            "\1\u00e7\1\uffff\1\u00e7\1\u0193\53\uffff\1\u00e7\6\uffff\1\u0141\16\uffff\1\u0141",
+            "\1\u00e7\1\uffff\1\u00e7\1\u0194\53\uffff\1\u00e7",
+            "\1\u0195",
             "",
             "",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
-            "\1\u00c7\1\uffff\1\u00c7\54\uffff\1\u00c7\6\uffff\1\u0110\16\uffff\1\u0110",
-            "\1\u00c7\1\uffff\1\u00c7\54\uffff\1\u00c7",
-            "\12\103\7\uffff\32\103\4\uffff\1\103\1\uffff\32\103",
+            "\1\u0196",
+            "\1\u0197",
+            "\1\u0198",
+            "\1\u0199",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u019b",
+            "\1\u019c",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u019e",
+            "",
+            "\1\u019f",
+            "",
+            "\1\u01a0",
+            "\12\u01a1",
+            "\12\u01a2",
+            "\1\u01a3",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u01a6",
+            "\1\u01a7",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
+            "\1\u01aa",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u01ac",
+            "\12\u01ad",
+            "\12\u01ae",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\22\75\1\u01af\7\75",
+            "",
+            "",
+            "\1\u01b1",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
+            "\1\u01b4",
+            "\12\u01b5",
+            "\12\u01b6",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "",
+            "\1\u01b8",
+            "",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
+            "\1\u00e7\1\uffff\1\u00e7\54\uffff\1\u00e7\6\uffff\1\u0141\16\uffff\1\u0141",
+            "\1\u00e7\1\uffff\1\u00e7\54\uffff\1\u00e7",
+            "",
+            "\12\75\7\uffff\32\75\4\uffff\1\75\1\uffff\32\75",
             "",
             ""
     };
@@ -3938,39 +4605,39 @@ public class InternalDSLLexer extends Lexer {
             this.transition = DFA31_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | RULE_BOOLEAN_TRUE | RULE_BOOLEAN_FALSE | RULE_UPPERCASE_ID | RULE_ID | RULE_INTEGER | RULE_DECIMAL | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_SL_VISIBLE_COMMENT | RULE_SL_VISIBLE_TITLE_COMMENT | RULE_ML_VISIBLE_COMMENT | RULE_ML_VISIBLE_TITLE_COMMENT | RULE_ML_DOC_COMMENT | RULE_DIVIDER | RULE_WS | RULE_NEWLINE | RULE_ISODATE | RULE_ISOTIME | RULE_EURODATE | RULE_USDATE | RULE_TWENTYFOURHRSTIME | RULE_TWELVEHRSTIME | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | T__74 | T__75 | T__76 | T__77 | T__78 | T__79 | T__80 | T__81 | T__82 | T__83 | T__84 | T__85 | T__86 | T__87 | T__88 | T__89 | T__90 | T__91 | T__92 | T__93 | T__94 | T__95 | T__96 | T__97 | T__98 | T__99 | T__100 | T__101 | T__102 | T__103 | T__104 | T__105 | T__106 | T__107 | T__108 | T__109 | T__110 | T__111 | RULE_BOOLEAN_TRUE | RULE_BOOLEAN_FALSE | RULE_UPPERCASE_ID | RULE_ID | RULE_INTEGER | RULE_DECIMAL | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_SL_VISIBLE_COMMENT | RULE_SL_VISIBLE_TITLE_COMMENT | RULE_ML_VISIBLE_COMMENT | RULE_ML_VISIBLE_TITLE_COMMENT | RULE_ML_DOC_COMMENT | RULE_DIVIDER | RULE_WS | RULE_NEWLINE | RULE_ISODATE | RULE_ISOTIME | RULE_EURODATE | RULE_USDATE | RULE_TWENTYFOURHRSTIME | RULE_TWELVEHRSTIME | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA31_42 = input.LA(1);
+                        int LA31_76 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA31_42>='\u0000' && LA31_42<='\uFFFF')) ) {s = 113;}
+                        if ( ((LA31_76>='\u0000' && LA31_76<=')')||(LA31_76>='+' && LA31_76<='\uFFFF')) ) {s = 147;}
 
-                        else s = 50;
+                        else if ( (LA31_76=='*') ) {s = 148;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA31_57 = input.LA(1);
+                        int LA31_45 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA31_57>='\u0000' && LA31_57<=')')||(LA31_57>='+' && LA31_57<='\uFFFF')) ) {s = 121;}
+                        if ( ((LA31_45>='\u0000' && LA31_45<='\uFFFF')) ) {s = 128;}
 
-                        else if ( (LA31_57=='*') ) {s = 122;}
+                        else s = 53;
 
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA31_43 = input.LA(1);
+                        int LA31_46 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA31_43>='\u0000' && LA31_43<='\uFFFF')) ) {s = 113;}
+                        if ( ((LA31_46>='\u0000' && LA31_46<='\uFFFF')) ) {s = 128;}
 
-                        else s = 50;
+                        else s = 53;
 
                         if ( s>=0 ) return s;
                         break;
@@ -3982,101 +4649,107 @@ public class InternalDSLLexer extends Lexer {
 
                         else if ( (LA31_0=='-') ) {s = 2;}
 
-                        else if ( (LA31_0=='*') ) {s = 3;}
+                        else if ( (LA31_0=='y') ) {s = 3;}
 
-                        else if ( (LA31_0=='/') ) {s = 4;}
+                        else if ( (LA31_0=='m') ) {s = 4;}
 
-                        else if ( (LA31_0=='%') ) {s = 5;}
+                        else if ( (LA31_0=='d') ) {s = 5;}
 
-                        else if ( (LA31_0=='.') ) {s = 6;}
+                        else if ( (LA31_0=='h') ) {s = 6;}
 
-                        else if ( (LA31_0=='p') ) {s = 7;}
+                        else if ( (LA31_0=='s') ) {s = 7;}
 
-                        else if ( (LA31_0=='w') ) {s = 8;}
+                        else if ( (LA31_0=='*') ) {s = 8;}
 
-                        else if ( (LA31_0=='i') ) {s = 9;}
+                        else if ( (LA31_0=='/') ) {s = 9;}
 
-                        else if ( (LA31_0=='f') ) {s = 10;}
+                        else if ( (LA31_0=='%') ) {s = 10;}
 
-                        else if ( (LA31_0=='u') ) {s = 11;}
+                        else if ( (LA31_0=='.') ) {s = 11;}
 
-                        else if ( (LA31_0=='b') ) {s = 12;}
+                        else if ( (LA31_0=='p') ) {s = 12;}
 
-                        else if ( (LA31_0==':') ) {s = 13;}
+                        else if ( (LA31_0=='w') ) {s = 13;}
 
-                        else if ( (LA31_0=='v') ) {s = 14;}
+                        else if ( (LA31_0=='i') ) {s = 14;}
 
-                        else if ( (LA31_0=='t') ) {s = 15;}
+                        else if ( (LA31_0=='f') ) {s = 15;}
 
-                        else if ( (LA31_0=='c') ) {s = 16;}
+                        else if ( (LA31_0=='u') ) {s = 16;}
 
-                        else if ( (LA31_0=='s') ) {s = 17;}
+                        else if ( (LA31_0=='b') ) {s = 17;}
 
-                        else if ( (LA31_0=='g') ) {s = 18;}
+                        else if ( (LA31_0==':') ) {s = 18;}
 
-                        else if ( (LA31_0=='r') ) {s = 19;}
+                        else if ( (LA31_0=='v') ) {s = 19;}
 
-                        else if ( (LA31_0=='o') ) {s = 20;}
+                        else if ( (LA31_0=='t') ) {s = 20;}
 
-                        else if ( (LA31_0=='a') ) {s = 21;}
+                        else if ( (LA31_0=='c') ) {s = 21;}
 
-                        else if ( (LA31_0=='=') ) {s = 22;}
+                        else if ( (LA31_0=='g') ) {s = 22;}
 
-                        else if ( (LA31_0=='|') ) {s = 23;}
+                        else if ( (LA31_0=='r') ) {s = 23;}
 
-                        else if ( (LA31_0=='x') ) {s = 24;}
+                        else if ( (LA31_0=='o') ) {s = 24;}
 
-                        else if ( (LA31_0==',') ) {s = 25;}
+                        else if ( (LA31_0=='a') ) {s = 25;}
 
-                        else if ( (LA31_0=='(') ) {s = 26;}
+                        else if ( (LA31_0=='=') ) {s = 26;}
 
-                        else if ( (LA31_0==')') ) {s = 27;}
+                        else if ( (LA31_0=='|') ) {s = 27;}
 
-                        else if ( (LA31_0=='[') ) {s = 28;}
+                        else if ( (LA31_0=='x') ) {s = 28;}
 
-                        else if ( (LA31_0==']') ) {s = 29;}
+                        else if ( (LA31_0==',') ) {s = 29;}
 
-                        else if ( (LA31_0=='<') ) {s = 30;}
+                        else if ( (LA31_0=='(') ) {s = 30;}
 
-                        else if ( (LA31_0=='>') ) {s = 31;}
+                        else if ( (LA31_0==')') ) {s = 31;}
 
-                        else if ( (LA31_0=='#') ) {s = 32;}
+                        else if ( (LA31_0=='[') ) {s = 32;}
 
-                        else if ( (LA31_0=='n') ) {s = 33;}
+                        else if ( (LA31_0==']') ) {s = 33;}
 
-                        else if ( (LA31_0=='{') ) {s = 34;}
+                        else if ( (LA31_0=='<') ) {s = 34;}
 
-                        else if ( (LA31_0=='}') ) {s = 35;}
+                        else if ( (LA31_0=='>') ) {s = 35;}
 
-                        else if ( (LA31_0=='l') ) {s = 36;}
+                        else if ( (LA31_0=='#') ) {s = 36;}
 
-                        else if ( (LA31_0=='m') ) {s = 37;}
+                        else if ( (LA31_0=='n') ) {s = 37;}
 
-                        else if ( (LA31_0=='T') ) {s = 38;}
+                        else if ( (LA31_0=='{') ) {s = 38;}
 
-                        else if ( (LA31_0=='^') ) {s = 39;}
+                        else if ( (LA31_0=='}') ) {s = 39;}
 
-                        else if ( (LA31_0=='_'||(LA31_0>='d' && LA31_0<='e')||LA31_0=='h'||(LA31_0>='j' && LA31_0<='k')||LA31_0=='q'||(LA31_0>='y' && LA31_0<='z')) ) {s = 40;}
+                        else if ( (LA31_0=='l') ) {s = 40;}
 
-                        else if ( ((LA31_0>='0' && LA31_0<='1')) ) {s = 41;}
+                        else if ( (LA31_0=='T') ) {s = 41;}
 
-                        else if ( (LA31_0=='\"') ) {s = 42;}
+                        else if ( (LA31_0=='^') ) {s = 42;}
 
-                        else if ( (LA31_0=='\'') ) {s = 43;}
+                        else if ( (LA31_0=='_'||LA31_0=='e'||(LA31_0>='j' && LA31_0<='k')||LA31_0=='q'||LA31_0=='z') ) {s = 43;}
 
-                        else if ( (LA31_0=='\t'||LA31_0==' ') ) {s = 44;}
+                        else if ( ((LA31_0>='0' && LA31_0<='1')) ) {s = 44;}
 
-                        else if ( (LA31_0=='\n'||LA31_0=='\r') ) {s = 45;}
+                        else if ( (LA31_0=='\"') ) {s = 45;}
 
-                        else if ( ((LA31_0>='A' && LA31_0<='S')||(LA31_0>='U' && LA31_0<='Z')) ) {s = 46;}
+                        else if ( (LA31_0=='\'') ) {s = 46;}
 
-                        else if ( (LA31_0=='3') ) {s = 47;}
+                        else if ( (LA31_0=='\t'||LA31_0==' ') ) {s = 47;}
 
-                        else if ( ((LA31_0>='4' && LA31_0<='9')) ) {s = 48;}
+                        else if ( (LA31_0=='\n'||LA31_0=='\r') ) {s = 48;}
 
-                        else if ( (LA31_0=='2') ) {s = 49;}
+                        else if ( ((LA31_0>='A' && LA31_0<='S')||(LA31_0>='U' && LA31_0<='Z')) ) {s = 49;}
 
-                        else if ( ((LA31_0>='\u0000' && LA31_0<='\b')||(LA31_0>='\u000B' && LA31_0<='\f')||(LA31_0>='\u000E' && LA31_0<='\u001F')||LA31_0=='!'||LA31_0=='$'||LA31_0=='&'||LA31_0==';'||(LA31_0>='?' && LA31_0<='@')||LA31_0=='\\'||LA31_0=='`'||(LA31_0>='~' && LA31_0<='\uFFFF')) ) {s = 50;}
+                        else if ( (LA31_0=='3') ) {s = 50;}
+
+                        else if ( ((LA31_0>='4' && LA31_0<='9')) ) {s = 51;}
+
+                        else if ( (LA31_0=='2') ) {s = 52;}
+
+                        else if ( ((LA31_0>='\u0000' && LA31_0<='\b')||(LA31_0>='\u000B' && LA31_0<='\f')||(LA31_0>='\u000E' && LA31_0<='\u001F')||LA31_0=='!'||LA31_0=='$'||LA31_0=='&'||LA31_0==';'||(LA31_0>='?' && LA31_0<='@')||LA31_0=='\\'||LA31_0=='`'||(LA31_0>='~' && LA31_0<='\uFFFF')) ) {s = 53;}
 
                         if ( s>=0 ) return s;
                         break;

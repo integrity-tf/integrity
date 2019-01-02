@@ -9,7 +9,11 @@ package de.gebit.integrity.remoting.client;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
+import java.util.List;
+
+import org.eclipse.xtext.util.Pair;
 
 import de.gebit.integrity.remoting.entities.setlist.SetList;
 import de.gebit.integrity.remoting.entities.setlist.SetListEntry;
@@ -144,12 +148,15 @@ public interface IntegrityRemotingClientListener {
 	 * 
 	 * @param aStartDate
 	 *            the start date
+	 * @param aDiffTime
+	 *            the relative time modification
 	 * @param aProgressionFactor
 	 *            the progression factor
 	 * @param someTargetedForks
 	 *            the forks that this message should be sent to
 	 */
-	void onTimeSyncRequest(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks);
+	void onTimeSyncRequest(Date aStartDate, List<Pair<Long, TemporalUnit>> aDiffTime, BigDecimal aProgressionFactor,
+			String[] someTargetedForks);
 
 	/**
 	 * Called when a timesync response has arrived. If the arguments' error fields are null, this was successful.

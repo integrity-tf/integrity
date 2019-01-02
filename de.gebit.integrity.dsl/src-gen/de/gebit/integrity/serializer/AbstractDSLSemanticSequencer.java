@@ -59,6 +59,8 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
+import de.gebit.integrity.dsl.TimeDifference;
+import de.gebit.integrity.dsl.TimeDifferencePart;
 import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
@@ -267,6 +269,12 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 			case DslPackage.TEST_DEFINITION:
 				sequence_TestDefinition(context, (TestDefinition) semanticObject); 
 				return; 
+			case DslPackage.TIME_DIFFERENCE:
+				sequence_TimeDifference(context, (TimeDifference) semanticObject); 
+				return; 
+			case DslPackage.TIME_DIFFERENCE_PART:
+				sequence_TimeDifferencePart(context, (TimeDifferencePart) semanticObject); 
+				return; 
 			case DslPackage.TIME_SET:
 				sequence_TimeSet(context, (TimeSet) semanticObject); 
 				return; 
@@ -440,7 +448,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.CONSTANT__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getConstantAccess().getNameConstantEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
+		feeder.accept(grammarAccess.getConstantAccess().getNameConstantEntityQualifiedNameParserRuleCall_0_1(), semanticObject.eGet(DslPackage.Literals.CONSTANT__NAME, false));
 		feeder.finish();
 	}
 	
@@ -517,7 +525,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.ENUM_VALUE__ENUM_VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1(), semanticObject.getEnumValue());
+		feeder.accept(grammarAccess.getEnumValueAccess().getEnumValueJvmEnumerationLiteralUPPERCASE_IDTerminalRuleCall_0_1(), semanticObject.eGet(DslPackage.Literals.ENUM_VALUE__ENUM_VALUE, false));
 		feeder.finish();
 	}
 	
@@ -629,7 +637,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FIXED_PARAMETER_NAME__ANNOTATION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1(), semanticObject.getAnnotation());
+		feeder.accept(grammarAccess.getFixedParameterNameAccess().getAnnotationJvmAnnotationReferenceIDTerminalRuleCall_0_1(), semanticObject.eGet(DslPackage.Literals.FIXED_PARAMETER_NAME__ANNOTATION, false));
 		feeder.finish();
 	}
 	
@@ -648,7 +656,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.FIXED_RESULT_NAME__FIELD));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getFixedResultNameAccess().getFieldJvmFieldIDTerminalRuleCall_0_1(), semanticObject.getField());
+		feeder.accept(grammarAccess.getFixedResultNameAccess().getFieldJvmFieldIDTerminalRuleCall_0_1(), semanticObject.eGet(DslPackage.Literals.FIXED_RESULT_NAME__FIELD, false));
 		feeder.finish();
 	}
 	
@@ -836,7 +844,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CLASS_REFERENCE__TYPE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1(), semanticObject.getType());
+		feeder.accept(grammarAccess.getJavaClassReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_1(), semanticObject.eGet(DslPackage.Literals.JAVA_CLASS_REFERENCE__TYPE, false));
 		feeder.finish();
 	}
 	
@@ -856,8 +864,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.JAVA_CONSTANT_REFERENCE__CONSTANT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getJavaConstantReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1(), semanticObject.getType());
-		feeder.accept(grammarAccess.getJavaConstantReferenceAccess().getConstantJvmFieldUPPERCASE_IDTerminalRuleCall_2_0_1(), semanticObject.getConstant());
+		feeder.accept(grammarAccess.getJavaConstantReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1(), semanticObject.eGet(DslPackage.Literals.JAVA_CONSTANT_REFERENCE__TYPE, false));
+		feeder.accept(grammarAccess.getJavaConstantReferenceAccess().getConstantJvmFieldUPPERCASE_IDTerminalRuleCall_2_0_1(), semanticObject.eGet(DslPackage.Literals.JAVA_CONSTANT_REFERENCE__CONSTANT, false));
 		feeder.finish();
 	}
 	
@@ -911,8 +919,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.METHOD_REFERENCE__METHOD));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1(), semanticObject.getType());
-		feeder.accept(grammarAccess.getMethodReferenceAccess().getMethodJvmOperationIDTerminalRuleCall_2_0_1(), semanticObject.getMethod());
+		feeder.accept(grammarAccess.getMethodReferenceAccess().getTypeJvmTypeQualifiedJavaClassNameParserRuleCall_0_0_1(), semanticObject.eGet(DslPackage.Literals.METHOD_REFERENCE__TYPE, false));
+		feeder.accept(grammarAccess.getMethodReferenceAccess().getMethodJvmOperationIDTerminalRuleCall_2_0_1(), semanticObject.eGet(DslPackage.Literals.METHOD_REFERENCE__METHOD, false));
 		feeder.finish();
 	}
 	
@@ -1257,7 +1265,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_PARAMETER__VALUE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSuiteParameterAccess().getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1(), semanticObject.getName());
+		feeder.accept(grammarAccess.getSuiteParameterAccess().getNameVariableOrConstantEntityQualifiedNameParserRuleCall_0_0_1(), semanticObject.eGet(DslPackage.Literals.SUITE_PARAMETER__NAME, false));
 		feeder.accept(grammarAccess.getSuiteParameterAccess().getValueValueOrEnumValueOrOperationCollectionParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
@@ -1296,7 +1304,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.SUITE_RETURN__TARGET));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSuiteReturnAccess().getNameSuiteReturnDefinitionQualifiedNameParserRuleCall_0_0_1(), semanticObject.getName());
+		feeder.accept(grammarAccess.getSuiteReturnAccess().getNameSuiteReturnDefinitionQualifiedNameParserRuleCall_0_0_1(), semanticObject.eGet(DslPackage.Literals.SUITE_RETURN__NAME, false));
 		feeder.accept(grammarAccess.getSuiteReturnAccess().getTargetVariableVariableParserRuleCall_4_0(), semanticObject.getTarget());
 		feeder.finish();
 	}
@@ -1392,12 +1400,67 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Contexts:
+	 *     TimeDifferencePart returns TimeDifferencePart
+	 *
+	 * Constraint:
+	 *     (
+	 *         value=INTEGER 
+	 *         (
+	 *             temporalUnit='y' | 
+	 *             temporalUnit='year' | 
+	 *             temporalUnit='years' | 
+	 *             temporalUnit='mon' | 
+	 *             temporalUnit='month' | 
+	 *             temporalUnit='months' | 
+	 *             temporalUnit='d' | 
+	 *             temporalUnit='day' | 
+	 *             temporalUnit='days' | 
+	 *             temporalUnit='h' | 
+	 *             temporalUnit='hour' | 
+	 *             temporalUnit='hours' | 
+	 *             temporalUnit='m' | 
+	 *             temporalUnit='minute' | 
+	 *             temporalUnit='minutes' | 
+	 *             temporalUnit='s' | 
+	 *             temporalUnit='second' | 
+	 *             temporalUnit='seconds' | 
+	 *             temporalUnit='ms' | 
+	 *             temporalUnit='millisecond' | 
+	 *             temporalUnit='milliseconds'
+	 *         )
+	 *     )
+	 */
+	protected void sequence_TimeDifferencePart(ISerializationContext context, TimeDifferencePart semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     TimeDifference returns TimeDifference
+	 *
+	 * Constraint:
+	 *     ((direction='+' | direction='-') values+=TimeDifferencePart+)
+	 */
+	protected void sequence_TimeDifference(ISerializationContext context, TimeDifference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     SuiteStatement returns TimeSet
 	 *     TimeSet returns TimeSet
 	 *
 	 * Constraint:
 	 *     (
-	 *         (live='live' | (startTime=ValueOrEnumValueOrOperation (progressionMode='progressing' progressionFactor=ValueOrEnumValueOrOperation?)?)) 
+	 *         (
+	 *             live='live' | 
+	 *             (
+	 *                 (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) 
+	 *                 (progressionMode='progressing' progressionFactor=ValueOrEnumValueOrOperation?)?
+	 *             )
+	 *         ) 
 	 *         (forks+=[ForkDefinition|QualifiedName] | masterFork='master')*
 	 *     )
 	 */
@@ -1558,7 +1621,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.VARIABLE_VARIABLE__NAME));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getVariableVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1(), semanticObject.getName());
+		feeder.accept(grammarAccess.getVariableVariableAccess().getNameVariableEntityQualifiedNameParserRuleCall_0_1(), semanticObject.eGet(DslPackage.Literals.VARIABLE_VARIABLE__NAME, false));
 		feeder.finish();
 	}
 	

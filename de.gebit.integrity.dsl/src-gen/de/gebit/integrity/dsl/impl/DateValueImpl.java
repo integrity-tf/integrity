@@ -166,7 +166,7 @@ public class DateValueImpl extends StaticValueImpl implements DateValue
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (dateValue: ");
     result.append(dateValue);
     result.append(')');

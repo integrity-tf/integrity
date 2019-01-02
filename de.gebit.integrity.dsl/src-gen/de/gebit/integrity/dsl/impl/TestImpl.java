@@ -406,7 +406,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
   {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (checkpoint: ");
     result.append(checkpoint);
     result.append(')');

@@ -16,11 +16,8 @@ package de.gebit.integrity.dsl.experiments.time;
 public class DummyTestTimeAdapter {
 
 	public void setInternalState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
-		System.out.println("==> Setting timekeeper state to realtime offset " + aRealtimeOffset + ", decoupling time "
-				+ aRealtimeDecouplingTime + " and progression factor " + aProgressionFactor);
-		// if (Math.random() < 0.5) {
-		// throw new RuntimeException("Random failure!");
-		// }
+		ExperimentalTimeAndDateSingleton.getInstance().setInternalState(aRealtimeOffset, aRealtimeDecouplingTime,
+				aProgressionFactor);
 	}
 
 }

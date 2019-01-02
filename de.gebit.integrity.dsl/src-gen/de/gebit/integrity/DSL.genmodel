@@ -4,7 +4,7 @@
     editorDirectory="/de.gebit.integrity.dsl.editor/src" modelPluginID="de.gebit.integrity.dsl"
     forceOverwrite="true" modelName="DSL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit"
-    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.12" usedGenPackages="platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.14" usedGenPackages="platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="Dsl" basePackage="de.gebit.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
     <genClasses ecoreClass="DSL.ecore#//Model">
@@ -158,10 +158,19 @@
     <genClasses ecoreClass="DSL.ecore#//TimeSet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeSet/live"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeSet/startTime"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeSet/diffTime"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeSet/progressionMode"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeSet/progressionFactor"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeSet/forks"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeSet/masterFork"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TimeDifference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeDifference/direction"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeDifference/values"/>
+    </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TimeDifferencePart">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeDifferencePart/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeDifferencePart/temporalUnit"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Suite">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Suite/inlined"/>
