@@ -8,7 +8,11 @@
 package de.gebit.integrity.runner.forking;
 
 import java.math.BigDecimal;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
+import java.util.List;
+
+import org.eclipse.xtext.util.Pair;
 
 /**
  * Callback to deliver events from a fork to the parent.
@@ -46,10 +50,12 @@ public interface ForkCallback {
 	 * requested).
 	 * 
 	 * @param aStartDate
+	 * @param aDiffTime
 	 * @param aProgressionFactor
 	 * @param someTargetedForks
 	 */
-	void onTimeSync(Date aStartDate, BigDecimal aProgressionFactor, String[] someTargetedForks, Fork aResultTarget);
+	void onTimeSync(Date aStartDate, List<Pair<Long, TemporalUnit>> aDiffTime, BigDecimal aProgressionFactor,
+			String[] someTargetedForks, Fork aResultTarget);
 
 	/**
 	 * Called when the fork exits.

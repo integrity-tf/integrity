@@ -416,6 +416,20 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.TIME_DIFFERENCE:
+      {
+        TimeDifference timeDifference = (TimeDifference)theEObject;
+        T result = caseTimeDifference(timeDifference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case DslPackage.TIME_DIFFERENCE_PART:
+      {
+        TimeDifferencePart timeDifferencePart = (TimeDifferencePart)theEObject;
+        T result = caseTimeDifferencePart(timeDifferencePart);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.SUITE:
       {
         Suite suite = (Suite)theEObject;
@@ -1546,6 +1560,38 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseTimeSet(TimeSet object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Time Difference</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Time Difference</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTimeDifference(TimeDifference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Time Difference Part</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Time Difference Part</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTimeDifferencePart(TimeDifferencePart object)
   {
     return null;
   }

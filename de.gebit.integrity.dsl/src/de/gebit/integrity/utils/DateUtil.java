@@ -8,13 +8,22 @@
 package de.gebit.integrity.utils;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+
+import org.eclipse.xtext.util.Pair;
+import org.eclipse.xtext.util.Tuples;
 
 import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
@@ -26,6 +35,8 @@ import de.gebit.integrity.dsl.IsoDateValue;
 import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.Simple12HrsTimeValue;
 import de.gebit.integrity.dsl.Simple24HrsTimeValue;
+import de.gebit.integrity.dsl.TimeDifference;
+import de.gebit.integrity.dsl.TimeDifferencePart;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.USDateValue;
@@ -434,4 +445,68 @@ public final class DateUtil {
 			return tempBuilder.toString();
 		}
 	}
+
+	/**
+	 * Converts a {@link TimeDifference} to a list of {@link Pair} with value plus {@link TemporalUnit}. This is not
+	 * directly converting to a {@link Duration} because certain units' absolute length depends on the actual date/time
+	 * (like months and years). Their length can only be evaluated when we know the "current" date/time.
+	 * <p>
+	 * In case of an overall negative difference, all values are negated on conversion.
+	 * 
+	 * @param aDifference
+	 *            the time difference object
+	 * @return the converted duration
+	 */
+	public static List<Pair<Long, TemporalUnit>> convertTimeDifference(TimeDifference aDifference) {
+		List<Pair<Long, TemporalUnit>> tempResults = new ArrayList<Pair<Long, TemporalUnit>>(
+				aDifference.getValues().size());
+		long tempNegation = ("-".equals(aDifference.getDirection()) ? -1 : 1);
+
+		for (TimeDifferencePart tempPart : aDifference.getValues()) {
+			BigInteger tempValue = tempPart.getValue();
+			if (tempValue == null || tempPart.getTemporalUnit() == null) {
+				continue;
+			}
+			TemporalUnit tempUnit = convertTemporalUnit(tempPart.getTemporalUnit());
+			tempResults.add(Tuples.create(tempValue.longValue() * tempNegation, tempUnit));
+		}
+
+		return tempResults;
+	}
+
+	private static TemporalUnit convertTemporalUnit(String aTemporalUnit) {
+		switch (aTemporalUnit) {
+		case "y":
+		case "year":
+		case "years":
+			return ChronoUnit.YEARS;
+		case "mon":
+		case "month":
+		case "months":
+			return ChronoUnit.MONTHS;
+		case "d":
+		case "day":
+		case "days":
+			return ChronoUnit.DAYS;
+		case "h":
+		case "hour":
+		case "hours":
+			return ChronoUnit.HOURS;
+		case "m":
+		case "minute":
+		case "minutes":
+			return ChronoUnit.MINUTES;
+		case "s":
+		case "second":
+		case "seconds":
+			return ChronoUnit.SECONDS;
+		case "ms":
+		case "millisecond":
+		case "milliseconds":
+			return ChronoUnit.MILLIS;
+		default:
+			throw new RuntimeException("Unknown temporal unit: " + aTemporalUnit);
+		}
+	}
+
 }
