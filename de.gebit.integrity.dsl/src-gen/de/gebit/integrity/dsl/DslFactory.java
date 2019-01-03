@@ -419,15 +419,6 @@ public interface DslFactory extends EFactory
   TimeDifference createTimeDifference();
 
   /**
-   * Returns a new object of class '<em>Time Difference Part</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Time Difference Part</em>'.
-   * @generated
-   */
-  TimeDifferencePart createTimeDifferencePart();
-
-  /**
    * Returns a new object of class '<em>Suite</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

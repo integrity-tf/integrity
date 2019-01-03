@@ -4,23 +4,19 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.TimeDifference;
-import de.gebit.integrity.dsl.TimeDifferencePart;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -59,14 +55,14 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
   protected String direction = DIRECTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
+   * The cached value of the '{@link #getValues() <em>Values</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getValues()
    * @generated
    * @ordered
    */
-  protected EList<TimeDifferencePart> values;
+  protected EList<String> values;
 
   /**
    * <!-- begin-user-doc -->
@@ -117,29 +113,13 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<TimeDifferencePart> getValues()
+  public EList<String> getValues()
   {
     if (values == null)
     {
-      values = new EObjectContainmentEList<TimeDifferencePart>(TimeDifferencePart.class, this, DslPackage.TIME_DIFFERENCE__VALUES);
+      values = new EDataTypeEList<String>(String.class, this, DslPackage.TIME_DIFFERENCE__VALUES);
     }
     return values;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case DslPackage.TIME_DIFFERENCE__VALUES:
-        return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -176,7 +156,7 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
         return;
       case DslPackage.TIME_DIFFERENCE__VALUES:
         getValues().clear();
-        getValues().addAll((Collection<? extends TimeDifferencePart>)newValue);
+        getValues().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -233,6 +213,8 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (direction: ");
     result.append(direction);
+    result.append(", values: ");
+    result.append(values);
     result.append(')');
     return result.toString();
   }

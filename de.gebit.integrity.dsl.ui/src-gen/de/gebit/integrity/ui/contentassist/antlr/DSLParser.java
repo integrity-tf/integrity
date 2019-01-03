@@ -51,7 +51,6 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTimeSetAccess().getAlternatives_2_1_0(), "rule__TimeSet__Alternatives_2_1_0");
 					put(grammarAccess.getTimeSetAccess().getAlternatives_3_2_0(), "rule__TimeSet__Alternatives_3_2_0");
 					put(grammarAccess.getTimeDifferenceAccess().getDirectionAlternatives_0_0(), "rule__TimeDifference__DirectionAlternatives_0_0");
-					put(grammarAccess.getTimeDifferencePartAccess().getTemporalUnitAlternatives_2_0(), "rule__TimeDifferencePart__TemporalUnitAlternatives_2_0");
 					put(grammarAccess.getParameterNameAccess().getAlternatives(), "rule__ParameterName__Alternatives");
 					put(grammarAccess.getArbitraryParameterOrResultNameAccess().getAlternatives_1(), "rule__ArbitraryParameterOrResultName__Alternatives_1");
 					put(grammarAccess.getOperationAccess().getAlternatives(), "rule__Operation__Alternatives");
@@ -135,7 +134,6 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTimeSetAccess().getGroup_3_2(), "rule__TimeSet__Group_3_2__0");
 					put(grammarAccess.getTimeDifferenceAccess().getGroup(), "rule__TimeDifference__Group__0");
 					put(grammarAccess.getTimeDifferenceAccess().getGroup_1(), "rule__TimeDifference__Group_1__0");
-					put(grammarAccess.getTimeDifferencePartAccess().getGroup(), "rule__TimeDifferencePart__Group__0");
 					put(grammarAccess.getSuiteAccess().getGroup(), "rule__Suite__Group__0");
 					put(grammarAccess.getSuiteAccess().getGroup_3(), "rule__Suite__Group_3__0");
 					put(grammarAccess.getSuiteAccess().getGroup_6(), "rule__Suite__Group_6__0");
@@ -269,8 +267,6 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTimeSetAccess().getMasterForkAssignment_3_2_0_1(), "rule__TimeSet__MasterForkAssignment_3_2_0_1");
 					put(grammarAccess.getTimeDifferenceAccess().getDirectionAssignment_0(), "rule__TimeDifference__DirectionAssignment_0");
 					put(grammarAccess.getTimeDifferenceAccess().getValuesAssignment_1_1(), "rule__TimeDifference__ValuesAssignment_1_1");
-					put(grammarAccess.getTimeDifferencePartAccess().getValueAssignment_0(), "rule__TimeDifferencePart__ValueAssignment_0");
-					put(grammarAccess.getTimeDifferencePartAccess().getTemporalUnitAssignment_2(), "rule__TimeDifferencePart__TemporalUnitAssignment_2");
 					put(grammarAccess.getSuiteAccess().getInlinedAssignment_0(), "rule__Suite__InlinedAssignment_0");
 					put(grammarAccess.getSuiteAccess().getMultiplierAssignment_3_0(), "rule__Suite__MultiplierAssignment_3_0");
 					put(grammarAccess.getSuiteAccess().getDefinitionAssignment_4(), "rule__Suite__DefinitionAssignment_4");
