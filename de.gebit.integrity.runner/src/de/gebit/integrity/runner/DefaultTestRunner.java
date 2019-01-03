@@ -2353,8 +2353,17 @@ public class DefaultTestRunner implements TestRunner {
 				currentCallback.onCallbackProcessingEnd();
 			}
 		} catch (Exception exc) {
-			// Any exception happening in Integrity itself during time setting is considered an abort execution case
-			handlePossibleAbortException(new AbortExecutionException("Failed to set test time", exc));
+			// Any exception happening in Integrity itself during time setting is considered an abort execution case,
+			// except if this happens during dry run, in which case we just throw it on
+			if (currentPhase == Phase.TEST_RUN) {
+				handlePossibleAbortException(new AbortExecutionException("Failed to set test time", exc));
+			} else {
+				if (exc instanceof RuntimeException) {
+					throw (RuntimeException) exc;
+				} else {
+					throw new RuntimeException(exc);
+				}
+			}
 		}
 	}
 

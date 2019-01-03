@@ -52,19 +52,19 @@ public interface TimeDifference extends EObject
   void setDirection(String value);
 
   /**
-   * Returns the value of the '<em><b>Values</b></em>' containment reference list.
-   * The list contents are of type {@link de.gebit.integrity.dsl.TimeDifferencePart}.
+   * Returns the value of the '<em><b>Values</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Values</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Values</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Values</em>' containment reference list.
+   * @return the value of the '<em>Values</em>' attribute list.
    * @see de.gebit.integrity.dsl.DslPackage#getTimeDifference_Values()
-   * @model containment="true"
+   * @model unique="false"
    * @generated
    */
-  EList<TimeDifferencePart> getValues();
+  EList<String> getValues();
 
 } // TimeDifference

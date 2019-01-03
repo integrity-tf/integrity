@@ -71,7 +71,6 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.TimeDifference;
-import de.gebit.integrity.dsl.TimeDifferencePart;
 import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.TypedNestedObject;
@@ -421,13 +420,6 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass timeDifferenceEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass timeDifferencePartEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2109,39 +2101,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTimeDifference_Values()
+  public EAttribute getTimeDifference_Values()
   {
-    return (EReference)timeDifferenceEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getTimeDifferencePart()
-  {
-    return timeDifferencePartEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTimeDifferencePart_Value()
-  {
-    return (EAttribute)timeDifferencePartEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTimeDifferencePart_TemporalUnit()
-  {
-    return (EAttribute)timeDifferencePartEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)timeDifferenceEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -3325,11 +3287,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     timeDifferenceEClass = createEClass(TIME_DIFFERENCE);
     createEAttribute(timeDifferenceEClass, TIME_DIFFERENCE__DIRECTION);
-    createEReference(timeDifferenceEClass, TIME_DIFFERENCE__VALUES);
-
-    timeDifferencePartEClass = createEClass(TIME_DIFFERENCE_PART);
-    createEAttribute(timeDifferencePartEClass, TIME_DIFFERENCE_PART__VALUE);
-    createEAttribute(timeDifferencePartEClass, TIME_DIFFERENCE_PART__TEMPORAL_UNIT);
+    createEAttribute(timeDifferenceEClass, TIME_DIFFERENCE__VALUES);
 
     suiteEClass = createEClass(SUITE);
     createEAttribute(suiteEClass, SUITE__INLINED);
@@ -3747,11 +3705,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(timeDifferenceEClass, TimeDifference.class, "TimeDifference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTimeDifference_Direction(), ecorePackage.getEString(), "direction", null, 0, 1, TimeDifference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTimeDifference_Values(), this.getTimeDifferencePart(), null, "values", null, 0, -1, TimeDifference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(timeDifferencePartEClass, TimeDifferencePart.class, "TimeDifferencePart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTimeDifferencePart_Value(), ecorePackage.getEBigInteger(), "value", null, 0, 1, TimeDifferencePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTimeDifferencePart_TemporalUnit(), ecorePackage.getEString(), "temporalUnit", null, 0, 1, TimeDifferencePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTimeDifference_Values(), ecorePackage.getEString(), "values", null, 0, -1, TimeDifference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteEClass, Suite.class, "Suite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSuite_Inlined(), ecorePackage.getEString(), "inlined", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
