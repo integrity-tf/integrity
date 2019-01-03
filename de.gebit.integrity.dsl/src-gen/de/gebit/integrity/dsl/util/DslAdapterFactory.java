@@ -295,11 +295,6 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createTimeDifferenceAdapter();
       }
       @Override
-      public Adapter caseTimeDifferencePart(TimeDifferencePart object)
-      {
-        return createTimeDifferencePartAdapter();
-      }
-      @Override
       public Adapter caseSuite(Suite object)
       {
         return createSuiteAdapter();
@@ -1222,21 +1217,6 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTimeDifferenceAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.TimeDifferencePart <em>Time Difference Part</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see de.gebit.integrity.dsl.TimeDifferencePart
-   * @generated
-   */
-  public Adapter createTimeDifferencePartAdapter()
   {
     return null;
   }

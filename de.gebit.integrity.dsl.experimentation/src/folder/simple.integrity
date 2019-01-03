@@ -80,7 +80,7 @@ packagedef mypackage with
 		// Resets date/time on all forks and the master to live system date/time
 		timeset live
 		
-		timeset + 12 minutes on master
+		timeset + 12minutes on master
 		
 				
 		suite bsuite on fork1
@@ -96,7 +96,7 @@ packagedef mypackage with
 		timeset 10.02.2001 on fork1
 		timeset 10.03.2001 on master
 		
-		timeset + 1 months
+		timeset + 1months
 		
 		suite csuite on fork1
 		

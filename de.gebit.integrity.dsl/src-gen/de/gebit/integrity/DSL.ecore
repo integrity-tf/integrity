@@ -215,12 +215,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimeDifference">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
-        eType="#//TimeDifferencePart" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TimeDifferencePart">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBigInteger"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="temporalUnit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Suite" eSuperTypes="#//SuiteStatementWithResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inlined" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

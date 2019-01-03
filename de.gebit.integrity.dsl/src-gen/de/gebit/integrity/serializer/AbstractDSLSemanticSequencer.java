@@ -60,7 +60,6 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.TimeDifference;
-import de.gebit.integrity.dsl.TimeDifferencePart;
 import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
@@ -271,9 +270,6 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.TIME_DIFFERENCE:
 				sequence_TimeDifference(context, (TimeDifference) semanticObject); 
-				return; 
-			case DslPackage.TIME_DIFFERENCE_PART:
-				sequence_TimeDifferencePart(context, (TimeDifferencePart) semanticObject); 
 				return; 
 			case DslPackage.TIME_SET:
 				sequence_TimeSet(context, (TimeSet) semanticObject); 
@@ -1400,47 +1396,10 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Contexts:
-	 *     TimeDifferencePart returns TimeDifferencePart
-	 *
-	 * Constraint:
-	 *     (
-	 *         value=INTEGER 
-	 *         (
-	 *             temporalUnit='y' | 
-	 *             temporalUnit='year' | 
-	 *             temporalUnit='years' | 
-	 *             temporalUnit='mon' | 
-	 *             temporalUnit='month' | 
-	 *             temporalUnit='months' | 
-	 *             temporalUnit='d' | 
-	 *             temporalUnit='day' | 
-	 *             temporalUnit='days' | 
-	 *             temporalUnit='h' | 
-	 *             temporalUnit='hour' | 
-	 *             temporalUnit='hours' | 
-	 *             temporalUnit='m' | 
-	 *             temporalUnit='minute' | 
-	 *             temporalUnit='minutes' | 
-	 *             temporalUnit='s' | 
-	 *             temporalUnit='second' | 
-	 *             temporalUnit='seconds' | 
-	 *             temporalUnit='ms' | 
-	 *             temporalUnit='millisecond' | 
-	 *             temporalUnit='milliseconds'
-	 *         )
-	 *     )
-	 */
-	protected void sequence_TimeDifferencePart(ISerializationContext context, TimeDifferencePart semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     TimeDifference returns TimeDifference
 	 *
 	 * Constraint:
-	 *     ((direction='+' | direction='-') values+=TimeDifferencePart+)
+	 *     ((direction='+' | direction='-') values+=TIMESPAN+)
 	 */
 	protected void sequence_TimeDifference(ISerializationContext context, TimeDifference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1461,7 +1420,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *                 (progressionMode='progressing' progressionFactor=ValueOrEnumValueOrOperation?)?
 	 *             )
 	 *         ) 
-	 *         (forks+=[ForkDefinition|QualifiedName] | masterFork='master')*
+	 *         masterFork='master'? 
+	 *         (forks+=[ForkDefinition|QualifiedName]? masterFork='master'?)*
 	 *     )
 	 */
 	protected void sequence_TimeSet(ISerializationContext context, TimeSet semanticObject) {

@@ -443,10 +443,6 @@ public class TestFormatter {
 	 * @return
 	 */
 	public String timeDifferenceToHumanReadableString(TimeDifference aTimeDiff) {
-		return aTimeDiff.getValues().stream().map((aPart) -> {
-			return aPart.getValue()
-					+ ((aPart.getTemporalUnit().length() > 2 && !"mon".equals(aPart.getTemporalUnit())) ? " " : "")
-					+ aPart.getTemporalUnit();
-		}).collect(Collectors.joining(" "));
+		return aTimeDiff.getValues().stream().collect(Collectors.joining(" "));
 	}
 }

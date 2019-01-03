@@ -8,7 +8,6 @@
 package de.gebit.integrity.utils;
 
 import java.lang.reflect.Field;
-import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +20,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.Tuples;
@@ -36,7 +37,6 @@ import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.Simple12HrsTimeValue;
 import de.gebit.integrity.dsl.Simple24HrsTimeValue;
 import de.gebit.integrity.dsl.TimeDifference;
-import de.gebit.integrity.dsl.TimeDifferencePart;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.USDateValue;
@@ -460,52 +460,67 @@ public final class DateUtil {
 	public static List<Pair<Long, TemporalUnit>> convertTimeDifference(TimeDifference aDifference) {
 		List<Pair<Long, TemporalUnit>> tempResults = new ArrayList<Pair<Long, TemporalUnit>>(
 				aDifference.getValues().size());
-		long tempNegation = ("-".equals(aDifference.getDirection()) ? -1 : 1);
+		boolean tempNegate = ("-".equals(aDifference.getDirection()));
 
-		for (TimeDifferencePart tempPart : aDifference.getValues()) {
-			BigInteger tempValue = tempPart.getValue();
-			if (tempValue == null || tempPart.getTemporalUnit() == null) {
-				continue;
-			}
-			TemporalUnit tempUnit = convertTemporalUnit(tempPart.getTemporalUnit());
-			tempResults.add(Tuples.create(tempValue.longValue() * tempNegation, tempUnit));
+		for (String tempPart : aDifference.getValues()) {
+			tempResults.add(parseTimeSpanString(tempPart, tempNegate));
 		}
 
 		return tempResults;
 	}
 
-	private static TemporalUnit convertTemporalUnit(String aTemporalUnit) {
-		switch (aTemporalUnit) {
+	/**
+	 * The timespan terminal pattern.
+	 */
+	private static final Pattern TIMESPAN_PATTERN = Pattern.compile("^(\\d+)([a-z]+)$");
+
+	private static Pair<Long, TemporalUnit> parseTimeSpanString(String aTimeSpanString, boolean aNegateFlag) {
+		String tempUnitPart;
+		long tempValue;
+		Matcher tempMatcher = TIMESPAN_PATTERN.matcher(aTimeSpanString);
+
+		if (!tempMatcher.matches()) {
+			throw new RuntimeException("Unparseable timespan terminal: " + aTimeSpanString);
+		}
+
+		tempValue = Long.parseLong(tempMatcher.group(1));
+		tempUnitPart = tempMatcher.group(2);
+
+		if (aNegateFlag) {
+			tempValue = tempValue * -1L;
+		}
+
+		switch (tempUnitPart) {
 		case "y":
 		case "year":
 		case "years":
-			return ChronoUnit.YEARS;
+			return Tuples.create(tempValue, ChronoUnit.YEARS);
 		case "mon":
 		case "month":
 		case "months":
-			return ChronoUnit.MONTHS;
+			return Tuples.create(tempValue, ChronoUnit.MONTHS);
 		case "d":
 		case "day":
 		case "days":
-			return ChronoUnit.DAYS;
+			return Tuples.create(tempValue, ChronoUnit.DAYS);
 		case "h":
 		case "hour":
 		case "hours":
-			return ChronoUnit.HOURS;
+			return Tuples.create(tempValue, ChronoUnit.HOURS);
 		case "m":
 		case "minute":
 		case "minutes":
-			return ChronoUnit.MINUTES;
+			return Tuples.create(tempValue, ChronoUnit.MINUTES);
 		case "s":
 		case "second":
 		case "seconds":
-			return ChronoUnit.SECONDS;
+			return Tuples.create(tempValue, ChronoUnit.SECONDS);
 		case "ms":
 		case "millisecond":
 		case "milliseconds":
-			return ChronoUnit.MILLIS;
+			return Tuples.create(tempValue, ChronoUnit.MILLIS);
 		default:
-			throw new RuntimeException("Unknown temporal unit: " + aTemporalUnit);
+			throw new RuntimeException("Unknown temporal unit: " + tempUnitPart);
 		}
 	}
 

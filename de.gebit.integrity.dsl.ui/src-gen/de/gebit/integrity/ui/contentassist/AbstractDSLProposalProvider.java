@@ -296,32 +296,6 @@ public class AbstractDSLProposalProvider extends org.eclipse.xtext.ui.editor.con
 	public void completeTimeDifference_Values(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
 	}
-	public void completeTimeDifferencePart_Value(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
-	}
-	public void completeTimeDifferencePart_TemporalUnit(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-		// subclasses may override
-	}
 	public void completeSuite_Inlined(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
@@ -644,9 +618,6 @@ public class AbstractDSLProposalProvider extends org.eclipse.xtext.ui.editor.con
 	public void complete_TimeDifference(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
-	public void complete_TimeDifferencePart(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		// subclasses may override
-	}
 	public void complete_Suite(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
@@ -873,6 +844,9 @@ public class AbstractDSLProposalProvider extends org.eclipse.xtext.ui.editor.con
 		// subclasses may override
 	}
 	public void complete_TWELVEHRSTIME(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		// subclasses may override
+	}
+	public void complete_TIMESPAN(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
 	public void complete_ANY_OTHER(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {

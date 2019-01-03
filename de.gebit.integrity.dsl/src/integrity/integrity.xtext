@@ -155,10 +155,7 @@ TimeSet:
 	'timeset' NL (live='live' NL | ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?)) ('on' NL ((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 
 TimeDifference:
-	direction=('+'|'-') (NL values+=TimeDifferencePart)+;
-	
-TimeDifferencePart:
-	value=INTEGER NL temporalUnit=('y'|'year'|'years'|'mon'|'month'|'months'|'d'|'day'|'days'|'h'|'hour'|'hours'|'m'|'minute'|'minutes'|'s'|'second'|'seconds'|'ms'|'millisecond'|'milliseconds');
+	direction=('+'|'-') (NL values+=TIMESPAN)+;
 	
 Suite:
 	inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] ','? NL)+)?;
@@ -347,5 +344,7 @@ terminal USDATE: ('0'..'1')('0'..'9') '/' ('0'..'3')('0'..'9') '/' ('0'..'9')('0
 terminal TWENTYFOURHRSTIME: ('0'..'2')('0'..'9') ':' ('0'..'5')('0'..'9') (':' ('0'..'6')('0'..'9') ('.' (('0'..'9')('0'..'9')('0'..'9')))?)?;
 terminal TWELVEHRSTIME: ('0'..'1')('0'..'9') ':' ('0'..'5')('0'..'9') (':' ('0'..'6')('0'..'9') ('.' (('0'..'9')('0'..'9')('0'..'9')))?)? ('am'|'pm');
 
+// Making the following a terminal is a trick so we don't have to make all those units into keywords
+terminal TIMESPAN: ('0'..'9')+ ('y'|'year'|'years'|'mon'|'month'|'months'|'d'|'day'|'days'|'h'|'hour'|'hours'|'m'|'minute'|'minutes'|'s'|'second'|'seconds'|'ms'|'millisecond'|'milliseconds');
 
 terminal ANY_OTHER: .;
