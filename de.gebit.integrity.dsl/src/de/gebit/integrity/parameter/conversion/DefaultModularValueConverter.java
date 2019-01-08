@@ -118,6 +118,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarTo
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToSQLTime;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToTimestamp;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToSQLTime;
@@ -132,8 +133,11 @@ import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToStrin
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.SQLDateToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.SQLDateToTimestamp;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.SQLTimeToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.SQLTimeToTimestamp;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.TimestampToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToBigInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.CharacterToFormattedString;
@@ -221,8 +225,12 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(DateToSQLDate.class);
 		addConversion(DateToSQLTime.class);
 		addConversion(DateToTimestamp.class);
+		addConversion(DateToCalendar.class);
 		addConversion(SQLDateToTimestamp.class);
+		addConversion(SQLDateToCalendar.class);
 		addConversion(SQLTimeToTimestamp.class);
+		addConversion(SQLTimeToCalendar.class);
+		addConversion(TimestampToCalendar.class);
 
 		// identity conversions, Java -> Java
 		addConversion(StringToString.class);
