@@ -166,7 +166,8 @@
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//TimeDifference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeDifference/direction"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeDifference/values"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeDifference/fixedValues"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeDifference/calculatedValue"/>
     </genClasses>
     <genClasses ecoreClass="DSL.ecore#//Suite">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//Suite/inlined"/>

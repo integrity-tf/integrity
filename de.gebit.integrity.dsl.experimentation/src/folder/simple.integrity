@@ -98,6 +98,15 @@ packagedef mypackage with
 		
 		timeset + 1months
 		
+		constant testConst 1100
+		
+		variable blah
+		call echoCall echo: 1000 -> blah
+		
+		timeset + testConst
+		timeset - blah
+		timeset + (testConst - blah)
+		
 		suite csuite on fork1
 		
 		suite bsuite on fork1

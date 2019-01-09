@@ -2280,7 +2280,7 @@ public class DefaultTestRunner implements TestRunner {
 			if (aTimeSet.getStartTime() != null) {
 				tempStartTime = (Date) valueConverter.convertValue(Date.class, aTimeSet.getStartTime(), null);
 			} else if (aTimeSet.getDiffTime() != null) {
-				tempDiffTime = DateUtil.convertTimeDifference(aTimeSet.getDiffTime());
+				tempDiffTime = DateUtil.convertTimeDifference(aTimeSet.getDiffTime(), valueConverter);
 			}
 
 			if (aTimeSet.getProgressionMode() != null) {

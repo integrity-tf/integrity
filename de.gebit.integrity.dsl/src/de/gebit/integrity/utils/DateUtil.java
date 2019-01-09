@@ -40,6 +40,11 @@ import de.gebit.integrity.dsl.TimeDifference;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.USDateValue;
+import de.gebit.integrity.operations.UnexecutableException;
+import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
+import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
  * A utility class to handle date/time parsing and other date stuff. Sorry for the uglyness, but date/time handling just
@@ -455,18 +460,37 @@ public final class DateUtil {
 	 * 
 	 * @param aDifference
 	 *            the time difference object
+	 * @param aValueConverter
+	 *            the value converter instance (necessary in case of calculated time difference values)
 	 * @return the converted duration
 	 */
-	public static List<Pair<Long, TemporalUnit>> convertTimeDifference(TimeDifference aDifference) {
-		List<Pair<Long, TemporalUnit>> tempResults = new ArrayList<Pair<Long, TemporalUnit>>(
-				aDifference.getValues().size());
-		boolean tempNegate = ("-".equals(aDifference.getDirection()));
+	public static List<Pair<Long, TemporalUnit>> convertTimeDifference(TimeDifference aDifference,
+			ValueConverter aValueConverter) {
+		if (aDifference.getCalculatedValue() != null) {
+			// Calculated values are assumed to be in msecs
+			List<Pair<Long, TemporalUnit>> tempResult = new ArrayList<Pair<Long, TemporalUnit>>(1);
 
-		for (String tempPart : aDifference.getValues()) {
-			tempResults.add(parseTimeSpanString(tempPart, tempNegate));
+			try {
+				Long tempValue = (Long) aValueConverter.convertValue(Long.class, aDifference.getCalculatedValue(),
+						new ConversionContext().withUnresolvableVariableHandlingPolicy(
+								UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+				tempResult.add(Tuples.create(tempValue, ChronoUnit.MILLIS));
+			} catch (UnresolvableVariableException | UnexecutableException exc) {
+				tempResult.add(Tuples.create(null, ChronoUnit.MILLIS));
+			}
+
+			return tempResult;
+		} else {
+			List<Pair<Long, TemporalUnit>> tempResults = new ArrayList<Pair<Long, TemporalUnit>>(
+					aDifference.getFixedValues().size());
+			boolean tempNegate = ("-".equals(aDifference.getDirection()));
+
+			for (String tempPart : aDifference.getFixedValues()) {
+				tempResults.add(parseTimeSpanString(tempPart, tempNegate));
+			}
+
+			return tempResults;
 		}
-
-		return tempResults;
 	}
 
 	/**

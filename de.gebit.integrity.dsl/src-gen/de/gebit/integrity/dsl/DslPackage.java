@@ -1766,13 +1766,22 @@ public interface DslPackage extends EPackage
   int TIME_DIFFERENCE__DIRECTION = 0;
 
   /**
-   * The feature id for the '<em><b>Values</b></em>' attribute list.
+   * The feature id for the '<em><b>Fixed Values</b></em>' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TIME_DIFFERENCE__VALUES = 1;
+  int TIME_DIFFERENCE__FIXED_VALUES = 1;
+
+  /**
+   * The feature id for the '<em><b>Calculated Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TIME_DIFFERENCE__CALCULATED_VALUE = 2;
 
   /**
    * The number of structural features of the '<em>Time Difference</em>' class.
@@ -1781,7 +1790,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_DIFFERENCE_FEATURE_COUNT = 2;
+  int TIME_DIFFERENCE_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.SuiteImpl <em>Suite</em>}' class.
@@ -4665,15 +4674,26 @@ public interface DslPackage extends EPackage
   EAttribute getTimeDifference_Direction();
 
   /**
-   * Returns the meta object for the attribute list '{@link de.gebit.integrity.dsl.TimeDifference#getValues <em>Values</em>}'.
+   * Returns the meta object for the attribute list '{@link de.gebit.integrity.dsl.TimeDifference#getFixedValues <em>Fixed Values</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Values</em>'.
-   * @see de.gebit.integrity.dsl.TimeDifference#getValues()
+   * @return the meta object for the attribute list '<em>Fixed Values</em>'.
+   * @see de.gebit.integrity.dsl.TimeDifference#getFixedValues()
    * @see #getTimeDifference()
    * @generated
    */
-  EAttribute getTimeDifference_Values();
+  EAttribute getTimeDifference_FixedValues();
+
+  /**
+   * Returns the meta object for the containment reference '{@link de.gebit.integrity.dsl.TimeDifference#getCalculatedValue <em>Calculated Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Calculated Value</em>'.
+   * @see de.gebit.integrity.dsl.TimeDifference#getCalculatedValue()
+   * @see #getTimeDifference()
+   * @generated
+   */
+  EReference getTimeDifference_CalculatedValue();
 
   /**
    * Returns the meta object for class '{@link de.gebit.integrity.dsl.Suite <em>Suite</em>}'.
@@ -6862,12 +6882,20 @@ public interface DslPackage extends EPackage
     EAttribute TIME_DIFFERENCE__DIRECTION = eINSTANCE.getTimeDifference_Direction();
 
     /**
-     * The meta object literal for the '<em><b>Values</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Fixed Values</b></em>' attribute list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TIME_DIFFERENCE__VALUES = eINSTANCE.getTimeDifference_Values();
+    EAttribute TIME_DIFFERENCE__FIXED_VALUES = eINSTANCE.getTimeDifference_FixedValues();
+
+    /**
+     * The meta object literal for the '<em><b>Calculated Value</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TIME_DIFFERENCE__CALCULATED_VALUE = eINSTANCE.getTimeDifference_CalculatedValue();
 
     /**
      * The meta object literal for the '{@link de.gebit.integrity.dsl.impl.SuiteImpl <em>Suite</em>}' class.

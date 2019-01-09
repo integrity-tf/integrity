@@ -4,14 +4,17 @@ package de.gebit.integrity.dsl.impl;
 
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.TimeDifference;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
@@ -27,7 +30,8 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.impl.TimeDifferenceImpl#getDirection <em>Direction</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.impl.TimeDifferenceImpl#getValues <em>Values</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.TimeDifferenceImpl#getFixedValues <em>Fixed Values</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.impl.TimeDifferenceImpl#getCalculatedValue <em>Calculated Value</em>}</li>
  * </ul>
  *
  * @generated
@@ -55,14 +59,24 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
   protected String direction = DIRECTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getValues() <em>Values</em>}' attribute list.
+   * The cached value of the '{@link #getFixedValues() <em>Fixed Values</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getValues()
+   * @see #getFixedValues()
    * @generated
    * @ordered
    */
-  protected EList<String> values;
+  protected EList<String> fixedValues;
+
+  /**
+   * The cached value of the '{@link #getCalculatedValue() <em>Calculated Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getCalculatedValue()
+   * @generated
+   * @ordered
+   */
+  protected ValueOrEnumValueOrOperation calculatedValue;
 
   /**
    * <!-- begin-user-doc -->
@@ -113,13 +127,77 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getValues()
+  public EList<String> getFixedValues()
   {
-    if (values == null)
+    if (fixedValues == null)
     {
-      values = new EDataTypeEList<String>(String.class, this, DslPackage.TIME_DIFFERENCE__VALUES);
+      fixedValues = new EDataTypeEList<String>(String.class, this, DslPackage.TIME_DIFFERENCE__FIXED_VALUES);
     }
-    return values;
+    return fixedValues;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ValueOrEnumValueOrOperation getCalculatedValue()
+  {
+    return calculatedValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetCalculatedValue(ValueOrEnumValueOrOperation newCalculatedValue, NotificationChain msgs)
+  {
+    ValueOrEnumValueOrOperation oldCalculatedValue = calculatedValue;
+    calculatedValue = newCalculatedValue;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE, oldCalculatedValue, newCalculatedValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCalculatedValue(ValueOrEnumValueOrOperation newCalculatedValue)
+  {
+    if (newCalculatedValue != calculatedValue)
+    {
+      NotificationChain msgs = null;
+      if (calculatedValue != null)
+        msgs = ((InternalEObject)calculatedValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE, null, msgs);
+      if (newCalculatedValue != null)
+        msgs = ((InternalEObject)newCalculatedValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE, null, msgs);
+      msgs = basicSetCalculatedValue(newCalculatedValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE, newCalculatedValue, newCalculatedValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE:
+        return basicSetCalculatedValue(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -134,8 +212,10 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
     {
       case DslPackage.TIME_DIFFERENCE__DIRECTION:
         return getDirection();
-      case DslPackage.TIME_DIFFERENCE__VALUES:
-        return getValues();
+      case DslPackage.TIME_DIFFERENCE__FIXED_VALUES:
+        return getFixedValues();
+      case DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE:
+        return getCalculatedValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -154,9 +234,12 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
       case DslPackage.TIME_DIFFERENCE__DIRECTION:
         setDirection((String)newValue);
         return;
-      case DslPackage.TIME_DIFFERENCE__VALUES:
-        getValues().clear();
-        getValues().addAll((Collection<? extends String>)newValue);
+      case DslPackage.TIME_DIFFERENCE__FIXED_VALUES:
+        getFixedValues().clear();
+        getFixedValues().addAll((Collection<? extends String>)newValue);
+        return;
+      case DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE:
+        setCalculatedValue((ValueOrEnumValueOrOperation)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -175,8 +258,11 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
       case DslPackage.TIME_DIFFERENCE__DIRECTION:
         setDirection(DIRECTION_EDEFAULT);
         return;
-      case DslPackage.TIME_DIFFERENCE__VALUES:
-        getValues().clear();
+      case DslPackage.TIME_DIFFERENCE__FIXED_VALUES:
+        getFixedValues().clear();
+        return;
+      case DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE:
+        setCalculatedValue((ValueOrEnumValueOrOperation)null);
         return;
     }
     super.eUnset(featureID);
@@ -194,8 +280,10 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
     {
       case DslPackage.TIME_DIFFERENCE__DIRECTION:
         return DIRECTION_EDEFAULT == null ? direction != null : !DIRECTION_EDEFAULT.equals(direction);
-      case DslPackage.TIME_DIFFERENCE__VALUES:
-        return values != null && !values.isEmpty();
+      case DslPackage.TIME_DIFFERENCE__FIXED_VALUES:
+        return fixedValues != null && !fixedValues.isEmpty();
+      case DslPackage.TIME_DIFFERENCE__CALCULATED_VALUE:
+        return calculatedValue != null;
     }
     return super.eIsSet(featureID);
   }
@@ -213,8 +301,8 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
     StringBuilder result = new StringBuilder(super.toString());
     result.append(" (direction: ");
     result.append(direction);
-    result.append(", values: ");
-    result.append(values);
+    result.append(", fixedValues: ");
+    result.append(fixedValues);
     result.append(')');
     return result.toString();
   }
