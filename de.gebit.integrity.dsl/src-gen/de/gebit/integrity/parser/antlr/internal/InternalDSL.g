@@ -3800,9 +3800,9 @@ ruleTimeDifference returns [EObject current=null]
 )
 
 )
-)(
+)((
     { 
-        newCompositeNode(grammarAccess.getTimeDifferenceAccess().getNLParserRuleCall_1_0()); 
+        newCompositeNode(grammarAccess.getTimeDifferenceAccess().getNLParserRuleCall_1_0_0()); 
     }
 ruleNL
     { 
@@ -3810,9 +3810,9 @@ ruleNL
     }
 (
 (
-		lv_values_2_0=RULE_TIMESPAN
+		lv_fixedValues_2_0=RULE_TIMESPAN
 		{
-			newLeafNode(lv_values_2_0, grammarAccess.getTimeDifferenceAccess().getValuesTIMESPANTerminalRuleCall_1_1_0()); 
+			newLeafNode(lv_fixedValues_2_0, grammarAccess.getTimeDifferenceAccess().getFixedValuesTIMESPANTerminalRuleCall_1_0_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -3820,13 +3820,58 @@ ruleNL
 	        }
        		addWithLastConsumed(
        			$current, 
-       			"values",
-        		lv_values_2_0, 
+       			"fixedValues",
+        		lv_fixedValues_2_0, 
         		"de.gebit.integrity.DSL.TIMESPAN");
 	    }
 
 )
-))+)
+))+
+    |(
+    { 
+        newCompositeNode(grammarAccess.getTimeDifferenceAccess().getNLParserRuleCall_1_1_0()); 
+    }
+ruleNL
+    { 
+        afterParserOrEnumRuleCall();
+    }
+(
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTimeDifferenceAccess().getCalculatedValueVariableParserRuleCall_1_1_1_0_0()); 
+	    }
+		lv_calculatedValue_4_1=ruleVariable		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTimeDifferenceRule());
+	        }
+       		set(
+       			$current, 
+       			"calculatedValue",
+        		lv_calculatedValue_4_1, 
+        		"de.gebit.integrity.DSL.Variable");
+	        afterParserOrEnumRuleCall();
+	    }
+
+    |		{ 
+	        newCompositeNode(grammarAccess.getTimeDifferenceAccess().getCalculatedValueOperationParserRuleCall_1_1_1_0_1()); 
+	    }
+		lv_calculatedValue_4_2=ruleOperation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTimeDifferenceRule());
+	        }
+       		set(
+       			$current, 
+       			"calculatedValue",
+        		lv_calculatedValue_4_2, 
+        		"de.gebit.integrity.DSL.Operation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+
+)
+))))
 ;
 
 

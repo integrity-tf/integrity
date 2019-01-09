@@ -155,7 +155,8 @@ TimeSet:
 	'timeset' NL (live='live' NL | ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?)) ('on' NL ((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 
 TimeDifference:
-	direction=('+'|'-') (NL values+=TIMESPAN)+;
+	// In case of calculated values for time differences, those are assumed to be in msecs
+	direction=('+'|'-') ((NL fixedValues+=TIMESPAN)+ | (NL calculatedValue=(Variable | Operation)));
 	
 Suite:
 	inlined='inlined'? 'suite' NL (multiplier=ExecutionMultiplier NL)? definition=[SuiteDefinition|QualifiedName] NL (parameters+=SuiteParameter NL)* (return+=SuiteReturn NL)* ('on' NL fork=[ForkDefinition|QualifiedName] NL)? ('in' NL (variants+=[VariantDefinition|QualifiedName] ','? NL)+)?;

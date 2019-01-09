@@ -2202,16 +2202,23 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cDirectionAlternatives_0_0 = (Alternatives)cDirectionAssignment_0.eContents().get(0);
 		private final Keyword cDirectionPlusSignKeyword_0_0_0 = (Keyword)cDirectionAlternatives_0_0.eContents().get(0);
 		private final Keyword cDirectionHyphenMinusKeyword_0_0_1 = (Keyword)cDirectionAlternatives_0_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
-		private final Assignment cValuesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cValuesTIMESPANTerminalRuleCall_1_1_0 = (RuleCall)cValuesAssignment_1_1.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Group cGroup_1_0 = (Group)cAlternatives_1.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_1_0_0 = (RuleCall)cGroup_1_0.eContents().get(0);
+		private final Assignment cFixedValuesAssignment_1_0_1 = (Assignment)cGroup_1_0.eContents().get(1);
+		private final RuleCall cFixedValuesTIMESPANTerminalRuleCall_1_0_1_0 = (RuleCall)cFixedValuesAssignment_1_0_1.eContents().get(0);
+		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
+		private final RuleCall cNLParserRuleCall_1_1_0 = (RuleCall)cGroup_1_1.eContents().get(0);
+		private final Assignment cCalculatedValueAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
+		private final Alternatives cCalculatedValueAlternatives_1_1_1_0 = (Alternatives)cCalculatedValueAssignment_1_1_1.eContents().get(0);
+		private final RuleCall cCalculatedValueVariableParserRuleCall_1_1_1_0_0 = (RuleCall)cCalculatedValueAlternatives_1_1_1_0.eContents().get(0);
+		private final RuleCall cCalculatedValueOperationParserRuleCall_1_1_1_0_1 = (RuleCall)cCalculatedValueAlternatives_1_1_1_0.eContents().get(1);
 		
 		//TimeDifference:
-		//	direction=('+' | '-') (NL values+=TIMESPAN)+;
+		//	direction=('+' | '-') ((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation));
 		@Override public ParserRule getRule() { return rule; }
 
-		//direction=('+' | '-') (NL values+=TIMESPAN)+
+		//direction=('+' | '-') ((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation))
 		public Group getGroup() { return cGroup; }
 
 		//direction=('+' | '-')
@@ -2226,17 +2233,38 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//'-'
 		public Keyword getDirectionHyphenMinusKeyword_0_0_1() { return cDirectionHyphenMinusKeyword_0_0_1; }
 
-		//(NL values+=TIMESPAN)+
-		public Group getGroup_1() { return cGroup_1; }
+		//((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation))
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//(NL fixedValues+=TIMESPAN)+
+		public Group getGroup_1_0() { return cGroup_1_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_1_0() { return cNLParserRuleCall_1_0; }
+		public RuleCall getNLParserRuleCall_1_0_0() { return cNLParserRuleCall_1_0_0; }
 
-		//values+=TIMESPAN
-		public Assignment getValuesAssignment_1_1() { return cValuesAssignment_1_1; }
+		//fixedValues+=TIMESPAN
+		public Assignment getFixedValuesAssignment_1_0_1() { return cFixedValuesAssignment_1_0_1; }
 
 		//TIMESPAN
-		public RuleCall getValuesTIMESPANTerminalRuleCall_1_1_0() { return cValuesTIMESPANTerminalRuleCall_1_1_0; }
+		public RuleCall getFixedValuesTIMESPANTerminalRuleCall_1_0_1_0() { return cFixedValuesTIMESPANTerminalRuleCall_1_0_1_0; }
+
+		//NL calculatedValue=(Variable | Operation)
+		public Group getGroup_1_1() { return cGroup_1_1; }
+
+		//NL
+		public RuleCall getNLParserRuleCall_1_1_0() { return cNLParserRuleCall_1_1_0; }
+
+		//calculatedValue=(Variable | Operation)
+		public Assignment getCalculatedValueAssignment_1_1_1() { return cCalculatedValueAssignment_1_1_1; }
+
+		//(Variable | Operation)
+		public Alternatives getCalculatedValueAlternatives_1_1_1_0() { return cCalculatedValueAlternatives_1_1_1_0; }
+
+		//Variable
+		public RuleCall getCalculatedValueVariableParserRuleCall_1_1_1_0_0() { return cCalculatedValueVariableParserRuleCall_1_1_1_0_0; }
+
+		//Operation
+		public RuleCall getCalculatedValueOperationParserRuleCall_1_1_1_0_1() { return cCalculatedValueOperationParserRuleCall_1_1_1_0_1; }
 	}
 
 	public class SuiteElements extends AbstractParserRuleElementFinder {
@@ -4601,7 +4629,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TimeDifference:
-	//	direction=('+' | '-') (NL values+=TIMESPAN)+;
+	//	direction=('+' | '-') ((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation));
 	public TimeDifferenceElements getTimeDifferenceAccess() {
 		return pTimeDifference;
 	}

@@ -16,7 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link de.gebit.integrity.dsl.TimeDifference#getDirection <em>Direction</em>}</li>
- *   <li>{@link de.gebit.integrity.dsl.TimeDifference#getValues <em>Values</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.TimeDifference#getFixedValues <em>Fixed Values</em>}</li>
+ *   <li>{@link de.gebit.integrity.dsl.TimeDifference#getCalculatedValue <em>Calculated Value</em>}</li>
  * </ul>
  *
  * @see de.gebit.integrity.dsl.DslPackage#getTimeDifference()
@@ -52,19 +53,45 @@ public interface TimeDifference extends EObject
   void setDirection(String value);
 
   /**
-   * Returns the value of the '<em><b>Values</b></em>' attribute list.
+   * Returns the value of the '<em><b>Fixed Values</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Values</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Fixed Values</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Values</em>' attribute list.
-   * @see de.gebit.integrity.dsl.DslPackage#getTimeDifference_Values()
+   * @return the value of the '<em>Fixed Values</em>' attribute list.
+   * @see de.gebit.integrity.dsl.DslPackage#getTimeDifference_FixedValues()
    * @model unique="false"
    * @generated
    */
-  EList<String> getValues();
+  EList<String> getFixedValues();
+
+  /**
+   * Returns the value of the '<em><b>Calculated Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Calculated Value</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Calculated Value</em>' containment reference.
+   * @see #setCalculatedValue(ValueOrEnumValueOrOperation)
+   * @see de.gebit.integrity.dsl.DslPackage#getTimeDifference_CalculatedValue()
+   * @model containment="true"
+   * @generated
+   */
+  ValueOrEnumValueOrOperation getCalculatedValue();
+
+  /**
+   * Sets the value of the '{@link de.gebit.integrity.dsl.TimeDifference#getCalculatedValue <em>Calculated Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Calculated Value</em>' containment reference.
+   * @see #getCalculatedValue()
+   * @generated
+   */
+  void setCalculatedValue(ValueOrEnumValueOrOperation value);
 
 } // TimeDifference
