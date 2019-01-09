@@ -1379,7 +1379,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     TimeDifference returns TimeDifference
 	 *
 	 * Constraint:
-	 *     ((direction='+' | direction='-') values+=TIMESPAN+)
+	 *     ((direction='+' | direction='-') (fixedValues+=TIMESPAN+ | calculatedValue=Variable | calculatedValue=Operation))
 	 */
 	protected void sequence_TimeDifference(ISerializationContext context, TimeDifference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

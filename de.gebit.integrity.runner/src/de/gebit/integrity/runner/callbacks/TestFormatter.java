@@ -10,6 +10,7 @@ package de.gebit.integrity.runner.callbacks;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,6 +38,7 @@ import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
+import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
@@ -443,6 +445,16 @@ public class TestFormatter {
 	 * @return
 	 */
 	public String timeDifferenceToHumanReadableString(TimeDifference aTimeDiff) {
-		return aTimeDiff.getValues().stream().collect(Collectors.joining(" "));
+		if (aTimeDiff.getCalculatedValue() != null) {
+			Long tempMillis = DateUtil.convertTimeDifference(aTimeDiff, valueConverter).get(0).getFirst();
+			if (tempMillis != null) {
+				return DateUtil.convertNanosecondTimespanToHumanReadableFormat(
+						TimeUnit.MILLISECONDS.toNanos(tempMillis), false, false);
+			} else {
+				return UnresolvableVariable.getInstance().toString();
+			}
+		} else {
+			return aTimeDiff.getFixedValues().stream().collect(Collectors.joining(" "));
+		}
 	}
 }

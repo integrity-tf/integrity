@@ -2101,9 +2101,19 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTimeDifference_Values()
+  public EAttribute getTimeDifference_FixedValues()
   {
     return (EAttribute)timeDifferenceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTimeDifference_CalculatedValue()
+  {
+    return (EReference)timeDifferenceEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -3287,7 +3297,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     timeDifferenceEClass = createEClass(TIME_DIFFERENCE);
     createEAttribute(timeDifferenceEClass, TIME_DIFFERENCE__DIRECTION);
-    createEAttribute(timeDifferenceEClass, TIME_DIFFERENCE__VALUES);
+    createEAttribute(timeDifferenceEClass, TIME_DIFFERENCE__FIXED_VALUES);
+    createEReference(timeDifferenceEClass, TIME_DIFFERENCE__CALCULATED_VALUE);
 
     suiteEClass = createEClass(SUITE);
     createEAttribute(suiteEClass, SUITE__INLINED);
@@ -3705,7 +3716,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(timeDifferenceEClass, TimeDifference.class, "TimeDifference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTimeDifference_Direction(), ecorePackage.getEString(), "direction", null, 0, 1, TimeDifference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTimeDifference_Values(), ecorePackage.getEString(), "values", null, 0, -1, TimeDifference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTimeDifference_FixedValues(), ecorePackage.getEString(), "fixedValues", null, 0, -1, TimeDifference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTimeDifference_CalculatedValue(), this.getValueOrEnumValueOrOperation(), null, "calculatedValue", null, 0, 1, TimeDifference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(suiteEClass, Suite.class, "Suite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getSuite_Inlined(), ecorePackage.getEString(), "inlined", null, 0, 1, Suite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
