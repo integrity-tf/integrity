@@ -60,6 +60,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.TimeDifference;
+import de.gebit.integrity.dsl.TimeProgressionFactor;
 import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
@@ -270,6 +271,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.TIME_DIFFERENCE:
 				sequence_TimeDifference(context, (TimeDifference) semanticObject); 
+				return; 
+			case DslPackage.TIME_PROGRESSION_FACTOR:
+				sequence_TimeProgressionFactor(context, (TimeProgressionFactor) semanticObject); 
 				return; 
 			case DslPackage.TIME_SET:
 				sequence_TimeSet(context, (TimeSet) semanticObject); 
@@ -1408,6 +1412,18 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Contexts:
+	 *     TimeProgressionFactor returns TimeProgressionFactor
+	 *
+	 * Constraint:
+	 *     (fixedValue=MULTIPLIER | calculatedValue=Variable | calculatedValue=Operation)
+	 */
+	protected void sequence_TimeProgressionFactor(ISerializationContext context, TimeProgressionFactor semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     SuiteStatement returns TimeSet
 	 *     TimeSet returns TimeSet
 	 *
@@ -1415,10 +1431,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *     (
 	 *         (
 	 *             live='live' | 
-	 *             (
-	 *                 (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) 
-	 *                 (progressionMode='progressing' progressionFactor=ValueOrEnumValueOrOperation?)?
-	 *             )
+	 *             ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) (progressionMode='progressing' progressionFactor=TimeProgressionFactor?)?)
 	 *         ) 
 	 *         masterFork='master'? 
 	 *         (forks+=[ForkDefinition|QualifiedName]? masterFork='master'?)*

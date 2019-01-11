@@ -50,6 +50,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTimeSetAccess().getAlternatives_2(), "rule__TimeSet__Alternatives_2");
 					put(grammarAccess.getTimeSetAccess().getAlternatives_2_1_0(), "rule__TimeSet__Alternatives_2_1_0");
 					put(grammarAccess.getTimeSetAccess().getAlternatives_3_2_0(), "rule__TimeSet__Alternatives_3_2_0");
+					put(grammarAccess.getTimeProgressionFactorAccess().getAlternatives(), "rule__TimeProgressionFactor__Alternatives");
+					put(grammarAccess.getTimeProgressionFactorAccess().getCalculatedValueAlternatives_1_0(), "rule__TimeProgressionFactor__CalculatedValueAlternatives_1_0");
 					put(grammarAccess.getTimeDifferenceAccess().getDirectionAlternatives_0_0(), "rule__TimeDifference__DirectionAlternatives_0_0");
 					put(grammarAccess.getTimeDifferenceAccess().getAlternatives_1(), "rule__TimeDifference__Alternatives_1");
 					put(grammarAccess.getTimeDifferenceAccess().getCalculatedValueAlternatives_1_1_1_0(), "rule__TimeDifference__CalculatedValueAlternatives_1_1_1_0");
@@ -269,6 +271,8 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTimeSetAccess().getProgressionFactorAssignment_2_1_2_2_0(), "rule__TimeSet__ProgressionFactorAssignment_2_1_2_2_0");
 					put(grammarAccess.getTimeSetAccess().getForksAssignment_3_2_0_0(), "rule__TimeSet__ForksAssignment_3_2_0_0");
 					put(grammarAccess.getTimeSetAccess().getMasterForkAssignment_3_2_0_1(), "rule__TimeSet__MasterForkAssignment_3_2_0_1");
+					put(grammarAccess.getTimeProgressionFactorAccess().getFixedValueAssignment_0(), "rule__TimeProgressionFactor__FixedValueAssignment_0");
+					put(grammarAccess.getTimeProgressionFactorAccess().getCalculatedValueAssignment_1(), "rule__TimeProgressionFactor__CalculatedValueAssignment_1");
 					put(grammarAccess.getTimeDifferenceAccess().getDirectionAssignment_0(), "rule__TimeDifference__DirectionAssignment_0");
 					put(grammarAccess.getTimeDifferenceAccess().getFixedValuesAssignment_1_0_1(), "rule__TimeDifference__FixedValuesAssignment_1_0_1");
 					put(grammarAccess.getTimeDifferenceAccess().getCalculatedValueAssignment_1_1_1(), "rule__TimeDifference__CalculatedValueAssignment_1_1_1");

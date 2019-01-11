@@ -5,6 +5,7 @@ package de.gebit.integrity.dsl.impl;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.TimeDifference;
+import de.gebit.integrity.dsl.TimeProgressionFactor;
 import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 
@@ -111,7 +112,7 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
    * @generated
    * @ordered
    */
-  protected ValueOrEnumValueOrOperation progressionFactor;
+  protected TimeProgressionFactor progressionFactor;
 
   /**
    * The cached value of the '{@link #getForks() <em>Forks</em>}' reference list.
@@ -311,7 +312,7 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
-  public ValueOrEnumValueOrOperation getProgressionFactor()
+  public TimeProgressionFactor getProgressionFactor()
   {
     return progressionFactor;
   }
@@ -321,9 +322,9 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetProgressionFactor(ValueOrEnumValueOrOperation newProgressionFactor, NotificationChain msgs)
+  public NotificationChain basicSetProgressionFactor(TimeProgressionFactor newProgressionFactor, NotificationChain msgs)
   {
-    ValueOrEnumValueOrOperation oldProgressionFactor = progressionFactor;
+    TimeProgressionFactor oldProgressionFactor = progressionFactor;
     progressionFactor = newProgressionFactor;
     if (eNotificationRequired())
     {
@@ -338,7 +339,7 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setProgressionFactor(ValueOrEnumValueOrOperation newProgressionFactor)
+  public void setProgressionFactor(TimeProgressionFactor newProgressionFactor)
   {
     if (newProgressionFactor != progressionFactor)
     {
@@ -463,7 +464,7 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
         setProgressionMode((String)newValue);
         return;
       case DslPackage.TIME_SET__PROGRESSION_FACTOR:
-        setProgressionFactor((ValueOrEnumValueOrOperation)newValue);
+        setProgressionFactor((TimeProgressionFactor)newValue);
         return;
       case DslPackage.TIME_SET__FORKS:
         getForks().clear();
@@ -499,7 +500,7 @@ public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
         setProgressionMode(PROGRESSION_MODE_EDEFAULT);
         return;
       case DslPackage.TIME_SET__PROGRESSION_FACTOR:
-        setProgressionFactor((ValueOrEnumValueOrOperation)null);
+        setProgressionFactor((TimeProgressionFactor)null);
         return;
       case DslPackage.TIME_SET__FORKS:
         getForks().clear();

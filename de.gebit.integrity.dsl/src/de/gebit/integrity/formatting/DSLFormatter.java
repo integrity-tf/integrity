@@ -103,9 +103,6 @@ public class DSLFormatter extends AbstractDeclarativeFormatter {
 		aConfig.setNoSpace()
 				.after(tempGrammar.getIsoDateAndTimeValueAccess().getDateValueISODATETerminalRuleCall_0_0());
 
-		// No space before the 'x' at a timeset multiplier
-		aConfig.setNoSpace().before(tempGrammar.getTimeSetAccess().getXKeyword_2_1_2_2_1());
-
 		// Indentations
 		// Suites and Packages
 		aConfig.setIndentation(tempGrammar.getPackageDefinitionAccess().getPackagedefKeyword_1(),

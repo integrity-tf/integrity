@@ -416,6 +416,13 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.TIME_PROGRESSION_FACTOR:
+      {
+        TimeProgressionFactor timeProgressionFactor = (TimeProgressionFactor)theEObject;
+        T result = caseTimeProgressionFactor(timeProgressionFactor);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.TIME_DIFFERENCE:
       {
         TimeDifference timeDifference = (TimeDifference)theEObject;
@@ -1576,6 +1583,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseTimeSet(TimeSet object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Time Progression Factor</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Time Progression Factor</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTimeProgressionFactor(TimeProgressionFactor object)
   {
     return null;
   }

@@ -410,6 +410,15 @@ public interface DslFactory extends EFactory
   TimeSet createTimeSet();
 
   /**
+   * Returns a new object of class '<em>Time Progression Factor</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Time Progression Factor</em>'.
+   * @generated
+   */
+  TimeProgressionFactor createTimeProgressionFactor();
+
+  /**
    * Returns a new object of class '<em>Time Difference</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

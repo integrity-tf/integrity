@@ -107,6 +107,8 @@ packagedef mypackage with
 		timeset - blah
 		timeset + (testConst - blah)
 		
+		timeset 10.10.2001 progressing blah
+		
 		suite csuite on fork1
 		
 		suite bsuite on fork1

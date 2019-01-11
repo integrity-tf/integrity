@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -93,6 +94,7 @@ import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
@@ -117,6 +119,7 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.VersionUtil;
 
@@ -1805,12 +1808,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
 				new ConversionContext()
 						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-		String tempProgressionFactor = aTimeSet.getProgressionFactor() != null
-				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
-						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
-				: null;
-		if (aTimeSet.getProgressionMode() != null && tempProgressionFactor == null) {
-			tempProgressionFactor = "1";
+		String tempProgressionFactor = null;
+		if (aTimeSet.getProgressionMode() != null) {
+			BigDecimal tempFactor = DateUtil.convertTimeSetProgressionFactor(aTimeSet, valueConverter,
+					new ConversionContext().withUnresolvableVariableHandlingPolicy(
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+			if (tempFactor != null) {
+				tempProgressionFactor = tempFactor.toPlainString();
+			} else {
+				tempProgressionFactor = UnresolvableVariable.getInstance().toString();
+			}
 		}
 
 		String tempForkNames = null;

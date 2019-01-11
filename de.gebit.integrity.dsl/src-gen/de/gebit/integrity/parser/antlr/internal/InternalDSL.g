@@ -3667,9 +3667,9 @@ ruleNL
 ((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTimeSetAccess().getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0()); 
+	        newCompositeNode(grammarAccess.getTimeSetAccess().getProgressionFactorTimeProgressionFactorParserRuleCall_2_1_2_2_0_0()); 
 	    }
-		lv_progressionFactor_9_0=ruleValueOrEnumValueOrOperation		{
+		lv_progressionFactor_9_0=ruleTimeProgressionFactor		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTimeSetRule());
 	        }
@@ -3677,26 +3677,22 @@ ruleNL
        			$current, 
        			"progressionFactor",
         		lv_progressionFactor_9_0, 
-        		"de.gebit.integrity.DSL.ValueOrEnumValueOrOperation");
+        		"de.gebit.integrity.DSL.TimeProgressionFactor");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_10='x' 
-    {
-    	newLeafNode(otherlv_10, grammarAccess.getTimeSetAccess().getXKeyword_2_1_2_2_1());
-    }
-
+)
     { 
-        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_2_2()); 
+        newCompositeNode(grammarAccess.getTimeSetAccess().getNLParserRuleCall_2_1_2_2_1()); 
     }
 ruleNL
     { 
         afterParserOrEnumRuleCall();
     }
-)?)?))(	otherlv_12='on' 
+)?)?))(	otherlv_11='on' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getTimeSetAccess().getOnKeyword_3_0());
+    	newLeafNode(otherlv_11, grammarAccess.getTimeSetAccess().getOnKeyword_3_0());
     }
 
     { 
@@ -3724,22 +3720,22 @@ ruleNL
 )
     |(
 (
-		lv_masterFork_15_0=	'master' 
+		lv_masterFork_14_0=	'master' 
     {
-        newLeafNode(lv_masterFork_15_0, grammarAccess.getTimeSetAccess().getMasterForkMasterKeyword_3_2_0_1_0());
+        newLeafNode(lv_masterFork_14_0, grammarAccess.getTimeSetAccess().getMasterForkMasterKeyword_3_2_0_1_0());
     }
  
 	    {
 	        if ($current==null) {
 	            $current = createModelElement(grammarAccess.getTimeSetRule());
 	        }
-       		setWithLastConsumed($current, "masterFork", lv_masterFork_15_0, "master");
+       		setWithLastConsumed($current, "masterFork", lv_masterFork_14_0, "master");
 	    }
 
 )
-))(	otherlv_16=',' 
+))(	otherlv_15=',' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getTimeSetAccess().getCommaKeyword_3_2_1());
+    	newLeafNode(otherlv_15, grammarAccess.getTimeSetAccess().getCommaKeyword_3_2_1());
     }
 )?
     { 
@@ -3750,6 +3746,82 @@ ruleNL
         afterParserOrEnumRuleCall();
     }
 )+)?)
+;
+
+
+
+
+
+// Entry rule entryRuleTimeProgressionFactor
+entryRuleTimeProgressionFactor returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTimeProgressionFactorRule()); }
+	 iv_ruleTimeProgressionFactor=ruleTimeProgressionFactor 
+	 { $current=$iv_ruleTimeProgressionFactor.current; } 
+	 EOF 
+;
+
+// Rule TimeProgressionFactor
+ruleTimeProgressionFactor returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		lv_fixedValue_0_0=RULE_MULTIPLIER
+		{
+			newLeafNode(lv_fixedValue_0_0, grammarAccess.getTimeProgressionFactorAccess().getFixedValueMULTIPLIERTerminalRuleCall_0_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTimeProgressionFactorRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"fixedValue",
+        		lv_fixedValue_0_0, 
+        		"de.gebit.integrity.DSL.MULTIPLIER");
+	    }
+
+)
+)
+    |(
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTimeProgressionFactorAccess().getCalculatedValueVariableParserRuleCall_1_0_0()); 
+	    }
+		lv_calculatedValue_1_1=ruleVariable		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTimeProgressionFactorRule());
+	        }
+       		set(
+       			$current, 
+       			"calculatedValue",
+        		lv_calculatedValue_1_1, 
+        		"de.gebit.integrity.DSL.Variable");
+	        afterParserOrEnumRuleCall();
+	    }
+
+    |		{ 
+	        newCompositeNode(grammarAccess.getTimeProgressionFactorAccess().getCalculatedValueOperationParserRuleCall_1_0_1()); 
+	    }
+		lv_calculatedValue_1_2=ruleOperation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTimeProgressionFactorRule());
+	        }
+       		set(
+       			$current, 
+       			"calculatedValue",
+        		lv_calculatedValue_1_2, 
+        		"de.gebit.integrity.DSL.Operation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+
+)
+))
 ;
 
 
@@ -6951,6 +7023,8 @@ RULE_TWENTYFOURHRSTIME : '0'..'2' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '
 RULE_TWELVEHRSTIME : '0'..'1' '0'..'9' ':' '0'..'5' '0'..'9' (':' '0'..'6' '0'..'9' ('.' '0'..'9' '0'..'9' '0'..'9')?)? ('am'|'pm');
 
 RULE_TIMESPAN : ('0'..'9')+ ('y'|'year'|'years'|'mon'|'month'|'months'|'d'|'day'|'days'|'h'|'hour'|'hours'|'m'|'minute'|'minutes'|'s'|'second'|'seconds'|'ms'|'millisecond'|'milliseconds');
+
+RULE_MULTIPLIER : ('0'..'9')+ ('.' ('0'..'9')+)? 'x';
 
 RULE_ANY_OTHER : .;
 
