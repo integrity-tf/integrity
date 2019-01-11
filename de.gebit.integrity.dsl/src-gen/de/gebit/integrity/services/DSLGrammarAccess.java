@@ -39,7 +39,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * This works rather well in practice, although one sometimes needs to put some additional effort into the integration of new
 		// * syntactical elements, especially considering content assist and autoformatting.
-		// * / Model:
+		// * /
+		//Model:
 		//	{Model} NL (imports+=Import NL)* statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -2251,11 +2252,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//// In case of calculated values for time differences, those are assumed to be in msecs
-		//direction=('+' | '-') ((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation))
+		// direction=('+' | '-') ((NL
+		//fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation))
 		public Group getGroup() { return cGroup; }
 
 		//// In case of calculated values for time differences, those are assumed to be in msecs
-		//direction=('+' | '-')
+		// direction=('+' | '-')
 		public Assignment getDirectionAssignment_0() { return cDirectionAssignment_0; }
 
 		//('+' | '-')
@@ -4219,7 +4221,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * This works rather well in practice, although one sometimes needs to put some additional effort into the integration of new
 	// * syntactical elements, especially considering content assist and autoformatting.
-	// * / Model:
+	// * /
+	//Model:
 	//	{Model} NL (imports+=Import NL)* statements+=Statement*;
 	public ModelElements getModelAccess() {
 		return pModel;
@@ -5238,8 +5241,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal STRING:
-	//	'"' ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | '"'))* '"' |
-	//	"'" ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | "'"))* "'";
+	//	'"' ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | '"'))* '"' | "'" ('\\' ('b' | 't' | 'n' |
+	//	'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return tSTRING;
 	} 
