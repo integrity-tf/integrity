@@ -19,9 +19,10 @@ import java.util.Date;
  * <tt>new java.util.Date();</tt>. In order to test that application code later, a fixed date can be used rather than
  * the current date by assigning the date to use with <tt>TimeAndDateSingleton.setDate(aDate)</tt>. <br>
  * <br>
- * This is more a sample implementation than it is intended to be actually used directly as-is in an application. You
- * are better advised at copying this class into your application, so you won't depend on Integrity JARs during runtime.
- * See the {@link SimpleTestTimeAdapter} class and the interface {@link TestTimeAdapter} for more information.
+ * This is more a sample implementation than it is intended to be actually used directly as-is in an application, which
+ * is the reason why the instance getter below is private - YOU MUST MAKE IT PUBLIC IN YOUR COPY! You are advised at
+ * copying this class into your application, because then you won't depend on Integrity JARs during runtime. See the
+ * {@link SimpleTestTimeAdapter} class and the interface {@link TestTimeAdapter} for more information.
  * 
  * @author Author: Rene Schneider - initial API and implementation
  */
@@ -32,7 +33,9 @@ public final class TimeAndDateSingleton implements TestTimeAdapter {
 	 */
 	protected static volatile TimeAndDateSingleton instance = new TimeAndDateSingleton();
 
-	public static TimeAndDateSingleton getInstance() {
+	// TODO if you want to use this class, COPY IT INTO YOUR APPLICATION AND MAKE THE FOLLOWING METHOD PUBLIC
+	@SuppressWarnings("unused")
+	private static TimeAndDateSingleton getInstance() {
 		return instance;
 	}
 
