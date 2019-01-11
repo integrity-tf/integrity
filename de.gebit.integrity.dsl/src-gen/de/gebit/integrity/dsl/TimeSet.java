@@ -141,12 +141,12 @@ public interface TimeSet extends SuiteStatement
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Progression Factor</em>' containment reference.
-   * @see #setProgressionFactor(ValueOrEnumValueOrOperation)
+   * @see #setProgressionFactor(TimeProgressionFactor)
    * @see de.gebit.integrity.dsl.DslPackage#getTimeSet_ProgressionFactor()
    * @model containment="true"
    * @generated
    */
-  ValueOrEnumValueOrOperation getProgressionFactor();
+  TimeProgressionFactor getProgressionFactor();
 
   /**
    * Sets the value of the '{@link de.gebit.integrity.dsl.TimeSet#getProgressionFactor <em>Progression Factor</em>}' containment reference.
@@ -156,7 +156,7 @@ public interface TimeSet extends SuiteStatement
    * @see #getProgressionFactor()
    * @generated
    */
-  void setProgressionFactor(ValueOrEnumValueOrOperation value);
+  void setProgressionFactor(TimeProgressionFactor value);
 
   /**
    * Returns the value of the '<em><b>Forks</b></em>' reference list.

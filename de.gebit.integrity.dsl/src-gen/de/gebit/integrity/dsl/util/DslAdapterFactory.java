@@ -290,6 +290,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createTimeSetAdapter();
       }
       @Override
+      public Adapter caseTimeProgressionFactor(TimeProgressionFactor object)
+      {
+        return createTimeProgressionFactorAdapter();
+      }
+      @Override
       public Adapter caseTimeDifference(TimeDifference object)
       {
         return createTimeDifferenceAdapter();
@@ -1192,6 +1197,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createTimeSetAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.TimeProgressionFactor <em>Time Progression Factor</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.TimeProgressionFactor
+   * @generated
+   */
+  public Adapter createTimeProgressionFactorAdapter()
   {
     return null;
   }
