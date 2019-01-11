@@ -2060,9 +2060,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_2_1_2_1 = (RuleCall)cGroup_2_1_2.eContents().get(1);
 		private final Group cGroup_2_1_2_2 = (Group)cGroup_2_1_2.eContents().get(2);
 		private final Assignment cProgressionFactorAssignment_2_1_2_2_0 = (Assignment)cGroup_2_1_2_2.eContents().get(0);
-		private final RuleCall cProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0 = (RuleCall)cProgressionFactorAssignment_2_1_2_2_0.eContents().get(0);
-		private final Keyword cXKeyword_2_1_2_2_1 = (Keyword)cGroup_2_1_2_2.eContents().get(1);
-		private final RuleCall cNLParserRuleCall_2_1_2_2_2 = (RuleCall)cGroup_2_1_2_2.eContents().get(2);
+		private final RuleCall cProgressionFactorTimeProgressionFactorParserRuleCall_2_1_2_2_0_0 = (RuleCall)cProgressionFactorAssignment_2_1_2_2_0.eContents().get(0);
+		private final RuleCall cNLParserRuleCall_2_1_2_2_1 = (RuleCall)cGroup_2_1_2_2.eContents().get(1);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cOnKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final RuleCall cNLParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
@@ -2078,12 +2077,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TimeSet:
 		//	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
-		//	(progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL
+		//	(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL
 		//	((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
-		//(progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL
+		//(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL
 		//((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?
 		public Group getGroup() { return cGroup; }
 
@@ -2094,7 +2093,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 
 		//(live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL
-		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?)
+		//(progressionFactor=TimeProgressionFactor NL)?)?)
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//live='live' NL
@@ -2110,7 +2109,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNLParserRuleCall_2_0_1() { return cNLParserRuleCall_2_0_1; }
 
 		//(startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL
-		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?
+		//(progressionFactor=TimeProgressionFactor NL)?)?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//(startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference)
@@ -2131,7 +2130,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_2_1_1() { return cNLParserRuleCall_2_1_1; }
 
-		//(progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?
+		//(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?
 		public Group getGroup_2_1_2() { return cGroup_2_1_2; }
 
 		//progressionMode='progressing'
@@ -2143,20 +2142,17 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_2_1_2_1() { return cNLParserRuleCall_2_1_2_1; }
 
-		//(progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?
+		//(progressionFactor=TimeProgressionFactor NL)?
 		public Group getGroup_2_1_2_2() { return cGroup_2_1_2_2; }
 
-		//progressionFactor=ValueOrEnumValueOrOperation
+		//progressionFactor=TimeProgressionFactor
 		public Assignment getProgressionFactorAssignment_2_1_2_2_0() { return cProgressionFactorAssignment_2_1_2_2_0; }
 
-		//ValueOrEnumValueOrOperation
-		public RuleCall getProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0() { return cProgressionFactorValueOrEnumValueOrOperationParserRuleCall_2_1_2_2_0_0; }
-
-		//'x'
-		public Keyword getXKeyword_2_1_2_2_1() { return cXKeyword_2_1_2_2_1; }
+		//TimeProgressionFactor
+		public RuleCall getProgressionFactorTimeProgressionFactorParserRuleCall_2_1_2_2_0_0() { return cProgressionFactorTimeProgressionFactorParserRuleCall_2_1_2_2_0_0; }
 
 		//NL
-		public RuleCall getNLParserRuleCall_2_1_2_2_2() { return cNLParserRuleCall_2_1_2_2_2; }
+		public RuleCall getNLParserRuleCall_2_1_2_2_1() { return cNLParserRuleCall_2_1_2_2_1; }
 
 		//('on' NL ((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -2195,6 +2191,42 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNLParserRuleCall_3_2_2() { return cNLParserRuleCall_3_2_2; }
 	}
 
+	public class TimeProgressionFactorElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TimeProgressionFactor");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Assignment cFixedValueAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cFixedValueMULTIPLIERTerminalRuleCall_0_0 = (RuleCall)cFixedValueAssignment_0.eContents().get(0);
+		private final Assignment cCalculatedValueAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final Alternatives cCalculatedValueAlternatives_1_0 = (Alternatives)cCalculatedValueAssignment_1.eContents().get(0);
+		private final RuleCall cCalculatedValueVariableParserRuleCall_1_0_0 = (RuleCall)cCalculatedValueAlternatives_1_0.eContents().get(0);
+		private final RuleCall cCalculatedValueOperationParserRuleCall_1_0_1 = (RuleCall)cCalculatedValueAlternatives_1_0.eContents().get(1);
+		
+		//TimeProgressionFactor:
+		//	fixedValue=MULTIPLIER | calculatedValue=(Variable | Operation);
+		@Override public ParserRule getRule() { return rule; }
+
+		//fixedValue=MULTIPLIER | calculatedValue=(Variable | Operation)
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//fixedValue=MULTIPLIER
+		public Assignment getFixedValueAssignment_0() { return cFixedValueAssignment_0; }
+
+		//MULTIPLIER
+		public RuleCall getFixedValueMULTIPLIERTerminalRuleCall_0_0() { return cFixedValueMULTIPLIERTerminalRuleCall_0_0; }
+
+		//calculatedValue=(Variable | Operation)
+		public Assignment getCalculatedValueAssignment_1() { return cCalculatedValueAssignment_1; }
+
+		//(Variable | Operation)
+		public Alternatives getCalculatedValueAlternatives_1_0() { return cCalculatedValueAlternatives_1_0; }
+
+		//Variable
+		public RuleCall getCalculatedValueVariableParserRuleCall_1_0_0() { return cCalculatedValueVariableParserRuleCall_1_0_0; }
+
+		//Operation
+		public RuleCall getCalculatedValueOperationParserRuleCall_1_0_1() { return cCalculatedValueOperationParserRuleCall_1_0_1; }
+	}
+
 	public class TimeDifferenceElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TimeDifference");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -2218,9 +2250,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//	direction=('+' | '-') ((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation));
 		@Override public ParserRule getRule() { return rule; }
 
+		//// In case of calculated values for time differences, those are assumed to be in msecs
 		//direction=('+' | '-') ((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation))
 		public Group getGroup() { return cGroup; }
 
+		//// In case of calculated values for time differences, those are assumed to be in msecs
 		//direction=('+' | '-')
 		public Assignment getDirectionAssignment_0() { return cDirectionAssignment_0; }
 
@@ -3941,6 +3975,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final CallElements pCall;
 	private final NamedCallResultElements pNamedCallResult;
 	private final TimeSetElements pTimeSet;
+	private final TimeProgressionFactorElements pTimeProgressionFactor;
 	private final TimeDifferenceElements pTimeDifference;
 	private final SuiteElements pSuite;
 	private final SuiteParameterElements pSuiteParameter;
@@ -4018,6 +4053,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tTWENTYFOURHRSTIME;
 	private final TerminalRule tTWELVEHRSTIME;
 	private final TerminalRule tTIMESPAN;
+	private final TerminalRule tMULTIPLIER;
 	private final TerminalRule tANY_OTHER;
 	
 	private final Grammar grammar;
@@ -4068,6 +4104,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pCall = new CallElements();
 		this.pNamedCallResult = new NamedCallResultElements();
 		this.pTimeSet = new TimeSetElements();
+		this.pTimeProgressionFactor = new TimeProgressionFactorElements();
 		this.pTimeDifference = new TimeDifferenceElements();
 		this.pSuite = new SuiteElements();
 		this.pSuiteParameter = new SuiteParameterElements();
@@ -4145,6 +4182,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.tTWENTYFOURHRSTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TWENTYFOURHRSTIME");
 		this.tTWELVEHRSTIME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TWELVEHRSTIME");
 		this.tTIMESPAN = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.TIMESPAN");
+		this.tMULTIPLIER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.MULTIPLIER");
 		this.tANY_OTHER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.ANY_OTHER");
 	}
 	
@@ -4618,7 +4656,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TimeSet:
 	//	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
-	//	(progressionMode='progressing' NL (progressionFactor=ValueOrEnumValueOrOperation 'x' NL)?)?) ('on' NL
+	//	(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL
 	//	((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 	public TimeSetElements getTimeSetAccess() {
 		return pTimeSet;
@@ -4626,6 +4664,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getTimeSetRule() {
 		return getTimeSetAccess().getRule();
+	}
+
+	//TimeProgressionFactor:
+	//	fixedValue=MULTIPLIER | calculatedValue=(Variable | Operation);
+	public TimeProgressionFactorElements getTimeProgressionFactorAccess() {
+		return pTimeProgressionFactor;
+	}
+	
+	public ParserRule getTimeProgressionFactorRule() {
+		return getTimeProgressionFactorAccess().getRule();
 	}
 
 	//TimeDifference:
@@ -5303,6 +5351,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//	| 'minute' | 'minutes' | 's' | 'second' | 'seconds' | 'ms' | 'millisecond' | 'milliseconds');
 	public TerminalRule getTIMESPANRule() {
 		return tTIMESPAN;
+	} 
+
+	//terminal MULTIPLIER:
+	//	'0'..'9'+ ('.' '0'..'9'+)? 'x';
+	public TerminalRule getMULTIPLIERRule() {
+		return tMULTIPLIER;
 	} 
 
 	//terminal ANY_OTHER:

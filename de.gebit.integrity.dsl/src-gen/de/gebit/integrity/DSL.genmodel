@@ -164,6 +164,10 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeSet/forks"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeSet/masterFork"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//TimeProgressionFactor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeProgressionFactor/fixedValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DSL.ecore#//TimeProgressionFactor/calculatedValue"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//TimeDifference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeDifference/direction"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//TimeDifference/fixedValues"/>

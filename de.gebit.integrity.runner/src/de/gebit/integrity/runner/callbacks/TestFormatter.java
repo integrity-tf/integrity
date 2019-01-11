@@ -8,6 +8,7 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -395,12 +396,16 @@ public class TestFormatter {
 				aTimeSet.getStartTime(), false, new ConversionContext().withUnresolvableVariableHandlingPolicy(
 						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
 				: null;
-		String tempProgressionFactor = aTimeSet.getProgressionFactor() != null
-				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
-						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
-				: null;
-		if (aTimeSet.getProgressionMode() != null && tempProgressionFactor == null) {
-			tempProgressionFactor = "1";
+		String tempProgressionFactor = null;
+		if (aTimeSet.getProgressionMode() != null) {
+			BigDecimal tempFactor = DateUtil.convertTimeSetProgressionFactor(aTimeSet, valueConverter,
+					new ConversionContext().withUnresolvableVariableHandlingPolicy(
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+			if (tempFactor != null) {
+				tempProgressionFactor = tempFactor.toPlainString();
+			} else {
+				tempProgressionFactor = UnresolvableVariable.getInstance().toString();
+			}
 		}
 
 		String tempForkNames = "";
