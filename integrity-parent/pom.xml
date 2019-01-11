@@ -4,7 +4,7 @@
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-parent</artifactId>
-  <version>0.17.23-SNAPSHOT</version>
+  <version>0.17.24-SNAPSHOT</version>
   <name>Integrity Parent POM</name>
   <description>Integrity is a highly extensible test automation framework based on Xtext and tightly integrated into Eclipse.</description>
   
