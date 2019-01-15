@@ -107,6 +107,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.CALL: return createCall();
       case DslPackage.NAMED_CALL_RESULT: return createNamedCallResult();
       case DslPackage.TIME_SET: return createTimeSet();
+      case DslPackage.TIME_PROGRESSION_FACTOR: return createTimeProgressionFactor();
       case DslPackage.TIME_DIFFERENCE: return createTimeDifference();
       case DslPackage.SUITE: return createSuite();
       case DslPackage.SUITE_PARAMETER: return createSuiteParameter();
@@ -631,6 +632,17 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     TimeSetImpl timeSet = new TimeSetImpl();
     return timeSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TimeProgressionFactor createTimeProgressionFactor()
+  {
+    TimeProgressionFactorImpl timeProgressionFactor = new TimeProgressionFactorImpl();
+    return timeProgressionFactor;
   }
 
   /**

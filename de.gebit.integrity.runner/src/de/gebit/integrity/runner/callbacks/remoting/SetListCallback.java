@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -24,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -598,7 +600,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			String anErrorMessage, String anExceptionStackTrace) {
+			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
+			String anExceptionStackTrace) {
 		SetListEntry tempEntry = entryStack.pop();
 
 		SetListEntry tempResultEntry = setList.createEntry(SetListEntryTypes.RESULT);
@@ -607,6 +610,13 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 					anErrorMessage == null ? Boolean.TRUE : Boolean.FALSE);
 			if (anExceptionStackTrace != null) {
 				tempResultEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION, anExceptionStackTrace);
+			} else {
+				String tempExtendedResultString = testFormatter
+						.testTimeInfoSetToHumanReadableString(someCurrentDateTimes.entrySet());
+				Object[] tempExtendedResult = new Object[] { null, tempExtendedResultString };
+
+				tempEntry.setAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA,
+						new Object[] { tempExtendedResult });
 			}
 		}
 		setList.addReference(tempEntry, SetListEntryAttributeKeys.RESULT, tempResultEntry);

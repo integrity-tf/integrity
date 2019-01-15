@@ -53,7 +53,6 @@ import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
 import de.gebit.integrity.runner.operations.RandomNumberOperation;
 import de.gebit.integrity.runner.time.TestTimeAdapter;
 import de.gebit.integrity.runner.time.TimeSyncState;
-import de.gebit.integrity.runner.wrapper.ExceptionWrapper;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
@@ -606,17 +605,13 @@ public class Fork {
 	/**
 	 * Delivers the result of a timesync orchestrated by the master process to a fork, who originally requested it.
 	 * 
-	 * @param anExceptionWrapper
-	 *            null in case of success, error info in case of errors
+	 * @param aResult
+	 *            the result message to send
 	 * 
 	 */
-	public void deliverTimeSyncResult(ExceptionWrapper anExceptionWrapper) {
+	public void deliverTimeSyncResult(TimeSyncResultMessage aResult) {
 		if (isConnected()) {
-			if (anExceptionWrapper != null) {
-				client.sendTestTimeSyncResult(anExceptionWrapper.getMessage(), anExceptionWrapper.getStackTrace());
-			} else {
-				client.sendTestTimeSyncResult(null, null);
-			}
+			client.sendTestTimeSyncResult(aResult);
 		}
 	}
 

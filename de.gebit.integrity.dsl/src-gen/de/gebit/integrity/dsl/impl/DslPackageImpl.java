@@ -71,6 +71,7 @@ import de.gebit.integrity.dsl.TableTestRow;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.TimeDifference;
+import de.gebit.integrity.dsl.TimeProgressionFactor;
 import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.TypedNestedObject;
@@ -413,6 +414,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass timeSetEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass timeProgressionFactorEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2081,6 +2089,36 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getTimeProgressionFactor()
+  {
+    return timeProgressionFactorEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTimeProgressionFactor_FixedValue()
+  {
+    return (EAttribute)timeProgressionFactorEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTimeProgressionFactor_CalculatedValue()
+  {
+    return (EReference)timeProgressionFactorEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTimeDifference()
   {
     return timeDifferenceEClass;
@@ -3295,6 +3333,10 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     createEReference(timeSetEClass, TIME_SET__FORKS);
     createEAttribute(timeSetEClass, TIME_SET__MASTER_FORK);
 
+    timeProgressionFactorEClass = createEClass(TIME_PROGRESSION_FACTOR);
+    createEAttribute(timeProgressionFactorEClass, TIME_PROGRESSION_FACTOR__FIXED_VALUE);
+    createEReference(timeProgressionFactorEClass, TIME_PROGRESSION_FACTOR__CALCULATED_VALUE);
+
     timeDifferenceEClass = createEClass(TIME_DIFFERENCE);
     createEAttribute(timeDifferenceEClass, TIME_DIFFERENCE__DIRECTION);
     createEAttribute(timeDifferenceEClass, TIME_DIFFERENCE__FIXED_VALUES);
@@ -3710,9 +3752,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEReference(getTimeSet_StartTime(), this.getValueOrEnumValueOrOperation(), null, "startTime", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTimeSet_DiffTime(), this.getTimeDifference(), null, "diffTime", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTimeSet_ProgressionMode(), ecorePackage.getEString(), "progressionMode", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTimeSet_ProgressionFactor(), this.getValueOrEnumValueOrOperation(), null, "progressionFactor", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTimeSet_ProgressionFactor(), this.getTimeProgressionFactor(), null, "progressionFactor", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTimeSet_Forks(), this.getForkDefinition(), null, "forks", null, 0, -1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTimeSet_MasterFork(), ecorePackage.getEString(), "masterFork", null, 0, 1, TimeSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(timeProgressionFactorEClass, TimeProgressionFactor.class, "TimeProgressionFactor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTimeProgressionFactor_FixedValue(), ecorePackage.getEString(), "fixedValue", null, 0, 1, TimeProgressionFactor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTimeProgressionFactor_CalculatedValue(), this.getValueOrEnumValueOrOperation(), null, "calculatedValue", null, 0, 1, TimeProgressionFactor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(timeDifferenceEClass, TimeDifference.class, "TimeDifference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTimeDifference_Direction(), ecorePackage.getEString(), "direction", null, 0, 1, TimeDifference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -8,8 +8,12 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Injector;
 
@@ -266,9 +270,11 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 
 	@Override
 	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			String anErrorMessage, String anExceptionStackTrace) {
+			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
+			String anExceptionStackTrace) {
 		for (TestRunnerCallback tempCallback : callbacks) {
-			tempCallback.onTimeSetFinish(aTimeSet, aSuite, someForks, anErrorMessage, anExceptionStackTrace);
+			tempCallback.onTimeSetFinish(aTimeSet, aSuite, someForks, someCurrentDateTimes, anErrorMessage,
+					anExceptionStackTrace);
 		}
 	}
 

@@ -207,11 +207,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="diffTime" eType="#//TimeDifference"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="progressionMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="progressionFactor" eType="#//ValueOrEnumValueOrOperation"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="progressionFactor" eType="#//TimeProgressionFactor"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="forks" unique="false" upperBound="-1"
         eType="#//ForkDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="masterFork" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeProgressionFactor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fixedValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedValue" eType="#//ValueOrEnumValueOrOperation"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimeDifference">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

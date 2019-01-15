@@ -8,6 +8,7 @@
 package de.gebit.integrity.utils;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +38,7 @@ import de.gebit.integrity.dsl.IsoTimeValue;
 import de.gebit.integrity.dsl.Simple12HrsTimeValue;
 import de.gebit.integrity.dsl.Simple24HrsTimeValue;
 import de.gebit.integrity.dsl.TimeDifference;
+import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.USDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.USDateValue;
@@ -546,6 +548,37 @@ public final class DateUtil {
 		default:
 			throw new RuntimeException("Unknown temporal unit: " + tempUnitPart);
 		}
+	}
+
+	/**
+	 * Converts the timeset commands' progression factor.
+	 * 
+	 * @param aTimeSet
+	 * @param aValueConverter
+	 * @return
+	 * @throws UnresolvableVariableException
+	 * @throws UnexecutableException
+	 */
+	public static BigDecimal convertTimeSetProgressionFactor(TimeSet aTimeSet, ValueConverter aValueConverter,
+			ConversionContext aConversionContext) {
+		BigDecimal tempProgressionFactor = new BigDecimal(1);
+		if (aTimeSet.getProgressionFactor() != null) {
+			if (aTimeSet.getProgressionFactor().getCalculatedValue() != null) {
+				try {
+					tempProgressionFactor = (BigDecimal) aValueConverter.convertValue(BigDecimal.class,
+							aTimeSet.getProgressionFactor().getCalculatedValue(), null);
+				} catch (UnresolvableVariableException | UnexecutableException exc) {
+					return null;
+				}
+			} else if (aTimeSet.getProgressionFactor().getFixedValue() != null) {
+				// Remove the "x" at the end
+				String tempStripped = aTimeSet.getProgressionFactor().getFixedValue();
+				tempStripped = tempStripped.substring(0, tempStripped.length() - 1);
+				tempProgressionFactor = new BigDecimal(tempStripped);
+			}
+		}
+
+		return tempProgressionFactor;
 	}
 
 }

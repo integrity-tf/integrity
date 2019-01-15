@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
 
@@ -38,6 +39,11 @@ public class TimeSyncState {
 	 * A time progression factor (1.0 = realtime, 0.0 = frozen).
 	 */
 	private double progressionFactor;
+
+	/**
+	 * This instance represents live time.
+	 */
+	public static final TimeSyncState LIVE = new TimeSyncState();
 
 	/**
 	 * Constructor.
@@ -81,6 +87,15 @@ public class TimeSyncState {
 						"Unexpected date/time singleton internals string formatting: " + anInternalsString, exc);
 			}
 		}
+	}
+
+	/**
+	 * Constructs an instance that represents local live time.
+	 */
+	public TimeSyncState() {
+		this.realtimeOffset = 0;
+		this.realtimeDecouplingTime = System.currentTimeMillis();
+		this.progressionFactor = 1.0;
 	}
 
 	public double getProgressionFactor() {
@@ -140,6 +155,27 @@ public class TimeSyncState {
 		long tempTimeDifference = tempResultingTimeMillis - tempStartingTimeMillis;
 
 		return new TimeSyncState(realtimeOffset + tempTimeDifference, realtimeDecouplingTime, progressionFactor);
+	}
+
+	/**
+	 * Calculates the current date/time according to the states' parameters.
+	 * 
+	 * @return
+	 */
+	public ZonedDateTime calculateCurrentZonedDateTime() {
+		long tempTimeSinceDecoupling = System.currentTimeMillis() - realtimeDecouplingTime;
+		long tempStartingTimeMillis = realtimeDecouplingTime + realtimeOffset
+				+ (long) (tempTimeSinceDecoupling * progressionFactor);
+		return Instant.ofEpochMilli(tempStartingTimeMillis).atZone(ZoneId.systemDefault());
+	}
+
+	/**
+	 * Calculates the current date/time according to the states' parameters.
+	 * 
+	 * @return
+	 */
+	public LocalDateTime calculateCurrentDateTime() {
+		return calculateCurrentZonedDateTime().toLocalDateTime();
 	}
 
 }

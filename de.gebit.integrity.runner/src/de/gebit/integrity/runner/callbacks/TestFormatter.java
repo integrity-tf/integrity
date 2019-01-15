@@ -8,12 +8,21 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -55,6 +64,11 @@ public class TestFormatter {
 	 * Escape pattern for parameters in descriptions.
 	 */
 	private static final Pattern PARAMETER_PATTERN = Pattern.compile("^(.*?)\\$([^$]*)\\$(.*)$");
+
+	/**
+	 * Newline separator.
+	 */
+	protected static final String NEWLINE = System.getProperty("line.separator");
 
 	/**
 	 * The classloader to use.
@@ -395,12 +409,16 @@ public class TestFormatter {
 				aTimeSet.getStartTime(), false, new ConversionContext().withUnresolvableVariableHandlingPolicy(
 						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
 				: null;
-		String tempProgressionFactor = aTimeSet.getProgressionFactor() != null
-				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
-						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
-				: null;
-		if (aTimeSet.getProgressionMode() != null && tempProgressionFactor == null) {
-			tempProgressionFactor = "1";
+		String tempProgressionFactor = null;
+		if (aTimeSet.getProgressionMode() != null) {
+			BigDecimal tempFactor = DateUtil.convertTimeSetProgressionFactor(aTimeSet, valueConverter,
+					new ConversionContext().withUnresolvableVariableHandlingPolicy(
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+			if (tempFactor != null) {
+				tempProgressionFactor = tempFactor.toPlainString();
+			} else {
+				tempProgressionFactor = UnresolvableVariable.getInstance().toString();
+			}
 		}
 
 		String tempForkNames = "";
@@ -456,5 +474,77 @@ public class TestFormatter {
 		} else {
 			return aTimeDiff.getFixedValues().stream().collect(Collectors.joining(" "));
 		}
+	}
+
+	/**
+	 * Converts a test time info entry to a human-readable string.
+	 * 
+	 * @param aTestTimeInfoEntry
+	 * @param anOmitPrefixFlag
+	 * @return
+	 */
+	public String testTimeInfoToHumanReadableString(Entry<String, Pair<ZonedDateTime, Double>> aTestTimeInfoEntry,
+			boolean anIncludePrefixFlag) {
+		StringBuilder tempBuilder = new StringBuilder();
+		if (anIncludePrefixFlag) {
+			if (aTestTimeInfoEntry.getKey() == null) {
+				tempBuilder.append("On master, t");
+			} else {
+				tempBuilder.append("On fork'" + aTestTimeInfoEntry.getKey() + "', t");
+			}
+		} else {
+			tempBuilder.append("T");
+		}
+		tempBuilder.append("he time is now ");
+		tempBuilder.append(aTestTimeInfoEntry.getValue().getFirst().toOffsetDateTime());
+
+		if (aTestTimeInfoEntry.getValue().getSecond() == 0.0) {
+			tempBuilder.append(" (frozen)");
+		} else if (aTestTimeInfoEntry.getValue().getSecond() == 1.0) {
+			tempBuilder.append(" (progressing normally)");
+		} else {
+			tempBuilder.append(" (progressing at " + aTestTimeInfoEntry.getValue().getSecond() + "x)");
+		}
+
+		return tempBuilder.toString();
+	}
+
+	/**
+	 * Converts a {@link Set} of test time info entries according to
+	 * {@link #testTimeInfoToHumanReadableString(Entry, boolean)}.
+	 * 
+	 * @param aTestTimeInfoSet
+	 * @return
+	 */
+	public String testTimeInfoSetToHumanReadableString(
+			Set<Entry<String, Pair<ZonedDateTime, Double>>> aTestTimeInfoSet) {
+		StringBuilder tempBuilder = new StringBuilder();
+
+		if (aTestTimeInfoSet.size() == 1) {
+			tempBuilder.append(testTimeInfoToHumanReadableString(aTestTimeInfoSet.iterator().next(), false));
+		} else {
+			tempBuilder.append("The test time on all processes is now:");
+			List<Entry<String, Pair<ZonedDateTime, Double>>> tempSortedList = new ArrayList<Map.Entry<String, Pair<ZonedDateTime, Double>>>(
+					aTestTimeInfoSet);
+			Collections.sort(tempSortedList, new Comparator<Entry<String, Pair<ZonedDateTime, Double>>>() {
+
+				@Override
+				public int compare(Entry<String, Pair<ZonedDateTime, Double>> aFirst,
+						Entry<String, Pair<ZonedDateTime, Double>> aSecond) {
+					if (aFirst.getKey() == null) {
+						return Integer.MIN_VALUE;
+					} else if (aSecond.getKey() == null) {
+						return Integer.MAX_VALUE;
+					} else {
+						return aFirst.getKey().compareTo(aSecond.getKey());
+					}
+				}
+			});
+			for (Entry<String, Pair<ZonedDateTime, Double>> tempEntry : tempSortedList) {
+				tempBuilder.append(NEWLINE + " - " + testTimeInfoToHumanReadableString(tempEntry, true));
+			}
+		}
+
+		return tempBuilder.toString();
 	}
 }

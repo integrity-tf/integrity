@@ -16,10 +16,12 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,6 +48,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xml.type.internal.DataValue.Base64;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.util.Pair;
 import org.jdom.Attribute;
 import org.jdom.CDATA;
 import org.jdom.Content;
@@ -93,6 +96,7 @@ import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultImage;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResultText;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.parameter.resolving.TableTestParameterResolveMethod;
@@ -117,6 +121,7 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.VersionUtil;
 
@@ -346,6 +351,15 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant TIME_SET_ELEMENT. */
 	protected static final String TIME_SET_ELEMENT = "timeSet";
+
+	/** The Constant TIME_SET_TIMES_COLLECTION_ELEMENT. */
+	protected static final String TIME_SET_TIMES_COLLECTION_ELEMENT = "times";
+
+	/** The Constant TIME_SET_TIMES_ELEMENT. */
+	protected static final String TIME_SET_TIMES_ELEMENT = "time";
+
+	/** The Constant TIME_SET_TIMES_ELEMENT_FORK_ATTRIBUTE. */
+	protected static final String TIME_SET_TIMES_ELEMENT_FORK_ATTRIBUTE = "fork";
 
 	/** The Constant TIME_START_ATTRIBUTE. */
 	protected static final String TIME_START_ATTRIBUTE = "time";
@@ -1805,12 +1819,16 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
 				new ConversionContext()
 						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
-		String tempProgressionFactor = aTimeSet.getProgressionFactor() != null
-				? valueConverter.convertValueToString(aTimeSet.getProgressionFactor(), false, new ConversionContext()
-						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE))
-				: null;
-		if (aTimeSet.getProgressionMode() != null && tempProgressionFactor == null) {
-			tempProgressionFactor = "1";
+		String tempProgressionFactor = null;
+		if (aTimeSet.getProgressionMode() != null) {
+			BigDecimal tempFactor = DateUtil.convertTimeSetProgressionFactor(aTimeSet, valueConverter,
+					new ConversionContext().withUnresolvableVariableHandlingPolicy(
+							UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
+			if (tempFactor != null) {
+				tempProgressionFactor = tempFactor.toPlainString();
+			} else {
+				tempProgressionFactor = UnresolvableVariable.getInstance().toString();
+			}
 		}
 
 		String tempForkNames = null;
@@ -1847,19 +1865,35 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			String anErrorMessage, String anExceptionStackTrace) {
+			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
+			String anExceptionStackTrace) {
 		// This new element is actually only used as a container to transport arguments to be merged with the
 		// already-existing time set element
 		Element tempTimeSetElement = new Element(TIME_SET_ELEMENT);
+		List<Element> tempNewElements = new ArrayList<Element>();
+		tempNewElements.add(tempTimeSetElement);
 
 		if (anErrorMessage != null) {
 			setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, anErrorMessage);
 			setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE, anExceptionStackTrace);
+		} else {
+			String tempExtendedResultString = testFormatter
+					.testTimeInfoSetToHumanReadableString(someCurrentDateTimes.entrySet());
+
+			Element tempExtendedResultCollection = new Element(EXTENDED_RESULT_COLLECTION_ELEMENT);
+			Element tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
+			tempResultElement.addContent(new CDATA(tempExtendedResultString));
+			tempExtendedResultCollection.addContent(tempResultElement);
+			tempTimeSetElement.addContent(tempExtendedResultCollection);
+
+			tempNewElements.add(tempExtendedResultCollection);
+			tempNewElements.add(tempResultElement);
 		}
 
 		if (!isDryRun()) {
 			if (isFork()) {
-				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET_FINISH, tempTimeSetElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET_FINISH,
+						tempNewElements.toArray(new Element[tempNewElements.size()]));
 			}
 			internalOnTimeSetFinish(tempTimeSetElement);
 		}
