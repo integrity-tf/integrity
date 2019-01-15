@@ -8,10 +8,13 @@
 package de.gebit.integrity.runner.callbacks.console;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 
@@ -305,14 +308,16 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			String anErrorMessage, String anExceptionStackTrace) {
+			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
+			String anExceptionStackTrace) {
 		if (!isDryRun()) {
 			if (anErrorMessage != null) {
 				println("EXCEPTION OCCURRED, SEE STDERR!");
 				System.err.println(anErrorMessage);
 				System.err.println(anExceptionStackTrace);
 			} else {
-				println("SUCCESS!");
+				println("SUCCESS! "
+						+ testFormatter.testTimeInfoSetToHumanReadableString(someCurrentDateTimes.entrySet()));
 			}
 		}
 	}

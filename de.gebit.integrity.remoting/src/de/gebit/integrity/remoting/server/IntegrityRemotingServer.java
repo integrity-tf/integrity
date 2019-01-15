@@ -250,9 +250,9 @@ public class IntegrityRemotingServer {
 	 * @param anExceptionMessage
 	 * @param anExceptionStackTrace
 	 */
-	public void sendTestTimeSyncResponse(String anExceptionMessage, String anExceptionStackTrace) {
+	public void sendTestTimeSyncResponse(TimeSyncResultMessage aResultMessage) {
 		if (serverEndpoint.isActive()) {
-			serverEndpoint.broadcastMessage(new TimeSyncResultMessage(anExceptionMessage, anExceptionStackTrace));
+			serverEndpoint.broadcastMessage(aResultMessage);
 		}
 	}
 	

@@ -856,12 +856,15 @@ function getChildByName(node, childName) {
               </xsl:call-template>
             </div>
           </xsl:if>
+          <xsl:if test="count(extResults/*) &gt; 0">
+            <xsl:apply-templates select="extResults" />
+          </xsl:if>
         </div>        
         <xsl:if test="@exceptionTrace">
           <div class="value exceptionmessage">
             <xsl:value-of select="@exceptionMessage" />
           </div>
-        </xsl:if>
+        </xsl:if>        
         <span class="durationandicons">
           <span class="testicons">
             <xsl:call-template name="scriptlink">

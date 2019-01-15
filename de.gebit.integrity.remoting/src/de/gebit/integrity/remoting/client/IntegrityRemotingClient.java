@@ -221,8 +221,8 @@ public class IntegrityRemotingClient {
 	 * @param anErrorMessage
 	 * @param anExceptionStackTrace
 	 */
-	public void sendTestTimeSyncResult(String anErrorMessage, String anExceptionStackTrace) {
-		sendMessage(new TimeSyncResultMessage(anErrorMessage, anExceptionStackTrace));
+	public void sendTestTimeSyncResult(TimeSyncResultMessage aResultMessage) {
+		sendMessage(aResultMessage);
 	}
 
 	/**
