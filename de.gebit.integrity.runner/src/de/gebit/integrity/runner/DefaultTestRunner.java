@@ -313,6 +313,12 @@ public class DefaultTestRunner implements TestRunner {
 	protected Set<ForkDefinition> diedForks = new HashSet<ForkDefinition>();
 
 	/**
+	 * Collects forks that are being used in the current test run. This is filled during dry run execution and is ONLY
+	 * USABLE ON MASTER.
+	 */
+	protected Set<ForkDefinition> touchedForks = new HashSet<ForkDefinition>();
+
+	/**
 	 * Maps forks to their (intended) timesync states.
 	 */
 	protected Map<ForkDefinition, TimeSyncState> forkTimeSyncStates = new HashMap<>();
@@ -990,6 +996,8 @@ public class DefaultTestRunner implements TestRunner {
 
 		boolean tempForkInExecutionOnEntry = forkInExecution != null;
 		ForkDefinition tempForkSpecifiedBySuite = aSuiteCall.getFork();
+
+		touchedForks.add(tempForkSpecifiedBySuite);
 
 		if (tempForkSpecifiedBySuite != null && !tempForkInExecutionOnEntry) {
 			if (!isFork() && forkInExecution != null && tempForkSpecifiedBySuite != forkInExecution) {
@@ -2702,11 +2710,11 @@ public class DefaultTestRunner implements TestRunner {
 		// Now calculate the TimeSyncStates for each fork individually (and the master, of course)
 		List<ForkDefinition> tempForkDefinitionsToCalculate = new ArrayList<>();
 		if (someTargetedForks == null) {
-			// This should go to all forks, including the master
+			// This should go to all forks used in the current test run, including the master
 			tempMasterHasToSync = true;
 			tempTargetedForks.addAll(forkMap.values());
 			tempForkDefinitionsToCalculate.add(null);
-			tempForkDefinitionsToCalculate.addAll(model.getAllForks());
+			tempForkDefinitionsToCalculate.addAll(touchedForks);
 		} else {
 			for (String tempForkName : someTargetedForks) {
 				if (tempForkName == null) {
@@ -2786,7 +2794,7 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		// Finally complete the map with the per-fork test time currently in effect, so it contains data about all forks
-		for (ForkDefinition tempForkDef : model.getAllForks()) {
+		for (ForkDefinition tempForkDef : touchedForks) {
 			if (!tempResults.containsKey(tempForkDef)) {
 				TimeSyncState tempState = forkTimeSyncStates.getOrDefault(tempForkDef, TimeSyncState.LIVE);
 
