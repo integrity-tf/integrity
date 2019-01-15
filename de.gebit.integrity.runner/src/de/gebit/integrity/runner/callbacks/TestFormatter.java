@@ -490,7 +490,7 @@ public class TestFormatter {
 			if (aTestTimeInfoEntry.getKey() == null) {
 				tempBuilder.append("On master, t");
 			} else {
-				tempBuilder.append("On fork'" + aTestTimeInfoEntry.getKey() + "', t");
+				tempBuilder.append("On fork '" + aTestTimeInfoEntry.getKey() + "', t");
 			}
 		} else {
 			tempBuilder.append("T");
