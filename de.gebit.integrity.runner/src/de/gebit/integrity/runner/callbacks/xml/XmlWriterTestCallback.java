@@ -1915,12 +1915,18 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * 
 	 * @param aTimeSetElement
 	 */
+	@SuppressWarnings("unchecked")
 	protected void internalOnTimeSetFinish(Element aTimeSetElement) {
 		Element tempActualTimeSetElement = stackPop();
-		// Merge the attributes of the two elements
+
+		// Merge the attributes of the two elements...
 		for (Object tempAttribute : aTimeSetElement.getAttributes()) {
 			setAttributeGuarded(tempActualTimeSetElement, ((Attribute) tempAttribute).getName(),
 					((Attribute) tempAttribute).getValue());
+		}
+		// ...and the sub-elements
+		for (Element tempChild : new ArrayList<Element>(aTimeSetElement.getChildren())) {
+			tempActualTimeSetElement.addContent(tempChild.detach());
 		}
 	}
 
