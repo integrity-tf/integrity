@@ -997,7 +997,9 @@ public class DefaultTestRunner implements TestRunner {
 		boolean tempForkInExecutionOnEntry = forkInExecution != null;
 		ForkDefinition tempForkSpecifiedBySuite = aSuiteCall.getFork();
 
-		touchedForks.add(tempForkSpecifiedBySuite);
+		if (tempForkSpecifiedBySuite != null) {
+			touchedForks.add(tempForkSpecifiedBySuite);
+		}
 
 		if (tempForkSpecifiedBySuite != null && !tempForkInExecutionOnEntry) {
 			if (!isFork() && forkInExecution != null && tempForkSpecifiedBySuite != forkInExecution) {
