@@ -8,7 +8,11 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Map;
+
+import org.eclipse.xtext.util.Pair;
 
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.ConstantEntity;
@@ -322,13 +326,17 @@ public abstract class TestRunnerCallback {
 	 *            the suite in which the time was set
 	 * @param someForks
 	 *            the forks on which the time was set (the null element in the list means the master process)
+	 * @param someCurrentDateTimes
+	 *            a complete map of fork names (null = master) to their respective currently valid test date/time,
+	 *            including the current progression speed (0.0 = static time)
 	 * @param anErrorMessage
 	 *            if errors happened during timesync, the error message is delivered here (otherwise it is null)
 	 * @param anExceptionStackTrace
 	 *            if errors happened during timesync, the exception is delivered here (otherwise it is null)
 	 */
 	public abstract void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			String anErrorMessage, String anExceptionStackTrace);
+			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
+			String anExceptionStackTrace);
 
 	/**
 	 * Called when a visible comment is encountered during execution.
