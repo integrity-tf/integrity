@@ -1126,10 +1126,10 @@ public class DefaultTestRunner implements TestRunner {
 			VariableEntity tempSource = tempReturn.getName().getName();
 			VariableEntity tempTarget = tempReturn.getTarget().getName();
 			Object tempValue = variableManager.get(tempSource);
-			// If we are in the dry run phase on a fork, do not send anything to the clients (which in this case is the
-			// master process)! This would otherwise possibly cause ConcurrentModificationExceptions on the master.
-			// See issue #111, which is fixed by this.
-			boolean tempSendToClients = (!isFork() || currentPhase != Phase.DRY_RUN);
+			// If we are in the non-execution run phase on a fork, do not send anything to the clients (which in this
+			// case is the master process)! This would otherwise possibly cause ConcurrentModificationExceptions on the
+			// master. See issue #111, which is fixed by this. Also see issue #214, which modified the fix a bit.
+			boolean tempSendToClients = (!isFork() || shouldExecuteFixtures());
 			setVariableValue(tempTarget, tempValue, tempSendToClients);
 			if (currentCallback != null) {
 				currentCallback.onCallbackProcessingStart();
