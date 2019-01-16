@@ -178,4 +178,10 @@ public class TimeSyncState {
 		return calculateCurrentZonedDateTime().toLocalDateTime();
 	}
 
+	@Override
+	public String toString() {
+		return "realtimeOffset=" + realtimeOffset + ", realtimeDecouplingTime=" + realtimeDecouplingTime
+				+ ", progressionFactor=" + progressionFactor;
+	}
+
 }
