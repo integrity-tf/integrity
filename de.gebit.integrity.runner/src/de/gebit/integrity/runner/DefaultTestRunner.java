@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.net.BindException;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Deque;
@@ -552,6 +553,16 @@ public class DefaultTestRunner implements TestRunner {
 	 * A sync object used to synchronize accesses to {@link #timeSyncResult}.
 	 */
 	protected final Object timeSyncResultSyncObject = new Object();
+
+	/**
+	 * System property to enable writing timeset trace output.
+	 */
+	protected static final String TIMESET_TRACE_OUTPUT = "integrity.timeset.trace";
+
+	/**
+	 * Whether timeset tracing is enabled.
+	 */
+	protected boolean isTimesetTracingEnabled = Boolean.getBoolean(TIMESET_TRACE_OUTPUT);
 
 	/**
 	 * Returns the timeout in seconds for timesync requests originating from this fork, sent to the master and
@@ -2328,6 +2339,10 @@ public class DefaultTestRunner implements TestRunner {
 					synchronized (timeSyncResultSyncObject) {
 						timeSyncResult = null;
 						long tempStart = System.nanoTime();
+						if (isTimesetTracingEnabled) {
+							timesetTraceLog("REQ_TO_MASTER", null, tempStartTime, tempDiffTime, tempProgressionFactor,
+									tempForksToRunOnArray);
+						}
 						remotingServer.sendTestTimeSyncRequest(tempStartTime, tempDiffTime, tempProgressionFactor,
 								tempForksToRunOnArray);
 
@@ -2345,6 +2360,10 @@ public class DefaultTestRunner implements TestRunner {
 								throw new RuntimeException(
 										"Timed out while waiting to receive time sync confirmation from master!");
 							}
+						}
+						if (isTimesetTracingEnabled) {
+							timesetTraceLog("REQ_TO_MASTER",
+									"Master confirmed execution with error: " + timeSyncResult.getErrorMessage());
 						}
 					}
 				} else {
@@ -2658,6 +2677,11 @@ public class DefaultTestRunner implements TestRunner {
 		@Override
 		public void onTimeSyncState(long aRealtimeOffset, long aRealtimeDecouplingTime, double aProgressionFactor) {
 			// This is called when a master process wants to set the time of a fork. Just set it.
+			if (isTimesetTracingEnabled) {
+				timesetTraceLog("SET_STATE", "Setting this forks' timesync state: "
+						+ new TimeSyncState(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor));
+			}
+
 			TimeSyncResultMessage tempResult = setTestTimeGuarded(aRealtimeOffset, aRealtimeDecouplingTime,
 					aProgressionFactor);
 			remotingServer.sendTestTimeSyncResponse(tempResult);
@@ -2710,6 +2734,10 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected TimeSyncResultMessage distributeTimeSyncRequest(Date aStartTime, List<Pair<Long, TemporalUnit>> aDiffTime,
 			BigDecimal aProgressionFactor, String[] someTargetedForks) {
+		if (isTimesetTracingEnabled) {
+			timesetTraceLog("REQ_PROCESSING_START", null, aStartTime, aDiffTime, aProgressionFactor, someTargetedForks);
+		}
+
 		boolean tempMasterHasToSync = false;
 		List<Fork> tempTargetedForks = new ArrayList<Fork>();
 
@@ -2769,6 +2797,9 @@ public class DefaultTestRunner implements TestRunner {
 
 		// Now actually set the new fake time settings into effect, on master and forks
 		if (tempMasterHasToSync) {
+			if (isTimesetTracingEnabled) {
+				timesetTraceLog("SET_STATE", "Master sets test time state: " + forkTimeSyncStates.get(null));
+			}
 			TimeSyncResultMessage tempResultMessage = setTestTimeGuarded(
 					forkTimeSyncStates.get(null).getRealtimeOffset(),
 					forkTimeSyncStates.get(null).getRealtimeDecouplingTime(),
@@ -2788,6 +2819,11 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 		for (Fork tempFork : tempTargetedForks) {
+			if (isTimesetTracingEnabled) {
+				timesetTraceLog("SET_STATE",
+						"Requesting fork '" + IntegrityDSLUtil.getQualifiedForkName(tempFork.getDefinition())
+								+ "' to set timesync state: " + forkTimeSyncStates.get(tempFork.getDefinition()));
+			}
 			TimeSyncResultMessage tempResultMessage = tempFork.injectTestTimeState(
 					forkTimeSyncStates.get(tempFork.getDefinition()).getRealtimeOffset(),
 					forkTimeSyncStates.get(tempFork.getDefinition()).getRealtimeDecouplingTime(),
@@ -2809,11 +2845,12 @@ public class DefaultTestRunner implements TestRunner {
 
 		// Finally complete the map with the per-fork test time currently in effect, so it contains data about all forks
 		for (ForkDefinition tempForkDef : touchedForks) {
-			if (!tempResults.containsKey(tempForkDef)) {
+			if (!tempResults.containsKey(IntegrityDSLUtil.getQualifiedForkName(tempForkDef))) {
 				TimeSyncState tempState = forkTimeSyncStates.getOrDefault(tempForkDef, TimeSyncState.LIVE);
 
-				tempResults.put(tempForkDef.getName(), new TimeSyncForkResult(tempForkDef.getName(),
-						tempState.calculateCurrentZonedDateTime(), tempState.getProgressionFactor()));
+				tempResults.put(IntegrityDSLUtil.getQualifiedForkName(tempForkDef),
+						new TimeSyncForkResult(IntegrityDSLUtil.getQualifiedForkName(tempForkDef),
+								tempState.calculateCurrentZonedDateTime(), tempState.getProgressionFactor()));
 			}
 		}
 		// ...and the master as well, of course
@@ -2821,6 +2858,10 @@ public class DefaultTestRunner implements TestRunner {
 			TimeSyncState tempState = forkTimeSyncStates.getOrDefault(null, TimeSyncState.LIVE);
 			tempResults.put(null, new TimeSyncForkResult(null, tempState.calculateCurrentZonedDateTime(),
 					tempState.getProgressionFactor()));
+		}
+
+		if (isTimesetTracingEnabled) {
+			timesetTraceLog("REQ_PROCESSING_END", "Finished processing timesync request");
 		}
 
 		if (tempMergedResultMessage.length() == 0) {
@@ -3015,6 +3056,10 @@ public class DefaultTestRunner implements TestRunner {
 					@Override
 					public void onTimeSync(Date aStartDate, List<Pair<Long, TemporalUnit>> aDiffTime,
 							BigDecimal aProgressionFactor, String[] someTargetedForks, Fork aResultTarget) {
+						if (isTimesetTracingEnabled) {
+							timesetTraceLog("REQ_FROM_FORK", IntegrityDSLUtil.getQualifiedForkName(tempForkDef),
+									aStartDate, aDiffTime, aProgressionFactor, someTargetedForks);
+						}
 						distributeTimeSyncRequestAsync(aStartDate, aDiffTime, aProgressionFactor, someTargetedForks,
 								aResultTarget);
 					}
@@ -3075,6 +3120,12 @@ public class DefaultTestRunner implements TestRunner {
 								if (tempTimeSyncState != null) {
 									// This fork had a fake test time set before it was started. We need to provide that
 									// time to the fork now.
+									if (isTimesetTracingEnabled) {
+										timesetTraceLog("FORK_SETUP",
+												"Setting initial timesync state for fork '"
+														+ IntegrityDSLUtil.getQualifiedForkName(tempForkDef) + "': "
+														+ tempTimeSyncState);
+									}
 									tempFork.getClient().sendTestTimeState(tempTimeSyncState.getRealtimeOffset(),
 											tempTimeSyncState.getRealtimeDecouplingTime(),
 											tempTimeSyncState.getProgressionFactor());
@@ -3190,5 +3241,45 @@ public class DefaultTestRunner implements TestRunner {
 			tempResult.append(tempCurrent.getMessage());
 		}
 		throw new ValidationException(tempResult.toString(), tempConflictOrigin);
+	}
+
+	/**
+	 * Outputs a timeset trace log. Although this checks for {@link #isTimesetTracingEnabled}, the caller may also check
+	 * to save some cycles when generating expensive parameters.
+	 * 
+	 * @param anAction
+	 *            the action
+	 * @param aLogMessage
+	 *            the message to log
+	 */
+	protected void timesetTraceLog(String anAction, String aLogMessage, Date aStartDate,
+			List<Pair<Long, TemporalUnit>> aDiffTime, BigDecimal aProgressionFactor, String[] someTargetedForks) {
+		if (isTimesetTracingEnabled) {
+			if (aLogMessage != null) {
+				System.out.println("--> TIMESET " + anAction.toUpperCase() + ": " + aLogMessage);
+			} else {
+				String tempDiffTime = aDiffTime == null ? null : aDiffTime.stream().map((aPair) -> {
+					return aPair.getFirst() + aPair.getSecond().toString();
+				}).collect(Collectors.joining("|"));
+
+				System.out.println("--> TIMESET " + anAction.toUpperCase() + ": "
+						+ (aLogMessage != null ? "(" + aLogMessage + ") " : "") + "start=" + aStartDate + ", diff="
+						+ tempDiffTime + ", progress=" + aProgressionFactor + ", forks="
+						+ Arrays.toString(someTargetedForks));
+			}
+		}
+	}
+
+	/**
+	 * Outputs a timeset trace log. Although this checks for {@link #isTimesetTracingEnabled}, the caller may also check
+	 * to save some cycles when generating expensive parameters.
+	 * 
+	 * @param anAction
+	 *            the action
+	 * @param aLogMessage
+	 *            the message to log
+	 */
+	protected void timesetTraceLog(String anAction, String aLogMessage) {
+		timesetTraceLog(anAction, aLogMessage, null, null, null, null);
 	}
 }
