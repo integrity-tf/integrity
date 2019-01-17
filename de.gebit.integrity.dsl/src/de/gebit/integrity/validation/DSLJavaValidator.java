@@ -48,6 +48,8 @@ import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
@@ -124,9 +126,14 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	 */
 	@Check
 	public void checkIfVariableDefinitionsAreValid(VariableDefinition anEntity) {
-		if (anEntity.getName() != null) {
-			performDotCheck(anEntity.getName().getName(), "variable",
-					anEntity.eClass().getEStructuralFeature(DslPackage.VARIABLE_DEFINITION__NAME));
+		if (anEntity.getName() != null && anEntity.getName().getName() != null) {
+			String tempVariableName = anEntity.getName().getName();
+			EStructuralFeature tempFeature = anEntity.eClass()
+					.getEStructuralFeature(DslPackage.VARIABLE_DEFINITION__NAME);
+
+			performDotCheck(tempVariableName, "variable", tempFeature);
+
+			performSuiteParameterShadowingCheck(tempVariableName, anEntity.eContainer(), "variable", tempFeature);
 		}
 	}
 
@@ -138,8 +145,13 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	@Check
 	public void checkIfConstantDefinitionsAreValid(ConstantDefinition anEntity) {
 		if (anEntity.getName() != null) {
-			performDotCheck(anEntity.getName().getName(), "constant",
-					anEntity.eClass().getEStructuralFeature(DslPackage.CONSTANT_DEFINITION__NAME));
+			String tempConstantName = anEntity.getName().getName();
+			EStructuralFeature tempFeature = anEntity.eClass()
+					.getEStructuralFeature(DslPackage.VARIABLE_DEFINITION__NAME);
+
+			performDotCheck(tempConstantName, "constant", tempFeature);
+
+			performSuiteParameterShadowingCheck(tempConstantName, anEntity.eContainer(), "constant", tempFeature);
 		}
 	}
 
@@ -235,15 +247,48 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	 * A generic dot-checking method for entity names. Generates a nice error message.
 	 * 
 	 * @param aName
-	 * @param anEntity
+	 * @param anEntityType
 	 */
-	protected void performDotCheck(String aName, String anEntity, EStructuralFeature aStructuralFeature) {
+	protected void performDotCheck(String aName, String anEntityType, EStructuralFeature aStructuralFeature) {
 		if (aName != null) {
 			if (aName.contains(".")) {
-				error(anEntity.substring(0, 1).toUpperCase() + anEntity.substring(1)
-						+ " definitions may not be fully or partly qualified (= contain dots). " + "Please put the "
-						+ anEntity + " in the according packagedef to qualify it, or use some other "
+				error(anEntityType.substring(0, 1).toUpperCase() + anEntityType.substring(1)
+						+ " definitions must not be fully or partly qualified (= contain dots). " + "Please put the "
+						+ anEntityType + " in the according packagedef to qualify it, or use some other "
 						+ "character in place of the dot!", aStructuralFeature);
+			}
+		}
+	}
+
+	/**
+	 * Checks for variable entities that overshadow suite input or return parameters.
+	 * 
+	 * @param aName
+	 * @param aContainer
+	 * @param anEntityType
+	 * @param aStructuralFeature
+	 */
+	protected void performSuiteParameterShadowingCheck(String aName, EObject aContainer, String anEntityType,
+			EStructuralFeature aStructuralFeature) {
+		if (aContainer instanceof SuiteDefinition) {
+			SuiteDefinition tempSuite = (SuiteDefinition) aContainer;
+			for (SuiteReturnDefinition tempReturn : tempSuite.getReturn()) {
+				if (tempReturn.getName() != null && aName.equals(tempReturn.getName().getName())) {
+					error(anEntityType.substring(0, 1).toUpperCase() + anEntityType.substring(1)
+							+ " definitions within suites must not overshadow suite return "
+							+ "variables. The 'returns' declaration already declares a variable named '" + aName
+							+ "', it is thus not necessary to create a variable of the same name to hold "
+							+ "the value to return.", aStructuralFeature);
+				}
+			}
+
+			for (SuiteParameterDefinition tempParameter : tempSuite.getParameters()) {
+				if (tempParameter.getName() != null && aName.equals(tempParameter.getName().getName())) {
+					error(anEntityType.substring(0, 1).toUpperCase() + anEntityType.substring(1)
+							+ " definitions within suites must not overshadow suite input "
+							+ "parameters. There is already a suite input parameter named '" + aName + "'.",
+							aStructuralFeature);
+				}
 			}
 		}
 	}
