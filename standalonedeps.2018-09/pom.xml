@@ -93,7 +93,7 @@
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>com.google.inject</artifactId>
-  		<version>3.0.0.v201312141243</version>
+  		<version>3.0.0.v201605172100</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
   	</dependency>
