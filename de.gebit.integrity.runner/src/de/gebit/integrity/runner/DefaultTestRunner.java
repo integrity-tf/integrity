@@ -741,7 +741,20 @@ public class DefaultTestRunner implements TestRunner {
 								currentCallback = setListCallback;
 
 								currentCallback.setDryRun(true);
+								System.out
+										.println("Now evaluating execution plan for test run, starting at root suite '"
+												+ IntegrityDSLUtil.getQualifiedSuiteName(aRootSuiteCall.getDefinition())
+												+ "'...");
+								long tempStart = System.nanoTime();
 								runInternal(aRootSuiteCall);
+								System.out.println("Execution plan containing "
+										+ setListCallback.getInvocationCountSuites() + " suite invocations with "
+										+ setListCallback.getInvocationCountCalls() + " calls, "
+										+ setListCallback.getInvocationCountTests() + " tests and "
+										+ setListCallback.getInvocationCountTableTests() + " tabletests ("
+										+ setListCallback.getInvocationCountTableTestRows() + " rows) generated in "
+										+ DateUtil.convertNanosecondTimespanToHumanReadableFormat(
+												System.nanoTime() - tempStart, false, false));
 								currentCallback.setDryRun(false);
 
 								synchronized (setListWaiter) {
@@ -851,8 +864,10 @@ public class DefaultTestRunner implements TestRunner {
 				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
 						: null;
 				try {
-					defineConstant(tempDefinition, tempValue, (tempDefinition.eContainer() instanceof SuiteDefinition)
-							? ((SuiteDefinition) tempDefinition.eContainer()) : null);
+					defineConstant(tempDefinition, tempValue,
+							(tempDefinition.eContainer() instanceof SuiteDefinition)
+									? ((SuiteDefinition) tempDefinition.eContainer())
+									: null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
@@ -1560,7 +1575,8 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
 			final SuiteDefinition aSuite) {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
-				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
+				? variableManager.get(((Variable) anInitialValue).getName())
+				: anInitialValue;
 
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
