@@ -1647,7 +1647,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					}
 				} else {
 					// Output the XML (with XSLT inlined or not)
-					System.out.print("Writing Result XML...");
+					System.out.print("Writing Result XML to '" + outputFile.getAbsolutePath() + "'...");
 					XMLOutputter tempSerializer = new XMLOutputter(Format.getPrettyFormat());
 					tempSerializer.output(document, tempOutputStream);
 				}

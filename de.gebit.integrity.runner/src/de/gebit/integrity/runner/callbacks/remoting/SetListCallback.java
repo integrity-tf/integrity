@@ -138,6 +138,31 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
+	 * Number of call invocations in setlist.
+	 */
+	private int invocationCountCalls;
+
+	/**
+	 * Number of test invocations in setlist.
+	 */
+	private int invocationCountTests;
+
+	/**
+	 * Number of tabletest invocations in setlist.
+	 */
+	private int invocationCountTableTests;
+
+	/**
+	 * Number of lines within tabletest invocations in setlist.
+	 */
+	private int invocationCountTableTestRows;
+
+	/**
+	 * Number of suite invocations in setlist.
+	 */
+	private int invocationCountSuites;
+
+	/**
 	 * Format used for execution time.
 	 */
 	private static final DecimalFormat EXECUTION_TIME_FORMAT = new DecimalFormat("0.000");
@@ -163,6 +188,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onSuiteStart(Suite aSuite) {
+		invocationCountSuites++;
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.SUITE);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME,
 				IntegrityDSLUtil.getQualifiedSuiteName(aSuite.getDefinition()));
@@ -196,6 +222,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTestStart(Test aTest) {
+		invocationCountTests++;
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TEST);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aTest.getDefinition().getName());
 
@@ -211,6 +238,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTableTestStart(TableTest aTableTest) {
+		invocationCountTableTests++;
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TABLETEST);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aTableTest.getDefinition().getName());
 
@@ -226,7 +254,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTableTestRowStart(TableTest aTableTest, TableTestRow aRow) {
-		// nothing to do here
+		invocationCountTableTestRows++;
 	}
 
 	@Override
@@ -406,6 +434,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onCallStart(Call aCall) {
+		invocationCountCalls++;
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.CALL);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aCall.getDefinition().getName());
 
@@ -875,5 +904,25 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTearDownSkipped(SuiteDefinition aTearDownSuite, SuiteSkipReason aReason) {
 		// Doing nothing here.
+	}
+
+	public int getInvocationCountCalls() {
+		return invocationCountCalls;
+	}
+
+	public int getInvocationCountSuites() {
+		return invocationCountSuites;
+	}
+
+	public int getInvocationCountTableTestRows() {
+		return invocationCountTableTestRows;
+	}
+
+	public int getInvocationCountTableTests() {
+		return invocationCountTableTests;
+	}
+
+	public int getInvocationCountTests() {
+		return invocationCountTests;
 	}
 }
