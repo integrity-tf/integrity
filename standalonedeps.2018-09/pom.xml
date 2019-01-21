@@ -142,7 +142,7 @@
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.core.jobs</artifactId>
-  		<version>3.9.3.v20180115-1757</version>
+  		<version>3.10.100.v20180817-1215</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
   	</dependency>  	
