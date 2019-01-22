@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="22.01.19 14:56" isotimestamp="2019-01-22T14:56:04" duration="2.236">
+  <variables />
+  <suite id="0" name="integrity.basic.nullability.nonNullableCallArrayParameterSuccess" timestamp="22.01.19 14:56:04.0698">
+    <setup />
+    <variables />
+    <statements>
+      <call id="1" line="74" name="echoNonNullableStrings" description="Echo the non-nullable string array '123, 456'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNonNullableStrings" timestamp="22.01.19 14:56:04.0699">
+        <parameters>
+          <parameter name="strings" value="123, 456" />
+        </parameters>
+        <result duration="0.408" type="success" />
+      </call>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="1.903" successCount="0" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

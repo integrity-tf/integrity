@@ -1,0 +1,87 @@
+packagedef integrity.basic.nullability with
+
+	suitedef nonNullableCallParameterSuccess with
+		
+		// This should work, because the parameter is provided
+		call integrity.fixtures.basic.noop.echoNonNullableString string: "123"
+	
+	suiteend
+	
+	suitedef nonNullableCallParameterFailure with
+		
+		constant nullConst null
+		
+		// This should throw a runtime exception, because the parameter resolves to null
+		call integrity.fixtures.basic.noop.echoNonNullableString string: nullConst
+	
+	suiteend
+	
+	suitedef nonNullableTestParameterSuccess with
+		
+		// This should work, because the parameter is provided
+		test integrity.fixtures.basic.noop.echoNonNullableStringTest string: "123" = "123"
+	
+	suiteend
+	
+	suitedef nonNullableTestParameterFailure with
+		
+		constant nullConst null
+		
+		// This should throw a runtime exception, because the parameter resolves to null
+		test integrity.fixtures.basic.noop.echoNonNullableStringTest string: nullConst = null
+	
+	suiteend
+	
+	suitedef nonNullableTableTestParameterSuccess with
+		
+		// This should work, because the parameter is provided
+		tabletest integrity.fixtures.basic.noop.echoNonNullableStringTest string: "123"
+			| =     |
+			| "123" |
+			
+		// This should work as well, because the parameter is provided
+		tabletest integrity.fixtures.basic.noop.echoNonNullableStringTest
+			| string | =     |
+			| "123"  | "123" |
+	
+	suiteend
+	
+	suitedef nonNullableTableTestParameterFailure1 with
+		
+		constant nullConst null
+		
+		// This should throw a runtime exception, because the parameter resolves to null
+		tabletest integrity.fixtures.basic.noop.echoNonNullableStringTest string: nullConst
+			| =     |
+			| "123" |
+	
+	suiteend
+	
+	suitedef nonNullableTableTestParameterFailure2 with
+		
+		constant nullConst null
+		
+		// This should throw a runtime exception, because the parameter resolves to null
+		tabletest integrity.fixtures.basic.noop.echoNonNullableStringTest
+			| string     | =     |
+			| nullConst  | "123" |
+	
+	suiteend
+	
+	suitedef nonNullableCallArrayParameterSuccess with
+		
+		// This should work, because the parameter is provided
+		call integrity.fixtures.basic.noop.echoNonNullableStrings strings: "123", "456"
+	
+	suiteend
+	
+	suitedef nonNullableCallArrayParameterFailure with
+		
+		constant nullConst null
+		
+		// This should throw a runtime exception, because one of the parameter parts resolves to null
+		call integrity.fixtures.basic.noop.echoNonNullableStrings strings: "123", nullConst
+	
+	suiteend
+
+packageend
