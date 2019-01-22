@@ -235,6 +235,18 @@ public class NoOpFixture {
 		return tempTestArray;
 	}
 
+	@FixtureMethod(description = "Echo the mandatory, non-nullable string '$string$'")
+	public String echoNonNullableString(
+			@FixtureParameter(name = "string", mandatory = true, nullable = false) String aStringToEcho) {
+		return aStringToEcho;
+	}
+
+	@FixtureMethod(description = "Echo the non-nullable string array '$strings$'")
+	public String[] echoNonNullableStrings(
+			@FixtureParameter(name = "strings", mandatory = true, nullable = false) String[] someStrings) {
+		return someStrings;
+	}
+
 	public enum Enum {
 
 		VALUE1,
