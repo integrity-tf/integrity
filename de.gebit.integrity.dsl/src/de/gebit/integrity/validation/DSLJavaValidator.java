@@ -512,7 +512,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 			}
 		} else {
 			if (aParameterValue instanceof NullValue) {
-				error("Null value provided for non-nullable parameter!", aParameterObject.eContainingFeature());
+				error("Null value provided for non-nullable parameter!", aParameterObject.eContainer(),
+						aParameterObject.eContainingFeature());
 			}
 		}
 	}
