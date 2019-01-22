@@ -10,7 +10,9 @@ package de.gebit.integrity.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.eclipse.emf.ecore.EObject;
@@ -42,6 +44,7 @@ import de.gebit.integrity.dsl.NamedResult;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
+import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.Suite;
@@ -594,6 +597,33 @@ public final class IntegrityDSLUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Returns a map of all {@link ParameterTableHeader}s in a given {@link TableTest} with their associated
+	 * {@link ParameterTableValue}s.
+	 * 
+	 * @param aTableTest
+	 *            the table test to map
+	 * @return all parameter columns with their associated values
+	 */
+	public static Map<ParameterTableHeader, List<ParameterTableValue>> getTableParameterValuesPerParameter(
+			TableTest aTableTest) {
+		Map<ParameterTableHeader, List<ParameterTableValue>> tempMap = new HashMap<>(
+				aTableTest.getParameterHeaders().size());
+
+		for (ParameterTableHeader tempHeader : aTableTest.getParameterHeaders()) {
+			List<ParameterTableValue> tempValues = new ArrayList<>(aTableTest.getRows().size());
+			int tempColumnNumber = tempMap.size(); // consecutive parameter columns make this possible
+
+			for (TableTestRow tempRow : aTableTest.getRows()) {
+				tempValues.add(tempRow.getValues().get(tempColumnNumber));
+			}
+
+			tempMap.put(tempHeader, tempValues);
+		}
+
+		return tempMap;
 	}
 
 	/**

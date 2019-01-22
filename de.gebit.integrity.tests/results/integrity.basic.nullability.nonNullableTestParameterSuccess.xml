@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="22.01.19 14:56" isotimestamp="2019-01-22T14:56:04" duration="4.273">
+  <variables />
+  <suite id="0" name="integrity.basic.nullability.nonNullableTestParameterSuccess" timestamp="22.01.19 14:56:04.0831">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="22" name="echoNonNullableStringTest" description="Echo the mandatory, non-nullable string '123'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNonNullableString" timestamp="22.01.19 14:56:04.0833">
+        <results duration="0.243" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.243" description="Echo the mandatory, non-nullable string '123'" type="success">
+            <parameters>
+              <parameter name="string" value="123" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="123" value="123" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="3.888" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

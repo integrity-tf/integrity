@@ -1,0 +1,11 @@
+packagedef integrity.basic.nullability with
+
+	
+	suitedef nonNullableParameterFailure with
+		
+		// This should fail to validate
+		test integrity.fixtures.basic.noop.echoNonNullableStringTest string: null = null
+	
+	suiteend
+
+packageend

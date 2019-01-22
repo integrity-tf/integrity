@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="22.01.19 14:56" isotimestamp="2019-01-22T14:56:04" duration="5.086">
+  <variables />
+  <suite id="0" name="integrity.basic.nullability.nonNullableTableTestParameterSuccess" timestamp="22.01.19 14:56:04.0895">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="38" name="echoNonNullableStringTest" description="Echo the mandatory, non-nullable string '123'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNonNullableString" timestamp="22.01.19 14:56:04.0897">
+        <parameters>
+          <parameter name="string" value="123" />
+        </parameters>
+        <results duration="1.213" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.289" description="Echo the mandatory, non-nullable string '123'" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="123" value="123" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+      <tabletest id="2" line="43" name="echoNonNullableStringTest" description="Echo the mandatory, non-nullable string '???'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNonNullableString" timestamp="22.01.19 14:56:04.0899">
+        <parameters />
+        <results duration="0.934" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.181" description="Echo the mandatory, non-nullable string '123'" type="success">
+            <parameters>
+              <parameter name="string" value="123" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="123" value="123" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="4.760" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

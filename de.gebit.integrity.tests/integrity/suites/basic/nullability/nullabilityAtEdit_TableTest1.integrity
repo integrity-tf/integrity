@@ -1,0 +1,12 @@
+packagedef integrity.basic.nullability with
+
+	suitedef nonNullableParameterFailure with
+		
+		// This should fail to validate
+		tabletest integrity.fixtures.basic.noop.echoNonNullableStringTest string: null
+			| =     |
+			| "123" |
+	
+	suiteend
+
+packageend

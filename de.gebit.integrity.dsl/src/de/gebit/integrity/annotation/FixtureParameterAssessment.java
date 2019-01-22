@@ -36,9 +36,14 @@ public class FixtureParameterAssessment {
 	/** Is the parameter optional? */
 	private final boolean mandatory;
 
+	/**
+	 * Is the parameter nullable?
+	 */
+	private final boolean nullable;
+
 	/** List of acceptable annotation classes. */
-	public static final ImmutableSet<Class<? extends Annotation>> ACCEPTED_ANNOTATION = ImmutableSet.of(
-			FixtureParameter.class, ForkerParameter.class);
+	public static final ImmutableSet<Class<? extends Annotation>> ACCEPTED_ANNOTATION = ImmutableSet
+			.of(FixtureParameter.class, ForkerParameter.class);
 
 	/** List of annotation names. */
 	protected static final ImmutableSet<String> ACCEPTED_ANNOTATION_NAMES;
@@ -67,10 +72,17 @@ public class FixtureParameterAssessment {
 		return ACCEPTED_ANNOTATION_NAMES.contains(anAnnotation.getAnnotation().getQualifiedName());
 	}
 
-	/** Predicate to match optional parameters. */
+	/** Predicate to match mandatory parameters. */
 	public static final Predicate<FixtureParameterAssessment> IS_MANDATORY = new Predicate<FixtureParameterAssessment>() {
 		public boolean apply(FixtureParameterAssessment anParameter) {
 			return anParameter.isMandatory();
+		};
+	};
+
+	/** Predicate to match non-nullable parameters. */
+	public static final Predicate<FixtureParameterAssessment> IS_NOT_NULLABLE = new Predicate<FixtureParameterAssessment>() {
+		public boolean apply(FixtureParameterAssessment anParameter) {
+			return !anParameter.isNullable();
 		};
 	};
 
@@ -99,17 +111,25 @@ public class FixtureParameterAssessment {
 
 		Preconditions.checkArgument(isAssignable(aParameterTuple.getSecond()));
 		JvmAnnotationValue tempName = anEvaluation.getValueByName(tempAnnotation, "name");
-		JvmAnnotationValue tempOptional = anEvaluation.getValueByName(tempAnnotation, "mandatory");
+		JvmAnnotationValue tempMandatory = anEvaluation.getValueByName(tempAnnotation, "mandatory");
+		JvmAnnotationValue tempNullable = anEvaluation.getValueByName(tempAnnotation, "nullable");
 
 		name = anEvaluation.evaluateSingle(tempName, String.class);
-		boolean tempMandatory = anEvaluation.evaluateSingle(tempOptional, Boolean.class);
+		boolean tempMandatoryFlag = anEvaluation.evaluateSingle(tempMandatory, Boolean.class);
+		boolean tempNullableFlag = anEvaluation.evaluateSingle(tempNullable, Boolean.class);
 
-		if (!tempMandatory && tempParameter.getParameterType() != null) {
-			// Primitive types are automatically mandatory; they can technically not be made optional.
-			tempMandatory = PRIMITIVE_TYPE_NAMES.contains(tempParameter.getParameterType().getQualifiedName());
+		if (!tempMandatoryFlag && tempParameter.getParameterType() != null) {
+			// Primitive types are automatically mandatory and non-nullable; they can technically not be made optional.
+			boolean tempPrimitiveType = PRIMITIVE_TYPE_NAMES
+					.contains(tempParameter.getParameterType().getQualifiedName());
+			if (tempPrimitiveType) {
+				tempMandatoryFlag = true;
+				tempNullableFlag = false;
+			}
 		}
 
-		mandatory = tempMandatory;
+		mandatory = tempMandatoryFlag;
+		nullable = tempNullableFlag;
 	}
 
 	public String getName() {
@@ -118,5 +138,9 @@ public class FixtureParameterAssessment {
 
 	public boolean isMandatory() {
 		return mandatory;
+	}
+
+	public boolean isNullable() {
+		return nullable;
 	}
 }
