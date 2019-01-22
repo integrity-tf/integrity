@@ -15,6 +15,8 @@ import java.text.ParseException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -43,10 +45,12 @@ import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ForkDefinition;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
+import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.SuiteReturnDefinition;
@@ -55,6 +59,8 @@ import de.gebit.integrity.dsl.TableTest;
 import de.gebit.integrity.dsl.Test;
 import de.gebit.integrity.dsl.TestDefinition;
 import de.gebit.integrity.dsl.TimeValue;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
+import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
 import de.gebit.integrity.utils.DateUtil;
@@ -350,6 +356,7 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		Set<String> tempMandatoryParameter = getMandatoryParameterNamesOf(aCall.getDefinition().getFixtureMethod());
 		Set<String> tempSpecifiedParameter = Sets.newHashSet(transform(aCall.getParameters(), FUNC_PARAMETER_NAME));
 		checkForMissingParameter(tempMandatoryParameter, tempSpecifiedParameter);
+		checkForNonNullableParameter(aCall.getDefinition().getFixtureMethod(), aCall.getParameters());
 	}
 
 	/** Polymorphic Dispatch of {@link #checkParameter(Call)}. */
@@ -357,6 +364,7 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		Set<String> tempMandatoryParameter = getMandatoryParameterNamesOf(aTest.getDefinition().getFixtureMethod());
 		Set<String> tempSpecifiedParameter = Sets.newHashSet(transform(aTest.getParameters(), FUNC_PARAMETER_NAME));
 		checkForMissingParameter(tempMandatoryParameter, tempSpecifiedParameter);
+		checkForNonNullableParameter(aTest.getDefinition().getFixtureMethod(), aTest.getParameters());
 	}
 
 	/** Polymorphic Dispatch of {@link #checkParameter(Call)}. */
@@ -369,6 +377,21 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 				transform(aTableTest.getParameterHeaders(), FUNC_PARAMETER_HEADER_NAME));
 
 		checkForMissingParameter(tempMandatoryParameter, tempSpecifiedParameter);
+		Set<String> tempNonNullableParameterNames = checkForNonNullableParameter(
+				aTableTest.getDefinition().getFixtureMethod(), aTableTest.getParameters());
+
+		if (tempNonNullableParameterNames != null) {
+			Map<ParameterTableHeader, List<ParameterTableValue>> tempMap = IntegrityDSLUtil
+					.getTableParameterValuesPerParameter(aTableTest);
+			for (Entry<ParameterTableHeader, List<ParameterTableValue>> tempColumn : tempMap.entrySet()) {
+				if (tempNonNullableParameterNames.contains(
+						IntegrityDSLUtil.getParamNameStringFromParameterName(tempColumn.getKey().getName()))) {
+					for (ParameterTableValue tempValue : tempColumn.getValue()) {
+						ensureParameterIsNotNullValue(tempValue, tempValue.getValue());
+					}
+				}
+			}
+		}
 	}
 
 	/** Polymorphic Dispatch Default Case of {@link #checkParameter(Call)}. */
@@ -382,7 +405,7 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	 *            the parameter to be checked
 	 */
 	@Check
-	protected void checkParameterName(Parameter aParameter) {
+	protected void checkParameter(Parameter aParameter) {
 		EObject tempContainer = aParameter.eContainer();
 
 		List<Parameter> tempParameters = null;
@@ -444,6 +467,57 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	}
 
 	/**
+	 * Checks if the given method has a parameter that is non-nullable, but for which a null value is statically
+	 * provided.
+	 * 
+	 * @param aMethod
+	 *            the method to check
+	 * @param someParameters
+	 *            the parameters to check
+	 * @return the set of non-nullable parameters if any non-nullable parameters are present in the fixture method
+	 *         (regardless of whether violations were found), null otherwise
+	 */
+	protected Set<String> checkForNonNullableParameter(MethodReference aMethod, List<Parameter> someParameters) {
+		List<Pair<JvmFormalParameter, JvmAnnotationReference>> tempAnnotatedParameter = evaluator
+				.getAllAnnotatedParameter(aMethod, FixtureParameterAssessment.ACCEPTED_ANNOTATION);
+		List<FixtureParameterAssessment> tempParameter = wrap(tempAnnotatedParameter);
+		Set<String> tempNonNullableParameters = collectNonNullableParameterNames(tempParameter);
+
+		if (tempNonNullableParameters.isEmpty()) {
+			return null;
+		}
+
+		for (Parameter tempParam : someParameters) {
+			if (tempNonNullableParameters
+					.contains(IntegrityDSLUtil.getParamNameStringFromParameterName(tempParam.getName()))) {
+				ensureParameterIsNotNullValue(tempParam, tempParam.getValue());
+			}
+		}
+
+		return tempNonNullableParameters;
+	}
+
+	/**
+	 * If the provided parameter is linked to a static null value, an error is generated.
+	 * 
+	 * @param aParameter
+	 */
+	protected void ensureParameterIsNotNullValue(EObject aParameterObject, EObject aParameterValue) {
+		if (aParameterValue instanceof ValueOrEnumValueOrOperationCollection) {
+			ensureParameterIsNotNullValue(aParameterObject,
+					((ValueOrEnumValueOrOperationCollection) aParameterValue).getValue());
+			for (ValueOrEnumValueOrOperation tempValue : ((ValueOrEnumValueOrOperationCollection) aParameterValue)
+					.getMoreValues()) {
+				ensureParameterIsNotNullValue(aParameterObject, tempValue);
+			}
+		} else {
+			if (aParameterValue instanceof NullValue) {
+				error("Null value provided for non-nullable parameter!", aParameterObject.eContainingFeature());
+			}
+		}
+	}
+
+	/**
 	 * Wraps the parameter/annotation tuples in assessment objects for easier access and caches the processing results.
 	 * 
 	 * @param someParameters
@@ -471,6 +545,20 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 				FixtureParameterAssessment.IS_MANDATORY);
 		Iterable<String> tempMandatoryNames = transform(tempMandatory, FixtureParameterAssessment.NAME);
 		return Sets.newLinkedHashSet(tempMandatoryNames);
+	}
+
+	/**
+	 * Collects all non-nullable parameter names and returns them.
+	 * 
+	 * @param aCollection
+	 *            Some parameter to get the mandatory names from.
+	 * @return
+	 */
+	protected Set<String> collectNonNullableParameterNames(Collection<FixtureParameterAssessment> aCollection) {
+		Iterable<FixtureParameterAssessment> tempNonNullable = filter(aCollection,
+				FixtureParameterAssessment.IS_NOT_NULLABLE);
+		Iterable<String> tempNonNullableNames = transform(tempNonNullable, FixtureParameterAssessment.NAME);
+		return Sets.newLinkedHashSet(tempNonNullableNames);
 	}
 
 	/**

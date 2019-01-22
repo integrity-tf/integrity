@@ -367,15 +367,18 @@ public class FixtureWrapper<C extends Object> {
 								((Object[]) tempValue).length);
 						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 							Object tempSingleValue = ((Object[]) tempValue)[k];
-							Array.set(tempConvertedValueArray, k, valueConverter
-									.convertValue(tempExpectedType.getComponentType(), tempSingleValue, null));
+							Object tempSingleConvertedValue = valueConverter
+									.convertValue(tempExpectedType.getComponentType(), tempSingleValue, null);
+							performNullCheck(tempAnnotation, tempSingleConvertedValue);
+							Array.set(tempConvertedValueArray, k, tempSingleConvertedValue);
 						}
 						tempConvertedValue = tempConvertedValueArray;
 					} else {
 						// if the expected type is an array, we don't want to convert to that array, but to the
 						// component type, of course...
 						Class<?> tempConversionTargetType = tempExpectedType.isArray()
-								? tempExpectedType.getComponentType() : tempExpectedType;
+								? tempExpectedType.getComponentType()
+								: tempExpectedType;
 
 						// ...except for byte arrays (issue #66), those must be treated specially!
 						boolean tempSpecialByteArrayMode = false;
@@ -385,6 +388,7 @@ public class FixtureWrapper<C extends Object> {
 						}
 
 						tempConvertedValue = valueConverter.convertValue(tempConversionTargetType, tempValue, null);
+						performNullCheck(tempAnnotation, tempConvertedValue);
 
 						if (!tempSpecialByteArrayMode && tempExpectedType.isArray()) {
 							// ...and if the expected type is an array, now we create one
@@ -420,6 +424,23 @@ public class FixtureWrapper<C extends Object> {
 						+ " parameters left after processing the fixed params, but the fixture '"
 						+ fixtureClass.getName() + "' is not an arbitrary parameter fixture. Left-over params: "
 						+ tempClonedParameterMap.keySet());
+			}
+		}
+	}
+
+	/**
+	 * Validates given parameter values to comply with the {@link FixtureParameter#nullable()} setting.
+	 * 
+	 * @param anAnnotation
+	 *            the fixture parameter annotation setting the rules
+	 * @param aValue
+	 *            the parameter value
+	 */
+	protected void performNullCheck(FixtureParameter anAnnotation, Object aValue) {
+		if (!anAnnotation.nullable()) {
+			if (aValue == null) {
+				throw new IllegalArgumentException("The parameter '" + anAnnotation.name()
+						+ "' is NOT nullable, but a null value was encountered!");
 			}
 		}
 	}
