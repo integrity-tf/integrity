@@ -11,7 +11,16 @@
   
   <artifactId>de.gebit.integrity.eclipse</artifactId>
   <packaging>eclipse-plugin</packaging>
+  
   <name>Integrity Test Framework - Eclipse Integration</name>
+  
+  <licenses>
+    <license>
+      <name>Eclipse Public License - v 2.0</name>
+      <url>https://www.eclipse.org/legal/epl-2.0/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   
   <!-- We're building a fat jar including the sources right now for simplicity -->
   <build>

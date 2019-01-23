@@ -10,7 +10,16 @@
   
   <artifactId>de.gebit.integrity.dsl</artifactId>
   <packaging>eclipse-plugin</packaging>
+  
   <name>Integrity Test Framework - Core</name>
+  
+  <licenses>
+    <license>
+      <name>Eclipse Public License - v 2.0</name>
+      <url>https://www.eclipse.org/legal/epl-2.0/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   
   <properties>
   	<sonar.exclusions>de/gebit/integrity/AbstractDSLRuntimeModule.java,de/gebit/integrity/DSLStandaloneSetupGenerated.java,de/gebit/integrity/dsl/**/*.java,de/gebit/integrity/parser/**/*.java,de/gebit/integrity/serializer/**/*.java,de/gebit/integrity/services/**/*.java,de/gebit/integrity/validation/**/*.java,de/gebit/integrity/generator/**/*.java</sonar.exclusions>

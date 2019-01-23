@@ -9,7 +9,16 @@
   </parent>
   <artifactId>de.gebit.integrity.dsl.ui</artifactId>
   <packaging>eclipse-plugin</packaging>
+  
   <name>Integrity Test Framework - UI</name>
+  
+  <licenses>
+    <license>
+      <name>Eclipse Public License - v 2.0</name>
+      <url>https://www.eclipse.org/legal/epl-2.0/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   
   <properties>
   	<sonar.exclusions>de/gebit/integrity/ui/AbstractDSLUiModule.java,de/gebit/integrity/ui/DSLExecutableExtensionFactory.java,de/gebit/integrity/ui/contentassist/AbstractDSLProposalProvider.java,de/gebit/integrity/ui/contentassist/antlr/**/*.java,de/gebit/integrity/ui/internal/**/*.java</sonar.exclusions>
