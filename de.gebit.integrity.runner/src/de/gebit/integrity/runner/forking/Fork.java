@@ -581,16 +581,23 @@ public class Fork {
 				while (timeSyncResult == null) {
 					long tempTimeLeft = TimeUnit.SECONDS.toMillis(getForkTimesyncTimeout())
 							- TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - tempStart);
-					if (tempTimeLeft > 0) {
+					if (tempTimeLeft > 0 && isConnected()) {
+						long tempWait = Math.min(1000, tempTimeLeft);
 						try {
-							timeSyncResultSyncObject.wait(tempTimeLeft);
+							timeSyncResultSyncObject.wait(tempWait);
 						} catch (InterruptedException exc) {
 							// ignored
 						}
 					} else {
-						throw new RuntimeException(
-								"Timed out while waiting to receive time sync confirmation from fork '"
-										+ IntegrityDSLUtil.getQualifiedForkName(getDefinition()) + "'!");
+						if (!isConnected()) {
+							// The fork has disconnected in the mean time, which means it has either crashed or ended
+							// normally. In both cases, time syncing is no longer necessary.
+							return null;
+						} else {
+							throw new RuntimeException(
+									"Timed out while waiting to receive time sync confirmation from fork '"
+											+ IntegrityDSLUtil.getQualifiedForkName(getDefinition()) + "'!");
+						}
 					}
 				}
 
