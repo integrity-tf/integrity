@@ -864,10 +864,8 @@ public class DefaultTestRunner implements TestRunner {
 				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
 						: null;
 				try {
-					defineConstant(tempDefinition, tempValue,
-							(tempDefinition.eContainer() instanceof SuiteDefinition)
-									? ((SuiteDefinition) tempDefinition.eContainer())
-									: null);
+					defineConstant(tempDefinition, tempValue, (tempDefinition.eContainer() instanceof SuiteDefinition)
+							? ((SuiteDefinition) tempDefinition.eContainer()) : null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
@@ -1575,8 +1573,7 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
 			final SuiteDefinition aSuite) {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
-				? variableManager.get(((Variable) anInitialValue).getName())
-				: anInitialValue;
+				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
 
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
@@ -2842,8 +2839,10 @@ public class DefaultTestRunner implements TestRunner {
 				tempMergedResultStackTrace += "Fork '" + IntegrityDSLUtil.getQualifiedForkName(tempFork.getDefinition())
 						+ "' failed with:\n" + tempResultMessage.getStackTrace();
 			}
-			for (TimeSyncForkResult tempSuccessResult : tempResultMessage.getResults()) {
-				tempResults.put(tempSuccessResult.getForkName(), tempSuccessResult);
+			if (tempResultMessage != null) {
+				for (TimeSyncForkResult tempSuccessResult : tempResultMessage.getResults()) {
+					tempResults.put(tempSuccessResult.getForkName(), tempSuccessResult);
+				}
 			}
 		}
 
