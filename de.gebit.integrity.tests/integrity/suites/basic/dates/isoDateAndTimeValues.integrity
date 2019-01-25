@@ -51,4 +51,55 @@ packagedef integrity.basic.dates with
 		
 	suiteend
 	
+	
+	suitedef isoDateAndTimeValuesWithJava8 with
+		
+		// ISO8601 format - date only
+
+		test echoLocalDateTest date: 1970-01-01 = 1970-01-01
+		test echoLocalDateTest date: 0001-01-01 = 0001-01-01
+		
+		variable tempDate
+		call echoLocalDate date: 2012-12-30 -> tempDate
+		test echoLocalDateTest date: tempDate = 2012-12-30
+
+		
+		// ISO8601 format - time only
+		
+		// a few simple cases (the T forces Integrity to use the ISO time format handling internally)
+		test echoLocalTimeTest date: T12:30:10 = T12:30:11
+		test echoLocalTimeTest date: T02:00 = T02:00:00
+		test echoLocalTimeTest date: T02:00:00.123 = T02:00:00.123
+		
+		// this must be equal because of time zones
+		test echoLocalTimeTest date: 02:00Z = 01:00:00-0100
+		test echoZonedDateTimeTest date: 02:00Z = 01:00:00-0100
+		
+		// ISO8601 format - date and time
+		
+		// this must return equality since it should only check the time portion
+		test echoLocalDateTimeTest date: 2010-10-02T01:00 = 01:00
+		test echoLocalTimeTest date: 2010-10-02T01:00 = 01:00
+		
+		// this must return equality since it should only check the time portion
+		test echoLocalDateTimeTest date: 2010-01-02T01:00 = 01:00
+		
+		// this must return unequality since it should check date and time
+		test echoLocalDateTimeTest date: 01:00 = 2010-01-02T01:00
+
+		// this must return equality, since it should only check the date
+		test echoLocalDateTimeTest date: 1970-01-01T12:30+01:00 = 1970-01-01
+		test echoLocalDateTest date: 1970-01-01T12:30+01:00 = 1970-01-01
+
+		// this must return unequality, since it should check date and time
+		test echoLocalDateTimeTest date: 1970-01-01T12:31 = 1970-01-01T12:30
+		
+		// this must be equal because of the timezone offsets
+		test echoLocalDateTimeTest date: 1970-01-01T12:00+02:00 = 1970-01-01T10:00Z
+		test echoZonedDateTimeTest date: 1970-01-01T12:00+02:00 = 1970-01-01T10:00Z
+		
+		// issue #45: 2013-06-24T10:00:00+0000 is not accepted as valid time
+		test echoDateTest date: 2013-06-24T10:00:00+0000 = 2013-06-24T10:00:00Z
+		
+	suiteend
 packageend

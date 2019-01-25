@@ -67,4 +67,70 @@ packagedef integrity.basic.dates with
 		
 	suiteend
 	
+	
+	suitedef europeanDateAndTimeValuesWithJava8 with
+	
+		
+		// European format - date only
+
+		test echoLocalDateTest date: 01.01.1970 = 01.01.1970
+		test echoLocalDateTest date: 01.01.0001 = 01.01.0001
+		
+		variable tempDate
+		call echoLocalDate date: 30.12.2012 -> tempDate
+		test echoLocalDateTest date: tempDate = 30.12.2012
+
+		
+		// 24hrs format - time only
+		
+		test echoLocalTimeTest date: 15:30:10 = 15:30:11
+		test echoLocalTimeTest date: 02:00 = 02:00:00
+		test echoLocalTimeTest date: 02:00:00.123 = 02:00:00.123
+				
+		
+		// 12hrs format - time only
+		
+		test echoLocalTimeTest date: 10:30:10am = 10:30:10pm
+		test echoLocalTimeTest date: 02:00am = 02:00:00am
+		test echoLocalTimeTest date: 02:00:00.123am = 02:00:00.123am
+		
+		
+		// 12hrs and 24hrs mixed - time only
+		
+		test echoLocalTimeTest date: 10:30:10am = 10:30:10
+		test echoLocalTimeTest date: 02:00pm = 14:00:00
+		test echoLocalTimeTest date: 02:00:00.123pm = 14:00:00.123
+		
+		
+		// European 24hrs format - date and time
+		
+		// this must return equality since it should only check the time portion
+		test echoLocalDateTimeTest date: 02.10.2010 01:00 = 01:00
+		
+		// this must return equality since it should only check the time portion
+		test echoLocalDateTimeTest date: 02.01.2010 01:00:00 = 01:00
+		
+		// this must return unequality since it should check date and time
+		test echoLocalDateTimeTest date: 01:00 = 02.01.2010 01:00
+
+		// this must return equality, since it should only check the date
+		test echoLocalDateTimeTest date: 01.01.1980 01:00 = 01.01.1980
+
+		// this must return unequality, since it should check date and time
+		test echoLocalDateTimeTest date: 01.01.1980 12:31 = 01.01.1980 12:30
+		
+		
+		// European 12hrs format - date and time
+		
+		// this must return equality since it should only check the time portion
+		test echoLocalDateTimeTest date: 02.10.2010 01:00pm = 01:00pm
+		
+		// this must return unequality since it should check date and time
+		test echoLocalDateTimeTest date: 01:00am = 02.01.2010 01:00am
+
+		// this must return unequality, since it should check date and time
+		test echoLocalDateTimeTest date: 01.01.1980 12:31pm = 01.01.1980 12:30pm
+		
+	suiteend
+	
 packageend

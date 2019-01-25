@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="25.01.19 16:30" isotimestamp="2019-01-25T16:30:24" duration="179.588">
+  <variables />
+  <suite id="0" name="integrity.basic.dates.europeanDateAndTimeValuesWithJava8" timestamp="25.01.19 16:30:24.0946">
+    <setup />
+    <variables>
+      <variable name="tempDate" />
+    </variables>
+    <statements>
+      <test id="1" line="76" name="echoLocalDateTest" description="Echo the LocalDate '1. Januar 1970'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDate" timestamp="25.01.19 16:30:24.0949">
+        <results duration="16.608" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="16.608" description="Echo the LocalDate '1. Januar 1970'" type="success">
+            <parameters>
+              <parameter name="date" value="1. Januar 1970" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1. Januar 1970" value="1970-01-01" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="77" name="echoLocalDateTest" description="Echo the LocalDate '1. Januar 0001'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDate" timestamp="25.01.19 16:30:24.0977">
+        <results duration="3.655" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.655" description="Echo the LocalDate '1. Januar 0001'" type="success">
+            <parameters>
+              <parameter name="date" value="1. Januar 0001" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1. Januar 0001" value="0000-12-29" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <call id="3" line="80" name="echoLocalDate" description="Echo the LocalDate '30. Dezember 2012'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDate" timestamp="25.01.19 16:30:24.0988">
+        <parameters>
+          <parameter name="date" value="30. Dezember 2012" />
+        </parameters>
+        <result duration="4.889" type="success">
+          <variableUpdate name="tempDate" value="2012-12-30" />
+        </result>
+      </call>
+      <test id="4" line="81" name="echoLocalDateTest" description="Echo the LocalDate '2012-12-30'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDate" timestamp="25.01.19 16:30:24.0995">
+        <results duration="0.103" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.103" description="Echo the LocalDate '2012-12-30'" type="success">
+            <parameters>
+              <parameter name="date" value="2012-12-30" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="30. Dezember 2012" value="2012-12-30" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="5" line="86" name="echoLocalTimeTest" description="Echo the LocalTime '15:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0001">
+        <results duration="1.404" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="1.404" description="Echo the LocalTime '15:30:10 MEZ'" type="failure">
+            <parameters>
+              <parameter name="date" value="15:30:10 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="15:30:11 MEZ" value="15:30:10" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="6" line="87" name="echoLocalTimeTest" description="Echo the LocalTime '02:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0007">
+        <results duration="0.872" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.872" description="Echo the LocalTime '02:00:00 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="02:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="02:00:00 MEZ" value="02:00" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="7" line="88" name="echoLocalTimeTest" description="Echo the LocalTime '02:00:00.123 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0011">
+        <results duration="0.676" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.676" description="Echo the LocalTime '02:00:00.123 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="02:00:00.123 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="02:00:00.123 MEZ" value="02:00:00.123" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="8" line="93" name="echoLocalTimeTest" description="Echo the LocalTime '10:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0015">
+        <results duration="0.920" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.920" description="Echo the LocalTime '10:30:10 MEZ'" type="failure">
+            <parameters>
+              <parameter name="date" value="10:30:10 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="22:30:10 MEZ" value="10:30:10" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="9" line="94" name="echoLocalTimeTest" description="Echo the LocalTime '02:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0020">
+        <results duration="0.854" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.854" description="Echo the LocalTime '02:00:00 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="02:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="02:00:00 MEZ" value="02:00" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="10" line="95" name="echoLocalTimeTest" description="Echo the LocalTime '02:00:00.123 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0025">
+        <results duration="0.740" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.740" description="Echo the LocalTime '02:00:00.123 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="02:00:00.123 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="02:00:00.123 MEZ" value="02:00:00.123" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="11" line="100" name="echoLocalTimeTest" description="Echo the LocalTime '10:30:10 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0030">
+        <results duration="0.703" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.703" description="Echo the LocalTime '10:30:10 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="10:30:10 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="10:30:10 MEZ" value="10:30:10" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="12" line="101" name="echoLocalTimeTest" description="Echo the LocalTime '14:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0034">
+        <results duration="0.691" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.691" description="Echo the LocalTime '14:00:00 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="14:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="14:00:00 MEZ" value="14:00" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="13" line="102" name="echoLocalTimeTest" description="Echo the LocalTime '14:00:00.123 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime" timestamp="25.01.19 16:30:25.0038">
+        <results duration="0.745" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.745" description="Echo the LocalTime '14:00:00.123 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="14:00:00.123 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="14:00:00.123 MEZ" value="14:00:00.123" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="14" line="108" name="echoLocalDateTimeTest" description="Echo the LocalDateTime '2. Oktober 2010 01:00:00 MESZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime" timestamp="25.01.19 16:30:25.0042">
+        <results duration="4.068" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.068" description="Echo the LocalDateTime '2. Oktober 2010 01:00:00 MESZ'" type="success">
+            <parameters>
+              <parameter name="date" value="2. Oktober 2010 01:00:00 MESZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="01:00:00 MEZ" value="2010-10-02T01:00" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="15" line="111" name="echoLocalDateTimeTest" description="Echo the LocalDateTime '2. Januar 2010 01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime" timestamp="25.01.19 16:30:25.0052">
+        <results duration="3.744" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="3.744" description="Echo the LocalDateTime '2. Januar 2010 01:00:00 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="2. Januar 2010 01:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="01:00:00 MEZ" value="2010-01-02T01:00" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="16" line="114" name="echoLocalDateTimeTest" description="Echo the LocalDateTime '01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime" timestamp="25.01.19 16:30:25.0062">
+        <results duration="3.725" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="3.725" description="Echo the LocalDateTime '01:00:00 MEZ'" type="failure">
+            <parameters>
+              <parameter name="date" value="01:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="2. Januar 2010 01:00:00 MEZ" value="1970-01-01T01:00" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="17" line="117" name="echoLocalDateTimeTest" description="Echo the LocalDateTime '1. Januar 1980 01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime" timestamp="25.01.19 16:30:25.0073">
+        <results duration="4.003" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.003" description="Echo the LocalDateTime '1. Januar 1980 01:00:00 MEZ'" type="success">
+            <parameters>
+              <parameter name="date" value="1. Januar 1980 01:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1. Januar 1980" value="1980-01-01T01:00" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="18" line="120" name="echoLocalDateTimeTest" description="Echo the LocalDateTime '1. Januar 1980 12:31:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime" timestamp="25.01.19 16:30:25.0084">
+        <results duration="3.963" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="3.963" description="Echo the LocalDateTime '1. Januar 1980 12:31:00 MEZ'" type="failure">
+            <parameters>
+              <parameter name="date" value="1. Januar 1980 12:31:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1. Januar 1980 12:30:00 MEZ" value="1980-01-01T12:31" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="19" line="126" name="echoLocalDateTimeTest" description="Echo the LocalDateTime '2. Oktober 2010 13:00:00 MESZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime" timestamp="25.01.19 16:30:25.0097">
+        <results duration="4.000" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="4.000" description="Echo the LocalDateTime '2. Oktober 2010 13:00:00 MESZ'" type="success">
+            <parameters>
+              <parameter name="date" value="2. Oktober 2010 13:00:00 MESZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="13:00:00 MEZ" value="2010-10-02T13:00" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="20" line="129" name="echoLocalDateTimeTest" description="Echo the LocalDateTime '01:00:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime" timestamp="25.01.19 16:30:25.0105">
+        <results duration="4.394" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="4.394" description="Echo the LocalDateTime '01:00:00 MEZ'" type="failure">
+            <parameters>
+              <parameter name="date" value="01:00:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="2. Januar 2010 01:00:00 MEZ" value="1970-01-01T01:00" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="21" line="132" name="echoLocalDateTimeTest" description="Echo the LocalDateTime '1. Januar 1980 12:31:00 MEZ'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime" timestamp="25.01.19 16:30:25.0116">
+        <results duration="3.775" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="3.775" description="Echo the LocalDateTime '1. Januar 1980 12:31:00 MEZ'" type="failure">
+            <parameters>
+              <parameter name="date" value="1. Januar 1980 12:31:00 MEZ" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1. Januar 1980 12:30:00 MEZ" value="1980-01-01T12:31" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="177.161" successCount="14" failureCount="6" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

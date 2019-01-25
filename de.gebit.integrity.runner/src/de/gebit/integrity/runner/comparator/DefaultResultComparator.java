@@ -8,6 +8,13 @@
 package de.gebit.integrity.runner.comparator;
 
 import java.lang.reflect.Array;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.Temporal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
@@ -99,7 +106,8 @@ public class DefaultResultComparator implements ResultComparator {
 								tempMethodName, aPropertyName);
 					} else {
 						tempConversionTargetType = aFixtureResult.getClass().isArray()
-								? aFixtureResult.getClass().getComponentType() : aFixtureResult.getClass();
+								? aFixtureResult.getClass().getComponentType()
+								: aFixtureResult.getClass();
 					}
 
 					if (anExpectedResult.getMoreValues().size() > 0) {
@@ -306,6 +314,9 @@ public class DefaultResultComparator implements ResultComparator {
 			if (aConvertedResult instanceof Date && aConvertedExpectedResult instanceof Date) {
 				return performEqualityCheckForDates((Date) aConvertedResult, (Date) aConvertedExpectedResult,
 						aRawExpectedResult);
+			} else if (aConvertedResult instanceof Temporal && aConvertedExpectedResult instanceof Temporal) {
+				return performEqualityCheckForJava8Dates((Temporal) aConvertedResult,
+						(Temporal) aConvertedExpectedResult, aRawExpectedResult);
 			} else if (aConvertedResult instanceof Map && aConvertedExpectedResult instanceof Map) {
 				return performEqualityCheckForMaps((Map<?, ?>) aConvertedResult, (Map<?, ?>) aConvertedExpectedResult,
 						aRawExpectedResult);
@@ -452,7 +463,8 @@ public class DefaultResultComparator implements ResultComparator {
 
 			ComparisonResult tempInnerResult = performEqualityCheck(tempActualValue, tempConvertedReferenceValue,
 					(tempReferenceValue instanceof ValueOrEnumValueOrOperation)
-							? (ValueOrEnumValueOrOperation) tempReferenceValue : null);
+							? (ValueOrEnumValueOrOperation) tempReferenceValue
+							: null);
 
 			if (!tempInnerResult.isSuccessful()) {
 				tempSuccess = false;
@@ -496,6 +508,76 @@ public class DefaultResultComparator implements ResultComparator {
 		} else {
 			// compare both parts
 			return SimpleComparisonResult.valueOf(anExpectedResult.equals(aResult));
+		}
+	}
+
+	protected ComparisonResult performEqualityCheckForJava8Dates(Temporal aResult, Temporal anExpectedResult,
+			Object aRawExpectedResult) {
+		if (aRawExpectedResult instanceof DateValue) {
+			// compare only the date part
+			if (aResult instanceof LocalTime) {
+				throw new IllegalArgumentException("Cannot compare a LocalTime, which has no date part, to a date");
+			} else if (aResult instanceof LocalDate) {
+				return SimpleComparisonResult.valueOf(((LocalDate) aResult).equals(((LocalDate) anExpectedResult)));
+			} else if (aResult instanceof LocalDateTime) {
+				return SimpleComparisonResult.valueOf(((LocalDateTime) aResult).toLocalDate()
+						.equals(((LocalDateTime) anExpectedResult).toLocalDate()));
+			} else if (aResult instanceof ZonedDateTime) {
+				return SimpleComparisonResult
+						.valueOf((((ZonedDateTime) aResult).withZoneSameInstant(ZoneId.systemDefault()).toLocalDate())
+								.equals(((ZonedDateTime) anExpectedResult).withZoneSameInstant(ZoneId.systemDefault())
+										.toLocalDate()));
+			} else if (aResult instanceof Instant) {
+				return SimpleComparisonResult.valueOf(((Instant) aResult).atZone(ZoneId.systemDefault()).toLocalDate()
+						.equals(((Instant) anExpectedResult).atZone(ZoneId.systemDefault()).toLocalDate()));
+			} else {
+				throw new UnsupportedOperationException(
+						"Cannot compare '" + aResult.getClass() + "' and '" + anExpectedResult.getClass() + "'");
+			}
+		} else if (aRawExpectedResult instanceof TimeValue) {
+			// compare only the time part
+			if (aResult instanceof LocalDate) {
+				throw new IllegalArgumentException("Cannot compare a LocalDate, which has no time part, to a time");
+			} else if (aResult instanceof LocalTime) {
+				return SimpleComparisonResult.valueOf(((LocalTime) aResult).equals(((LocalTime) anExpectedResult)));
+			} else if (aResult instanceof LocalDateTime) {
+				return SimpleComparisonResult.valueOf(((LocalDateTime) aResult).toLocalTime()
+						.equals(((LocalDateTime) anExpectedResult).toLocalTime()));
+			} else if (aResult instanceof ZonedDateTime) {
+				// In this case, we consider two times equal if they mark the same point in time, even though the zones
+				// might differ
+				return SimpleComparisonResult
+						.valueOf((((ZonedDateTime) aResult).withZoneSameInstant(ZoneId.systemDefault()).toLocalTime())
+								.equals(((ZonedDateTime) anExpectedResult).withZoneSameInstant(ZoneId.systemDefault())
+										.toLocalTime()));
+			} else if (aResult instanceof Instant) {
+				return SimpleComparisonResult.valueOf(((Instant) aResult).atZone(ZoneId.systemDefault()).toLocalTime()
+						.equals(((Instant) anExpectedResult).atZone(ZoneId.systemDefault()).toLocalTime()));
+			} else {
+				throw new UnsupportedOperationException(
+						"Cannot compare '" + aResult.getClass() + "' and '" + anExpectedResult.getClass() + "'");
+			}
+		} else {
+			// compare both parts
+			if (aResult instanceof LocalDate) {
+				return SimpleComparisonResult.NOT_EQUAL;
+			} else if (aResult instanceof LocalTime) {
+				return SimpleComparisonResult.NOT_EQUAL;
+			} else if (aResult instanceof LocalDateTime) {
+				return SimpleComparisonResult
+						.valueOf(((LocalDateTime) aResult).equals(((LocalDateTime) anExpectedResult)));
+			} else if (aResult instanceof ZonedDateTime) {
+				// In this case, we consider two times equal if they mark the same point in time, even though the zones
+				// might differ
+				return SimpleComparisonResult.valueOf(
+						(((ZonedDateTime) aResult).toInstant()).equals(((ZonedDateTime) anExpectedResult).toInstant()));
+			} else if (aResult instanceof Instant) {
+				return SimpleComparisonResult.valueOf(((Instant) aResult).atZone(ZoneId.systemDefault())
+						.equals(((Instant) anExpectedResult).atZone(ZoneId.systemDefault())));
+			} else {
+				throw new UnsupportedOperationException(
+						"Cannot compare '" + aResult.getClass() + "' and '" + anExpectedResult.getClass() + "'");
+			}
 		}
 	}
 
