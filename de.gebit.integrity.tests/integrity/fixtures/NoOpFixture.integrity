@@ -54,6 +54,18 @@ packagedef integrity.fixtures.basic.noop with
 	calldef echoCalendar uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoCalendar
 	testdef echoCalendarTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoCalendar
 	
+	calldef echoLocalDate uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDate
+	testdef echoLocalDateTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDate
+	
+	calldef echoLocalTime uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime
+	testdef echoLocalTimeTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalTime
+	
+	calldef echoLocalDateTime uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime
+	testdef echoLocalDateTimeTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoLocalDateTime
+	
+	calldef echoZonedDateTime uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoZonedDateTime
+	testdef echoZonedDateTimeTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoZonedDateTime
+	
 	calldef echoMap uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap
 	testdef echoMapTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoMap
 	

@@ -9,6 +9,10 @@ package de.gebit.integrity.tests.fixtures.basic;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -126,6 +130,26 @@ public class NoOpFixture {
 	@FixtureMethod(description = "Echo the calendar '$calendar$'")
 	public Calendar echoCalendar(@FixtureParameter(name = "calendar") Calendar aCalendarToEcho) {
 		return aCalendarToEcho;
+	}
+
+	@FixtureMethod(description = "Echo the LocalDate '$date$'")
+	public LocalDate echoLocalDate(@FixtureParameter(name = "date") LocalDate aDateToEcho) {
+		return aDateToEcho;
+	}
+
+	@FixtureMethod(description = "Echo the LocalTime '$date$'")
+	public LocalTime echoLocalTime(@FixtureParameter(name = "date") LocalTime aDateToEcho) {
+		return aDateToEcho;
+	}
+
+	@FixtureMethod(description = "Echo the LocalDateTime '$date$'")
+	public LocalDateTime echoLocalDateTime(@FixtureParameter(name = "date") LocalDateTime aDateToEcho) {
+		return aDateToEcho;
+	}
+
+	@FixtureMethod(description = "Echo the ZonedDateTime '$date$'")
+	public ZonedDateTime echoZonedDateTime(@FixtureParameter(name = "date") ZonedDateTime aDateToEcho) {
+		return aDateToEcho;
 	}
 
 	@FixtureMethod(description = "Echo the map array '$map$'")
