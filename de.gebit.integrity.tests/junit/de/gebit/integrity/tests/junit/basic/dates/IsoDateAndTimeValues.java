@@ -44,4 +44,22 @@ public class IsoDateAndTimeValues extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs a suite which does fixture calls with date/time values and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testJava8() throws ModelLoadException, IOException, JDOMException {
+		// test with english locale, regardless of system settings
+		Locale.setDefault(Locale.ENGLISH);
+
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/dates/isoDateAndTimeValues.integrity" },
+				"integrity.basic.dates.isoDateAndTimeValuesWithJava8", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

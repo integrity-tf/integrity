@@ -51,6 +51,7 @@ import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
+import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
 import de.gebit.integrity.dsl.SuiteReturnDefinition;
@@ -337,6 +338,19 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		if (anEntity.getPrivate() != null && (anEntity.eContainer() instanceof SuiteDefinition)) {
 			warning("Redundant visibility modifier: constant definitions inside suites are always 'private'",
 					DslPackage.Literals.CONSTANT_DEFINITION__PRIVATE);
+		}
+	}
+
+	/**
+	 * Checks for redundant suite inline statements.
+	 * 
+	 * @param aSuiteStatement
+	 */
+	@Check
+	public void checkSuiteStatement(Suite aSuiteStatement) {
+		if (aSuiteStatement.getInlined() != null && aSuiteStatement.getDefinition().getInlined() != null) {
+			warning("Redundant inline statement: the invoked suite is already defined as 'inlined'",
+					DslPackage.Literals.SUITE__INLINED);
 		}
 	}
 

@@ -15,24 +15,37 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.booleans.Bo
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToInstant;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToLocalDate;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToLocalDateTime;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToLocalTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToSQLTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToTimestamp;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateAndTimeValueToZonedDateTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToInstant;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToLocalDate;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToLocalDateTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToSQLTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToTimestamp;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.DateValueToZonedDateTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToInstant;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToLocalDateTime;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToLocalTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToSQLTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToTimestamp;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.dates.TimeValueToZonedDateTime;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.javaconstants.JavaConstantToAnything;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.javaconstants.JavaConstantToMap;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.nestedobjects.NestedObjectToBean;
@@ -309,6 +322,21 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(TimeValueToSQLDate.class);
 		addConversion(TimeValueToSQLTime.class);
 		addConversion(TimeValueToTimestamp.class);
+
+		// Java8 date/time conversions, Integrity -> Java
+		addConversion(DateAndTimeValueToInstant.class);
+		addConversion(DateAndTimeValueToLocalDateTime.class);
+		addConversion(DateAndTimeValueToZonedDateTime.class);
+		addConversion(DateAndTimeValueToLocalDate.class);
+		addConversion(DateAndTimeValueToLocalTime.class);
+		addConversion(DateValueToInstant.class);
+		addConversion(DateValueToLocalDate.class);
+		addConversion(DateValueToLocalDateTime.class);
+		addConversion(DateValueToZonedDateTime.class);
+		addConversion(TimeValueToInstant.class);
+		addConversion(TimeValueToLocalDateTime.class);
+		addConversion(TimeValueToLocalTime.class);
+		addConversion(TimeValueToZonedDateTime.class);
 
 		// nested objects, Integrity -> Java
 		addConversion(NestedObjectToMap.class);
