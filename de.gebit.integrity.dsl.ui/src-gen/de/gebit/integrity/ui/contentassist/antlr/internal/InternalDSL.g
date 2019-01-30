@@ -2951,21 +2951,15 @@ rule__SuiteStatement__Alternatives
 )
 
     |(
-{ before(grammarAccess.getSuiteStatementAccess().getTimeSetParserRuleCall_4()); }
-	ruleTimeSet
-{ after(grammarAccess.getSuiteStatementAccess().getTimeSetParserRuleCall_4()); }
-)
-
-    |(
-{ before(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_5()); }
+{ before(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_4()); }
 	ruleVisibleComment
-{ after(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_5()); }
+{ after(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_4()); }
 )
 
     |(
-{ before(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_6()); }
+{ before(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); }
 	ruleVisibleDivider
-{ after(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_6()); }
+{ after(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); }
 )
 
 ;
@@ -3000,6 +2994,12 @@ rule__SuiteStatementWithResult__Alternatives
 { before(grammarAccess.getSuiteStatementWithResultAccess().getCallParserRuleCall_3()); }
 	ruleCall
 { after(grammarAccess.getSuiteStatementWithResultAccess().getCallParserRuleCall_3()); }
+)
+
+    |(
+{ before(grammarAccess.getSuiteStatementWithResultAccess().getTimeSetParserRuleCall_4()); }
+	ruleTimeSet
+{ after(grammarAccess.getSuiteStatementWithResultAccess().getTimeSetParserRuleCall_4()); }
 )
 
 ;

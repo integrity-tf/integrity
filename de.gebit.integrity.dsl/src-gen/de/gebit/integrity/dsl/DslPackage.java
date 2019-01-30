@@ -1681,7 +1681,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_SET__LIVE = SUITE_STATEMENT_FEATURE_COUNT + 0;
+  int TIME_SET__LIVE = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Start Time</b></em>' containment reference.
@@ -1690,7 +1690,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_SET__START_TIME = SUITE_STATEMENT_FEATURE_COUNT + 1;
+  int TIME_SET__START_TIME = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Diff Time</b></em>' containment reference.
@@ -1699,7 +1699,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_SET__DIFF_TIME = SUITE_STATEMENT_FEATURE_COUNT + 2;
+  int TIME_SET__DIFF_TIME = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Progression Mode</b></em>' attribute.
@@ -1708,7 +1708,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_SET__PROGRESSION_MODE = SUITE_STATEMENT_FEATURE_COUNT + 3;
+  int TIME_SET__PROGRESSION_MODE = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Progression Factor</b></em>' containment reference.
@@ -1717,7 +1717,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_SET__PROGRESSION_FACTOR = SUITE_STATEMENT_FEATURE_COUNT + 4;
+  int TIME_SET__PROGRESSION_FACTOR = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Forks</b></em>' reference list.
@@ -1726,7 +1726,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_SET__FORKS = SUITE_STATEMENT_FEATURE_COUNT + 5;
+  int TIME_SET__FORKS = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Master Fork</b></em>' attribute.
@@ -1735,7 +1735,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_SET__MASTER_FORK = SUITE_STATEMENT_FEATURE_COUNT + 6;
+  int TIME_SET__MASTER_FORK = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Time Set</em>' class.
@@ -1744,7 +1744,7 @@ public interface DslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TIME_SET_FEATURE_COUNT = SUITE_STATEMENT_FEATURE_COUNT + 7;
+  int TIME_SET_FEATURE_COUNT = SUITE_STATEMENT_WITH_RESULT_FEATURE_COUNT + 7;
 
   /**
    * The meta object id for the '{@link de.gebit.integrity.dsl.impl.TimeProgressionFactorImpl <em>Time Progression Factor</em>}' class.
