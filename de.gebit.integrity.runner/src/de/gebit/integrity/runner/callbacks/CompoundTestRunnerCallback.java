@@ -8,12 +8,8 @@
 package de.gebit.integrity.runner.callbacks;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
-import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Injector;
 
@@ -40,6 +36,7 @@ import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetResult;
 
 /**
  * This special {@link TestRunnerCallback} is intended to be used for combining multiple callbacks. It will simply
@@ -269,12 +266,9 @@ public class CompoundTestRunnerCallback extends TestRunnerCallback {
 	}
 
 	@Override
-	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
-			String anExceptionStackTrace) {
+	public void onTimeSetFinish(TimeSet aTimeSet, TimeSetResult aResult) {
 		for (TestRunnerCallback tempCallback : callbacks) {
-			tempCallback.onTimeSetFinish(aTimeSet, aSuite, someForks, someCurrentDateTimes, anErrorMessage,
-					anExceptionStackTrace);
+			tempCallback.onTimeSetFinish(aTimeSet, aResult);
 		}
 	}
 

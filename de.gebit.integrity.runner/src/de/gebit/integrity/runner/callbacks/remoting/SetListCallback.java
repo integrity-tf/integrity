@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.text.DecimalFormat;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -25,7 +24,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -83,6 +81,9 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetSuccessResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
 /**
@@ -628,20 +629,19 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
-			String anExceptionStackTrace) {
+	public void onTimeSetFinish(TimeSet aTimeSet, TimeSetResult aResult) {
 		SetListEntry tempEntry = entryStack.pop();
 
 		SetListEntry tempResultEntry = setList.createEntry(SetListEntryTypes.RESULT);
-		if (!isDryRun()) {
+		if (!isDryRun() && aResult != null) {
 			tempResultEntry.setAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG,
-					anErrorMessage == null ? Boolean.TRUE : Boolean.FALSE);
-			if (anExceptionStackTrace != null) {
-				tempResultEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION, anExceptionStackTrace);
+					(aResult instanceof TimeSetSuccessResult) ? Boolean.TRUE : Boolean.FALSE);
+			if ((aResult instanceof TimeSetExceptionResult)) {
+				tempResultEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION,
+						((TimeSetExceptionResult) aResult).getExceptionStackTrace());
 			} else {
 				String tempExtendedResultString = testFormatter
-						.testTimeInfoSetToHumanReadableString(someCurrentDateTimes.entrySet());
+						.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet());
 				Object[] tempExtendedResult = new Object[] { null, tempExtendedResultString };
 
 				tempEntry.setAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA,
