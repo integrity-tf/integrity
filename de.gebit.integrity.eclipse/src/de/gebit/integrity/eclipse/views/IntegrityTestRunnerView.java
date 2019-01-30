@@ -560,6 +560,38 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private boolean scrollLockActive;
 
 	/**
+	 * The action which toggles between normal mode, pause at first error or abort at first error.
+	 */
+	private Action pauseAbortAtFirstErrorAction;
+
+	/**
+	 * Whether the test run should be paused when the first error is encountered.
+	 */
+	private boolean pauseAtFirstErrorActive;
+
+	/**
+	 * Whether the test run should be aborted when the first error is encountered.
+	 */
+	private boolean abortAtFirstErrorActive;
+
+	/**
+	 * Will be set when the {@link #abortAtFirstErrorActive} flag triggers an abortion of test execution.
+	 */
+	private boolean lastRunWasAutoAborted;
+
+	/**
+	 * The threshold of accepted test failures before the {@link #pauseAtFirstErrorActive} or
+	 * {@link #abortAtFirstErrorActive} triggers an action.
+	 */
+	private int pauseAbortAtFirstErrorFailureThreshold;
+
+	/**
+	 * If the last test run has reported its ending normally. This is used to distinguish between connection losses of
+	 * unexpected nature and such losses that occur because testing has ended.
+	 */
+	private boolean lastRunEndStatusReceived;
+
+	/**
 	 * The last level of node expansion.
 	 */
 	private int lastExpansionLevel;
@@ -588,6 +620,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The currently used set list instance.
 	 */
 	private SetList setList;
+
+	/**
+	 * Used to measure the connected time.
+	 */
+	private long connectionTimestamp;
 
 	/**
 	 * The set of breakpoints currently in use.
@@ -1501,6 +1538,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aManager.add(stepIntoAction);
 		aManager.add(stepOverAction);
 		aManager.add(clearBreakpointsAction);
+		aManager.add(pauseAbortAtFirstErrorAction);
 		aManager.add(new Separator());
 		aManager.add(connectToTestRunnerAction);
 	}
@@ -1758,6 +1796,40 @@ public class IntegrityTestRunnerView extends ViewPart {
 		scrollLockAction.setToolTipText("Toggles the scroll lock setting.");
 		scrollLockAction.setImageDescriptor(Activator.getImageDescriptor("icons/scrolllock.gif"));
 
+		pauseAbortAtFirstErrorAction = new Action("Pause/abort at first test failure", IAction.AS_CHECK_BOX) {
+			@Override
+			public void run() {
+				if (!pauseAtFirstErrorActive && !abortAtFirstErrorActive) {
+					pauseAtFirstErrorActive = true;
+					setChecked(true);
+					setImageDescriptor(Activator.getImageDescriptor("icons/auto_pause_abort_on_pause.gif"));
+					setToolTipText("Will automatically pause test execution on first test failure.");
+				} else if (pauseAtFirstErrorActive) {
+					pauseAtFirstErrorActive = false;
+					abortAtFirstErrorActive = true;
+					setChecked(true);
+					setImageDescriptor(Activator.getImageDescriptor("icons/auto_pause_abort_on_abort.gif"));
+					setToolTipText("Will automatically abort test execution on first test failure.");
+				} else {
+					pauseAtFirstErrorActive = false;
+					abortAtFirstErrorActive = false;
+					setChecked(false);
+					setImageDescriptor(Activator.getImageDescriptor("icons/auto_pause_abort_disabled.gif"));
+					setToolTipText("Automatically pause or abort on first test failure is currently disabled.");
+				}
+
+				if (setList != null) {
+					pauseAbortAtFirstErrorFailureThreshold = setList
+							.getNumberOfEntriesInResultState(SetListEntryResultStates.FAILED)
+							+ setList.getNumberOfEntriesInResultState(SetListEntryResultStates.EXCEPTION);
+				}
+			};
+		};
+		pauseAbortAtFirstErrorAction
+				.setToolTipText("Automatically pause or abort on first test failure is currently disabled.");
+		pauseAbortAtFirstErrorAction
+				.setImageDescriptor(Activator.getImageDescriptor("icons/auto_pause_abort_disabled.gif"));
+
 		updateActionStatus(null);
 	}
 
@@ -1856,9 +1928,19 @@ public class IntegrityTestRunnerView extends ViewPart {
 							pauseAction.setEnabled(false);
 							stepIntoAction.setEnabled(false);
 							stepOverAction.setEnabled(false);
-							updateStatusRunnable(
-									determineIntermediateTestResultStatusString("Test execution finished (", ")"))
-											.run();
+							if (lastRunWasAutoAborted) {
+								updateStatusRunnable(
+										determineIntermediateTestResultStatusString("Test was aborted on failure (",
+												") after " + DateUtil.convertNanosecondTimespanToHumanReadableFormat(
+														System.nanoTime() - connectionTimestamp, true, false))).run();
+							} else {
+								updateStatusRunnable(
+										determineIntermediateTestResultStatusString("Test execution finished (",
+												") after " + DateUtil.convertNanosecondTimespanToHumanReadableFormat(
+														System.nanoTime() - connectionTimestamp, true, false))).run();
+							}
+							lastRunWasAutoAborted = false;
+							lastRunEndStatusReceived = true;
 							break;
 						default:
 							break;
@@ -2442,6 +2524,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		setList = aNewSetList;
 		breakpointSet.clear();
 		setListSearch = null;
+		pauseAbortAtFirstErrorFailureThreshold = 0;
+		lastRunWasAutoAborted = false;
 
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
@@ -2491,11 +2575,6 @@ public class IntegrityTestRunnerView extends ViewPart {
 	}
 
 	private class RemotingListener implements IntegrityRemotingClientListener {
-
-		/**
-		 * Used to measure the connected time.
-		 */
-		private long connectionTimestamp;
 
 		@Override
 		public void onConnectionSuccessful(IntegrityRemotingVersionMessage aRemoteVersion, Endpoint anEndpoint) {
@@ -2578,9 +2657,20 @@ public class IntegrityTestRunnerView extends ViewPart {
 				public void run() {
 					executionProgress.redraw();
 					updateActionStatusRunnable(null).run();
-					updateStatusRunnable(determineIntermediateTestResultStatusString("Test Runner disconnected (",
-							") after " + DateUtil.convertNanosecondTimespanToHumanReadableFormat(
-									System.nanoTime() - connectionTimestamp, true, false))).run();
+					if (lastRunWasAutoAborted) {
+						updateStatusRunnable(
+								determineIntermediateTestResultStatusString("Test was aborted on failure (",
+										") after " + DateUtil.convertNanosecondTimespanToHumanReadableFormat(
+												System.nanoTime() - connectionTimestamp, true, false))).run();
+					} else {
+						if (!lastRunEndStatusReceived) {
+							updateStatusRunnable(
+									determineIntermediateTestResultStatusString("Test Runner disconnected (",
+											") after " + DateUtil.convertNanosecondTimespanToHumanReadableFormat(
+													System.nanoTime() - connectionTimestamp, true, false))).run();
+						}
+					}
+					lastRunEndStatusReceived = false;
 				}
 			});
 
@@ -2623,6 +2713,31 @@ public class IntegrityTestRunnerView extends ViewPart {
 			if (anEntryInExecutionReference != null) {
 				setList.setEntryInExecutionReference(anEntryInExecutionReference);
 			}
+
+			if (pauseAtFirstErrorActive || abortAtFirstErrorActive) {
+				int tempCurrentFailures = setList.getNumberOfEntriesInResultState(SetListEntryResultStates.FAILED)
+						+ setList.getNumberOfEntriesInResultState(SetListEntryResultStates.EXCEPTION);
+				if (tempCurrentFailures > pauseAbortAtFirstErrorFailureThreshold) {
+					pauseAbortAtFirstErrorFailureThreshold = tempCurrentFailures;
+					if (pauseAtFirstErrorActive && isConnected()) {
+						Display.getDefault().asyncExec(new Runnable() {
+							@Override
+							public void run() {
+								pauseAction.run();
+							}
+						});
+					} else if (abortAtFirstErrorActive && isConnected()) {
+						lastRunWasAutoAborted = true;
+						Display.getDefault().asyncExec(new Runnable() {
+							@Override
+							public void run() {
+								shutdownAction.run();
+							}
+						});
+					}
+				}
+			}
+
 			Display.getDefault().asyncExec(new Runnable() {
 				@Override
 				public void run() {
