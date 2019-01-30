@@ -18,6 +18,8 @@ import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.call.ExceptionResult;
 import de.gebit.integrity.runner.results.test.TestResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetResult;
 
 /**
  * Result of a suite call.
@@ -107,6 +109,11 @@ public class SuiteResult extends SuiteSummaryResult {
 				// success count should only include tests (successful calls are the norm, successful tests should be,
 				// but failures are expected there). Call exceptions however are counted.
 				if (tempResult instanceof ExceptionResult) {
+					tempCallExceptionCount++;
+				}
+			} else if (tempResult instanceof TimeSetResult) {
+				// TimeSet invocations are handled like calls, because they have a very similar semantic
+				if (tempResult instanceof TimeSetExceptionResult) {
 					tempCallExceptionCount++;
 				}
 			}

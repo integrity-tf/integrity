@@ -21,7 +21,6 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -48,7 +47,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xml.type.internal.DataValue.Base64;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.util.Pair;
 import org.jdom.Attribute;
 import org.jdom.CDATA;
 import org.jdom.Content;
@@ -121,6 +119,8 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetResult;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.VersionUtil;
@@ -1864,30 +1864,32 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
-			String anExceptionStackTrace) {
+	public void onTimeSetFinish(TimeSet aTimeSet, TimeSetResult aResult) {
 		// This new element is actually only used as a container to transport arguments to be merged with the
 		// already-existing time set element
 		Element tempTimeSetElement = new Element(TIME_SET_ELEMENT);
 		List<Element> tempNewElements = new ArrayList<Element>();
 		tempNewElements.add(tempTimeSetElement);
 
-		if (anErrorMessage != null) {
-			setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_MESSAGE_ATTRIBUTE, anErrorMessage);
-			setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE, anExceptionStackTrace);
-		} else {
-			String tempExtendedResultString = testFormatter
-					.testTimeInfoSetToHumanReadableString(someCurrentDateTimes.entrySet());
+		if (aResult != null) {
+			if (aResult instanceof TimeSetExceptionResult) {
+				setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
+						((TimeSetExceptionResult) aResult).getErrorMessage());
+				setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE,
+						((TimeSetExceptionResult) aResult).getExceptionStackTrace());
+			} else {
+				String tempExtendedResultString = testFormatter
+						.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet());
 
-			Element tempExtendedResultCollection = new Element(EXTENDED_RESULT_COLLECTION_ELEMENT);
-			Element tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
-			tempResultElement.addContent(new CDATA(tempExtendedResultString));
-			tempExtendedResultCollection.addContent(tempResultElement);
-			tempTimeSetElement.addContent(tempExtendedResultCollection);
+				Element tempExtendedResultCollection = new Element(EXTENDED_RESULT_COLLECTION_ELEMENT);
+				Element tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
+				tempResultElement.addContent(new CDATA(tempExtendedResultString));
+				tempExtendedResultCollection.addContent(tempResultElement);
+				tempTimeSetElement.addContent(tempExtendedResultCollection);
 
-			tempNewElements.add(tempExtendedResultCollection);
-			tempNewElements.add(tempResultElement);
+				tempNewElements.add(tempExtendedResultCollection);
+				tempNewElements.add(tempResultElement);
+			}
 		}
 
 		if (!isDryRun()) {
