@@ -91,10 +91,10 @@ OperationDefinition:
 	'operationdef' NL name=QualifiedName NL 'uses' NL operationType=JavaClassReference NL;
 
 SuiteStatement:
-	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | TimeSet | VisibleComment | VisibleDivider;
+	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment | VisibleDivider;
 	
 SuiteStatementWithResult:
-	Suite | Test | TableTest | Call;
+	Suite | Test | TableTest | Call | TimeSet;
 	
 VariableDefinition:
 	private='private'? 'variable' NL name=VariableEntity NL ('initially' NL initialValue=ValueOrEnumValueOrOperationCollection NL)?;

@@ -1405,6 +1405,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Contexts:
 	 *     SuiteStatement returns TimeSet
+	 *     SuiteStatementWithResult returns TimeSet
 	 *     TimeSet returns TimeSet
 	 *
 	 * Constraint:
