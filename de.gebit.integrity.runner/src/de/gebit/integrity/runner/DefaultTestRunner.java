@@ -772,6 +772,8 @@ public class DefaultTestRunner implements TestRunner {
 
 			if (remotingServer != null && tempBlockForRemoting) {
 				try {
+					System.out.println(
+							"WAITING FOR REMOTE CONTROLLER TO CONNECT ON PORT " + remotingServer.getPort() + "...");
 					performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
 							"Wait for Remoting",
 							new TestRunnerPerformanceLogger.RunnableWithException<InterruptedException>() {
@@ -864,8 +866,10 @@ public class DefaultTestRunner implements TestRunner {
 				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
 						: null;
 				try {
-					defineConstant(tempDefinition, tempValue, (tempDefinition.eContainer() instanceof SuiteDefinition)
-							? ((SuiteDefinition) tempDefinition.eContainer()) : null);
+					defineConstant(tempDefinition, tempValue,
+							(tempDefinition.eContainer() instanceof SuiteDefinition)
+									? ((SuiteDefinition) tempDefinition.eContainer())
+									: null);
 				} catch (ClassNotFoundException | InstantiationException | UnexecutableException exc) {
 					// Cannot happen - parameterized constants aren't evaluated
 				}
@@ -1573,7 +1577,8 @@ public class DefaultTestRunner implements TestRunner {
 	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
 			final SuiteDefinition aSuite) {
 		final Object tempInitialValue = (anInitialValue instanceof Variable)
-				? variableManager.get(((Variable) anInitialValue).getName()) : anInitialValue;
+				? variableManager.get(((Variable) anInitialValue).getName())
+				: anInitialValue;
 
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
