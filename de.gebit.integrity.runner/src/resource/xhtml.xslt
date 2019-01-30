@@ -282,6 +282,13 @@ function recursiveRedrawProgressBar(context, node, nodePos, pixelsPerNode, heigh
 				pixelLink = node.getAttribute('id');
 			}
 		}
+	} else if (node.nodeName == 'TIMESET') {
+		if (pixelLink == -1) {
+			pixelLink = node.getAttribute('id');
+		}
+		if (node.hasAttribute('exceptionMessage')) {
+			pixelLevel = 2;
+		}
 	} else {
 		if (node.childNodes) {
 			for (var i = 0; i &lt; node.childNodes.length; i++) {
@@ -334,7 +341,7 @@ function handleProgressBarClick(event) {
 
 function countTestsAndCalls() {
 	var root=document.getElementsByTagName('integrity')[0];
-	return root.getElementsByTagName('test').length + root.getElementsByTagName('call').length + root.getElementsByTagName('tabletest').length;
+	return root.getElementsByTagName('test').length + root.getElementsByTagName('call').length + root.getElementsByTagName('tabletest').length + root.getElementsByTagName('timeSet').length;
 }
 
 function getChildByName(node, childName) {
