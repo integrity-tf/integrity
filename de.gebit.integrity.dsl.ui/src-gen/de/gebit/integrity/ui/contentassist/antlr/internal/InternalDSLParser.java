@@ -8077,18 +8077,19 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteStatement__Alternatives"
-    // InternalDSL.g:2896:1: rule__SuiteStatement__Alternatives : ( ( ruleSuiteStatementWithResult ) | ( ruleVariableDefinition ) | ( ruleConstantDefinition ) | ( ruleVariableAssignment ) | ( ruleTimeSet ) | ( ruleVisibleComment ) | ( ruleVisibleDivider ) );
+    // InternalDSL.g:2896:1: rule__SuiteStatement__Alternatives : ( ( ruleSuiteStatementWithResult ) | ( ruleVariableDefinition ) | ( ruleConstantDefinition ) | ( ruleVariableAssignment ) | ( ruleVisibleComment ) | ( ruleVisibleDivider ) );
     public final void rule__SuiteStatement__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:2900:1: ( ( ruleSuiteStatementWithResult ) | ( ruleVariableDefinition ) | ( ruleConstantDefinition ) | ( ruleVariableAssignment ) | ( ruleTimeSet ) | ( ruleVisibleComment ) | ( ruleVisibleDivider ) )
-            int alt8=7;
+            // InternalDSL.g:2900:1: ( ( ruleSuiteStatementWithResult ) | ( ruleVariableDefinition ) | ( ruleConstantDefinition ) | ( ruleVariableAssignment ) | ( ruleVisibleComment ) | ( ruleVisibleDivider ) )
+            int alt8=6;
             switch ( input.LA(1) ) {
             case 62:
             case 64:
             case 66:
+            case 67:
             case 70:
             case 85:
             case 87:
@@ -8130,22 +8131,17 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                 alt8=4;
                 }
                 break;
-            case 67:
-                {
-                alt8=5;
-                }
-                break;
             case RULE_SL_VISIBLE_COMMENT:
             case RULE_SL_VISIBLE_TITLE_COMMENT:
             case RULE_ML_VISIBLE_COMMENT:
             case RULE_ML_VISIBLE_TITLE_COMMENT:
                 {
-                alt8=6;
+                alt8=5;
                 }
                 break;
             case RULE_DIVIDER:
                 {
-                alt8=7;
+                alt8=6;
                 }
                 break;
             default:
@@ -8233,18 +8229,18 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 5 :
-                    // InternalDSL.g:2925:6: ( ruleTimeSet )
+                    // InternalDSL.g:2925:6: ( ruleVisibleComment )
                     {
-                    // InternalDSL.g:2925:6: ( ruleTimeSet )
-                    // InternalDSL.g:2926:1: ruleTimeSet
+                    // InternalDSL.g:2925:6: ( ruleVisibleComment )
+                    // InternalDSL.g:2926:1: ruleVisibleComment
                     {
-                     before(grammarAccess.getSuiteStatementAccess().getTimeSetParserRuleCall_4()); 
+                     before(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_4()); 
                     pushFollow(FOLLOW_2);
-                    ruleTimeSet();
+                    ruleVisibleComment();
 
                     state._fsp--;
 
-                     after(grammarAccess.getSuiteStatementAccess().getTimeSetParserRuleCall_4()); 
+                     after(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_4()); 
 
                     }
 
@@ -8252,37 +8248,18 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 6 :
-                    // InternalDSL.g:2931:6: ( ruleVisibleComment )
+                    // InternalDSL.g:2931:6: ( ruleVisibleDivider )
                     {
-                    // InternalDSL.g:2931:6: ( ruleVisibleComment )
-                    // InternalDSL.g:2932:1: ruleVisibleComment
+                    // InternalDSL.g:2931:6: ( ruleVisibleDivider )
+                    // InternalDSL.g:2932:1: ruleVisibleDivider
                     {
-                     before(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_5()); 
-                    pushFollow(FOLLOW_2);
-                    ruleVisibleComment();
-
-                    state._fsp--;
-
-                     after(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_5()); 
-
-                    }
-
-
-                    }
-                    break;
-                case 7 :
-                    // InternalDSL.g:2937:6: ( ruleVisibleDivider )
-                    {
-                    // InternalDSL.g:2937:6: ( ruleVisibleDivider )
-                    // InternalDSL.g:2938:1: ruleVisibleDivider
-                    {
-                     before(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_6()); 
+                     before(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); 
                     pushFollow(FOLLOW_2);
                     ruleVisibleDivider();
 
                     state._fsp--;
 
-                     after(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_6()); 
+                     after(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); 
 
                     }
 
@@ -8307,14 +8284,14 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SuiteStatementWithResult__Alternatives"
-    // InternalDSL.g:2948:1: rule__SuiteStatementWithResult__Alternatives : ( ( ruleSuite ) | ( ruleTest ) | ( ruleTableTest ) | ( ruleCall ) );
+    // InternalDSL.g:2942:1: rule__SuiteStatementWithResult__Alternatives : ( ( ruleSuite ) | ( ruleTest ) | ( ruleTableTest ) | ( ruleCall ) | ( ruleTimeSet ) );
     public final void rule__SuiteStatementWithResult__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalDSL.g:2952:1: ( ( ruleSuite ) | ( ruleTest ) | ( ruleTableTest ) | ( ruleCall ) )
-            int alt9=4;
+            // InternalDSL.g:2946:1: ( ( ruleSuite ) | ( ruleTest ) | ( ruleTableTest ) | ( ruleCall ) | ( ruleTimeSet ) )
+            int alt9=5;
             switch ( input.LA(1) ) {
             case 70:
             case 85:
@@ -8338,6 +8315,11 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                 alt9=4;
                 }
                 break;
+            case 67:
+                {
+                alt9=5;
+                }
+                break;
             default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 9, 0, input);
@@ -8347,10 +8329,10 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
 
             switch (alt9) {
                 case 1 :
-                    // InternalDSL.g:2953:1: ( ruleSuite )
+                    // InternalDSL.g:2947:1: ( ruleSuite )
                     {
-                    // InternalDSL.g:2953:1: ( ruleSuite )
-                    // InternalDSL.g:2954:1: ruleSuite
+                    // InternalDSL.g:2947:1: ( ruleSuite )
+                    // InternalDSL.g:2948:1: ruleSuite
                     {
                      before(grammarAccess.getSuiteStatementWithResultAccess().getSuiteParserRuleCall_0()); 
                     pushFollow(FOLLOW_2);
@@ -8366,10 +8348,10 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // InternalDSL.g:2959:6: ( ruleTest )
+                    // InternalDSL.g:2953:6: ( ruleTest )
                     {
-                    // InternalDSL.g:2959:6: ( ruleTest )
-                    // InternalDSL.g:2960:1: ruleTest
+                    // InternalDSL.g:2953:6: ( ruleTest )
+                    // InternalDSL.g:2954:1: ruleTest
                     {
                      before(grammarAccess.getSuiteStatementWithResultAccess().getTestParserRuleCall_1()); 
                     pushFollow(FOLLOW_2);
@@ -8385,10 +8367,10 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // InternalDSL.g:2965:6: ( ruleTableTest )
+                    // InternalDSL.g:2959:6: ( ruleTableTest )
                     {
-                    // InternalDSL.g:2965:6: ( ruleTableTest )
-                    // InternalDSL.g:2966:1: ruleTableTest
+                    // InternalDSL.g:2959:6: ( ruleTableTest )
+                    // InternalDSL.g:2960:1: ruleTableTest
                     {
                      before(grammarAccess.getSuiteStatementWithResultAccess().getTableTestParserRuleCall_2()); 
                     pushFollow(FOLLOW_2);
@@ -8404,10 +8386,10 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // InternalDSL.g:2971:6: ( ruleCall )
+                    // InternalDSL.g:2965:6: ( ruleCall )
                     {
-                    // InternalDSL.g:2971:6: ( ruleCall )
-                    // InternalDSL.g:2972:1: ruleCall
+                    // InternalDSL.g:2965:6: ( ruleCall )
+                    // InternalDSL.g:2966:1: ruleCall
                     {
                      before(grammarAccess.getSuiteStatementWithResultAccess().getCallParserRuleCall_3()); 
                     pushFollow(FOLLOW_2);
@@ -8416,6 +8398,25 @@ public class InternalDSLParser extends AbstractInternalContentAssistParser {
                     state._fsp--;
 
                      after(grammarAccess.getSuiteStatementWithResultAccess().getCallParserRuleCall_3()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // InternalDSL.g:2971:6: ( ruleTimeSet )
+                    {
+                    // InternalDSL.g:2971:6: ( ruleTimeSet )
+                    // InternalDSL.g:2972:1: ruleTimeSet
+                    {
+                     before(grammarAccess.getSuiteStatementWithResultAccess().getTimeSetParserRuleCall_4()); 
+                    pushFollow(FOLLOW_2);
+                    ruleTimeSet();
+
+                    state._fsp--;
+
+                     after(grammarAccess.getSuiteStatementWithResultAccess().getTimeSetParserRuleCall_4()); 
 
                     }
 

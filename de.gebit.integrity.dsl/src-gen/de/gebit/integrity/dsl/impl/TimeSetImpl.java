@@ -42,7 +42,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *
  * @generated
  */
-public class TimeSetImpl extends SuiteStatementImpl implements TimeSet
+public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
 {
   /**
    * The default value of the '{@link #getLive() <em>Live</em>}' attribute.

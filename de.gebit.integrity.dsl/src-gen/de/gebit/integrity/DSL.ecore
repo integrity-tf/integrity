@@ -200,7 +200,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//VariableVariable"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TimeSet" eSuperTypes="#//SuiteStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="TimeSet" eSuperTypes="#//SuiteStatementWithResult">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="live" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="startTime" eType="#//ValueOrEnumValueOrOperation"
         containment="true"/>
