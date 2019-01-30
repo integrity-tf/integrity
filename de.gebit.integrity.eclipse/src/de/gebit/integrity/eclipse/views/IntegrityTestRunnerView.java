@@ -49,7 +49,6 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -640,6 +639,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The launch configuration to run when the start button in the view is pressed.
 	 */
 	private ILaunchConfiguration launchConfiguration;
+
+	/**
+	 * The currently active autoconnect thread.
+	 */
+	private AutoConnectThread autoConnectThread;
 
 	/**
 	 * The constructor.
@@ -1550,8 +1554,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 			@Override
 			public void run() {
 				if (client == null || !client.isActive()) {
-					InputDialog tempDialog = new InputDialog(getSite().getShell(), "Connect to test runner",
-							"Please enter the hostname or IP address to connect to", lastHostname, null);
+					ConnectDialog tempDialog = new ConnectDialog(getSite().getShell(), lastHostname, null);
 					if (tempDialog.open() == IStatus.OK && tempDialog.getValue() != null
 							&& tempDialog.getValue().length() > 0) {
 						lastHostname = tempDialog.getValue();
@@ -1569,7 +1572,23 @@ public class IntegrityTestRunnerView extends ViewPart {
 							}
 							tempHost = tempHost.substring(0, tempHost.indexOf(':'));
 						}
-						connectToTestRunnerAsync(tempHost, tempPort);
+
+						if (tempDialog.isAutoRetryEnabled()) {
+							if (autoConnectThread != null && autoConnectThread.isAlive()) {
+								autoConnectThread.kill();
+								autoConnectThread = null;
+							}
+							if (autoConnectThread == null || !autoConnectThread.isAlive()) {
+								autoConnectThread = new AutoConnectThread(tempHost, tempPort);
+								autoConnectThread.start();
+							}
+						} else {
+							connectToTestRunnerAsync(tempHost, tempPort);
+						}
+					} else {
+						if (autoConnectThread != null && autoConnectThread.isAlive()) {
+							autoConnectThread.kill();
+						}
 					}
 				} else {
 					disconnectFromTestRunner();
@@ -1709,7 +1728,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 						executeTestAction.setEnabled(false);
 						executeDebugTestAction.setEnabled(false);
 						final ILaunch tempLaunch = launchConfiguration.launch(ILaunchManager.RUN_MODE, null);
-						new AutoConnectThread(tempLaunch).start();
+						if (autoConnectThread != null && autoConnectThread.isAlive()) {
+							autoConnectThread.kill();
+						}
+						autoConnectThread = new AutoConnectThread(tempLaunch);
+						autoConnectThread.start();
 					} catch (CoreException exc) {
 						showException(exc);
 					}
@@ -1727,7 +1750,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 						executeTestAction.setEnabled(false);
 						executeDebugTestAction.setEnabled(false);
 						final ILaunch tempLaunch = launchConfiguration.launch(ILaunchManager.DEBUG_MODE, null);
-						new AutoConnectThread(tempLaunch).start();
+						if (autoConnectThread != null && autoConnectThread.isAlive()) {
+							autoConnectThread.kill();
+						}
+						autoConnectThread = new AutoConnectThread(tempLaunch);
+						autoConnectThread.start();
 					} catch (CoreException exc) {
 						showException(exc);
 					}
@@ -2855,6 +2882,21 @@ public class IntegrityTestRunnerView extends ViewPart {
 		private ILaunch launch;
 
 		/**
+		 * The host to connect to.
+		 */
+		private String host = "localhost";
+
+		/**
+		 * The port to connect to.
+		 */
+		private int port = IntegrityRemotingConstants.DEFAULT_PORT;
+
+		/**
+		 * Used to kill this thread gracefully.
+		 */
+		private boolean killSwitch;
+
+		/**
 		 * Creates a new instance.
 		 */
 		AutoConnectThread(ILaunch aLaunch) {
@@ -2862,15 +2904,28 @@ public class IntegrityTestRunnerView extends ViewPart {
 			launch = aLaunch;
 		}
 
+		/**
+		 * Creates a new instance.
+		 */
+		AutoConnectThread(String aHost, int aPort) {
+			super("Integrity Autoconnect Thread");
+			host = aHost;
+			port = aPort;
+		}
+
+		public void kill() {
+			killSwitch = true;
+		}
+
 		@Override
 		public void run() {
 			boolean tempSuccess = false;
 
-			while (!launch.isTerminated()) {
+			while (!killSwitch && (launch == null || !launch.isTerminated())) {
 				try {
 					if (!tempSuccess && !isConnected()) {
 						// try to connect at least once
-						connectToTestRunner("localhost", IntegrityRemotingConstants.DEFAULT_PORT);
+						connectToTestRunner(host, IntegrityRemotingConstants.DEFAULT_PORT);
 						tempSuccess = true;
 					} else {
 						// Now we'll wait until the launch has terminated
@@ -2892,6 +2947,10 @@ public class IntegrityTestRunnerView extends ViewPart {
 				} catch (InterruptedException exc) {
 					// don't care
 				}
+			}
+
+			if (!tempSuccess) {
+				updateStatus("Aborted connection attempts");
 			}
 			executeTestAction.setEnabled(true);
 			executeDebugTestAction.setEnabled(true);
