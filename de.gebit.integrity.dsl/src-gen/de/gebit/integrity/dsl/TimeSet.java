@@ -26,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface TimeSet extends SuiteStatement
+public interface TimeSet extends SuiteStatementWithResult
 {
   /**
    * Returns the value of the '<em><b>Live</b></em>' attribute.

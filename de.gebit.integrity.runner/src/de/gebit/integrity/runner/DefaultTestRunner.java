@@ -151,6 +151,9 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetSuccessResult;
 import de.gebit.integrity.runner.time.TestTimeAdapter;
 import de.gebit.integrity.runner.time.TimeSyncState;
 import de.gebit.integrity.runner.wrapper.ExceptionWrapper;
@@ -1480,7 +1483,8 @@ public class DefaultTestRunner implements TestRunner {
 					currentCallback.onCallbackProcessingEnd();
 				}
 			} else if (tempStatement instanceof TimeSet) {
-				executeTimeSet((TimeSet) tempStatement);
+				Result tempResult = executeTimeSet((TimeSet) tempStatement);
+				tempResults.put((TimeSet) tempStatement, Collections.singletonList(tempResult));
 			} else if (tempStatement instanceof VisibleMultiLineComment) {
 				if (currentCallback != null) {
 					boolean tempIsTitle = (tempStatement instanceof VisibleMultiLineTitleComment);
@@ -2311,10 +2315,11 @@ public class DefaultTestRunner implements TestRunner {
 	 * 
 	 * @param aTimeSet
 	 */
-	protected void executeTimeSet(TimeSet aTimeSet) {
+	protected Result executeTimeSet(TimeSet aTimeSet) {
 		Date tempStartTime = null;
 		List<Pair<Long, TemporalUnit>> tempDiffTime = null;
 		BigDecimal tempProgressionFactor = null;
+		long tempOverallStart = System.nanoTime();
 
 		try {
 			if (aTimeSet.getStartTime() != null) {
@@ -2390,15 +2395,26 @@ public class DefaultTestRunner implements TestRunner {
 							tempForksToRunOnArray);
 				}
 			}
+			long tempDuration = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - tempOverallStart);
+
+			TimeSetResult tempResult = null;
+			if (timeSyncResult != null) {
+				if (timeSyncResult.getErrorMessage() != null) {
+					tempResult = new TimeSetExceptionResult(tempForksToRunOn, timeSyncResult.getResultMap(),
+							timeSyncResult.getErrorMessage(), timeSyncResult.getStackTrace(), tempDuration);
+				} else {
+					tempResult = new TimeSetSuccessResult(tempForksToRunOn, timeSyncResult.getResultMap(),
+							tempDuration);
+				}
+			}
 
 			if (currentCallback != null) {
 				currentCallback.onCallbackProcessingStart();
-				currentCallback.onTimeSetFinish(aTimeSet, (SuiteDefinition) aTimeSet.eContainer(), tempForksToRunOn,
-						timeSyncResult != null ? timeSyncResult.getResultMap() : Collections.emptyMap(),
-						timeSyncResult != null ? timeSyncResult.getErrorMessage() : null,
-						timeSyncResult != null ? timeSyncResult.getStackTrace() : null);
+				currentCallback.onTimeSetFinish(aTimeSet, tempResult);
 				currentCallback.onCallbackProcessingEnd();
 			}
+
+			return tempResult;
 		} catch (Exception exc) {
 			// Any exception happening in Integrity itself during time setting is considered an abort execution case,
 			// except if this happens during dry run, in which case we just throw it on
@@ -2411,6 +2427,8 @@ public class DefaultTestRunner implements TestRunner {
 					throw new RuntimeException(exc);
 				}
 			}
+			// We'll never arrive here actually.
+			throw new ThisShouldNeverHappenException();
 		}
 	}
 

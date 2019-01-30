@@ -1088,16 +1088,15 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVariableDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cConstantDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cVariableAssignmentParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cTimeSetParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cVisibleCommentParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cVisibleDividerParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cVisibleCommentParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cVisibleDividerParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
 		
 		//SuiteStatement:
-		//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | TimeSet | VisibleComment |
+		//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
 		//	VisibleDivider;
 		@Override public ParserRule getRule() { return rule; }
 
-		//SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | TimeSet | VisibleComment |
+		//SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
 		//VisibleDivider
 		public Alternatives getAlternatives() { return cAlternatives; }
 
@@ -1113,14 +1112,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//VariableAssignment
 		public RuleCall getVariableAssignmentParserRuleCall_3() { return cVariableAssignmentParserRuleCall_3; }
 
-		//TimeSet
-		public RuleCall getTimeSetParserRuleCall_4() { return cTimeSetParserRuleCall_4; }
-
 		//VisibleComment
-		public RuleCall getVisibleCommentParserRuleCall_5() { return cVisibleCommentParserRuleCall_5; }
+		public RuleCall getVisibleCommentParserRuleCall_4() { return cVisibleCommentParserRuleCall_4; }
 
 		//VisibleDivider
-		public RuleCall getVisibleDividerParserRuleCall_6() { return cVisibleDividerParserRuleCall_6; }
+		public RuleCall getVisibleDividerParserRuleCall_5() { return cVisibleDividerParserRuleCall_5; }
 	}
 
 	public class SuiteStatementWithResultElements extends AbstractParserRuleElementFinder {
@@ -1130,12 +1126,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTestParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cTableTestParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		private final RuleCall cCallParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cTimeSetParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//SuiteStatementWithResult:
-		//	Suite | Test | TableTest | Call;
+		//	Suite | Test | TableTest | Call | TimeSet;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Suite | Test | TableTest | Call
+		//Suite | Test | TableTest | Call | TimeSet
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Suite
@@ -1149,6 +1146,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Call
 		public RuleCall getCallParserRuleCall_3() { return cCallParserRuleCall_3; }
+
+		//TimeSet
+		public RuleCall getTimeSetParserRuleCall_4() { return cTimeSetParserRuleCall_4; }
 	}
 
 	public class VariableDefinitionElements extends AbstractParserRuleElementFinder {
@@ -4473,7 +4473,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatement:
-	//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | TimeSet | VisibleComment |
+	//	SuiteStatementWithResult | VariableDefinition | ConstantDefinition | VariableAssignment | VisibleComment |
 	//	VisibleDivider;
 	public SuiteStatementElements getSuiteStatementAccess() {
 		return pSuiteStatement;
@@ -4484,7 +4484,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SuiteStatementWithResult:
-	//	Suite | Test | TableTest | Call;
+	//	Suite | Test | TableTest | Call | TimeSet;
 	public SuiteStatementWithResultElements getSuiteStatementWithResultAccess() {
 		return pSuiteStatementWithResult;
 	}

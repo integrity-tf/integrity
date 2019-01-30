@@ -3589,7 +3589,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     tableTestEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     fixedResultNameEClass.getESuperTypes().add(this.getResultName());
     callEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
-    timeSetEClass.getESuperTypes().add(this.getSuiteStatement());
+    timeSetEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     suiteEClass.getESuperTypes().add(this.getSuiteStatementWithResult());
     fixedParameterNameEClass.getESuperTypes().add(this.getParameterName());
     arbitraryParameterOrResultNameEClass.getESuperTypes().add(this.getResultName());

@@ -1984,31 +1984,21 @@ ruleSuiteStatement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getTimeSetParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_4()); 
     }
-    this_TimeSet_4=ruleTimeSet
+    this_VisibleComment_4=ruleVisibleComment
     { 
-        $current = $this_TimeSet_4.current; 
+        $current = $this_VisibleComment_4.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleCommentParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_5()); 
     }
-    this_VisibleComment_5=ruleVisibleComment
+    this_VisibleDivider_5=ruleVisibleDivider
     { 
-        $current = $this_VisibleComment_5.current; 
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getSuiteStatementAccess().getVisibleDividerParserRuleCall_6()); 
-    }
-    this_VisibleDivider_6=ruleVisibleDivider
-    { 
-        $current = $this_VisibleDivider_6.current; 
+        $current = $this_VisibleDivider_5.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -2069,6 +2059,16 @@ ruleSuiteStatementWithResult returns [EObject current=null]
     this_Call_3=ruleCall
     { 
         $current = $this_Call_3.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getSuiteStatementWithResultAccess().getTimeSetParserRuleCall_4()); 
+    }
+    this_TimeSet_4=ruleTimeSet
+    { 
+        $current = $this_TimeSet_4.current; 
         afterParserOrEnumRuleCall();
     }
 )

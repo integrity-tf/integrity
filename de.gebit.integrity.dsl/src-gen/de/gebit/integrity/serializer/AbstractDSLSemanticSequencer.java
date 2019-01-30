@@ -1425,6 +1425,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Contexts:
 	 *     SuiteStatement returns TimeSet
+	 *     SuiteStatementWithResult returns TimeSet
 	 *     TimeSet returns TimeSet
 	 *
 	 * Constraint:
@@ -1433,8 +1434,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *             live='live' | 
 	 *             ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) (progressionMode='progressing' progressionFactor=TimeProgressionFactor?)?)
 	 *         ) 
-	 *         forks+=[ForkDefinition|QualifiedName]? 
-	 *         (masterFork='master'? forks+=[ForkDefinition|QualifiedName]?)*
+	 *         masterFork='master'? 
+	 *         (forks+=[ForkDefinition|QualifiedName]? masterFork='master'?)*
 	 *     )
 	 */
 	protected void sequence_TimeSet(ISerializationContext context, TimeSet semanticObject) {

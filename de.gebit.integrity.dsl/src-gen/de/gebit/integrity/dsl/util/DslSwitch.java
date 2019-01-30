@@ -412,6 +412,7 @@ public class DslSwitch<T> extends Switch<T>
       {
         TimeSet timeSet = (TimeSet)theEObject;
         T result = caseTimeSet(timeSet);
+        if (result == null) result = caseSuiteStatementWithResult(timeSet);
         if (result == null) result = caseSuiteStatement(timeSet);
         if (result == null) result = defaultCase(theEObject);
         return result;
