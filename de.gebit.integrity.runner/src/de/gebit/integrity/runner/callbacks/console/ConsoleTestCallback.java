@@ -8,13 +8,10 @@
 package de.gebit.integrity.runner.callbacks.console;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 
@@ -57,6 +54,8 @@ import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
 import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
+import de.gebit.integrity.runner.results.timeset.TimeSetResult;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
@@ -241,8 +240,8 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onExecutionFinish(TestModel aModel, SuiteSummaryResult aResult) {
 		if (aResult != null) {
-			println("Finished executing " + suiteCount + " suites with " + testCount
-					+ " tests and " + callCount + " calls in " + DateUtil
+			println("Finished executing "
+					+ suiteCount + " suites with " + testCount + " tests and " + callCount + " calls in " + DateUtil
 							.convertNanosecondTimespanToHumanReadableFormat(System.nanoTime() - startTime, false, false)
 					+ "!");
 
@@ -307,17 +306,15 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onTimeSetFinish(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks,
-			Map<String, Pair<ZonedDateTime, Double>> someCurrentDateTimes, String anErrorMessage,
-			String anExceptionStackTrace) {
-		if (!isDryRun()) {
-			if (anErrorMessage != null) {
+	public void onTimeSetFinish(TimeSet aTimeSet, TimeSetResult aResult) {
+		if (!isDryRun() && aResult != null) {
+			if (aResult instanceof TimeSetExceptionResult) {
 				println("EXCEPTION OCCURRED, SEE STDERR!");
-				System.err.println(anErrorMessage);
-				System.err.println(anExceptionStackTrace);
+				System.err.println(((TimeSetExceptionResult) aResult).getErrorMessage());
+				System.err.println(((TimeSetExceptionResult) aResult).getExceptionStackTrace());
 			} else {
 				println("SUCCESS! "
-						+ testFormatter.testTimeInfoSetToHumanReadableString(someCurrentDateTimes.entrySet()));
+						+ testFormatter.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet()));
 			}
 		}
 	}

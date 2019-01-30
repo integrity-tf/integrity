@@ -119,6 +119,7 @@
 		.extresulttext { margin-top: 6px; margin-bottom: 6px; margin-left: 4px; margin-right: 4px; }
 		.extresults textarea { width: 100%; }
 		.extresultimage { margin-top: 6px; margin-bottom: 6px; margin-left: 4px; margin-right: 4px; }
+		.timeseticon { width: 16px; height: 16px; position: absolute; left: 14px; top: 4px; background-repeat: no-repeat; background-position: 0px 0px; background-image: url("data:image/png;base64,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"); }
 		.tab { padding-right: 20px; }
 		.fixturename { font-size: 8pt; padding: 4px; }
 		.comment { padding-left: 4px; padding-right: 4px; padding-top: 8px; }
@@ -282,6 +283,13 @@ function recursiveRedrawProgressBar(context, node, nodePos, pixelsPerNode, heigh
 				pixelLink = node.getAttribute('id');
 			}
 		}
+	} else if (node.nodeName == 'TIMESET') {
+		if (pixelLink == -1) {
+			pixelLink = node.getAttribute('id');
+		}
+		if (node.hasAttribute('exceptionMessage')) {
+			pixelLevel = 2;
+		}
 	} else {
 		if (node.childNodes) {
 			for (var i = 0; i &lt; node.childNodes.length; i++) {
@@ -334,7 +342,7 @@ function handleProgressBarClick(event) {
 
 function countTestsAndCalls() {
 	var root=document.getElementsByTagName('integrity')[0];
-	return root.getElementsByTagName('test').length + root.getElementsByTagName('call').length + root.getElementsByTagName('tabletest').length;
+	return root.getElementsByTagName('test').length + root.getElementsByTagName('call').length + root.getElementsByTagName('tabletest').length + root.getElementsByTagName('timeSet').length;
 }
 
 function getChildByName(node, childName) {
@@ -839,9 +847,14 @@ function getChildByName(node, childName) {
 	          </xsl:otherwise>
           </xsl:choose>
         </xsl:attribute>
-        <xsl:if test="@exceptionMessage">
-          <div class="testicon testiconexception" />
-        </xsl:if>
+        <xsl:choose>
+	        <xsl:when test="@exceptionMessage">
+	          <div class="testicon testiconexception" />
+	        </xsl:when>
+	        <xsl:otherwise>
+	          <div class="timeseticon" />
+	        </xsl:otherwise>
+        </xsl:choose>
         <div class="testdescription">
           <xsl:value-of select="@text" />
         </div>
