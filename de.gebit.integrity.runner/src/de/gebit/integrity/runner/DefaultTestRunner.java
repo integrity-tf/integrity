@@ -50,6 +50,7 @@ import com.google.inject.Singleton;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.comparator.ComparisonResult;
+import de.gebit.integrity.comparator.SimpleComparisonResult;
 import de.gebit.integrity.dsl.Call;
 import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
@@ -146,6 +147,7 @@ import de.gebit.integrity.runner.results.call.CallResult;
 import de.gebit.integrity.runner.results.call.CallResult.UpdatedVariable;
 import de.gebit.integrity.runner.results.test.TestComparisonFailureResult;
 import de.gebit.integrity.runner.results.test.TestComparisonResult;
+import de.gebit.integrity.runner.results.test.TestComparisonSuccessResult;
 import de.gebit.integrity.runner.results.test.TestComparisonUndeterminedResult;
 import de.gebit.integrity.runner.results.test.TestExceptionSubResult;
 import de.gebit.integrity.runner.results.test.TestExecutedSubResult;
@@ -1936,7 +1938,7 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
-		tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName, tempDuration,
+		tempReturn = new TestResult(tempSubResults, null, tempFixtureInstance, tempFixtureMethodName, tempDuration,
 				tempExtendedResults);
 
 		if (currentCallback != null) {
@@ -2112,20 +2114,48 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
+		// At this point in time, we have finished all rows. Time for the post-invocation test.
+		TestSubResult tempPostInvocationTestResult = null;
+		if (shouldExecuteFixtures()) {
+			if (tempFixtureInstance.isPostInvocationTestFixture()) {
+				// Internally, post-invocation test results are packaged like a test with a single default comparison,
+				// which compares the result message to 'null'.
+				long tempStart = System.nanoTime();
+				try {
+					String tempPostInvocationFailure = tempFixtureInstance.runPostInvocationTest();
+					TestComparisonResult tempResult = null;
+					if (tempPostInvocationFailure == null) {
+						tempResult = new TestComparisonSuccessResult(new SimpleComparisonResult(true), null, null,
+								null);
+					} else {
+						tempResult = new TestComparisonFailureResult(new SimpleComparisonResult(false), null,
+								tempPostInvocationFailure, null);
+					}
+					tempPostInvocationTestResult = new TestExecutedSubResult(
+							Collections.singletonMap(ParameterUtil.DEFAULT_PARAMETER_NAME, tempResult),
+							tempFixtureInstance, tempFixtureMethodName, System.nanoTime() - tempStart);
+				} catch (Throwable exc) {
+					tempPostInvocationTestResult = new TestExceptionSubResult(exc, Collections.emptyMap(),
+							tempFixtureInstance, tempFixtureMethodName, System.nanoTime() - tempStart);
+					handlePossibleAbortException(exc);
+				}
+			}
+		}
+
 		Long tempOuterDuration = System.nanoTime() - tempOuterStart;
 
 		List<ExtendedResult> tempExtendedResult = null;
 		if (shouldExecuteFixtures()) {
 			try {
-				tempExtendedResult = tempFixtureInstance
-						.retrieveExtendedResults(evaluateTestSubResultsToFixtureInvocationResult(tempSubResults));
+				tempExtendedResult = tempFixtureInstance.retrieveExtendedResults(
+						evaluateTestSubResultsToFixtureInvocationResult(tempSubResults, tempPostInvocationTestResult));
 			} catch (Throwable exc) {
 				exc.printStackTrace();
 			}
 		}
 
-		TestResult tempReturn = new TestResult(tempSubResults, tempFixtureInstance, tempFixtureMethodName,
-				currentPhase == Phase.DRY_RUN ? null : tempOuterDuration, tempExtendedResult);
+		TestResult tempReturn = new TestResult(tempSubResults, tempPostInvocationTestResult, tempFixtureInstance,
+				tempFixtureMethodName, currentPhase == Phase.DRY_RUN ? null : tempOuterDuration, tempExtendedResult);
 
 		if (currentCallback != null) {
 			currentCallback.onCallbackProcessingStart();
@@ -2446,18 +2476,32 @@ public class DefaultTestRunner implements TestRunner {
 
 	private FixtureInvocationResult evaluateTestSubResultsToFixtureInvocationResult(
 			List<TestSubResult> someSubResults) {
-		boolean tempHasFailure = false;
+		return evaluateTestSubResultsToFixtureInvocationResult(someSubResults, null);
+	}
+
+	private FixtureInvocationResult evaluateTestSubResultsToFixtureInvocationResult(List<TestSubResult> someSubResults,
+			TestSubResult anAdditionalSubResult) {
 		for (TestSubResult tempSubResult : someSubResults) {
-			if (tempSubResult instanceof TestExceptionSubResult) {
-				return FixtureInvocationResult.EXCEPTION;
-			} else {
-				if (!tempSubResult.wereAllComparisonsSuccessful()) {
-					tempHasFailure = true;
-				}
+			FixtureInvocationResult tempEvaluatedSubResult = evaluateSingleTestSubResultToFixtureInvocationResult(
+					tempSubResult);
+			if (tempEvaluatedSubResult != FixtureInvocationResult.SUCCESS) {
+				return tempEvaluatedSubResult;
 			}
 		}
 
-		return tempHasFailure ? FixtureInvocationResult.FAILURE : FixtureInvocationResult.SUCCESS;
+		return FixtureInvocationResult.SUCCESS;
+	}
+
+	private FixtureInvocationResult evaluateSingleTestSubResultToFixtureInvocationResult(TestSubResult aSingleResult) {
+		if (aSingleResult instanceof TestExceptionSubResult) {
+			return FixtureInvocationResult.EXCEPTION;
+		} else {
+			if (!aSingleResult.wereAllComparisonsSuccessful()) {
+				return FixtureInvocationResult.FAILURE;
+			} else {
+				return FixtureInvocationResult.SUCCESS;
+			}
+		}
 	}
 
 	/**

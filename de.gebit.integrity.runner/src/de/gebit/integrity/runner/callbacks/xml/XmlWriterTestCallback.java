@@ -123,6 +123,7 @@ import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
 import de.gebit.integrity.runner.results.timeset.TimeSetResult;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.VersionUtil;
 
 /**
@@ -297,6 +298,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant RESULT_COLLECTION_ELEMENT. */
 	protected static final String RESULT_COLLECTION_ELEMENT = "results";
+
+	/** The Constant POST_INVOCATION_RESULT_ELEMENT. */
+	protected static final String POST_INVOCATION_RESULT_ELEMENT = "postResult";
 
 	/** The Constant EXTENDED_RESULT_ELEMENT_TYPE_ATTRIBUTE. */
 	protected static final String EXTENDED_RESULT_ELEMENT_TITLE_ATTRIBUTE = "title";
@@ -1206,13 +1210,42 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				Integer.toString(aResult.getSubTestExceptionCount()));
 
 		if (!isDryRun()) {
+			TestSubResult tempPostInvocationResult = aResult.getPostInvocationTestResult();
+			Element tempPostInvocationResultElement = null;
+			if (tempPostInvocationResult != null) {
+				tempPostInvocationResultElement = new Element(POST_INVOCATION_RESULT_ELEMENT);
+				if (tempPostInvocationResult instanceof TestExecutedSubResult) {
+					TestComparisonResult tempPostInvocationComparisonResult = tempPostInvocationResult
+							.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
+					if (tempPostInvocationComparisonResult.getResult().isSuccessful()) {
+						setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE,
+								RESULT_TYPE_SUCCESS);
+					} else {
+						// In case of test failure, we expect a failure message to be placed in the actual value
+						setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE,
+								RESULT_TYPE_FAILURE);
+						setAttributeGuarded(tempPostInvocationResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
+								(String) tempPostInvocationComparisonResult.getActualValue());
+					}
+				} else if (tempPostInvocationResult instanceof TestExceptionSubResult) {
+					// For exceptions, use both post-invocation-related attributes: the result gets the message, the
+					// exception gets the stacktrace
+					setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);
+					setAttributeGuarded(tempPostInvocationResultElement, RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
+							((TestExceptionSubResult) tempPostInvocationResult).getException().getMessage());
+					setAttributeGuarded(tempPostInvocationResultElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE,
+							stackTraceToString(((TestExceptionSubResult) tempPostInvocationResult).getException()));
+				}
+			}
+
 			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempResultCollectionElement);
 				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement,
-						tempExtendedResultElement);
+						tempExtendedResultElement, tempPostInvocationResultElement);
 			}
-			internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement);
+			internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement,
+					tempPostInvocationResultElement);
 		}
 	}
 
@@ -1224,7 +1257,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * @param anExtendedResultElement
 	 *            the extended result element
 	 */
-	protected void internalOnTableTestFinish(Element aResultCollectionElement, Element anExtendedResultElement) {
+	protected void internalOnTableTestFinish(Element aResultCollectionElement, Element anExtendedResultElement,
+			Element aPostInvocationResultElement) {
 		stackPop(); // remove result collection element from stack first
 		addConsoleOutput(aResultCollectionElement);
 		Element tempTestElement = stackPop();
@@ -1232,6 +1266,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			tempTestElement.addContent(anExtendedResultElement);
 		}
 		tempTestElement.addContent(aResultCollectionElement);
+		if (aPostInvocationResultElement != null) {
+			tempTestElement.addContent(aPostInvocationResultElement);
+		}
 	}
 
 	/**
@@ -2306,7 +2343,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			internalOnTestFinish(tempFirstElement, (Element) someObjects[1]);
 			break;
 		case TABLE_TEST_FINISH:
-			internalOnTableTestFinish(tempFirstElement, (Element) someObjects[1]);
+			internalOnTableTestFinish(tempFirstElement, (Element) someObjects[1], (Element) someObjects[2]);
 			break;
 		case CALL_START:
 			internalOnCallStart(tempFirstElement);
