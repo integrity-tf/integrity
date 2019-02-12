@@ -96,6 +96,7 @@
 		.row1timesetexception { background-color: #FFE6B7; }
 		.row2timesetexception { background-color: #FFF7E8; }
 		.row1assign { background-color: #D0CCFF; }
+		.postresult { font-size: 8pt; font-weight: bold; padding: 4px; position; relative; top: 0; }
 		.testresults { font-size: 8pt; font-weight: bold; padding: 4px; position; relative; top: 0; }
 		.testresultvalue { font-weight: bold; }
 		.testresultvaluesuccess { color: #063; }
@@ -200,7 +201,7 @@ function cellMouseUp(aCell, e) {
 	doMouseUpValidation(e, function() {
 		for(var i=1; i &lt; aCell.getElementsByTagName('div').length; i++) {
 	  	var div=aCell.getElementsByTagName('div')[i];
-	  	if(div.className=='testparameters' || div.className=='tabletestresults' || div.className=='console') {
+	  	if(div.className.includes('expandable')) {
 	  		if(div.style.display!='block')
 	    		div.style.display='block';
       	else
@@ -681,7 +682,7 @@ function getChildByName(node, childName) {
         <div class="testdescription">
           <xsl:value-of select="@description" />
         </div>
-        <div class="testparameters" style="display: none;">
+        <div class="testparameters expandable" style="display: none;">
           <div class="fixturename">
             <xsl:value-of select="@fixture" />
           </div>
@@ -858,7 +859,7 @@ function getChildByName(node, childName) {
         <div class="testdescription">
           <xsl:value-of select="@text" />
         </div>
-        <div class="testparameters" style="display: none;">
+        <div class="testparameters expandable" style="display: none;">
           <div class="timestamp">
             <xsl:value-of select="@timestamp" />
           </div>
@@ -899,7 +900,7 @@ function getChildByName(node, childName) {
         <div class="testdescription">
           <xsl:value-of select="@description" />
         </div>
-        <div class="testparameters" style="display: none;">
+        <div class="testparameters expandable" style="display: none;">
           <div class="timestamp">
             <xsl:value-of select="@timestamp" />
           </div>
@@ -966,7 +967,7 @@ function getChildByName(node, childName) {
           <xsl:otherwise>lines</xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
-      <div class="console">
+      <div class="console expandable">
         <div class="consoleheader">
           <xsl:value-of select="concat('Console output: ', @lines, ' ', $headerending)" />
           <xsl:if test="@truncated &gt; 0">
@@ -1018,7 +1019,7 @@ function getChildByName(node, childName) {
         <div class="testdescription">
           <xsl:value-of select="@description" />
         </div>
-        <div class="testparameters" style="display: none;">
+        <div class="testparameters expandable" style="display: none;">
           <div class="fixturename">
             <xsl:value-of select="@fixture" />
           </div>
@@ -1249,11 +1250,18 @@ function getChildByName(node, childName) {
         </xsl:attribute>
       </a>
       <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
-        <xsl:variable name="testsuccess">
+        <xsl:variable name="tablesuccess">
           <xsl:choose>
             <xsl:when test="results/@successCount &gt; 0 and results/@failureCount = 0 and results/@exceptionCount = 0">success</xsl:when>
             <xsl:when test="results/@failureCount &gt; 0 and results/@exceptionCount = 0">failure</xsl:when>
             <xsl:when test="results/@exceptionCount &gt; 0">exception</xsl:when>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="testsuccess">
+          <xsl:choose>
+            <xsl:when test="$tablesuccess = 'success' and not(postResult/@type = 'exception' or postResult/@type = 'failure')">success</xsl:when>
+            <xsl:when test="postResult/@type = 'failure' and not($tablesuccess = 'exception')">failure</xsl:when>
+            <xsl:when test="$tablesuccess = 'exception' or postResult/@type = 'exception'">exception</xsl:when>
           </xsl:choose>
         </xsl:variable>
         <xsl:attribute name="class">
@@ -1269,7 +1277,7 @@ function getChildByName(node, childName) {
         <div class="testdescription">
           <xsl:value-of select="@description" />
         </div>
-        <div class="tabletestresults" style="display: none;">
+        <div class="tabletestresults expandable" style="display: none;">
           <div class="fixturename">
             <xsl:value-of select="@fixture" />
           </div>
@@ -1408,6 +1416,7 @@ function getChildByName(node, childName) {
             <xsl:apply-templates select="extResults" />
           </xsl:if>
         </div>
+        <xsl:apply-templates select="postResult" />
         <div class="testresults">
           <xsl:value-of select="count(results/result)" />
           results
@@ -1426,6 +1435,29 @@ function getChildByName(node, childName) {
           </span>
         </span>
       </div>
+    </xsl:template>
+    <xsl:template match="postResult">
+     	<xsl:choose>
+	    	<xsl:when test="@type = 'failure'">
+	    		<div class="postresult testresultvaluefailure">
+		          Finalization test has failed: 
+		          <xsl:value-of select="@value" />
+		        </div>
+	    	</xsl:when>
+	    	<xsl:when test="@type = 'exception'">
+	    		<div class="postresult">
+		          Finalization test has thrown an exception: 
+		          <xsl:value-of select="@exceptionMessage" />
+		          <xsl:if test="@exceptionTrace">
+		            <div class="exceptiontrace value expandable" style="display: none;">
+		              <xsl:call-template name="formatExceptionTrace">
+		                <xsl:with-param name="text" select="@exceptionTrace" />
+		              </xsl:call-template>
+		            </div>
+		          </xsl:if>
+		        </div>
+	    	</xsl:when>
+	    </xsl:choose>
     </xsl:template>
     <xsl:template name="box">
       <xsl:param name="class" />

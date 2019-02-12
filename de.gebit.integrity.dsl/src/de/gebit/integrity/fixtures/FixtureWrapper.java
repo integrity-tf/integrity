@@ -31,6 +31,7 @@ import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableVariable;
 import de.gebit.integrity.exceptions.ModelRuntimeLinkException;
+import de.gebit.integrity.exceptions.ThisShouldNeverHappenException;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.ExtendedResultFixture.FixtureInvocationResult;
 import de.gebit.integrity.modelsource.ModelSourceExplorer;
@@ -216,6 +217,15 @@ public class FixtureWrapper<C extends Object> {
 	 */
 	public boolean isResultAwareFixture() {
 		return (ResultAwareFixture.class.isAssignableFrom(fixtureClass));
+	}
+
+	/**
+	 * Checks whether the wrapped fixture is a {@link #isPostInvocationTestFixture()}.
+	 * 
+	 * @return true if it is
+	 */
+	public boolean isPostInvocationTestFixture() {
+		return (PostInvocationTestFixture.class.isAssignableFrom(fixtureClass));
 	}
 
 	/**
@@ -542,6 +552,20 @@ public class FixtureWrapper<C extends Object> {
 		boolean tempHasDefaultResult = aDefaultResult != null || aNamedResultSet.size() == 0;
 		((ResultAwareFixture) fixtureInstance).announceCheckedResults(methodName, tempHasDefaultResult,
 				aNamedResultSet);
+	}
+
+	/**
+	 * Executes the post-invocation test for {@link PostInvocationTestFixture}s.
+	 * 
+	 * @return null if successful, an error message otherwise
+	 */
+	public String runPostInvocationTest() {
+		if (isPostInvocationTestFixture()) {
+			return ((PostInvocationTestFixture) fixtureInstance).performPostInvocationTest();
+		} else {
+			throw new ThisShouldNeverHappenException(
+					"Running the post invocation test shouldn't be done if the fixture does not have one!");
+		}
 	}
 
 	@SuppressWarnings("unchecked")

@@ -15,10 +15,12 @@ import java.net.UnknownHostException;
 import java.time.temporal.TemporalUnit;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -184,6 +186,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * Space between each extended result field.
 	 */
 	private static final int EXTENDED_RESULT_SPACING = 5;
+
+	/**
+	 * Height of the post-invocation result text field.
+	 */
+	private static final int POST_INVOCATION_RESULT_TEXTFIELD_HEIGHT = 50;
 
 	/**
 	 * The "magic search term" for failed test/calls.
@@ -394,6 +401,26 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private TableViewer resultTable;
 
 	/**
+	 * The post-invocation test result section.
+	 */
+	private Section postInvocationTestSection;
+
+	/**
+	 * The composite for the post-invocation test result.
+	 */
+	private Composite postInvocationTestComposite;
+
+	/**
+	 * The text field for the first (actual) result.
+	 */
+	private Text postInvocationTestResultText;
+
+	/**
+	 * The container for the first (actual) result text field, which adds a color border around it.
+	 */
+	private Composite postInvocationTestResultBorder;
+
+	/**
 	 * The container for the variable update table.
 	 */
 	private Composite varUpdateTableComposite;
@@ -402,6 +429,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The variable update table (for calls with multi-variable updates).
 	 */
 	private TableViewer varUpdateTable;
+
+	/**
+	 * We store heights of sections in this map if we hide them, so we can re-show them with the correct height.
+	 */
+	private Map<Section, Integer> sectionHeightMap = new HashMap<>();
 
 	/**
 	 * The color for results of successful tests.
@@ -913,6 +945,22 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultSection.setClient(resultComposite);
 		resultComposite.setLayout(new FormLayout());
 
+		postInvocationTestSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR | Section.EXPANDED);
+		postInvocationTestSection.setText("Finalization Test Result");
+		tempGridData = new GridData();
+		tempGridData.minimumHeight = SWT.DEFAULT;
+		tempGridData.heightHint = 80;
+		tempGridData.horizontalIndent = 5;
+		tempGridData.grabExcessHorizontalSpace = true;
+		tempGridData.horizontalAlignment = GridData.FILL;
+		postInvocationTestSection.setLayoutData(tempGridData);
+		postInvocationTestSection.setLayout(new FillLayout());
+
+		postInvocationTestComposite = tempToolkit.createComposite(postInvocationTestSection);
+		tempToolkit.paintBordersFor(postInvocationTestComposite);
+		postInvocationTestSection.setClient(postInvocationTestComposite);
+		postInvocationTestComposite.setLayout(new FormLayout());
+
 		parameterSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR | Section.EXPANDED);
 		parameterSection.setText("Parameters");
 		tempGridData = new GridData();
@@ -953,10 +1001,24 @@ public class IntegrityTestRunnerView extends ViewPart {
 		variableTable.setContentProvider(new ArrayContentProvider());
 		configureTable(variableTable);
 
-		resultComposite = tempToolkit.createComposite(resultSection);
-		tempToolkit.paintBordersFor(resultComposite);
-		resultSection.setClient(resultComposite);
-		resultComposite.setLayout(new FormLayout());
+		postInvocationTestResultBorder = new Composite(postInvocationTestComposite, SWT.NONE);
+		postInvocationTestResultBorder.setForeground(resultNeutralColor);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(0, 4);
+		tempFormData.bottom = new FormAttachment(postInvocationTestResultBorder,
+				POST_INVOCATION_RESULT_TEXTFIELD_HEIGHT, SWT.TOP);
+		postInvocationTestResultBorder.setLayoutData(tempFormData);
+		FillLayout tempFill = new FillLayout();
+		tempFill.marginHeight = 1;
+		tempFill.marginWidth = 1;
+		postInvocationTestResultBorder.setLayout(tempFill);
+		configureTextFieldBorder(postInvocationTestResultBorder);
+
+		postInvocationTestResultText = new Text(postInvocationTestResultBorder,
+				SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+		postInvocationTestResultText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 
 		resultTableComposite = tempToolkit.createComposite(resultComposite);
 		tempFormData = new FormData();
@@ -999,7 +1061,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.top = new FormAttachment(resultLine1Name, 2, SWT.BOTTOM);
 		tempFormData.bottom = new FormAttachment(resultLine1Border, RESULT_TEXTFIELD_HEIGHT, SWT.TOP);
 		resultLine1Border.setLayoutData(tempFormData);
-		FillLayout tempFill = new FillLayout();
+		tempFill = new FillLayout();
 		tempFill.marginHeight = 1;
 		tempFill.marginWidth = 1;
 		resultLine1Border.setLayout(tempFill);
@@ -2004,6 +2066,21 @@ public class IntegrityTestRunnerView extends ViewPart {
 		((FormData) aComposite.getLayoutData()).bottom.offset = aHeight;
 	}
 
+	private void hideSection(Section aSection) {
+		if (aSection.isVisible()) {
+			aSection.setVisible(false);
+			sectionHeightMap.put(aSection, ((GridData) aSection.getLayoutData()).heightHint);
+			((GridData) aSection.getLayoutData()).heightHint = 0;
+		}
+	}
+
+	private void showSection(Section aSection) {
+		if (!aSection.isVisible()) {
+			((GridData) aSection.getLayoutData()).heightHint = sectionHeightMap.get(aSection);
+			aSection.setVisible(true);
+		}
+	}
+
 	// SUPPRESS CHECKSTYLE MethodLength
 	private void updateDetailPanel(SetListEntry anEntry, ILabelProvider aProvider) {
 		fixtureLink.setVisible(false);
@@ -2020,6 +2097,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		for (Control tempChild : resultLine3Border.getChildren()) {
 			tempChild.dispose();
 		}
+		hideSection(postInvocationTestSection);
 
 		resultSuccessIcon.setVisible(false);
 		resultFailureIcon.setVisible(false);
@@ -2107,6 +2185,25 @@ public class IntegrityTestRunnerView extends ViewPart {
 						resultSuccessCountLabel.setVisible(true);
 						resultFailureCountLabel.setVisible(true);
 						resultExceptionCountLabel.setVisible(true);
+
+						Object tempPostInvocationResult = tempResultEntry
+								.getAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT);
+						if (tempPostInvocationResult != null) {
+							if (tempPostInvocationResult.equals(true)) {
+								// We currently do not display successful post-invocation test results at all
+							} else if (tempPostInvocationResult instanceof String) {
+								showSection(postInvocationTestSection);
+								String tempPostInvocationTrace = (String) tempResultEntry
+										.getAttribute(SetListEntryAttributeKeys.POST_INVOCATION_EXCEPTION);
+								if (tempPostInvocationTrace != null) {
+									postInvocationTestResultBorder.setForeground(resultExceptionColor);
+									postInvocationTestResultText.setText(tempPostInvocationTrace);
+								} else {
+									postInvocationTestResultBorder.setForeground(resultFailureColor);
+									postInvocationTestResultText.setText((String) tempPostInvocationResult);
+								}
+							}
+						}
 					} else {
 						resultLine1Name.setText("No results available - please run the tests first.");
 						resultLine1Name.setVisible(true);
@@ -2931,7 +3028,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 				try {
 					if (!tempSuccess && !isConnected()) {
 						// try to connect at least once
-						connectToTestRunner(host, IntegrityRemotingConstants.DEFAULT_PORT);
+						connectToTestRunner(host, port);
 						tempSuccess = true;
 					} else {
 						// Now we'll wait until the launch has terminated
