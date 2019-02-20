@@ -169,6 +169,13 @@
 		.row0c { background-color: #F6F6F6; }
 		.row1c { background-color: #FFFFFF; }
 		.masterconsole { font-style: italic; }
+		.fixturelog { border: 1px solid #54006d; margin-bottom: 5px; margin-top: 4px; background-color: #FFF; display: none; }
+		.fixturelog ol { padding-left: 0px; margin-top: 0px; margin-bottom: 0px; counter-reset: item; list-style-type: none; font-family: Courier, Courier New, Lucida Console, monospace; }
+		.fixturelog li { padding-left: 4px; padding-right: 4px; }
+		.fixturelog li:before { content: counter(item) "  "; counter-increment: item; width: 46px; text-align: right; display: block; float: left; padding-right: 4px; margin-right: 4px; border-right: 1px solid #DDD; }
+		.fixturelogheader { font-weight: bold; padding-left: 3px; padding-top: 0px; padding-bottom: 2px; color: #FFF; background-color: #54006d; }
+		.row0f { background-color: #f7e5ff; }
+		.row1f { background-color: #fbf2ff; }
 		.abortmessageintro { color: #FF3030; }
 		.abortmessage { color: #FF3030; font-weight: bold; }
 		#abortmessagebig { color: #FF3030; font-weight: bold; font-size: 14pt; text-align: center; }</style>
@@ -815,6 +822,7 @@ function getChildByName(node, childName) {
             <xsl:value-of select="result/@exceptionMessage" />
           </div>
         </xsl:if>
+        <xsl:apply-templates select="results/fixturelog" />
         <xsl:apply-templates select="result/console" />
         <span class="durationandicons">
           <xsl:call-template name="duration">
@@ -840,21 +848,21 @@ function getChildByName(node, childName) {
         <xsl:attribute name="class">
           <xsl:text>statement row1timeset</xsl:text>
           <xsl:choose>
-	          <xsl:when test="@exceptionMessage">
-	          	<xsl:text>exception</xsl:text>
-	          </xsl:when>
-	          <xsl:otherwise>
-	          	<xsl:text>success</xsl:text>
-	          </xsl:otherwise>
+            <xsl:when test="@exceptionMessage">
+              <xsl:text>exception</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>success</xsl:text>
+            </xsl:otherwise>
           </xsl:choose>
         </xsl:attribute>
         <xsl:choose>
-	        <xsl:when test="@exceptionMessage">
-	          <div class="testicon testiconexception" />
-	        </xsl:when>
-	        <xsl:otherwise>
-	          <div class="timeseticon" />
-	        </xsl:otherwise>
+          <xsl:when test="@exceptionMessage">
+            <div class="testicon testiconexception" />
+          </xsl:when>
+          <xsl:otherwise>
+            <div class="timeseticon" />
+          </xsl:otherwise>
         </xsl:choose>
         <div class="testdescription">
           <xsl:value-of select="@text" />
@@ -873,12 +881,12 @@ function getChildByName(node, childName) {
           <xsl:if test="count(extResults/*) &gt; 0">
             <xsl:apply-templates select="extResults" />
           </xsl:if>
-        </div>        
+        </div>
         <xsl:if test="@exceptionTrace">
           <div class="value exceptionmessage">
             <xsl:value-of select="@exceptionMessage" />
           </div>
-        </xsl:if>        
+        </xsl:if>
         <span class="durationandicons">
           <span class="testicons">
             <xsl:call-template name="scriptlink">
@@ -993,6 +1001,34 @@ function getChildByName(node, childName) {
         </xsl:variable>
         <xsl:attribute name="class">
           <xsl:value-of select="concat(name(), ' ', 'row', position() mod 2, 'c', $source)" />
+        </xsl:attribute>
+        <xsl:call-template name="fixSpaces">
+          <xsl:with-param name="text" select="@text" />
+        </xsl:call-template>
+      </li>
+    </xsl:template>
+    <xsl:template match="fixturelog">
+      <xsl:variable name="headerending">
+        <xsl:choose>
+          <xsl:when test="@lines = 1">
+            <xsl:text>line</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>lines</xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <div class="fixturelog expandable">
+        <div class="fixturelogheader">
+          <xsl:value-of select="concat('Fixture log: ', @lines, ' ', $headerending)" />
+        </div>
+        <ol>
+          <xsl:apply-templates select="line" />
+        </ol>
+      </div>
+    </xsl:template>
+    <xsl:template match="line">
+      <li>
+        <xsl:attribute name="class">
+          <xsl:value-of select="concat('row', position() mod 2, 'f')" />
         </xsl:attribute>
         <xsl:call-template name="fixSpaces">
           <xsl:with-param name="text" select="@text" />
@@ -1228,6 +1264,7 @@ function getChildByName(node, childName) {
             </div>
           </xsl:if>
         </div>
+        <xsl:apply-templates select="results/fixturelog" />
         <xsl:apply-templates select="results/console" />
         <span class="durationandicons">
           <xsl:call-template name="duration">
@@ -1421,6 +1458,7 @@ function getChildByName(node, childName) {
           <xsl:value-of select="count(results/result)" />
           results
         </div>
+        <xsl:apply-templates select="results/fixturelog" />
         <xsl:apply-templates select="results/console" />
         <span class="durationandicons">
           <xsl:call-template name="duration">
@@ -1437,27 +1475,27 @@ function getChildByName(node, childName) {
       </div>
     </xsl:template>
     <xsl:template match="postResult">
-     	<xsl:choose>
-	    	<xsl:when test="@type = 'failure'">
-	    		<div class="postresult testresultvaluefailure">
-		          Finalization test has failed: 
-		          <xsl:value-of select="@value" />
-		        </div>
-	    	</xsl:when>
-	    	<xsl:when test="@type = 'exception'">
-	    		<div class="postresult">
-		          Finalization test has thrown an exception: 
-		          <xsl:value-of select="@exceptionMessage" />
-		          <xsl:if test="@exceptionTrace">
-		            <div class="exceptiontrace value expandable" style="display: none;">
-		              <xsl:call-template name="formatExceptionTrace">
-		                <xsl:with-param name="text" select="@exceptionTrace" />
-		              </xsl:call-template>
-		            </div>
-		          </xsl:if>
-		        </div>
-	    	</xsl:when>
-	    </xsl:choose>
+      <xsl:choose>
+        <xsl:when test="@type = 'failure'">
+          <div class="postresult testresultvaluefailure">
+            Finalization test has failed:
+            <xsl:value-of select="@value" />
+          </div>
+        </xsl:when>
+        <xsl:when test="@type = 'exception'">
+          <div class="postresult">
+            Finalization test has thrown an exception:
+            <xsl:value-of select="@exceptionMessage" />
+            <xsl:if test="@exceptionTrace">
+              <div class="exceptiontrace value expandable" style="display: none;">
+                <xsl:call-template name="formatExceptionTrace">
+                  <xsl:with-param name="text" select="@exceptionTrace" />
+                </xsl:call-template>
+              </div>
+            </xsl:if>
+          </div>
+        </xsl:when>
+      </xsl:choose>
     </xsl:template>
     <xsl:template name="box">
       <xsl:param name="class" />
@@ -1570,7 +1608,20 @@ function getChildByName(node, childName) {
     </xsl:template>
     <xsl:template name="fixSpaces">
       <xsl:param name="text" />
-      <xsl:value-of select="$text" />
+      <xsl:choose>
+        <xsl:when test="contains($text, '  ')">
+          <xsl:call-template name="fixSpaces">
+            <xsl:with-param name="text" select="substring-before($text, '  ')" />
+          </xsl:call-template>
+          <xsl:text>&#160;&#160;</xsl:text>
+          <xsl:call-template name="fixSpaces">
+            <xsl:with-param name="text" select="substring-after($text, '  ')" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$text" />
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:template>
     <xsl:template name="formatExceptionTrace">
       <xsl:param name="text" />
@@ -1637,51 +1688,51 @@ function getChildByName(node, childName) {
                 <xsl:value-of select="substring-after($preToken, '|')" />
               </xsl:variable>
               <xsl:choose>
-	              <xsl:when test="$token = 'NL' or $token = 'T'">
-	                <xsl:choose>
-	                  <xsl:when test="$token = 'NL'">
-	                    <br />
-	                  </xsl:when>
-	                  <xsl:when test="$token = 'T'">
-	                    <xsl:text>    </xsl:text>
-	                  </xsl:when>
-	                </xsl:choose>
-	                <xsl:call-template name="processFormattedStringRecursive">
-	                  <xsl:with-param name="text" select="$trailingText" />
-	                </xsl:call-template>
-	              </xsl:when>
-	              <xsl:when test="$token = 'UL' or $token = 'B' or $token = 'I'">
-	                <xsl:variable name="innerText">
-	                  <xsl:value-of select="substring-before($trailingText, concat('[/', $token, ']'))" />
-	                </xsl:variable>
-	                <xsl:choose>
-	                  <xsl:when test="$token = 'UL'">
-	                    <span class="underline">
-	                      <xsl:call-template name="processFormattedStringRecursive">
-	                        <xsl:with-param name="text" select="$innerText" />
-	                      </xsl:call-template>
-	                    </span>
-	                  </xsl:when>
-	                  <xsl:when test="$token = 'B'">
-	                    <span class="bold">
-	                      <xsl:call-template name="processFormattedStringRecursive">
-	                        <xsl:with-param name="text" select="$innerText" />
-	                      </xsl:call-template>
-	                    </span>
-	                  </xsl:when>
-	                  <xsl:when test="$token = 'I'">
-	                    <span class="italic">
-	                      <xsl:call-template name="processFormattedStringRecursive">
-	                        <xsl:with-param name="text" select="$innerText" />
-	                      </xsl:call-template>
-	                    </span>
-	                  </xsl:when>
-	                </xsl:choose>
-	                <xsl:call-template name="processFormattedStringRecursive">
-	                  <xsl:with-param name="text" select="substring-after($trailingText, concat('[/', $token, ']'))" />
-	                </xsl:call-template>
-	              </xsl:when>
-	          </xsl:choose>
+                <xsl:when test="$token = 'NL' or $token = 'T'">
+                  <xsl:choose>
+                    <xsl:when test="$token = 'NL'">
+                      <br />
+                    </xsl:when>
+                    <xsl:when test="$token = 'T'">
+                      <xsl:text>    </xsl:text>
+                    </xsl:when>
+                  </xsl:choose>
+                  <xsl:call-template name="processFormattedStringRecursive">
+                    <xsl:with-param name="text" select="$trailingText" />
+                  </xsl:call-template>
+                </xsl:when>
+                <xsl:when test="$token = 'UL' or $token = 'B' or $token = 'I'">
+                  <xsl:variable name="innerText">
+                    <xsl:value-of select="substring-before($trailingText, concat('[/', $token, ']'))" />
+                  </xsl:variable>
+                  <xsl:choose>
+                    <xsl:when test="$token = 'UL'">
+                      <span class="underline">
+                        <xsl:call-template name="processFormattedStringRecursive">
+                          <xsl:with-param name="text" select="$innerText" />
+                        </xsl:call-template>
+                      </span>
+                    </xsl:when>
+                    <xsl:when test="$token = 'B'">
+                      <span class="bold">
+                        <xsl:call-template name="processFormattedStringRecursive">
+                          <xsl:with-param name="text" select="$innerText" />
+                        </xsl:call-template>
+                      </span>
+                    </xsl:when>
+                    <xsl:when test="$token = 'I'">
+                      <span class="italic">
+                        <xsl:call-template name="processFormattedStringRecursive">
+                          <xsl:with-param name="text" select="$innerText" />
+                        </xsl:call-template>
+                      </span>
+                    </xsl:when>
+                  </xsl:choose>
+                  <xsl:call-template name="processFormattedStringRecursive">
+                    <xsl:with-param name="text" select="substring-after($trailingText, concat('[/', $token, ']'))" />
+                  </xsl:call-template>
+                </xsl:when>
+              </xsl:choose>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
