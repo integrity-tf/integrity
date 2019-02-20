@@ -108,6 +108,8 @@ import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.console.intercept.ConsoleInterceptionAggregator;
 import de.gebit.integrity.runner.console.intercept.Intercept;
 import de.gebit.integrity.runner.console.intercept.InterceptedLine;
+import de.gebit.integrity.runner.logging.AggregatingFixtureLogger;
+import de.gebit.integrity.runner.logging.LogLine;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -200,6 +202,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Inject
 	protected ConsoleInterceptionAggregator consoleInterceptor;
+
+	/**
+	 * The fixture logger.
+	 */
+	@Inject
+	protected AggregatingFixtureLogger fixtureLogger;
 
 	/**
 	 * Whether console output shall be captured.
@@ -507,10 +515,25 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected static final String CONSOLE_LINE_TEXT_ATTRIBUTE = "text";
 
 	/** The Constant CONSOLE_LINE_TEMP_TIME_ATTRIBUTE. */
-	protected static final String CONSOLE_LINE_TEMP_TIME_ATTRIBUTE = TEMPORARY_ATTRIBUTE_PREFIX + "time";
+	protected static final String CONSOLE_LINE_TIME_ATTRIBUTE = "time";
 
 	/** The Constant CONSOLE_LINE_SOURCE_ATTRIBUTE. */
 	protected static final String CONSOLE_LINE_SOURCE_ATTRIBUTE = "source";
+
+	/** The Constant FIXTURELOG_ELEMENT. */
+	protected static final String FIXTURELOG_ELEMENT = "fixturelog";
+
+	/** The Constant FIXTURELOG_LINECOUNT_ATTRIBUTE. */
+	protected static final String FIXTURELOG_LINECOUNT_ATTRIBUTE = "lines";
+
+	/** The Constant FIXTURELOG_LINE_ELEMENT. */
+	protected static final String FIXTURELOG_LINE_ELEMENT = "line";
+
+	/** The Constant FIXTURELOG_LINE_TEXT_ATTRIBUTE. */
+	protected static final String FIXTURELOG_LINE_TEXT_ATTRIBUTE = "text";
+
+	/** The Constant FIXTURELOG_LINE_TIME_ATTRIBUTE. */
+	protected static final String FIXTURELOG_LINE_TIME_ATTRIBUTE = "time";
 
 	/**
 	 * Maximum number of lines of console output that is added to a single test/call.
@@ -1067,6 +1090,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				aResult.getSubResults().get(0), tempParameterMap, tempParameterMap);
 
 		if (!isDryRun()) {
+			addFixtureLogging(tempResultCollectionElement);
 			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempResultCollectionElement);
@@ -1238,6 +1262,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				}
 			}
 
+			addFixtureLogging(tempResultCollectionElement);
 			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempResultCollectionElement);
@@ -1498,6 +1523,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 
 		if (!isDryRun()) {
+			addFixtureLogging(tempCallResultElement);
 			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempCallResultElement);
@@ -2413,7 +2439,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * <br>
 	 * This method is able to deal with elements which already contain console output. In such a case, the existing
 	 * elements' {@link #CONSOLE_TEMP_STARTTIME_ATTRIBUTE} and {@link #CONSOLE_TEMP_ENDTIME_ATTRIBUTE} as well as the
-	 * existing lines' {@link #CONSOLE_LINE_TEMP_TIME_ATTRIBUTE} attributes are used to merge newly added lines with the
+	 * existing lines' {@link #CONSOLE_LINE_TIME_ATTRIBUTE} attributes are used to merge newly added lines with the
 	 * existing lines. This mechanism is designed to allow merging of console data from forks with data collected on the
 	 * master.
 	 * 
@@ -2439,6 +2465,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					tempMerged = false;
 					tempLineCount = 0;
 					tempTruncatedCount = 0;
+
+					// These time attributes do not actually go into the final result! They're just used to merge fork
+					// and master lines on the master after receiving test/call results from a fork.
 					tempLowerTimeBound = tempIntercept.getStartTimestamp();
 					setAttributeGuarded(tempLineElements, CONSOLE_TEMP_STARTTIME_ATTRIBUTE,
 							Long.toString(tempLowerTimeBound));
@@ -2480,16 +2509,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					Element tempLineElement = new Element(
 							tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT : CONSOLE_LINE_STDOUT_ELEMENT);
 
-					String tempText = tempLine.getText();
-					tempText.replace("\t", "    ");
-					if (tempText.length() > MAX_CONSOLE_LINE_SIZE) {
-						tempText = tempText.substring(0, MAX_CONSOLE_LINE_SIZE) + "... ("
-								+ (tempText.length() - MAX_CONSOLE_LINE_SIZE) + " CHARS TRUNCATED)";
-					}
+					String tempText = processConsoleLogLine(tempLine.getText());
 
-					// This time attribute does not actually go into the final result! It's just used to merge fork
-					// and master lines on the master after receiving test/call results from a fork.
-					setAttributeGuarded(tempLineElement, CONSOLE_LINE_TEMP_TIME_ATTRIBUTE,
+					setAttributeGuarded(tempLineElement, CONSOLE_LINE_TIME_ATTRIBUTE,
 							Long.toString(tempLine.getTimestamp()));
 					if (isFork()) {
 						// At the moment, there is only one valid value for the source attribute: "fork" denotes a line
@@ -2513,7 +2535,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						while (tempEarliestPossiblePosition < tempLineElements.getChildren().size()) {
 							Element tempChild = (Element) tempLineElements.getChildren()
 									.get(tempEarliestPossiblePosition);
-							if (Long.parseLong(tempChild.getAttributeValue(CONSOLE_LINE_TEMP_TIME_ATTRIBUTE)) > tempLine
+							if (Long.parseLong(tempChild.getAttributeValue(CONSOLE_LINE_TIME_ATTRIBUTE)) > tempLine
 									.getTimestamp()) {
 								// The new line is to be added right before the current earliest possible position
 								break;
@@ -2543,6 +2565,65 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Adds fixture log output to the provided element, if any is present. Can be called with "null" as an element, in
+	 * which case the {@link AggregatingFixtureLogger}s' internal buffer is just cleared. This buffer is of course also
+	 * cleared if the method is used with an element.
+	 * 
+	 * @param anElement
+	 *            the element to add fixture logging to
+	 */
+	protected void addFixtureLogging(Element anElement) {
+		List<LogLine> tempLines = fixtureLogger.popLines();
+
+		if (tempLines.size() == 0) {
+			return;
+		}
+
+		if (anElement != null) {
+			Element tempLineElements = new Element(FIXTURELOG_ELEMENT);
+			anElement.addContent(tempLineElements);
+
+			for (LogLine tempLine : tempLines) {
+				Element tempLineElement = new Element(FIXTURELOG_LINE_ELEMENT);
+
+				setAttributeGuarded(tempLineElement, FIXTURELOG_LINE_TIME_ATTRIBUTE,
+						Long.toString(tempLine.getTimestamp()));
+
+				// We don't want to add the raw text, but a formatted line.
+				String tempText = processConsoleLogLine(tempLine.toString());
+				try {
+					setAttributeGuarded(tempLineElement, FIXTURELOG_LINE_TEXT_ATTRIBUTE, tempText);
+				} catch (IllegalDataException exc) {
+					exc.printStackTrace();
+					setAttributeGuarded(tempLineElement, FIXTURELOG_LINE_TEXT_ATTRIBUTE,
+							"LINE TRUNCATED: IllegalDataException");
+				}
+
+				tempLineElements.addContent(tempLineElement);
+			}
+
+			setAttributeGuarded(tempLineElements, FIXTURELOG_LINECOUNT_ATTRIBUTE, Integer.toString(tempLines.size()));
+		}
+	}
+
+	/**
+	 * Truncates the given line and replaces certain characters (like tabs).
+	 * 
+	 * @param aRawLine
+	 *            the raw console log line
+	 * @return the line to be added to the test result
+	 */
+	protected String processConsoleLogLine(String aRawLine) {
+		String tempLine = aRawLine.replace("\t", "    ");
+		if (tempLine.length() > MAX_CONSOLE_LINE_SIZE) {
+			tempLine = tempLine.substring(0, MAX_CONSOLE_LINE_SIZE) + "... ("
+					+ (tempLine.length() - MAX_CONSOLE_LINE_SIZE) + " CHARS TRUNCATED)";
+		}
+
+		return tempLine;
 	}
 
 	/**
