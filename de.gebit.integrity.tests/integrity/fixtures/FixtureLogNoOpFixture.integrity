@@ -1,0 +1,6 @@
+packagedef integrity.fixtures.basic.fixturelognoop with
+	
+	testdef echoInteger uses de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger
+	calldef echoIntegerCall uses de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger
+
+packageend

@@ -196,11 +196,13 @@ public abstract class IntegrityJUnitTest {
 
 		removeDurationsAndTimes(aDoc.getRootElement());
 		removeObjectIDs(aDoc.getRootElement());
-		rempveStackTraces(aDoc.getRootElement());
+		removeStackTraces(aDoc.getRootElement());
+		removeFixtureLogTimestamp(aDoc.getRootElement());
 
 		removeDurationsAndTimes(tempRef.getRootElement());
 		removeObjectIDs(tempRef.getRootElement());
-		rempveStackTraces(tempRef.getRootElement());
+		removeStackTraces(tempRef.getRootElement());
+		removeFixtureLogTimestamp(tempRef.getRootElement());
 
 		ByteArrayOutputStream tempDocStream = new ByteArrayOutputStream();
 		ByteArrayOutputStream tempRefStream = new ByteArrayOutputStream();
@@ -260,6 +262,7 @@ public abstract class IntegrityJUnitTest {
 		clearAttribute(anElement, "duration");
 		clearAttribute(anElement, "timestamp");
 		clearAttribute(anElement, "isotimestamp");
+		clearAttribute(anElement, "time");
 
 		for (Object tempChild : anElement.getChildren()) {
 			if (tempChild instanceof Element) {
@@ -268,7 +271,7 @@ public abstract class IntegrityJUnitTest {
 		}
 	}
 
-	private void rempveStackTraces(Element anElement) throws JDOMException {
+	private void removeStackTraces(Element anElement) throws JDOMException {
 		Attribute tempTrace = anElement.getAttribute("exceptionTrace");
 		if (tempTrace != null) {
 			tempTrace.setValue("STACKTRACE");
@@ -276,7 +279,21 @@ public abstract class IntegrityJUnitTest {
 
 		for (Object tempChild : anElement.getChildren()) {
 			if (tempChild instanceof Element) {
-				rempveStackTraces((Element) tempChild);
+				removeStackTraces((Element) tempChild);
+			}
+		}
+	}
+
+	private void removeFixtureLogTimestamp(Element anElement) throws JDOMException {
+		if ("line".equals(anElement.getName())) {
+			String tempText = anElement.getAttribute("text").getValue();
+			tempText = tempText.substring(23);
+			anElement.setAttribute("text", tempText);
+		}
+
+		for (Object tempChild : anElement.getChildren()) {
+			if (tempChild instanceof Element) {
+				removeFixtureLogTimestamp((Element) tempChild);
 			}
 		}
 	}
