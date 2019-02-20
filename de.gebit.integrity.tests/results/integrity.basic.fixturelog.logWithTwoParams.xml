@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="20.02.19 18:37" isotimestamp="2019-02-20T18:37:38" duration="5.150">
+  <variables />
+  <suite id="0" name="integrity.basic.fixturelog.logWithTwoParams" timestamp="20.02.19 18:37:38.0340">
+    <setup />
+    <variables />
+    <statements>
+      <suite id="1" line="53" name="integrity.basic.fixturelog.fixtureLogTest" timestamp="20.02.19 18:37:38.0340">
+        <setup />
+        <variables>
+          <variable name="number" value="11" />
+          <variable name="num" value="-1" />
+        </variables>
+        <statements>
+          <test id="2" line="7" name="echoInteger" description="Echo the integer '11'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0341">
+            <results duration="0.246" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.246" description="Echo the integer '11'" type="success">
+                <parameters>
+                  <parameter name="integer" value="11" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="11" value="11" type="success" />
+                </comparisons>
+              </result>
+              <fixturelog lines="1">
+                <line time="1550684258342" text="2019-02-20 18:37:38.342 | INFO    | Here is a log message with two parameters: null and blah" />
+              </fixturelog>
+            </results>
+          </test>
+          <call id="3" line="9" name="echoIntegerCall" description="Echo the integer '11'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0343">
+            <parameters>
+              <parameter name="integer" value="11" />
+            </parameters>
+            <result duration="0.207" type="success">
+              <fixturelog lines="1">
+                <line time="1550684258343" text="2019-02-20 18:37:38.343 | INFO    | Here is a log message with two parameters: null and blah" />
+              </fixturelog>
+            </result>
+          </call>
+          <tabletest id="4" line="11" name="echoInteger" description="Echo the integer '???'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0344">
+            <parameters />
+            <results duration="0.835" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.187" description="Echo the integer '11'" type="success">
+                <parameters>
+                  <parameter name="integer" value="11" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="11" value="11" type="success" />
+                </comparisons>
+              </result>
+              <fixturelog lines="1">
+                <line time="1550684258344" text="2019-02-20 18:37:38.344 | INFO    | Here is a log message with two parameters: null and blah" />
+              </fixturelog>
+            </results>
+          </tabletest>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="4.467" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="4.944" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
