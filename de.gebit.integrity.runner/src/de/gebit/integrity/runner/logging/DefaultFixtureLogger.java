@@ -39,7 +39,16 @@ public class DefaultFixtureLogger implements AggregatingFixtureLogger {
 	/**
 	 * Only log messages that equal this level or are coarser than it will be logged.
 	 */
-	protected FixtureLogLevel thresholdLevel = FixtureLogLevel.DEBUG; // DEBUG is the default threshold
+	protected FixtureLogLevel thresholdLevel = Boolean.parseBoolean(System.getProperty(LOG_TRACE_PROPERTY, "false"))
+			? FixtureLogLevel.DEBUG
+			: FixtureLogLevel.TRACE;
+
+	/**
+	 * Set this system property to turn on verbose logging of fixture log output. Log output on level
+	 * {@link FixtureLogLevel#TRACE} will not be actually logged otherwise, since the default level is
+	 * {@link FixtureLogLevel#DEBUG}.
+	 */
+	public static final String LOG_TRACE_PROPERTY = "integrity.fixtures.logging.verbose";
 
 	/**
 	 * The console interceptor.
@@ -53,7 +62,8 @@ public class DefaultFixtureLogger implements AggregatingFixtureLogger {
 	protected static final String FIXTURE_LOG_CONSOLE_PREFIX = "FIXTURE LOG -> ";
 
 	/**
-	 * Sets the threshold level. Only log messages that equal this level or are coarser than it will be logged.
+	 * Sets the threshold level interactively at runtime. Only log messages that equal this level or are coarser than it
+	 * will be logged.
 	 * 
 	 * @param aThresholdLevel
 	 *            the level to compare with
