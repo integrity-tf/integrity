@@ -306,12 +306,14 @@ public class DefaultFixtureLogger implements AggregatingFixtureLogger {
 		if (!aParam.getClass().isArray()) {
 			appendSimpleObjectParameter(aBuffer, aParam);
 		} else {
+			aBuffer.append("[");
 			for (int i = 0; i < Array.getLength(aParam); i++) {
 				if (i > 0) {
 					aBuffer.append(", ");
 				}
 				appendSimpleObjectParameter(aBuffer, Array.get(aParam, i));
 			}
+			aBuffer.append("]");
 		}
 	}
 
