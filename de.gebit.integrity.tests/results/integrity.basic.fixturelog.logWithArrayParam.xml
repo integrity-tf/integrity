@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="20.02.19 18:37" isotimestamp="2019-02-20T18:37:38" duration="3.949">
+<integrity name="Integrity JUnit Testing" timestamp="20.02.19 18:44" isotimestamp="2019-02-20T18:44:52" duration="5.821">
   <variables />
-  <suite id="0" name="integrity.basic.fixturelog.logWithArrayParam" timestamp="20.02.19 18:37:38.0530">
+  <suite id="0" name="integrity.basic.fixturelog.logWithArrayParam" timestamp="20.02.19 18:44:52.0997">
     <setup />
     <variables />
     <statements>
-      <suite id="1" line="61" name="integrity.basic.fixturelog.fixtureLogTest" timestamp="20.02.19 18:37:38.0530">
+      <suite id="1" line="61" name="integrity.basic.fixturelog.fixtureLogTest" timestamp="20.02.19 18:44:52.0997">
         <setup />
         <variables>
           <variable name="number" value="13" />
           <variable name="num" value="-1" />
         </variables>
         <statements>
-          <test id="2" line="7" name="echoInteger" description="Echo the integer '13'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0531">
-            <results duration="0.234" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.234" description="Echo the integer '13'" type="success">
+          <test id="2" line="7" name="echoInteger" description="Echo the integer '13'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:44:52.0998">
+            <results duration="0.309" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.309" description="Echo the integer '13'" type="success">
                 <parameters>
                   <parameter name="integer" value="13" />
                 </parameters>
@@ -23,24 +23,24 @@
                 </comparisons>
               </result>
               <fixturelog lines="1">
-                <line time="1550684258531" text="2019-02-20 18:37:38.531 | INFO    | Here is a log message with an array parameter: 1, 2, 3" />
+                <line time="1550684692999" text="2019-02-20 18:44:52.999 | INFO    | Here is a log message with an array parameter: [1, 2, 3]" />
               </fixturelog>
             </results>
           </test>
-          <call id="3" line="9" name="echoIntegerCall" description="Echo the integer '13'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0532">
+          <call id="3" line="9" name="echoIntegerCall" description="Echo the integer '13'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:44:53.0000">
             <parameters>
               <parameter name="integer" value="13" />
             </parameters>
-            <result duration="0.169" type="success">
+            <result duration="0.214" type="success">
               <fixturelog lines="1">
-                <line time="1550684258533" text="2019-02-20 18:37:38.533 | INFO    | Here is a log message with an array parameter: 1, 2, 3" />
+                <line time="1550684693000" text="2019-02-20 18:44:53.000 | INFO    | Here is a log message with an array parameter: [1, 2, 3]" />
               </fixturelog>
             </result>
           </call>
-          <tabletest id="4" line="11" name="echoInteger" description="Echo the integer '???'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0533">
+          <tabletest id="4" line="11" name="echoInteger" description="Echo the integer '???'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:44:53.0001">
             <parameters />
-            <results duration="0.511" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="0.124" description="Echo the integer '13'" type="success">
+            <results duration="1.126" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.337" description="Echo the integer '13'" type="success">
                 <parameters>
                   <parameter name="integer" value="13" />
                 </parameters>
@@ -49,19 +49,19 @@
                 </comparisons>
               </result>
               <fixturelog lines="1">
-                <line time="1550684258533" text="2019-02-20 18:37:38.533 | INFO    | Here is a log message with an array parameter: 1, 2, 3" />
+                <line time="1550684693001" text="2019-02-20 18:44:53.001 | INFO    | Here is a log message with an array parameter: [1, 2, 3]" />
               </fixturelog>
             </results>
           </tabletest>
         </statements>
         <returns />
         <teardown />
-        <result duration="3.339" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="5.088" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
     </statements>
     <returns />
     <teardown />
-    <result duration="3.711" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="5.596" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
