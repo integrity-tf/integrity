@@ -2,9 +2,13 @@ package de.gebit.integrity.experiments.fixtures;
 
 import java.util.Date;
 
+import com.google.inject.Inject;
+
 import de.gebit.integrity.exceptions.AbortExecutionException;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
+import de.gebit.integrity.fixtures.logging.FixtureLogLevel;
+import de.gebit.integrity.fixtures.logging.FixtureLogger;
 
 public class AdditionFixture {
 
@@ -13,6 +17,9 @@ public class AdditionFixture {
 	public static final Integer INT_CONST = 123;
 
 	public int integer = 123;
+
+	@Inject
+	private FixtureLogger logger;
 
 	/**
 	 * Adds two integer numbers and returns the result.
@@ -60,12 +67,51 @@ public class AdditionFixture {
 	public String returnString(@FixtureParameter(name = "echo") String anInput) {
 		pause();
 		// throw new RuntimeException(anInput);
+
 		return anInput;
+	}
+
+	private void logStuff() {
+		if (Math.random() > 0.5) {
+			int tempTargetLogLines = (int) (Math.random() * 10);
+			int tempTargetConsoleLines = (int) (Math.random() * 10);
+			int tempLogLines = 0;
+			int tempConsoleLines = 0;
+
+			while (tempLogLines < tempTargetLogLines || tempConsoleLines < tempTargetConsoleLines) {
+				if (Math.random() > 0.5) {
+					if (tempLogLines < tempTargetLogLines) {
+						tempLogLines++;
+						logger.log(
+								FixtureLogLevel.values()[(int) Math
+										.floor(Math.random() * (double) FixtureLogLevel.values().length)],
+								"This is fixture log message {} of {}, written at {}", tempLogLines, tempTargetLogLines,
+								System.currentTimeMillis());
+					}
+				} else if (Math.random() < 0.1) {
+					logger.log(FixtureLogLevel.ERROR, "This is a test exception: {}", "blah",
+							new RuntimeException("blahblub"));
+				} else {
+					if (tempConsoleLines < tempTargetConsoleLines) {
+						tempConsoleLines++;
+						System.out.println("This is console log message " + tempConsoleLines + " of "
+								+ tempTargetConsoleLines + ", written at " + System.currentTimeMillis());
+					}
+				}
+
+				try {
+					Thread.sleep((long) (Math.random() * 10));
+				} catch (InterruptedException exc) {
+					// ignored
+				}
+			}
+		}
 	}
 
 	@FixtureMethod(description = "echoes $echo$")
 	public Object returnValue(@FixtureParameter(name = "echo") Object anInput) {
 		// throw new RuntimeException("An exception!");
+		logStuff();
 		return anInput;
 	}
 
