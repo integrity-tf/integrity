@@ -22,14 +22,14 @@ public enum FixtureLogLevel {
 	 * exception message) to deal with the problem in the form of ERROR log messages before finishing fixture execution
 	 * by throwing the exception.
 	 */
-	ERROR(4, "  "),
+	ERROR(0, "  "),
 
 	/**
 	 * Warnings should still result in successful fixture execution, but indicate some kind of "soft problem" that
 	 * appeared while doing the job and that the fixture code dealt with successfully. Fallbacks in the code are a
 	 * typical example for this.
 	 */
-	WARNING(3, ""),
+	WARNING(1, ""),
 
 	/**
 	 * Info messages are just that - information to the fixture or test author, exposing some kind of internal data that
@@ -42,14 +42,14 @@ public enum FixtureLogLevel {
 	 * useful to diagnose problems with a fixture. The debug level is by default the finest level that is actually being
 	 * captured into test results.
 	 */
-	DEBUG(1, "  "),
+	DEBUG(3, "  "),
 
 	/**
 	 * Trace log output should be extremely detailed information about fixture internals that is NOT usually needed to
 	 * diagnose problems with a fixture, but that MAY be useful in specific circumstances. Capturing trace log lines is
 	 * disabled by default, because it is expected that trace log data is large in volume and of limited general use.
 	 */
-	TRACE(0, "  ");
+	TRACE(4, "  ");
 
 	/**
 	 * The numeric level used to compare log levels.
@@ -79,7 +79,7 @@ public enum FixtureLogLevel {
 	 * @return true if this level is finer than the provided one
 	 */
 	public boolean isFinerThan(FixtureLogLevel anOtherLevel) {
-		return numericLevel < anOtherLevel.numericLevel;
+		return numericLevel > anOtherLevel.numericLevel;
 	}
 
 	/**
@@ -90,7 +90,7 @@ public enum FixtureLogLevel {
 	 * @return true if this level is finer than the provided one or equals it
 	 */
 	public boolean isEqualOrFinerThan(FixtureLogLevel anOtherLevel) {
-		return numericLevel <= anOtherLevel.numericLevel;
+		return numericLevel >= anOtherLevel.numericLevel;
 	}
 
 	public String getPaddedName() {
