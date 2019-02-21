@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="20.02.19 18:37" isotimestamp="2019-02-20T18:37:38" duration="6.579">
+  <variables />
+  <suite id="0" name="integrity.basic.fixturelog.noLog" timestamp="20.02.19 18:37:38.0157">
+    <setup />
+    <variables />
+    <statements>
+      <suite id="1" line="20" name="integrity.basic.fixturelog.fixtureLogTest" timestamp="20.02.19 18:37:38.0157">
+        <setup />
+        <variables>
+          <variable name="number" value="-1" />
+          <variable name="num" value="-1" />
+        </variables>
+        <statements>
+          <test id="2" line="7" name="echoInteger" description="Echo the integer '-1'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0158">
+            <results duration="0.333" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.333" description="Echo the integer '-1'" type="success">
+                <parameters>
+                  <parameter name="integer" value="-1" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="-1" value="-1" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+          <call id="3" line="9" name="echoIntegerCall" description="Echo the integer '-1'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0161">
+            <parameters>
+              <parameter name="integer" value="-1" />
+            </parameters>
+            <result duration="0.158" type="success" />
+          </call>
+          <tabletest id="4" line="11" name="echoInteger" description="Echo the integer '???'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0162">
+            <parameters />
+            <results duration="0.843" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.121" description="Echo the integer '-1'" type="success">
+                <parameters>
+                  <parameter name="integer" value="-1" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="-1" value="-1" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </tabletest>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="5.646" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="6.257" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

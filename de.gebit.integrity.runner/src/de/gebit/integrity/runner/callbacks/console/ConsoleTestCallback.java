@@ -409,10 +409,25 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 	}
 
 	@Override
-	public void onTableTestFinish(TableTest aTableTest, TestResult someResults) {
-		println("\tTotal: " + someResults.getSubTestSuccessCount() + "x SUCCESS, " + someResults.getSubTestFailCount()
-				+ "x FAILURE, " + someResults.getSubTestExceptionCount() + "x EXCEPTION.");
-		displayExtendedResults(someResults.getExtendedResults());
+	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
+		println("\tTotal: " + aResult.getSubTestSuccessCount() + "x SUCCESS, " + aResult.getSubTestFailCount()
+				+ "x FAILURE, " + aResult.getSubTestExceptionCount() + "x EXCEPTION.");
+
+		TestSubResult tempPostInvocationResult = aResult.getPostInvocationTestResult();
+		if (tempPostInvocationResult instanceof TestExecutedSubResult) {
+			TestComparisonResult tempPostInvocationComparisonResult = tempPostInvocationResult.getComparisonResults()
+					.get(ParameterUtil.DEFAULT_PARAMETER_NAME);
+			if (tempPostInvocationComparisonResult.getResult().isSuccessful()) {
+				// do nothing
+			} else {
+				println("FAILURE: Final test has failed: " + tempPostInvocationComparisonResult.getActualValue());
+			}
+		} else if (tempPostInvocationResult instanceof TestExceptionSubResult) {
+			println("EXCEPTION OCCURRED DURING FINAL TEST, SEE STDERR!");
+			((TestExceptionSubResult) tempPostInvocationResult).getException().printStackTrace();
+		}
+
+		displayExtendedResults(aResult.getExtendedResults());
 	}
 
 	@Override

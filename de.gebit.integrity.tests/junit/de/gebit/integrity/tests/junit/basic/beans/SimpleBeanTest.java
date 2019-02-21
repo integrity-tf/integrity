@@ -33,10 +33,25 @@ public class SimpleBeanTest extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void test() throws ModelLoadException, IOException, JDOMException {
+	public void testSimpleBean() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
 				new String[] { "integrity/suites/basic/beans/simpleBeanTest.integrity" },
 				"integrity.basic.beans.simpleBeanTest", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs a suite which does fixture calls with bean values and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testSimpleBeanWithInexistence() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/beans/simpleBeanTest.integrity" },
+				"integrity.basic.beans.simpleBeanWithInexistenceTest", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 

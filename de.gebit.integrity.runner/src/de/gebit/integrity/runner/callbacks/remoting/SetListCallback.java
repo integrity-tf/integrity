@@ -85,6 +85,7 @@ import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
 import de.gebit.integrity.runner.results.timeset.TimeSetResult;
 import de.gebit.integrity.runner.results.timeset.TimeSetSuccessResult;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.ParameterUtil;
 
 /**
  * Callback for creation and update of the {@link SetList} - a crucial part of Integritys' remoting system.
@@ -303,6 +304,26 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 				tempTestEntry.setAttribute(SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT,
 						aResult.getSubTestExceptionCount());
 				tempTestEntry.setAttribute(SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT, 0);
+
+				TestSubResult tempPostInvocationResult = aResult.getPostInvocationTestResult();
+				if (tempPostInvocationResult instanceof TestExecutedSubResult) {
+					TestComparisonResult tempPostInvocationComparisonResult = tempPostInvocationResult
+							.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
+					if (tempPostInvocationComparisonResult.getResult().isSuccessful()) {
+						tempTestEntry.setAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT, true);
+					} else {
+						// In case of test failure, we expect a failure message to be placed in the actual value
+						tempTestEntry.setAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT,
+								(String) tempPostInvocationComparisonResult.getActualValue());
+					}
+				} else if (tempPostInvocationResult instanceof TestExceptionSubResult) {
+					// For exceptions, use both post-invocation-related attributes: the result gets the message, the
+					// exception gets the stacktrace
+					tempTestEntry.setAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT,
+							((TestExceptionSubResult) tempPostInvocationResult).getException().getMessage());
+					tempTestEntry.setAttribute(SetListEntryAttributeKeys.POST_INVOCATION_EXCEPTION,
+							stackTraceToString(((TestExceptionSubResult) tempPostInvocationResult).getException()));
+				}
 			}
 		}
 

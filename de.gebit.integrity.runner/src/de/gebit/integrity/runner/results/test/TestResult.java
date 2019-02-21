@@ -11,6 +11,7 @@ import java.util.List;
 
 import de.gebit.integrity.fixtures.ExtendedResultFixture.ExtendedResult;
 import de.gebit.integrity.fixtures.FixtureWrapper;
+import de.gebit.integrity.fixtures.PostInvocationTestFixture;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
 
 /**
@@ -26,6 +27,11 @@ public class TestResult extends FixtureExecutionResult {
 	 * All sub-results of this test.
 	 */
 	private List<TestSubResult> subResults;
+
+	/**
+	 * The post-invocation test result, if one was obtained. See {@link PostInvocationTestFixture} for details.
+	 */
+	private TestSubResult postInvocationTestResult;
 
 	/**
 	 * Number of successful sub-tests. Calculated on demand.
@@ -47,6 +53,9 @@ public class TestResult extends FixtureExecutionResult {
 	 * 
 	 * @param someSubResults
 	 *            sub-results of this test
+	 * @param aPostInvocationTestResult
+	 *            The post-invocation test result, if one was obtained. See {@link PostInvocationTestFixture} for
+	 *            details.
 	 * @param aFixtureInstance
 	 *            The fixture instance (wrapped) - may be null if no fixtures are called in the current phase (for
 	 *            example during the dry run).
@@ -57,14 +66,20 @@ public class TestResult extends FixtureExecutionResult {
 	 * @param someExtendedResults
 	 *            any extended results returned from the fixture
 	 */
-	public TestResult(List<TestSubResult> someSubResults, FixtureWrapper<?> aFixtureInstance, String aFixtureMethod,
-			Long anExecutionTime, List<ExtendedResult> someExtendedResults) {
+	public TestResult(List<TestSubResult> someSubResults, TestSubResult aPostInvocationTestResult,
+			FixtureWrapper<?> aFixtureInstance, String aFixtureMethod, Long anExecutionTime,
+			List<ExtendedResult> someExtendedResults) {
 		super(aFixtureInstance, aFixtureMethod, anExecutionTime, someExtendedResults);
 		subResults = someSubResults;
+		postInvocationTestResult = aPostInvocationTestResult;
 	}
 
 	public List<TestSubResult> getSubResults() {
 		return subResults;
+	}
+
+	public TestSubResult getPostInvocationTestResult() {
+		return postInvocationTestResult;
 	}
 
 	/**
@@ -80,6 +95,12 @@ public class TestResult extends FixtureExecutionResult {
 					tempCount++;
 				}
 			}
+
+			if (postInvocationTestResult instanceof TestExecutedSubResult
+					&& postInvocationTestResult.wereAllComparisonsSuccessful()) {
+				tempCount++;
+			}
+
 			subTestSuccessCount = tempCount;
 		}
 
@@ -99,6 +120,12 @@ public class TestResult extends FixtureExecutionResult {
 					tempCount++;
 				}
 			}
+
+			if (postInvocationTestResult instanceof TestExecutedSubResult
+					&& !postInvocationTestResult.wereAllComparisonsSuccessful()) {
+				tempCount++;
+			}
+
 			subTestFailCount = tempCount;
 		}
 
@@ -118,6 +145,11 @@ public class TestResult extends FixtureExecutionResult {
 					tempCount++;
 				}
 			}
+
+			if (postInvocationTestResult instanceof TestExceptionSubResult) {
+				tempCount++;
+			}
+
 			subTestExceptionCount = tempCount;
 		}
 

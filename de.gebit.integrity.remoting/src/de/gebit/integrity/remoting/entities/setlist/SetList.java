@@ -221,6 +221,15 @@ public class SetList implements Serializable {
 						}
 					}
 				}
+				String tempPostInvocationResult = (String) anEntry
+						.getAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT);
+				if (tempPostInvocationResult != null) {
+					if (anEntry.getAttribute(SetListEntryAttributeKeys.POST_INVOCATION_EXCEPTION) != null) {
+						tempHasException = true;
+					} else {
+						tempHasFailure = true;
+					}
+				}
 				if (tempHasException) {
 					return SetListEntryResultStates.EXCEPTION;
 				} else if (tempHasFailure) {

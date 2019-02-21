@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="18.02.19 16:13" isotimestamp="2019-02-18T16:13:38" duration="4.007">
+  <variables />
+  <suite id="0" name="integrity.basic.postInvocation.postInvocationSuccess" timestamp="18.02.19 16:13:38.0855">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="8" name="echoNumber" description="Echoes a number" fixture="de.gebit.integrity.tests.fixtures.basic.PostInvocationNoOpFixture#echoNumber" timestamp="18.02.19 16:13:38.0856">
+        <parameters />
+        <results duration="2.406" successCount="3" failureCount="0" exceptionCount="0">
+          <result duration="0.207" description="Echoes a number" type="success">
+            <parameters>
+              <parameter name="echo" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1" value="1" type="success" />
+            </comparisons>
+          </result>
+          <result duration="0.182" description="Echoes a number" type="success">
+            <parameters>
+              <parameter name="echo" value="-1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="-1" value="-1" type="success" />
+            </comparisons>
+          </result>
+        </results>
+        <postResult type="success" />
+      </tabletest>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="3.572" successCount="3" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

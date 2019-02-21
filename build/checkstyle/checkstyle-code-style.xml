@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<!DOCTYPE module PUBLIC "-//Checkstyle//DTD Check Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <!--
     This configuration file was written by the eclipse-cs plugin configuration editor
@@ -12,7 +12,6 @@
   <property name="severity" value="error"/>
   <module name="TreeWalker">
     <property name="tabWidth" value="4"/>
-    <module name="FileContentsHolder"/>
     <module name="JavadocMethod">
       <property name="severity" value="warning"/>
       <property name="scope" value="protected"/>
@@ -46,7 +45,6 @@
     <module name="LocalVariableName">
       <property name="severity" value="error"/>
       <property name="format" value="^(temp[A-Z][a-zA-Z0-9]*|it[0-9]*|i|j|k)|(exc?[0-9]*)$"/>
-      <property name="tokens" value="VARIABLE_DEF"/>
     </module>
     <module name="MemberName"/>
     <module name="MethodName"/>
@@ -62,9 +60,8 @@
       <property name="severity" value="error"/>
     </module>
     <module name="LineLength">
-      <property name="severity" value="ignore"/>
+      <property name="severity" value="warning"/>
       <property name="max" value="120"/>
-      <property name="tabWidth" value="4"/>
       <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="warning"/>
     </module>
     <module name="MethodLength">
@@ -97,9 +94,7 @@
       <property name="severity" value="error"/>
       <property name="option" value="text"/>
     </module>
-    <module name="LeftCurly">
-      <property name="maxLineLength" value="120"/>
-    </module>
+    <module name="LeftCurly"/>
     <module name="NeedBraces">
       <property name="severity" value="error"/>
     </module>
@@ -148,29 +143,29 @@
     <module name="OneStatementPerLine"/>
     <module name="ParameterAssignment"/>
     <module name="IllegalImport"/>
-  </module>
-  <module name="SuppressionCommentFilter">
-    <property name="offCommentFormat" value="\{\{[A-Z_]+"/>
-    <property name="onCommentFormat" value="\}\}"/>
-  </module>
-  <module name="SuppressionCommentFilter"/>
-  <module name="SuppressWithNearbyCommentFilter">
-    <property name="checkFormat" value="$1"/>
-    <property name="influenceFormat" value="3"/>
+    <module name="SuppressionCommentFilter">
+      <property name="offCommentFormat" value="\{\{[A-Z_]+"/>
+      <property name="onCommentFormat" value="\}\}"/>
+    </module>
+    <module name="SuppressionCommentFilter"/>
+    <module name="SuppressWithNearbyCommentFilter">
+      <property name="checkFormat" value="$1"/>
+      <property name="influenceFormat" value="3"/>
+    </module>
+    <module name="SuppressWithNearbyCommentFilter">
+      <property name="commentFormat" value="SUPPRESS CHECKSTYLE LONG (\w+)"/>
+      <property name="influenceFormat" value="999999"/>
+    </module>
   </module>
   <module name="Translation">
     <property name="severity" value="error"/>
   </module>
   <module name="FileLength">
-  	<property name="severity" value="warning"/>
+    <property name="severity" value="warning"/>
     <property name="max" value="10000"/>
   </module>
   <module name="SuppressionFilter">
     <property name="file" value="${samedir}/suppressions.xml"/>
-  </module>
-  <module name="SuppressWithNearbyCommentFilter">
-    <property name="commentFormat" value="SUPPRESS CHECKSTYLE LONG (\w+)"/>
-    <property name="influenceFormat" value="999999"/>
   </module>
   <module name="RegexpHeader">
     <property name="severity" value="warning"/>

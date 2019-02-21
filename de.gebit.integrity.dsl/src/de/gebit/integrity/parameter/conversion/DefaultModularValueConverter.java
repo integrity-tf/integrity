@@ -146,6 +146,8 @@ import de.gebit.integrity.parameter.conversion.conversions.java.other.MapToStrin
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToMap;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.ObjectToString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.OptionalToContainedObject;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.OptionalToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.SQLDateToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.SQLDateToTimestamp;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.SQLTimeToCalendar;
@@ -244,6 +246,8 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(SQLTimeToTimestamp.class);
 		addConversion(SQLTimeToCalendar.class);
 		addConversion(TimestampToCalendar.class);
+		addConversion(OptionalToFormattedString.class);
+		addConversion(OptionalToContainedObject.class);
 
 		// identity conversions, Java -> Java
 		addConversion(StringToString.class);

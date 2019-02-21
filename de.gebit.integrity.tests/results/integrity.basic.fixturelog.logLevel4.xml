@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="20.02.19 18:37" isotimestamp="2019-02-20T18:37:38" duration="6.705">
+  <variables />
+  <suite id="0" name="integrity.basic.fixturelog.logLevel4" timestamp="20.02.19 18:37:38.0096">
+    <setup />
+    <variables />
+    <statements>
+      <suite id="1" line="41" name="integrity.basic.fixturelog.fixtureLogTest" timestamp="20.02.19 18:37:38.0096">
+        <setup />
+        <variables>
+          <variable name="number" value="4" />
+          <variable name="num" value="-1" />
+        </variables>
+        <statements>
+          <test id="2" line="7" name="echoInteger" description="Echo the integer '4'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0097">
+            <results duration="0.236" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.236" description="Echo the integer '4'" type="success">
+                <parameters>
+                  <parameter name="integer" value="4" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="4" value="4" type="success" />
+                </comparisons>
+              </result>
+              <fixturelog lines="1">
+                <line time="1550684258098" text="2019-02-20 18:37:38.098 | TRACE   | This is some simple log output" />
+              </fixturelog>
+            </results>
+          </test>
+          <call id="3" line="9" name="echoIntegerCall" description="Echo the integer '4'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0099">
+            <parameters>
+              <parameter name="integer" value="4" />
+            </parameters>
+            <result duration="0.203" type="success">
+              <fixturelog lines="1">
+                <line time="1550684258100" text="2019-02-20 18:37:38.100 | TRACE   | This is some simple log output" />
+              </fixturelog>
+            </result>
+          </call>
+          <tabletest id="4" line="11" name="echoInteger" description="Echo the integer '???'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0100">
+            <parameters />
+            <results duration="1.282" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.311" description="Echo the integer '4'" type="success">
+                <parameters>
+                  <parameter name="integer" value="4" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="4" value="4" type="success" />
+                </comparisons>
+              </result>
+              <fixturelog lines="1">
+                <line time="1550684258101" text="2019-02-20 18:37:38.101 | TRACE   | This is some simple log output" />
+              </fixturelog>
+            </results>
+          </tabletest>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="5.694" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="6.422" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

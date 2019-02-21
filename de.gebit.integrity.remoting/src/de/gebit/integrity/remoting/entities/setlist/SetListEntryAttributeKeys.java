@@ -7,6 +7,8 @@
  *******************************************************************************/
 package de.gebit.integrity.remoting.entities.setlist;
 
+import de.gebit.integrity.fixtures.PostInvocationTestFixture;
+
 /**
  * Keys for Set List Entry Attributes.
  * 
@@ -114,6 +116,16 @@ public enum SetListEntryAttributeKeys {
 	 * Extended result data. This may be images (compressed byte arrays) or strings.
 	 */
 	EXTENDED_RESULT_DATA,
+
+	/**
+	 * Post invocation result data. See {@link PostInvocationTestFixture} for details.
+	 */
+	POST_INVOCATION_RESULT,
+
+	/**
+	 * Post invocation exception data. See {@link PostInvocationTestFixture} for details.
+	 */
+	POST_INVOCATION_EXCEPTION,
 
 	/**
 	 * Whether a test/call was successful.

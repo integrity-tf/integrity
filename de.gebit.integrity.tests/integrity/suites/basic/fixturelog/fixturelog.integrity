@@ -1,0 +1,68 @@
+import integrity.fixtures.basic.fixturelognoop.*
+
+packagedef integrity.basic.fixturelog with
+		
+	suitedef fixtureLogTest gets number with
+		constant num -1
+		test echoInteger integer: number = number
+		
+		call echoIntegerCall integer: number
+		
+		tabletest echoInteger
+		| integer | =      |
+		| number  | number |
+	suiteend
+	
+	
+	
+	
+	suitedef noLog with
+		suite fixtureLogTest number: -1
+	suiteend
+	
+	
+	suitedef logLevel0 with
+		suite fixtureLogTest number: 0
+	suiteend
+	
+	suitedef logLevel1 with
+		suite fixtureLogTest number: 1
+	suiteend
+	
+	suitedef logLevel2 with
+		suite fixtureLogTest number: 2
+	suiteend
+
+	suitedef logLevel3 with
+		suite fixtureLogTest number: 3
+	suiteend
+	
+	suitedef logLevel4 with
+		suite fixtureLogTest number: 4
+	suiteend	
+	
+	suitedef logLevelTrace with
+		suite fixtureLogTest number: 9
+	suiteend
+	
+	suitedef logWithParam with
+		suite fixtureLogTest number: 10
+	suiteend
+	
+	suitedef logWithTwoParams with
+		suite fixtureLogTest number: 11
+	suiteend
+	
+	suitedef logWithTwoParamsButOneNotGiven with
+		suite fixtureLogTest number: 12
+	suiteend
+	
+	suitedef logWithArrayParam with
+		suite fixtureLogTest number: 13
+	suiteend
+	
+	suitedef logOnAllChannels with
+		suite fixtureLogTest number: 20
+	suiteend
+
+packageend

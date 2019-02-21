@@ -1,0 +1,6 @@
+packagedef integrity.fixtures.basic.optionaltest with
+	
+	testdef echoNumber uses de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber
+	calldef echoNumberCall uses de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber
+
+packageend
