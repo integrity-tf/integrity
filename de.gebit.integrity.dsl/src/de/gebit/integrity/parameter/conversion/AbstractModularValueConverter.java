@@ -31,6 +31,7 @@ import de.gebit.integrity.dsl.Constant;
 import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.CustomOperation;
+import de.gebit.integrity.dsl.InexistentValue;
 import de.gebit.integrity.dsl.StandardOperation;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
@@ -99,23 +100,27 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	/**
 	 * All known conversions.
 	 */
-	private final Map<ConversionKey, Class<? extends Conversion<?, ?>>> conversions = new HashMap<ConversionKey, Class<? extends Conversion<?, ?>>>();
+	private final Map<ConversionKey, Class<? extends Conversion<?, ?>>> conversions
+			= new HashMap<ConversionKey, Class<? extends Conversion<?, ?>>>();
 
 	/**
 	 * Conversions derived from the directly added conversions by searching superclasses of the target type.
 	 */
-	private final Map<ConversionKey, List<Class<? extends Conversion<?, ?>>>> derivedConversions = new HashMap<ConversionKey, List<Class<? extends Conversion<?, ?>>>>();
+	private final Map<ConversionKey, List<Class<? extends Conversion<?, ?>>>> derivedConversions
+			= new HashMap<ConversionKey, List<Class<? extends Conversion<?, ?>>>>();
 
 	/**
 	 * Reverse index of all known conversions.
 	 */
-	private final Map<Class<? extends Conversion<?, ?>>, ConversionKey> conversionToKey = new HashMap<Class<? extends Conversion<?, ?>>, ConversionKey>();
+	private final Map<Class<? extends Conversion<?, ?>>, ConversionKey> conversionToKey
+			= new HashMap<Class<? extends Conversion<?, ?>>, ConversionKey>();
 
 	/**
 	 * The default conversions for all known source types. These are the conversions with the highest priority from
 	 * their respective source types' conversion pool.
 	 */
-	private final Map<Class<?>, Class<? extends Conversion<?, ?>>> defaultConversions = new HashMap<Class<?>, Class<? extends Conversion<?, ?>>>();
+	private final Map<Class<?>, Class<? extends Conversion<?, ?>>> defaultConversions
+			= new HashMap<Class<?>, Class<? extends Conversion<?, ?>>>();
 
 	/**
 	 * The current defaults' priority. Used to fill the {@link #defaultConversions} map.
@@ -368,6 +373,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			return null;
 		}
 
+		if (aValue instanceof InexistentValue
+				&& aConversionContext.getInexistentValueHandlingPolicy() == InexistentValueHandling.KEEP_AS_IS) {
+			// In case of an Inexistent value, we may have to keep it as-is, if required by conversion context policy
+			return aValue;
+		}
+
 		// It is possible that we arrive here with a single value, but still a target type that's an array. In that case
 		// we need to create the requested array, but it will only have one element.
 		if (aTargetType != null && aTargetType.isArray()) {
@@ -500,8 +511,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					// cannot execute operations without the ability to load them
 					return null;
 				} else {
-					CustomOperationWrapper tempWrapper = wrapperFactory
-							.newCustomOperationWrapper((CustomOperation) aValue);
+					CustomOperationWrapper tempWrapper
+							= wrapperFactory.newCustomOperationWrapper((CustomOperation) aValue);
 					Object tempResult = tempWrapper.executeOperation();
 					return convertPlainValueToTargetType(aTargetType, aParameterizedType, tempResult,
 							aConversionContext, someVisitedValues);
@@ -671,8 +682,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			// that property by the position within the array, and reset it later to the original plain value. This
 			// is necessary to distinguish between array elements when converting to formatted strings (there's
 			// highlighting being added based on these paths). In all other conversion cases it at least doesn't hurt.
-			String tempBaseObjectPath = (String) aConversionContext
-					.getProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY);
+			String tempBaseObjectPath
+					= (String) aConversionContext.getProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY);
 
 			Object tempResultArray = Array.newInstance(tempTargetArrayType, aCollection.getMoreValues().size() + 1);
 			for (int i = 0; i < aCollection.getMoreValues().size() + 1; i++) {
@@ -681,8 +692,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 							tempBaseObjectPath + "#" + i);
 				}
 
-				ValueOrEnumValueOrOperation tempValue = (i == 0 ? aCollection.getValue()
-						: aCollection.getMoreValues().get(i - 1));
+				ValueOrEnumValueOrOperation tempValue
+						= (i == 0 ? aCollection.getValue() : aCollection.getMoreValues().get(i - 1));
 				Object tempResultValue = convertEncapsulatedValueToTargetType(tempTargetType, aParameterizedType,
 						tempValue, aConversionContext, someVisitedValues);
 				Array.set(tempResultArray, i, tempResultValue);
@@ -810,8 +821,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 	@Override
 	public String[] convertValueToStringArray(Object aValue, ConversionContext aConversionContext) {
-		FormattedString[] tempFormattedStrings = convertValueToStringArray(aValue, aConversionContext,
-				new HashSet<Object>());
+		FormattedString[] tempFormattedStrings
+				= convertValueToStringArray(aValue, aConversionContext, new HashSet<Object>());
 
 		String[] tempStrings = new String[tempFormattedStrings.length];
 		for (int i = 0; i < tempFormattedStrings.length; i++) {
@@ -1080,8 +1091,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	protected Conversion<?, ?> findAndInstantiateConversion(Class<?> aSourceType, Class<?> aTargetType,
 			Set<Object> someVisitedValues, ConversionContext aConversionContext)
 			throws InstantiationException, IllegalAccessException {
-		Class<? extends Conversion<?, ?>> tempConversionClass = findConversion(aSourceType, aTargetType,
-				someVisitedValues, aConversionContext);
+		Class<? extends Conversion<?, ?>> tempConversionClass
+				= findConversion(aSourceType, aTargetType, someVisitedValues, aConversionContext);
 
 		return createConversionInstance(tempConversionClass, someVisitedValues);
 	}
@@ -1100,8 +1111,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 */
 	protected Class<? extends Conversion<?, ?>> findConversion(Class<?> aSourceType, Class<?> aTargetType,
 			Set<Object> someVisitedValues, ConversionContext aConversionContext) {
-		Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(aSourceType, aTargetType,
-				aConversionContext);
+		Class<? extends Conversion<?, ?>> tempConversion
+				= findConversionRecursive(aSourceType, aTargetType, aConversionContext);
 
 		if (tempConversion != null) {
 			return tempConversion;
@@ -1154,8 +1165,8 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 	 * @return a conversion class, or null if none was found
 	 */
 	protected Class<? extends Conversion<?, ?>> searchDerivedConversionMap(Class<?> aSourceType, Class<?> aTargetType) {
-		List<Class<? extends Conversion<?, ?>>> tempList = derivedConversions
-				.get(new ConversionKey(aSourceType, aTargetType));
+		List<Class<? extends Conversion<?, ?>>> tempList
+				= derivedConversions.get(new ConversionKey(aSourceType, aTargetType));
 		if (tempList != null && !tempList.isEmpty()) {
 			return tempList.get(0);
 		}
@@ -1221,15 +1232,15 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				for (Class<?> tempSourceInterface : tempSourceTypeInFocus.getInterfaces()) {
 					if (aTargetType == null || aTargetType == Object.class) {
 						// This is the default target type case
-						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
-								null, aConversionContext);
+						Class<? extends Conversion<?, ?>> tempConversion
+								= findConversionRecursive(tempSourceInterface, null, aConversionContext);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
 					} else {
 						// We actually have a target type
-						Class<? extends Conversion<?, ?>> tempConversion = findConversionRecursive(tempSourceInterface,
-								aTargetType, aConversionContext);
+						Class<? extends Conversion<?, ?>> tempConversion
+								= findConversionRecursive(tempSourceInterface, aTargetType, aConversionContext);
 						if (tempConversion != null) {
 							return tempConversion;
 						}
