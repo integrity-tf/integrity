@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="20.06.16 13:14" isotimestamp="2016-06-20T13:14:25" duration="28.117">
+<integrity name="Integrity JUnit Testing" timestamp="21.02.19 15:06" isotimestamp="2019-02-21T15:06:10" duration="2.109">
   <variables />
-  <suite id="0" name="integrity.basic.suitecalls.suiteCallWithNullParameter" timestamp="20.06.16 13:14:25.0808">
+  <suite id="0" name="integrity.basic.suitecalls.suiteCallWithNullParameter" timestamp="21.02.19 15:06:10.0616">
     <setup />
     <variables />
     <statements>
-      <suite id="1" line="71" name="integrity.basic.suitecalls.suiteCallWithNullParameterTestSuite" timestamp="20.06.16 13:14:25.0808">
+      <suite id="1" line="71" name="integrity.basic.suitecalls.suiteCallWithNullParameterTestSuite" timestamp="21.02.19 15:06:10.0617">
         <setup />
         <variables>
           <variable name="param" value="foo" />
         </variables>
         <statements>
-          <test id="2" line="76" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="20.06.16 13:14:25.0823">
-            <results duration="2.155" successCount="0" failureCount="1" exceptionCount="0">
-              <result duration="2.155" description="Echo the string 'null'" type="failure">
+          <test id="2" line="76" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="21.02.19 15:06:10.0617">
+            <results duration="0.144" successCount="0" failureCount="1" exceptionCount="0">
+              <result duration="0.144" description="Echo the string 'null'" type="failure">
                 <parameters>
                   <parameter name="string" value="null" />
                 </parameters>
                 <comparisons>
-                  <comparison expectedValue="foo" type="failure" />
+                  <comparison expectedValue="foo" value="null" type="failure" />
                 </comparisons>
               </result>
             </results>
@@ -26,22 +26,22 @@
         </statements>
         <returns />
         <teardown />
-        <result duration="12.466" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.818" successCount="0" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
-      <suite id="3" line="72" name="integrity.basic.suitecalls.suiteCallWithNullParameterTestSuite" timestamp="20.06.16 13:14:25.0823">
+      <suite id="3" line="72" name="integrity.basic.suitecalls.suiteCallWithNullParameterTestSuite" timestamp="21.02.19 15:06:10.0618">
         <setup />
         <variables>
           <variable name="param" value="null" />
         </variables>
         <statements>
-          <test id="4" line="76" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="20.06.16 13:14:25.0823">
-            <results duration="1.170" successCount="1" failureCount="0" exceptionCount="0">
-              <result duration="1.170" description="Echo the string 'null'" type="success">
+          <test id="4" line="76" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="21.02.19 15:06:10.0618">
+            <results duration="0.100" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.100" description="Echo the string 'null'" type="success">
                 <parameters>
                   <parameter name="string" value="null" />
                 </parameters>
                 <comparisons>
-                  <comparison expectedValue="null" type="success" />
+                  <comparison expectedValue="null" value="null" type="success" />
                 </comparisons>
               </result>
             </results>
@@ -49,12 +49,12 @@
         </statements>
         <returns />
         <teardown />
-        <result duration="6.627" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+        <result duration="0.619" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
       </suite>
     </statements>
     <returns />
     <teardown />
-    <result duration="21.808" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="1.996" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 

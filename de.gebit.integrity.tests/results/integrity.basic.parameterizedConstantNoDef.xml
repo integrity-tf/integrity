@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<integrity name="Integrity JUnit Testing" timestamp="03.01.17 12:37" isotimestamp="2017-01-03T12:37:38" duration="3.330">
+<integrity name="Integrity JUnit Testing" timestamp="21.02.19 15:06" isotimestamp="2019-02-21T15:06:08" duration="1.090">
   <variables>
-  	<variable name="integrity.basic.testParameterizedConst" />
+    <variable name="integrity.basic.testParameterizedConst" />
     <variable name="integrity.basic.testParameterizedConstWithDefault" value="bar" />
   </variables>
-  <suite id="0" name="integrity.basic.parameterizedConstantNoDef" timestamp="03.01.17 12:37:38.0741">
+  <suite id="0" name="integrity.basic.parameterizedConstantNoDef" timestamp="21.02.19 15:06:08.0619">
     <setup />
     <variables />
     <statements>
-      <test id="1" line="101" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="03.01.17 12:37:38.0742">
-        <results duration="0.151" successCount="1" failureCount="0" exceptionCount="0">
-          <result duration="0.151" description="Echo the string 'null'" type="success">
+      <test id="1" line="101" name="echoStringTest" description="Echo the string 'null'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="21.02.19 15:06:08.0620">
+        <results duration="0.054" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.054" description="Echo the string 'null'" type="success">
             <parameters>
               <parameter name="string" value="null" />
             </parameters>
             <comparisons>
-              <comparison expectedValue="null" type="success" />
+              <comparison expectedValue="null" value="null" type="success" />
             </comparisons>
           </result>
         </results>
@@ -23,7 +23,7 @@
     </statements>
     <returns />
     <teardown />
-    <result duration="2.340" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+    <result duration="0.745" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
   </suite>
 </integrity>
 
