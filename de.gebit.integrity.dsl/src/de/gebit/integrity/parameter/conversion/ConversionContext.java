@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.gebit.integrity.comparator.ComparisonResult;
+import de.gebit.integrity.dsl.InexistentValue;
 
 /**
  * A conversion context is a container for contextual information required to perform a value conversion.<br>
@@ -33,7 +34,13 @@ public class ConversionContext implements Cloneable {
 	/**
 	 * The way in which unresolvable variables shall be treated.
 	 */
-	protected UnresolvableVariableHandling unresolvableVariableHandlingPolicy = UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE;
+	protected UnresolvableVariableHandling unresolvableVariableHandlingPolicy
+			= UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE;
+
+	/**
+	 * The way in which {@link InexistentValue}s are to be treated.
+	 */
+	protected InexistentValueHandling inexistentValueHandlingPolicy = InexistentValueHandling.CONVERT;
 
 	/**
 	 * In case of a value being converted which belongs to a comparison that has been executed, the result of said
@@ -77,6 +84,17 @@ public class ConversionContext implements Cloneable {
 	}
 
 	/**
+	 * Enables a certain {@link InexistentValueHandling} policy instead of the default.
+	 * 
+	 * @param aPolicy
+	 *            the policy to use
+	 */
+	public ConversionContext withInexistentValueHandling(InexistentValueHandling aPolicy) {
+		inexistentValueHandlingPolicy = aPolicy;
+		return this;
+	}
+
+	/**
 	 * Adds the provided comparison result.
 	 * 
 	 * @param aComparisonResult
@@ -106,6 +124,10 @@ public class ConversionContext implements Cloneable {
 
 	public UnresolvableVariableHandling getUnresolvableVariableHandlingPolicy() {
 		return unresolvableVariableHandlingPolicy;
+	}
+
+	public InexistentValueHandling getInexistentValueHandlingPolicy() {
+		return inexistentValueHandlingPolicy;
 	}
 
 	public ComparisonResult getComparisonResult() {

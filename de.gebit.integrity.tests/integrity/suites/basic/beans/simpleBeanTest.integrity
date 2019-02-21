@@ -23,5 +23,27 @@ packagedef integrity.basic.beans with
 			}
 		
 	suiteend
+	
+	suitedef simpleBeanWithInexistenceTest with
+	
+		-- This should succeed
+		test createSimpleBeanUntyped = {
+				inventedParameter: inexistent
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.99
+				}
+			}
+			
+		-- This should fail
+		test createSimpleBeanUntyped = {
+				firstParameter: inexistent
+				secondParameter: 100
+				thirdParameter: {
+					innerParameter: 1.99
+				}
+			}
+	
+	suiteend
 
 packageend
