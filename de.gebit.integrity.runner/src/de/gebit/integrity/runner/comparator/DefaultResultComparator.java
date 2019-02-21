@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import com.google.inject.Inject;
@@ -48,6 +49,7 @@ import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.ParameterUtil.UnresolvableVariableException;
 
 /**
@@ -208,6 +210,20 @@ public class DefaultResultComparator implements ResultComparator {
 							}
 						}
 
+						// If now the conversion target type happens to be Optional, we need to find something else to
+						// convert to, because an Optional is just a wrapper
+						if (tempConversionTargetType == Optional.class) {
+							tempConversionTargetType = null;
+							if (tempSingleFixtureResult instanceof Optional) {
+								if (((Optional<?>) tempSingleFixtureResult).isPresent()) {
+									Object tempContainedObject = ((Optional<?>) tempSingleFixtureResult).get();
+									if (tempContainedObject != null) {
+										tempConversionTargetType = tempContainedObject.getClass();
+									}
+								}
+							}
+						}
+
 						return convertAndPerformEqualityCheck(tempSingleFixtureResult, tempSingleExpectedResult,
 								tempConversionTargetType);
 					}
@@ -264,8 +280,43 @@ public class DefaultResultComparator implements ResultComparator {
 			}
 		}
 
+		// If the expected result is an Optional, we must resolve that optional to an actual value first
+		boolean tempExpectedResultIsEmptyOptional = false;
+		if (tempSingleExpectedResult instanceof Optional) {
+			if (((Optional<?>) tempSingleExpectedResult).isPresent()) {
+				tempSingleExpectedResult = ((Optional<?>) tempSingleExpectedResult).get();
+			} else {
+				tempExpectedResultIsEmptyOptional = true;
+				tempSingleExpectedResult = ParameterUtil.INEXISTENT_VALUE;
+			}
+		}
+
+		// Now sort out cases in which Optional results have been provided by the fixture. In those cases, it may be
+		// the case that a non-existent result is actually expected by the test (via an Inexistent value), which means a
+		// successful comparison. Otherwise we will have to resolve the optional to some concrete value and continue
+		// with that. In all this action, we need to see if we have to shortcut the comparison because the expected
+		// result is an Optional, too.
+		if (tempConvertedFixtureResult instanceof Optional) {
+			boolean tempWeExpectNoValue
+					= (tempExpectedResultIsEmptyOptional || (tempSingleExpectedResult instanceof InexistentValue));
+			if (((Optional<?>) tempConvertedFixtureResult).isPresent()) {
+				// If the Optional has a value, but we explicitly don't expect one, the comparison has already failed
+				if (tempWeExpectNoValue) {
+					return new SimpleComparisonResult(false);
+				}
+
+				// The Optional contains a value and we seem to expect one -> just resolve to that value and continue
+				tempConvertedFixtureResult = ((Optional<?>) tempConvertedFixtureResult).get();
+			} else {
+				// The Optional does not contain a value. If we explicitly don't expect one, that's great (successful
+				// comparison), otherwise it's a failed comparison. In any case, the comparison is over at this point.
+				return new SimpleComparisonResult(tempWeExpectNoValue);
+			}
+		}
+
 		if (((tempSingleExpectedResult instanceof NestedObject)
-				|| (tempSingleExpectedResult instanceof TypedNestedObject)) && !(aSingleFixtureResult instanceof Map)) {
+				|| (tempSingleExpectedResult instanceof TypedNestedObject))
+				&& !(tempConvertedFixtureResult instanceof Map)) {
 			// if the expected result is a (typed) nested object, and the fixture has NOT returned a
 			// map, we assume the fixture result to be a bean class/instance. We'll convert both to maps
 			// for comparison!
@@ -276,16 +327,16 @@ public class DefaultResultComparator implements ResultComparator {
 				tempNestedObject = (NestedObject) tempSingleExpectedResult;
 			}
 
-			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult, null);
+			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, tempConvertedFixtureResult, null);
 			// Keeping Inexistent values as they are (= the InexistentValue model class instance) is necessary so that
 			// we can check for them later in map comparison. Otherwise they would be converted to strings.
 			tempConvertedExpectedResult = valueConverter.convertValue(Map.class, tempNestedObject,
 					new ConversionContext().withInexistentValueHandling(InexistentValueHandling.KEEP_AS_IS));
 		} else {
-			if (tempSingleExpectedResult instanceof Map && !(aSingleFixtureResult instanceof Map)) {
+			if (tempSingleExpectedResult instanceof Map && !(tempConvertedFixtureResult instanceof Map)) {
 				// if the expected result is a map, and the fixture has NOT returned a map, we also assume the fixture
 				// result to be a bean class/instance. But we only need to convert that to a map for comparison.
-				tempConvertedFixtureResult = valueConverter.convertValue(Map.class, aSingleFixtureResult, null);
+				tempConvertedFixtureResult = valueConverter.convertValue(Map.class, tempConvertedFixtureResult, null);
 				tempConvertedExpectedResult = tempSingleExpectedResult;
 			} else {
 				// no special bean-related cases apply: convert the expected result to match the given fixture result

@@ -568,8 +568,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * The generally used timestamp format (fine-grained date/time).
 	 */
-	protected static final DateFormat TIMESTAMP_FORMAT = DateFormat.getDateTimeInstance(DateFormat.SHORT,
-			DateFormat.MEDIUM);
+	protected static final DateFormat TIMESTAMP_FORMAT
+			= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
 
 	static {
 		if (TIMESTAMP_FORMAT instanceof SimpleDateFormat) {
@@ -614,8 +614,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * The name of the XSLT script resource.
 	 */
-	protected static final String XSLT_RESOURCE_NAME = System.getProperty(SYSPARAM_XSLT_RESOURCE,
-			"resource/xhtml.xslt");
+	protected static final String XSLT_RESOURCE_NAME
+			= System.getProperty(SYSPARAM_XSLT_RESOURCE, "resource/xhtml.xslt");
 
 	/**
 	 * The XSLT transformer factory property.
@@ -719,8 +719,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					HashMap<String, String> tempProcessingInstructionMap = new HashMap<String, String>(2);
 					tempProcessingInstructionMap.put("type", "text/xsl");
 					tempProcessingInstructionMap.put("href", "#xhtmltransform");
-					ProcessingInstruction tempProcessingInstruction = new ProcessingInstruction("xml-stylesheet",
-							tempProcessingInstructionMap);
+					ProcessingInstruction tempProcessingInstruction
+							= new ProcessingInstruction("xml-stylesheet", tempProcessingInstructionMap);
 					document.addContent(0, tempProcessingInstruction);
 				} catch (JDOMException exc) {
 					exc.printStackTrace();
@@ -1008,9 +1008,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addCurrentTime(tempTestElement);
 
 		try {
-			Map<String, Object> tempParameterMap = parameterResolver.createParameterMap(aTest, null,
-					TableTestParameterResolveMethod.ONLY_COMMON, true,
-					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			Map<String, Object> tempParameterMap
+					= parameterResolver.createParameterMap(aTest, null, TableTestParameterResolveMethod.ONLY_COMMON,
+							true, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 			Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
 			for (Entry<String, Object> tempEntry : tempParameterMap.entrySet()) {
@@ -1239,8 +1239,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			if (tempPostInvocationResult != null) {
 				tempPostInvocationResultElement = new Element(POST_INVOCATION_RESULT_ELEMENT);
 				if (tempPostInvocationResult instanceof TestExecutedSubResult) {
-					TestComparisonResult tempPostInvocationComparisonResult = tempPostInvocationResult
-							.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
+					TestComparisonResult tempPostInvocationComparisonResult
+							= tempPostInvocationResult.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
 					if (tempPostInvocationComparisonResult.getResult().isSuccessful()) {
 						setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE,
 								RESULT_TYPE_SUCCESS);
@@ -1375,13 +1375,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						.convertValueToFormattedString((tempExpectedValue == null ? true : tempExpectedValue), false,
 								new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
 						.toFormattedString());
-				if (tempEntry.getValue().getActualValue() != null) {
-					setAttributeGuarded(tempComparisonResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
-							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(),
-									aSubResult, tempExpectedIsNestedObject,
-									new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
-											.toFormattedString());
-				}
+				setAttributeGuarded(tempComparisonResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
+						convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
+								tempExpectedIsNestedObject,
+								new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
+										.toFormattedString());
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
 					setAttributeGuarded(tempComparisonResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
@@ -1497,7 +1495,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 			if (aResult instanceof de.gebit.integrity.runner.results.call.SuccessResult) {
 				setAttributeGuarded(tempCallResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
-				de.gebit.integrity.runner.results.call.SuccessResult tempResult = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
+				de.gebit.integrity.runner.results.call.SuccessResult tempResult
+						= (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
 				for (UpdatedVariable tempUpdatedVariable : tempResult.getUpdatedVariables()) {
 					Element tempVariableUpdateElement = new Element(VARIABLE_UPDATE_ELEMENT);
 					setAttributeGuarded(tempVariableUpdateElement, VARIABLE_NAME_ATTRIBUTE,
@@ -1879,8 +1878,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTimeSetStart(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks) {
-		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
-				new ConversionContext()
+		String tempStartTime
+				= valueConverter.convertValueToString(aTimeSet.getStartTime(), false, new ConversionContext()
 						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 		String tempProgressionFactor = null;
 		if (aTimeSet.getProgressionMode() != null) {
@@ -1941,8 +1940,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE,
 						((TimeSetExceptionResult) aResult).getExceptionStackTrace());
 			} else {
-				String tempExtendedResultString = testFormatter
-						.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet());
+				String tempExtendedResultString
+						= testFormatter.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet());
 
 				Element tempExtendedResultCollection = new Element(EXTENDED_RESULT_COLLECTION_ELEMENT);
 				Element tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
@@ -2070,8 +2069,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * The pattern for Markdown-style URL detection.
 	 */
-	protected static final Pattern MARKDOWN_URL_PATTERN = Pattern
-			.compile("(.*?)\\[(.*?)\\]\\(((?:(?:\\w+://)|(?:\\./)).+?)\\)(.*)");
+	protected static final Pattern MARKDOWN_URL_PATTERN
+			= Pattern.compile("(.*?)\\[(.*?)\\]\\(((?:(?:\\w+://)|(?:\\./)).+?)\\)(.*)");
 
 	/**
 	 * Parses a comment into a list of {@link Content} elements. This takes care of URLs embedded in the comment.
@@ -2477,12 +2476,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				} else {
 					tempMerged = true;
 					tempLineCount = Integer.parseInt(tempLineElements.getAttributeValue(CONSOLE_LINECOUNT_ATTRIBUTE));
-					tempTruncatedCount = Integer
-							.parseInt(tempLineElements.getAttributeValue(CONSOLE_TRUNCATED_ATTRIBUTE));
-					tempLowerTimeBound = Long
-							.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_STARTTIME_ATTRIBUTE));
-					tempUpperTimeBound = Long
-							.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_ENDTIME_ATTRIBUTE));
+					tempTruncatedCount
+							= Integer.parseInt(tempLineElements.getAttributeValue(CONSOLE_TRUNCATED_ATTRIBUTE));
+					tempLowerTimeBound
+							= Long.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_STARTTIME_ATTRIBUTE));
+					tempUpperTimeBound
+							= Long.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_ENDTIME_ATTRIBUTE));
 				}
 
 				int tempEarliestPossiblePosition = 0;
@@ -2533,8 +2532,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						// data is already well-ordered, and any new data is also well-ordered, so they just need to
 						// be merged.
 						while (tempEarliestPossiblePosition < tempLineElements.getChildren().size()) {
-							Element tempChild = (Element) tempLineElements.getChildren()
-									.get(tempEarliestPossiblePosition);
+							Element tempChild
+									= (Element) tempLineElements.getChildren().get(tempEarliestPossiblePosition);
 							if (Long.parseLong(tempChild.getAttributeValue(CONSOLE_LINE_TIME_ATTRIBUTE)) > tempLine
 									.getTimestamp()) {
 								// The new line is to be added right before the current earliest possible position
