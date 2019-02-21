@@ -1,0 +1,80 @@
+import integrity.fixtures.basic.optionaltest.*
+
+packagedef integrity.basic.optionals with
+
+	suitedef simpleOptionalTests with
+		
+		-- This should succeed, because we actually return the value "null"
+		test echoNumber number: null = null
+		
+		-- This should also succeed, because the empty optional that's returned equals "inexistent"
+		test echoNumber number: 1 = inexistent
+		
+		-- This should fail, because an empty optional means the value does not exist, and "null" is an existing value
+		test echoNumber number: 1 = null
+	
+	suiteend
+	
+	
+	suitedef optionalTestsWithVariables with
+	
+		variable emptyOptional
+		variable filledOptional
+		variable nullVariable
+		
+		call echoNumberCall number: 1 -> emptyOptional
+		call echoNumberCall number: 2 -> filledOptional
+		call echoNumberCall number: null -> nullVariable
+		
+		-- This should succeed, because we actually return the value "null"
+		test echoNumber number: null = nullVariable
+		
+		-- This should also succeed, because the empty optional that's returned equals the empty optional provided
+		test echoNumber number: 1 = emptyOptional
+		
+		-- This should fail, because the filled optional does not equal the empty optional
+		test echoNumber number: 2 = emptyOptional
+		
+		-- This should succeed, because the returned filled optional equals the provided one
+		test echoNumber number: 2 = filledOptional
+		
+		-- This should fail, because the filled optional does not equal the empty optional
+		test echoNumber number: 1 = filledOptional
+	
+	suiteend
+	
+	
+	suitedef optionalsAsParameters with
+	
+		variable emptyOptional
+		variable filledOptional
+		variable nullVariable
+		
+		call echoNumberCall number: 1 -> emptyOptional
+		call echoNumberCall number: 2 -> filledOptional
+		call echoNumberCall number: null -> nullVariable
+		
+		-- This should succeed, because we actually return the value "null"
+		test echoNumber number: nullVariable = null
+		
+		-- This should fail, because the empty optional that's provided will convert to "null" for lack of better options, which does trigger a null return, which does not equal the empty optional
+		test echoNumber number: emptyOptional = emptyOptional
+		
+		-- This should succeed, because the empty optional that's provided will convert to "null" for lack of better options, which does trigger a null return
+		test echoNumber number: emptyOptional = null
+		
+		-- This should fail, because the filled optional does not equal the empty optional, which resolves to null in this case
+		test echoNumber number: emptyOptional = filledOptional
+		
+		-- This should fail, because the filled optional which resolves to its content does not equal the empty optional
+		test echoNumber number: filledOptional = emptyOptional
+		
+		-- This should succeed, because the returned filled optional contains a number that equals the provided one
+		test echoNumber number: filledOptional = 2
+		
+		-- This should fail, because the filled optionals' contents do not equal the content provided
+		test echoNumber number: filledOptional = 1
+	
+	suiteend
+
+packageend

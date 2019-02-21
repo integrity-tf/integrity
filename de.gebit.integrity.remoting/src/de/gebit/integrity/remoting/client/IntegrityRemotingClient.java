@@ -357,7 +357,6 @@ public class IntegrityRemotingClient {
 			public void processMessage(ForkResultSummaryMessage aMessage, Endpoint anEndpoint) {
 				listener.onForkResultSummaryRetrieval(aMessage.getSuccessCount(), aMessage.getFailureCount(),
 						aMessage.getCallExceptionCount(), aMessage.getTestExceptionCount());
-				;
 			}
 		});
 

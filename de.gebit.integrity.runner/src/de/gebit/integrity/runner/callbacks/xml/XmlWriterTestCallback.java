@@ -108,6 +108,8 @@ import de.gebit.integrity.runner.callbacks.TestFormatter;
 import de.gebit.integrity.runner.console.intercept.ConsoleInterceptionAggregator;
 import de.gebit.integrity.runner.console.intercept.Intercept;
 import de.gebit.integrity.runner.console.intercept.InterceptedLine;
+import de.gebit.integrity.runner.logging.AggregatingFixtureLogger;
+import de.gebit.integrity.runner.logging.LogLine;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
 import de.gebit.integrity.runner.results.call.CallResult;
@@ -123,6 +125,7 @@ import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
 import de.gebit.integrity.runner.results.timeset.TimeSetResult;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
+import de.gebit.integrity.utils.ParameterUtil;
 import de.gebit.integrity.utils.VersionUtil;
 
 /**
@@ -199,6 +202,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Inject
 	protected ConsoleInterceptionAggregator consoleInterceptor;
+
+	/**
+	 * The fixture logger.
+	 */
+	@Inject
+	protected AggregatingFixtureLogger fixtureLogger;
 
 	/**
 	 * Whether console output shall be captured.
@@ -297,6 +306,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	/** The Constant RESULT_COLLECTION_ELEMENT. */
 	protected static final String RESULT_COLLECTION_ELEMENT = "results";
+
+	/** The Constant POST_INVOCATION_RESULT_ELEMENT. */
+	protected static final String POST_INVOCATION_RESULT_ELEMENT = "postResult";
 
 	/** The Constant EXTENDED_RESULT_ELEMENT_TYPE_ATTRIBUTE. */
 	protected static final String EXTENDED_RESULT_ELEMENT_TITLE_ATTRIBUTE = "title";
@@ -503,10 +515,25 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected static final String CONSOLE_LINE_TEXT_ATTRIBUTE = "text";
 
 	/** The Constant CONSOLE_LINE_TEMP_TIME_ATTRIBUTE. */
-	protected static final String CONSOLE_LINE_TEMP_TIME_ATTRIBUTE = TEMPORARY_ATTRIBUTE_PREFIX + "time";
+	protected static final String CONSOLE_LINE_TIME_ATTRIBUTE = "time";
 
 	/** The Constant CONSOLE_LINE_SOURCE_ATTRIBUTE. */
 	protected static final String CONSOLE_LINE_SOURCE_ATTRIBUTE = "source";
+
+	/** The Constant FIXTURELOG_ELEMENT. */
+	protected static final String FIXTURELOG_ELEMENT = "fixturelog";
+
+	/** The Constant FIXTURELOG_LINECOUNT_ATTRIBUTE. */
+	protected static final String FIXTURELOG_LINECOUNT_ATTRIBUTE = "lines";
+
+	/** The Constant FIXTURELOG_LINE_ELEMENT. */
+	protected static final String FIXTURELOG_LINE_ELEMENT = "line";
+
+	/** The Constant FIXTURELOG_LINE_TEXT_ATTRIBUTE. */
+	protected static final String FIXTURELOG_LINE_TEXT_ATTRIBUTE = "text";
+
+	/** The Constant FIXTURELOG_LINE_TIME_ATTRIBUTE. */
+	protected static final String FIXTURELOG_LINE_TIME_ATTRIBUTE = "time";
 
 	/**
 	 * Maximum number of lines of console output that is added to a single test/call.
@@ -541,8 +568,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * The generally used timestamp format (fine-grained date/time).
 	 */
-	protected static final DateFormat TIMESTAMP_FORMAT = DateFormat.getDateTimeInstance(DateFormat.SHORT,
-			DateFormat.MEDIUM);
+	protected static final DateFormat TIMESTAMP_FORMAT
+			= DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
 
 	static {
 		if (TIMESTAMP_FORMAT instanceof SimpleDateFormat) {
@@ -587,8 +614,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * The name of the XSLT script resource.
 	 */
-	protected static final String XSLT_RESOURCE_NAME = System.getProperty(SYSPARAM_XSLT_RESOURCE,
-			"resource/xhtml.xslt");
+	protected static final String XSLT_RESOURCE_NAME
+			= System.getProperty(SYSPARAM_XSLT_RESOURCE, "resource/xhtml.xslt");
 
 	/**
 	 * The XSLT transformer factory property.
@@ -692,8 +719,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					HashMap<String, String> tempProcessingInstructionMap = new HashMap<String, String>(2);
 					tempProcessingInstructionMap.put("type", "text/xsl");
 					tempProcessingInstructionMap.put("href", "#xhtmltransform");
-					ProcessingInstruction tempProcessingInstruction = new ProcessingInstruction("xml-stylesheet",
-							tempProcessingInstructionMap);
+					ProcessingInstruction tempProcessingInstruction
+							= new ProcessingInstruction("xml-stylesheet", tempProcessingInstructionMap);
 					document.addContent(0, tempProcessingInstruction);
 				} catch (JDOMException exc) {
 					exc.printStackTrace();
@@ -981,9 +1008,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		addCurrentTime(tempTestElement);
 
 		try {
-			Map<String, Object> tempParameterMap = parameterResolver.createParameterMap(aTest, null,
-					TableTestParameterResolveMethod.ONLY_COMMON, true,
-					UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
+			Map<String, Object> tempParameterMap
+					= parameterResolver.createParameterMap(aTest, null, TableTestParameterResolveMethod.ONLY_COMMON,
+							true, UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE);
 
 			Element tempParameterCollectionElement = new Element(PARAMETER_COLLECTION_ELEMENT);
 			for (Entry<String, Object> tempEntry : tempParameterMap.entrySet()) {
@@ -1063,6 +1090,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				aResult.getSubResults().get(0), tempParameterMap, tempParameterMap);
 
 		if (!isDryRun()) {
+			addFixtureLogging(tempResultCollectionElement);
 			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempResultCollectionElement);
@@ -1206,13 +1234,43 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				Integer.toString(aResult.getSubTestExceptionCount()));
 
 		if (!isDryRun()) {
+			TestSubResult tempPostInvocationResult = aResult.getPostInvocationTestResult();
+			Element tempPostInvocationResultElement = null;
+			if (tempPostInvocationResult != null) {
+				tempPostInvocationResultElement = new Element(POST_INVOCATION_RESULT_ELEMENT);
+				if (tempPostInvocationResult instanceof TestExecutedSubResult) {
+					TestComparisonResult tempPostInvocationComparisonResult
+							= tempPostInvocationResult.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
+					if (tempPostInvocationComparisonResult.getResult().isSuccessful()) {
+						setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE,
+								RESULT_TYPE_SUCCESS);
+					} else {
+						// In case of test failure, we expect a failure message to be placed in the actual value
+						setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE,
+								RESULT_TYPE_FAILURE);
+						setAttributeGuarded(tempPostInvocationResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
+								(String) tempPostInvocationComparisonResult.getActualValue());
+					}
+				} else if (tempPostInvocationResult instanceof TestExceptionSubResult) {
+					// For exceptions, use both post-invocation-related attributes: the result gets the message, the
+					// exception gets the stacktrace
+					setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);
+					setAttributeGuarded(tempPostInvocationResultElement, RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
+							((TestExceptionSubResult) tempPostInvocationResult).getException().getMessage());
+					setAttributeGuarded(tempPostInvocationResultElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE,
+							stackTraceToString(((TestExceptionSubResult) tempPostInvocationResult).getException()));
+				}
+			}
+
+			addFixtureLogging(tempResultCollectionElement);
 			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempResultCollectionElement);
 				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement,
-						tempExtendedResultElement);
+						tempExtendedResultElement, tempPostInvocationResultElement);
 			}
-			internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement);
+			internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement,
+					tempPostInvocationResultElement);
 		}
 	}
 
@@ -1224,7 +1282,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * @param anExtendedResultElement
 	 *            the extended result element
 	 */
-	protected void internalOnTableTestFinish(Element aResultCollectionElement, Element anExtendedResultElement) {
+	protected void internalOnTableTestFinish(Element aResultCollectionElement, Element anExtendedResultElement,
+			Element aPostInvocationResultElement) {
 		stackPop(); // remove result collection element from stack first
 		addConsoleOutput(aResultCollectionElement);
 		Element tempTestElement = stackPop();
@@ -1232,6 +1291,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			tempTestElement.addContent(anExtendedResultElement);
 		}
 		tempTestElement.addContent(aResultCollectionElement);
+		if (aPostInvocationResultElement != null) {
+			tempTestElement.addContent(aPostInvocationResultElement);
+		}
 	}
 
 	/**
@@ -1313,13 +1375,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						.convertValueToFormattedString((tempExpectedValue == null ? true : tempExpectedValue), false,
 								new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
 						.toFormattedString());
-				if (tempEntry.getValue().getActualValue() != null) {
-					setAttributeGuarded(tempComparisonResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
-							convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(),
-									aSubResult, tempExpectedIsNestedObject,
-									new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
-											.toFormattedString());
-				}
+				setAttributeGuarded(tempComparisonResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
+						convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
+								tempExpectedIsNestedObject,
+								new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
+										.toFormattedString());
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
 					setAttributeGuarded(tempComparisonResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
@@ -1435,7 +1495,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 			if (aResult instanceof de.gebit.integrity.runner.results.call.SuccessResult) {
 				setAttributeGuarded(tempCallResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
-				de.gebit.integrity.runner.results.call.SuccessResult tempResult = (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
+				de.gebit.integrity.runner.results.call.SuccessResult tempResult
+						= (de.gebit.integrity.runner.results.call.SuccessResult) aResult;
 				for (UpdatedVariable tempUpdatedVariable : tempResult.getUpdatedVariables()) {
 					Element tempVariableUpdateElement = new Element(VARIABLE_UPDATE_ELEMENT);
 					setAttributeGuarded(tempVariableUpdateElement, VARIABLE_NAME_ATTRIBUTE,
@@ -1461,6 +1522,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 
 		if (!isDryRun()) {
+			addFixtureLogging(tempCallResultElement);
 			Element tempExtendedResultElement = createExtendedResultElement(aResult.getExtendedResults());
 			if (isFork()) {
 				addConsoleOutput(tempCallResultElement);
@@ -1816,8 +1878,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTimeSetStart(TimeSet aTimeSet, SuiteDefinition aSuite, List<ForkDefinition> someForks) {
-		String tempStartTime = valueConverter.convertValueToString(aTimeSet.getStartTime(), false,
-				new ConversionContext()
+		String tempStartTime
+				= valueConverter.convertValueToString(aTimeSet.getStartTime(), false, new ConversionContext()
 						.withUnresolvableVariableHandlingPolicy(UnresolvableVariableHandling.RESOLVE_TO_NULL_VALUE));
 		String tempProgressionFactor = null;
 		if (aTimeSet.getProgressionMode() != null) {
@@ -1878,8 +1940,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				setAttributeGuarded(tempTimeSetElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE,
 						((TimeSetExceptionResult) aResult).getExceptionStackTrace());
 			} else {
-				String tempExtendedResultString = testFormatter
-						.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet());
+				String tempExtendedResultString
+						= testFormatter.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet());
 
 				Element tempExtendedResultCollection = new Element(EXTENDED_RESULT_COLLECTION_ELEMENT);
 				Element tempResultElement = new Element(EXTENDED_RESULT_TEXT_ELEMENT);
@@ -2007,8 +2069,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * The pattern for Markdown-style URL detection.
 	 */
-	protected static final Pattern MARKDOWN_URL_PATTERN = Pattern
-			.compile("(.*?)\\[(.*?)\\]\\(((?:(?:\\w+://)|(?:\\./)).+?)\\)(.*)");
+	protected static final Pattern MARKDOWN_URL_PATTERN
+			= Pattern.compile("(.*?)\\[(.*?)\\]\\(((?:(?:\\w+://)|(?:\\./)).+?)\\)(.*)");
 
 	/**
 	 * Parses a comment into a list of {@link Content} elements. This takes care of URLs embedded in the comment.
@@ -2306,7 +2368,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			internalOnTestFinish(tempFirstElement, (Element) someObjects[1]);
 			break;
 		case TABLE_TEST_FINISH:
-			internalOnTableTestFinish(tempFirstElement, (Element) someObjects[1]);
+			internalOnTableTestFinish(tempFirstElement, (Element) someObjects[1], (Element) someObjects[2]);
 			break;
 		case CALL_START:
 			internalOnCallStart(tempFirstElement);
@@ -2376,7 +2438,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * <br>
 	 * This method is able to deal with elements which already contain console output. In such a case, the existing
 	 * elements' {@link #CONSOLE_TEMP_STARTTIME_ATTRIBUTE} and {@link #CONSOLE_TEMP_ENDTIME_ATTRIBUTE} as well as the
-	 * existing lines' {@link #CONSOLE_LINE_TEMP_TIME_ATTRIBUTE} attributes are used to merge newly added lines with the
+	 * existing lines' {@link #CONSOLE_LINE_TIME_ATTRIBUTE} attributes are used to merge newly added lines with the
 	 * existing lines. This mechanism is designed to allow merging of console data from forks with data collected on the
 	 * master.
 	 * 
@@ -2402,6 +2464,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					tempMerged = false;
 					tempLineCount = 0;
 					tempTruncatedCount = 0;
+
+					// These time attributes do not actually go into the final result! They're just used to merge fork
+					// and master lines on the master after receiving test/call results from a fork.
 					tempLowerTimeBound = tempIntercept.getStartTimestamp();
 					setAttributeGuarded(tempLineElements, CONSOLE_TEMP_STARTTIME_ATTRIBUTE,
 							Long.toString(tempLowerTimeBound));
@@ -2411,12 +2476,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				} else {
 					tempMerged = true;
 					tempLineCount = Integer.parseInt(tempLineElements.getAttributeValue(CONSOLE_LINECOUNT_ATTRIBUTE));
-					tempTruncatedCount = Integer
-							.parseInt(tempLineElements.getAttributeValue(CONSOLE_TRUNCATED_ATTRIBUTE));
-					tempLowerTimeBound = Long
-							.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_STARTTIME_ATTRIBUTE));
-					tempUpperTimeBound = Long
-							.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_ENDTIME_ATTRIBUTE));
+					tempTruncatedCount
+							= Integer.parseInt(tempLineElements.getAttributeValue(CONSOLE_TRUNCATED_ATTRIBUTE));
+					tempLowerTimeBound
+							= Long.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_STARTTIME_ATTRIBUTE));
+					tempUpperTimeBound
+							= Long.parseLong(tempLineElements.getAttributeValue(CONSOLE_TEMP_ENDTIME_ATTRIBUTE));
 				}
 
 				int tempEarliestPossiblePosition = 0;
@@ -2443,16 +2508,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					Element tempLineElement = new Element(
 							tempLine.isStdErr() ? CONSOLE_LINE_STDERR_ELEMENT : CONSOLE_LINE_STDOUT_ELEMENT);
 
-					String tempText = tempLine.getText();
-					tempText.replace("\t", "    ");
-					if (tempText.length() > MAX_CONSOLE_LINE_SIZE) {
-						tempText = tempText.substring(0, MAX_CONSOLE_LINE_SIZE) + "... ("
-								+ (tempText.length() - MAX_CONSOLE_LINE_SIZE) + " CHARS TRUNCATED)";
-					}
+					String tempText = processConsoleLogLine(tempLine.getText());
 
-					// This time attribute does not actually go into the final result! It's just used to merge fork
-					// and master lines on the master after receiving test/call results from a fork.
-					setAttributeGuarded(tempLineElement, CONSOLE_LINE_TEMP_TIME_ATTRIBUTE,
+					setAttributeGuarded(tempLineElement, CONSOLE_LINE_TIME_ATTRIBUTE,
 							Long.toString(tempLine.getTimestamp()));
 					if (isFork()) {
 						// At the moment, there is only one valid value for the source attribute: "fork" denotes a line
@@ -2474,9 +2532,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						// data is already well-ordered, and any new data is also well-ordered, so they just need to
 						// be merged.
 						while (tempEarliestPossiblePosition < tempLineElements.getChildren().size()) {
-							Element tempChild = (Element) tempLineElements.getChildren()
-									.get(tempEarliestPossiblePosition);
-							if (Long.parseLong(tempChild.getAttributeValue(CONSOLE_LINE_TEMP_TIME_ATTRIBUTE)) > tempLine
+							Element tempChild
+									= (Element) tempLineElements.getChildren().get(tempEarliestPossiblePosition);
+							if (Long.parseLong(tempChild.getAttributeValue(CONSOLE_LINE_TIME_ATTRIBUTE)) > tempLine
 									.getTimestamp()) {
 								// The new line is to be added right before the current earliest possible position
 								break;
@@ -2506,6 +2564,65 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Adds fixture log output to the provided element, if any is present. Can be called with "null" as an element, in
+	 * which case the {@link AggregatingFixtureLogger}s' internal buffer is just cleared. This buffer is of course also
+	 * cleared if the method is used with an element.
+	 * 
+	 * @param anElement
+	 *            the element to add fixture logging to
+	 */
+	protected void addFixtureLogging(Element anElement) {
+		List<LogLine> tempLines = fixtureLogger.popLines();
+
+		if (tempLines.size() == 0) {
+			return;
+		}
+
+		if (anElement != null) {
+			Element tempLineElements = new Element(FIXTURELOG_ELEMENT);
+			anElement.addContent(tempLineElements);
+
+			for (LogLine tempLine : tempLines) {
+				Element tempLineElement = new Element(FIXTURELOG_LINE_ELEMENT);
+
+				setAttributeGuarded(tempLineElement, FIXTURELOG_LINE_TIME_ATTRIBUTE,
+						Long.toString(tempLine.getTimestamp()));
+
+				// We don't want to add the raw text, but a formatted line.
+				String tempText = processConsoleLogLine(tempLine.toString());
+				try {
+					setAttributeGuarded(tempLineElement, FIXTURELOG_LINE_TEXT_ATTRIBUTE, tempText);
+				} catch (IllegalDataException exc) {
+					exc.printStackTrace();
+					setAttributeGuarded(tempLineElement, FIXTURELOG_LINE_TEXT_ATTRIBUTE,
+							"LINE TRUNCATED: IllegalDataException");
+				}
+
+				tempLineElements.addContent(tempLineElement);
+			}
+
+			setAttributeGuarded(tempLineElements, FIXTURELOG_LINECOUNT_ATTRIBUTE, Integer.toString(tempLines.size()));
+		}
+	}
+
+	/**
+	 * Truncates the given line and replaces certain characters (like tabs).
+	 * 
+	 * @param aRawLine
+	 *            the raw console log line
+	 * @return the line to be added to the test result
+	 */
+	protected String processConsoleLogLine(String aRawLine) {
+		String tempLine = aRawLine.replace("\t", "    ");
+		if (tempLine.length() > MAX_CONSOLE_LINE_SIZE) {
+			tempLine = tempLine.substring(0, MAX_CONSOLE_LINE_SIZE) + "... ("
+					+ (tempLine.length() - MAX_CONSOLE_LINE_SIZE) + " CHARS TRUNCATED)";
+		}
+
+		return tempLine;
 	}
 
 	/**

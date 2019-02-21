@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="21.02.19 15:39" isotimestamp="2019-02-21T15:39:50" duration="15.387">
+  <variables />
+  <suite id="0" name="integrity.basic.optionals.simpleOptionalTests" timestamp="21.02.19 15:39:50.0815">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1" line="7">This should succeed, because we actually return the value "null"</comment>
+      <test id="2" line="8" name="echoNumber" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0819">
+        <results duration="1.239" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.239" description="Echoes a number (maybe...only if it is even!)" type="success">
+            <parameters>
+              <parameter name="number" value="null" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="null" value="null" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="3" line="10">This should also succeed, because the empty optional that's returned equals "inexistent"</comment>
+      <test id="4" line="11" name="echoNumber" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0825">
+        <results duration="0.399" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.399" description="Echoes a number (maybe...only if it is even!)" type="success">
+            <parameters>
+              <parameter name="number" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED][[inexistent]" value="[FORMATTED][[inexistent]" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="5" line="13">This should fail, because an empty optional means the value does not exist, and "null" is an existing value</comment>
+      <test id="6" line="14" name="echoNumber" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0828">
+        <results duration="0.239" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.239" description="Echoes a number (maybe...only if it is even!)" type="failure">
+            <parameters>
+              <parameter name="number" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="null" value="[FORMATTED][[inexistent]" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="13.195" successCount="2" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

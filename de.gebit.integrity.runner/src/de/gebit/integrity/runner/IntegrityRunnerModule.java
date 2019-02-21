@@ -10,6 +10,7 @@ package de.gebit.integrity.runner;
 import de.gebit.integrity.DSLRuntimeModule;
 import de.gebit.integrity.classloading.DefaultIntegrityClassLoader;
 import de.gebit.integrity.classloading.IntegrityClassLoader;
+import de.gebit.integrity.fixtures.logging.FixtureLogger;
 import de.gebit.integrity.parameter.variables.VariableManager;
 import de.gebit.integrity.runner.comparator.DefaultResultComparator;
 import de.gebit.integrity.runner.comparator.ResultComparator;
@@ -19,6 +20,8 @@ import de.gebit.integrity.runner.console.intercept.DefaultConsoleInterceptionAgg
 import de.gebit.integrity.runner.console.intercept.DefaultConsoleOutputInterceptor;
 import de.gebit.integrity.runner.forking.processes.DefaultProcessTerminator;
 import de.gebit.integrity.runner.forking.processes.ProcessTerminator;
+import de.gebit.integrity.runner.logging.AggregatingFixtureLogger;
+import de.gebit.integrity.runner.logging.DefaultFixtureLogger;
 import de.gebit.integrity.runner.logging.TestRunnerPerformanceLogger;
 import de.gebit.integrity.runner.modelcheck.DefaultModelChecker;
 import de.gebit.integrity.runner.modelcheck.ModelChecker;
@@ -150,6 +153,24 @@ public class IntegrityRunnerModule extends DSLRuntimeModule {
 	 */
 	public Class<? extends TestTimeAdapter> bindTestTimeAdapter() {
 		return SimpleTestTimeAdapter.class;
+	}
+
+	/**
+	 * Binds the {@link AggregatingFixtureLogger}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends AggregatingFixtureLogger> bindAggregatingFixtureLogger() {
+		return DefaultFixtureLogger.class;
+	}
+
+	/**
+	 * Binds the {@link FixtureLogger}.
+	 * 
+	 * @return
+	 */
+	public Class<? extends FixtureLogger> bindFixtureLogger() {
+		return DefaultFixtureLogger.class;
 	}
 
 }

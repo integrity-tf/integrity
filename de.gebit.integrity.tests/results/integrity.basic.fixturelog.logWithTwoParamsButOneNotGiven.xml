@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="20.02.19 18:37" isotimestamp="2019-02-20T18:37:38" duration="5.536">
+  <variables />
+  <suite id="0" name="integrity.basic.fixturelog.logWithTwoParamsButOneNotGiven" timestamp="20.02.19 18:37:38.0464">
+    <setup />
+    <variables />
+    <statements>
+      <suite id="1" line="57" name="integrity.basic.fixturelog.fixtureLogTest" timestamp="20.02.19 18:37:38.0464">
+        <setup />
+        <variables>
+          <variable name="number" value="12" />
+          <variable name="num" value="-1" />
+        </variables>
+        <statements>
+          <test id="2" line="7" name="echoInteger" description="Echo the integer '12'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0465">
+            <results duration="0.278" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.278" description="Echo the integer '12'" type="success">
+                <parameters>
+                  <parameter name="integer" value="12" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="12" value="12" type="success" />
+                </comparisons>
+              </result>
+              <fixturelog lines="1">
+                <line time="1550684258465" text="2019-02-20 18:37:38.465 | INFO    | Here is a log message with two parameters, but the second is not provided: 12 and {}" />
+              </fixturelog>
+            </results>
+          </test>
+          <call id="3" line="9" name="echoIntegerCall" description="Echo the integer '12'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0467">
+            <parameters>
+              <parameter name="integer" value="12" />
+            </parameters>
+            <result duration="0.232" type="success">
+              <fixturelog lines="1">
+                <line time="1550684258467" text="2019-02-20 18:37:38.467 | INFO    | Here is a log message with two parameters, but the second is not provided: 12 and {}" />
+              </fixturelog>
+            </result>
+          </call>
+          <tabletest id="4" line="11" name="echoInteger" description="Echo the integer '???'" fixture="de.gebit.integrity.tests.fixtures.basic.FixtureLogNoOpFixture#echoInteger" timestamp="20.02.19 18:37:38.0468">
+            <parameters />
+            <results duration="0.928" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.224" description="Echo the integer '12'" type="success">
+                <parameters>
+                  <parameter name="integer" value="12" />
+                </parameters>
+                <comparisons>
+                  <comparison expectedValue="12" value="12" type="success" />
+                </comparisons>
+              </result>
+              <fixturelog lines="1">
+                <line time="1550684258468" text="2019-02-20 18:37:38.468 | INFO    | Here is a log message with two parameters, but the second is not provided: 12 and {}" />
+              </fixturelog>
+            </results>
+          </tabletest>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="4.804" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="5.300" successCount="2" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

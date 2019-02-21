@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="21.02.19 15:39" isotimestamp="2019-02-21T15:39:50" duration="18.884">
+  <variables />
+  <suite id="0" name="integrity.basic.optionals.optionalTestsWithVariables" timestamp="21.02.19 15:39:50.0977">
+    <setup />
+    <variables>
+      <variable name="emptyOptional" />
+      <variable name="filledOptional" />
+      <variable name="nullVariable" />
+    </variables>
+    <statements>
+      <call id="1" line="25" name="echoNumberCall" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0979">
+        <parameters>
+          <parameter name="number" value="1" />
+        </parameters>
+        <result duration="0.229" type="success">
+          <variableUpdate name="emptyOptional" value="[FORMATTED][[inexistent]" />
+        </result>
+      </call>
+      <call id="2" line="26" name="echoNumberCall" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0982">
+        <parameters>
+          <parameter name="number" value="2" />
+        </parameters>
+        <result duration="0.191" type="success">
+          <variableUpdate name="filledOptional" value="2" />
+        </result>
+      </call>
+      <call id="3" line="27" name="echoNumberCall" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0984">
+        <parameters>
+          <parameter name="number" value="null" />
+        </parameters>
+        <result duration="0.169" type="success">
+          <variableUpdate name="nullVariable" value="null" />
+        </result>
+      </call>
+      <comment id="4" line="29">This should succeed, because we actually return the value "null"</comment>
+      <test id="5" line="30" name="echoNumber" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0985">
+        <results duration="0.167" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.167" description="Echoes a number (maybe...only if it is even!)" type="success">
+            <parameters>
+              <parameter name="number" value="null" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="null" value="null" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="6" line="32">This should also succeed, because the empty optional that's returned equals the empty optional provided</comment>
+      <test id="7" line="33" name="echoNumber" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0988">
+        <results duration="0.344" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.344" description="Echoes a number (maybe...only if it is even!)" type="success">
+            <parameters>
+              <parameter name="number" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED][[inexistent]" value="[FORMATTED][[inexistent]" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="8" line="35">This should fail, because the filled optional does not equal the empty optional</comment>
+      <test id="9" line="36" name="echoNumber" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0990">
+        <results duration="0.161" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.161" description="Echoes a number (maybe...only if it is even!)" type="failure">
+            <parameters>
+              <parameter name="number" value="2" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED][[inexistent]" value="2" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="10" line="38">This should succeed, because the returned filled optional equals the provided one</comment>
+      <test id="11" line="39" name="echoNumber" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0993">
+        <results duration="0.139" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.139" description="Echoes a number (maybe...only if it is even!)" type="success">
+            <parameters>
+              <parameter name="number" value="2" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="2" value="2" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="12" line="41">This should fail, because the filled optional does not equal the empty optional</comment>
+      <test id="13" line="42" name="echoNumber" description="Echoes a number (maybe...only if it is even!)" fixture="de.gebit.integrity.tests.fixtures.basic.OptionalTestFixture#echoNumber" timestamp="21.02.19 15:39:50.0995">
+        <results duration="0.136" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.136" description="Echoes a number (maybe...only if it is even!)" type="failure">
+            <parameters>
+              <parameter name="number" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="2" value="[FORMATTED][[inexistent]" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="18.466" successCount="3" failureCount="2" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
