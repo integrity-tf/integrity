@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -53,7 +54,9 @@ import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
+import de.gebit.integrity.dsl.SuiteParameter;
 import de.gebit.integrity.dsl.SuiteParameterDefinition;
+import de.gebit.integrity.dsl.SuiteReturn;
 import de.gebit.integrity.dsl.SuiteReturnDefinition;
 import de.gebit.integrity.dsl.SuiteStatementWithResult;
 import de.gebit.integrity.dsl.TableTest;
@@ -80,8 +83,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	@Inject
 	private JvmFixtureEvaluation evaluator;
 	/** Polymorphical dispatches calls to _checkParameter" methods. */
-	private PolymorphicDispatcher<Void> checkParameterDispatcher = PolymorphicDispatcher
-			.createForSingleTarget("_checkParameter", this);
+	private PolymorphicDispatcher<Void> checkParameterDispatcher
+			= PolymorphicDispatcher.createForSingleTarget("_checkParameter", this);
 
 	/**
 	 * Checks whether a given {@link DateValue} is actually correct (finds errors like days which don't exist in the
@@ -135,8 +138,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	public void checkIfVariableDefinitionsAreValid(VariableDefinition anEntity) {
 		if (anEntity.getName() != null && anEntity.getName().getName() != null) {
 			String tempVariableName = anEntity.getName().getName();
-			EStructuralFeature tempFeature = anEntity.eClass()
-					.getEStructuralFeature(DslPackage.VARIABLE_DEFINITION__NAME);
+			EStructuralFeature tempFeature
+					= anEntity.eClass().getEStructuralFeature(DslPackage.VARIABLE_DEFINITION__NAME);
 
 			performDotCheck(tempVariableName, "variable", tempFeature);
 
@@ -153,8 +156,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	public void checkIfConstantDefinitionsAreValid(ConstantDefinition anEntity) {
 		if (anEntity.getName() != null) {
 			String tempConstantName = anEntity.getName().getName();
-			EStructuralFeature tempFeature = anEntity.eClass()
-					.getEStructuralFeature(DslPackage.VARIABLE_DEFINITION__NAME);
+			EStructuralFeature tempFeature
+					= anEntity.eClass().getEStructuralFeature(DslPackage.VARIABLE_DEFINITION__NAME);
 
 			performDotCheck(tempConstantName, "constant", tempFeature);
 
@@ -355,6 +358,42 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	}
 
 	/**
+	 * Checks for redundant suite parameters.
+	 * 
+	 * @param aParameter
+	 */
+	@Check
+	public void checkSuiteParameter(SuiteParameter aParameter) {
+		if (aParameter.eContainer() instanceof Suite && aParameter.getName() != null) {
+			Optional<SuiteParameter> tempDuplicate = ((Suite) aParameter.eContainer()).getParameters().stream().filter(
+					anOtherParam -> (anOtherParam.getName() == aParameter.getName() && anOtherParam != aParameter))
+					.findFirst();
+
+			if (tempDuplicate.isPresent()) {
+				error("Duplicate use of suite parameter '" + aParameter.getName().getName() + "'", null);
+			}
+		}
+	}
+
+	/**
+	 * Checks for redundant suite results.
+	 * 
+	 * @param aReturn
+	 */
+	@Check
+	public void checkSuiteReturn(SuiteReturn aReturn) {
+		if (aReturn.eContainer() instanceof Suite && aReturn.getName() != null) {
+			Optional<SuiteReturn> tempDuplicate = ((Suite) aReturn.eContainer()).getReturn().stream()
+					.filter(anOtherReturn -> (anOtherReturn.getName() == aReturn.getName() && anOtherReturn != aReturn))
+					.findFirst();
+
+			if (tempDuplicate.isPresent() && aReturn.getName().getName() != null) {
+				error("Duplicate use of suite result '" + aReturn.getName().getName().getName() + "'", null);
+			}
+		}
+	}
+
+	/**
 	 * Checks for missing parameters.
 	 * 
 	 * @param aCall
@@ -383,10 +422,10 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 
 	/** Polymorphic Dispatch of {@link #checkParameter(Call)}. */
 	protected void _checkParameter(TableTest aTableTest) {
-		Set<String> tempMandatoryParameter = getMandatoryParameterNamesOf(
-				aTableTest.getDefinition().getFixtureMethod());
-		Set<String> tempSpecifiedParameter = Sets
-				.newHashSet(transform(aTableTest.getParameters(), FUNC_PARAMETER_NAME));
+		Set<String> tempMandatoryParameter
+				= getMandatoryParameterNamesOf(aTableTest.getDefinition().getFixtureMethod());
+		Set<String> tempSpecifiedParameter
+				= Sets.newHashSet(transform(aTableTest.getParameters(), FUNC_PARAMETER_NAME));
 		Iterables.addAll(tempSpecifiedParameter,
 				transform(aTableTest.getParameterHeaders(), FUNC_PARAMETER_HEADER_NAME));
 
@@ -395,8 +434,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 				aTableTest.getDefinition().getFixtureMethod(), aTableTest.getParameters());
 
 		if (tempNonNullableParameterNames != null) {
-			Map<ParameterTableHeader, List<ParameterTableValue>> tempMap = IntegrityDSLUtil
-					.getTableParameterValuesPerParameter(aTableTest);
+			Map<ParameterTableHeader, List<ParameterTableValue>> tempMap
+					= IntegrityDSLUtil.getTableParameterValuesPerParameter(aTableTest);
 			for (Entry<ParameterTableHeader, List<ParameterTableValue>> tempColumn : tempMap.entrySet()) {
 				if (tempNonNullableParameterNames.contains(
 						IntegrityDSLUtil.getParamNameStringFromParameterName(tempColumn.getKey().getName()))) {
@@ -458,8 +497,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 		if (aMethod == null) {
 			return emptySet();
 		}
-		List<Pair<JvmFormalParameter, JvmAnnotationReference>> tempAnnotatedParameter = evaluator
-				.getAllAnnotatedParameter(aMethod, FixtureParameterAssessment.ACCEPTED_ANNOTATION);
+		List<Pair<JvmFormalParameter, JvmAnnotationReference>> tempAnnotatedParameter
+				= evaluator.getAllAnnotatedParameter(aMethod, FixtureParameterAssessment.ACCEPTED_ANNOTATION);
 		List<FixtureParameterAssessment> tempParameter = wrap(tempAnnotatedParameter);
 		return collectMandatoryParameterNames(tempParameter);
 	}
@@ -492,8 +531,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	 *         (regardless of whether violations were found), null otherwise
 	 */
 	protected Set<String> checkForNonNullableParameter(MethodReference aMethod, List<Parameter> someParameters) {
-		List<Pair<JvmFormalParameter, JvmAnnotationReference>> tempAnnotatedParameter = evaluator
-				.getAllAnnotatedParameter(aMethod, FixtureParameterAssessment.ACCEPTED_ANNOTATION);
+		List<Pair<JvmFormalParameter, JvmAnnotationReference>> tempAnnotatedParameter
+				= evaluator.getAllAnnotatedParameter(aMethod, FixtureParameterAssessment.ACCEPTED_ANNOTATION);
 		List<FixtureParameterAssessment> tempParameter = wrap(tempAnnotatedParameter);
 		Set<String> tempNonNullableParameters = collectNonNullableParameterNames(tempParameter);
 
@@ -556,8 +595,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	 * @return
 	 */
 	protected Set<String> collectMandatoryParameterNames(Collection<FixtureParameterAssessment> aCollection) {
-		Iterable<FixtureParameterAssessment> tempMandatory = filter(aCollection,
-				FixtureParameterAssessment.IS_MANDATORY);
+		Iterable<FixtureParameterAssessment> tempMandatory
+				= filter(aCollection, FixtureParameterAssessment.IS_MANDATORY);
 		Iterable<String> tempMandatoryNames = transform(tempMandatory, FixtureParameterAssessment.NAME);
 		return Sets.newLinkedHashSet(tempMandatoryNames);
 	}
@@ -570,8 +609,8 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	 * @return
 	 */
 	protected Set<String> collectNonNullableParameterNames(Collection<FixtureParameterAssessment> aCollection) {
-		Iterable<FixtureParameterAssessment> tempNonNullable = filter(aCollection,
-				FixtureParameterAssessment.IS_NOT_NULLABLE);
+		Iterable<FixtureParameterAssessment> tempNonNullable
+				= filter(aCollection, FixtureParameterAssessment.IS_NOT_NULLABLE);
 		Iterable<String> tempNonNullableNames = transform(tempNonNullable, FixtureParameterAssessment.NAME);
 		return Sets.newLinkedHashSet(tempNonNullableNames);
 	}
@@ -591,12 +630,13 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	/**
 	 * Maps parameters to their names.
 	 */
-	private final Function<ParameterTableHeader, String> FUNC_PARAMETER_HEADER_NAME = new Function<ParameterTableHeader, String>() {
+	private final Function<ParameterTableHeader, String> FUNC_PARAMETER_HEADER_NAME
+			= new Function<ParameterTableHeader, String>() {
 
-		@Override
-		public String apply(ParameterTableHeader aParameterHeader) {
-			return evaluator.getParameterNameOf(aParameterHeader.getName());
-		};
+				@Override
+				public String apply(ParameterTableHeader aParameterHeader) {
+					return evaluator.getParameterNameOf(aParameterHeader.getName());
+				};
 
-	};
+			};
 }
