@@ -135,12 +135,21 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	}
 
 	private Bundle findBundle(String aSymbolicName) {
-		for (Bundle tempBundle : FrameworkUtil.getBundle(JavaCore.class).getBundleContext().getBundles()) {
-			if (tempBundle.getSymbolicName().equals(aSymbolicName)) {
-				return tempBundle;
+		Bundle tempBundleMatch = null;
+
+		for (Bundle tempBundleCandidate : FrameworkUtil.getBundle(JavaCore.class).getBundleContext().getBundles()) {
+			if (tempBundleCandidate.getSymbolicName().equals(aSymbolicName)) {
+				if (tempBundleMatch != null) {
+					if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
+						// already-found matches' version is less than candidates' version
+						continue;
+					}
+				}
+
+				tempBundleMatch = tempBundleCandidate;
 			}
 		}
-		return null;
+		return tempBundleMatch;
 	}
 
 	@Override
