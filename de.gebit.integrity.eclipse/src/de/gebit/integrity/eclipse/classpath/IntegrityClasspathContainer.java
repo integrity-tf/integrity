@@ -8,7 +8,9 @@
 package de.gebit.integrity.eclipse.classpath;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -135,9 +137,23 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	}
 
 	private Bundle findBundle(String aSymbolicName) {
+		return findBundleRecursive(aSymbolicName, FrameworkUtil.getBundle(JavaCore.class), new HashSet<>());
+	}
+
+	private Bundle findBundleRecursive(String aSymbolicName, Bundle aRootBundle, Set<Bundle> someSeenBundles) {
 		Bundle tempBundleMatch = null;
 
-		for (Bundle tempBundleCandidate : FrameworkUtil.getBundle(JavaCore.class).getBundleContext().getBundles()) {
+		if (aRootBundle.getBundleContext() == null) {
+			return null;
+		}
+
+		for (Bundle tempBundleCandidate : aRootBundle.getBundleContext().getBundles()) {
+			if (someSeenBundles.contains(tempBundleCandidate)) {
+				continue;
+			} else {
+				someSeenBundles.add(tempBundleCandidate);
+			}
+
 			if (tempBundleCandidate.getSymbolicName().equals(aSymbolicName)) {
 				if (tempBundleMatch != null) {
 					if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
@@ -147,8 +163,22 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 				}
 
 				tempBundleMatch = tempBundleCandidate;
+			} else {
+				Bundle tempRecursionCandidate
+						= findBundleRecursive(aSymbolicName, tempBundleCandidate, someSeenBundles);
+
+				if (tempRecursionCandidate != null) {
+					if (tempBundleMatch != null) {
+						if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
+							// already-found matches' version is less than candidates' version
+							continue;
+						}
+					}
+					tempBundleMatch = tempRecursionCandidate;
+				}
 			}
 		}
+
 		return tempBundleMatch;
 	}
 
