@@ -20,7 +20,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 import de.gebit.integrity.eclipse.Activator;
 
@@ -135,12 +134,24 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	}
 
 	private Bundle findBundle(String aSymbolicName) {
-		for (Bundle tempBundle : FrameworkUtil.getBundle(JavaCore.class).getBundleContext().getBundles()) {
-			if (tempBundle.getSymbolicName().equals(aSymbolicName)) {
-				return tempBundle;
+		Bundle[] tempBundles = Platform.getBundles(aSymbolicName, null);
+		if (tempBundles == null) {
+			return null;
+		}
+
+		Bundle tempBundleMatch = null;
+		for (Bundle tempBundleCandidate : Platform.getBundles(aSymbolicName, null)) {
+			if (tempBundleMatch != null) {
+				if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
+					// already-found matches' version is less than candidates' version
+					continue;
+				}
+			} else {
+				tempBundleMatch = tempBundleCandidate;
 			}
 		}
-		return null;
+
+		return tempBundleMatch;
 	}
 
 	@Override
