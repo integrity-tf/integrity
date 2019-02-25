@@ -8,9 +8,7 @@
 package de.gebit.integrity.eclipse.classpath;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -22,7 +20,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 import de.gebit.integrity.eclipse.Activator;
 
@@ -84,10 +81,7 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext.common.types" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.jdom" }, new String[] { "org.jdom_jaxen" } });
 
-		// Recursion is necessary for org.objectweb.asm because xtext 2.16.x depends on 7.0.0 of that bundle, but
-		// Eclipse itself just uses 6.2.1, so we must recursively search the entire bundle tree in order to find all
-		// bundles.
-		addToList(tempEntryList, new String[][] { new String[] { "org.objectweb.asm" } }, true);
+		addToList(tempEntryList, new String[][] { new String[] { "org.objectweb.asm" } });
 
 		// convert the list to an array and return it
 		IClasspathEntry[] tempEntryArray = new IClasspathEntry[tempEntryList.size()];
@@ -105,29 +99,13 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	 *            bundles that are part of a single combination)
 	 */
 	private void addToList(List<IClasspathEntry> aList, String[][] someBundleNames) {
-		addToList(aList, someBundleNames, false);
-	}
-
-	/**
-	 * Finds one of the provided combination of bundles and adds it to the classpath. If no combination is found, an
-	 * error is logged.
-	 * 
-	 * @param aList
-	 *            the classpath
-	 * @param someBundleNames
-	 *            an array of combinations of bundle names (outer array contains combinations, inner array contains the
-	 *            bundles that are part of a single combination)
-	 * @param aRecursiveFlag
-	 *            whether to recursively search the contexts of bundles
-	 */
-	private void addToList(List<IClasspathEntry> aList, String[][] someBundleNames, boolean aRecursiveFlag) {
 		StringBuffer tempBuffer = new StringBuffer();
 		for (String[] tempBundleNames : someBundleNames) {
 			StringBuffer tempInnerBuffer = new StringBuffer();
 			List<IClasspathEntry> tempList = new ArrayList<IClasspathEntry>();
 			boolean tempFoundAll = true;
 			for (String tempBundleName : tempBundleNames) {
-				IClasspathEntry tempEntry = getPluginEntry(findBundle(tempBundleName, aRecursiveFlag));
+				IClasspathEntry tempEntry = getPluginEntry(findBundle(tempBundleName));
 				if (tempEntry != null) {
 					tempList.add(tempEntry);
 				} else {
@@ -155,49 +133,21 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 						+ tempBuffer + "' to add it to a projects' classpath!"));
 	}
 
-	private Bundle findBundle(String aSymbolicName, boolean aRecursiveFlag) {
-		return findBundleRecursive(aSymbolicName, FrameworkUtil.getBundle(JavaCore.class),
-				aRecursiveFlag ? new HashSet<>() : null);
-	}
-
-	private Bundle findBundleRecursive(String aSymbolicName, Bundle aRootBundle, Set<Bundle> someSeenBundles) {
-		Bundle tempBundleMatch = null;
-
-		if (aRootBundle.getBundleContext() == null) {
+	private Bundle findBundle(String aSymbolicName) {
+		Bundle[] tempBundles = Platform.getBundles(aSymbolicName, null);
+		if (tempBundles == null) {
 			return null;
 		}
 
-		for (Bundle tempBundleCandidate : aRootBundle.getBundleContext().getBundles()) {
-			if (someSeenBundles != null) {
-				if (someSeenBundles.contains(tempBundleCandidate)) {
+		Bundle tempBundleMatch = null;
+		for (Bundle tempBundleCandidate : Platform.getBundles(aSymbolicName, null)) {
+			if (tempBundleMatch != null) {
+				if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
+					// already-found matches' version is less than candidates' version
 					continue;
-				} else {
-					someSeenBundles.add(tempBundleCandidate);
 				}
-			}
-
-			if (tempBundleCandidate.getSymbolicName().equals(aSymbolicName)) {
-				if (tempBundleMatch != null) {
-					if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
-						// already-found matches' version is less than candidates' version
-						continue;
-					}
-				}
-
+			} else {
 				tempBundleMatch = tempBundleCandidate;
-			} else if (someSeenBundles != null) {
-				Bundle tempRecursionCandidate
-						= findBundleRecursive(aSymbolicName, tempBundleCandidate, someSeenBundles);
-
-				if (tempRecursionCandidate != null) {
-					if (tempBundleMatch != null) {
-						if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
-							// already-found matches' version is less than candidates' version
-							continue;
-						}
-					}
-					tempBundleMatch = tempRecursionCandidate;
-				}
 			}
 		}
 
