@@ -82,6 +82,8 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.xtext.common.types" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.jdom" }, new String[] { "org.jdom_jaxen" } });
 
+		addToList(tempEntryList, new String[][] { new String[] { "org.objectweb.asm" } });
+
 		// convert the list to an array and return it
 		IClasspathEntry[] tempEntryArray = new IClasspathEntry[tempEntryList.size()];
 		return (IClasspathEntry[]) tempEntryList.toArray(tempEntryArray);
@@ -225,8 +227,8 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		String tempJarName = aLibPath.removeFileExtension().lastSegment();
 		String tempSourceSuffix = aLibPath.toString().contains("de.gebit.integrity") ? "" : "_src";
 
-		IPath tempSourceJar = aLibPath.removeLastSegments(1).append(tempJarName + tempSourceSuffix)
-				.addFileExtension("jar");
+		IPath tempSourceJar
+				= aLibPath.removeLastSegments(1).append(tempJarName + tempSourceSuffix).addFileExtension("jar");
 
 		return JavaCore.newLibraryEntry(aLibPath, tempSourceJar, null);
 	}
