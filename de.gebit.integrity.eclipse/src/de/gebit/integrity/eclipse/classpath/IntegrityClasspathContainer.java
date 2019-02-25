@@ -8,9 +8,7 @@
 package de.gebit.integrity.eclipse.classpath;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -22,7 +20,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
 import de.gebit.integrity.eclipse.Activator;
 
@@ -137,45 +134,20 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	}
 
 	private Bundle findBundle(String aSymbolicName) {
-		return findBundleRecursive(aSymbolicName, FrameworkUtil.getBundle(JavaCore.class), new HashSet<>());
-	}
-
-	private Bundle findBundleRecursive(String aSymbolicName, Bundle aRootBundle, Set<Bundle> someSeenBundles) {
-		Bundle tempBundleMatch = null;
-
-		if (aRootBundle.getBundleContext() == null) {
+		Bundle[] tempBundles = Platform.getBundles(aSymbolicName, null);
+		if (tempBundles == null) {
 			return null;
 		}
 
-		for (Bundle tempBundleCandidate : aRootBundle.getBundleContext().getBundles()) {
-			if (someSeenBundles.contains(tempBundleCandidate)) {
-				continue;
-			} else {
-				someSeenBundles.add(tempBundleCandidate);
-			}
-
-			if (tempBundleCandidate.getSymbolicName().equals(aSymbolicName)) {
-				if (tempBundleMatch != null) {
-					if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
-						// already-found matches' version is less than candidates' version
-						continue;
-					}
+		Bundle tempBundleMatch = null;
+		for (Bundle tempBundleCandidate : Platform.getBundles(aSymbolicName, null)) {
+			if (tempBundleMatch != null) {
+				if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
+					// already-found matches' version is less than candidates' version
+					continue;
 				}
-
+			} else {
 				tempBundleMatch = tempBundleCandidate;
-			} else {
-				Bundle tempRecursionCandidate
-						= findBundleRecursive(aSymbolicName, tempBundleCandidate, someSeenBundles);
-
-				if (tempRecursionCandidate != null) {
-					if (tempBundleMatch != null) {
-						if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
-							// already-found matches' version is less than candidates' version
-							continue;
-						}
-					}
-					tempBundleMatch = tempRecursionCandidate;
-				}
 			}
 		}
 
