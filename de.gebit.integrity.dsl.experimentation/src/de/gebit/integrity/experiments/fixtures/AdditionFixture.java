@@ -3,10 +3,11 @@ package de.gebit.integrity.experiments.fixtures;
 import java.util.Date;
 
 import de.gebit.integrity.exceptions.AbortExecutionException;
+import de.gebit.integrity.fixtures.FinalizationTestFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
 
-public class AdditionFixture {
+public class AdditionFixture implements FinalizationTestFixture {
 
 	public static final String STRING_CONST = "Hello World!";
 
@@ -31,6 +32,11 @@ public class AdditionFixture {
 			throw new RuntimeException("An exception!");
 		}
 		return new Integer(aSummand1 + aSummand2);
+	}
+
+	@Override
+	public String performFinalizationTest() {
+		return "blah";
 	}
 
 	/**

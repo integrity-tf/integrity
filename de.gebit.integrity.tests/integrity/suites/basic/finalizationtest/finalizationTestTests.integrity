@@ -1,0 +1,37 @@
+import integrity.fixtures.basic.finalizationtest.*
+
+packagedef integrity.basic.finalizationtest with
+
+	suitedef finalizationTestSuccess with
+	
+		// This table will have a successful finalization test (numbers add up to 0)
+		tabletest echoNumber
+		| echo | =    |
+		| 1    | 1    |
+		| -1   | -1   |
+		
+	suiteend
+	
+	
+	suitedef finalizationTestFailure with
+	
+		// This table will have a failed finalization test (numbers add up to >0)
+		tabletest echoNumber
+		| echo | =    |
+		| 1    | 1    |
+		| 2    | 2    |
+		
+	suiteend
+	
+	
+	suitedef finalizationTestException with
+	
+		// This table will throw an exception in the finalization test
+		tabletest echoNumber
+		| echo | =    |
+		| 1    | 1    |
+		| -2   | -2   |
+		
+	suiteend
+
+packageend

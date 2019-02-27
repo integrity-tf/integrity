@@ -513,7 +513,8 @@ public class DefaultTestRunner implements TestRunner {
 	/**
 	 * The setup suites that have been executed.
 	 */
-	protected Map<ForkDefinition, Set<SuiteDefinition>> setupSuitesExecuted = new HashMap<ForkDefinition, Set<SuiteDefinition>>();
+	protected Map<ForkDefinition, Set<SuiteDefinition>> setupSuitesExecuted
+			= new HashMap<ForkDefinition, Set<SuiteDefinition>>();
 
 	/**
 	 * The single-run suites that have already been executed.
@@ -868,8 +869,8 @@ public class DefaultTestRunner implements TestRunner {
 		for (ConstantDefinition tempDefinition : model.getConstantDefinitionsInPackages()) {
 			if (tempDefinition.getParameterized() != null) {
 				String tempName = IntegrityDSLUtil.getQualifiedVariableEntityName(tempDefinition.getName(), false);
-				String tempValue = (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName)
-						: null;
+				String tempValue
+						= (parameterizedConstantValues != null) ? parameterizedConstantValues.get(tempName) : null;
 				try {
 					defineConstant(tempDefinition, tempValue,
 							(tempDefinition.eContainer() instanceof SuiteDefinition)
@@ -945,16 +946,16 @@ public class DefaultTestRunner implements TestRunner {
 			// anyway, especially in case of large numbers of global constants.
 		}
 
-		SuiteSummaryResult tempResult = performanceLogger.executeAndLog(
-				TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER, "Execution",
-				new TestRunnerPerformanceLogger.RunnableWithResult<SuiteSummaryResult>() {
+		SuiteSummaryResult tempResult
+				= performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_RUNNER,
+						"Execution", new TestRunnerPerformanceLogger.RunnableWithResult<SuiteSummaryResult>() {
 
-					@Override
-					public SuiteSummaryResult run() {
-						return callSuiteSingle(aRootSuiteCall);
-					}
+							@Override
+							public SuiteSummaryResult run() {
+								return callSuiteSingle(aRootSuiteCall);
+							}
 
-				});
+						});
 
 		if (remotingServer != null && currentPhase == Phase.TEST_RUN) {
 			if (abortExecutionCause != null) {
@@ -1103,8 +1104,8 @@ public class DefaultTestRunner implements TestRunner {
 			currentCallback.onCallbackProcessingEnd();
 		}
 
-		List<SuiteDefinition> tempSetupSuitesExecuted = executeSetupSuites(aSuiteCall.getDefinition(),
-				tempSetupResults);
+		List<SuiteDefinition> tempSetupSuitesExecuted
+				= executeSetupSuites(aSuiteCall.getDefinition(), tempSetupResults);
 
 		// Define variables for all the parameters provided to the suite call
 		List<VariableOrConstantEntity> tempVariablesSet = new ArrayList<>();
@@ -1315,8 +1316,8 @@ public class DefaultTestRunner implements TestRunner {
 					}
 
 					long tempStart = System.nanoTime();
-					Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(
-							tempSetupSuite);
+					Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults
+							= executeSuite(tempSetupSuite);
 					SuiteResult tempSetupResult = (!shouldExecuteFixtures()) ? null
 							: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
 					aSetupResultMap.put(tempSetupSuite, tempSetupResult);
@@ -1371,8 +1372,8 @@ public class DefaultTestRunner implements TestRunner {
 					}
 
 					long tempStart = System.nanoTime();
-					Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults = executeSuite(
-							tempTearDownSuite);
+					Map<SuiteStatementWithResult, List<? extends Result>> tempSuiteResults
+							= executeSuite(tempTearDownSuite);
 					SuiteResult tempTearDownResult = (!shouldExecuteFixtures()) ? null
 							: new SuiteResult(tempSuiteResults, null, null, System.nanoTime() - tempStart);
 					aTearDownResultMap.put(tempTearDownSuite, tempTearDownResult);
@@ -1397,7 +1398,8 @@ public class DefaultTestRunner implements TestRunner {
 	 * @return a map that maps statements to results
 	 */
 	protected Map<SuiteStatementWithResult, List<? extends Result>> executeSuite(SuiteDefinition aSuite) {
-		Map<SuiteStatementWithResult, List<? extends Result>> tempResults = new LinkedHashMap<SuiteStatementWithResult, List<? extends Result>>();
+		Map<SuiteStatementWithResult, List<? extends Result>> tempResults
+				= new LinkedHashMap<SuiteStatementWithResult, List<? extends Result>>();
 
 		List<VariableOrConstantEntity> tempDefinedVariables = new ArrayList<VariableOrConstantEntity>();
 
@@ -1582,9 +1584,9 @@ public class DefaultTestRunner implements TestRunner {
 	 */
 	protected void defineVariable(final VariableOrConstantEntity anEntity, Object anInitialValue,
 			final SuiteDefinition aSuite) {
-		final Object tempInitialValue = (anInitialValue instanceof Variable)
-				? variableManager.get(((Variable) anInitialValue).getName())
-				: anInitialValue;
+		final Object tempInitialValue
+				= (anInitialValue instanceof Variable) ? variableManager.get(((Variable) anInitialValue).getName())
+						: anInitialValue;
 
 		// We need to send variable updates to forks in the main phase here.
 		boolean tempSendToForks = (!isFork()) && shouldExecuteFixtures();
@@ -1850,8 +1852,8 @@ public class DefaultTestRunner implements TestRunner {
 				}
 
 				if (aTest.getResults() != null && aTest.getResults().size() > 0) {
-					Map<String, Object> tempFixtureResultMap = ParameterUtil
-							.getValuesFromNamedResultContainer(tempFixtureResult);
+					Map<String, Object> tempFixtureResultMap
+							= ParameterUtil.getValuesFromNamedResultContainer(tempFixtureResult);
 
 					for (NamedResult tempNamedResult : aTest.getResults()) {
 						String tempResultName = IntegrityDSLUtil
@@ -1859,9 +1861,9 @@ public class DefaultTestRunner implements TestRunner {
 						Object tempSingleFixtureResult = tempFixtureResultMap.containsKey(tempResultName)
 								? tempFixtureResultMap.get(tempResultName)
 								: ParameterUtil.INEXISTENT_VALUE;
-						ComparisonResult tempResult = resultComparator.compareResult(tempSingleFixtureResult,
-								tempNamedResult.getValue(), tempFixtureInstance,
-								aTest.getDefinition().getFixtureMethod(), tempResultName);
+						ComparisonResult tempResult
+								= resultComparator.compareResult(tempSingleFixtureResult, tempNamedResult.getValue(),
+										tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), tempResultName);
 						tempComparisonResult = TestComparisonResult.wrap(tempResult, tempResultName,
 								tempSingleFixtureResult, tempNamedResult.getValue());
 						tempComparisonMap.put(tempResultName, tempComparisonResult);
@@ -1885,15 +1887,15 @@ public class DefaultTestRunner implements TestRunner {
 			tempComparisonMap.clear();
 			if (aTest.getResults() != null && aTest.getResults().size() > 0) {
 				for (NamedResult tempNamedResult : aTest.getResults()) {
-					String tempParameter = IntegrityDSLUtil
-							.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
-					tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter,
-							tempNamedResult.getValue());
+					String tempParameter
+							= IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
+					tempComparisonResult
+							= new TestComparisonUndeterminedResult(tempParameter, tempNamedResult.getValue());
 					tempComparisonMap.put(tempParameter, tempComparisonResult);
 				}
 			} else {
-				tempComparisonResult = new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME,
-						aTest.getResult());
+				tempComparisonResult
+						= new TestComparisonUndeterminedResult(ParameterUtil.DEFAULT_PARAMETER_NAME, aTest.getResult());
 				tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 			}
 		}
@@ -1911,8 +1913,8 @@ public class DefaultTestRunner implements TestRunner {
 						// ignored
 					}
 
-					tempException = new AbortExecutionException(
-							"Checkpoint Test '" + tempTestDescription + "' has failed!");
+					tempException
+							= new AbortExecutionException("Checkpoint Test '" + tempTestDescription + "' has failed!");
 					break;
 				}
 			}
@@ -2004,8 +2006,8 @@ public class DefaultTestRunner implements TestRunner {
 
 					if (tempFixtureInstance == null) {
 						// only instantiate on first pass
-						tempFixtureInstance = wrapperFactory
-								.newFixtureWrapper(aTest.getDefinition().getFixtureMethod());
+						tempFixtureInstance
+								= wrapperFactory.newFixtureWrapper(aTest.getDefinition().getFixtureMethod());
 					}
 
 					// We need the default result value before the actual result comparison takes place
@@ -2013,8 +2015,8 @@ public class DefaultTestRunner implements TestRunner {
 					if ((aTest.getResultHeaders() == null || aTest.getResultHeaders().isEmpty())
 							&& aTest.getDefaultResultColumn() != null) {
 						// the last column MUST be the result column
-						tempExpectedDefaultResultValue = tempRow.getValues().get(tempRow.getValues().size() - 1)
-								.getValue();
+						tempExpectedDefaultResultValue
+								= tempRow.getValues().get(tempRow.getValues().size() - 1).getValue();
 					}
 
 					tempFixtureInstance.announceTableTestResults(tempExpectedDefaultResultValue,
@@ -2026,15 +2028,17 @@ public class DefaultTestRunner implements TestRunner {
 
 					if (aTest.getResultHeaders() != null && aTest.getResultHeaders().size() > 0) {
 						// Use named results
-						Map<String, Object> tempFixtureResultMap = ParameterUtil
-								.getValuesFromNamedResultContainer(tempFixtureResult);
+						Map<String, Object> tempFixtureResultMap
+								= ParameterUtil.getValuesFromNamedResultContainer(tempFixtureResult);
 
 						int tempColumn = aTest.getParameterHeaders().size();
 						for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 							String tempResultName = IntegrityDSLUtil
 									.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-							ValueOrEnumValueOrOperationCollection tempExpectedNamedResultValue = (tempColumn < tempRow
-									.getValues().size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
+							ValueOrEnumValueOrOperationCollection tempExpectedNamedResultValue
+									= (tempColumn < tempRow.getValues().size())
+											? tempRow.getValues().get(tempColumn).getValue()
+											: null;
 
 							Object tempSingleFixtureResult = tempFixtureResultMap.get(tempResultName);
 
@@ -2049,12 +2053,12 @@ public class DefaultTestRunner implements TestRunner {
 						}
 					} else {
 						// Use the default result
-						ComparisonResult tempResult = resultComparator.compareResult(tempFixtureResult,
-								tempExpectedDefaultResultValue, tempFixtureInstance,
-								aTest.getDefinition().getFixtureMethod(), null);
-						tempComparisonResult = TestComparisonResult.wrap(tempResult,
-								ParameterUtil.DEFAULT_PARAMETER_NAME, tempFixtureResult,
-								tempExpectedDefaultResultValue);
+						ComparisonResult tempResult
+								= resultComparator.compareResult(tempFixtureResult, tempExpectedDefaultResultValue,
+										tempFixtureInstance, aTest.getDefinition().getFixtureMethod(), null);
+						tempComparisonResult
+								= TestComparisonResult.wrap(tempResult, ParameterUtil.DEFAULT_PARAMETER_NAME,
+										tempFixtureResult, tempExpectedDefaultResultValue);
 						tempComparisonMap.put(ParameterUtil.DEFAULT_PARAMETER_NAME, tempComparisonResult);
 					}
 					// SUPPRESS CHECKSTYLE IllegalCatch
@@ -2072,8 +2076,10 @@ public class DefaultTestRunner implements TestRunner {
 					for (ResultTableHeader tempNamedResultHeader : aTest.getResultHeaders()) {
 						String tempParameter = IntegrityDSLUtil
 								.getExpectedResultNameStringFromTestResultName(tempNamedResultHeader.getName());
-						ValueOrEnumValueOrOperationCollection tempExpectedValue = (tempColumn < tempRow.getValues()
-								.size()) ? tempRow.getValues().get(tempColumn).getValue() : null;
+						ValueOrEnumValueOrOperationCollection tempExpectedValue
+								= (tempColumn < tempRow.getValues().size())
+										? tempRow.getValues().get(tempColumn).getValue()
+										: null;
 						tempComparisonResult = new TestComparisonUndeterminedResult(tempParameter, tempExpectedValue);
 						tempComparisonMap.put(tempParameter, tempComparisonResult);
 
@@ -2114,28 +2120,28 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
-		// At this point in time, we have finished all rows. Time for the post-invocation test.
-		TestSubResult tempPostInvocationTestResult = null;
+		// At this point in time, we have finished all rows. Time for the finalization test.
+		TestSubResult tempFinalizationTestResult = null;
 		if (shouldExecuteFixtures()) {
-			if (tempFixtureInstance.isPostInvocationTestFixture()) {
-				// Internally, post-invocation test results are packaged like a test with a single default comparison,
+			if (tempFixtureInstance.isFinalizationTestFixture()) {
+				// Internally, finalization test results are packaged like a test with a single default comparison,
 				// which compares the result message to 'null'.
 				long tempStart = System.nanoTime();
 				try {
-					String tempPostInvocationFailure = tempFixtureInstance.runPostInvocationTest();
+					String tempFinalizationFailure = tempFixtureInstance.runFinalizationTest();
 					TestComparisonResult tempResult = null;
-					if (tempPostInvocationFailure == null) {
-						tempResult = new TestComparisonSuccessResult(new SimpleComparisonResult(true), null, null,
-								null);
+					if (tempFinalizationFailure == null) {
+						tempResult
+								= new TestComparisonSuccessResult(new SimpleComparisonResult(true), null, null, null);
 					} else {
 						tempResult = new TestComparisonFailureResult(new SimpleComparisonResult(false), null,
-								tempPostInvocationFailure, null);
+								tempFinalizationFailure, null);
 					}
-					tempPostInvocationTestResult = new TestExecutedSubResult(
+					tempFinalizationTestResult = new TestExecutedSubResult(
 							Collections.singletonMap(ParameterUtil.DEFAULT_PARAMETER_NAME, tempResult),
 							tempFixtureInstance, tempFixtureMethodName, System.nanoTime() - tempStart);
 				} catch (Throwable exc) {
-					tempPostInvocationTestResult = new TestExceptionSubResult(exc, Collections.emptyMap(),
+					tempFinalizationTestResult = new TestExceptionSubResult(exc, Collections.emptyMap(),
 							tempFixtureInstance, tempFixtureMethodName, System.nanoTime() - tempStart);
 					handlePossibleAbortException(exc);
 				}
@@ -2148,13 +2154,13 @@ public class DefaultTestRunner implements TestRunner {
 		if (shouldExecuteFixtures()) {
 			try {
 				tempExtendedResult = tempFixtureInstance.retrieveExtendedResults(
-						evaluateTestSubResultsToFixtureInvocationResult(tempSubResults, tempPostInvocationTestResult));
+						evaluateTestSubResultsToFixtureInvocationResult(tempSubResults, tempFinalizationTestResult));
 			} catch (Throwable exc) {
 				exc.printStackTrace();
 			}
 		}
 
-		TestResult tempReturn = new TestResult(tempSubResults, tempPostInvocationTestResult, tempFixtureInstance,
+		TestResult tempReturn = new TestResult(tempSubResults, tempFinalizationTestResult, tempFixtureInstance,
 				tempFixtureMethodName, currentPhase == Phase.DRY_RUN ? null : tempOuterDuration, tempExtendedResult);
 
 		if (currentCallback != null) {
@@ -2232,8 +2238,8 @@ public class DefaultTestRunner implements TestRunner {
 		List<UpdatedVariable> tempUpdatedVariables = new ArrayList<UpdatedVariable>();
 		if (aCall.getResults() != null && aCall.getResults().size() > 0) {
 			for (NamedCallResult tempNamedResult : aCall.getResults()) {
-				String tempResultName = IntegrityDSLUtil
-						.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
+				String tempResultName
+						= IntegrityDSLUtil.getExpectedResultNameStringFromTestResultName(tempNamedResult.getName());
 				tempUpdatedVariables
 						.add(new UpdatedVariable(tempNamedResult.getTarget().getName(), tempResultName, null));
 			}
@@ -2273,19 +2279,19 @@ public class DefaultTestRunner implements TestRunner {
 					// Perform the call to retrieve extended results from the fixture. If this crashes, log the stack
 					// trace to stdout, but ignore it otherwise - it's non-critical to the actual test result.
 					try {
-						tempExtendedResults = tempFixtureInstance
-								.retrieveExtendedResults(FixtureInvocationResult.SUCCESS);
+						tempExtendedResults
+								= tempFixtureInstance.retrieveExtendedResults(FixtureInvocationResult.SUCCESS);
 					} catch (Throwable exc) {
 						exc.printStackTrace();
 					}
 				}
 
 				if (aCall.getResults() != null && aCall.getResults().size() > 0) {
-					Map<String, Object> tempFixtureResultMap = ParameterUtil
-							.getValuesFromNamedResultContainer(tempResult);
+					Map<String, Object> tempFixtureResultMap
+							= ParameterUtil.getValuesFromNamedResultContainer(tempResult);
 					for (UpdatedVariable tempUpdatedVariable : tempUpdatedVariables) {
-						Object tempSingleFixtureResult = tempFixtureResultMap
-								.get(tempUpdatedVariable.getParameterName());
+						Object tempSingleFixtureResult
+								= tempFixtureResultMap.get(tempUpdatedVariable.getParameterName());
 						tempUpdatedVariable.setValue(tempSingleFixtureResult);
 						setVariableValue(tempUpdatedVariable.getTargetVariable(), tempSingleFixtureResult, true);
 					}
@@ -2303,8 +2309,8 @@ public class DefaultTestRunner implements TestRunner {
 			} catch (Throwable exc) {
 				if (shouldExecuteFixtures()) {
 					try {
-						tempExtendedResults = tempFixtureInstance
-								.retrieveExtendedResults(FixtureInvocationResult.EXCEPTION);
+						tempExtendedResults
+								= tempFixtureInstance.retrieveExtendedResults(FixtureInvocationResult.EXCEPTION);
 					} catch (Throwable exc2) {
 						exc2.printStackTrace();
 					}
@@ -2370,8 +2376,8 @@ public class DefaultTestRunner implements TestRunner {
 
 			if (shouldExecuteFixtures()) {
 				// Technically this is not a fixture call, but we nevertheless only perform time setting in run mode
-				String[] tempForksToRunOnArray = tempForksToRunOn.size() == 0 ? null
-						: tempForksToRunOn.stream().map((aFork) -> {
+				String[] tempForksToRunOnArray
+						= tempForksToRunOn.size() == 0 ? null : tempForksToRunOn.stream().map((aFork) -> {
 							return aFork != null ? IntegrityDSLUtil.getQualifiedForkName(aFork) : null;
 						}).collect(Collectors.toList()).toArray(new String[0]);
 
@@ -2423,8 +2429,8 @@ public class DefaultTestRunner implements TestRunner {
 					tempResult = new TimeSetExceptionResult(tempForksToRunOn, timeSyncResult.getResultMap(),
 							timeSyncResult.getErrorMessage(), timeSyncResult.getStackTrace(), tempDuration);
 				} else {
-					tempResult = new TimeSetSuccessResult(tempForksToRunOn, timeSyncResult.getResultMap(),
-							tempDuration);
+					tempResult
+							= new TimeSetSuccessResult(tempForksToRunOn, timeSyncResult.getResultMap(), tempDuration);
 				}
 			}
 
@@ -2482,8 +2488,8 @@ public class DefaultTestRunner implements TestRunner {
 	private FixtureInvocationResult evaluateTestSubResultsToFixtureInvocationResult(List<TestSubResult> someSubResults,
 			TestSubResult anAdditionalSubResult) {
 		for (TestSubResult tempSubResult : someSubResults) {
-			FixtureInvocationResult tempEvaluatedSubResult = evaluateSingleTestSubResultToFixtureInvocationResult(
-					tempSubResult);
+			FixtureInvocationResult tempEvaluatedSubResult
+					= evaluateSingleTestSubResultToFixtureInvocationResult(tempSubResult);
 			if (tempEvaluatedSubResult != FixtureInvocationResult.SUCCESS) {
 				return tempEvaluatedSubResult;
 			}
@@ -2534,8 +2540,8 @@ public class DefaultTestRunner implements TestRunner {
 			return;
 		}
 
-		Integer tempLastTestOrCallEntryRef = setList.getLastCreatedEntryId(SetListEntryTypes.CALL,
-				SetListEntryTypes.TEST);
+		Integer tempLastTestOrCallEntryRef
+				= setList.getLastCreatedEntryId(SetListEntryTypes.CALL, SetListEntryTypes.TEST);
 
 		if (tempLastTestOrCallEntryRef != null && breakpoints.contains(tempLastTestOrCallEntryRef)) {
 			// we are at a breakpoint, so we need to wait, but don't have to do anything else here
@@ -2752,8 +2758,8 @@ public class DefaultTestRunner implements TestRunner {
 						+ new TimeSyncState(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor));
 			}
 
-			TimeSyncResultMessage tempResult = setTestTimeGuarded(aRealtimeOffset, aRealtimeDecouplingTime,
-					aProgressionFactor);
+			TimeSyncResultMessage tempResult
+					= setTestTimeGuarded(aRealtimeOffset, aRealtimeDecouplingTime, aProgressionFactor);
 			remotingServer.sendTestTimeSyncResponse(tempResult);
 		}
 
@@ -2815,8 +2821,8 @@ public class DefaultTestRunner implements TestRunner {
 		// These are the parameters used to actually calculate the fake test time in the individual systems.
 		long tempRealtimeDecouplingTime = System.currentTimeMillis();
 		long tempRealtimeOffset = (aStartTime != null ? aStartTime.getTime() - tempRealtimeDecouplingTime : 0);
-		double tempProgressionFactor = (aProgressionFactor != null ? aProgressionFactor.doubleValue()
-				: (aStartTime == null ? 1.0d : 0.0d));
+		double tempProgressionFactor
+				= (aProgressionFactor != null ? aProgressionFactor.doubleValue() : (aStartTime == null ? 1.0d : 0.0d));
 		tempBaseState = new TimeSyncState(tempRealtimeOffset, tempRealtimeDecouplingTime, tempProgressionFactor);
 
 		// Now calculate the TimeSyncStates for each fork individually (and the master, of course)
@@ -2870,14 +2876,14 @@ public class DefaultTestRunner implements TestRunner {
 			if (isTimesetTracingEnabled) {
 				timesetTraceLog("SET_STATE", "Master sets test time state: " + forkTimeSyncStates.get(null));
 			}
-			TimeSyncResultMessage tempResultMessage = setTestTimeGuarded(
-					forkTimeSyncStates.get(null).getRealtimeOffset(),
-					forkTimeSyncStates.get(null).getRealtimeDecouplingTime(),
-					forkTimeSyncStates.get(null).getProgressionFactor());
+			TimeSyncResultMessage tempResultMessage
+					= setTestTimeGuarded(forkTimeSyncStates.get(null).getRealtimeOffset(),
+							forkTimeSyncStates.get(null).getRealtimeDecouplingTime(),
+							forkTimeSyncStates.get(null).getProgressionFactor());
 			if (tempResultMessage.getErrorMessage() != null) {
 				if (tempTargetedForks.size() > 0) {
-					tempMergedResultMessage = "Master process failed with: '" + tempResultMessage.getErrorMessage()
-							+ "'";
+					tempMergedResultMessage
+							= "Master process failed with: '" + tempResultMessage.getErrorMessage() + "'";
 					tempMergedResultStackTrace = "Master process failed with:\n" + tempResultMessage.getStackTrace();
 				} else {
 					tempMergedResultMessage = tempResultMessage.getErrorMessage();
@@ -2894,10 +2900,10 @@ public class DefaultTestRunner implements TestRunner {
 						"Requesting fork '" + IntegrityDSLUtil.getQualifiedForkName(tempFork.getDefinition())
 								+ "' to set timesync state: " + forkTimeSyncStates.get(tempFork.getDefinition()));
 			}
-			TimeSyncResultMessage tempResultMessage = tempFork.injectTestTimeState(
-					forkTimeSyncStates.get(tempFork.getDefinition()).getRealtimeOffset(),
-					forkTimeSyncStates.get(tempFork.getDefinition()).getRealtimeDecouplingTime(),
-					forkTimeSyncStates.get(tempFork.getDefinition()).getProgressionFactor());
+			TimeSyncResultMessage tempResultMessage
+					= tempFork.injectTestTimeState(forkTimeSyncStates.get(tempFork.getDefinition()).getRealtimeOffset(),
+							forkTimeSyncStates.get(tempFork.getDefinition()).getRealtimeDecouplingTime(),
+							forkTimeSyncStates.get(tempFork.getDefinition()).getProgressionFactor());
 			if (tempResultMessage != null && tempResultMessage.getErrorMessage() != null) {
 				if (tempMergedResultMessage.length() != 0) {
 					tempMergedResultMessage += ", ";
@@ -2958,8 +2964,8 @@ public class DefaultTestRunner implements TestRunner {
 
 			@Override
 			public void run() {
-				TimeSyncResultMessage tempResult = distributeTimeSyncRequest(aStartTime, aDiffTime, aProgressionFactor,
-						someTargetedForks);
+				TimeSyncResultMessage tempResult
+						= distributeTimeSyncRequest(aStartTime, aDiffTime, aProgressionFactor, someTargetedForks);
 				aResultTarget.deliverTimeSyncResult(tempResult);
 			}
 
@@ -3025,8 +3031,8 @@ public class DefaultTestRunner implements TestRunner {
 		// Now we are at the last one, this one must define the forker class (or no forker class is defined)
 		if (tempCurrentForkDef.getForkerClass() != null) {
 			try {
-				tempForkerClass = (Class<? extends Forker>) getClassForJvmType(
-						tempCurrentForkDef.getForkerClass().getType());
+				tempForkerClass
+						= (Class<? extends Forker>) getClassForJvmType(tempCurrentForkDef.getForkerClass().getType());
 			} catch (ClassCastException exc) {
 				throw new ForkException(
 						"Could not create fork '" + tempCurrentForkDef.getName() + "': forker class not usable.", exc);
@@ -3041,8 +3047,8 @@ public class DefaultTestRunner implements TestRunner {
 		}
 
 		// Forker can be parameterized
-		Constructor<? extends Forker> tempConstructor = (Constructor<? extends Forker>) tempForkerClass
-				.getConstructors()[0];
+		Constructor<? extends Forker> tempConstructor
+				= (Constructor<? extends Forker>) tempForkerClass.getConstructors()[0];
 		Object[] tempParameters = new Object[tempConstructor.getParameterTypes().length];
 		try {
 			for (int i = 0; i < tempConstructor.getParameterTypes().length; i++) {
@@ -3059,10 +3065,11 @@ public class DefaultTestRunner implements TestRunner {
 											.getParamNameStringFromParameterName(tempParameter.getName());
 									if (tempName.equals(tempParamName)) {
 										Class<?> tempTargetType = tempConstructor.getParameterTypes()[i];
-										tempParameters[i] = valueConverter.convertValue(tempTargetType,
-												tempParameter.getValue(),
-												conversionContextProvider.get().withUnresolvableVariableHandlingPolicy(
-														UnresolvableVariableHandling.EXCEPTION));
+										tempParameters[i]
+												= valueConverter.convertValue(tempTargetType, tempParameter.getValue(),
+														conversionContextProvider.get()
+																.withUnresolvableVariableHandlingPolicy(
+																		UnresolvableVariableHandling.EXCEPTION));
 										break forkDefLoop;
 									}
 								}
@@ -3228,30 +3235,31 @@ public class DefaultTestRunner implements TestRunner {
 			// and now we'll wait until the fork is paused
 			final long tempWaitTimeout = getForkWaitUntilReadyTimeout();
 			final long tempWaitStartTime = System.nanoTime();
-			boolean tempForkWaitSuccessful = performanceLogger.executeAndLog(
-					TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
-					"Fork Wait Until Ready (" + tempForkDef.getName() + ")",
-					new TestRunnerPerformanceLogger.RunnableWithResult<Boolean>() {
+			boolean tempForkWaitSuccessful
+					= performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+							"Fork Wait Until Ready (" + tempForkDef.getName() + ")",
+							new TestRunnerPerformanceLogger.RunnableWithResult<Boolean>() {
 
-						@Override
-						public Boolean run() {
-							while (tempFork.isAlive() && tempFork.isConnected()
-									&& tempFork.getExecutionState() != ExecutionStates.PAUSED_SYNC) {
-								try {
-									Thread.sleep(getForkPauseWaitInterval());
-								} catch (InterruptedException exc) {
-									// nothing to do here
+								@Override
+								public Boolean run() {
+									while (tempFork.isAlive() && tempFork.isConnected()
+											&& tempFork.getExecutionState() != ExecutionStates.PAUSED_SYNC) {
+										try {
+											Thread.sleep(getForkPauseWaitInterval());
+										} catch (InterruptedException exc) {
+											// nothing to do here
+										}
+
+										if (System.nanoTime() - tempWaitStartTime > TimeUnit.SECONDS
+												.toNanos(tempWaitTimeout)) {
+											System.err.println("TIMED OUT WHILE WAITING FOR FORK TO GET READY");
+											return false;
+										}
+									}
+
+									return true;
 								}
-
-								if (System.nanoTime() - tempWaitStartTime > TimeUnit.SECONDS.toNanos(tempWaitTimeout)) {
-									System.err.println("TIMED OUT WHILE WAITING FOR FORK TO GET READY");
-									return false;
-								}
-							}
-
-							return true;
-						}
-					});
+							});
 
 			// a last sanity check
 			if (tempForkWaitSuccessful && tempFork.isAlive() && tempFork.isConnected()) {

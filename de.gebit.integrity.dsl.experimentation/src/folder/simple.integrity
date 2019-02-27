@@ -68,50 +68,11 @@ packagedef mypackage with
 	 */
 	suitedef asuite gets testParameter anotherParameter returns aResult with
 		
-		// Sets date/time on all forks and the master process (= the one that starts all forks) to a specific, frozen date and time 00:00:00
-		timeset 12.10.2001
-		
-		// Sets date/time on a specific fork to a specific time, but lets it progress afterwards with 3x normal speed
-		timeset 10.10.2001 15:30:01 progressing 3x on fork1
-		
-		// Sets date/time on the master process to a specific ISO-formatted time
-		timeset 2003-10-16T20:00:00+0200 on master
-		
-		// Resets date/time on all forks and the master to live system date/time
-		timeset live
-		
-		timeset + 12minutes on master
-		
-				
-		suite bsuite on fork1
-		
-		timeset + 1h 100ms
-		
-		timeset - 100ms
-		
-		timeset 12.10.2001 on fork1
-		
-		timeset + 20y on fork1
-		
-		timeset 10.02.2001 on fork1
-		timeset 10.03.2001 on master
-		
-		timeset + 1months
-		
-		constant testConst 1100
-		
-		variable blah
-		call echoCall echo: 1000 -> blah
-		
-		timeset + testConst
-		timeset - blah
-		timeset + (testConst - blah)
-		
-		timeset 10.10.2001 progressing blah
-		
-		suite csuite on fork1
-		
-		suite bsuite on fork1
+		tabletest echo 
+			| echo   | =    |
+			| "abc" | "abc" |
+			| "def" | "def" |
+			| "ghi" | "ghi"|
 		
 	suiteend
 	
