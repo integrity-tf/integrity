@@ -1,5 +1,5 @@
-packagedef integrity.fixtures.basic.postinvocationnoop with
+packagedef integrity.fixtures.basic.finalizationtest with
 	
-	testdef echoNumber uses de.gebit.integrity.tests.fixtures.basic.PostInvocationNoOpFixture#echoNumber
+	testdef echoNumber uses de.gebit.integrity.tests.fixtures.basic.FinalizationTestNoOpFixture#echoNumber
 
 packageend

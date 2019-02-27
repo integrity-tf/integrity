@@ -9,17 +9,17 @@ package de.gebit.integrity.tests.fixtures.basic;
 
 import de.gebit.integrity.fixtures.FixtureMethod;
 import de.gebit.integrity.fixtures.FixtureParameter;
-import de.gebit.integrity.fixtures.PostInvocationTestFixture;
+import de.gebit.integrity.fixtures.FinalizationTestFixture;
 
 /**
- * A simple test fixture which does nothing (except echoing some input). Is a {@link PostInvocationTestFixture}.
+ * A simple test fixture which does nothing (except echoing some input). Is a {@link FinalizationTestFixture}.
  * 
  * 
  * @author Rene Schneider - initial API and implementation
  * 
  */
 // SUPPRESS CHECKSTYLE LONG Javadoc
-public class PostInvocationNoOpFixture implements PostInvocationTestFixture {
+public class FinalizationTestNoOpFixture implements FinalizationTestFixture {
 
 	private int sum;
 
@@ -31,7 +31,7 @@ public class PostInvocationNoOpFixture implements PostInvocationTestFixture {
 	}
 
 	@Override
-	public String performPostInvocationTest() {
+	public String performFinalizationTest() {
 		if (sum == 0) {
 			// If the numbers add up to zero, consider this a success.
 			return null;

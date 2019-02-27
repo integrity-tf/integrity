@@ -105,7 +105,8 @@ public class FixtureWrapper<C extends Object> {
 	/**
 	 * Fixture instance factories are cached in this map.
 	 */
-	private static Map<Class<?>, FixtureInstanceFactory<?>> factoryCache = new HashMap<Class<?>, FixtureInstanceFactory<?>>();
+	private static Map<Class<?>, FixtureInstanceFactory<?>> factoryCache
+			= new HashMap<Class<?>, FixtureInstanceFactory<?>>();
 
 	/**
 	 * Creates a new instance. This also instantiates the given fixture class!
@@ -220,12 +221,12 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
-	 * Checks whether the wrapped fixture is a {@link #isPostInvocationTestFixture()}.
+	 * Checks whether the wrapped fixture is a {@link #isFinalizationTestFixture()}.
 	 * 
 	 * @return true if it is
 	 */
-	public boolean isPostInvocationTestFixture() {
-		return (PostInvocationTestFixture.class.isAssignableFrom(fixtureClass));
+	public boolean isFinalizationTestFixture() {
+		return (FinalizationTestFixture.class.isAssignableFrom(fixtureClass));
 	}
 
 	/**
@@ -309,8 +310,8 @@ public class FixtureWrapper<C extends Object> {
 		int tempMethodParamCount = tempMethod.getParameterTypes().length;
 		Object[] tempParams = new Object[tempMethodParamCount];
 		for (int i = 0; i < tempMethodParamCount; i++) {
-			FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
-					tempMethod.getParameterAnnotations()[i]);
+			FixtureParameter tempAnnotation
+					= findAnnotation(FixtureParameter.class, tempMethod.getParameterAnnotations()[i]);
 
 			if (tempAnnotation != null && tempAnnotation.name() != null) {
 				tempParams[i] = someParameters.remove(tempAnnotation.name());
@@ -323,8 +324,8 @@ public class FixtureWrapper<C extends Object> {
 		try {
 			return tempMethod.invoke(getFixtureInstance(), tempParams);
 		} catch (IllegalAccessException exc) {
-			ModelSourceInformationElement tempModelSourceInfo = modelSourceExplorer
-					.determineSourceInformation(methodReference);
+			ModelSourceInformationElement tempModelSourceInfo
+					= modelSourceExplorer.determineSourceInformation(methodReference);
 			throw new IllegalArgumentException("Caught exception when trying to invoke fixture method '"
 					+ tempModelSourceInfo.getSnippet() + "' defined at " + tempModelSourceInfo, exc);
 		} catch (InvocationTargetException exc) {
@@ -354,8 +355,8 @@ public class FixtureWrapper<C extends Object> {
 
 		int tempMethodParamCount = aFixtureMethod.getParameterTypes().length;
 		for (int i = 0; i < tempMethodParamCount; i++) {
-			FixtureParameter tempAnnotation = findAnnotation(FixtureParameter.class,
-					aFixtureMethod.getParameterAnnotations()[i]);
+			FixtureParameter tempAnnotation
+					= findAnnotation(FixtureParameter.class, aFixtureMethod.getParameterAnnotations()[i]);
 			if (tempAnnotation != null && tempAnnotation.name() != null) {
 				String tempName = tempAnnotation.name();
 				Object tempValue = aParameterMap.get(tempName);
@@ -373,8 +374,8 @@ public class FixtureWrapper<C extends Object> {
 							tempConvertedValueArrayType = tempExpectedType.getComponentType();
 						}
 
-						Object tempConvertedValueArray = Array.newInstance(tempConvertedValueArrayType,
-								((Object[]) tempValue).length);
+						Object tempConvertedValueArray
+								= Array.newInstance(tempConvertedValueArrayType, ((Object[]) tempValue).length);
 						for (int k = 0; k < ((Object[]) tempValue).length; k++) {
 							Object tempSingleValue = ((Object[]) tempValue)[k];
 							Object tempSingleConvertedValue = valueConverter
@@ -386,9 +387,8 @@ public class FixtureWrapper<C extends Object> {
 					} else {
 						// if the expected type is an array, we don't want to convert to that array, but to the
 						// component type, of course...
-						Class<?> tempConversionTargetType = tempExpectedType.isArray()
-								? tempExpectedType.getComponentType()
-								: tempExpectedType;
+						Class<?> tempConversionTargetType
+								= tempExpectedType.isArray() ? tempExpectedType.getComponentType() : tempExpectedType;
 
 						// ...except for byte arrays (issue #66), those must be treated specially!
 						boolean tempSpecialByteArrayMode = false;
@@ -463,8 +463,8 @@ public class FixtureWrapper<C extends Object> {
 	 */
 	public List<ExtendedResult> retrieveExtendedResults(FixtureInvocationResult anInvocationResult) {
 		if (fixtureInstance instanceof ExtendedResultFixture) {
-			List<ExtendedResult> tempList = ((ExtendedResultFixture) fixtureInstance)
-					.provideExtendedResults(anInvocationResult);
+			List<ExtendedResult> tempList
+					= ((ExtendedResultFixture) fixtureInstance).provideExtendedResults(anInvocationResult);
 			return (tempList != null && tempList.size() > 0) ? tempList : null;
 		} else {
 			return null;
@@ -555,16 +555,16 @@ public class FixtureWrapper<C extends Object> {
 	}
 
 	/**
-	 * Executes the post-invocation test for {@link PostInvocationTestFixture}s.
+	 * Executes the finalization test for {@link FinalizationTestFixture}s.
 	 * 
 	 * @return null if successful, an error message otherwise
 	 */
-	public String runPostInvocationTest() {
-		if (isPostInvocationTestFixture()) {
-			return ((PostInvocationTestFixture) fixtureInstance).performPostInvocationTest();
+	public String runFinalizationTest() {
+		if (isFinalizationTestFixture()) {
+			return ((FinalizationTestFixture) fixtureInstance).performFinalizationTest();
 		} else {
 			throw new ThisShouldNeverHappenException(
-					"Running the post invocation test shouldn't be done if the fixture does not have one!");
+					"Running the finalization test shouldn't be done if the fixture does not have one!");
 		}
 	}
 

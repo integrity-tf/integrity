@@ -308,7 +308,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected static final String RESULT_COLLECTION_ELEMENT = "results";
 
 	/** The Constant POST_INVOCATION_RESULT_ELEMENT. */
-	protected static final String POST_INVOCATION_RESULT_ELEMENT = "postResult";
+	protected static final String FINALIZATION_TEST_RESULT_ELEMENT = "finalizationResult";
 
 	/** The Constant EXTENDED_RESULT_ELEMENT_TYPE_ATTRIBUTE. */
 	protected static final String EXTENDED_RESULT_ELEMENT_TITLE_ATTRIBUTE = "title";
@@ -1234,31 +1234,29 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				Integer.toString(aResult.getSubTestExceptionCount()));
 
 		if (!isDryRun()) {
-			TestSubResult tempPostInvocationResult = aResult.getPostInvocationTestResult();
-			Element tempPostInvocationResultElement = null;
-			if (tempPostInvocationResult != null) {
-				tempPostInvocationResultElement = new Element(POST_INVOCATION_RESULT_ELEMENT);
-				if (tempPostInvocationResult instanceof TestExecutedSubResult) {
-					TestComparisonResult tempPostInvocationComparisonResult
-							= tempPostInvocationResult.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
-					if (tempPostInvocationComparisonResult.getResult().isSuccessful()) {
-						setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE,
-								RESULT_TYPE_SUCCESS);
+			TestSubResult tempFinalizationResult = aResult.getFinalizationTestResult();
+			Element tempFinalizationResultElement = null;
+			if (tempFinalizationResult != null) {
+				tempFinalizationResultElement = new Element(FINALIZATION_TEST_RESULT_ELEMENT);
+				if (tempFinalizationResult instanceof TestExecutedSubResult) {
+					TestComparisonResult tempFinalizationComparisonResult
+							= tempFinalizationResult.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
+					if (tempFinalizationComparisonResult.getResult().isSuccessful()) {
+						setAttributeGuarded(tempFinalizationResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
 					} else {
 						// In case of test failure, we expect a failure message to be placed in the actual value
-						setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE,
-								RESULT_TYPE_FAILURE);
-						setAttributeGuarded(tempPostInvocationResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
-								(String) tempPostInvocationComparisonResult.getActualValue());
+						setAttributeGuarded(tempFinalizationResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_FAILURE);
+						setAttributeGuarded(tempFinalizationResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
+								(String) tempFinalizationComparisonResult.getActualValue());
 					}
-				} else if (tempPostInvocationResult instanceof TestExceptionSubResult) {
-					// For exceptions, use both post-invocation-related attributes: the result gets the message, the
+				} else if (tempFinalizationResult instanceof TestExceptionSubResult) {
+					// For exceptions, use both finalization-test-related attributes: the result gets the message, the
 					// exception gets the stacktrace
-					setAttributeGuarded(tempPostInvocationResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);
-					setAttributeGuarded(tempPostInvocationResultElement, RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
-							((TestExceptionSubResult) tempPostInvocationResult).getException().getMessage());
-					setAttributeGuarded(tempPostInvocationResultElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE,
-							stackTraceToString(((TestExceptionSubResult) tempPostInvocationResult).getException()));
+					setAttributeGuarded(tempFinalizationResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_EXCEPTION);
+					setAttributeGuarded(tempFinalizationResultElement, RESULT_EXCEPTION_MESSAGE_ATTRIBUTE,
+							((TestExceptionSubResult) tempFinalizationResult).getException().getMessage());
+					setAttributeGuarded(tempFinalizationResultElement, RESULT_EXCEPTION_TRACE_ATTRIBUTE,
+							stackTraceToString(((TestExceptionSubResult) tempFinalizationResult).getException()));
 				}
 			}
 
@@ -1267,10 +1265,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			if (isFork()) {
 				addConsoleOutput(tempResultCollectionElement);
 				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement,
-						tempExtendedResultElement, tempPostInvocationResultElement);
+						tempExtendedResultElement, tempFinalizationResultElement);
 			}
 			internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement,
-					tempPostInvocationResultElement);
+					tempFinalizationResultElement);
 		}
 	}
 

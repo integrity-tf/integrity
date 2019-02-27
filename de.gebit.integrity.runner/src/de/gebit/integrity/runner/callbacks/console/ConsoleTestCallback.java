@@ -210,8 +210,8 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 							print("; ");
 						}
 						// Either there is an expected value, or if there isn't, "true" is the default
-						ValueOrEnumValueOrOperationCollection tempExpectedValue = tempEntry.getValue()
-								.getExpectedValue();
+						ValueOrEnumValueOrOperationCollection tempExpectedValue
+								= tempEntry.getValue().getExpectedValue();
 
 						boolean tempExpectedIsNestedObject = containsNestedObject(tempExpectedValue);
 
@@ -413,18 +413,18 @@ public class ConsoleTestCallback extends AbstractTestRunnerCallback {
 		println("\tTotal: " + aResult.getSubTestSuccessCount() + "x SUCCESS, " + aResult.getSubTestFailCount()
 				+ "x FAILURE, " + aResult.getSubTestExceptionCount() + "x EXCEPTION.");
 
-		TestSubResult tempPostInvocationResult = aResult.getPostInvocationTestResult();
-		if (tempPostInvocationResult instanceof TestExecutedSubResult) {
-			TestComparisonResult tempPostInvocationComparisonResult = tempPostInvocationResult.getComparisonResults()
-					.get(ParameterUtil.DEFAULT_PARAMETER_NAME);
-			if (tempPostInvocationComparisonResult.getResult().isSuccessful()) {
+		TestSubResult tempFinalizationResult = aResult.getFinalizationTestResult();
+		if (tempFinalizationResult instanceof TestExecutedSubResult) {
+			TestComparisonResult tempFinalizationComparisonResult
+					= tempFinalizationResult.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
+			if (tempFinalizationComparisonResult.getResult().isSuccessful()) {
 				// do nothing
 			} else {
-				println("FAILURE: Final test has failed: " + tempPostInvocationComparisonResult.getActualValue());
+				println("FAILURE: Finalization test has failed: " + tempFinalizationComparisonResult.getActualValue());
 			}
-		} else if (tempPostInvocationResult instanceof TestExceptionSubResult) {
-			println("EXCEPTION OCCURRED DURING FINAL TEST, SEE STDERR!");
-			((TestExceptionSubResult) tempPostInvocationResult).getException().printStackTrace();
+		} else if (tempFinalizationResult instanceof TestExceptionSubResult) {
+			println("EXCEPTION OCCURRED DURING FINALIZATION TEST, SEE STDERR!");
+			((TestExceptionSubResult) tempFinalizationResult).getException().printStackTrace();
 		}
 
 		displayExtendedResults(aResult.getExtendedResults());
