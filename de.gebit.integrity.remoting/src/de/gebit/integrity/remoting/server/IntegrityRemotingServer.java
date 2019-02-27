@@ -255,7 +255,7 @@ public class IntegrityRemotingServer {
 			serverEndpoint.broadcastMessage(aResultMessage);
 		}
 	}
-	
+
 	/**
 	 * Sends a fork result summary message.
 	 * 
@@ -268,9 +268,11 @@ public class IntegrityRemotingServer {
 	 * @param aCallExceptionCount
 	 *            the number of call exceptions in tests
 	 */
-	public void sendForkResultSummaryMessage(Integer aSuccessCount, Integer aFailureCount, Integer aTestExceptionCount, Integer aCallExceptionCount) {
-		if(serverEndpoint.isActive()) {
-			serverEndpoint.broadcastMessage(new ForkResultSummaryMessage(aSuccessCount, aFailureCount, aTestExceptionCount, aCallExceptionCount));
+	public void sendForkResultSummaryMessage(Integer aSuccessCount, Integer aFailureCount, Integer aTestExceptionCount,
+			Integer aCallExceptionCount) {
+		if (serverEndpoint.isActive()) {
+			serverEndpoint.broadcastMessage(new ForkResultSummaryMessage(aSuccessCount, aFailureCount,
+					aTestExceptionCount, aCallExceptionCount));
 		}
 	}
 
@@ -280,7 +282,8 @@ public class IntegrityRemotingServer {
 	 * @return a map of message classes to processors
 	 */
 	protected Map<Class<? extends AbstractMessage>, MessageProcessor<?>> createProcessors() {
-		Map<Class<? extends AbstractMessage>, MessageProcessor<?>> tempMap = new HashMap<Class<? extends AbstractMessage>, MessageProcessor<?>>();
+		Map<Class<? extends AbstractMessage>, MessageProcessor<?>> tempMap
+				= new HashMap<Class<? extends AbstractMessage>, MessageProcessor<?>>();
 
 		tempMap.put(IntegrityRemotingVersionMessage.class, new MessageProcessor<IntegrityRemotingVersionMessage>() {
 
