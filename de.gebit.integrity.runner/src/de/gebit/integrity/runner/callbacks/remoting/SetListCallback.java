@@ -268,9 +268,9 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 		try {
 			// TODO see if this can be forwarded to the callbacks from the test runner; right now it's calculated twice
-			tempParameterMap = parameterResolver.createParameterMap(aTableTest, aRow,
-					TableTestParameterResolveMethod.COMBINED, true,
-					createConversionContext().getUnresolvableVariableHandlingPolicy());
+			tempParameterMap
+					= parameterResolver.createParameterMap(aTableTest, aRow, TableTestParameterResolveMethod.COMBINED,
+							true, createConversionContext().getUnresolvableVariableHandlingPolicy());
 		} catch (InstantiationException exc) {
 			exc.printStackTrace();
 		} catch (ClassNotFoundException exc) {
@@ -305,24 +305,24 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 						aResult.getSubTestExceptionCount());
 				tempTestEntry.setAttribute(SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT, 0);
 
-				TestSubResult tempPostInvocationResult = aResult.getPostInvocationTestResult();
-				if (tempPostInvocationResult instanceof TestExecutedSubResult) {
-					TestComparisonResult tempPostInvocationComparisonResult = tempPostInvocationResult
-							.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
-					if (tempPostInvocationComparisonResult.getResult().isSuccessful()) {
-						tempTestEntry.setAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT, true);
+				TestSubResult tempFinalizationResult = aResult.getFinalizationTestResult();
+				if (tempFinalizationResult instanceof TestExecutedSubResult) {
+					TestComparisonResult tempFinalizationComparisonResult
+							= tempFinalizationResult.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
+					if (tempFinalizationComparisonResult.getResult().isSuccessful()) {
+						tempTestEntry.setAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_RESULT, true);
 					} else {
 						// In case of test failure, we expect a failure message to be placed in the actual value
-						tempTestEntry.setAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT,
-								(String) tempPostInvocationComparisonResult.getActualValue());
+						tempTestEntry.setAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_RESULT,
+								(String) tempFinalizationComparisonResult.getActualValue());
 					}
-				} else if (tempPostInvocationResult instanceof TestExceptionSubResult) {
-					// For exceptions, use both post-invocation-related attributes: the result gets the message, the
+				} else if (tempFinalizationResult instanceof TestExceptionSubResult) {
+					// For exceptions, use both finalization-test-related attributes: the result gets the message, the
 					// exception gets the stacktrace
-					tempTestEntry.setAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT,
-							((TestExceptionSubResult) tempPostInvocationResult).getException().getMessage());
-					tempTestEntry.setAttribute(SetListEntryAttributeKeys.POST_INVOCATION_EXCEPTION,
-							stackTraceToString(((TestExceptionSubResult) tempPostInvocationResult).getException()));
+					tempTestEntry.setAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_RESULT,
+							((TestExceptionSubResult) tempFinalizationResult).getException().getMessage());
+					tempTestEntry.setAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_EXCEPTION,
+							stackTraceToString(((TestExceptionSubResult) tempFinalizationResult).getException()));
 				}
 			}
 		}
@@ -661,8 +661,8 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 				tempResultEntry.setAttribute(SetListEntryAttributeKeys.EXCEPTION,
 						((TimeSetExceptionResult) aResult).getExceptionStackTrace());
 			} else {
-				String tempExtendedResultString = testFormatter
-						.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet());
+				String tempExtendedResultString
+						= testFormatter.testTimeInfoSetToHumanReadableString(aResult.getCurrentDateTimes().entrySet());
 				Object[] tempExtendedResult = new Object[] { null, tempExtendedResultString };
 
 				tempEntry.setAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA,

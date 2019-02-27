@@ -96,7 +96,7 @@
 		.row1timesetexception { background-color: #FFE6B7; }
 		.row2timesetexception { background-color: #FFF7E8; }
 		.row1assign { background-color: #D0CCFF; }
-		.postresult { font-size: 8pt; font-weight: bold; padding: 4px; position; relative; top: 0; }
+		.finalizationresult { font-size: 8pt; font-weight: bold; padding: 4px; position; relative; top: 0; }
 		.testresults { font-size: 8pt; font-weight: bold; padding: 4px; position; relative; top: 0; }
 		.testresultvalue { font-weight: bold; }
 		.testresultvaluesuccess { color: #063; }
@@ -1287,18 +1287,11 @@ function getChildByName(node, childName) {
         </xsl:attribute>
       </a>
       <div onMouseDown="boxOrCellMouseDown()" onMouseUp="cellMouseUp(this, event)">
-        <xsl:variable name="tablesuccess">
+        <xsl:variable name="testsuccess">
           <xsl:choose>
             <xsl:when test="results/@successCount &gt; 0 and results/@failureCount = 0 and results/@exceptionCount = 0">success</xsl:when>
             <xsl:when test="results/@failureCount &gt; 0 and results/@exceptionCount = 0">failure</xsl:when>
             <xsl:when test="results/@exceptionCount &gt; 0">exception</xsl:when>
-          </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="testsuccess">
-          <xsl:choose>
-            <xsl:when test="$tablesuccess = 'success' and not(postResult/@type = 'exception' or postResult/@type = 'failure')">success</xsl:when>
-            <xsl:when test="postResult/@type = 'failure' and not($tablesuccess = 'exception')">failure</xsl:when>
-            <xsl:when test="$tablesuccess = 'exception' or postResult/@type = 'exception'">exception</xsl:when>
           </xsl:choose>
         </xsl:variable>
         <xsl:attribute name="class">
@@ -1453,7 +1446,7 @@ function getChildByName(node, childName) {
             <xsl:apply-templates select="extResults" />
           </xsl:if>
         </div>
-        <xsl:apply-templates select="postResult" />
+        <xsl:apply-templates select="finalizationResult" />
         <div class="testresults">
           <xsl:value-of select="count(results/result)" />
           results
@@ -1474,16 +1467,16 @@ function getChildByName(node, childName) {
         </span>
       </div>
     </xsl:template>
-    <xsl:template match="postResult">
+    <xsl:template match="finalizationResult">
       <xsl:choose>
         <xsl:when test="@type = 'failure'">
-          <div class="postresult testresultvaluefailure">
+          <div class="finalizationresult testresultvaluefailure">
             Finalization test has failed:
             <xsl:value-of select="@value" />
           </div>
         </xsl:when>
         <xsl:when test="@type = 'exception'">
-          <div class="postresult">
+          <div class="finalizationresult">
             Finalization test has thrown an exception:
             <xsl:value-of select="@exceptionMessage" />
             <xsl:if test="@exceptionTrace">
