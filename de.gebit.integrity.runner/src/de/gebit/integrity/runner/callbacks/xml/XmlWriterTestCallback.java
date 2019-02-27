@@ -1687,7 +1687,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 
 			try {
 				if (transformHandling == TransformHandling.EXECUTE_TRANSFORM) {
-					System.out.print("Transforming Integrity Result XML to HTML...");
+					System.out.print("Transforming Integrity Result XML to HTML output file '"
+							+ outputFile.getAbsolutePath() + "'...");
 					// Transform the XML to XHTML and output that (this actually contains a copy of the original XML
 					// result tree in an invisible element!)
 					Thread tempThread = new Thread(Thread.currentThread().getThreadGroup(), new Runnable() {
