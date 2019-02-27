@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package de.gebit.integrity.tests.junit.basic.postinvocation;
+package de.gebit.integrity.tests.junit.basic.finalizationtest;
 
 import java.io.IOException;
 
@@ -23,7 +23,7 @@ import de.gebit.integrity.tests.junit.IntegrityJUnitTest;
  * @author Rene Schneider - initial API and implementation
  * 
  */
-public class PostInvocationTests extends IntegrityJUnitTest {
+public class FinalizationTestTests extends IntegrityJUnitTest {
 
 	/**
 	 * Performs the test.
@@ -33,10 +33,10 @@ public class PostInvocationTests extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testPostInvocationSuccess() throws ModelLoadException, IOException, JDOMException {
+	public void testFinalizationTestSuccess() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/postInvocation/postInvocationTests.integrity" },
-				"integrity.basic.postInvocation.postInvocationSuccess", null);
+				new String[] { "integrity/suites/basic/finalizationtest/finalizationTestTests.integrity" },
+				"integrity.basic.finalizationtest.finalizationTestSuccess", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 
@@ -48,10 +48,10 @@ public class PostInvocationTests extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testPostInvocationFailure() throws ModelLoadException, IOException, JDOMException {
+	public void testFinalizationTestFailure() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/postInvocation/postInvocationTests.integrity" },
-				"integrity.basic.postInvocation.postInvocationFailure", null);
+				new String[] { "integrity/suites/basic/finalizationtest/finalizationTestTests.integrity" },
+				"integrity.basic.finalizationtest.finalizationTestFailure", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 
@@ -63,10 +63,10 @@ public class PostInvocationTests extends IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	@Test
-	public void testPostInvocationException() throws ModelLoadException, IOException, JDOMException {
+	public void testFinalizationTestException() throws ModelLoadException, IOException, JDOMException {
 		Document tempResult = executeIntegritySuite(
-				new String[] { "integrity/suites/basic/postInvocation/postInvocationTests.integrity" },
-				"integrity.basic.postInvocation.postInvocationException", null);
+				new String[] { "integrity/suites/basic/finalizationtest/finalizationTestTests.integrity" },
+				"integrity.basic.finalizationtest.finalizationTestException", null);
 		assertDocumentMatchesReference(tempResult);
 	}
 

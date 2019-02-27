@@ -68,15 +68,11 @@ packagedef mypackage with
 	 */
 	suitedef asuite gets testParameter anotherParameter returns aResult with
 		
-		test echo echo: "blah" = "blah"
-		
-		test echo echo: "blah" = "blah"
-		
-		test echo echo: "blah" = "blah"
-				
-		suite bsuite on fork1
-		
-		test echo echo: "blah" = "blah"
+		tabletest echo 
+			| echo   | =    |
+			| "abc" | "abc" |
+			| "def" | "def" |
+			| "ghi" | "ghi"|
 		
 	suiteend
 	

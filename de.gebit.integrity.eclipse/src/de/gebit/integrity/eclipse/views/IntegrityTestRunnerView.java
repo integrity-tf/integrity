@@ -2187,14 +2187,14 @@ public class IntegrityTestRunnerView extends ViewPart {
 						resultExceptionCountLabel.setVisible(true);
 
 						Object tempPostInvocationResult = tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.POST_INVOCATION_RESULT);
+								.getAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_RESULT);
 						if (tempPostInvocationResult != null) {
 							if (tempPostInvocationResult.equals(true)) {
 								// We currently do not display successful post-invocation test results at all
 							} else if (tempPostInvocationResult instanceof String) {
 								showSection(postInvocationTestSection);
 								String tempPostInvocationTrace = (String) tempResultEntry
-										.getAttribute(SetListEntryAttributeKeys.POST_INVOCATION_EXCEPTION);
+										.getAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_EXCEPTION);
 								if (tempPostInvocationTrace != null) {
 									postInvocationTestResultBorder.setForeground(resultExceptionColor);
 									postInvocationTestResultText.setText(tempPostInvocationTrace);

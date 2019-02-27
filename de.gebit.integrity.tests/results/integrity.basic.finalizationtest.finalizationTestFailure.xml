@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="27.02.19 09:48" isotimestamp="2019-02-27T09:48:33" duration="2.966">
+  <variables />
+  <suite id="0" name="integrity.basic.finalizationtest.finalizationTestFailure" timestamp="27.02.19 09:48:33.0520">
+    <setup />
+    <variables />
+    <statements>
+      <tabletest id="1" line="19" name="echoNumber" description="Echoes a number" fixture="de.gebit.integrity.tests.fixtures.basic.FinalizationTestNoOpFixture#echoNumber" timestamp="27.02.19 09:48:33.0521">
+        <parameters />
+        <results duration="1.599" successCount="2" failureCount="1" exceptionCount="0">
+          <result duration="0.165" description="Echoes a number" type="success">
+            <parameters>
+              <parameter name="echo" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="1" value="1" type="success" />
+            </comparisons>
+          </result>
+          <result duration="0.106" description="Echoes a number" type="success">
+            <parameters>
+              <parameter name="echo" value="2" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="2" value="2" type="success" />
+            </comparisons>
+          </result>
+        </results>
+        <finalizationResult type="failure" value="The sum is greater than zero!" />
+      </tabletest>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="2.591" successCount="2" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
