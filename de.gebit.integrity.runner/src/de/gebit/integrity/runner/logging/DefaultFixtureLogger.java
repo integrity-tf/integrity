@@ -37,11 +37,16 @@ public class DefaultFixtureLogger implements AggregatingFixtureLogger {
 	protected List<LogLine> loggedLines = new ArrayList<>();
 
 	/**
+	 * The unmodifiable collection returned to callers is cached here, in case multiple callers need the same one.
+	 */
+	protected List<LogLine> resultLoggedLines;
+
+	/**
 	 * Only log messages that equal this level or are coarser than it will be logged.
 	 */
-	protected FixtureLogLevel thresholdLevel = Boolean.parseBoolean(System.getProperty(LOG_TRACE_PROPERTY, "false"))
-			? FixtureLogLevel.DEBUG
-			: FixtureLogLevel.TRACE;
+	protected FixtureLogLevel thresholdLevel
+			= Boolean.parseBoolean(System.getProperty(LOG_TRACE_PROPERTY, "false")) ? FixtureLogLevel.DEBUG
+					: FixtureLogLevel.TRACE;
 
 	/**
 	 * Set this system property to turn on verbose logging of fixture log output. Log output on level
@@ -73,26 +78,29 @@ public class DefaultFixtureLogger implements AggregatingFixtureLogger {
 	}
 
 	@Override
-	public List<LogLine> peekLines() {
+	public List<LogLine> getLines() {
 		synchronized (this) {
-			if (loggedLines.size() == 0) {
-				return Collections.emptyList();
+			if (resultLoggedLines == null) {
+				if (loggedLines.size() == 0) {
+					resultLoggedLines = Collections.emptyList();
+				} else {
+					resultLoggedLines = Collections.unmodifiableList(new ArrayList<LogLine>(loggedLines));
+				}
 			}
 
-			return new ArrayList<LogLine>(loggedLines);
+			return resultLoggedLines;
 		}
 	}
 
 	@Override
-	public List<LogLine> popLines() {
+	public void clearLines() {
 		synchronized (this) {
 			if (loggedLines.size() == 0) {
-				return Collections.emptyList();
+				return;
 			}
 
-			List<LogLine> tempResult = loggedLines;
+			resultLoggedLines = null;
 			loggedLines = new ArrayList<>();
-			return tempResult;
 		}
 	}
 
@@ -128,6 +136,7 @@ public class DefaultFixtureLogger implements AggregatingFixtureLogger {
 			if (tempThrowableLines != null) {
 				loggedLines.addAll(tempThrowableLines);
 			}
+			resultLoggedLines = null;
 		}
 	}
 
