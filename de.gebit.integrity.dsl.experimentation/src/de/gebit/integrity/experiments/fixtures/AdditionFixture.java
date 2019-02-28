@@ -94,7 +94,7 @@ public class AdditionFixture implements FinalizationTestFixture {
 								"This is fixture log message {} of {}, written at {}", tempLogLines, tempTargetLogLines,
 								System.currentTimeMillis());
 					}
-				} else if (Math.random() < 0.1) {
+				} else if (Math.random() < 0.5) {
 					logger.log(FixtureLogLevel.ERROR, "This is a test exception: {}", "blah",
 							new RuntimeException("blahblub"));
 				} else {
@@ -117,6 +117,7 @@ public class AdditionFixture implements FinalizationTestFixture {
 	@FixtureMethod(description = "echoes $echo$")
 	public Object returnValue(@FixtureParameter(name = "echo") Object anInput) {
 		// throw new RuntimeException("An exception!");
+		pause();
 		logStuff();
 		return anInput;
 	}
