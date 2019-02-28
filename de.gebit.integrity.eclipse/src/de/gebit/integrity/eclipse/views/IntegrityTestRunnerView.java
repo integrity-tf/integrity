@@ -193,6 +193,11 @@ public class IntegrityTestRunnerView extends ViewPart {
 	private static final int POST_INVOCATION_RESULT_TEXTFIELD_HEIGHT = 50;
 
 	/**
+	 * Height of the fixture log text field.
+	 */
+	private static final int FIXTURE_LOG_TEXTFIELD_HEIGHT = 130;
+
+	/**
 	 * The "magic search term" for failed test/calls.
 	 */
 	private static final String MAGIC_SEARCH_TERM_FAILURES = "Tests/Calls with failures or exceptions";
@@ -419,6 +424,26 @@ public class IntegrityTestRunnerView extends ViewPart {
 	 * The container for the first (actual) result text field, which adds a color border around it.
 	 */
 	private Composite postInvocationTestResultBorder;
+
+	/**
+	 * The fixture log section.
+	 */
+	private Section fixtureLogSection;
+
+	/**
+	 * The composite for the fixture log.
+	 */
+	private Composite fixtureLogComposite;
+
+	/**
+	 * The text field for the fixture log.
+	 */
+	private Text fixtureLogText;
+
+	/**
+	 * The container for the first (actual) result text field, which adds a color border around it.
+	 */
+	private Composite fixtureLogBorder;
 
 	/**
 	 * The container for the variable update table.
@@ -890,6 +915,21 @@ public class IntegrityTestRunnerView extends ViewPart {
 		details.getBody().setLayout(new FormLayout());
 		tempToolkit.decorateFormHeading(details.getForm());
 
+		// details.addControlListener(new ControlListener() {
+		//
+		// @Override
+		// public void controlResized(ControlEvent anEvent) {
+		// Rectangle tempClientArea = details.getClientArea();
+		// Point tempMinSize = details.getContent().computeSize(tempClientArea.width, SWT.DEFAULT);
+		// details.getContent().setSize(tempMinSize);
+		// }
+		//
+		// @Override
+		// public void controlMoved(ControlEvent anEven) {
+		// // nothing
+		// }
+		// });
+
 		fixtureLinkGroup = new HyperlinkGroup(aParent.getDisplay());
 		fixtureLink = new Hyperlink(details.getBody(), SWT.NONE);
 		fixtureLink.setBackground(details.getBackground());
@@ -1001,14 +1041,30 @@ public class IntegrityTestRunnerView extends ViewPart {
 		variableTable.setContentProvider(new ArrayContentProvider());
 		configureTable(variableTable);
 
+		fixtureLogSection = tempToolkit.createSection(detailGroups, Section.TITLE_BAR | Section.EXPANDED);
+		fixtureLogSection.setText("Fixture Log Output");
+		tempGridData = new GridData();
+		tempGridData.minimumHeight = SWT.DEFAULT;
+		tempGridData.heightHint = 160;
+		tempGridData.horizontalIndent = 5;
+		tempGridData.grabExcessHorizontalSpace = true;
+		tempGridData.horizontalAlignment = GridData.FILL;
+		fixtureLogSection.setLayoutData(tempGridData);
+		fixtureLogSection.setLayout(new FillLayout());
+
+		fixtureLogComposite = tempToolkit.createComposite(fixtureLogSection);
+		tempToolkit.paintBordersFor(fixtureLogComposite);
+		fixtureLogSection.setClient(fixtureLogComposite);
+		fixtureLogComposite.setLayout(new FormLayout());
+
 		postInvocationTestResultBorder = new Composite(postInvocationTestComposite, SWT.NONE);
 		postInvocationTestResultBorder.setForeground(resultNeutralColor);
 		tempFormData = new FormData();
 		tempFormData.left = new FormAttachment(0, 5);
 		tempFormData.right = new FormAttachment(100, -5);
 		tempFormData.top = new FormAttachment(0, 4);
-		tempFormData.bottom = new FormAttachment(postInvocationTestResultBorder,
-				POST_INVOCATION_RESULT_TEXTFIELD_HEIGHT, SWT.TOP);
+		tempFormData.bottom
+				= new FormAttachment(postInvocationTestResultBorder, POST_INVOCATION_RESULT_TEXTFIELD_HEIGHT, SWT.TOP);
 		postInvocationTestResultBorder.setLayoutData(tempFormData);
 		FillLayout tempFill = new FillLayout();
 		tempFill.marginHeight = 1;
@@ -1016,9 +1072,26 @@ public class IntegrityTestRunnerView extends ViewPart {
 		postInvocationTestResultBorder.setLayout(tempFill);
 		configureTextFieldBorder(postInvocationTestResultBorder);
 
-		postInvocationTestResultText = new Text(postInvocationTestResultBorder,
-				SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+		postInvocationTestResultText
+				= new Text(postInvocationTestResultBorder, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 		postInvocationTestResultText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+
+		fixtureLogBorder = new Composite(fixtureLogComposite, SWT.NONE);
+		fixtureLogBorder.setForeground(resultNeutralColor);
+		tempFormData = new FormData();
+		tempFormData.left = new FormAttachment(0, 5);
+		tempFormData.right = new FormAttachment(100, -5);
+		tempFormData.top = new FormAttachment(0, 4);
+		tempFormData.bottom = new FormAttachment(fixtureLogBorder, FIXTURE_LOG_TEXTFIELD_HEIGHT, SWT.TOP);
+		fixtureLogBorder.setLayoutData(tempFormData);
+		tempFill = new FillLayout();
+		tempFill.marginHeight = 1;
+		tempFill.marginWidth = 1;
+		fixtureLogBorder.setLayout(tempFill);
+		configureTextFieldBorder(fixtureLogBorder);
+
+		fixtureLogText = new Text(fixtureLogBorder, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
+		fixtureLogText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 
 		resultTableComposite = tempToolkit.createComposite(resultComposite);
 		tempFormData = new FormData();
@@ -1194,8 +1267,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aTable.getTable().setHeaderVisible(true);
 		aTable.getTable().setLinesVisible(true);
 
-		TableViewerColumn tempColumn = new TableViewerColumn(aTable,
-				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
+		TableViewerColumn tempColumn
+				= new TableViewerColumn(aTable, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		tempColumn.getColumn().setText("Name");
 		tempColumn.getColumn().setWidth(150);
 		tempColumn.getColumn().setResizable(true);
@@ -1250,8 +1323,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aTable.getTable().setHeaderVisible(true);
 		aTable.getTable().setLinesVisible(true);
 
-		TableViewerColumn tempColumn = new TableViewerColumn(aTable,
-				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
+		TableViewerColumn tempColumn
+				= new TableViewerColumn(aTable, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		tempColumn.getColumn().setText("Name");
 		tempColumn.getColumn().setWidth(150);
 		tempColumn.getColumn().setResizable(true);
@@ -1382,8 +1455,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		aTable.getTable().setHeaderVisible(true);
 		aTable.getTable().setLinesVisible(true);
 
-		TableViewerColumn tempColumn = new TableViewerColumn(aTable,
-				SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
+		TableViewerColumn tempColumn
+				= new TableViewerColumn(aTable, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 		tempColumn.getColumn().setText("Result");
 		tempColumn.getColumn().setWidth(150);
 		tempColumn.getColumn().setResizable(true);
@@ -1703,12 +1776,12 @@ public class IntegrityTestRunnerView extends ViewPart {
 				if (tempCurrentSuite != null) {
 					SetListEntry tempOuterSuite = setList.getParent(tempCurrentSuite);
 					while (tempOuterSuite != null && tempTarget == null) {
-						List<Integer> tempSetupStatements = (List<Integer>) tempOuterSuite
-								.getAttribute(SetListEntryAttributeKeys.SETUP);
-						List<Integer> tempSuiteStatements = (List<Integer>) tempOuterSuite
-								.getAttribute(SetListEntryAttributeKeys.STATEMENTS);
-						List<Integer> tempTeardownStatements = (List<Integer>) tempOuterSuite
-								.getAttribute(SetListEntryAttributeKeys.TEARDOWN);
+						List<Integer> tempSetupStatements
+								= (List<Integer>) tempOuterSuite.getAttribute(SetListEntryAttributeKeys.SETUP);
+						List<Integer> tempSuiteStatements
+								= (List<Integer>) tempOuterSuite.getAttribute(SetListEntryAttributeKeys.STATEMENTS);
+						List<Integer> tempTeardownStatements
+								= (List<Integer>) tempOuterSuite.getAttribute(SetListEntryAttributeKeys.TEARDOWN);
 						List<Integer> tempAllStatements = new LinkedList<Integer>();
 						if (tempSetupStatements != null) {
 							tempAllStatements.addAll(tempSetupStatements);
@@ -1842,8 +1915,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		configureTestAction = new Action() {
 			@Override
 			public void run() {
-				TestActionConfigurationDialog tempDialog = new TestActionConfigurationDialog(getSite().getShell(),
-						launchConfiguration);
+				TestActionConfigurationDialog tempDialog
+						= new TestActionConfigurationDialog(getSite().getShell(), launchConfiguration);
 				if (tempDialog.open() == Dialog.OK) {
 					launchConfiguration = tempDialog.getSelectedConfiguration();
 					updateLaunchButtonState();
@@ -1908,9 +1981,9 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 
 				if (setList != null) {
-					pauseAbortAtFirstErrorFailureThreshold = setList
-							.getNumberOfEntriesInResultState(SetListEntryResultStates.FAILED)
-							+ setList.getNumberOfEntriesInResultState(SetListEntryResultStates.EXCEPTION);
+					pauseAbortAtFirstErrorFailureThreshold
+							= setList.getNumberOfEntriesInResultState(SetListEntryResultStates.FAILED)
+									+ setList.getNumberOfEntriesInResultState(SetListEntryResultStates.EXCEPTION);
 				}
 			};
 		};
@@ -2098,6 +2171,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 			tempChild.dispose();
 		}
 		hideSection(postInvocationTestSection);
+		fixtureLogText.setText("");
+		hideSection(fixtureLogSection);
 
 		resultSuccessIcon.setVisible(false);
 		resultFailureIcon.setVisible(false);
@@ -2133,16 +2208,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 				forkLabel.setVisible(true);
 			}
 
-			List<SetListEntry> tempVariables = setList.resolveReferences(anEntry,
-					SetListEntryAttributeKeys.VARIABLE_DEFINITIONS);
+			List<SetListEntry> tempVariables
+					= setList.resolveReferences(anEntry, SetListEntryAttributeKeys.VARIABLE_DEFINITIONS);
 			if (tempVariables.size() > 0) {
 				variableTable.setInput(tempVariables);
 			} else {
 				variableTable.setInput(null);
 			}
 
-			List<SetListEntry> tempParameters = setList.resolveReferences(anEntry,
-					SetListEntryAttributeKeys.PARAMETERS);
+			List<SetListEntry> tempParameters
+					= setList.resolveReferences(anEntry, SetListEntryAttributeKeys.PARAMETERS);
 			if (tempParameters.size() > 0) {
 				parameterTable.setInput(tempParameters);
 			} else {
@@ -2166,14 +2241,14 @@ public class IntegrityTestRunnerView extends ViewPart {
 				case SUITE:
 				case TABLETEST:
 					if (tempResultEntry.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT) != null) {
-						int tempSuccessCount = (Integer) tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT);
-						int tempFailureCount = (Integer) tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.FAILURE_COUNT);
-						int tempExceptionCount = (Integer) tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT)
-								+ (Integer) tempResultEntry
-										.getAttribute(SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT);
+						int tempSuccessCount
+								= (Integer) tempResultEntry.getAttribute(SetListEntryAttributeKeys.SUCCESS_COUNT);
+						int tempFailureCount
+								= (Integer) tempResultEntry.getAttribute(SetListEntryAttributeKeys.FAILURE_COUNT);
+						int tempExceptionCount
+								= (Integer) tempResultEntry.getAttribute(SetListEntryAttributeKeys.TEST_EXCEPTION_COUNT)
+										+ (Integer) tempResultEntry
+												.getAttribute(SetListEntryAttributeKeys.CALL_EXCEPTION_COUNT);
 
 						resultSuccessCountLabel.setText(Integer.toString(tempSuccessCount));
 						resultFailureCountLabel.setText(Integer.toString(tempFailureCount));
@@ -2186,8 +2261,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 						resultFailureCountLabel.setVisible(true);
 						resultExceptionCountLabel.setVisible(true);
 
-						Object tempPostInvocationResult = tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_RESULT);
+						Object tempPostInvocationResult
+								= tempResultEntry.getAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_RESULT);
 						if (tempPostInvocationResult != null) {
 							if (tempPostInvocationResult.equals(true)) {
 								// We currently do not display successful post-invocation test results at all
@@ -2238,8 +2313,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 							if (tempComparisonEntry
 									.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
 								resultLine1Name.setText("Result returned by the test fixture: ");
-								String tempResult = (String) tempComparisonEntry
-										.getAttribute(SetListEntryAttributeKeys.VALUE);
+								String tempResult
+										= (String) tempComparisonEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
 								resultLine1Text.setText(tempResult == null ? "null" : tempResult);
 								if (tempComparisonEntry
 										.getAttribute(SetListEntryAttributeKeys.RESULT_SUCCESS_FLAG) != null) {
@@ -2271,8 +2346,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 									SetListEntryAttributeKeys.VARIABLE_UPDATES);
 
 							if (tempVarUpdates.size() == 1) {
-								String tempResultValue = (String) tempVarUpdates.get(0)
-										.getAttribute(SetListEntryAttributeKeys.VALUE);
+								String tempResultValue
+										= (String) tempVarUpdates.get(0).getAttribute(SetListEntryAttributeKeys.VALUE);
 								String tempTargetVariable = (String) tempVarUpdates.get(0)
 										.getAttribute(SetListEntryAttributeKeys.VARIABLE_NAME);
 								if (tempTargetVariable != null) {
@@ -2311,14 +2386,14 @@ public class IntegrityTestRunnerView extends ViewPart {
 					resultLine1Name.setVisible(true);
 					break;
 				case VARIABLE_ASSIGNMENT:
-					List<SetListEntry> tempVarUpdates = setList.resolveReferences(tempResultEntry,
-							SetListEntryAttributeKeys.VARIABLE_UPDATES);
+					List<SetListEntry> tempVarUpdates
+							= setList.resolveReferences(tempResultEntry, SetListEntryAttributeKeys.VARIABLE_UPDATES);
 
 					if (tempVarUpdates.size() == 1) {
-						String tempResultValue = (String) tempVarUpdates.get(0)
-								.getAttribute(SetListEntryAttributeKeys.VALUE);
-						String tempTargetVariable = (String) tempVarUpdates.get(0)
-								.getAttribute(SetListEntryAttributeKeys.VARIABLE_NAME);
+						String tempResultValue
+								= (String) tempVarUpdates.get(0).getAttribute(SetListEntryAttributeKeys.VALUE);
+						String tempTargetVariable
+								= (String) tempVarUpdates.get(0).getAttribute(SetListEntryAttributeKeys.VARIABLE_NAME);
 						if (tempTargetVariable != null) {
 							tempResultValue += " ➔ " + tempTargetVariable;
 						}
@@ -2339,8 +2414,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 				}
 			}
 
-			Object[] tempExtendedResults = (Object[]) anEntry
-					.getAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA);
+			Object[] tempExtendedResults
+					= (Object[]) anEntry.getAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA);
 			if (tempExtendedResults != null && tempExtendedResults.length > 0) {
 				int tempSize = 0;
 
@@ -2360,10 +2435,16 @@ public class IntegrityTestRunnerView extends ViewPart {
 			} else {
 				hideResultComposite(resultLine3Border);
 			}
+
+			String tempFixtureLog = (String) anEntry.getAttribute(SetListEntryAttributeKeys.FIXTURE_LOG);
+			if (tempFixtureLog != null && tempFixtureLog.length() > 0) {
+				showSection(fixtureLogSection);
+				fixtureLogText.setText(tempFixtureLog);
+			}
 		}
 
 		details.layout(true, true);
-		details.reflow(false);
+		details.reflow(true);
 		details.redraw();
 	}
 
@@ -2806,7 +2887,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		 * This queue is used to queue asynchronous status display update requests (status text and execution progress
 		 * bar). Certain updates can be skipped for better performance. See issue #80.
 		 */
-		private LinkedBlockingQueue<StatusUpdateRunnable> statusUpdateQueue = new LinkedBlockingQueue<StatusUpdateRunnable>();
+		private LinkedBlockingQueue<StatusUpdateRunnable> statusUpdateQueue
+				= new LinkedBlockingQueue<StatusUpdateRunnable>();
 
 		/**
 		 * The timer used to process status update queue entries. Gets started and stopped with Integrity test

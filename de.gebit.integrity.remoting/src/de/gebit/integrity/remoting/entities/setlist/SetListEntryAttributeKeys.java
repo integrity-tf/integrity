@@ -163,6 +163,11 @@ public enum SetListEntryAttributeKeys {
 	/**
 	 * A link to the test script (suite and optionally line).
 	 */
-	LINK;
+	LINK,
+
+	/**
+	 * Fixture log output (as a multi-line string).
+	 */
+	FIXTURE_LOG;
 
 }
