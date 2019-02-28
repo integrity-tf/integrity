@@ -822,7 +822,7 @@ function getChildByName(node, childName) {
             <xsl:value-of select="result/@exceptionMessage" />
           </div>
         </xsl:if>
-        <xsl:apply-templates select="results/fixturelog" />
+        <xsl:apply-templates select="result/fixturelog" />
         <xsl:apply-templates select="result/console" />
         <span class="durationandicons">
           <xsl:call-template name="duration">

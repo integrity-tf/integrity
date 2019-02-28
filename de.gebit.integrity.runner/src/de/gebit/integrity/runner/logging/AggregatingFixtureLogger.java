@@ -20,19 +20,16 @@ import de.gebit.integrity.fixtures.logging.FixtureLogger;
 public interface AggregatingFixtureLogger extends FixtureLogger {
 
 	/**
+	 * Clears any lines currently stored in the logger.
+	 */
+	void clearLines();
+
+	/**
 	 * Returns the currently aggregated log lines, but does NOT clear the buffer. This method guarantees to return a
 	 * finalized collection that will not be modified anymore by the aggregator.
 	 * 
 	 * @return the logged lines
 	 */
-	List<LogLine> peekLines();
-
-	/**
-	 * Returns the currently aggregated log lines, but also clears the buffer. This method guarantees to return a
-	 * finalized collection that will not be modified anymore by the aggregator.
-	 * 
-	 * @return the logged lines
-	 */
-	List<LogLine> popLines();
+	List<LogLine> getLines();
 
 }

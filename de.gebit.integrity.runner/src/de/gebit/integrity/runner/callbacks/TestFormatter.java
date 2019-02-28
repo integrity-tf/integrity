@@ -68,7 +68,7 @@ public class TestFormatter {
 	/**
 	 * Newline separator.
 	 */
-	protected static final String NEWLINE = System.getProperty("line.separator");
+	public static final String NEWLINE = System.getProperty("line.separator");
 
 	/**
 	 * The classloader to use.
@@ -199,8 +199,8 @@ public class TestFormatter {
 			ConversionContext aConversionContext) {
 		ConversionContext tempConversionContext = safeguardConversionContext(aConversionContext);
 
-		String tempValueString = valueConverter.convertValueToString(anAssignment.getValue(), false,
-				tempConversionContext);
+		String tempValueString
+				= valueConverter.convertValueToString(anAssignment.getValue(), false, tempConversionContext);
 
 		return "Assign new value '" + tempValueString + "' to variable '"
 				+ IntegrityDSLUtil.getQualifiedVariableEntityName(anAssignment.getTarget().getName(), false) + "'";
@@ -405,10 +405,14 @@ public class TestFormatter {
 	 * @return
 	 */
 	public String timeSetToHumanReadableString(TimeSet aTimeSet, List<ForkDefinition> someForks) {
-		String tempStartTime = aTimeSet.getStartTime() != null ? valueConverter.convertValueToString(
-				aTimeSet.getStartTime(), false, new ConversionContext().withUnresolvableVariableHandlingPolicy(
-						UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
-				: null;
+		String tempStartTime
+				= aTimeSet.getStartTime() != null
+						? valueConverter
+								.convertValueToString(
+										aTimeSet.getStartTime(), false,
+										new ConversionContext().withUnresolvableVariableHandlingPolicy(
+												UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
+						: null;
 		String tempProgressionFactor = null;
 		if (aTimeSet.getProgressionMode() != null) {
 			BigDecimal tempFactor = DateUtil.convertTimeSetProgressionFactor(aTimeSet, valueConverter,
@@ -524,8 +528,8 @@ public class TestFormatter {
 			tempBuilder.append(testTimeInfoToHumanReadableString(aTestTimeInfoSet.iterator().next(), false));
 		} else {
 			tempBuilder.append("The test time on all processes is now:");
-			List<Entry<String, Pair<ZonedDateTime, Double>>> tempSortedList = new ArrayList<Map.Entry<String, Pair<ZonedDateTime, Double>>>(
-					aTestTimeInfoSet);
+			List<Entry<String, Pair<ZonedDateTime, Double>>> tempSortedList
+					= new ArrayList<Map.Entry<String, Pair<ZonedDateTime, Double>>>(aTestTimeInfoSet);
 			Collections.sort(tempSortedList, new Comparator<Entry<String, Pair<ZonedDateTime, Double>>>() {
 
 				@Override

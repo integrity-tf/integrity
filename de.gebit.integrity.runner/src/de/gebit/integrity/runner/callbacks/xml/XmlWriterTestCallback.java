@@ -924,6 +924,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTestStart(Test aTest) {
 		addConsoleOutput(null); // clear the console interceptor
+		fixtureLogger.clearLines();
 
 		Element tempTestElement = new Element(TEST_ELEMENT);
 		addId(tempTestElement);
@@ -979,6 +980,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onTableTestStart(TableTest aTest) {
 		addConsoleOutput(null); // clear the console interceptor
+		fixtureLogger.clearLines();
 
 		Element tempTestElement = new Element(TABLETEST_ELEMENT);
 		addId(tempTestElement);
@@ -1402,6 +1404,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	@Override
 	public void onCallStart(Call aCall) {
 		addConsoleOutput(null); // clear the console interceptor
+		fixtureLogger.clearLines();
 
 		Element tempCallElement = new Element(CALL_ELEMENT);
 		addId(tempCallElement);
@@ -2574,7 +2577,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 *            the element to add fixture logging to
 	 */
 	protected void addFixtureLogging(Element anElement) {
-		List<LogLine> tempLines = fixtureLogger.popLines();
+		List<LogLine> tempLines = fixtureLogger.getLines();
 
 		if (tempLines.size() == 0) {
 			return;

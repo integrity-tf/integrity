@@ -69,6 +69,8 @@ import de.gebit.integrity.runner.TestModel;
 import de.gebit.integrity.runner.callbacks.AbstractTestRunnerCallback;
 import de.gebit.integrity.runner.callbacks.SuiteSkipReason;
 import de.gebit.integrity.runner.callbacks.TestFormatter;
+import de.gebit.integrity.runner.logging.AggregatingFixtureLogger;
+import de.gebit.integrity.runner.logging.LogLine;
 import de.gebit.integrity.runner.results.FixtureExecutionResult;
 import de.gebit.integrity.runner.results.SuiteResult;
 import de.gebit.integrity.runner.results.SuiteSummaryResult;
@@ -138,6 +140,12 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 	 */
 	@Inject
 	protected Provider<ConversionContext> conversionContextProvider;
+
+	/**
+	 * The fixture logger.
+	 */
+	@Inject
+	protected AggregatingFixtureLogger fixtureLogger;
 
 	/**
 	 * Number of call invocations in setlist.
@@ -224,6 +232,10 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTestStart(Test aTest) {
+		if (!isDryRun()) {
+			fixtureLogger.clearLines();
+		}
+
 		invocationCountTests++;
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TEST);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aTest.getDefinition().getName());
@@ -240,6 +252,10 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onTableTestStart(TableTest aTableTest) {
+		if (!isDryRun()) {
+			fixtureLogger.clearLines();
+		}
+
 		invocationCountTableTests++;
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.TABLETEST);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aTableTest.getDefinition().getName());
@@ -328,6 +344,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		}
 
 		addExtendedResultDataToEntry(tempTestEntry, aResult);
+		addFixtureLogDataToEntry(tempTestEntry);
 
 		sendUpdateToClients(null, tempTestEntry);
 	}
@@ -349,6 +366,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		}
 
 		addExtendedResultDataToEntry(tempTestEntry, aResult);
+		addFixtureLogDataToEntry(tempTestEntry);
 		List<SetListEntry> tempNewEntries = onAnyKindOfSubTestFinish(aTest.getDefinition().getFixtureMethod(), aTest,
 				tempTestEntry, aResult.getSubResults().get(0), tempParameterMap);
 		tempNewEntries.add(tempTestEntry);
@@ -456,6 +474,10 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 
 	@Override
 	public void onCallStart(Call aCall) {
+		if (!isDryRun()) {
+			fixtureLogger.clearLines();
+		}
+
 		invocationCountCalls++;
 		SetListEntry tempNewEntry = setList.createEntry(SetListEntryTypes.CALL);
 		tempNewEntry.setAttribute(SetListEntryAttributeKeys.NAME, aCall.getDefinition().getName());
@@ -510,6 +532,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 		SetListEntry tempCallEntry = entryStack.pop();
 
 		addExtendedResultDataToEntry(tempCallEntry, aResult);
+		addFixtureLogDataToEntry(tempCallEntry);
 		setList.addReference(tempCallEntry, SetListEntryAttributeKeys.RESULT, tempNewEntry);
 		sendUpdateToClients(null, tempEntries, tempCallEntry, tempNewEntry);
 	}
@@ -910,6 +933,34 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 			anEntry.setAttribute(SetListEntryAttributeKeys.EXTENDED_RESULT_DATA,
 					tempTargetList.toArray(new Object[tempTargetList.size()]));
 		}
+	}
+
+	/**
+	 * Adds the fixture log data in the {@link FixtureExecutionResult} object to the provided {@link SetListEntry}. If
+	 * there's no fixture log output, this method does nothing.
+	 * 
+	 * @param anEntry
+	 *            the entry to attach log data to
+	 */
+	protected void addFixtureLogDataToEntry(SetListEntry anEntry) {
+		if (isDryRun()) {
+			// No fixture invocations during dry run -> nothing can possibly be logged
+			return;
+		}
+
+		List<LogLine> tempLines = fixtureLogger.getLines();
+
+		if (tempLines.size() == 0) {
+			return;
+		}
+
+		StringBuilder tempBuilder = new StringBuilder();
+		for (LogLine tempLine : tempLines) {
+			tempBuilder.append(tempLine.toString());
+			tempBuilder.append(TestFormatter.NEWLINE);
+		}
+
+		anEntry.setAttribute(SetListEntryAttributeKeys.FIXTURE_LOG, tempBuilder.toString());
 	}
 
 	@Override
