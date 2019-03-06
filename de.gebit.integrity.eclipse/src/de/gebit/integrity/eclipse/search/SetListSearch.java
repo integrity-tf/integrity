@@ -69,7 +69,8 @@ public class SetListSearch {
 				if (tempSuiteName != null) {
 					SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
 					if (tempResultState != null) {
-						entries.add(new SearchResult(tempSuiteName, !tempResultState.isUnsuccessful(), true, anEntry));
+						entries.add(new SearchResult(tempSuiteName, !tempResultState.isUnsuccessful(), true, false,
+								anEntry));
 					}
 				}
 				tempRecurse = true;
@@ -77,7 +78,7 @@ public class SetListSearch {
 				String tempCommentText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.VALUE);
 				if (tempCommentText != null) {
 					// Comments can't "fail"
-					entries.add(new SearchResult(tempCommentText, true, false, anEntry));
+					entries.add(new SearchResult(tempCommentText, true, false, false, anEntry));
 				}
 
 			} else if (anEntry.getType() == SetListEntryTypes.TIMESET) {
@@ -85,7 +86,8 @@ public class SetListSearch {
 				if (tempText != null) {
 					SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
 					if (tempResultState != null) {
-						entries.add(new SearchResult(tempText, !tempResultState.isUnsuccessful(), false, anEntry));
+						entries.add(
+								new SearchResult(tempText, !tempResultState.isUnsuccessful(), false, false, anEntry));
 					}
 				}
 			} else if (anEntry.getType() == SetListEntryTypes.EXECUTION) {
@@ -96,34 +98,41 @@ public class SetListSearch {
 				if (tempTestText != null) {
 					SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
 					if (tempResultState != null) {
-						entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), false, anEntry));
+						entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), false, false,
+								anEntry));
 					}
 				}
 			} else if (anEntry.getType() == SetListEntryTypes.TABLETEST) {
+				boolean tempHasUnsuccessfulSubResult = false;
+				// For tabletests, we fetch all sub-entries with the results for each line here and index them instead
+				// of triggering on "result" elements and finding out whether they belong to a tabletest.
+				List<SetListEntry> tempResultEntries
+						= SetListUtil.getSetListEntryChilds((SetListEntry) anEntry, aSetList);
+				for (SetListEntry tempResultEntry : tempResultEntries) {
+					if (tempResultEntry.getType() == SetListEntryTypes.RESULT) {
+						String tempLineText
+								= (String) tempResultEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
+						if (tempLineText != null) {
+							SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempResultEntry);
+							if (tempResultState != null) {
+								if (!tempHasUnsuccessfulSubResult && tempResultState.isUnsuccessful()) {
+									tempHasUnsuccessfulSubResult = true;
+								}
+
+								entries.add(new SearchResult(tempLineText, !tempResultState.isUnsuccessful(), false,
+										false, tempResultEntry));
+							}
+						}
+					}
+				}
+
 				String tempTestText = (String) anEntry.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
 				if (tempTestText != null) {
 					SetListEntryResultStates tempResultState = setList.getResultStateForEntry(anEntry);
 					if (tempResultState != null) {
-						entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), true, anEntry));
-					}
-				}
-
-				// For tabletests, we fetch all sub-entries with the results for each line here and index them instead
-				// of
-				// triggering on "result" elements and finding out whether they belong to a tabletest.
-				List<SetListEntry> tempResultEntries = SetListUtil.getSetListEntryChilds((SetListEntry) anEntry,
-						aSetList);
-				for (SetListEntry tempResultEntry : tempResultEntries) {
-					if (tempResultEntry.getType() == SetListEntryTypes.RESULT) {
-						String tempLineText = (String) tempResultEntry
-								.getAttribute(SetListEntryAttributeKeys.DESCRIPTION);
-						if (tempLineText != null) {
-							SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempResultEntry);
-							if (tempResultState != null) {
-								entries.add(new SearchResult(tempLineText, !tempResultState.isUnsuccessful(), false,
-										tempResultEntry));
-							}
-						}
+						entries.add(new SearchResult(tempTestText, !tempResultState.isUnsuccessful(), true,
+								(tempResultState == SetListEntryResultStates.FAILED && !tempHasUnsuccessfulSubResult),
+								anEntry));
 					}
 				}
 			}
@@ -167,12 +176,13 @@ public class SetListSearch {
 	 * 
 	 * @return matching entries (returns an empty list if no matches were found)
 	 */
-	public List<SetListEntry> findUnsuccessfulEntries(boolean anIncludeSubResultDependentEntries) {
+	public List<SetListEntry> findUnsuccessfulEntries() {
 		List<SetListEntry> tempResults = new ArrayList<SetListEntry>();
 
 		for (SearchResult tempPossibleResult : entries) {
 			if (!tempPossibleResult.isSuccessful()) {
-				if (!tempPossibleResult.isSubResultDependent() || anIncludeSubResultDependentEntries) {
+				if (!tempPossibleResult.isSubResultDependent()
+						|| tempPossibleResult.isSubResultDependentButHasOwnResult()) {
 					tempResults.add(tempPossibleResult.getEntry());
 				}
 			}
@@ -199,14 +209,22 @@ public class SetListSearch {
 		private boolean subResultDependent;
 
 		/**
+		 * Whether this element is sub-result dependent in principle, but has an own result that is to be honored in
+		 * this particular case (ex.: tabletests with all results successful, but finalization test failed).
+		 */
+		private boolean subResultDependentButHasOwnResult;
+
+		/**
 		 * The entry.
 		 */
 		private SetListEntry entry;
 
-		SearchResult(String aText, boolean aSuccessfulFlag, boolean aSubResultDependentFlag, SetListEntry anEntry) {
+		SearchResult(String aText, boolean aSuccessfulFlag, boolean aSubResultDependentFlag,
+				boolean aSubResultDependentButHasOwnResult, SetListEntry anEntry) {
 			text = aText;
 			successful = aSuccessfulFlag;
 			subResultDependent = aSubResultDependentFlag;
+			subResultDependentButHasOwnResult = aSubResultDependentButHasOwnResult;
 			entry = anEntry;
 		}
 
@@ -224,6 +242,10 @@ public class SetListSearch {
 
 		public boolean isSubResultDependent() {
 			return subResultDependent;
+		}
+
+		public boolean isSubResultDependentButHasOwnResult() {
+			return subResultDependentButHasOwnResult;
 		}
 
 	}
