@@ -38,10 +38,8 @@ public interface ExtendedResultFixture {
 	/**
 	 * This method must determine the extended results to be integrated into the test results. The list may contain:
 	 * <ul>
-	 * <li>
-	 * {@link ExtendedResultText} for textual results</li>
-	 * <li>
-	 * {@link ExtendedResultImage} for images</li>
+	 * <li>{@link ExtendedResultText} for textual results</li>
+	 * <li>{@link ExtendedResultImage} for images</li>
 	 * </ul>
 	 * 
 	 * @param anInvocationResult
@@ -81,10 +79,8 @@ public interface ExtendedResultFixture {
 	 * Abstract base class for extended result types. You should NOT implement subclasses of this class, but instead use
 	 * the provided subclasses:
 	 * <ul>
-	 * <li>
-	 * {@link ExtendedResultText} for textual results</li>
-	 * <li>
-	 * {@link ExtendedResultImage} for images</li>
+	 * <li>{@link ExtendedResultText} for textual results</li>
+	 * <li>{@link ExtendedResultImage} for images</li>
 	 * </ul>
 	 * 
 	 * 
@@ -349,6 +345,18 @@ public interface ExtendedResultFixture {
 				case JPEG_LOW:
 					tempParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 					tempParam.setCompressionQuality(0.4f);
+					break;
+				case PNG:
+					// This sets the Deflate level of the PNG encoder to "best compression".
+					// Best compression was default in Java 8, until OpenJDK11 changed it to best speed.
+					// By setting this explicitly we have the same behavior in both cases.
+					try {
+						tempParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+						tempParam.setCompressionQuality(0.0f);
+					} catch (UnsupportedOperationException exc) {
+						// This will be thrown on JDK8, but we can safely ignore it, as the default is fine
+						// in that case
+					}
 					break;
 				default:
 					// nothing to do
