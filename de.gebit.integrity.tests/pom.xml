@@ -32,6 +32,9 @@
 				<include>**/*.java</include>
 			</includes>
 			<redirectTestOutputToFile>true</redirectTestOutputToFile>
+			<systemProperties>
+				<java.locale.providers>JRE</java.locale.providers>
+			</systemProperties>
 		  </configuration>
 		  <executions>
 			<execution>

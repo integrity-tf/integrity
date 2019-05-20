@@ -7,7 +7,6 @@
  *******************************************************************************/
 package de.gebit.integrity.utils;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -70,7 +70,10 @@ public final class DateUtil {
 	 * @return the date format instance
 	 */
 	private static SimpleDateFormat getSimpleDateFormat(String aFormatString) {
-		SimpleDateFormat tempFormat = new SimpleDateFormat(aFormatString);
+		// Always using English locale here because all our date/time formats work with it. Localized variants may
+		// fail, for example because AM is localized to "vorm." in German locale since OpenJDK11 if the default
+		// java.locale.providers CLDR is used.
+		SimpleDateFormat tempFormat = new SimpleDateFormat(aFormatString, Locale.ENGLISH);
 		tempFormat.setLenient(false);
 		return tempFormat;
 	}
@@ -297,8 +300,8 @@ public final class DateUtil {
 		}
 
 		boolean tempHasTimezone = tempTimeValue.contains("+") | tempTimeValue.contains("-");
-		boolean tempHasSeconds = (!tempHasTimezone && tempTimeValue.length() > 6)
-				| (tempHasTimezone && tempTimeValue.length() > 12);
+		boolean tempHasSeconds
+				= (!tempHasTimezone && tempTimeValue.length() > 6) | (tempHasTimezone && tempTimeValue.length() > 12);
 
 		if (tempHasTimezone) {
 			if (tempTimeValue.charAt(tempTimeValue.length() - 3) == ':') {
@@ -369,24 +372,7 @@ public final class DateUtil {
 
 		if (aDate.getTime() % 1000 != 0) {
 			if (aFormat instanceof SimpleDateFormat) {
-				Field tempField;
-				try {
-					tempField = SimpleDateFormat.class.getDeclaredField("pattern");
-					tempField.setAccessible(true);
-					String tempPattern = (String) tempField.get(aFormat);
-
-					tempPattern = tempPattern.replace(":ss", ":ss.SSS");
-
-					tempFormat = new SimpleDateFormat(tempPattern);
-				} catch (SecurityException exc) {
-					exc.printStackTrace();
-				} catch (NoSuchFieldException exc) {
-					exc.printStackTrace();
-				} catch (IllegalArgumentException exc) {
-					exc.printStackTrace();
-				} catch (IllegalAccessException exc) {
-					exc.printStackTrace();
-				}
+				tempFormat = new SimpleDateFormat(((SimpleDateFormat) aFormat).toPattern().replace(":ss", ":ss.SSS"));
 			}
 		}
 
@@ -483,8 +469,8 @@ public final class DateUtil {
 
 			return tempResult;
 		} else {
-			List<Pair<Long, TemporalUnit>> tempResults = new ArrayList<Pair<Long, TemporalUnit>>(
-					aDifference.getFixedValues().size());
+			List<Pair<Long, TemporalUnit>> tempResults
+					= new ArrayList<Pair<Long, TemporalUnit>>(aDifference.getFixedValues().size());
 			boolean tempNegate = ("-".equals(aDifference.getDirection()));
 
 			for (String tempPart : aDifference.getFixedValues()) {
