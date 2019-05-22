@@ -80,7 +80,7 @@
 	              <descriptor>assemble/assemble-all.xml</descriptor>
 	              <descriptor>assemble/assemble-all-single-file.xml</descriptor>
 	            </descriptors>
-	            <finalName>integrity-standalone-dependencies-2018-09</finalName>
+	            <finalName>integrity-standalone-dependencies-2019-03</finalName>
 	            <appendAssemblyId>false</appendAssemblyId>
 	            <outputDirectory>target/assembly/</outputDirectory>
 	          </configuration>
