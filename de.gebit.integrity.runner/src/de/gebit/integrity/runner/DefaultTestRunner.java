@@ -2615,7 +2615,9 @@ public class DefaultTestRunner implements TestRunner {
 	protected void createBreakpoint(int anEntryReference) {
 		// forward to forks
 		for (Entry<ForkDefinition, Fork> tempForkEntry : forkMap.entrySet()) {
-			tempForkEntry.getValue().getClient().createBreakpoint(anEntryReference);
+			if (tempForkEntry.getValue().isConnected()) {
+				tempForkEntry.getValue().getClient().createBreakpoint(anEntryReference);
+			}
 		}
 
 		// then perform for ourself
@@ -2697,7 +2699,9 @@ public class DefaultTestRunner implements TestRunner {
 				// if we're the master and a fork is active, we're waiting for a fork, thus this command
 				// is meant for the fork
 				Fork tempFork = forkMap.get(forkInExecution);
-				tempFork.getClient().controlExecution(ExecutionCommands.RUN);
+				if (tempFork.isConnected()) {
+					tempFork.getClient().controlExecution(ExecutionCommands.RUN);
+				}
 			} else {
 				executionWaiter.release();
 			}
@@ -2713,7 +2717,10 @@ public class DefaultTestRunner implements TestRunner {
 			if (!isFork() && forkInExecution != null) {
 				// if we're the master and a fork is active, we're waiting for a fork, thus this command
 				// is meant for the fork
-				forkMap.get(forkInExecution).getClient().controlExecution(ExecutionCommands.PAUSE);
+				Fork tempFork = forkMap.get(forkInExecution);
+				if (tempFork.isConnected()) {
+					tempFork.getClient().controlExecution(ExecutionCommands.PAUSE);
+				}
 			} else {
 				scheduleWaitBeforeNextStep();
 			}
@@ -2725,7 +2732,9 @@ public class DefaultTestRunner implements TestRunner {
 				// if we're the master and a fork is active, we're waiting for a fork, thus this command
 				// is meant for the fork
 				Fork tempFork = forkMap.get(forkInExecution);
-				tempFork.getClient().controlExecution(ExecutionCommands.STEP_INTO);
+				if (tempFork.isConnected()) {
+					tempFork.getClient().controlExecution(ExecutionCommands.STEP_INTO);
+				}
 			} else {
 				scheduleWaitBeforeNextStep();
 				executionWaiter.release();
