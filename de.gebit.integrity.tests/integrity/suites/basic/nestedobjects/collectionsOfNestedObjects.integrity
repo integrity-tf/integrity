@@ -121,4 +121,37 @@ packagedef integrity.basic.nestedobjects with
 	suiteend
 	
 	
+	suitedef listOfMaps with
+	
+		test returnListOfMaps = {
+			key1: "value1"
+			key2: "value2"
+		}, {
+			key3: "value3"
+			key4: "value4"
+		}
+	
+	suiteend
+	
+	
+	suitedef listOfMapsWithSingleEntry with
+	
+		// This is expected to fail
+		test returnListOfMapsWithSingleEntry = {
+			key1: "value1"
+			key2: "value2"
+		}, {
+			key3: "value3"
+			key4: "value4"
+		}
+	
+		// This should succeed
+		test returnListOfMapsWithSingleEntry = {
+			key1: "value1"
+			key2: "value2"
+		}
+	
+	suiteend
+	
+	
 packageend

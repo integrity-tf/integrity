@@ -18,6 +18,7 @@ import java.time.temporal.Temporal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -138,14 +139,22 @@ public class DefaultResultComparator implements ResultComparator {
 				} else {
 					// Standard comparation compares each value for itself in case of arrays
 					if (anExpectedResult.getMoreValues().size() > 0) {
-						// multiple result values were given -> fixture result must be an array of same size
-						if (!(aFixtureResult.getClass().isArray()
-								&& Array.getLength(aFixtureResult) == anExpectedResult.getMoreValues().size() + 1)) {
+						// multiple result values were given -> fixture result must be an array of same size (or a List
+						// as an array equivalent)
+						if (!(((aFixtureResult.getClass().isArray()
+								&& Array.getLength(aFixtureResult) == anExpectedResult.getMoreValues().size() + 1))
+								|| ((aFixtureResult instanceof List) && ((List<?>) aFixtureResult)
+										.size() == anExpectedResult.getMoreValues().size() + 1))) {
 							return SimpleComparisonResult.NOT_EQUAL;
 						}
+						// In case of a list, convert to array first so we have a single path to handle both
+						Object tempFixtureResultArray = aFixtureResult;
+						if (aFixtureResult instanceof List) {
+							tempFixtureResultArray = ((List<?>) aFixtureResult).toArray();
+						}
 						// now compare all values
-						for (int i = 0; i < Array.getLength(aFixtureResult); i++) {
-							Object tempSingleFixtureResult = Array.get(aFixtureResult, i);
+						for (int i = 0; i < Array.getLength(tempFixtureResultArray); i++) {
+							Object tempSingleFixtureResult = Array.get(tempFixtureResultArray, i);
 							ValueOrEnumValueOrOperation tempSingleExpectedResult = (i == 0 ? anExpectedResult.getValue()
 									: anExpectedResult.getMoreValues().get(i - 1));
 							if (tempSingleFixtureResult == null) {
@@ -180,18 +189,24 @@ public class DefaultResultComparator implements ResultComparator {
 									Arrays.equals((Byte[]) tempSingleFixtureResult, tempConvertedExpectedResult));
 						}
 
-						// The fixture might still have returned an array.
+						// The fixture might still have returned an array (or a List as an equivalent).
 						// If the expected type is an array, we don't want to convert to that array, but to the
 						// component type, of course
 						Class<?> tempConversionTargetType = tempSingleFixtureResult.getClass();
-						if (tempSingleFixtureResult.getClass().isArray()) {
-							tempConversionTargetType = tempSingleFixtureResult.getClass().getComponentType();
+						if (tempSingleFixtureResult.getClass().isArray() || (tempSingleFixtureResult instanceof List)) {
+							Object tempSingleFixtureResultArray = tempSingleFixtureResult;
+							if (tempSingleFixtureResult instanceof List) {
+								tempSingleFixtureResultArray = ((List<?>) tempSingleFixtureResult).toArray();
+							}
+							// Now we know that the fixture result is an array
+
+							tempConversionTargetType = tempSingleFixtureResultArray.getClass().getComponentType();
 							if (tempConversionTargetType == Object.class) {
 								// Object arrays are bad target types; in this case we try to deduct a target type from
 								// the values within the array
 								tempConversionTargetType = null;
-								for (int i = 0; i < Array.getLength(tempSingleFixtureResult); i++) {
-									Object tempArrayValue = Array.get(tempSingleFixtureResult, i);
+								for (int i = 0; i < Array.getLength(tempSingleFixtureResultArray); i++) {
+									Object tempArrayValue = Array.get(tempSingleFixtureResultArray, i);
 									if (tempArrayValue != null) {
 										if (tempConversionTargetType == null) {
 											tempConversionTargetType = tempArrayValue.getClass();
