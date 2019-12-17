@@ -47,6 +47,12 @@ packagedef integrity.fixtures.basic.beans with
 	calldef createNestedListTestBeanParameterizedCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListTestBeanParameterized
 	
 	testdef createSimpleTestBeanArray uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleTestBeanArray
-	calldef createSimpleTestBeanArrayCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleTestBeanArray 
+	calldef createSimpleTestBeanArrayCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleTestBeanArray
+	
+	testdef returnListOfMaps uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMaps
+	calldef returnListOfMapsCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMaps
+	
+	testdef returnListOfMapsWithSingleEntry uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMapsWithSingleEntry
+	calldef returnListOfMapsWithSingleEntryCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMapsWithSingleEntry
 
 packageend

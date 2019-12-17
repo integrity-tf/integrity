@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="17.12.19 21:21" isotimestamp="2019-12-17T21:21:43" duration="13.919">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.listOfMaps" timestamp="17.12.19 21:21:43.0394">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="126" name="returnListOfMaps" description="returns a list of maps" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMaps" timestamp="17.12.19 21:21:43.0397">
+        <results duration="0.431" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.431" description="returns a list of maps" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = value1[NL|, ][T]key2 = value2[NL]}, {[NL][T]key3 = value3[NL|, ][T]key4 = value4[NL]}" value="[FORMATTED]{[NL][T]key1 = value1[NL|, ][T]key2 = value2[NL]}, {[NL][T]key3 = value3[NL|, ][T]key4 = value4[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="11.085" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

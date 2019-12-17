@@ -117,6 +117,30 @@ public class BeanFixture {
 		return aBean;
 	}
 
+	@FixtureMethod(description = "returns a list of maps")
+	public Object returnListOfMaps() {
+		ArrayList<Map<String, Object>> tempResult = new ArrayList<>();
+		HashMap<String, Object> tempMap1 = new HashMap<>();
+		tempMap1.put("key1", "value1");
+		tempMap1.put("key2", "value2");
+		HashMap<String, Object> tempMap2 = new HashMap<>();
+		tempMap2.put("key3", "value3");
+		tempMap2.put("key4", "value4");
+		tempResult.add(tempMap1);
+		tempResult.add(tempMap2);
+		return tempResult;
+	}
+
+	@FixtureMethod(description = "returns a list of maps")
+	public Object returnListOfMapsWithSingleEntry() {
+		ArrayList<Map<String, Object>> tempResult = new ArrayList<>();
+		HashMap<String, Object> tempMap1 = new HashMap<>();
+		tempMap1.put("key1", "value1");
+		tempMap1.put("key2", "value2");
+		tempResult.add(tempMap1);
+		return tempResult;
+	}
+
 	@FixtureMethod(description = "creates an instance of PrimitiveTypeArrayTestBean")
 	public PrimitiveTypeArrayTestBean createPrimitiveTypeArrayTestBean() {
 		PrimitiveTypeArrayTestBean tempBean = new PrimitiveTypeArrayTestBean();
