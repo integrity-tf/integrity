@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="17.12.19 21:37" isotimestamp="2019-12-17T21:37:39" duration="14.713">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.listOfMapsWithSingleEntry" timestamp="17.12.19 21:37:39.0085">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="140" name="returnListOfMapsWithSingleEntry" description="returns a list of maps" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMapsWithSingleEntry" timestamp="17.12.19 21:37:39.0088">
+        <results duration="0.207" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.207" description="returns a list of maps" type="failure">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = value1[NL|, ][T]key2 = value2[NL]}, {[NL][T]key3 = value3[NL|, ][T]key4 = value4[NL]}" value="[FORMATTED]{[NL][T]key1 = value1[NL|, ][T]key2 = value2[NL]}" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="149" name="returnListOfMapsWithSingleEntry" description="returns a list of maps" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMapsWithSingleEntry" timestamp="17.12.19 21:37:39.0097">
+        <results duration="0.024" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.024" description="returns a list of maps" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]key1 = value1[NL|, ][T]key2 = value2[NL]}" value="[FORMATTED]{[NL][T]key1 = value1[NL|, ][T]key2 = value2[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="11.907" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

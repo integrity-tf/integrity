@@ -117,4 +117,34 @@ public class CollectionsOfNestedObjects extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testListOfMaps() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/collectionsOfNestedObjects.integrity" },
+				"integrity.basic.nestedobjects.listOfMaps", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testListOfMapsWithSingleEntry() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/collectionsOfNestedObjects.integrity" },
+				"integrity.basic.nestedobjects.listOfMapsWithSingleEntry", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }
