@@ -256,8 +256,12 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 
 			Class<?> tempActualParamType = aTargetType.getComponentType();
 			Object tempResultArray;
-			if (aValue.getClass().isArray()) {
-				// both are arrays
+			if (aValue.getClass().isArray() || (aValue instanceof List)) {
+				// both are arrays (or in case of value a list as array equivalent)
+				Object tempValueArray = aValue;
+				if (aValue instanceof List) {
+					tempValueArray = ((List<?>) aValue).toArray();
+				}
 
 				// Just in case there's a nested object path property set in our conversion context: we need to extend
 				// that property by the position within the array, and reset it later to the original plain value. This
@@ -267,14 +271,14 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 				String tempBaseObjectPath = (String) aConversionContext
 						.getProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY);
 
-				tempResultArray = Array.newInstance(tempActualParamType, Array.getLength(aValue));
-				for (int i = 0; i < Array.getLength(aValue); i++) {
+				tempResultArray = Array.newInstance(tempActualParamType, Array.getLength(tempValueArray));
+				for (int i = 0; i < Array.getLength(tempValueArray); i++) {
 					if (tempBaseObjectPath != null) {
 						aConversionContext.withProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY,
 								tempBaseObjectPath + "#" + i);
 					}
 					Array.set(tempResultArray, i, convertPlainValueToTargetType(tempActualParamType, aParameterizedType,
-							Array.get(aValue, i), aConversionContext, someVisitedValues));
+							Array.get(tempValueArray, i), aConversionContext, someVisitedValues));
 				}
 
 				if (tempBaseObjectPath != null) {
@@ -289,16 +293,22 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			}
 			return tempResultArray;
 		} else {
-			if (aValue.getClass().isArray()) {
+			if (aValue.getClass().isArray() || (aValue instanceof List)) {
+				Object tempValueArray = aValue;
+				if (aValue instanceof List) {
+					tempValueArray = ((List<?>) aValue).toArray();
+				}
+
 				if (aTargetType != null) {
-					if (Array.getLength(aValue) == 0) {
+					if (Array.getLength(tempValueArray) == 0) {
 						return null;
-					} else if (Array.getLength(aValue) == 1) {
-						return convertSingleValueToTargetType(aTargetType, aParameterizedType, Array.get(aValue, 0),
-								aConversionContext, someVisitedValues);
+					} else if (Array.getLength(tempValueArray) == 1) {
+						return convertSingleValueToTargetType(aTargetType, aParameterizedType,
+								Array.get(tempValueArray, 0), aConversionContext, someVisitedValues);
 					}
 				} else {
-					Class<?> tempCurrentArrayType = transformPrimitiveTypes(aValue.getClass().getComponentType());
+					Class<?> tempCurrentArrayType
+							= transformPrimitiveTypes(tempValueArray.getClass().getComponentType());
 					Class<?> tempTargetArrayType;
 
 					if (tempCurrentArrayType == Object.class) {
@@ -314,25 +324,23 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 					}
 
 					// Just in case there's a nested object path property set in our conversion context: we need to
-					// extend
-					// that property by the position within the array, and reset it later to the original plain value.
-					// This
-					// is necessary to distinguish between array elements when converting to formatted strings (there's
-					// highlighting being added based on these paths). In all other conversion cases it at least doesn't
-					// hurt.
+					// extend that property by the position within the array, and reset it later to the original plain
+					// value. This is necessary to distinguish between array elements when converting to formatted
+					// strings (there's highlighting being added based on these paths). In all other conversion cases it
+					// at least doesn't hurt.
 					String tempBaseObjectPath = (String) aConversionContext
 							.getProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY);
 
-					Object tempArray = Array.newInstance(tempTargetArrayType, Array.getLength(aValue));
+					Object tempArray = Array.newInstance(tempTargetArrayType, Array.getLength(tempValueArray));
 
-					for (int i = 0; i < Array.getLength(aValue); i++) {
+					for (int i = 0; i < Array.getLength(tempValueArray); i++) {
 						if (tempBaseObjectPath != null) {
 							aConversionContext.withProperty(AbstractNestedObjectToString.NESTEDOBJECT_PATH_PROPERTY,
 									tempBaseObjectPath + "#" + i);
 						}
 
 						Object tempConvertedValue = convertSingleValueToTargetType(aTargetType, aParameterizedType,
-								Array.get(aValue, i), aConversionContext, someVisitedValues);
+								Array.get(tempValueArray, i), aConversionContext, someVisitedValues);
 
 						if (!tempTargetArrayType.isAssignableFrom(tempConvertedValue.getClass())) {
 							// Oops - this case is pretty unlikely, but theoretically possible. In this case, the
@@ -341,7 +349,7 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 							// an object array in that case.
 							tempTargetArrayType = Object.class;
 							Object tempOldArray = tempArray;
-							tempArray = Array.newInstance(tempTargetArrayType, Array.getLength(aValue));
+							tempArray = Array.newInstance(tempTargetArrayType, Array.getLength(tempValueArray));
 							System.arraycopy(tempOldArray, 0, tempArray, 0, i);
 						}
 
