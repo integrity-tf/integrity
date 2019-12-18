@@ -11,7 +11,6 @@
 <module name="Checker">
   <property name="severity" value="error"/>
   <module name="TreeWalker">
-    <property name="tabWidth" value="4"/>
     <module name="JavadocMethod">
       <property name="severity" value="warning"/>
       <property name="scope" value="protected"/>
@@ -20,7 +19,6 @@
       <property name="allowMissingParamTags" value="true"/>
       <property name="allowMissingThrowsTags" value="true"/>
       <property name="allowMissingReturnTag" value="true"/>
-      <property name="allowMissingPropertyJavadoc" value="true"/>
       <property name="suppressLoadErrors" value="true"/>
     </module>
     <module name="JavadocType">
@@ -58,11 +56,6 @@
     <module name="StaticVariableName"/>
     <module name="AvoidStarImport">
       <property name="severity" value="error"/>
-    </module>
-    <module name="LineLength">
-      <property name="severity" value="warning"/>
-      <property name="max" value="120"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="warning"/>
     </module>
     <module name="MethodLength">
       <property name="severity" value="ignore"/>
@@ -156,6 +149,24 @@
       <property name="commentFormat" value="SUPPRESS CHECKSTYLE LONG (\w+)"/>
       <property name="influenceFormat" value="999999"/>
     </module>
+    <module name="MissingJavadocMethod">
+      <property name="severity" value="warning"/>
+      <property name="scope" value="protected"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+    </module>
+    <module name="MissingJavadocType">
+      <property name="severity" value="error"/>
+      <property name="scope" value="protected"/>
+    </module>
+    <module name="NonEmptyAtclauseDescription">
+      <property name="severity" value="warning"/>
+      <property name="javadocTokens" value="PARAM_LITERAL,RETURN_LITERAL,THROWS_LITERAL,EXCEPTION_LITERAL,DEPRECATED_LITERAL"/>
+    </module>
+  </module>
+  <module name="LineLength">
+    <property name="severity" value="warning"/>
+    <property name="max" value="140"/>
+    <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="warning"/>
   </module>
   <module name="Translation">
     <property name="severity" value="error"/>
