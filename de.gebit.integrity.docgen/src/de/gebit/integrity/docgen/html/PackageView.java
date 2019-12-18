@@ -155,14 +155,15 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 			HtmlA<?> tempSummaryLink = new HtmlA<>("#" + tempSegment.getData());
 			tempSummaryLink.text(tempSegment.getContent()
 					+ ((tempSegment.getNextSegment() != null && !tempSegment.getNextSegment().hasLastDivider())
-							? tempSegment.getNextSegment().getDivider().replace(" ", "") : ""));
+							? tempSegment.getNextSegment().getDivider().replace(" ", "")
+							: ""));
 			tempSummaryDiv.addChild(tempSummaryLink);
 		}
 
 		if (aPackage.getDocumentationComment() != null) {
-			ParsedDocumentationComment tempParsedDoc = new ParsedDocumentationComment(
-					aPackage.getDocumentationComment(),
-					modelSourceExplorer.determineSourceInformation(aPackage.getDocumentationComment()));
+			ParsedDocumentationComment tempParsedDoc
+					= new ParsedDocumentationComment(aPackage.getDocumentationComment(),
+							modelSourceExplorer.determineSourceInformation(aPackage.getDocumentationComment()));
 			attachFormattedDocumentationText(tempDocumentationDiv, tempParsedDoc.getDocumentationTextElements());
 		}
 	}
@@ -204,9 +205,9 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 			if (tempSuite.getDocumentation() != null) {
 				HtmlDiv<?> tempSuiteDetailsDiv = tempSuiteDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
-				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
-						tempSuite.getDocumentation(),
-						modelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()), false);
+				ParsedDocumentationComment tempParsedComment
+						= new ParsedDocumentationComment(tempSuite.getDocumentation(),
+								modelSourceExplorer.determineSourceInformation(tempSuite.getDocumentation()), false);
 				attachFormattedDocumentationText(tempSuiteDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
 						tempParsedComment.getDocumentationTextElements());
 
@@ -281,7 +282,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * Creates a table row describing the provided constant.
 	 * 
 	 * @param aConstant
-	 * @return
+	 * @return the resulting table row
 	 * @throws ParseException
 	 */
 	protected HtmlTr<?> createConstantRow(ConstantDefinition aConstant, VariantDefinition aVariant,
@@ -384,9 +385,9 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 			if (tempVariant.getDocumentation() != null) {
 				HtmlDiv<?> tempVariantDetailsDiv = tempVariantDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
-				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
-						tempVariant.getDocumentation(),
-						modelSourceExplorer.determineSourceInformation(tempVariant.getDocumentation()));
+				ParsedDocumentationComment tempParsedComment
+						= new ParsedDocumentationComment(tempVariant.getDocumentation(),
+								modelSourceExplorer.determineSourceInformation(tempVariant.getDocumentation()));
 				attachFormattedDocumentationText(tempVariantDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
 						tempParsedComment.getDocumentationTextElements());
 			}
@@ -468,7 +469,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * 
 	 * @param aPackage
 	 * @param aMainContainerDiv
-	 * @return
+	 * @return number of forks
 	 * @throws ParseException
 	 */
 	protected int processForks(IntegrityPackage aPackage, HtmlDiv<?> aMainContainerDiv) throws ParseException {
@@ -494,9 +495,9 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 
 			if (tempFork.getDocumentation() != null) {
 				HtmlDiv<?> tempVariantDetailsDiv = tempVariantDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
-				ParsedDocumentationComment tempParsedComment = new ParsedDocumentationComment(
-						tempFork.getDocumentation(),
-						modelSourceExplorer.determineSourceInformation(tempFork.getDocumentation()));
+				ParsedDocumentationComment tempParsedComment
+						= new ParsedDocumentationComment(tempFork.getDocumentation(),
+								modelSourceExplorer.determineSourceInformation(tempFork.getDocumentation()));
 				attachFormattedDocumentationText(tempVariantDetailsDiv.div().classAttr(CSSClasses.ENTITYDESCRIPTION),
 						tempParsedComment.getDocumentationTextElements());
 
@@ -509,8 +510,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 					tempHeaderRow.th().classAttr(CSSClasses.SHRINK).text("Value");
 
 					for (ForkParameter tempParameter : tempFork.getParameters()) {
-						String tempParamName = IntegrityDSLUtil
-								.getParamNameStringFromParameterName(tempParameter.getName());
+						String tempParamName
+								= IntegrityDSLUtil.getParamNameStringFromParameterName(tempParameter.getName());
 						HtmlTr<?> tempRow = tempParamTable.tr();
 						tempRow.td().classAttr(CSSClasses.CODE).text(tempParamName);
 						tempRow.td().addChild(resolveSingleValue(tempParameter.getValue()));
@@ -531,7 +532,7 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	 * @param aFixtureMethod
 	 * @param anEntityName
 	 * @param aReturnValueName
-	 * @return
+	 * @return the resulting div
 	 * @throws ParseException
 	 */
 	protected HtmlDiv<?> createTestOrCallDiv(String aShortName, String aQualifiedName, DocumentationComment aDocComment,
@@ -543,10 +544,13 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 		tempTestHeaderDiv.div().classAttr(CSSClasses.FULLENTITYNAME + " " + CSSClasses.CODE)
 				.text(anEntityName + " " + aQualifiedName);
 
-		List<ParamAnnotationTypeTriplet> tempParams = IntegrityDSLUtil
-				.getAllParamNamesFromFixtureMethod(aFixtureMethod);
-		ParsedDocumentationComment tempParsedComment = (aDocComment != null ? new ParsedDocumentationComment(
-				aDocComment, modelSourceExplorer.determineSourceInformation(aDocComment)) : null);
+		List<ParamAnnotationTypeTriplet> tempParams
+				= IntegrityDSLUtil.getAllParamNamesFromFixtureMethod(aFixtureMethod);
+		ParsedDocumentationComment tempParsedComment
+				= (aDocComment != null
+						? new ParsedDocumentationComment(aDocComment,
+								modelSourceExplorer.determineSourceInformation(aDocComment))
+						: null);
 
 		if (tempParams.size() > 0 || tempParsedComment != null) {
 			HtmlDiv<?> tempTestDetailsDiv = tempTestDiv.div().classAttr(CSSClasses.ENTITYDETAILS);
@@ -561,11 +565,12 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 				HtmlTable<?> tempParamTable = tempTestParamsDiv.table();
 
 				for (ParamAnnotationTypeTriplet tempParameter : tempParams) {
-					boolean tempMandatory = IntegrityDSLUtil
-							.getParamMandatoryFlagFromAnnotation(tempParameter.getAnnotation());
+					boolean tempMandatory
+							= IntegrityDSLUtil.getParamMandatoryFlagFromAnnotation(tempParameter.getAnnotation());
 					String tempParamName = tempParameter.getParamName();
 					String tempParamDoc = (tempParsedComment != null
-							? tempParsedComment.getParameterDocumentationTexts().get(tempParamName) : "");
+							? tempParsedComment.getParameterDocumentationTexts().get(tempParamName)
+							: "");
 					tempParamTable.addChild(createParameterRow(tempParamName, tempMandatory,
 							tempParameter.getType().getType(), tempParamDoc));
 				}
@@ -583,8 +588,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 					tempDefaultResultDocumentation = tempParsedComment.getResultDocumentationTexts().get(null);
 					if (tempDefaultResultDocumentation == null) {
 						// Must be named results then
-						List<ResultFieldTuple> tempNamedResults = IntegrityDSLUtil
-								.getAllResultNamesFromFixtureMethod(aFixtureMethod);
+						List<ResultFieldTuple> tempNamedResults
+								= IntegrityDSLUtil.getAllResultNamesFromFixtureMethod(aFixtureMethod);
 
 						for (ResultFieldTuple tempNamedResult : tempNamedResults) {
 							String tempDocumentation = tempParsedComment.getResultDocumentationTexts()
@@ -669,8 +674,8 @@ public class PackageView extends IntegrityHtmlView<Entry<String, Collection<Suit
 	protected List<HtmlSpan<?>> resolveValue(ValueOrEnumValueOrOperationCollection aValueCollection) {
 		if (aValueCollection instanceof ValueOrEnumValueOrOperationCollection) {
 			if (aValueCollection.getMoreValues().size() > 0) {
-				List<HtmlSpan<?>> tempElements = new ArrayList<HtmlSpan<?>>(
-						aValueCollection.getMoreValues().size() + 1);
+				List<HtmlSpan<?>> tempElements
+						= new ArrayList<HtmlSpan<?>>(aValueCollection.getMoreValues().size() + 1);
 				for (ValueOrEnumValueOrOperation tempSingleValue : IntegrityDSLUtil
 						.getAllValuesFromCollection(aValueCollection)) {
 					tempElements.add(resolveSingleValue(tempSingleValue));
