@@ -220,7 +220,10 @@ public class TestTreeContentDrawer {
 
 			@Override
 			public void handleEvent(Event anEvent) {
-				int tempMinWidth = aTree.getClientArea().width - anEvent.x;
+				TreeItem tempItem = (TreeItem) anEvent.item;
+				int tempInset = getTreeItemIndentation(tempItem);
+
+				int tempMinWidth = aTree.getClientArea().width - (tempInset - 14);
 				if (anEvent.width < tempMinWidth) {
 					anEvent.width = tempMinWidth;
 				}
@@ -233,6 +236,12 @@ public class TestTreeContentDrawer {
 			@Override
 			public void handleEvent(Event anEvent) {
 				TreeItem tempItem = (TreeItem) anEvent.item;
+
+				int tempPaintOffsetX = 0;
+				int tempPaintOffsetY = anEvent.y;
+				int tempPaintWidth = aTree.computeSize(SWT.DEFAULT, SWT.DEFAULT).x;
+				int tempPaintHeight = anEvent.height;
+
 				SetListEntry tempEntry = (SetListEntry) tempItem.getData();
 				SetListEntryResultStates tempResultState = setList.getResultStateForEntry(tempEntry);
 
@@ -306,10 +315,17 @@ public class TestTreeContentDrawer {
 
 					anEvent.gc.setBackground(tempBackground);
 
-					anEvent.gc.fillGradientRectangle(anEvent.x + tempInset + GRADIENT_OFFSET, anEvent.y, GRADIENT_WIDTH,
-							anEvent.height, false);
-					anEvent.gc.fillRectangle(anEvent.x + tempInset + GRADIENT_WIDTH + GRADIENT_OFFSET, anEvent.y,
-							anEvent.width - (tempInset + GRADIENT_WIDTH + GRADIENT_OFFSET), anEvent.height);
+					if ((anEvent.detail & SWT.SELECTED) == 0) {
+						anEvent.gc.fillGradientRectangle(tempPaintOffsetX + tempInset + GRADIENT_OFFSET,
+								tempPaintOffsetY, GRADIENT_WIDTH, tempPaintHeight, false);
+						anEvent.gc.fillRectangle(tempPaintOffsetX + tempInset + GRADIENT_WIDTH + GRADIENT_OFFSET,
+								tempPaintOffsetY,
+								tempPaintWidth - (tempPaintOffsetX + tempInset + GRADIENT_WIDTH + GRADIENT_OFFSET),
+								tempPaintHeight);
+					} else {
+						anEvent.gc.setBackground(anEvent.display.getSystemColor(SWT.COLOR_LIST_SELECTION));
+						anEvent.gc.fillRectangle(tempPaintOffsetX, tempPaintOffsetY, tempPaintWidth, tempPaintHeight);
+					}
 
 					anEvent.gc.setForeground(tempOldForeground);
 					anEvent.gc.setBackground(tempOldBackground);
@@ -336,7 +352,12 @@ public class TestTreeContentDrawer {
 						break;
 					}
 
-					anEvent.gc.fillRectangle(anEvent.x, anEvent.y, anEvent.width, anEvent.height);
+					if ((anEvent.detail & SWT.SELECTED) == 0) {
+						anEvent.gc.fillRectangle(tempPaintOffsetX, tempPaintOffsetY, tempPaintWidth, tempPaintHeight);
+					} else {
+						anEvent.gc.setBackground(anEvent.display.getSystemColor(SWT.COLOR_LIST_SELECTION));
+						anEvent.gc.fillRectangle(tempPaintOffsetX, tempPaintOffsetY, tempPaintWidth, tempPaintHeight);
+					}
 
 					anEvent.gc.setBackground(tempOldBackground);
 
@@ -349,7 +370,7 @@ public class TestTreeContentDrawer {
 					Color tempOldBackground = anEvent.gc.getBackground();
 					anEvent.gc.setBackground(getForkColor(tempForkName[0]));
 
-					anEvent.gc.fillRectangle(anEvent.x, anEvent.y, 3, anEvent.height);
+					anEvent.gc.fillRectangle(tempPaintOffsetX, tempPaintOffsetY, 3, tempPaintHeight);
 
 					anEvent.gc.setBackground(tempOldBackground);
 
@@ -362,9 +383,10 @@ public class TestTreeContentDrawer {
 					Color tempOldBackground = anEvent.gc.getBackground();
 					anEvent.gc.setBackground(breakpointColor);
 
-					anEvent.gc.fillPolygon(new int[] { anEvent.x + tempOffset, anEvent.y + 2,
-							anEvent.x + tempOffset + anEvent.height / 2, anEvent.y + 2 + (anEvent.height - 4) / 2,
-							anEvent.x + tempOffset, anEvent.y + (anEvent.height - 4) - 1 });
+					anEvent.gc.fillPolygon(new int[] { tempPaintOffsetX + tempOffset, tempPaintOffsetY + 2,
+							tempPaintOffsetX + tempOffset + tempPaintHeight / 2,
+							tempPaintOffsetY + 2 + (tempPaintHeight - 4) / 2, tempPaintOffsetX + tempOffset,
+							tempPaintOffsetY + (tempPaintHeight - 4) - 1 });
 
 					anEvent.gc.setBackground(tempOldBackground);
 
