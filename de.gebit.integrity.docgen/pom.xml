@@ -12,6 +12,14 @@
   
   <name>Integrity Test Framework - Documentation Generator</name>
   
+  <licenses>
+    <license>
+      <name>Eclipse Public License, Version 1.0</name>
+      <url>https://www.eclipse.org/legal/epl-v10.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
   <!-- We're building a fat jar including the sources right now for simplicity -->
   <build>
   	<resources>
