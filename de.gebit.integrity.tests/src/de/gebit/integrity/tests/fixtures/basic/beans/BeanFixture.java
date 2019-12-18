@@ -141,6 +141,19 @@ public class BeanFixture {
 		return tempResult;
 	}
 
+	@SuppressWarnings("unchecked")
+	@FixtureMethod
+	public boolean validateListOfMapsWithSingleEntry(
+			@FixtureParameter(name = "list", mandatory = true, nullable = false) Object aParam) {
+		if (aParam instanceof ArrayList) {
+			return (((ArrayList<?>) aParam).size() == 1)
+					&& ((Map<String, Object>) ((ArrayList<?>) aParam).get(0)).get("key1").equals("value1")
+					&& ((Map<String, Object>) ((ArrayList<?>) aParam).get(0)).get("key2").equals("value2");
+		}
+
+		return false;
+	}
+
 	@FixtureMethod(description = "creates an instance of PrimitiveTypeArrayTestBean")
 	public PrimitiveTypeArrayTestBean createPrimitiveTypeArrayTestBean() {
 		PrimitiveTypeArrayTestBean tempBean = new PrimitiveTypeArrayTestBean();

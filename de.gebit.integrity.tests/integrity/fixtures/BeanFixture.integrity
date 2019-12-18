@@ -54,5 +54,7 @@ packagedef integrity.fixtures.basic.beans with
 	
 	testdef returnListOfMapsWithSingleEntry uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMapsWithSingleEntry
 	calldef returnListOfMapsWithSingleEntryCall uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMapsWithSingleEntry
+	
+	testdef validateListOfMapsWithSingleEntry uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#validateListOfMapsWithSingleEntry
 
 packageend
