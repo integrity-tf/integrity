@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="18.12.19 21:56" isotimestamp="2019-12-18T21:56:32" duration="16.516">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.listOfMapsOverVariable" timestamp="18.12.19 21:56:32.0025">
+    <setup />
+    <variables>
+      <variable name="someVariable" />
+    </variables>
+    <statements>
+      <call id="1" line="161" name="returnListOfMapsWithSingleEntryCall" description="returns a list of maps" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#returnListOfMapsWithSingleEntry" timestamp="18.12.19 21:56:32.0029">
+        <parameters />
+        <result duration="0.271" type="success">
+          <variableUpdate name="someVariable" value="[FORMATTED]{[NL][T]key1 = value1[NL|, ][T]key2 = value2[NL]}" />
+        </result>
+      </call>
+      <test id="2" line="164" name="validateListOfMapsWithSingleEntry" description="validateListOfMapsWithSingleEntry" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#validateListOfMapsWithSingleEntry" timestamp="18.12.19 21:56:32.0037">
+        <results duration="1.671" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.671" description="validateListOfMapsWithSingleEntry" type="success">
+            <parameters>
+              <parameter name="list" value="[FORMATTED]{[NL][T]key1 = value1[NL|, ][T]key2 = value2[NL]}" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="true" value="true" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="13.667" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

@@ -154,4 +154,15 @@ packagedef integrity.basic.nestedobjects with
 	suiteend
 	
 	
+	suitedef listOfMapsOverVariable with
+	
+		variable someVariable
+	
+		call returnListOfMapsWithSingleEntryCall -> someVariable
+		
+		// This should be successful
+		test validateListOfMapsWithSingleEntry list: someVariable
+	
+	suiteend
+	
 packageend
