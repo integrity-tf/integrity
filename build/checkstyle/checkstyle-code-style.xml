@@ -165,7 +165,7 @@
   </module>
   <module name="LineLength">
     <property name="severity" value="warning"/>
-    <property name="max" value="140"/>
+    <property name="max" value="200"/>
     <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="warning"/>
   </module>
   <module name="Translation">

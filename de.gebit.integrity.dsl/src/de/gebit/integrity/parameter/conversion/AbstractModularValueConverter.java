@@ -232,6 +232,19 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 			return null;
 		}
 
+		// No conversion necessary if target type is a superclass or the same as the current type
+		// A similar check is placed later in the call tree as well, when single values are converted, but we need to
+		// check at this point already because we are about to unroll Lists, and that potentially performs big
+		// modifications to input values. Hence we check whether the type already fits the bill at this point, while we
+		// haven't made Arrays from Lists or extracted single values from them.
+		if (aTargetType != null && aTargetType.isAssignableFrom(aValue.getClass())) {
+			// ...except if the source type is one of Integritys' internal types, which shouldn't generally been
+			// given to fixtures in an unconverted state.
+			if (!aValue.getClass().getName().startsWith("de.gebit.integrity.dsl.")) {
+				return aValue;
+			}
+		}
+
 		if (aTargetType != null && aTargetType.isArray()) {
 			if (String.class.isAssignableFrom(aValue.getClass())
 					|| StringValue.class.isAssignableFrom(aValue.getClass())) {
