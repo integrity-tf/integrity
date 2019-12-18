@@ -4,7 +4,7 @@
   <parent>
     <artifactId>integrity-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>0.18.0-SNAPSHOT</version>
+    <version>20.0.0-SNAPSHOT</version>
     <relativePath>../integrity-parent/pom.xml</relativePath>
   </parent>
   
@@ -130,7 +130,7 @@
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.apache.commons.logging</artifactId>
-  		<version>1.1.1.v201101211721</version>
+  		<version>1.2.0.v20180409-1502</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
   	</dependency>
