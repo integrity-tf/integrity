@@ -123,6 +123,7 @@ import de.gebit.integrity.runner.results.test.TestResult;
 import de.gebit.integrity.runner.results.test.TestSubResult;
 import de.gebit.integrity.runner.results.timeset.TimeSetExceptionResult;
 import de.gebit.integrity.runner.results.timeset.TimeSetResult;
+import de.gebit.integrity.string.FormattedString;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 import de.gebit.integrity.utils.ParameterUtil;
@@ -536,14 +537,55 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected static final String FIXTURELOG_LINE_TIME_ATTRIBUTE = "time";
 
 	/**
+	 * System property name to override max console lines.
+	 */
+	protected static final String SYSPARAM_MAX_CONSOLE_LINES = "integrity.xmlwriter.consoleLinesLimit";
+
+	/**
+	 * Default maximum number of lines of console output that is added to a single test/call.
+	 */
+	protected static final int DEFAULT_MAX_CONSOLE_LINES = 10000;
+
+	/**
 	 * Maximum number of lines of console output that is added to a single test/call.
 	 */
-	protected static final int MAX_CONSOLE_LINES = 10000;
+	protected static final int MAX_CONSOLE_LINES = Integer
+			.parseInt(System.getProperty(SYSPARAM_MAX_CONSOLE_LINES, Integer.toString(DEFAULT_MAX_CONSOLE_LINES)));
+
+	/**
+	 * System property name to override max console line size.
+	 */
+	protected static final String SYSPARAM_MAX_CONSOLE_LINE_SIZE = "integrity.xmlwriter.consoleLineSizeLimit";
+
+	/**
+	 * Maximum size of a single console line default.
+	 */
+	protected static final int DEFAULT_MAX_CONSOLE_LINE_SIZE = 1000;
 
 	/**
 	 * Maximum size of a single console line.
 	 */
-	protected static final int MAX_CONSOLE_LINE_SIZE = 1000;
+	protected static final int MAX_CONSOLE_LINE_SIZE = Integer.parseInt(
+			System.getProperty(SYSPARAM_MAX_CONSOLE_LINE_SIZE, Integer.toString(DEFAULT_MAX_CONSOLE_LINE_SIZE)));
+
+	/**
+	 * System property name to override max formatted string size.
+	 */
+	protected static final String SYSPARAM_MAX_FORMATTED_STRING_SIZE = "integrity.xmlwriter.formattedStringSizeLimit";
+
+	/**
+	 * Default max formatted string size.
+	 */
+	protected static final int DEFAULT_MAX_FORMATTED_STRING_SIZE = 10000;
+
+	/**
+	 * The maximum length of serialized {@link FormattedString}s in Unicode code units. If these get overly long, they
+	 * impose a very hefty CPU load on the XSLT transformer, which must convert them to HTML markup. Hence extremely
+	 * long formatted strings are just returned in the result as "normal" strings, which still carry all the data, but
+	 * just don't format as nicely in the result.
+	 */
+	protected static final int MAX_FORMATTED_STRING_SIZE = Integer.parseInt(System
+			.getProperty(SYSPARAM_MAX_FORMATTED_STRING_SIZE, Integer.toString(DEFAULT_MAX_FORMATTED_STRING_SIZE)));
 
 	/**
 	 * Default stack size for the XSLT transform thread.
@@ -1018,8 +1060,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			for (Entry<String, Object> tempEntry : tempParameterMap.entrySet()) {
 				Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 				setAttributeGuarded(tempParameterElement, PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
-				setAttributeGuarded(tempParameterElement, PARAMETER_VALUE_ATTRIBUTE, valueConverter
-						.convertValueToFormattedString(tempEntry.getValue(), false, null).toFormattedString());
+				setAttributeGuarded(tempParameterElement, PARAMETER_VALUE_ATTRIBUTE,
+						valueConverter.convertValueToFormattedString(tempEntry.getValue(), false, null)
+								.toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 				tempParameterCollectionElement.addContent(tempParameterElement);
 			}
 			tempTestElement.addContent(tempParameterCollectionElement);
@@ -1326,8 +1369,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		for (Entry<String, Object> tempEntry : aParameterMap.entrySet()) {
 			Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 			setAttributeGuarded(tempParameterElement, PARAMETER_NAME_ATTRIBUTE, tempEntry.getKey());
-			setAttributeGuarded(tempParameterElement, PARAMETER_VALUE_ATTRIBUTE, valueConverter
-					.convertValueToFormattedString(tempEntry.getValue(), false, null).toFormattedString());
+			setAttributeGuarded(tempParameterElement, PARAMETER_VALUE_ATTRIBUTE,
+					valueConverter.convertValueToFormattedString(tempEntry.getValue(), false, null)
+							.toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 			tempParameterCollectionElement.addContent(tempParameterElement);
 		}
 		tempTestResultElement.addContent(tempParameterCollectionElement);
@@ -1374,12 +1418,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				setAttributeGuarded(tempComparisonResultElement, RESULT_EXPECTED_VALUE_ATTRIBUTE, valueConverter
 						.convertValueToFormattedString((tempExpectedValue == null ? true : tempExpectedValue), false,
 								new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
-						.toFormattedString());
+						.toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 				setAttributeGuarded(tempComparisonResultElement, RESULT_REAL_VALUE_ATTRIBUTE,
 						convertResultValueToFormattedStringGuarded(tempEntry.getValue().getActualValue(), aSubResult,
 								tempExpectedIsNestedObject,
 								new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
-										.toFormattedString());
+										.toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 
 				if (tempEntry.getValue() instanceof TestComparisonSuccessResult) {
 					setAttributeGuarded(tempComparisonResultElement, RESULT_TYPE_ATTRIBUTE, RESULT_TYPE_SUCCESS);
@@ -1448,8 +1492,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			for (Entry<String, Object> tempParameter : tempParameterMap.entrySet()) {
 				Element tempParameterElement = new Element(PARAMETER_ELEMENT);
 				setAttributeGuarded(tempParameterElement, PARAMETER_NAME_ATTRIBUTE, tempParameter.getKey());
-				setAttributeGuarded(tempParameterElement, PARAMETER_VALUE_ATTRIBUTE, valueConverter
-						.convertValueToFormattedString(tempParameter.getValue(), false, null).toFormattedString());
+				setAttributeGuarded(tempParameterElement, PARAMETER_VALUE_ATTRIBUTE,
+						valueConverter.convertValueToFormattedString(tempParameter.getValue(), false, null)
+								.toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 
 				tempParameterCollectionElement.addContent(tempParameterElement);
 			}
@@ -1508,7 +1553,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 					}
 					setAttributeGuarded(tempVariableUpdateElement, VARIABLE_VALUE_ATTRIBUTE,
 							convertResultValueToFormattedStringGuarded(tempUpdatedVariable.getValue(), aResult, false,
-									null).toFormattedString());
+									null).toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 					tempCallResultElement.addContent(tempVariableUpdateElement);
 				}
 			} else if (aResult instanceof de.gebit.integrity.runner.results.call.ExceptionResult) {
@@ -1753,6 +1798,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * Performs the XSLT transformation and writes the result HTML file into the provided target stream.
 	 * 
 	 * @param aTargetStream
+	 *            the target stream
 	 */
 	protected void transformResult(FileOutputStream aTargetStream) {
 		try {
@@ -1839,7 +1885,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 						.convertValueToFormattedString(aValue, false,
 								new ConversionContext().withUnresolvableVariableHandlingPolicy(
 										UnresolvableVariableHandling.RESOLVE_TO_UNRESOLVABLE_OBJECT))
-						.toFormattedString());
+						.toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -1852,7 +1898,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	/**
 	 * Internal version of {@link #onVariableAssignment(VariableEntity, SuiteDefinition, Object)}.
 	 * 
-	 * @param aVariableElement
+	 * @param aVariableAssignmentElement
+	 *            the variable element
 	 */
 	protected void internalOnVariableAssignment(Element aVariableAssignmentElement) {
 		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
@@ -1868,7 +1915,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		setAttributeGuarded(tempVariableElement, VARIABLE_TARGET_ATTRIBUTE,
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aTarget, false));
 		setAttributeGuarded(tempVariableElement, VARIABLE_VALUE_ATTRIBUTE,
-				valueConverter.convertValueToFormattedString(aValue, false, null).toFormattedString());
+				valueConverter.convertValueToFormattedString(aValue, false, null)
+						.toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 
 		if (!isDryRun()) {
 			if (isFork()) {
@@ -1969,6 +2017,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * Internal version of {@link #onTimeSetStart(TimeSet, SuiteDefinition, List)}.
 	 * 
 	 * @param aTimeSetElement
+	 *            the element
 	 */
 	protected void internalOnTimeSetStart(Element aTimeSetElement) {
 		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
@@ -1980,6 +2029,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * Internal version of {@link #onTimeSetFinish(TimeSet, SuiteDefinition, List, String, String)}.
 	 * 
 	 * @param aTimeSetElement
+	 *            the element
 	 */
 	@SuppressWarnings("unchecked")
 	protected void internalOnTimeSetFinish(Element aTimeSetElement) {
@@ -2000,6 +2050,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * Internal version of {@link #onReturnVariableAssignment(SuiteReturn, Suite, Object)}.
 	 * 
 	 * @param aReturnAssignmentElement
+	 *            the element
 	 */
 	protected void internalOnReturnVariableAssignment(Element aReturnAssignmentElement) {
 		Element tempCollectionElement = stackPeek().getChild(RETURN_VARIABLE_ASSIGNMENT_COLLECTION_ELEMENT);
@@ -2028,7 +2079,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				IntegrityDSLUtil.getQualifiedVariableEntityName(aDefinition, false));
 		if (anInitialValue != null) {
 			setAttributeGuarded(tempVariableElement, VARIABLE_VALUE_ATTRIBUTE,
-					valueConverter.convertValueToFormattedString(anInitialValue, false, null).toFormattedString());
+					valueConverter.convertValueToFormattedString(anInitialValue, false, null)
+							.toFormattedStringLengthLimited(MAX_FORMATTED_STRING_SIZE));
 		}
 
 		if (!isDryRun()) {
