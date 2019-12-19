@@ -21,6 +21,9 @@ import de.gebit.integrity.string.FormattedStringElement.FormatFlag;
  * tokens to be found. These formatting tokens start with '[', followed by a token name, followed optionally by '|' plus
  * a replacement string value (to be inserted into the string instead of the token if the formatting info is to be
  * stripped from the string instead of being interpreted), and finally closed by ']'.
+ * <p>
+ * Note that other than the standard {@link String}, this "formatted string" is a mutable object, hence it behaves more
+ * like a {@link StringBuilder} in practice!
  * 
  * @author Rene Schneider - initial API and implementation
  * 
@@ -38,6 +41,16 @@ public class FormattedString {
 	protected List<AbstractFormattedStringElement> elements = new ArrayList<AbstractFormattedStringElement>();
 
 	/**
+	 * The unformatted serialized value of this formatted string. Used for caching purposes.
+	 */
+	protected String unformattedValueCache;
+
+	/**
+	 * The formatted serialized value of this formatted string. Used for caching purposes.
+	 */
+	protected String formattedValueCache;
+
+	/**
 	 * Creates a new, empty formatted string.
 	 */
 	public FormattedString() {
@@ -52,6 +65,7 @@ public class FormattedString {
 	 */
 	public FormattedString(String aText) {
 		elements.add(new FormattedStringElement(aText));
+		clearCache();
 	}
 
 	/**
@@ -64,6 +78,7 @@ public class FormattedString {
 	 */
 	public FormattedString(String aText, FormatFlag... someFlags) {
 		elements.add(new FormattedStringElement(aText, someFlags));
+		clearCache();
 	}
 
 	/**
@@ -86,6 +101,7 @@ public class FormattedString {
 		if (anElement != null) {
 			elements.add(anElement);
 		}
+		clearCache();
 	}
 
 	/**
@@ -101,6 +117,7 @@ public class FormattedString {
 		for (int i = 0; i < aNumber; i++) {
 			add(anElement);
 		}
+		clearCache();
 	}
 
 	/**
@@ -111,6 +128,7 @@ public class FormattedString {
 	 */
 	public void add(String aString) {
 		elements.add(new FormattedStringElement(aString));
+		clearCache();
 	}
 
 	/**
@@ -123,6 +141,7 @@ public class FormattedString {
 	 */
 	public void add(String aString, FormatFlag... someFlags) {
 		elements.add(new FormattedStringElement(aString, someFlags));
+		clearCache();
 	}
 
 	/**
@@ -133,6 +152,7 @@ public class FormattedString {
 	 */
 	public void add(AbstractFormattedStringElement... someElements) {
 		elements.addAll(Arrays.asList(someElements));
+		clearCache();
 	}
 
 	/**
@@ -147,6 +167,7 @@ public class FormattedString {
 		} else {
 			elements.add(new FormattedStringElement(null));
 		}
+		clearCache();
 	}
 
 	/**
@@ -159,6 +180,15 @@ public class FormattedString {
 		for (String tempString : someStrings) {
 			elements.add(new FormattedStringElement(tempString));
 		}
+		clearCache();
+	}
+
+	/**
+	 * Clears any cached serialized {@link String} values.
+	 */
+	protected void clearCache() {
+		formattedValueCache = null;
+		unformattedValueCache = null;
 	}
 
 	/**
@@ -167,20 +197,42 @@ public class FormattedString {
 	 * @return the string with formatting tags
 	 */
 	public String toFormattedString() {
-		if (elements.size() == 0) {
-			return "null";
+		if (formattedValueCache == null) {
+			if (elements.size() == 0) {
+				formattedValueCache = "null";
+			}
+
+			StringBuffer tempBuffer = new StringBuffer();
+			for (AbstractFormattedStringElement tempElement : elements) {
+				tempBuffer.append(tempElement.toFormattedString());
+			}
+
+			String tempString = tempBuffer.toString();
+			if (tempString.length() == 0 || !tempString.contains("[")) {
+				formattedValueCache = tempString;
+			} else {
+				formattedValueCache = FORMATTED_STRING_START_TOKEN + tempString;
+			}
 		}
 
-		StringBuffer tempBuffer = new StringBuffer();
-		for (AbstractFormattedStringElement tempElement : elements) {
-			tempBuffer.append(tempElement.toFormattedString());
-		}
+		return formattedValueCache;
+	}
 
-		String tempString = tempBuffer.toString();
-		if (tempString.length() == 0 || !tempString.contains("[")) {
-			return tempString;
+	/**
+	 * Serializes the formatted string elements into a single string with formatting tags embedded, but only if the
+	 * resulting string is below a certain length. If it exceeds this length, an unformatted string is returned.
+	 * 
+	 * @param aMaxLength
+	 *            the maximum length in Unicode code units.
+	 * @return either a formatted or unformatted string
+	 */
+	public String toFormattedStringLengthLimited(int aMaxLength) {
+		String tempFormatted = toFormattedString();
+
+		if (tempFormatted.length() <= aMaxLength) {
+			return tempFormatted;
 		} else {
-			return FORMATTED_STRING_START_TOKEN + tempString;
+			return toUnformattedString();
 		}
 	}
 
@@ -190,16 +242,20 @@ public class FormattedString {
 	 * @return the string without formatting tags
 	 */
 	public String toUnformattedString() {
-		if (elements.size() == 0) {
-			return "null";
+		if (unformattedValueCache == null) {
+			if (elements.size() == 0) {
+				unformattedValueCache = "null";
+			}
+
+			StringBuffer tempBuffer = new StringBuffer();
+			for (AbstractFormattedStringElement tempElement : elements) {
+				tempBuffer.append(tempElement.toUnformattedString());
+			}
+
+			unformattedValueCache = tempBuffer.toString();
 		}
 
-		StringBuffer tempBuffer = new StringBuffer();
-		for (AbstractFormattedStringElement tempElement : elements) {
-			tempBuffer.append(tempElement.toUnformattedString());
-		}
-
-		return tempBuffer.toString();
+		return unformattedValueCache;
 	}
 
 	public int getElementCount() {
