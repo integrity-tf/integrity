@@ -31,12 +31,18 @@ public @interface FixtureParameter {
 	String name();
 
 	/**
-	 * Whether the parameter must be provided or is optional. By default parameters are optional.
+	 * Whether the parameter must be provided or is optional. By default parameters are optional (= non-mandatory, so
+	 * mandatory = false).
 	 * <p>
 	 * Note that there is a significant difference between making a parameter mandatory and allowing or disallowing the
 	 * null value - just because a parameter is mandatory it may still be null, because by providing a null value
 	 * explicitly in the test script, the "mandatory" part is satisfied. Please see {@link #nullable()} as well if you
 	 * also want to ensure a parameter may never be null.
+	 * <p>
+	 * If an optional parameter is not provided in the test script, the method will be called with "null" for the
+	 * specific parameter. Since primitive types cannot be null, using a primitive type for a method parameter
+	 * automatically makes the parameter mandatory (even if you set mandatory=false in this annotation, it will be
+	 * ignored in that case).
 	 * 
 	 * @return
 	 */
@@ -54,6 +60,9 @@ public @interface FixtureParameter {
 	 * <p>
 	 * Note that there is a significant difference between allowing or disallowing null as a value vs. making a
 	 * parameter mandatory! Please see {@link #mandatory()} as well.
+	 * <p>
+	 * If the type used for a parameter is a primitive type which cannot be null, the respective parameter is
+	 * automatically non-nullable, regardless of this setting.
 	 * 
 	 * @return
 	 */
