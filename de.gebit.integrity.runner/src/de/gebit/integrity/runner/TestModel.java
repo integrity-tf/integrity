@@ -121,8 +121,8 @@ public class TestModel {
 	/**
 	 * Ambiguous definitions which are found during variable/suite/etc. indexing are collected here.
 	 */
-	protected Set<AmbiguousDefinition> ambiguousDefinitions = Collections
-			.newSetFromMap(new ConcurrentHashMap<AmbiguousDefinition, Boolean>());
+	protected Set<AmbiguousDefinition> ambiguousDefinitions
+			= Collections.newSetFromMap(new ConcurrentHashMap<AmbiguousDefinition, Boolean>());
 
 	/**
 	 * This map is used to find duplicates which then end up in {@link #ambiguousDefinitions}.
@@ -191,8 +191,8 @@ public class TestModel {
 	/**
 	 * Whether to load scripts in a verbose fashion (=printing every load).
 	 */
-	protected final boolean verboseScriptLoading = Boolean
-			.parseBoolean(System.getProperty(PRINT_ALL_LOADED_SCRIPTS_PROPERTY, "false"));
+	protected final boolean verboseScriptLoading
+			= Boolean.parseBoolean(System.getProperty(PRINT_ALL_LOADED_SCRIPTS_PROPERTY, "false"));
 
 	/**
 	 * The system property that allows to override the number of threads used to do some time-critical sections in the
@@ -314,8 +314,8 @@ public class TestModel {
 				continue;
 			}
 
-			AmbiguousDefinition tempDuplicateDefinition = new AmbiguousDefinition(tempFullyQualifiedName, tempType,
-					tempObject);
+			AmbiguousDefinition tempDuplicateDefinition
+					= new AmbiguousDefinition(tempFullyQualifiedName, tempType, tempObject);
 			AmbiguousDefinition tempExistingDuplicate = duplicateMap.get(tempDuplicateDefinition.getKey());
 			if (tempExistingDuplicate != null) {
 				tempExistingDuplicate.addDefinition(tempObject);
@@ -373,8 +373,8 @@ public class TestModel {
 								+ tempNumberOfThreads + " threads...");
 						long tempStart = System.nanoTime();
 
-						ExecutorService tempExecutor = Executors.newFixedThreadPool(tempNumberOfThreads,
-								new ThreadFactory() {
+						ExecutorService tempExecutor
+								= Executors.newFixedThreadPool(tempNumberOfThreads, new ThreadFactory() {
 
 									private int count;
 
@@ -841,10 +841,10 @@ public class TestModel {
 	public static TestModel loadTestModel(TestResourceProvider aResourceProvider, boolean aSkipModelChecksFlag,
 			boolean aPerformModelValidationFlag, Class<? extends IntegrityDSLSetup> aSetupClass)
 			throws ModelLoadException {
-		TestModel tempModel = instantiateTestModel(aResourceProvider.getClassLoader(), aSetupClass,
-				aSkipModelChecksFlag);
-		List<Diagnostic> tempErrors = tempModel.readIntegrityScriptFiles(aResourceProvider,
-				aPerformModelValidationFlag);
+		TestModel tempModel
+				= instantiateTestModel(aResourceProvider.getClassLoader(), aSetupClass, aSkipModelChecksFlag);
+		List<Diagnostic> tempErrors
+				= tempModel.readIntegrityScriptFiles(aResourceProvider, aPerformModelValidationFlag);
 		if (!tempErrors.isEmpty()) {
 			throw new ModelParseException("Encountered " + tempErrors.size() + " errors while parsing test model.",
 					tempErrors);
@@ -911,7 +911,7 @@ public class TestModel {
 	 * @param aRemotingBindHost
 	 *            the host name (or IP) to which the remoting server should bind
 	 * @param aRandomSeed
-	 *            the seed for the {@link de.gebit.integrity.runner.operations.RandomNumberOperation;} (optional;
+	 *            the seed for the {@link de.gebit.integrity.runner.operations.RandomNumberOperation} (optional;
 	 *            randomly determined if not given).
 	 * @param someCommandLineArguments
 	 *            all command line arguments as given to the original Java programs' main routine (required for

@@ -21,22 +21,8 @@ import java.lang.annotation.Target;
  * method must be decorated with the {@link FixtureMethod} annotation to be called by Integrity. Parameters may be
  * created by simply adding standard Java parameters to the method in question, annotated with a
  * {@link FixtureParameter} annotation. Integrity will take care of the necessary conversions of user-provided data into
- * the parameter data types, but the parameters may only use one of the following supported types:<br>
- * <br>
- * <ul>
- * <li>String</li>
- * <li>Byte</li>
- * <li>Short</li>
- * <li>Integer</li>
- * <li>Long</li>
- * <li>BigInteger</li>
- * <li>Float</li>
- * <li>Double</li>
- * <li>BigDecimal</li>
- * <li>an Enumeration</li>
- * <li>and the array variants of these types</li>
- * </ul>
- * <br>
+ * the parameter data types.
+ * <p>
  * The method may return either nothing at all, a value of one of the supported types, or an instance of a custom class
  * that acts as a container for multiple named result values. The first two cases are suited for use in test and call
  * statements, while the latter is suitable for test statements with named results.
@@ -49,16 +35,17 @@ import java.lang.annotation.Target;
 public @interface FixtureMethod {
 
 	/**
-	 * The description for the method. This text is intended to be a human-readable description of
-	 * "what the fixture does". It is highly suggested to provide such a description, since it's one of the main
-	 * mechanisms used by Integrity to create human-readable test results.<br>
+	 * The description for the method. This text is intended to be a human-readable description of "what the fixture
+	 * does". It is highly suggested to provide such a description, since it's one of the main mechanisms used by
+	 * Integrity to create human-readable test results.<br>
 	 * <br>
 	 * You may use placeholder values in the description string enclosed in dollar signs, like this: $parameter$. These
 	 * will be replaced by the matching parameter values at runtime.<br>
 	 * Placeholders can also be conditional (printed only when a parameter is provided or not) like this:<br>
 	 * {parameter?...and $parameter$} - this whole block would not appear if "parameter" is not provided, but if it is,
 	 * it would be replaced by the text "...and [value of parameter]". By specifying a ^ in front of the parameter name
-	 * the meaning is reversed: the block will appear if the parameter is NOT specified ({^parameter?not specified}).<br>
+	 * the meaning is reversed: the block will appear if the parameter is NOT specified ({^parameter?not
+	 * specified}).<br>
 	 * <br>
 	 * For fixture methods which are suitable in both 'call' and 'test' scenarios, you can define separate description
 	 * texts via {@link #descriptionCall()} and {@link #descriptionTest()}. If such a specific text is defined, it does
