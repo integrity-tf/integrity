@@ -17,6 +17,7 @@ import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextDoubleClickStrategy;
 import org.eclipse.jface.text.Region;
 import org.eclipse.xtext.ui.editor.doubleClicking.LexerTokenAndCharacterPairAwareStrategy;
+import org.eclipse.xtext.ui.editor.model.CommonBreakIterator;
 import org.eclipse.xtext.ui.editor.model.DocumentCharacterIterator;
 import org.eclipse.xtext.ui.editor.model.ILexerTokenRegion;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
@@ -78,7 +79,7 @@ public class DSLLexerTokenAndCharacterPairAwareStrategy extends LexerTokenAndCha
 				return null;
 			}
 
-			com.ibm.icu.text.BreakIterator tempBreakIter = createBreakIterator();
+			CommonBreakIterator tempBreakIter = createBreakIterator();
 			tempBreakIter.setText((CharacterIterator) new DocumentCharacterIterator(aDocument));
 			int tempStart = tempBreakIter.preceding(anOffset);
 			if (tempStart == BreakIterator.DONE) {
