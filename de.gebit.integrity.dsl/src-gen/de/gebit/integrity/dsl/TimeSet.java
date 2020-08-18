@@ -31,10 +31,6 @@ public interface TimeSet extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Live</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Live</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Live</em>' attribute.
    * @see #setLive(String)
@@ -57,10 +53,6 @@ public interface TimeSet extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Start Time</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Start Time</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Start Time</em>' containment reference.
    * @see #setStartTime(ValueOrEnumValueOrOperation)
@@ -83,10 +75,6 @@ public interface TimeSet extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Diff Time</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Diff Time</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Diff Time</em>' containment reference.
    * @see #setDiffTime(TimeDifference)
@@ -109,10 +97,6 @@ public interface TimeSet extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Progression Mode</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Progression Mode</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Progression Mode</em>' attribute.
    * @see #setProgressionMode(String)
@@ -135,10 +119,6 @@ public interface TimeSet extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Progression Factor</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Progression Factor</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Progression Factor</em>' containment reference.
    * @see #setProgressionFactor(TimeProgressionFactor)
@@ -162,10 +142,6 @@ public interface TimeSet extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Forks</b></em>' reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.ForkDefinition}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Forks</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Forks</em>' reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getTimeSet_Forks()
@@ -177,10 +153,6 @@ public interface TimeSet extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Master Fork</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Master Fork</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Master Fork</em>' attribute.
    * @see #setMasterFork(String)

@@ -29,10 +29,6 @@ public interface Test extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Checkpoint</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Checkpoint</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Checkpoint</em>' attribute.
    * @see #setCheckpoint(String)
@@ -55,10 +51,6 @@ public interface Test extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Definition</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Definition</em>' reference.
    * @see #setDefinition(TestDefinition)
@@ -82,10 +74,6 @@ public interface Test extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.Parameter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameters</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getTest_Parameters()
@@ -98,10 +86,6 @@ public interface Test extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Results</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.NamedResult}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Results</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Results</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getTest_Results()
@@ -113,10 +97,6 @@ public interface Test extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Result</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Result</em>' containment reference.
    * @see #setResult(ValueOrEnumValueOrOperationCollection)

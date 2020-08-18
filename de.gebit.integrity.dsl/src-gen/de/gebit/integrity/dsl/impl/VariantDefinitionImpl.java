@@ -72,6 +72,7 @@ public class VariantDefinitionImpl extends StatementImpl implements VariantDefin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDescription()
   {
     return description;
@@ -82,6 +83,7 @@ public class VariantDefinitionImpl extends StatementImpl implements VariantDefin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(String newDescription)
   {
     String oldDescription = description;

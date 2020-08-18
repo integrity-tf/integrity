@@ -29,10 +29,6 @@ public interface JavaConstantReference extends EObject
   /**
    * Returns the value of the '<em><b>Type</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Type</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Type</em>' reference.
    * @see #setType(JvmType)
@@ -55,10 +51,6 @@ public interface JavaConstantReference extends EObject
   /**
    * Returns the value of the '<em><b>Constant</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Constant</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Constant</em>' reference.
    * @see #setConstant(JvmField)

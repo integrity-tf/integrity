@@ -87,6 +87,7 @@ public class TimeProgressionFactorImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getFixedValue()
   {
     return fixedValue;
@@ -97,6 +98,7 @@ public class TimeProgressionFactorImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFixedValue(String newFixedValue)
   {
     String oldFixedValue = fixedValue;
@@ -110,6 +112,7 @@ public class TimeProgressionFactorImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperation getCalculatedValue()
   {
     return calculatedValue;
@@ -137,6 +140,7 @@ public class TimeProgressionFactorImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCalculatedValue(ValueOrEnumValueOrOperation newCalculatedValue)
   {
     if (newCalculatedValue != calculatedValue)

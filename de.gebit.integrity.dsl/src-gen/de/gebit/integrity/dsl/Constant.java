@@ -24,10 +24,6 @@ public interface Constant extends ConstantValue
   /**
    * Returns the value of the '<em><b>Name</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' reference.
    * @see #setName(ConstantEntity)

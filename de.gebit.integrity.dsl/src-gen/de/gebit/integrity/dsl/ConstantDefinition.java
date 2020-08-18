@@ -30,10 +30,6 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
   /**
    * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Documentation</em>' containment reference.
    * @see #setDocumentation(DocumentationComment)
@@ -56,10 +52,6 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
   /**
    * Returns the value of the '<em><b>Private</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Private</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Private</em>' attribute.
    * @see #setPrivate(String)
@@ -82,10 +74,6 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
   /**
    * Returns the value of the '<em><b>Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' containment reference.
    * @see #setName(ConstantEntity)
@@ -108,10 +96,6 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Value</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
    * @see #setValue(ValueOrEnumValueOrOperationCollection)
@@ -135,10 +119,6 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
    * Returns the value of the '<em><b>Variant Values</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.VariantValue}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Variant Values</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Variant Values</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getConstantDefinition_VariantValues()
@@ -150,10 +130,6 @@ public interface ConstantDefinition extends PackageStatement, SuiteStatement
   /**
    * Returns the value of the '<em><b>Parameterized</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameterized</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameterized</em>' attribute.
    * @see #setParameterized(String)

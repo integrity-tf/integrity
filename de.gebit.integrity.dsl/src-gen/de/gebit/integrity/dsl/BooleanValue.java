@@ -24,10 +24,6 @@ public interface BooleanValue extends StaticValue
   /**
    * Returns the value of the '<em><b>Boolean Value</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Boolean Value</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Boolean Value</em>' attribute.
    * @see #setBooleanValue(String)

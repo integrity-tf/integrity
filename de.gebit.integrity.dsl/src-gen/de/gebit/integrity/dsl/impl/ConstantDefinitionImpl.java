@@ -150,6 +150,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DocumentationComment getDocumentation()
   {
     return documentation;
@@ -177,6 +178,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDocumentation(DocumentationComment newDocumentation)
   {
     if (newDocumentation != documentation)
@@ -198,6 +200,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getPrivate()
   {
     return private_;
@@ -208,6 +211,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrivate(String newPrivate)
   {
     String oldPrivate = private_;
@@ -221,6 +225,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConstantEntity getName()
   {
     return name;
@@ -248,6 +253,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(ConstantEntity newName)
   {
     if (newName != name)
@@ -269,6 +275,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
@@ -296,6 +303,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)
@@ -317,6 +325,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<VariantValue> getVariantValues()
   {
     if (variantValues == null)
@@ -331,6 +340,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getParameterized()
   {
     return parameterized;
@@ -341,6 +351,7 @@ public class ConstantDefinitionImpl extends PackageStatementImpl implements Cons
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setParameterized(String newParameterized)
   {
     String oldParameterized = parameterized;

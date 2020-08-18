@@ -27,10 +27,6 @@ public interface StandardOperation extends Operation
   /**
    * Returns the value of the '<em><b>First Operand</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>First Operand</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>First Operand</em>' containment reference.
    * @see #setFirstOperand(ValueOrEnumValueOrOperation)
@@ -54,10 +50,6 @@ public interface StandardOperation extends Operation
    * Returns the value of the '<em><b>Operators</b></em>' attribute list.
    * The list contents are of type {@link java.lang.String}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Operators</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Operators</em>' attribute list.
    * @see de.gebit.integrity.dsl.DslPackage#getStandardOperation_Operators()
@@ -70,10 +62,6 @@ public interface StandardOperation extends Operation
    * Returns the value of the '<em><b>More Operands</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.ValueOrEnumValueOrOperation}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>More Operands</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>More Operands</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getStandardOperation_MoreOperands()

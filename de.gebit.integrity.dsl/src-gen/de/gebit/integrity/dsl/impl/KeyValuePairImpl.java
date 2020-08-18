@@ -108,6 +108,7 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getIdentifier()
   {
     return identifier;
@@ -118,6 +119,7 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIdentifier(String newIdentifier)
   {
     String oldIdentifier = identifier;
@@ -131,6 +133,7 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getStringIdentifier()
   {
     return stringIdentifier;
@@ -141,6 +144,7 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStringIdentifier(String newStringIdentifier)
   {
     String oldStringIdentifier = stringIdentifier;
@@ -154,6 +158,7 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
@@ -181,6 +186,7 @@ public class KeyValuePairImpl extends MinimalEObjectImpl.Container implements Ke
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)

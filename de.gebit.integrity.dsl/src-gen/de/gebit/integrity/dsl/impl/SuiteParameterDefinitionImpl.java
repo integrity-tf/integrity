@@ -78,6 +78,7 @@ public class SuiteParameterDefinitionImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableEntity getName()
   {
     return name;
@@ -105,6 +106,7 @@ public class SuiteParameterDefinitionImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(VariableEntity newName)
   {
     if (newName != name)
@@ -126,6 +128,7 @@ public class SuiteParameterDefinitionImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getDefault()
   {
     return default_;
@@ -153,6 +156,7 @@ public class SuiteParameterDefinitionImpl extends MinimalEObjectImpl.Container i
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDefault(ValueOrEnumValueOrOperationCollection newDefault)
   {
     if (newDefault != default_)

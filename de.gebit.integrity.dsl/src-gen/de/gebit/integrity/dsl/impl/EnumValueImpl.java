@@ -65,6 +65,7 @@ public class EnumValueImpl extends ValueOrEnumValueOrOperationImpl implements En
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JvmEnumerationLiteral getEnumValue()
   {
     if (enumValue != null && enumValue.eIsProxy())
@@ -95,6 +96,7 @@ public class EnumValueImpl extends ValueOrEnumValueOrOperationImpl implements En
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setEnumValue(JvmEnumerationLiteral newEnumValue)
   {
     JvmEnumerationLiteral oldEnumValue = enumValue;

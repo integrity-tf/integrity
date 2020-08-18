@@ -95,6 +95,7 @@ public class StandardOperationImpl extends OperationImpl implements StandardOper
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperation getFirstOperand()
   {
     return firstOperand;
@@ -122,6 +123,7 @@ public class StandardOperationImpl extends OperationImpl implements StandardOper
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFirstOperand(ValueOrEnumValueOrOperation newFirstOperand)
   {
     if (newFirstOperand != firstOperand)
@@ -143,6 +145,7 @@ public class StandardOperationImpl extends OperationImpl implements StandardOper
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<String> getOperators()
   {
     if (operators == null)
@@ -157,6 +160,7 @@ public class StandardOperationImpl extends OperationImpl implements StandardOper
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ValueOrEnumValueOrOperation> getMoreOperands()
   {
     if (moreOperands == null)

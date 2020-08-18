@@ -66,6 +66,7 @@ public class SuiteReturnDefinitionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableEntity getName()
   {
     return name;
@@ -93,6 +94,7 @@ public class SuiteReturnDefinitionImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(VariableEntity newName)
   {
     if (newName != name)

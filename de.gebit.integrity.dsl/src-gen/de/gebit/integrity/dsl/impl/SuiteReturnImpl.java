@@ -78,6 +78,7 @@ public class SuiteReturnImpl extends MinimalEObjectImpl.Container implements Sui
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SuiteReturnDefinition getName()
   {
     if (name != null && name.eIsProxy())
@@ -108,6 +109,7 @@ public class SuiteReturnImpl extends MinimalEObjectImpl.Container implements Sui
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(SuiteReturnDefinition newName)
   {
     SuiteReturnDefinition oldName = name;
@@ -121,6 +123,7 @@ public class SuiteReturnImpl extends MinimalEObjectImpl.Container implements Sui
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableVariable getTarget()
   {
     return target;
@@ -148,6 +151,7 @@ public class SuiteReturnImpl extends MinimalEObjectImpl.Container implements Sui
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(VariableVariable newTarget)
   {
     if (newTarget != target)

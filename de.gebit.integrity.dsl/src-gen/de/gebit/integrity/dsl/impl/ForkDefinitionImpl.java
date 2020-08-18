@@ -137,6 +137,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getPrivate()
   {
     return private_;
@@ -147,6 +148,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrivate(String newPrivate)
   {
     String oldPrivate = private_;
@@ -160,6 +162,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDescription()
   {
     return description;
@@ -170,6 +173,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDescription(String newDescription)
   {
     String oldDescription = description;
@@ -183,6 +187,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JavaClassReference getForkerClass()
   {
     return forkerClass;
@@ -210,6 +215,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setForkerClass(JavaClassReference newForkerClass)
   {
     if (newForkerClass != forkerClass)
@@ -231,6 +237,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ForkDefinition getBaseFork()
   {
     if (baseFork != null && baseFork.eIsProxy())
@@ -261,6 +268,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBaseFork(ForkDefinition newBaseFork)
   {
     ForkDefinition oldBaseFork = baseFork;
@@ -274,6 +282,7 @@ public class ForkDefinitionImpl extends StatementImpl implements ForkDefinition
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ForkParameter> getParameters()
   {
     if (parameters == null)

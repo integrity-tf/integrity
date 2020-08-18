@@ -104,6 +104,7 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDirection()
   {
     return direction;
@@ -114,6 +115,7 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDirection(String newDirection)
   {
     String oldDirection = direction;
@@ -127,6 +129,7 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<String> getFixedValues()
   {
     if (fixedValues == null)
@@ -141,6 +144,7 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperation getCalculatedValue()
   {
     return calculatedValue;
@@ -168,6 +172,7 @@ public class TimeDifferenceImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCalculatedValue(ValueOrEnumValueOrOperation newCalculatedValue)
   {
     if (newCalculatedValue != calculatedValue)

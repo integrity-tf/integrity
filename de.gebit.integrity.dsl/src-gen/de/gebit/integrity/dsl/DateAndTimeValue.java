@@ -25,10 +25,6 @@ public interface DateAndTimeValue extends StaticValue
   /**
    * Returns the value of the '<em><b>Date Value</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Date Value</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Date Value</em>' attribute.
    * @see #setDateValue(String)
@@ -51,10 +47,6 @@ public interface DateAndTimeValue extends StaticValue
   /**
    * Returns the value of the '<em><b>Time Value</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Time Value</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Time Value</em>' attribute.
    * @see #setTimeValue(String)

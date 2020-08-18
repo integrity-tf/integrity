@@ -29,10 +29,6 @@ public interface VariantValue extends EObject
    * Returns the value of the '<em><b>Names</b></em>' reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.VariantDefinition}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Names</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Names</em>' reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getVariantValue_Names()
@@ -44,10 +40,6 @@ public interface VariantValue extends EObject
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Value</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' containment reference.
    * @see #setValue(ValueOrEnumValueOrOperationCollection)

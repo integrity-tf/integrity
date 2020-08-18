@@ -74,6 +74,7 @@ public class IntegerValueImpl extends StaticValueImpl implements IntegerValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BigInteger getIntegerValue()
   {
     return integerValue;
@@ -84,6 +85,7 @@ public class IntegerValueImpl extends StaticValueImpl implements IntegerValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIntegerValue(BigInteger newIntegerValue)
   {
     BigInteger oldIntegerValue = integerValue;

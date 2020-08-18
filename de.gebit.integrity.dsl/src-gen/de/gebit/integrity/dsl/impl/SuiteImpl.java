@@ -154,6 +154,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getInlined()
   {
     return inlined;
@@ -164,6 +165,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInlined(String newInlined)
   {
     String oldInlined = inlined;
@@ -177,6 +179,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ExecutionMultiplier getMultiplier()
   {
     return multiplier;
@@ -204,6 +207,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMultiplier(ExecutionMultiplier newMultiplier)
   {
     if (newMultiplier != multiplier)
@@ -225,6 +229,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SuiteDefinition getDefinition()
   {
     if (definition != null && definition.eIsProxy())
@@ -255,6 +260,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDefinition(SuiteDefinition newDefinition)
   {
     SuiteDefinition oldDefinition = definition;
@@ -268,6 +274,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SuiteParameter> getParameters()
   {
     if (parameters == null)
@@ -282,6 +289,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SuiteReturn> getReturn()
   {
     if (return_ == null)
@@ -296,6 +304,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ForkDefinition getFork()
   {
     if (fork != null && fork.eIsProxy())
@@ -326,6 +335,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFork(ForkDefinition newFork)
   {
     ForkDefinition oldFork = fork;
@@ -339,6 +349,7 @@ public class SuiteImpl extends SuiteStatementWithResultImpl implements Suite
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<VariantDefinition> getVariants()
   {
     if (variants == null)

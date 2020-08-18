@@ -72,6 +72,7 @@ public class VisibleCommentImpl extends SuiteStatementImpl implements VisibleCom
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getContent()
   {
     return content;
@@ -82,6 +83,7 @@ public class VisibleCommentImpl extends SuiteStatementImpl implements VisibleCom
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setContent(String newContent)
   {
     String oldContent = content;

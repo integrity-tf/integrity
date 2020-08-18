@@ -72,6 +72,7 @@ public class StringValueImpl extends StaticValueImpl implements StringValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getStringValue()
   {
     return stringValue;
@@ -82,6 +83,7 @@ public class StringValueImpl extends StaticValueImpl implements StringValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStringValue(String newStringValue)
   {
     String oldStringValue = stringValue;

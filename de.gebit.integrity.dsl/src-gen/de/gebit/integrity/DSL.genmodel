@@ -3,8 +3,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/de.gebit.integrity.dsl/src-gen" editDirectory="/de.gebit.integrity.dsl.edit/src"
     editorDirectory="/de.gebit.integrity.dsl.editor/src" modelPluginID="de.gebit.integrity.dsl"
     forceOverwrite="true" modelName="DSL" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="6.0" copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit"
-    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.14" usedGenPackages="platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+    complianceLevel="8.0" copyrightFields="false" editPluginID="de.gebit.integrity.dsl.edit"
+    editorPluginID="de.gebit.integrity.dsl.editor" runtimeVersion="2.20" usedGenPackages="platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
   <genPackages prefix="Dsl" basePackage="de.gebit.integrity" disposableProviderFactory="true"
       ecorePackage="DSL.ecore#/">
     <genClasses ecoreClass="DSL.ecore#//Model">

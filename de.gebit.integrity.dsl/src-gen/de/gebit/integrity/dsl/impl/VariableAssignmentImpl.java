@@ -77,6 +77,7 @@ public class VariableAssignmentImpl extends SuiteStatementImpl implements Variab
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
@@ -104,6 +105,7 @@ public class VariableAssignmentImpl extends SuiteStatementImpl implements Variab
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)
@@ -125,6 +127,7 @@ public class VariableAssignmentImpl extends SuiteStatementImpl implements Variab
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableVariable getTarget()
   {
     return target;
@@ -152,6 +155,7 @@ public class VariableAssignmentImpl extends SuiteStatementImpl implements Variab
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(VariableVariable newTarget)
   {
     if (newTarget != target)

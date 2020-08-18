@@ -65,6 +65,7 @@ public class VariableVariableImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableEntity getName()
   {
     if (name != null && name.eIsProxy())
@@ -95,6 +96,7 @@ public class VariableVariableImpl extends MinimalEObjectImpl.Container implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(VariableEntity newName)
   {
     VariableEntity oldName = name;

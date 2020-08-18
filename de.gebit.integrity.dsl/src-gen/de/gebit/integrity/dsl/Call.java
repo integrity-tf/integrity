@@ -29,10 +29,6 @@ public interface Call extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Multiplier</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Multiplier</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Multiplier</em>' containment reference.
    * @see #setMultiplier(ExecutionMultiplier)
@@ -55,10 +51,6 @@ public interface Call extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Definition</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Definition</em>' reference.
    * @see #setDefinition(CallDefinition)
@@ -82,10 +74,6 @@ public interface Call extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.Parameter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameters</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getCall_Parameters()
@@ -98,10 +86,6 @@ public interface Call extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Results</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.NamedCallResult}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Results</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Results</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getCall_Results()
@@ -113,10 +97,6 @@ public interface Call extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Result</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Result</em>' containment reference.
    * @see #setResult(VariableVariable)

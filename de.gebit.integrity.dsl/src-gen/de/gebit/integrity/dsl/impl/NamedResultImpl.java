@@ -78,6 +78,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ResultName getName()
   {
     return name;
@@ -105,6 +106,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(ResultName newName)
   {
     if (newName != name)
@@ -126,6 +128,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
@@ -153,6 +156,7 @@ public class NamedResultImpl extends MinimalEObjectImpl.Container implements Nam
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)

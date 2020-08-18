@@ -65,6 +65,7 @@ public class FixedResultNameImpl extends ResultNameImpl implements FixedResultNa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JvmField getField()
   {
     if (field != null && field.eIsProxy())
@@ -95,6 +96,7 @@ public class FixedResultNameImpl extends ResultNameImpl implements FixedResultNa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setField(JvmField newField)
   {
     JvmField oldField = field;

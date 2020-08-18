@@ -34,10 +34,6 @@ public interface SuiteDefinition extends PackageStatement
   /**
    * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Documentation</em>' containment reference.
    * @see #setDocumentation(DocumentationComment)
@@ -60,10 +56,6 @@ public interface SuiteDefinition extends PackageStatement
   /**
    * Returns the value of the '<em><b>Private</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Private</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Private</em>' attribute.
    * @see #setPrivate(String)
@@ -86,10 +78,6 @@ public interface SuiteDefinition extends PackageStatement
   /**
    * Returns the value of the '<em><b>Single Run</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Single Run</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Single Run</em>' attribute.
    * @see #setSingleRun(String)
@@ -112,10 +100,6 @@ public interface SuiteDefinition extends PackageStatement
   /**
    * Returns the value of the '<em><b>Inlined</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Inlined</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Inlined</em>' attribute.
    * @see #setInlined(String)
@@ -138,10 +122,6 @@ public interface SuiteDefinition extends PackageStatement
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
@@ -165,10 +145,6 @@ public interface SuiteDefinition extends PackageStatement
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.SuiteParameterDefinition}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameters</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Parameters()
@@ -181,10 +157,6 @@ public interface SuiteDefinition extends PackageStatement
    * Returns the value of the '<em><b>Return</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.SuiteReturnDefinition}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Return</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Return</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Return()
@@ -197,10 +169,6 @@ public interface SuiteDefinition extends PackageStatement
    * Returns the value of the '<em><b>Dependencies</b></em>' reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.SuiteDefinition}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Dependencies</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Dependencies</em>' reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Dependencies()
@@ -213,10 +181,6 @@ public interface SuiteDefinition extends PackageStatement
    * Returns the value of the '<em><b>Finalizers</b></em>' reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.SuiteDefinition}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Finalizers</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Finalizers</em>' reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Finalizers()
@@ -229,10 +193,6 @@ public interface SuiteDefinition extends PackageStatement
    * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.SuiteStatement}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Statements</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getSuiteDefinition_Statements()

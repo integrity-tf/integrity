@@ -72,6 +72,7 @@ public class BooleanValueImpl extends StaticValueImpl implements BooleanValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getBooleanValue()
   {
     return booleanValue;
@@ -82,6 +83,7 @@ public class BooleanValueImpl extends StaticValueImpl implements BooleanValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setBooleanValue(String newBooleanValue)
   {
     String oldBooleanValue = booleanValue;

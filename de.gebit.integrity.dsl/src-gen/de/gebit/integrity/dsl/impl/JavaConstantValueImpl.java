@@ -65,6 +65,7 @@ public class JavaConstantValueImpl extends StaticValueImpl implements JavaConsta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JavaConstantReference getConstant()
   {
     return constant;
@@ -92,6 +93,7 @@ public class JavaConstantValueImpl extends StaticValueImpl implements JavaConsta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setConstant(JavaConstantReference newConstant)
   {
     if (newConstant != constant)

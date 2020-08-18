@@ -30,10 +30,6 @@ public interface TableTest extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Definition</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Definition</em>' reference.
    * @see #setDefinition(TestDefinition)
@@ -57,10 +53,6 @@ public interface TableTest extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.Parameter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameters</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getTableTest_Parameters()
@@ -73,10 +65,6 @@ public interface TableTest extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Parameter Headers</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.ParameterTableHeader}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameter Headers</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameter Headers</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getTableTest_ParameterHeaders()
@@ -89,10 +77,6 @@ public interface TableTest extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Result Headers</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.ResultTableHeader}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Result Headers</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Result Headers</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getTableTest_ResultHeaders()
@@ -104,10 +88,6 @@ public interface TableTest extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Default Result Column</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Default Result Column</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Default Result Column</em>' attribute.
    * @see #setDefaultResultColumn(String)
@@ -131,10 +111,6 @@ public interface TableTest extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Rows</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.TableTestRow}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Rows</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Rows</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getTableTest_Rows()

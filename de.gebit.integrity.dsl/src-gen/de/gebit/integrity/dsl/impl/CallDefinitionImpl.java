@@ -98,6 +98,7 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DocumentationComment getDocumentation()
   {
     return documentation;
@@ -125,6 +126,7 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDocumentation(DocumentationComment newDocumentation)
   {
     if (newDocumentation != documentation)
@@ -146,6 +148,7 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -156,6 +159,7 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -169,6 +173,7 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public MethodReference getFixtureMethod()
   {
     return fixtureMethod;
@@ -196,6 +201,7 @@ public class CallDefinitionImpl extends PackageStatementImpl implements CallDefi
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setFixtureMethod(MethodReference newFixtureMethod)
   {
     if (newFixtureMethod != fixtureMethod)

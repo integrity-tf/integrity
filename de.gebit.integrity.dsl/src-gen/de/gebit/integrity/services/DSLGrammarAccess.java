@@ -499,7 +499,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//(('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//'uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]
+		//('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName])
 		public Alternatives getAlternatives_7_0() { return cAlternatives_7_0; }
 
 		//'uses' NL forkerClass=JavaClassReference
@@ -1281,7 +1281,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_5() { return cNLParserRuleCall_5; }
 
-		//(value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*
+		//((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*)
 		public Group getGroup_6() { return cGroup_6; }
 
 		//(value=ValueOrEnumValueOrOperationCollection NL)?
@@ -2092,8 +2092,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 
-		//live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL
-		//(progressionFactor=TimeProgressionFactor NL)?)?
+		//(live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL
+		//(progressionFactor=TimeProgressionFactor NL)?)?)
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//live='live' NL
@@ -2112,7 +2112,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//(progressionFactor=TimeProgressionFactor NL)?)?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference
+		//(startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference)
 		public Alternatives getAlternatives_2_1_0() { return cAlternatives_2_1_0; }
 
 		//startTime=ValueOrEnumValueOrOperation
@@ -2166,7 +2166,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+
 		public Group getGroup_3_2() { return cGroup_3_2; }
 
-		//forks+=[ForkDefinition|QualifiedName] | masterFork='master'
+		//(forks+=[ForkDefinition|QualifiedName] | masterFork='master')
 		public Alternatives getAlternatives_3_2_0() { return cAlternatives_3_2_0; }
 
 		//forks+=[ForkDefinition|QualifiedName]
@@ -2267,7 +2267,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//'-'
 		public Keyword getDirectionHyphenMinusKeyword_0_0_1() { return cDirectionHyphenMinusKeyword_0_0_1; }
 
-		//(NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation)
+		//((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation))
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//(NL fixedValues+=TIMESPAN)+
@@ -2649,7 +2649,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//'+'
 		public Keyword getPlusSignKeyword_0() { return cPlusSignKeyword_0; }
 
-		//identifier=ID | stringIdentifier=STRING
+		//(identifier=ID | stringIdentifier=STRING)
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
 		//identifier=ID
@@ -3660,7 +3660,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//(identifier=ID | stringIdentifier=STRING) NL ':' NL value=ValueOrEnumValueOrOperationCollection
 		public Group getGroup() { return cGroup; }
 
-		//identifier=ID | stringIdentifier=STRING
+		//(identifier=ID | stringIdentifier=STRING)
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
 		//identifier=ID

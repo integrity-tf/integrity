@@ -72,6 +72,7 @@ public class DateValueImpl extends StaticValueImpl implements DateValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDateValue()
   {
     return dateValue;
@@ -82,6 +83,7 @@ public class DateValueImpl extends StaticValueImpl implements DateValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDateValue(String newDateValue)
   {
     String oldDateValue = dateValue;

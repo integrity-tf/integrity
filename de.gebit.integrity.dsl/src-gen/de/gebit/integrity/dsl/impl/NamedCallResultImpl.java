@@ -78,6 +78,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ResultName getName()
   {
     return name;
@@ -105,6 +106,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(ResultName newName)
   {
     if (newName != name)
@@ -126,6 +128,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableVariable getTarget()
   {
     return target;
@@ -153,6 +156,7 @@ public class NamedCallResultImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(VariableVariable newTarget)
   {
     if (newTarget != target)

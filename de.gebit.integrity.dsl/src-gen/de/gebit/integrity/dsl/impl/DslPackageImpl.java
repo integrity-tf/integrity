@@ -845,6 +845,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getModel()
   {
     return modelEClass;
@@ -855,6 +856,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModel_Imports()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(0);
@@ -865,6 +867,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getModel_Statements()
   {
     return (EReference)modelEClass.getEStructuralFeatures().get(1);
@@ -875,6 +878,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStatement()
   {
     return statementEClass;
@@ -885,6 +889,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStatement_Documentation()
   {
     return (EReference)statementEClass.getEStructuralFeatures().get(0);
@@ -895,6 +900,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStatement_Name()
   {
     return (EAttribute)statementEClass.getEStructuralFeatures().get(1);
@@ -905,6 +911,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVisibleComment()
   {
     return visibleCommentEClass;
@@ -915,6 +922,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVisibleComment_Content()
   {
     return (EAttribute)visibleCommentEClass.getEStructuralFeatures().get(0);
@@ -925,6 +933,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVisibleSingleLineComment()
   {
     return visibleSingleLineCommentEClass;
@@ -935,6 +944,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVisibleSingleLineNormalComment()
   {
     return visibleSingleLineNormalCommentEClass;
@@ -945,6 +955,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVisibleSingleLineTitleComment()
   {
     return visibleSingleLineTitleCommentEClass;
@@ -955,6 +966,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVisibleMultiLineComment()
   {
     return visibleMultiLineCommentEClass;
@@ -965,6 +977,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVisibleMultiLineNormalComment()
   {
     return visibleMultiLineNormalCommentEClass;
@@ -975,6 +988,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVisibleMultiLineTitleComment()
   {
     return visibleMultiLineTitleCommentEClass;
@@ -985,6 +999,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVisibleDivider()
   {
     return visibleDividerEClass;
@@ -995,6 +1010,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVisibleDivider_Content()
   {
     return (EAttribute)visibleDividerEClass.getEStructuralFeatures().get(0);
@@ -1005,6 +1021,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPackageDefinition()
   {
     return packageDefinitionEClass;
@@ -1015,6 +1032,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPackageDefinition_Statements()
   {
     return (EReference)packageDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1025,6 +1043,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPackageStatement()
   {
     return packageStatementEClass;
@@ -1035,6 +1054,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getImport()
   {
     return importEClass;
@@ -1045,6 +1065,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getImport_ImportedNamespace()
   {
     return (EAttribute)importEClass.getEStructuralFeatures().get(0);
@@ -1055,6 +1076,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getForkDefinition()
   {
     return forkDefinitionEClass;
@@ -1065,6 +1087,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getForkDefinition_Private()
   {
     return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1075,6 +1098,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getForkDefinition_Description()
   {
     return (EAttribute)forkDefinitionEClass.getEStructuralFeatures().get(1);
@@ -1085,6 +1109,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getForkDefinition_ForkerClass()
   {
     return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(2);
@@ -1095,6 +1120,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getForkDefinition_BaseFork()
   {
     return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(3);
@@ -1105,6 +1131,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getForkDefinition_Parameters()
   {
     return (EReference)forkDefinitionEClass.getEStructuralFeatures().get(4);
@@ -1115,6 +1142,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getForkParameter()
   {
     return forkParameterEClass;
@@ -1125,6 +1153,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getForkParameter_Name()
   {
     return (EReference)forkParameterEClass.getEStructuralFeatures().get(0);
@@ -1135,6 +1164,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getForkParameter_Value()
   {
     return (EReference)forkParameterEClass.getEStructuralFeatures().get(1);
@@ -1145,6 +1175,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVariantDefinition()
   {
     return variantDefinitionEClass;
@@ -1155,6 +1186,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVariantDefinition_Description()
   {
     return (EAttribute)variantDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1165,6 +1197,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTestDefinition()
   {
     return testDefinitionEClass;
@@ -1175,6 +1208,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTestDefinition_Documentation()
   {
     return (EReference)testDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1185,6 +1219,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTestDefinition_Name()
   {
     return (EAttribute)testDefinitionEClass.getEStructuralFeatures().get(1);
@@ -1195,6 +1230,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTestDefinition_FixtureMethod()
   {
     return (EReference)testDefinitionEClass.getEStructuralFeatures().get(2);
@@ -1205,6 +1241,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCallDefinition()
   {
     return callDefinitionEClass;
@@ -1215,6 +1252,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCallDefinition_Documentation()
   {
     return (EReference)callDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1225,6 +1263,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getCallDefinition_Name()
   {
     return (EAttribute)callDefinitionEClass.getEStructuralFeatures().get(1);
@@ -1235,6 +1274,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCallDefinition_FixtureMethod()
   {
     return (EReference)callDefinitionEClass.getEStructuralFeatures().get(2);
@@ -1245,6 +1285,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSuiteDefinition()
   {
     return suiteDefinitionEClass;
@@ -1255,6 +1296,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteDefinition_Documentation()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1265,6 +1307,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getSuiteDefinition_Private()
   {
     return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(1);
@@ -1275,6 +1318,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getSuiteDefinition_SingleRun()
   {
     return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(2);
@@ -1285,6 +1329,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getSuiteDefinition_Inlined()
   {
     return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(3);
@@ -1295,6 +1340,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getSuiteDefinition_Name()
   {
     return (EAttribute)suiteDefinitionEClass.getEStructuralFeatures().get(4);
@@ -1305,6 +1351,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteDefinition_Parameters()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(5);
@@ -1315,6 +1362,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteDefinition_Return()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(6);
@@ -1325,6 +1373,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteDefinition_Dependencies()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(7);
@@ -1335,6 +1384,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteDefinition_Finalizers()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(8);
@@ -1345,6 +1395,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteDefinition_Statements()
   {
     return (EReference)suiteDefinitionEClass.getEStructuralFeatures().get(9);
@@ -1355,6 +1406,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSuiteParameterDefinition()
   {
     return suiteParameterDefinitionEClass;
@@ -1365,6 +1417,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteParameterDefinition_Name()
   {
     return (EReference)suiteParameterDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1375,6 +1428,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteParameterDefinition_Default()
   {
     return (EReference)suiteParameterDefinitionEClass.getEStructuralFeatures().get(1);
@@ -1385,6 +1439,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSuiteReturnDefinition()
   {
     return suiteReturnDefinitionEClass;
@@ -1395,6 +1450,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteReturnDefinition_Name()
   {
     return (EReference)suiteReturnDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1405,6 +1461,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOperationDefinition()
   {
     return operationDefinitionEClass;
@@ -1415,6 +1472,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOperationDefinition_Name()
   {
     return (EAttribute)operationDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1425,6 +1483,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOperationDefinition_OperationType()
   {
     return (EReference)operationDefinitionEClass.getEStructuralFeatures().get(1);
@@ -1435,6 +1494,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSuiteStatement()
   {
     return suiteStatementEClass;
@@ -1445,6 +1505,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSuiteStatementWithResult()
   {
     return suiteStatementWithResultEClass;
@@ -1455,6 +1516,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVariableDefinition()
   {
     return variableDefinitionEClass;
@@ -1465,6 +1527,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVariableDefinition_Private()
   {
     return (EAttribute)variableDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1475,6 +1538,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVariableDefinition_Name()
   {
     return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(1);
@@ -1485,6 +1549,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVariableDefinition_InitialValue()
   {
     return (EReference)variableDefinitionEClass.getEStructuralFeatures().get(2);
@@ -1495,6 +1560,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getConstantDefinition()
   {
     return constantDefinitionEClass;
@@ -1505,6 +1571,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getConstantDefinition_Documentation()
   {
     return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(0);
@@ -1515,6 +1582,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getConstantDefinition_Private()
   {
     return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(1);
@@ -1525,6 +1593,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getConstantDefinition_Name()
   {
     return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(2);
@@ -1535,6 +1604,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getConstantDefinition_Value()
   {
     return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(3);
@@ -1545,6 +1615,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getConstantDefinition_VariantValues()
   {
     return (EReference)constantDefinitionEClass.getEStructuralFeatures().get(4);
@@ -1555,6 +1626,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getConstantDefinition_Parameterized()
   {
     return (EAttribute)constantDefinitionEClass.getEStructuralFeatures().get(5);
@@ -1565,6 +1637,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVariableAssignment()
   {
     return variableAssignmentEClass;
@@ -1575,6 +1648,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVariableAssignment_Value()
   {
     return (EReference)variableAssignmentEClass.getEStructuralFeatures().get(0);
@@ -1585,6 +1659,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVariableAssignment_Target()
   {
     return (EReference)variableAssignmentEClass.getEStructuralFeatures().get(1);
@@ -1595,6 +1670,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVariantValue()
   {
     return variantValueEClass;
@@ -1605,6 +1681,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVariantValue_Names()
   {
     return (EReference)variantValueEClass.getEStructuralFeatures().get(0);
@@ -1615,6 +1692,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVariantValue_Value()
   {
     return (EReference)variantValueEClass.getEStructuralFeatures().get(1);
@@ -1625,6 +1703,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVariableEntity()
   {
     return variableEntityEClass;
@@ -1635,6 +1714,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getConstantEntity()
   {
     return constantEntityEClass;
@@ -1645,6 +1725,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVariableOrConstantEntity()
   {
     return variableOrConstantEntityEClass;
@@ -1655,6 +1736,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVariableOrConstantEntity_Name()
   {
     return (EAttribute)variableOrConstantEntityEClass.getEStructuralFeatures().get(0);
@@ -1665,6 +1747,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTest()
   {
     return testEClass;
@@ -1675,6 +1758,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTest_Checkpoint()
   {
     return (EAttribute)testEClass.getEStructuralFeatures().get(0);
@@ -1685,6 +1769,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTest_Definition()
   {
     return (EReference)testEClass.getEStructuralFeatures().get(1);
@@ -1695,6 +1780,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTest_Parameters()
   {
     return (EReference)testEClass.getEStructuralFeatures().get(2);
@@ -1705,6 +1791,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTest_Results()
   {
     return (EReference)testEClass.getEStructuralFeatures().get(3);
@@ -1715,6 +1802,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTest_Result()
   {
     return (EReference)testEClass.getEStructuralFeatures().get(4);
@@ -1725,6 +1813,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTableTest()
   {
     return tableTestEClass;
@@ -1735,6 +1824,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTableTest_Definition()
   {
     return (EReference)tableTestEClass.getEStructuralFeatures().get(0);
@@ -1745,6 +1835,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTableTest_Parameters()
   {
     return (EReference)tableTestEClass.getEStructuralFeatures().get(1);
@@ -1755,6 +1846,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTableTest_ParameterHeaders()
   {
     return (EReference)tableTestEClass.getEStructuralFeatures().get(2);
@@ -1765,6 +1857,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTableTest_ResultHeaders()
   {
     return (EReference)tableTestEClass.getEStructuralFeatures().get(3);
@@ -1775,6 +1868,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTableTest_DefaultResultColumn()
   {
     return (EAttribute)tableTestEClass.getEStructuralFeatures().get(4);
@@ -1785,6 +1879,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTableTest_Rows()
   {
     return (EReference)tableTestEClass.getEStructuralFeatures().get(5);
@@ -1795,6 +1890,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTableTestRow()
   {
     return tableTestRowEClass;
@@ -1805,6 +1901,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTableTestRow_Values()
   {
     return (EReference)tableTestRowEClass.getEStructuralFeatures().get(0);
@@ -1815,6 +1912,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getParameterTableHeader()
   {
     return parameterTableHeaderEClass;
@@ -1825,6 +1923,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getParameterTableHeader_Name()
   {
     return (EReference)parameterTableHeaderEClass.getEStructuralFeatures().get(0);
@@ -1835,6 +1934,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getResultTableHeader()
   {
     return resultTableHeaderEClass;
@@ -1845,6 +1945,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getResultTableHeader_Name()
   {
     return (EReference)resultTableHeaderEClass.getEStructuralFeatures().get(0);
@@ -1855,6 +1956,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getParameterTableValue()
   {
     return parameterTableValueEClass;
@@ -1865,6 +1967,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getParameterTableValue_Value()
   {
     return (EReference)parameterTableValueEClass.getEStructuralFeatures().get(0);
@@ -1875,6 +1978,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNamedResult()
   {
     return namedResultEClass;
@@ -1885,6 +1989,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getNamedResult_Name()
   {
     return (EReference)namedResultEClass.getEStructuralFeatures().get(0);
@@ -1895,6 +2000,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getNamedResult_Value()
   {
     return (EReference)namedResultEClass.getEStructuralFeatures().get(1);
@@ -1905,6 +2011,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getResultName()
   {
     return resultNameEClass;
@@ -1915,6 +2022,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getFixedResultName()
   {
     return fixedResultNameEClass;
@@ -1925,6 +2033,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFixedResultName_Field()
   {
     return (EReference)fixedResultNameEClass.getEStructuralFeatures().get(0);
@@ -1935,6 +2044,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCall()
   {
     return callEClass;
@@ -1945,6 +2055,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCall_Multiplier()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(0);
@@ -1955,6 +2066,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCall_Definition()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(1);
@@ -1965,6 +2077,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCall_Parameters()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(2);
@@ -1975,6 +2088,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCall_Results()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(3);
@@ -1985,6 +2099,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCall_Result()
   {
     return (EReference)callEClass.getEStructuralFeatures().get(4);
@@ -1995,6 +2110,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNamedCallResult()
   {
     return namedCallResultEClass;
@@ -2005,6 +2121,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getNamedCallResult_Name()
   {
     return (EReference)namedCallResultEClass.getEStructuralFeatures().get(0);
@@ -2015,6 +2132,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getNamedCallResult_Target()
   {
     return (EReference)namedCallResultEClass.getEStructuralFeatures().get(1);
@@ -2025,6 +2143,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTimeSet()
   {
     return timeSetEClass;
@@ -2035,6 +2154,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTimeSet_Live()
   {
     return (EAttribute)timeSetEClass.getEStructuralFeatures().get(0);
@@ -2045,6 +2165,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimeSet_StartTime()
   {
     return (EReference)timeSetEClass.getEStructuralFeatures().get(1);
@@ -2055,6 +2176,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimeSet_DiffTime()
   {
     return (EReference)timeSetEClass.getEStructuralFeatures().get(2);
@@ -2065,6 +2187,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTimeSet_ProgressionMode()
   {
     return (EAttribute)timeSetEClass.getEStructuralFeatures().get(3);
@@ -2075,6 +2198,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimeSet_ProgressionFactor()
   {
     return (EReference)timeSetEClass.getEStructuralFeatures().get(4);
@@ -2085,6 +2209,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimeSet_Forks()
   {
     return (EReference)timeSetEClass.getEStructuralFeatures().get(5);
@@ -2095,6 +2220,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTimeSet_MasterFork()
   {
     return (EAttribute)timeSetEClass.getEStructuralFeatures().get(6);
@@ -2105,6 +2231,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTimeProgressionFactor()
   {
     return timeProgressionFactorEClass;
@@ -2115,6 +2242,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTimeProgressionFactor_FixedValue()
   {
     return (EAttribute)timeProgressionFactorEClass.getEStructuralFeatures().get(0);
@@ -2125,6 +2253,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimeProgressionFactor_CalculatedValue()
   {
     return (EReference)timeProgressionFactorEClass.getEStructuralFeatures().get(1);
@@ -2135,6 +2264,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTimeDifference()
   {
     return timeDifferenceEClass;
@@ -2145,6 +2275,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTimeDifference_Direction()
   {
     return (EAttribute)timeDifferenceEClass.getEStructuralFeatures().get(0);
@@ -2155,6 +2286,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTimeDifference_FixedValues()
   {
     return (EAttribute)timeDifferenceEClass.getEStructuralFeatures().get(1);
@@ -2165,6 +2297,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTimeDifference_CalculatedValue()
   {
     return (EReference)timeDifferenceEClass.getEStructuralFeatures().get(2);
@@ -2175,6 +2308,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSuite()
   {
     return suiteEClass;
@@ -2185,6 +2319,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getSuite_Inlined()
   {
     return (EAttribute)suiteEClass.getEStructuralFeatures().get(0);
@@ -2195,6 +2330,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuite_Multiplier()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(1);
@@ -2205,6 +2341,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuite_Definition()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(2);
@@ -2215,6 +2352,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuite_Parameters()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(3);
@@ -2225,6 +2363,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuite_Return()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(4);
@@ -2235,6 +2374,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuite_Fork()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(5);
@@ -2245,6 +2385,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuite_Variants()
   {
     return (EReference)suiteEClass.getEStructuralFeatures().get(6);
@@ -2255,6 +2396,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSuiteParameter()
   {
     return suiteParameterEClass;
@@ -2265,6 +2407,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteParameter_Name()
   {
     return (EReference)suiteParameterEClass.getEStructuralFeatures().get(0);
@@ -2275,6 +2418,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteParameter_Value()
   {
     return (EReference)suiteParameterEClass.getEStructuralFeatures().get(1);
@@ -2285,6 +2429,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSuiteReturn()
   {
     return suiteReturnEClass;
@@ -2295,6 +2440,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteReturn_Name()
   {
     return (EReference)suiteReturnEClass.getEStructuralFeatures().get(0);
@@ -2305,6 +2451,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSuiteReturn_Target()
   {
     return (EReference)suiteReturnEClass.getEStructuralFeatures().get(1);
@@ -2315,6 +2462,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getParameter()
   {
     return parameterEClass;
@@ -2325,6 +2473,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getParameter_Name()
   {
     return (EReference)parameterEClass.getEStructuralFeatures().get(0);
@@ -2335,6 +2484,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getParameter_Value()
   {
     return (EReference)parameterEClass.getEStructuralFeatures().get(1);
@@ -2345,6 +2495,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getParameterName()
   {
     return parameterNameEClass;
@@ -2355,6 +2506,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getFixedParameterName()
   {
     return fixedParameterNameEClass;
@@ -2365,6 +2517,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFixedParameterName_Annotation()
   {
     return (EReference)fixedParameterNameEClass.getEStructuralFeatures().get(0);
@@ -2375,6 +2528,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getArbitraryParameterOrResultName()
   {
     return arbitraryParameterOrResultNameEClass;
@@ -2385,6 +2539,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getArbitraryParameterOrResultName_Identifier()
   {
     return (EAttribute)arbitraryParameterOrResultNameEClass.getEStructuralFeatures().get(0);
@@ -2395,6 +2550,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getArbitraryParameterOrResultName_StringIdentifier()
   {
     return (EAttribute)arbitraryParameterOrResultNameEClass.getEStructuralFeatures().get(1);
@@ -2405,6 +2561,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOperation()
   {
     return operationEClass;
@@ -2415,6 +2572,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStandardOperation()
   {
     return standardOperationEClass;
@@ -2425,6 +2583,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStandardOperation_FirstOperand()
   {
     return (EReference)standardOperationEClass.getEStructuralFeatures().get(0);
@@ -2435,6 +2594,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStandardOperation_Operators()
   {
     return (EAttribute)standardOperationEClass.getEStructuralFeatures().get(1);
@@ -2445,6 +2605,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getStandardOperation_MoreOperands()
   {
     return (EReference)standardOperationEClass.getEStructuralFeatures().get(2);
@@ -2455,6 +2616,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCustomOperation()
   {
     return customOperationEClass;
@@ -2465,6 +2627,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCustomOperation_PrefixOperand()
   {
     return (EReference)customOperationEClass.getEStructuralFeatures().get(0);
@@ -2475,6 +2638,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCustomOperation_Definition()
   {
     return (EReference)customOperationEClass.getEStructuralFeatures().get(1);
@@ -2485,6 +2649,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCustomOperation_PostfixOperand()
   {
     return (EReference)customOperationEClass.getEStructuralFeatures().get(2);
@@ -2495,6 +2660,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValueOrEnumValueOrOperationCollection()
   {
     return valueOrEnumValueOrOperationCollectionEClass;
@@ -2505,6 +2671,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getValueOrEnumValueOrOperationCollection_Value()
   {
     return (EReference)valueOrEnumValueOrOperationCollectionEClass.getEStructuralFeatures().get(0);
@@ -2515,6 +2682,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getValueOrEnumValueOrOperationCollection_MoreValues()
   {
     return (EReference)valueOrEnumValueOrOperationCollectionEClass.getEStructuralFeatures().get(1);
@@ -2525,6 +2693,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValueOrEnumValueOrOperation()
   {
     return valueOrEnumValueOrOperationEClass;
@@ -2535,6 +2704,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getValue()
   {
     return valueEClass;
@@ -2545,6 +2715,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getConstantValue()
   {
     return constantValueEClass;
@@ -2555,6 +2726,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStaticValue()
   {
     return staticValueEClass;
@@ -2565,6 +2737,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIntegerValue()
   {
     return integerValueEClass;
@@ -2575,6 +2748,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getIntegerValue_IntegerValue()
   {
     return (EAttribute)integerValueEClass.getEStructuralFeatures().get(0);
@@ -2585,6 +2759,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDecimalValue()
   {
     return decimalValueEClass;
@@ -2595,6 +2770,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDecimalValue_DecimalValue()
   {
     return (EAttribute)decimalValueEClass.getEStructuralFeatures().get(0);
@@ -2605,6 +2781,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getStringValue()
   {
     return stringValueEClass;
@@ -2615,6 +2792,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getStringValue_StringValue()
   {
     return (EAttribute)stringValueEClass.getEStructuralFeatures().get(0);
@@ -2625,6 +2803,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBooleanValue()
   {
     return booleanValueEClass;
@@ -2635,6 +2814,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getBooleanValue_BooleanValue()
   {
     return (EAttribute)booleanValueEClass.getEStructuralFeatures().get(0);
@@ -2645,6 +2825,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDateValue()
   {
     return dateValueEClass;
@@ -2655,6 +2836,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDateValue_DateValue()
   {
     return (EAttribute)dateValueEClass.getEStructuralFeatures().get(0);
@@ -2665,6 +2847,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIsoDateValue()
   {
     return isoDateValueEClass;
@@ -2675,6 +2858,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEuropeanDateValue()
   {
     return europeanDateValueEClass;
@@ -2685,6 +2869,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getUSDateValue()
   {
     return usDateValueEClass;
@@ -2695,6 +2880,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTimeValue()
   {
     return timeValueEClass;
@@ -2705,6 +2891,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTimeValue_TimeValue()
   {
     return (EAttribute)timeValueEClass.getEStructuralFeatures().get(0);
@@ -2715,6 +2902,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIsoTimeValue()
   {
     return isoTimeValueEClass;
@@ -2725,6 +2913,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSimple24HrsTimeValue()
   {
     return simple24HrsTimeValueEClass;
@@ -2735,6 +2924,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSimple12HrsTimeValue()
   {
     return simple12HrsTimeValueEClass;
@@ -2745,6 +2935,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDateAndTimeValue()
   {
     return dateAndTimeValueEClass;
@@ -2755,6 +2946,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDateAndTimeValue_DateValue()
   {
     return (EAttribute)dateAndTimeValueEClass.getEStructuralFeatures().get(0);
@@ -2765,6 +2957,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDateAndTimeValue_TimeValue()
   {
     return (EAttribute)dateAndTimeValueEClass.getEStructuralFeatures().get(1);
@@ -2775,6 +2968,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIsoDateAndTimeValue()
   {
     return isoDateAndTimeValueEClass;
@@ -2785,6 +2979,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEuropeanDateAnd24HrsTimeValue()
   {
     return europeanDateAnd24HrsTimeValueEClass;
@@ -2795,6 +2990,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEuropeanDateAnd12HrsTimeValue()
   {
     return europeanDateAnd12HrsTimeValueEClass;
@@ -2805,6 +3001,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getUSDateAnd12HrsTimeValue()
   {
     return usDateAnd12HrsTimeValueEClass;
@@ -2815,6 +3012,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getJavaConstantValue()
   {
     return javaConstantValueEClass;
@@ -2825,6 +3023,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getJavaConstantValue_Constant()
   {
     return (EReference)javaConstantValueEClass.getEStructuralFeatures().get(0);
@@ -2835,6 +3034,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVariable()
   {
     return variableEClass;
@@ -2845,6 +3045,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVariable_Name()
   {
     return (EReference)variableEClass.getEStructuralFeatures().get(0);
@@ -2855,6 +3056,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getVariable_Attribute()
   {
     return (EAttribute)variableEClass.getEStructuralFeatures().get(1);
@@ -2865,6 +3067,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getVariableVariable()
   {
     return variableVariableEClass;
@@ -2875,6 +3078,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getVariableVariable_Name()
   {
     return (EReference)variableVariableEClass.getEStructuralFeatures().get(0);
@@ -2885,6 +3089,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getConstant()
   {
     return constantEClass;
@@ -2895,6 +3100,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getConstant_Name()
   {
     return (EReference)constantEClass.getEStructuralFeatures().get(0);
@@ -2905,6 +3111,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNullValue()
   {
     return nullValueEClass;
@@ -2915,6 +3122,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getInexistentValue()
   {
     return inexistentValueEClass;
@@ -2925,6 +3133,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEnumValue()
   {
     return enumValueEClass;
@@ -2935,6 +3144,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEnumValue_EnumValue()
   {
     return (EReference)enumValueEClass.getEStructuralFeatures().get(0);
@@ -2945,6 +3155,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNestedObject()
   {
     return nestedObjectEClass;
@@ -2955,6 +3166,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getNestedObject_Attributes()
   {
     return (EReference)nestedObjectEClass.getEStructuralFeatures().get(0);
@@ -2965,6 +3177,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypedNestedObject()
   {
     return typedNestedObjectEClass;
@@ -2975,6 +3188,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypedNestedObject_Type()
   {
     return (EReference)typedNestedObjectEClass.getEStructuralFeatures().get(0);
@@ -2985,6 +3199,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypedNestedObject_NestedObject()
   {
     return (EReference)typedNestedObjectEClass.getEStructuralFeatures().get(1);
@@ -2995,6 +3210,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getKeyValuePair()
   {
     return keyValuePairEClass;
@@ -3005,6 +3221,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getKeyValuePair_Identifier()
   {
     return (EAttribute)keyValuePairEClass.getEStructuralFeatures().get(0);
@@ -3015,6 +3232,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getKeyValuePair_StringIdentifier()
   {
     return (EAttribute)keyValuePairEClass.getEStructuralFeatures().get(1);
@@ -3025,6 +3243,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getKeyValuePair_Value()
   {
     return (EReference)keyValuePairEClass.getEStructuralFeatures().get(2);
@@ -3035,6 +3254,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getJavaClassReference()
   {
     return javaClassReferenceEClass;
@@ -3045,6 +3265,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getJavaClassReference_Type()
   {
     return (EReference)javaClassReferenceEClass.getEStructuralFeatures().get(0);
@@ -3055,6 +3276,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getMethodReference()
   {
     return methodReferenceEClass;
@@ -3065,6 +3287,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMethodReference_Type()
   {
     return (EReference)methodReferenceEClass.getEStructuralFeatures().get(0);
@@ -3075,6 +3298,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getMethodReference_Method()
   {
     return (EReference)methodReferenceEClass.getEStructuralFeatures().get(1);
@@ -3085,6 +3309,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getJavaConstantReference()
   {
     return javaConstantReferenceEClass;
@@ -3095,6 +3320,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getJavaConstantReference_Type()
   {
     return (EReference)javaConstantReferenceEClass.getEStructuralFeatures().get(0);
@@ -3105,6 +3331,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getJavaConstantReference_Constant()
   {
     return (EReference)javaConstantReferenceEClass.getEStructuralFeatures().get(1);
@@ -3115,6 +3342,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getExecutionMultiplier()
   {
     return executionMultiplierEClass;
@@ -3125,6 +3353,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getExecutionMultiplier_Count()
   {
     return (EReference)executionMultiplierEClass.getEStructuralFeatures().get(0);
@@ -3135,6 +3364,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getDocumentationComment()
   {
     return documentationCommentEClass;
@@ -3145,6 +3375,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getDocumentationComment_Content()
   {
     return (EAttribute)documentationCommentEClass.getEStructuralFeatures().get(0);
@@ -3155,6 +3386,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getNull()
   {
     return nullEClass;
@@ -3165,6 +3397,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getInexistent()
   {
     return inexistentEClass;
@@ -3175,6 +3408,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DslFactory getDslFactory()
   {
     return (DslFactory)getEFactoryInstance();

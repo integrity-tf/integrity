@@ -71,6 +71,7 @@ public class TableTestRowImpl extends MinimalEObjectImpl.Container implements Ta
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ParameterTableValue> getValues()
   {
     if (values == null)

@@ -72,6 +72,7 @@ public class TimeValueImpl extends StaticValueImpl implements TimeValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTimeValue()
   {
     return timeValue;
@@ -82,6 +83,7 @@ public class TimeValueImpl extends StaticValueImpl implements TimeValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTimeValue(String newTimeValue)
   {
     String oldTimeValue = timeValue;

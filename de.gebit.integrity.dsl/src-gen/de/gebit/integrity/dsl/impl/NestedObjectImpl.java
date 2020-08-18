@@ -69,6 +69,7 @@ public class NestedObjectImpl extends ValueImpl implements NestedObject
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<KeyValuePair> getAttributes()
   {
     if (attributes == null)

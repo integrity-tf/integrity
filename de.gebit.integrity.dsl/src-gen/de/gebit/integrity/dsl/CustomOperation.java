@@ -26,10 +26,6 @@ public interface CustomOperation extends Operation
   /**
    * Returns the value of the '<em><b>Prefix Operand</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Prefix Operand</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Prefix Operand</em>' containment reference.
    * @see #setPrefixOperand(ValueOrEnumValueOrOperationCollection)
@@ -52,10 +48,6 @@ public interface CustomOperation extends Operation
   /**
    * Returns the value of the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Definition</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Definition</em>' reference.
    * @see #setDefinition(OperationDefinition)
@@ -78,10 +70,6 @@ public interface CustomOperation extends Operation
   /**
    * Returns the value of the '<em><b>Postfix Operand</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Postfix Operand</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Postfix Operand</em>' containment reference.
    * @see #setPostfixOperand(ValueOrEnumValueOrOperationCollection)

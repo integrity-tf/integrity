@@ -65,6 +65,7 @@ public class FixedParameterNameImpl extends ParameterNameImpl implements FixedPa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JvmAnnotationReference getAnnotation()
   {
     if (annotation != null && annotation.eIsProxy())
@@ -95,6 +96,7 @@ public class FixedParameterNameImpl extends ParameterNameImpl implements FixedPa
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAnnotation(JvmAnnotationReference newAnnotation)
   {
     JvmAnnotationReference oldAnnotation = annotation;

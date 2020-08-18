@@ -66,6 +66,7 @@ public class ParameterTableHeaderImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ParameterName getName()
   {
     return name;
@@ -93,6 +94,7 @@ public class ParameterTableHeaderImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(ParameterName newName)
   {
     if (newName != name)

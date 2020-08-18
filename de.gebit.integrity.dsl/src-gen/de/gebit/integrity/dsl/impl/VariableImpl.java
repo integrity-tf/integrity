@@ -85,6 +85,7 @@ public class VariableImpl extends ValueImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableOrConstantEntity getName()
   {
     if (name != null && name.eIsProxy())
@@ -115,6 +116,7 @@ public class VariableImpl extends ValueImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(VariableOrConstantEntity newName)
   {
     VariableOrConstantEntity oldName = name;
@@ -128,6 +130,7 @@ public class VariableImpl extends ValueImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getAttribute()
   {
     return attribute;
@@ -138,6 +141,7 @@ public class VariableImpl extends ValueImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAttribute(String newAttribute)
   {
     String oldAttribute = attribute;

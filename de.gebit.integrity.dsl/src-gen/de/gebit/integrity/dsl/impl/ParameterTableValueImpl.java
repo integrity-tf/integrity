@@ -66,6 +66,7 @@ public class ParameterTableValueImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
@@ -93,6 +94,7 @@ public class ParameterTableValueImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)

@@ -74,6 +74,7 @@ public class DecimalValueImpl extends StaticValueImpl implements DecimalValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BigDecimal getDecimalValue()
   {
     return decimalValue;
@@ -84,6 +85,7 @@ public class DecimalValueImpl extends StaticValueImpl implements DecimalValue
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDecimalValue(BigDecimal newDecimalValue)
   {
     BigDecimal oldDecimalValue = decimalValue;

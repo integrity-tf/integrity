@@ -26,10 +26,6 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
   /**
    * Returns the value of the '<em><b>Private</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Private</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Private</em>' attribute.
    * @see #setPrivate(String)
@@ -52,10 +48,6 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
   /**
    * Returns the value of the '<em><b>Name</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Name</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Name</em>' containment reference.
    * @see #setName(VariableEntity)
@@ -78,10 +70,6 @@ public interface VariableDefinition extends PackageStatement, SuiteStatement
   /**
    * Returns the value of the '<em><b>Initial Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Initial Value</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Initial Value</em>' containment reference.
    * @see #setInitialValue(ValueOrEnumValueOrOperationCollection)

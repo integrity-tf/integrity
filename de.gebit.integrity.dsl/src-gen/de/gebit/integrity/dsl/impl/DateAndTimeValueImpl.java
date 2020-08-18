@@ -93,6 +93,7 @@ public class DateAndTimeValueImpl extends StaticValueImpl implements DateAndTime
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDateValue()
   {
     return dateValue;
@@ -103,6 +104,7 @@ public class DateAndTimeValueImpl extends StaticValueImpl implements DateAndTime
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDateValue(String newDateValue)
   {
     String oldDateValue = dateValue;
@@ -116,6 +118,7 @@ public class DateAndTimeValueImpl extends StaticValueImpl implements DateAndTime
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getTimeValue()
   {
     return timeValue;
@@ -126,6 +129,7 @@ public class DateAndTimeValueImpl extends StaticValueImpl implements DateAndTime
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTimeValue(String newTimeValue)
   {
     String oldTimeValue = timeValue;

@@ -66,6 +66,7 @@ public class JavaClassReferenceImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JvmType getType()
   {
     if (type != null && type.eIsProxy())
@@ -96,6 +97,7 @@ public class JavaClassReferenceImpl extends MinimalEObjectImpl.Container impleme
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setType(JvmType newType)
   {
     JvmType oldType = type;

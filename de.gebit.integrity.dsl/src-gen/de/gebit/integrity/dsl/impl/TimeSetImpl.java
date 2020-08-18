@@ -170,6 +170,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getLive()
   {
     return live;
@@ -180,6 +181,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setLive(String newLive)
   {
     String oldLive = live;
@@ -193,6 +195,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperation getStartTime()
   {
     return startTime;
@@ -220,6 +223,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStartTime(ValueOrEnumValueOrOperation newStartTime)
   {
     if (newStartTime != startTime)
@@ -241,6 +245,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TimeDifference getDiffTime()
   {
     return diffTime;
@@ -268,6 +273,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDiffTime(TimeDifference newDiffTime)
   {
     if (newDiffTime != diffTime)
@@ -289,6 +295,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getProgressionMode()
   {
     return progressionMode;
@@ -299,6 +306,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProgressionMode(String newProgressionMode)
   {
     String oldProgressionMode = progressionMode;
@@ -312,6 +320,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TimeProgressionFactor getProgressionFactor()
   {
     return progressionFactor;
@@ -339,6 +348,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setProgressionFactor(TimeProgressionFactor newProgressionFactor)
   {
     if (newProgressionFactor != progressionFactor)
@@ -360,6 +370,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ForkDefinition> getForks()
   {
     if (forks == null)
@@ -374,6 +385,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getMasterFork()
   {
     return masterFork;
@@ -384,6 +396,7 @@ public class TimeSetImpl extends SuiteStatementWithResultImpl implements TimeSet
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMasterFork(String newMasterFork)
   {
     String oldMasterFork = masterFork;

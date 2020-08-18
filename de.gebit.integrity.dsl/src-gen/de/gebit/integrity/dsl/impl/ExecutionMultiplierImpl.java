@@ -66,6 +66,7 @@ public class ExecutionMultiplierImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConstantValue getCount()
   {
     return count;
@@ -93,6 +94,7 @@ public class ExecutionMultiplierImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCount(ConstantValue newCount)
   {
     if (newCount != count)

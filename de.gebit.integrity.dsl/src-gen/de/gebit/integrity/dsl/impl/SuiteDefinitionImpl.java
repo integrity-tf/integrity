@@ -215,6 +215,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public DocumentationComment getDocumentation()
   {
     return documentation;
@@ -242,6 +243,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDocumentation(DocumentationComment newDocumentation)
   {
     if (newDocumentation != documentation)
@@ -263,6 +265,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getPrivate()
   {
     return private_;
@@ -273,6 +276,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrivate(String newPrivate)
   {
     String oldPrivate = private_;
@@ -286,6 +290,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getSingleRun()
   {
     return singleRun;
@@ -296,6 +301,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSingleRun(String newSingleRun)
   {
     String oldSingleRun = singleRun;
@@ -309,6 +315,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getInlined()
   {
     return inlined;
@@ -319,6 +326,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInlined(String newInlined)
   {
     String oldInlined = inlined;
@@ -332,6 +340,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -342,6 +351,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -355,6 +365,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SuiteParameterDefinition> getParameters()
   {
     if (parameters == null)
@@ -369,6 +380,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SuiteReturnDefinition> getReturn()
   {
     if (return_ == null)
@@ -383,6 +395,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SuiteDefinition> getDependencies()
   {
     if (dependencies == null)
@@ -397,6 +410,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SuiteDefinition> getFinalizers()
   {
     if (finalizers == null)
@@ -411,6 +425,7 @@ public class SuiteDefinitionImpl extends PackageStatementImpl implements SuiteDe
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<SuiteStatement> getStatements()
   {
     if (statements == null)

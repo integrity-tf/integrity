@@ -64,6 +64,7 @@ public class ConstantImpl extends ConstantValueImpl implements Constant
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConstantEntity getName()
   {
     if (name != null && name.eIsProxy())
@@ -94,6 +95,7 @@ public class ConstantImpl extends ConstantValueImpl implements Constant
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(ConstantEntity newName)
   {
     ConstantEntity oldName = name;

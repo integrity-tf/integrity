@@ -78,6 +78,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableOrConstantEntity getName()
   {
     if (name != null && name.eIsProxy())
@@ -108,6 +109,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(VariableOrConstantEntity newName)
   {
     VariableOrConstantEntity oldName = name;
@@ -121,6 +123,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getValue()
   {
     return value;
@@ -148,6 +151,7 @@ public class SuiteParameterImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(ValueOrEnumValueOrOperationCollection newValue)
   {
     if (newValue != value)

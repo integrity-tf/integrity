@@ -69,6 +69,7 @@ public class PackageDefinitionImpl extends StatementImpl implements PackageDefin
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<PackageStatement> getStatements()
   {
     if (statements == null)

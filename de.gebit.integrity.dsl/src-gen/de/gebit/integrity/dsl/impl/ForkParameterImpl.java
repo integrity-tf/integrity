@@ -78,6 +78,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public FixedParameterName getName()
   {
     return name;
@@ -105,6 +106,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(FixedParameterName newName)
   {
     if (newName != name)
@@ -126,6 +128,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperation getValue()
   {
     return value;
@@ -153,6 +156,7 @@ public class ForkParameterImpl extends MinimalEObjectImpl.Container implements F
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(ValueOrEnumValueOrOperation newValue)
   {
     if (newValue != value)

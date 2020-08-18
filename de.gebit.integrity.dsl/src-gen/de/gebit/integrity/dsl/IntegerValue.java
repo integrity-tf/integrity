@@ -25,10 +25,6 @@ public interface IntegerValue extends StaticValue
   /**
    * Returns the value of the '<em><b>Integer Value</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Integer Value</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Integer Value</em>' attribute.
    * @see #setIntegerValue(BigInteger)

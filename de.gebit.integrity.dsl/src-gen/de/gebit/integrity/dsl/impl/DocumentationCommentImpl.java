@@ -73,6 +73,7 @@ public class DocumentationCommentImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getContent()
   {
     return content;
@@ -83,6 +84,7 @@ public class DocumentationCommentImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setContent(String newContent)
   {
     String oldContent = content;

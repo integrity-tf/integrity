@@ -93,6 +93,7 @@ public class ArbitraryParameterOrResultNameImpl extends ResultNameImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getIdentifier()
   {
     return identifier;
@@ -103,6 +104,7 @@ public class ArbitraryParameterOrResultNameImpl extends ResultNameImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setIdentifier(String newIdentifier)
   {
     String oldIdentifier = identifier;
@@ -116,6 +118,7 @@ public class ArbitraryParameterOrResultNameImpl extends ResultNameImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getStringIdentifier()
   {
     return stringIdentifier;
@@ -126,6 +129,7 @@ public class ArbitraryParameterOrResultNameImpl extends ResultNameImpl implement
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setStringIdentifier(String newStringIdentifier)
   {
     String oldStringIdentifier = stringIdentifier;

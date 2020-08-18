@@ -78,6 +78,7 @@ public class JavaConstantReferenceImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JvmType getType()
   {
     if (type != null && type.eIsProxy())
@@ -108,6 +109,7 @@ public class JavaConstantReferenceImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setType(JvmType newType)
   {
     JvmType oldType = type;
@@ -121,6 +123,7 @@ public class JavaConstantReferenceImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JvmField getConstant()
   {
     if (constant != null && constant.eIsProxy())
@@ -151,6 +154,7 @@ public class JavaConstantReferenceImpl extends MinimalEObjectImpl.Container impl
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setConstant(JvmField newConstant)
   {
     JvmField oldConstant = constant;

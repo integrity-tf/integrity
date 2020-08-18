@@ -98,6 +98,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getPrivate()
   {
     return private_;
@@ -108,6 +109,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrivate(String newPrivate)
   {
     String oldPrivate = private_;
@@ -121,6 +123,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableEntity getName()
   {
     return name;
@@ -148,6 +151,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(VariableEntity newName)
   {
     if (newName != name)
@@ -169,6 +173,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getInitialValue()
   {
     return initialValue;
@@ -196,6 +201,7 @@ public class VariableDefinitionImpl extends PackageStatementImpl implements Vari
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setInitialValue(ValueOrEnumValueOrOperationCollection newInitialValue)
   {
     if (newInitialValue != initialValue)

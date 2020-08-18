@@ -66,6 +66,7 @@ public class ResultTableHeaderImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ResultName getName()
   {
     return name;
@@ -93,6 +94,7 @@ public class ResultTableHeaderImpl extends MinimalEObjectImpl.Container implemen
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(ResultName newName)
   {
     if (newName != name)

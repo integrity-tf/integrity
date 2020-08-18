@@ -77,6 +77,7 @@ public class TypedNestedObjectImpl extends ValueImpl implements TypedNestedObjec
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JavaClassReference getType()
   {
     return type;
@@ -104,6 +105,7 @@ public class TypedNestedObjectImpl extends ValueImpl implements TypedNestedObjec
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setType(JavaClassReference newType)
   {
     if (newType != type)
@@ -125,6 +127,7 @@ public class TypedNestedObjectImpl extends ValueImpl implements TypedNestedObjec
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public NestedObject getNestedObject()
   {
     return nestedObject;
@@ -152,6 +155,7 @@ public class TypedNestedObjectImpl extends ValueImpl implements TypedNestedObjec
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setNestedObject(NestedObject newNestedObject)
   {
     if (newNestedObject != nestedObject)

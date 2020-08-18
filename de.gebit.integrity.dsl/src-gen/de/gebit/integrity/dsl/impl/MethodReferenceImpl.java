@@ -78,6 +78,7 @@ public class MethodReferenceImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JvmType getType()
   {
     if (type != null && type.eIsProxy())
@@ -108,6 +109,7 @@ public class MethodReferenceImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setType(JvmType newType)
   {
     JvmType oldType = type;
@@ -121,6 +123,7 @@ public class MethodReferenceImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JvmOperation getMethod()
   {
     if (method != null && method.eIsProxy())
@@ -151,6 +154,7 @@ public class MethodReferenceImpl extends MinimalEObjectImpl.Container implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMethod(JvmOperation newMethod)
   {
     JvmOperation oldMethod = method;

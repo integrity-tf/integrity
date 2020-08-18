@@ -1434,8 +1434,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *             live='live' | 
 	 *             ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) (progressionMode='progressing' progressionFactor=TimeProgressionFactor?)?)
 	 *         ) 
-	 *         masterFork='master'? 
-	 *         (forks+=[ForkDefinition|QualifiedName]? masterFork='master'?)*
+	 *         forks+=[ForkDefinition|QualifiedName]? 
+	 *         (masterFork='master'? forks+=[ForkDefinition|QualifiedName]?)*
 	 *     )
 	 */
 	protected void sequence_TimeSet(ISerializationContext context, TimeSet semanticObject) {

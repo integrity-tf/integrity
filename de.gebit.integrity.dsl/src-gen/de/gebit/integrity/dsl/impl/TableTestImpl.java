@@ -141,6 +141,7 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TestDefinition getDefinition()
   {
     if (definition != null && definition.eIsProxy())
@@ -171,6 +172,7 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDefinition(TestDefinition newDefinition)
   {
     TestDefinition oldDefinition = definition;
@@ -184,6 +186,7 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Parameter> getParameters()
   {
     if (parameters == null)
@@ -198,6 +201,7 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ParameterTableHeader> getParameterHeaders()
   {
     if (parameterHeaders == null)
@@ -212,6 +216,7 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ResultTableHeader> getResultHeaders()
   {
     if (resultHeaders == null)
@@ -226,6 +231,7 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getDefaultResultColumn()
   {
     return defaultResultColumn;
@@ -236,6 +242,7 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDefaultResultColumn(String newDefaultResultColumn)
   {
     String oldDefaultResultColumn = defaultResultColumn;
@@ -249,6 +256,7 @@ public class TableTestImpl extends SuiteStatementWithResultImpl implements Table
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<TableTestRow> getRows()
   {
     if (rows == null)

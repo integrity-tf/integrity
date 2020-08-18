@@ -86,6 +86,7 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getName()
   {
     return name;
@@ -96,6 +97,7 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setName(String newName)
   {
     String oldName = name;
@@ -109,6 +111,7 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public JavaClassReference getOperationType()
   {
     return operationType;
@@ -136,6 +139,7 @@ public class OperationDefinitionImpl extends PackageStatementImpl implements Ope
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setOperationType(JavaClassReference newOperationType)
   {
     if (newOperationType != operationType)

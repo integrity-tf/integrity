@@ -120,6 +120,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ExecutionMultiplier getMultiplier()
   {
     return multiplier;
@@ -147,6 +148,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setMultiplier(ExecutionMultiplier newMultiplier)
   {
     if (newMultiplier != multiplier)
@@ -168,6 +170,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CallDefinition getDefinition()
   {
     if (definition != null && definition.eIsProxy())
@@ -198,6 +201,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDefinition(CallDefinition newDefinition)
   {
     CallDefinition oldDefinition = definition;
@@ -211,6 +215,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Parameter> getParameters()
   {
     if (parameters == null)
@@ -225,6 +230,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<NamedCallResult> getResults()
   {
     if (results == null)
@@ -239,6 +245,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public VariableVariable getResult()
   {
     return result;
@@ -266,6 +273,7 @@ public class CallImpl extends SuiteStatementWithResultImpl implements Call
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setResult(VariableVariable newResult)
   {
     if (newResult != result)

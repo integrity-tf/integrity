@@ -88,6 +88,7 @@ public class CustomOperationImpl extends OperationImpl implements CustomOperatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getPrefixOperand()
   {
     return prefixOperand;
@@ -115,6 +116,7 @@ public class CustomOperationImpl extends OperationImpl implements CustomOperatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPrefixOperand(ValueOrEnumValueOrOperationCollection newPrefixOperand)
   {
     if (newPrefixOperand != prefixOperand)
@@ -136,6 +138,7 @@ public class CustomOperationImpl extends OperationImpl implements CustomOperatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public OperationDefinition getDefinition()
   {
     if (definition != null && definition.eIsProxy())
@@ -166,6 +169,7 @@ public class CustomOperationImpl extends OperationImpl implements CustomOperatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDefinition(OperationDefinition newDefinition)
   {
     OperationDefinition oldDefinition = definition;
@@ -179,6 +183,7 @@ public class CustomOperationImpl extends OperationImpl implements CustomOperatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getPostfixOperand()
   {
     return postfixOperand;
@@ -206,6 +211,7 @@ public class CustomOperationImpl extends OperationImpl implements CustomOperatio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setPostfixOperand(ValueOrEnumValueOrOperationCollection newPostfixOperand)
   {
     if (newPostfixOperand != postfixOperand)

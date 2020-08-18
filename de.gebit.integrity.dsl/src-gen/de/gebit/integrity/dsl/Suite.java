@@ -31,10 +31,6 @@ public interface Suite extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Inlined</b></em>' attribute.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Inlined</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Inlined</em>' attribute.
    * @see #setInlined(String)
@@ -57,10 +53,6 @@ public interface Suite extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Multiplier</b></em>' containment reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Multiplier</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Multiplier</em>' containment reference.
    * @see #setMultiplier(ExecutionMultiplier)
@@ -83,10 +75,6 @@ public interface Suite extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Definition</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Definition</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Definition</em>' reference.
    * @see #setDefinition(SuiteDefinition)
@@ -110,10 +98,6 @@ public interface Suite extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.SuiteParameter}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Parameters</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getSuite_Parameters()
@@ -126,10 +110,6 @@ public interface Suite extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Return</b></em>' containment reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.SuiteReturn}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Return</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Return</em>' containment reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getSuite_Return()
@@ -141,10 +121,6 @@ public interface Suite extends SuiteStatementWithResult
   /**
    * Returns the value of the '<em><b>Fork</b></em>' reference.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Fork</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Fork</em>' reference.
    * @see #setFork(ForkDefinition)
@@ -168,10 +144,6 @@ public interface Suite extends SuiteStatementWithResult
    * Returns the value of the '<em><b>Variants</b></em>' reference list.
    * The list contents are of type {@link de.gebit.integrity.dsl.VariantDefinition}.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Variants</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Variants</em>' reference list.
    * @see de.gebit.integrity.dsl.DslPackage#getSuite_Variants()

@@ -84,6 +84,7 @@ public class ValueOrEnumValueOrOperationCollectionImpl extends MinimalEObjectImp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperation getValue()
   {
     return value;
@@ -111,6 +112,7 @@ public class ValueOrEnumValueOrOperationCollectionImpl extends MinimalEObjectImp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(ValueOrEnumValueOrOperation newValue)
   {
     if (newValue != value)
@@ -132,6 +134,7 @@ public class ValueOrEnumValueOrOperationCollectionImpl extends MinimalEObjectImp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ValueOrEnumValueOrOperation> getMoreValues()
   {
     if (moreValues == null)

@@ -129,6 +129,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public String getCheckpoint()
   {
     return checkpoint;
@@ -139,6 +140,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCheckpoint(String newCheckpoint)
   {
     String oldCheckpoint = checkpoint;
@@ -152,6 +154,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TestDefinition getDefinition()
   {
     if (definition != null && definition.eIsProxy())
@@ -182,6 +185,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDefinition(TestDefinition newDefinition)
   {
     TestDefinition oldDefinition = definition;
@@ -195,6 +199,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<Parameter> getParameters()
   {
     if (parameters == null)
@@ -209,6 +214,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<NamedResult> getResults()
   {
     if (results == null)
@@ -223,6 +229,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ValueOrEnumValueOrOperationCollection getResult()
   {
     return result;
@@ -250,6 +257,7 @@ public class TestImpl extends SuiteStatementWithResultImpl implements Test
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setResult(ValueOrEnumValueOrOperationCollection newResult)
   {
     if (newResult != result)
