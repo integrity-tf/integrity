@@ -1032,7 +1032,12 @@ public class DefaultTestRunner implements TestRunner {
 		ForkDefinition tempForkSpecifiedBySuite = aSuiteCall.getFork();
 
 		if (tempForkSpecifiedBySuite != null) {
-			touchedForks.add(tempForkSpecifiedBySuite);
+			if (forkInExecution == tempForkSpecifiedBySuite) {
+				// We can just ignore fork specifications that specify the fork we are already running
+				tempForkSpecifiedBySuite = null;
+			} else {
+				touchedForks.add(tempForkSpecifiedBySuite);
+			}
 		}
 
 		if (tempForkSpecifiedBySuite != null && !tempForkInExecutionOnEntry) {
@@ -1041,13 +1046,8 @@ public class DefaultTestRunner implements TestRunner {
 						"It is not supported to execute another fork while inside a fork ("
 								+ tempForkSpecifiedBySuite.getName() + " inside " + forkInExecution.getName() + ").");
 			}
-			if (forkInExecution == tempForkSpecifiedBySuite) {
-				// We can just ignore fork specifications that specify the fork we are already running
-				tempForkSpecifiedBySuite = null;
-			} else {
-				forkInExecution = tempForkSpecifiedBySuite;
-				currentCallback.setForkInExecution(forkInExecution);
-			}
+			forkInExecution = tempForkSpecifiedBySuite;
+			currentCallback.setForkInExecution(forkInExecution);
 		}
 
 		if (currentPhase == Phase.TEST_RUN && !tempForkInExecutionOnEntry) {
