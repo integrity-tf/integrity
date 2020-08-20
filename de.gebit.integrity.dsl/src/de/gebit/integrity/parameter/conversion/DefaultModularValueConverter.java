@@ -60,6 +60,7 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.Dec
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToDouble;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToFloat;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToNumber;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.DecimalValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToBigInteger;
@@ -70,6 +71,7 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.Int
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToLong;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToNumber;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToShort;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToEnumConstant;
@@ -271,6 +273,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(DecimalValueToFloat.class);
 		addConversion(DecimalValueToString.class);
 		addConversion(DecimalValueToFormattedString.class);
+		addConversion(DecimalValueToNumber.class);
 		addConversion(IntegerValueToBigDecimal.class);
 		addConversion(IntegerValueToBigInteger.class);
 		addConversion(IntegerValueToByte.class);
@@ -282,6 +285,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(IntegerValueToString.class);
 		addConversion(IntegerValueToFormattedString.class);
 		addConversion(IntegerValueToCharacter.class);
+		addConversion(IntegerValueToNumber.class);
 
 		// string conversions, Integrity -> Java
 		addConversion(StringValueToBigDecimal.class);

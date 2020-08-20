@@ -72,6 +72,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.ModifyEvent;
@@ -122,7 +123,9 @@ import com.google.inject.Inject;
 import de.gebit.integrity.eclipse.Activator;
 import de.gebit.integrity.eclipse.actions.BreakpointAction;
 import de.gebit.integrity.eclipse.actions.JumpToLinkAction;
+import de.gebit.integrity.eclipse.controls.NonWideningText;
 import de.gebit.integrity.eclipse.controls.ProgressBar;
+import de.gebit.integrity.eclipse.controls.ScalableImageLabel;
 import de.gebit.integrity.eclipse.running.TestActionConfigurationDialog;
 import de.gebit.integrity.eclipse.search.SetListSearch;
 import de.gebit.integrity.remoting.IntegrityRemotingConstants;
@@ -1090,7 +1093,8 @@ public class IntegrityTestRunnerView extends ViewPart {
 		fixtureLogBorder.setLayout(tempFill);
 		configureTextFieldBorder(fixtureLogBorder);
 
-		fixtureLogText = new Text(fixtureLogBorder, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
+		fixtureLogText = new NonWideningText(fixtureLogBorder,
+				SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
 		fixtureLogText.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 
 		resultTableComposite = tempToolkit.createComposite(resultComposite);
@@ -1134,13 +1138,13 @@ public class IntegrityTestRunnerView extends ViewPart {
 		tempFormData.top = new FormAttachment(resultLine1Name, 2, SWT.BOTTOM);
 		tempFormData.bottom = new FormAttachment(resultLine1Border, RESULT_TEXTFIELD_HEIGHT, SWT.TOP);
 		resultLine1Border.setLayoutData(tempFormData);
-		tempFill = new FillLayout();
+		tempFill = new FillLayout(SWT.VERTICAL);
 		tempFill.marginHeight = 1;
 		tempFill.marginWidth = 1;
 		resultLine1Border.setLayout(tempFill);
 		configureTextFieldBorder(resultLine1Border);
 
-		resultLine1Text = new Text(resultLine1Border, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+		resultLine1Text = new NonWideningText(resultLine1Border, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 		resultLine1Text.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 
 		resultLine2Name = new Label(resultComposite, SWT.WRAP);
@@ -1164,7 +1168,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 		resultLine2Border.setLayout(tempFill);
 		configureTextFieldBorder(resultLine2Border);
 
-		resultLine2Text = new Text(resultLine2Border, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+		resultLine2Text = new NonWideningText(resultLine2Border, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 		resultLine2Text.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 
 		resultLine3Name = new Label(resultComposite, SWT.WRAP);
@@ -2484,7 +2488,7 @@ public class IntegrityTestRunnerView extends ViewPart {
 
 		// Now, see what we have to display, create the appropriate control and set everything up
 		if (tempData instanceof String) { // This covers strings and hypertext strings
-			Text tempResultTextField = new Text(aTargetComposite, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
+			Text tempResultTextField = new NonWideningText(aTargetComposite, SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL);
 			tempResultTextField.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
 			tempResultTextField.setText((String) tempData);
 
@@ -2492,12 +2496,37 @@ public class IntegrityTestRunnerView extends ViewPart {
 			tempContentContainer = tempResultTextField;
 		} else if (tempData instanceof byte[]) { // Covers images
 			Image tempImage = new Image(Display.getCurrent(), new ByteArrayInputStream((byte[]) tempData));
-			Label tempImageLabel = new Label(aTargetComposite, SWT.NONE);
-			tempImageLabel.setImage(tempImage);
-			tempImageLabel.setAlignment(SWT.CENTER);
 
-			tempContentSize = tempImage.getBounds().height + EXTENDED_RESULT_IMAGE_SPACING;
-			tempContentContainer = tempImageLabel;
+			ScrolledComposite tempScrolledComposite
+					= new ScrolledComposite(aTargetComposite, SWT.V_SCROLL | SWT.H_SCROLL);
+			tempScrolledComposite.setLayout(new FillLayout());
+			tempScrolledComposite.setExpandHorizontal(true);
+			tempScrolledComposite.setExpandVertical(true);
+
+			ScalableImageLabel tempImageLabel = new ScalableImageLabel(tempScrolledComposite, SWT.NONE, tempImage,
+					aTargetComposite.getBounds().width - 20);
+			tempContentSize = tempImageLabel.getMinimumHeight() + EXTENDED_RESULT_IMAGE_SPACING;
+			tempScrolledComposite.setContent(tempImageLabel);
+			tempImageLabel.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseUp(MouseEvent anEvent) {
+					tempImageLabel.toggleImageSize();
+					tempScrolledComposite.setMinSize(tempImageLabel.getWidth(), tempImageLabel.getHeight());
+				}
+
+				@Override
+				public void mouseDown(MouseEvent anEvent) {
+					// nothing
+				}
+
+				@Override
+				public void mouseDoubleClick(MouseEvent anEvent) {
+					// nothing
+				}
+			});
+
+			tempContentContainer = tempScrolledComposite;
 		}
 
 		// Finally, place the control onto its parent
