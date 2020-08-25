@@ -73,9 +73,9 @@ public abstract class IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	protected Document executeIntegritySuite(String[] someFileNames, String aSuiteName, String aVariantName,
-			boolean aSkipValidationFlag, boolean aModelValidateFlag)
+			String aResultLocale, boolean aSkipValidationFlag, boolean aModelValidateFlag)
 			throws ModelLoadException, IOException, JDOMException {
-		return executeIntegritySuite(someFileNames, aSuiteName, aVariantName, false, aSkipValidationFlag,
+		return executeIntegritySuite(someFileNames, aSuiteName, aVariantName, aResultLocale, false, aSkipValidationFlag,
 				aModelValidateFlag);
 	}
 
@@ -92,8 +92,24 @@ public abstract class IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	protected Document executeIntegritySuite(String[] someFileNames, String aSuiteName, String aVariantName,
-			boolean aSkipValidationFlag) throws ModelLoadException, IOException, JDOMException {
-		return executeIntegritySuite(someFileNames, aSuiteName, aVariantName, false, aSkipValidationFlag, false);
+			String aResultLocale, boolean aSkipValidationFlag) throws ModelLoadException, IOException, JDOMException {
+		return executeIntegritySuite(someFileNames, aSuiteName, aVariantName, aResultLocale, false, aSkipValidationFlag,
+				false);
+	}
+
+	/**
+	 * Runs a specified Integrity suite in a freshly started test runner. The result XML document is returned.
+	 * 
+	 * @param aSuiteName
+	 *            the name of the root suite
+	 * @return the result document
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	protected Document executeIntegritySuite(String[] someFileNames, String aSuiteName, String aVariantName,
+			String aResultLocale) throws ModelLoadException, IOException, JDOMException {
+		return executeIntegritySuite(someFileNames, aSuiteName, aVariantName, aResultLocale, false, false, false);
 	}
 
 	/**
@@ -108,7 +124,7 @@ public abstract class IntegrityJUnitTest {
 	 */
 	protected Document executeIntegritySuite(String[] someFileNames, String aSuiteName, String aVariantName)
 			throws ModelLoadException, IOException, JDOMException {
-		return executeIntegritySuite(someFileNames, aSuiteName, aVariantName, false, false, false);
+		return executeIntegritySuite(someFileNames, aSuiteName, aVariantName, null, false, false, false);
 	}
 
 	/**
@@ -128,7 +144,7 @@ public abstract class IntegrityJUnitTest {
 	 * @throws JDOMException
 	 */
 	protected Document executeIntegritySuite(String[] someFileNames, String aSuiteName, String aVariantName,
-			boolean aCaptureConsoleFlag, boolean aSkipModelCheckFlag, boolean aModelValidateFlag)
+			String aResultLocale, boolean aCaptureConsoleFlag, boolean aSkipModelCheckFlag, boolean aModelValidateFlag)
 			throws ModelLoadException, IOException, JDOMException {
 		File tempXmlFile = null;
 
@@ -140,8 +156,8 @@ public abstract class IntegrityJUnitTest {
 
 		FilesystemTestResourceProvider tempResourceProvider = new FilesystemTestResourceProvider();
 		tempResourceProvider.addAllRecursively(tempFileList);
-		TestModel tempModel = TestModel.loadTestModel(tempResourceProvider, aSkipModelCheckFlag, aModelValidateFlag,
-				null);
+		TestModel tempModel
+				= TestModel.loadTestModel(tempResourceProvider, aSkipModelCheckFlag, aModelValidateFlag, null);
 
 		boolean tempKeepFiles = "true".equals(System.getProperty("keepFiles"));
 		try {
@@ -155,8 +171,8 @@ public abstract class IntegrityJUnitTest {
 					new XmlWriterTestCallback(getClass().getClassLoader(), tempXmlFile, "Integrity JUnit Testing",
 							TransformHandling.NO_TRANSFORM, aCaptureConsoleFlag));
 
-			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, getParameterizedConstantValues(), null,
-					null, null, null);
+			TestRunner tempRunner = tempModel.initializeTestRunner(tempCallback, getParameterizedConstantValues(),
+					aResultLocale, null, null, null, null);
 			tempRunner.run(tempModel.getSuiteByName(aSuiteName), tempModel.getVariantByName(aVariantName), false);
 			tempRunner.shutdown(true);
 

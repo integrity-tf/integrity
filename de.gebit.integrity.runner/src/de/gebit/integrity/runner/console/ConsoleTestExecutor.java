@@ -221,8 +221,10 @@ public class ConsoleTestExecutor {
 				"Specify a name for the test run", "[{-n,--name}]");
 		SimpleCommandLineParser.StringOption tempVariantOption = new SimpleCommandLineParser.StringOption("v",
 				"variant", "Specify the variant to execute (must be defined in the scripts!)", "[{-v,--variant}]");
-		SimpleCommandLineParser.BooleanOption tempNoremoteOption = new SimpleCommandLineParser.BooleanOption(null,
-				"noremote", "Disables remoting", "[{--noremote}]");
+		SimpleCommandLineParser.StringOption tempResultLocaleOption = new SimpleCommandLineParser.StringOption("rl",
+				"resultlocale", "Specify the locale to use for generating test results", "[{-rl,--resultlocale}]");
+		SimpleCommandLineParser.BooleanOption tempNoremoteOption
+				= new SimpleCommandLineParser.BooleanOption(null, "noremote", "Disables remoting", "[{--noremote}]");
 		SimpleCommandLineParser.IntegerOption tempRemotePortOption = new SimpleCommandLineParser.IntegerOption("r",
 				"remoteport", "Set the port number to bind to for remoting (default is "
 						+ IntegrityRemotingConstants.DEFAULT_PORT + ")",
@@ -245,17 +247,19 @@ public class ConsoleTestExecutor {
 				"[{-p,--parameter} fully.qualified.constant.name=value]");
 		SimpleCommandLineParser.LongOption tempSeedOption = new SimpleCommandLineParser.LongOption(null, "seed",
 				"Sets the seed number to use for the RNG custom operation", "[{--seed} number]");
-		SimpleCommandLineParser.BooleanOption tempExcludeConsoleStreamsOption = new SimpleCommandLineParser.BooleanOption(
-				null, "noconsole", "Do not capture stdout & stderr for test XML/HTML output", "[{--noconsole}]");
-		SimpleCommandLineParser.BooleanOption tempZombieThreadDetectionOption = new SimpleCommandLineParser.BooleanOption(
-				null, "zombiewarn", "Do warn about threads started during test execution, "
-						+ "but not terminated until the end (zombie threads)",
-				"[{--zombiewarn}]");
+		SimpleCommandLineParser.BooleanOption tempExcludeConsoleStreamsOption
+				= new SimpleCommandLineParser.BooleanOption(null, "noconsole",
+						"Do not capture stdout & stderr for test XML/HTML output", "[{--noconsole}]");
+		SimpleCommandLineParser.BooleanOption tempZombieThreadDetectionOption
+				= new SimpleCommandLineParser.BooleanOption(null, "zombiewarn",
+						"Do warn about threads started during test execution, "
+								+ "but not terminated until the end (zombie threads)",
+						"[{--zombiewarn}]");
 
 		tempParser.addOptions(tempConsoleOption, tempXmlOption, tempXsltOption, tempNameOption, tempVariantOption,
-				tempNoremoteOption, tempRemotePortOption, tempRemoteHostOption, tempWaitForPlayOption,
-				tempSkipModelCheck, tempModelValidate, tempParameterizedConstantOption, tempSeedOption,
-				tempExcludeConsoleStreamsOption, tempZombieThreadDetectionOption);
+				tempResultLocaleOption, tempNoremoteOption, tempRemotePortOption, tempRemoteHostOption,
+				tempWaitForPlayOption, tempSkipModelCheck, tempModelValidate, tempParameterizedConstantOption,
+				tempSeedOption, tempExcludeConsoleStreamsOption, tempZombieThreadDetectionOption);
 
 		if (someArgs.length == 0) {
 			getStdOut().print(tempParser.getHelp(REMAINING_ARGS_HELP));
@@ -349,10 +353,11 @@ public class ConsoleTestExecutor {
 			}
 
 			Long tempSeed = tempSeedOption.getValue();
+			String tempResultLocale = tempResultLocaleOption.getValue();
 
 			try {
 				TestRunner tempRunner = initializeTestRunner(tempModel, tempCallback, tempParameterizedConstants,
-						tempRemotePort, tempRemoteHost, tempSeed, someArgs);
+						tempResultLocale, tempRemotePort, tempRemoteHost, tempSeed, someArgs);
 
 				SuiteDefinition tempRootSuite = tempModel.getSuiteByName(tempRootSuiteName);
 				if (tempRootSuite == null) {
@@ -544,6 +549,9 @@ public class ConsoleTestExecutor {
 	 *            the callback to use
 	 * @param someParameterizedConstants
 	 *            all parameterized constants to provide to the test runner
+	 * @param aResultLocale
+	 *            the locale to be used for the test result generation (if not provided, use the non-localized default
+	 *            strings, which usually are in English)
 	 * @param aRemotingPort
 	 *            the remoting port to use by the test runner
 	 * @param aRemotingBindHost
@@ -556,10 +564,10 @@ public class ConsoleTestExecutor {
 	 * @throws IOException
 	 */
 	protected TestRunner initializeTestRunner(TestModel aModel, TestRunnerCallback aCallback,
-			Map<String, String> someParameterizedConstants, Integer aRemotingPort, String aRemotingBindHost,
-			Long aRandomSeed, String[] someCommandLineArguments) throws IOException {
-		return aModel.initializeTestRunner(aCallback, someParameterizedConstants, aRemotingPort, aRemotingBindHost,
-				aRandomSeed, someCommandLineArguments);
+			Map<String, String> someParameterizedConstants, String aResultLocale, Integer aRemotingPort,
+			String aRemotingBindHost, Long aRandomSeed, String[] someCommandLineArguments) throws IOException {
+		return aModel.initializeTestRunner(aCallback, someParameterizedConstants, aResultLocale, aRemotingPort,
+				aRemotingBindHost, aRandomSeed, someCommandLineArguments);
 	}
 
 	/**

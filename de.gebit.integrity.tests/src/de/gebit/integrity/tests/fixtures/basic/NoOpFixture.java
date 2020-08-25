@@ -19,6 +19,7 @@ import java.util.Map;
 
 import de.gebit.integrity.exceptions.AbortExecutionException;
 import de.gebit.integrity.fixtures.FixtureMethod;
+import de.gebit.integrity.fixtures.FixtureMethod.I18NDescription;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.tests.fixtures.basic.beans.NestedListTestBean;
 
@@ -34,6 +35,20 @@ public class NoOpFixture {
 
 	@FixtureMethod(description = "Do absolutely nothing.")
 	public void noOp() {
+		// does nothing!
+	}
+
+	@FixtureMethod(description = "Do absolutely nothing.", i18nDescriptions = {
+			@I18NDescription(locale = "deDE", description = "Tut absolut gar nichts."),
+			@I18NDescription(locale = "frFR", description = "Ne faites absolument rien.") })
+	public void noOpI18NDescription() {
+		// does nothing!
+	}
+
+	@FixtureMethod(description = "Do absolutely nothing.", descriptionCall = "Do absolutely nothing when called.", descriptionTest = "Do absolutely nothing when tested.", i18nDescriptions = {
+			@I18NDescription(locale = "deDE", description = "Tut absolut gar nichts.", descriptionCall = "Tut absolut gar nichts wenn aufgerufen.", descriptionTest = "Tut absolut gar nichts wenn getestet."),
+			@I18NDescription(locale = "frFR", description = "Ne faites absolument rien.", descriptionCall = "Ne faites absolument rien lorsqu'on vous appelle.", descriptionTest = "Ne faites absolument rien lorsqu'ils sont testés.") })
+	public void noOpI18NDescriptionSpecific() {
 		// does nothing!
 	}
 

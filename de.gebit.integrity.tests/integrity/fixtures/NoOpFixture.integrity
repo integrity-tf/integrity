@@ -1,6 +1,10 @@
 packagedef integrity.fixtures.basic.noop with
 
 	calldef noOp uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOp
+	calldef noOpI18NDescriptionCall uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOpI18NDescription
+	testdef noOpI18NDescriptionTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOpI18NDescription
+	calldef noOpI18NDescriptionSpecificCall uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOpI18NDescriptionSpecific
+	testdef noOpI18NDescriptionSpecificTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#noOpI18NDescriptionSpecific
 	
 	calldef returnTrueCall uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue
 	testdef returnTrueTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#returnTrue

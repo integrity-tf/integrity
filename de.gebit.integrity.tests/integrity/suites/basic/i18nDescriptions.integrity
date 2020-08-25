@@ -1,0 +1,21 @@
+packagedef integrity.basic with
+
+	suitedef i18nDescriptions with
+		
+		call integrity.fixtures.basic.noop.noOpI18NDescriptionCall
+		test integrity.fixtures.basic.noop.noOpI18NDescriptionTest
+		
+		call integrity.fixtures.basic.noop.noOpI18NDescriptionSpecificCall
+		test integrity.fixtures.basic.noop.noOpI18NDescriptionSpecificTest
+	
+	suiteend
+	
+	suitedef i18nDescriptionsDE with		
+		suite i18nDescriptions	
+	suiteend
+	
+	suitedef i18nDescriptionsFR with		
+		suite i18nDescriptions	
+	suiteend
+
+packageend

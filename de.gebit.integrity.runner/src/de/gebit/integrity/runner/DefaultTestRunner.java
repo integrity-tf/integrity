@@ -585,10 +585,12 @@ public class DefaultTestRunner implements TestRunner {
 
 	@Override
 	public void initialize(TestModel aModel, Map<String, String> someParameterizedConstants,
-			TestRunnerCallback aCallback, Integer aRemotingPort, String aRemotingBindHost, Long aRandomSeed,
-			String[] someCommandLineArguments) throws IOException {
+			TestRunnerCallback aCallback, String aResultLocale, Integer aRemotingPort, String aRemotingBindHost,
+			Long aRandomSeed, String[] someCommandLineArguments) throws IOException {
 		model = aModel;
 		callback = aCallback;
+
+		testFormatter.setPreferredDescriptionLocale(aResultLocale);
 
 		if (callback instanceof CompoundTestRunnerCallback) {
 			((CompoundTestRunnerCallback) callback).injectDependencies(injector);

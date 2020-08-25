@@ -920,12 +920,12 @@ public class TestModel {
 	 * @throws IOException
 	 *             if the remoting server startup fails
 	 */
-	public TestRunner initializeTestRunner(TestRunnerCallback aCallback, Map<String, String> someParameterizedConstants,
+	public TestRunner initializeTestRunner(TestRunnerCallback aCallback, Map<String, String> someParameterizedConstants, String aResultLocale, 
 			Integer aRemotingPort, String aRemotingBindHost, Long aRandomSeed, String[] someCommandLineArguments)
 			throws IOException {
 		TestRunner tempRunner = injector.getInstance(TestRunner.class);
 
-		tempRunner.initialize(this, someParameterizedConstants, aCallback, aRemotingPort, aRemotingBindHost,
+		tempRunner.initialize(this, someParameterizedConstants, aCallback, aResultLocale, aRemotingPort, aRemotingBindHost,
 				aRandomSeed, someCommandLineArguments);
 
 		return tempRunner;

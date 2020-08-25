@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -26,6 +27,7 @@ import org.eclipse.xtext.util.Pair;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
 import de.gebit.integrity.classloading.IntegrityClassLoader;
 import de.gebit.integrity.dsl.Call;
@@ -40,6 +42,7 @@ import de.gebit.integrity.dsl.TimeSet;
 import de.gebit.integrity.dsl.VariableAssignment;
 import de.gebit.integrity.exceptions.MethodNotFoundException;
 import de.gebit.integrity.fixtures.FixtureMethod;
+import de.gebit.integrity.fixtures.FixtureMethod.I18NDescription;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariable;
@@ -58,6 +61,7 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
  * @author Rene Schneider - initial API and implementation
  * 
  */
+@Singleton
 public class TestFormatter {
 
 	/**
@@ -95,11 +99,20 @@ public class TestFormatter {
 	protected Provider<ConversionContext> conversionContextProvider;
 
 	/**
+	 * The preferred locale of fixture descriptions to be used during formatting.
+	 */
+	protected String preferredDescriptionLocale;
+
+	/**
 	 * Creates a new instance.
 	 * 
 	 */
 	public TestFormatter() {
 		super();
+	}
+
+	public void setPreferredDescriptionLocale(String aPreferredLocale) {
+		preferredDescriptionLocale = aPreferredLocale;
 	}
 
 	/**
@@ -234,18 +247,34 @@ public class TestFormatter {
 		}
 
 		String tempText = null;
-		// Prefer specific texts, if not possible prefer generic text, if not possible use fixture method name
+		// Prefer specific texts, if not possible prefer generic text, if not possible use fixture method name.
+		// Also always prefer a locale-specific match before falling back to the default locale.
 		if (aStatement != null) {
 			if ((aStatement instanceof Test) || (aStatement instanceof TableTest)) {
-				tempText = tempAnnotation.descriptionTest();
+				tempText = findI18NDescription(tempAnnotation.i18nDescriptions()).map((i18nDescription) -> {
+					if (i18nDescription.descriptionTest() == null || i18nDescription.descriptionTest().length() == 0) {
+						return i18nDescription.description();
+					} else {
+						return i18nDescription.descriptionTest();
+					}
+				}).orElseGet(() -> tempAnnotation.descriptionTest());
 			} else if (aStatement instanceof Call) {
-				tempText = tempAnnotation.descriptionCall();
+				tempText = findI18NDescription(tempAnnotation.i18nDescriptions()).map((i18nDescription) -> {
+					if (i18nDescription.descriptionCall() == null || i18nDescription.descriptionCall().length() == 0) {
+						return i18nDescription.description();
+					} else {
+						return i18nDescription.descriptionCall();
+					}
+				}).orElseGet(() -> tempAnnotation.descriptionCall());
 			}
+		} else {
+			tempText = findI18NDescription(tempAnnotation.i18nDescriptions()).map(I18NDescription::description)
+					.orElseGet(() -> tempAnnotation.description());
 		}
-		if (tempText != null && tempText.length() == 0) {
+		if (tempText == null || tempText.length() == 0) {
 			tempText = tempAnnotation.description();
 		}
-		if (tempText != null && tempText.length() == 0) {
+		if (tempText == null || tempText.length() == 0) {
 			tempText = aFixtureMethod.getMethod().getSimpleName();
 		}
 
@@ -254,6 +283,25 @@ public class TestFormatter {
 		tempText = replaceParameters(tempText, someParameters, tempConversionContext);
 
 		return tempText;
+	}
+
+	/**
+	 * Finds a {@link #preferredDescriptionLocale} match from the provided {@link I18NDescription}s.
+	 * 
+	 * @param someCandidates
+	 * @param aLocale
+	 * @return
+	 */
+	protected Optional<I18NDescription> findI18NDescription(I18NDescription[] someCandidates) {
+		if (preferredDescriptionLocale != null) {
+			for (int i = 0; i < someCandidates.length; i++) {
+				if (preferredDescriptionLocale.equalsIgnoreCase(someCandidates[i].locale())) {
+					return Optional.of(someCandidates[i]);
+				}
+			}
+		}
+
+		return Optional.empty();
 	}
 
 	/**

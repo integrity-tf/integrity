@@ -34,6 +34,9 @@ public interface TestRunner {
 	 *            value. This way, test execution can be parameterized from outside.
 	 * @param aCallback
 	 *            the callback to use to report test results
+	 * @param aResultLocale
+	 * 	          the locale to be used for the test result generation (if not provided, use the non-localized default 
+	 *            strings, which usually are in English)
 	 * @param aRemotingPort
 	 *            the port on which the remoting server should listen, or null if remoting should be disabled
 	 * @param aRemotingBindHost
@@ -48,7 +51,7 @@ public interface TestRunner {
 	 *             if the remoting server startup fails, or if the connection from the master process does not complete
 	 *             in time (for forks only)
 	 */
-	void initialize(TestModel aModel, Map<String, String> someParameterizedConstants, TestRunnerCallback aCallback,
+	void initialize(TestModel aModel, Map<String, String> someParameterizedConstants, TestRunnerCallback aCallback, String aResultLocale,
 			Integer aRemotingPort, String aRemotingBindHost, Long aRandomSeed, String[] someCommandLineArguments)
 			throws IOException;
 

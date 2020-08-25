@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 import de.gebit.integrity.exceptions.AbortExecutionException;
 import de.gebit.integrity.fixtures.FinalizationTestFixture;
 import de.gebit.integrity.fixtures.FixtureMethod;
+import de.gebit.integrity.fixtures.FixtureMethod.I18NDescription;
 import de.gebit.integrity.fixtures.FixtureParameter;
 import de.gebit.integrity.fixtures.logging.FixtureLogLevel;
 import de.gebit.integrity.fixtures.logging.FixtureLogger;
@@ -114,7 +115,7 @@ public class AdditionFixture implements FinalizationTestFixture {
 		}
 	}
 
-	@FixtureMethod(description = "echoes $echo$")
+	@FixtureMethod(description = "echoes $echo$", i18nDescriptions = { @I18NDescription(locale = "de_DE", description = "Gibt $echo$ zurück") })
 	public Object returnValue(@FixtureParameter(name = "echo") Object anInput) {
 		// throw new RuntimeException("An exception!");
 		pause();
