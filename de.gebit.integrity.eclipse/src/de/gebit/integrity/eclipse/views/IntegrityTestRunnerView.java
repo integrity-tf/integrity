@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,6 +29,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.debug.core.ILaunch;
@@ -3169,5 +3173,84 @@ public class IntegrityTestRunnerView extends ViewPart {
 			executeTestAction.setEnabled(true);
 			executeDebugTestAction.setEnabled(true);
 		};
+	}
+
+	protected static Optional<IntegrityTestRunnerView> getView() {
+		return Optional.ofNullable((IntegrityTestRunnerView) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getActivePage().findView(IntegrityTestRunnerView.class.getName()));
+	}
+
+	/**
+	 * The handler to invoke {@link IntegrityTestRunnerView#executeTestAction}. Used for keyboard shortcut handling.
+	 *
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 */
+	public static class ExecuteTestHandler extends AbstractHandler {
+
+		@Override
+		public Object execute(ExecutionEvent anEvent) throws ExecutionException {
+			getView().ifPresent((aView) -> aView.executeTestAction.run());
+
+			return null;
+		}
+
+	}
+
+	/**
+	 * The handler to invoke {@link IntegrityTestRunnerView#executeTestDebugAction}. Used for keyboard shortcut
+	 * handling.
+	 *
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 */
+	public static class ExecuteTestDebugHandler extends AbstractHandler {
+
+		@Override
+		public Object execute(ExecutionEvent anEvent) throws ExecutionException {
+			getView().ifPresent((aView) -> aView.executeDebugTestAction.run());
+
+			return null;
+		}
+
+	}
+
+	/**
+	 * The handler to invoke {@link IntegrityTestRunnerView#shutdownAction}. Used for keyboard shortcut handling.
+	 *
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 */
+	public static class ShutdownTestHandler extends AbstractHandler {
+
+		@Override
+		public Object execute(ExecutionEvent anEvent) throws ExecutionException {
+			getView().ifPresent((aView) -> aView.shutdownAction.run());
+
+			return null;
+		}
+
+	}
+
+	/**
+	 * The handler to invoke {@link IntegrityTestRunnerView#connectToTestRunnerAction}. Used for keyboard shortcut
+	 * handling.
+	 *
+	 *
+	 * @author Rene Schneider - initial API and implementation
+	 *
+	 */
+	public static class ConnectTestRunnerHandler extends AbstractHandler {
+
+		@Override
+		public Object execute(ExecutionEvent anEvent) throws ExecutionException {
+			getView().ifPresent((aView) -> aView.connectToTestRunnerAction.run());
+
+			return null;
+		}
+
 	}
 }

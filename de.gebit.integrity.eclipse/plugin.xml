@@ -49,5 +49,56 @@
        name="Integrity Test Runner"
        class="de.gebit.integrity.eclipse.classpath.IntegrityClasspathContainerPage"/>
    </extension>
+   
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            defaultHandler="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView$ExecuteTestHandler"
+            description="Run Integrity test launch configuration"
+            id="de.gebit.integrity.eclipse.ExecuteTest"
+            name="Run Integrity test launch configuration">
+      </command>
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            defaultHandler="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView$ExecuteTestDebugHandler"
+            description="Debug Integrity test launch configuration"
+            id="de.gebit.integrity.eclipse.ExecuteTestDebug"
+            name="Debug Integrity test launch configuration">
+      </command>
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            defaultHandler="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView$ShutdownTestHandler"
+            description="Terminate running Integrity test application"
+            id="de.gebit.integrity.eclipse.ShutdownTest"
+            name="Terminate running Integrity test application">
+      </command>
+      <command
+            categoryId="org.eclipse.debug.ui.category.run"
+            defaultHandler="de.gebit.integrity.eclipse.views.IntegrityTestRunnerView$ConnectTestRunnerHandler"
+            description="Connect to Integrity test runner"
+            id="de.gebit.integrity.eclipse.ConnectTestRunner"
+            name="Connect to Integrity test runner">
+      </command>
+   </extension>
+   
+   <extension point="org.eclipse.ui.bindings">
+		<key sequence="Ctrl+Command+F11"
+			commandId="de.gebit.integrity.eclipse.ExecuteTest"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			contextId="org.eclipse.ui.contexts.window"/>
+		<key sequence="Shift+Ctrl+Command+F11"
+			commandId="de.gebit.integrity.eclipse.ExecuteTestDebug"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			contextId="org.eclipse.ui.contexts.window"/>
+		<key sequence="Ctrl+Command+F2"
+			commandId="de.gebit.integrity.eclipse.ShutdownTest"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			contextId="org.eclipse.ui.contexts.window"/>
+		<key sequence="Ctrl+Command+C"
+			commandId="de.gebit.integrity.eclipse.ConnectTestRunner"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			contextId="org.eclipse.ui.contexts.window"/>
+	</extension>
 
 </plugin>
