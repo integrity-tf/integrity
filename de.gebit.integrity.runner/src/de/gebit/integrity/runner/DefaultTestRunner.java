@@ -2350,11 +2350,13 @@ public class DefaultTestRunner implements TestRunner {
 	 * Executes a time setting operation.
 	 * 
 	 * @param aTimeSet
+	 *            the timeset command
 	 */
 	protected Result executeTimeSet(TimeSet aTimeSet) {
 		Date tempStartTime = null;
 		List<Pair<Long, TemporalUnit>> tempDiffTime = null;
 		BigDecimal tempProgressionFactor = null;
+		List<ForkDefinition> tempForksToRunOn = new ArrayList<>();
 		long tempOverallStart = System.nanoTime();
 
 		try {
@@ -2368,7 +2370,6 @@ public class DefaultTestRunner implements TestRunner {
 				tempProgressionFactor = DateUtil.convertTimeSetProgressionFactor(aTimeSet, valueConverter, null);
 			}
 
-			List<ForkDefinition> tempForksToRunOn = new ArrayList<>();
 			if (aTimeSet.getMasterFork() != null) {
 				tempForksToRunOn.add(null);
 			}
@@ -2463,8 +2464,15 @@ public class DefaultTestRunner implements TestRunner {
 					throw new RuntimeException(exc);
 				}
 			}
-			// We'll never arrive here actually.
-			throw new ThisShouldNeverHappenException();
+			// If we arrive here, test execution should have been aborted. If that's the case, nice, return something
+			// which doesn't matter anyway since we'll abort test execution. If it's not the case, that's strange,
+			// because that should never happen.
+			if (checkForAbortion()) {
+				return new TimeSetExceptionResult(tempForksToRunOn, timeSyncResult.getResultMap(),
+						timeSyncResult.getErrorMessage(), timeSyncResult.getStackTrace(), 0L);
+			} else {
+				throw new ThisShouldNeverHappenException();
+			}
 		}
 	}
 
