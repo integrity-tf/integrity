@@ -316,6 +316,13 @@
   		<scope>runtime</scope>
   		<optional>true</optional>
   	</dependency>
+  	<dependency>
+  		<groupId>p2.osgi.bundle</groupId>
+  		<artifactId>io.github.classgraph</artifactId>
+  		<version>4.8.35.v20190528-1517</version>
+  		<scope>runtime</scope>
+  		<optional>true</optional>
+  	</dependency>
   </dependencies>
   
 </project>
