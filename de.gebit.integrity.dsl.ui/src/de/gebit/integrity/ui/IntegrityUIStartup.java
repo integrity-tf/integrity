@@ -26,7 +26,10 @@ import org.eclipse.ui.internal.browser.WebBrowserView;
 
 import com.google.inject.Inject;
 
+import de.gebit.integrity.ui.internal.DSLActivator;
 import de.gebit.integrity.ui.linking.IntegrityURLResolver;
+import de.gebit.integrity.ui.preferences.IntegrityPreferenceInitializer;
+import de.gebit.integrity.validation.DSLJavaValidator;
 
 /**
  * This startup code is run when the Integrity UI bundle is started.
@@ -43,16 +46,29 @@ public class IntegrityUIStartup implements IStartup {
 	@Inject
 	private IntegrityURLResolver urlResolver;
 
+	/**
+	 * The validator to be configured.
+	 */
+	@Inject
+	private DSLJavaValidator validator;
+
 	@Override
 	public void earlyStartup() {
 		registerBrowserLocationListener();
+
+		validator.enableEditTimeValidations();
+
+		validator.setReferenceLengthTarget(DSLActivator.getInstance().getPreferenceStore()
+				.getInt(IntegrityPreferenceInitializer.SHORTEN_REFERENCES_DEPTH_PREFERENCE));
+		validator.setWarnUnusedImports(DSLActivator.getInstance().getPreferenceStore()
+				.getBoolean(IntegrityPreferenceInitializer.UNUSED_IMPORTS_WARNING));
 	}
 
 	/**
 	 * Registers a location listener on every browser created. This is a rather ugly way to do it, but unfortunately I
 	 * don't know about any better way, maybe not involving accessing private attributes via reflection. This
-	 * implementation was basically taken from a <a
-	 * href="http://stackoverflow.com/questions/10391090/how-to-hook-into-the-internal-eclipse-browser">StackOverflow
+	 * implementation was basically taken from a
+	 * <a href="http://stackoverflow.com/questions/10391090/how-to-hook-into-the-internal-eclipse-browser">StackOverflow
 	 * thread</a>.
 	 */
 	private void registerBrowserLocationListener() {

@@ -13,28 +13,38 @@ import static java.util.Collections.emptySet;
 
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EContentsEList;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.util.Pair;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.validation.Check;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
+import com.google.inject.Singleton;
 
 import de.gebit.integrity.annotation.FixtureParameterAssessment;
 import de.gebit.integrity.annotation.JvmFixtureEvaluation;
@@ -45,7 +55,9 @@ import de.gebit.integrity.dsl.DateAndTimeValue;
 import de.gebit.integrity.dsl.DateValue;
 import de.gebit.integrity.dsl.DslPackage;
 import de.gebit.integrity.dsl.ForkDefinition;
+import de.gebit.integrity.dsl.Import;
 import de.gebit.integrity.dsl.MethodReference;
+import de.gebit.integrity.dsl.Model;
 import de.gebit.integrity.dsl.NullValue;
 import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.PackageDefinition;
@@ -77,6 +89,7 @@ import de.gebit.integrity.utils.IntegrityDSLUtil;
  * 
  */
 // SUPPRESS CHECKSTYLE LONG MethodLength
+@Singleton
 public class DSLJavaValidator extends AbstractDSLJavaValidator {
 
 	/** Evaluates JvmFixtures and provides tooling for handling the abstract types. */
@@ -85,6 +98,135 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 	/** Polymorphical dispatches calls to _checkParameter" methods. */
 	private PolymorphicDispatcher<Void> checkParameterDispatcher
 			= PolymorphicDispatcher.createForSingleTarget("_checkParameter", this);
+
+	@Inject
+	private IQualifiedNameProvider qualifiedNameProvider;
+
+	public static final String SHORTENABLE_REFERENCE = "SHORTENABLE_REFERENCE";
+
+	public static final String UNUSED_IMPORT = "UNUSED_IMPORT";
+
+	/**
+	 * The target import depth for any kind of imported reference from other files (variables, calls, tests, etc.). For
+	 * example if there is a fixture named someTest in package de.gebit.fixtures, a target import depth of 1 means the
+	 * ideal use of this fixture is to call it with "fixtures.someTest" (notice the 1 package depth) and import
+	 * "de.gebit.*". If deeper references are found, an info is generated that they may be shortened, and quick fixes
+	 * are provided that automatically do the job.
+	 * <p>
+	 * A value of >= 100 effectively disables this feature.
+	 */
+	private int referenceImportDepthTarget = 100;
+
+	/**
+	 * Whether purely edit-time validations are enabled.
+	 */
+	private boolean editTimeValidationsEnabled = false;
+
+	/**
+	 * Whether to warn about unused imports.
+	 */
+	private boolean warnUnusedImports = false;
+
+	public void setReferenceLengthTarget(int aTarget) {
+		referenceImportDepthTarget = aTarget;
+	}
+
+	public void enableEditTimeValidations() {
+		editTimeValidationsEnabled = true;
+	}
+
+	public void setWarnUnusedImports(boolean aValue) {
+		warnUnusedImports = aValue;
+	}
+
+	@Check
+	public void checkForShortenableReferences(PackageDefinition aDefinition) {
+		if (!editTimeValidationsEnabled || referenceImportDepthTarget >= 100) {
+			return;
+		}
+
+		for (EObject tempElement : (Iterable<EObject>) (() -> aDefinition.eAllContents())) {
+			for (EContentsEList.FeatureIterator featureIterator
+					= (EContentsEList.FeatureIterator) tempElement.eCrossReferences().iterator(); featureIterator
+							.hasNext();) {
+				EObject tempRefObject = (EObject) featureIterator.next();
+				EReference tempReference = (EReference) featureIterator.feature();
+				String tempOriginalText
+						= NodeModelUtils.findNodesForFeature(tempElement, tempReference).get(0).getText().trim();
+
+				if (CharMatcher.is('.').countIn(tempOriginalText) > referenceImportDepthTarget) {
+					// We need to generate an import statement and want to place that at the end of the import block.
+					// It is easier to find the import blocks' offset now instead of later in the quick fix context,
+					// so we do that and encode its offset into the data block, which unfortunately only accepts strings
+					// so we must stringify it.
+					String[] tempSegments = qualifiedNameProvider.getFullyQualifiedName(tempRefObject).getSegments()
+							.toArray(new String[0]);
+					String[] tempData = new String[tempSegments.length + 1];
+					System.arraycopy(tempSegments, 0, tempData, 1, tempSegments.length);
+
+					int tempNumImports = ((Model) aDefinition.eContainer()).getImports().size();
+					int tempLastImportOffset = 0;
+					if (tempNumImports > 0) {
+						ICompositeNode tempImportNode = NodeModelUtils
+								.getNode(((Model) aDefinition.eContainer()).getImports().get(tempNumImports - 1));
+						if (tempImportNode != null) {
+							tempLastImportOffset = tempImportNode.getOffset() + tempImportNode.getLength();
+						}
+					}
+
+					tempData[0] = Integer.toString(tempLastImportOffset);
+
+					info("This qualified reference can be shortened", tempElement, tempReference, SHORTENABLE_REFERENCE,
+							tempData);
+				}
+			}
+		}
+	}
+
+	@Check
+	public void checkForUnusedImports(Model aModel) {
+		if (!editTimeValidationsEnabled || !warnUnusedImports) {
+			return;
+		}
+
+		HashSet<String> tempImports = aModel.getImports().stream().map(Import::getImportedNamespace)
+				.collect(Collectors.toCollection(() -> new HashSet<>()));
+		Set<String> tempAllImports = Collections.unmodifiableSet(new HashSet<String>(tempImports));
+
+		for (EObject tempElement : (Iterable<EObject>) (() -> aModel.eAllContents())) {
+			for (EContentsEList.FeatureIterator featureIterator
+					= (EContentsEList.FeatureIterator) tempElement.eCrossReferences().iterator(); featureIterator
+							.hasNext();) {
+				EObject tempRefObject = (EObject) featureIterator.next();
+				EReference tempReference = (EReference) featureIterator.feature();
+				String tempOriginalText
+						= NodeModelUtils.findNodesForFeature(tempElement, tempReference).get(0).getText().trim();
+				String tempQualifiedName = qualifiedNameProvider.getFullyQualifiedName(tempRefObject).toString();
+
+				if (!tempOriginalText.equals(tempQualifiedName) && tempQualifiedName.endsWith(tempOriginalText)) {
+					if (!tempOriginalText.contains(".")) {
+						// Could be a direct import
+						if (tempAllImports.contains(tempQualifiedName)) {
+							tempImports.remove(tempQualifiedName);
+							continue;
+						}
+					}
+
+					String tempImportedPart
+							= tempQualifiedName.substring(0, tempQualifiedName.length() - tempOriginalText.length());
+					tempImports.remove(tempImportedPart + "*");
+				}
+			}
+		}
+
+		for (Import tempImportStatement : aModel.getImports()) {
+			if (tempImports.contains(tempImportStatement.getImportedNamespace())) {
+				ICompositeNode tempImportNode = NodeModelUtils.findActualNodeFor(tempImportStatement);
+				warning("This import appears to be unused", tempImportStatement, null, UNUSED_IMPORT,
+						Integer.toString(tempImportNode.getOffset()), Integer.toString(tempImportNode.getLength()));
+			}
+		}
+	}
 
 	/**
 	 * Checks whether a given {@link DateValue} is actually correct (finds errors like days which don't exist in the

@@ -25,11 +25,29 @@ public class IntegrityPreferenceInitializer extends AbstractPreferenceInitialize
 	 */
 	public static final String FORMAT_ON_SAVE_PREFERENCE = "formatOnSave";
 
+	/**
+	 * The organize imports on save preference.
+	 */
+	public static final String ORGANIZE_IMPORTS_ON_SAVE_PREFERENCE = "organizeImportsOnSave";
+
+	/**
+	 * Warn of unused imports.
+	 */
+	public static final String UNUSED_IMPORTS_WARNING = "unusedImportsWarning";
+
+	/**
+	 * The shorten references preference.
+	 */
+	public static final String SHORTEN_REFERENCES_DEPTH_PREFERENCE = "shortenReferenceDepth";
+
 	@Override
 	public void initializeDefaultPreferences() {
 		IPreferenceStore tempPreferenceStore = DSLActivator.getInstance().getPreferenceStore();
 
 		tempPreferenceStore.setDefault(FORMAT_ON_SAVE_PREFERENCE, true);
+		tempPreferenceStore.setDefault(UNUSED_IMPORTS_WARNING, true);
+		tempPreferenceStore.setDefault(ORGANIZE_IMPORTS_ON_SAVE_PREFERENCE, true);
+		tempPreferenceStore.setDefault(SHORTEN_REFERENCES_DEPTH_PREFERENCE, 100);
 	}
 
 }
