@@ -45,40 +45,37 @@ public class DSLQuickfixProvider extends DefaultQuickfixProvider {
 		System.arraycopy(anIssue.getData(), 1, tempFullyQualifiedName, 0, tempFullyQualifiedName.length);
 		int tempLastImportOffset = Integer.parseInt(anIssue.getData()[0]);
 
-		for (int i = tempFullyQualifiedName.length - 1 - tempTargetDepth; i > 0; i--) {
-			StringBuilder tempImport = new StringBuilder();
-			StringBuilder tempReference = new StringBuilder();
-			for (int k = 0; k < i; k++) {
-				tempImport.append(tempFullyQualifiedName[k] + ".");
+		StringBuilder tempImport = new StringBuilder();
+		StringBuilder tempReference = new StringBuilder();
+		for (int k = 0; k < tempFullyQualifiedName.length - tempTargetDepth - 1; k++) {
+			tempImport.append(tempFullyQualifiedName[k] + ".");
+		}
+		tempImport.append("*");
+		for (int k = tempFullyQualifiedName.length - tempTargetDepth - 1; k < tempFullyQualifiedName.length; k++) {
+			if (tempReference.length() > 0) {
+				tempReference.append(".");
 			}
-			tempImport.append("*");
-			for (int k = i; k < tempFullyQualifiedName.length; k++) {
-				if (tempReference.length() > 0) {
-					tempReference.append(".");
-				}
-				tempReference.append(tempFullyQualifiedName[k]);
-			}
+			tempReference.append(tempFullyQualifiedName[k]);
+		}
 
-			if (tempReference.length() != anIssue.getLength()) {
-				anAcceptor.accept(anIssue, "Shorten reference to '" + tempReference + "'",
-						"Shorten reference to '" + tempReference + "' and import '" + tempImport + "'", null,
-						(IModificationContext context) -> {
-							IXtextDocument tempDocument = context.getXtextDocument();
+		if (tempReference.length() != anIssue.getLength()) {
+			anAcceptor.accept(anIssue, "Shorten reference to '" + tempReference + "'",
+					"Shorten reference to '" + tempReference + "' and import '" + tempImport + "'", null,
+					(IModificationContext context) -> {
+						IXtextDocument tempDocument = context.getXtextDocument();
 
-							tempDocument.replace(anIssue.getOffset(), anIssue.getLength(), tempReference.toString());
-							String tempImportStatement = "import " + tempImport.toString();
+						tempDocument.replace(anIssue.getOffset(), anIssue.getLength(), tempReference.toString());
+						String tempImportStatement = "import " + tempImport.toString();
 
-							if (new FindReplaceDocumentAdapter(tempDocument).find(0, tempImportStatement, true, true,
-									false, false) == null) {
-								int tempImportOffset = (tempLastImportOffset > 0)
-										? tempLastImportOffset + tempDocument.getLineDelimiter(0).length()
-										: 0;
-								tempDocument.replace(tempImportOffset, 0,
-										tempImportStatement + tempDocument.getLineDelimiter(0));
-							}
-						});
-			}
-
+						if (new FindReplaceDocumentAdapter(tempDocument).find(0, tempImportStatement, true, true, false,
+								false) == null) {
+							int tempImportOffset = (tempLastImportOffset > 0)
+									? tempLastImportOffset + tempDocument.getLineDelimiter(0).length()
+									: 0;
+							tempDocument.replace(tempImportOffset, 0,
+									tempImportStatement + tempDocument.getLineDelimiter(0));
+						}
+					});
 		}
 
 	}

@@ -117,7 +117,7 @@ public class IntegrityEditor extends XtextEditor {
 				}
 			}
 
-			if (tempImports.size() == 0 || tempImportBlockLastLineNumber - tempImportBlockFirstLineNumber <= 0) {
+			if (tempImports.size() == 0 || tempImportBlockLastLineNumber - tempImportBlockFirstLineNumber < 0) {
 				// no imports to sort
 				return;
 			}

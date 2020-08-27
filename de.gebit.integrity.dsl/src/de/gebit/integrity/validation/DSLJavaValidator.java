@@ -193,7 +193,7 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 				.collect(Collectors.toCollection(() -> new HashSet<>()));
 		Set<String> tempAllImports = Collections.unmodifiableSet(new HashSet<String>(tempImports));
 
-		for (EObject tempElement : (Iterable<EObject>) (() -> aModel.eAllContents())) {
+		outer: for (EObject tempElement : (Iterable<EObject>) (() -> aModel.eAllContents())) {
 			for (EContentsEList.FeatureIterator featureIterator
 					= (EContentsEList.FeatureIterator) tempElement.eCrossReferences().iterator(); featureIterator
 							.hasNext();) {
@@ -215,6 +215,11 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 					String tempImportedPart
 							= tempQualifiedName.substring(0, tempQualifiedName.length() - tempOriginalText.length());
 					tempImports.remove(tempImportedPart + "*");
+				}
+
+				// If there are no more contested imports, we can leave
+				if (tempImports.isEmpty()) {
+					break outer;
 				}
 			}
 		}
