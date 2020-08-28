@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.EContentsEList;
 import org.eclipse.xtext.common.types.JvmAnnotationReference;
 import org.eclipse.xtext.common.types.JvmFormalParameter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.util.Pair;
@@ -159,25 +160,27 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 					// It is easier to find the import blocks' offset now instead of later in the quick fix context,
 					// so we do that and encode its offset into the data block, which unfortunately only accepts strings
 					// so we must stringify it.
-					String[] tempSegments = qualifiedNameProvider.getFullyQualifiedName(tempRefObject).getSegments()
-							.toArray(new String[0]);
-					String[] tempData = new String[tempSegments.length + 1];
-					System.arraycopy(tempSegments, 0, tempData, 1, tempSegments.length);
+					QualifiedName tempQualifiedName = qualifiedNameProvider.getFullyQualifiedName(tempRefObject);
+					if (tempQualifiedName != null) {
+						String[] tempSegments = tempQualifiedName.getSegments().toArray(new String[0]);
+						String[] tempData = new String[tempSegments.length + 1];
+						System.arraycopy(tempSegments, 0, tempData, 1, tempSegments.length);
 
-					int tempNumImports = ((Model) aDefinition.eContainer()).getImports().size();
-					int tempLastImportOffset = 0;
-					if (tempNumImports > 0) {
-						ICompositeNode tempImportNode = NodeModelUtils
-								.getNode(((Model) aDefinition.eContainer()).getImports().get(tempNumImports - 1));
-						if (tempImportNode != null) {
-							tempLastImportOffset = tempImportNode.getOffset() + tempImportNode.getLength();
+						int tempNumImports = ((Model) aDefinition.eContainer()).getImports().size();
+						int tempLastImportOffset = 0;
+						if (tempNumImports > 0) {
+							ICompositeNode tempImportNode = NodeModelUtils
+									.getNode(((Model) aDefinition.eContainer()).getImports().get(tempNumImports - 1));
+							if (tempImportNode != null) {
+								tempLastImportOffset = tempImportNode.getOffset() + tempImportNode.getLength();
+							}
 						}
+
+						tempData[0] = Integer.toString(tempLastImportOffset);
+
+						info("This qualified reference can be shortened", tempElement, tempReference,
+								SHORTENABLE_REFERENCE, tempData);
 					}
-
-					tempData[0] = Integer.toString(tempLastImportOffset);
-
-					info("This qualified reference can be shortened", tempElement, tempReference, SHORTENABLE_REFERENCE,
-							tempData);
 				}
 			}
 		}
@@ -201,25 +204,28 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 				EReference tempReference = (EReference) featureIterator.feature();
 				String tempOriginalText
 						= NodeModelUtils.findNodesForFeature(tempElement, tempReference).get(0).getText().trim();
-				String tempQualifiedName = qualifiedNameProvider.getFullyQualifiedName(tempRefObject).toString();
+				QualifiedName tempQualifiedNameObject = qualifiedNameProvider.getFullyQualifiedName(tempRefObject);
+				if (tempQualifiedNameObject != null) {
+					String tempQualifiedName = tempQualifiedNameObject.toString();
 
-				if (!tempOriginalText.equals(tempQualifiedName) && tempQualifiedName.endsWith(tempOriginalText)) {
-					if (!tempOriginalText.contains(".")) {
-						// Could be a direct import
-						if (tempAllImports.contains(tempQualifiedName)) {
-							tempImports.remove(tempQualifiedName);
-							continue;
+					if (!tempOriginalText.equals(tempQualifiedName) && tempQualifiedName.endsWith(tempOriginalText)) {
+						if (!tempOriginalText.contains(".")) {
+							// Could be a direct import
+							if (tempAllImports.contains(tempQualifiedName)) {
+								tempImports.remove(tempQualifiedName);
+								continue;
+							}
 						}
+
+						String tempImportedPart = tempQualifiedName.substring(0,
+								tempQualifiedName.length() - tempOriginalText.length());
+						tempImports.remove(tempImportedPart + "*");
 					}
 
-					String tempImportedPart
-							= tempQualifiedName.substring(0, tempQualifiedName.length() - tempOriginalText.length());
-					tempImports.remove(tempImportedPart + "*");
-				}
-
-				// If there are no more contested imports, we can leave
-				if (tempImports.isEmpty()) {
-					break outer;
+					// If there are no more contested imports, we can leave
+					if (tempImports.isEmpty()) {
+						break outer;
+					}
 				}
 			}
 		}
