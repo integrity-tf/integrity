@@ -8,6 +8,7 @@
 package de.gebit.integrity.ui.preferences;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage;
@@ -65,6 +66,11 @@ public class IntegrityRootPreferencePage extends LanguageRootPreferencePage {
 						"Target package depth for references", getFieldEditorParent());
 		tempShortenReferencesEditor.setPreferenceStore(doGetPreferenceStore());
 		addField(tempShortenReferencesEditor);
+	}
+
+	@Override
+	protected IPreferenceStore doGetPreferenceStore() {
+		return DSLActivator.getInstance().getPreferenceStore();
 	}
 
 	@Override
