@@ -43,6 +43,13 @@ import de.gebit.integrity.validation.DSLJavaValidator;
  */
 public class IntegrityEditor extends XtextEditor {
 
+	protected static final String INTEGRITY_KEYBINDING_SCOPE = "de.gebit.integrity.ui.IntegrityEditor";
+
+	public IntegrityEditor() {
+		super();
+		setKeyBindingScope(INTEGRITY_KEYBINDING_SCOPE);
+	}
+
 	@Override
 	protected void performSave(boolean anOverwrite, IProgressMonitor aProgressMonitor) {
 		if (DSLActivator.getInstance().getPreferenceStore()

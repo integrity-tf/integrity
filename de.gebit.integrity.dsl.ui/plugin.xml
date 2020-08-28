@@ -96,6 +96,12 @@
             id="de.gebit.integrity.DSL.validate"
             name="Validate">
       </command>
+      <command
+            categoryId="org.eclipse.xtext.ui.category.XtextEditor"
+            description="Organize Integrity script imports"
+            id="de.gebit.integrity.dsl.ui.OrganizeImportsAction"
+            name="Organize Integrity script imports">
+      </command>
     </extension>
     <extension point="org.eclipse.ui.menus">
         <menuContribution
@@ -327,5 +333,22 @@
         class="de.gebit.integrity.ui.IntegrityBuilderModule">
     </module>
   </extension>
+  
+  <extension point="org.eclipse.ui.bindings">
+		<key sequence="Shift+Command+O"
+			commandId="de.gebit.integrity.dsl.ui.OrganizeImportsAction"
+			schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+			contextId="de.gebit.integrity.ui.IntegrityEditor"/>
+	</extension>
+	
+	<extension
+         point="org.eclipse.ui.contexts">
+      <context
+            description="Integrity Editor Scope"            
+            id="de.gebit.integrity.ui.IntegrityEditor"
+            name="Integrity Editor"
+            parentId="org.eclipse.xtext.ui.XtextEditorScope">
+      </context>
+   </extension>
 
 </plugin>
