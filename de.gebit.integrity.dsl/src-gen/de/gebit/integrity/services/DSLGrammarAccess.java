@@ -2973,54 +2973,58 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.StaticValue");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cStringValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cIntegerValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cDecimalValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cBooleanValueParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cDateValueParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cTimeValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cDateAndTimeValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cNullValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cInexistentValueParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
-		private final RuleCall cJavaConstantValueParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cRegexValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cIntegerValueParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cDecimalValueParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cBooleanValueParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cDateValueParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cTimeValueParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cDateAndTimeValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cNullValueParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cInexistentValueParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cJavaConstantValueParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		
 		//StaticValue:
-		//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
-		//	InexistentValue | JavaConstantValue;
+		//	StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue |
+		//	NullValue | InexistentValue | JavaConstantValue;
 		@Override public ParserRule getRule() { return rule; }
 
-		//StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
-		//InexistentValue | JavaConstantValue
+		//StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue |
+		//NullValue | InexistentValue | JavaConstantValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StringValue
 		public RuleCall getStringValueParserRuleCall_0() { return cStringValueParserRuleCall_0; }
 
+		//RegexValue
+		public RuleCall getRegexValueParserRuleCall_1() { return cRegexValueParserRuleCall_1; }
+
 		//IntegerValue
-		public RuleCall getIntegerValueParserRuleCall_1() { return cIntegerValueParserRuleCall_1; }
+		public RuleCall getIntegerValueParserRuleCall_2() { return cIntegerValueParserRuleCall_2; }
 
 		//DecimalValue
-		public RuleCall getDecimalValueParserRuleCall_2() { return cDecimalValueParserRuleCall_2; }
+		public RuleCall getDecimalValueParserRuleCall_3() { return cDecimalValueParserRuleCall_3; }
 
 		//BooleanValue
-		public RuleCall getBooleanValueParserRuleCall_3() { return cBooleanValueParserRuleCall_3; }
+		public RuleCall getBooleanValueParserRuleCall_4() { return cBooleanValueParserRuleCall_4; }
 
 		//DateValue
-		public RuleCall getDateValueParserRuleCall_4() { return cDateValueParserRuleCall_4; }
+		public RuleCall getDateValueParserRuleCall_5() { return cDateValueParserRuleCall_5; }
 
 		//TimeValue
-		public RuleCall getTimeValueParserRuleCall_5() { return cTimeValueParserRuleCall_5; }
+		public RuleCall getTimeValueParserRuleCall_6() { return cTimeValueParserRuleCall_6; }
 
 		//DateAndTimeValue
-		public RuleCall getDateAndTimeValueParserRuleCall_6() { return cDateAndTimeValueParserRuleCall_6; }
+		public RuleCall getDateAndTimeValueParserRuleCall_7() { return cDateAndTimeValueParserRuleCall_7; }
 
 		//NullValue
-		public RuleCall getNullValueParserRuleCall_7() { return cNullValueParserRuleCall_7; }
+		public RuleCall getNullValueParserRuleCall_8() { return cNullValueParserRuleCall_8; }
 
 		//InexistentValue
-		public RuleCall getInexistentValueParserRuleCall_8() { return cInexistentValueParserRuleCall_8; }
+		public RuleCall getInexistentValueParserRuleCall_9() { return cInexistentValueParserRuleCall_9; }
 
 		//JavaConstantValue
-		public RuleCall getJavaConstantValueParserRuleCall_9() { return cJavaConstantValueParserRuleCall_9; }
+		public RuleCall getJavaConstantValueParserRuleCall_10() { return cJavaConstantValueParserRuleCall_10; }
 	}
 
 	public class IntegerValueElements extends AbstractParserRuleElementFinder {
@@ -3069,6 +3073,22 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getStringValueSTRINGTerminalRuleCall_0() { return cStringValueSTRINGTerminalRuleCall_0; }
+	}
+
+	public class RegexValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.RegexValue");
+		private final Assignment cRegexValueAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cRegexValueREGEXTerminalRuleCall_0 = (RuleCall)cRegexValueAssignment.eContents().get(0);
+		
+		//RegexValue:
+		//	regexValue=REGEX;
+		@Override public ParserRule getRule() { return rule; }
+
+		//regexValue=REGEX
+		public Assignment getRegexValueAssignment() { return cRegexValueAssignment; }
+
+		//REGEX
+		public RuleCall getRegexValueREGEXTerminalRuleCall_0() { return cRegexValueREGEXTerminalRuleCall_0; }
 	}
 
 	public class BooleanValueElements extends AbstractParserRuleElementFinder {
@@ -4019,6 +4039,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final IntegerValueElements pIntegerValue;
 	private final DecimalValueElements pDecimalValue;
 	private final StringValueElements pStringValue;
+	private final RegexValueElements pRegexValue;
 	private final BooleanValueElements pBooleanValue;
 	private final DateValueElements pDateValue;
 	private final IsoDateValueElements pIsoDateValue;
@@ -4060,6 +4081,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final TerminalRule tINTEGER;
 	private final TerminalRule tDECIMAL;
 	private final TerminalRule tSTRING;
+	private final TerminalRule tREGEX;
 	private final TerminalRule tML_COMMENT;
 	private final TerminalRule tSL_COMMENT;
 	private final TerminalRule tSL_VISIBLE_COMMENT;
@@ -4149,6 +4171,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pIntegerValue = new IntegerValueElements();
 		this.pDecimalValue = new DecimalValueElements();
 		this.pStringValue = new StringValueElements();
+		this.pRegexValue = new RegexValueElements();
 		this.pBooleanValue = new BooleanValueElements();
 		this.pDateValue = new DateValueElements();
 		this.pIsoDateValue = new IsoDateValueElements();
@@ -4190,6 +4213,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.tINTEGER = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.INTEGER");
 		this.tDECIMAL = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.DECIMAL");
 		this.tSTRING = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.STRING");
+		this.tREGEX = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.REGEX");
 		this.tML_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.ML_COMMENT");
 		this.tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.SL_COMMENT");
 		this.tSL_VISIBLE_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.SL_VISIBLE_COMMENT");
@@ -4857,8 +4881,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//StaticValue:
-	//	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue |
-	//	InexistentValue | JavaConstantValue;
+	//	StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue |
+	//	NullValue | InexistentValue | JavaConstantValue;
 	public StaticValueElements getStaticValueAccess() {
 		return pStaticValue;
 	}
@@ -4895,6 +4919,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getStringValueRule() {
 		return getStringValueAccess().getRule();
+	}
+
+	//RegexValue:
+	//	regexValue=REGEX;
+	public RegexValueElements getRegexValueAccess() {
+		return pRegexValue;
+	}
+	
+	public ParserRule getRegexValueRule() {
+		return getRegexValueAccess().getRule();
 	}
 
 	//BooleanValue:
@@ -5278,6 +5312,12 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	//	"'" ('\\' ('b' | 't' | 'n' | 'f' | 'r' | 'u' | '"' | "'" | '\\') | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return tSTRING;
+	} 
+
+	//terminal REGEX:
+	//	'~' ('~~' | !('~~' | '~'))* '~';
+	public TerminalRule getREGEXRule() {
+		return tREGEX;
 	} 
 
 	//terminal ML_COMMENT:

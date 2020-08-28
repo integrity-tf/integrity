@@ -1,0 +1,72 @@
+packagedef integrity.basic.regex with
+
+	suitedef simpleRegexTest with
+		
+		test integrity.fixtures.basic.noop.echoStringTest string: "Echo this!" = ~this~
+	
+	suiteend
+	
+	
+	suitedef regexViaConstantTest with
+	
+		constant regexConst ~this~
+	
+		test integrity.fixtures.basic.noop.echoStringTest string: "Echo this!" = regexConst
+	
+	suiteend
+	
+	
+	suitedef anchoredRegexTest with
+		
+		// This should fail
+		test integrity.fixtures.basic.noop.echoStringTest string: "Echo this" = ~^this~
+		
+		// This should succeed
+		test integrity.fixtures.basic.noop.echoStringTest string: "Echo this" = ~this$~
+	
+	suiteend
+	
+	
+	suitedef regexAsParameterTest with
+		
+		test integrity.fixtures.basic.noop.echoRegexTest regex: ~^this$~ = "^this$"
+	
+	suiteend	
+
+
+	suitedef stringAsPatternParameterTest with
+		
+		test integrity.fixtures.basic.noop.echoRegexTest regex: "^this$" = "^this$"
+	
+	suiteend
+	
+	
+	suitedef complexRegexTest with
+	
+		constant hexColorPattern ~^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$~
+		
+		// These should all be valid hex colors, except for the last one
+		tabletest integrity.fixtures.basic.noop.echoStringTest
+		| string    | =               |
+		| "#afafaf" | hexColorPattern |
+		| "#123456" | hexColorPattern |
+		| "#000"    | hexColorPattern |
+		| "#abcdex" | hexColorPattern |
+	
+	suiteend
+	
+	
+	suitedef escapedRegexTest with
+		
+		// This should succeed
+		test integrity.fixtures.basic.noop.echoStringTest string: "124532" = ~^\d+$~
+		
+		// This should succeed (tildes in regexes must be escaped)
+		test integrity.fixtures.basic.noop.echoStringTest string: "~124532" = ~^~~\d+$~
+		
+		// This should fail
+		test integrity.fixtures.basic.noop.echoStringTest string: "12453a" = ~^\d+$~
+	
+	suiteend
+	
+packageend

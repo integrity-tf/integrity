@@ -5118,91 +5118,101 @@ ruleStaticValue returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getIntegerValueParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getRegexValueParserRuleCall_1()); 
     }
-    this_IntegerValue_1=ruleIntegerValue
+    this_RegexValue_1=ruleRegexValue
     { 
-        $current = $this_IntegerValue_1.current; 
+        $current = $this_RegexValue_1.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getDecimalValueParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getIntegerValueParserRuleCall_2()); 
     }
-    this_DecimalValue_2=ruleDecimalValue
+    this_IntegerValue_2=ruleIntegerValue
     { 
-        $current = $this_DecimalValue_2.current; 
+        $current = $this_IntegerValue_2.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getBooleanValueParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getDecimalValueParserRuleCall_3()); 
     }
-    this_BooleanValue_3=ruleBooleanValue
+    this_DecimalValue_3=ruleDecimalValue
     { 
-        $current = $this_BooleanValue_3.current; 
+        $current = $this_DecimalValue_3.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getDateValueParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getBooleanValueParserRuleCall_4()); 
     }
-    this_DateValue_4=ruleDateValue
+    this_BooleanValue_4=ruleBooleanValue
     { 
-        $current = $this_DateValue_4.current; 
+        $current = $this_BooleanValue_4.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getTimeValueParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getDateValueParserRuleCall_5()); 
     }
-    this_TimeValue_5=ruleTimeValue
+    this_DateValue_5=ruleDateValue
     { 
-        $current = $this_TimeValue_5.current; 
+        $current = $this_DateValue_5.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getDateAndTimeValueParserRuleCall_6()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getTimeValueParserRuleCall_6()); 
     }
-    this_DateAndTimeValue_6=ruleDateAndTimeValue
+    this_TimeValue_6=ruleTimeValue
     { 
-        $current = $this_DateAndTimeValue_6.current; 
+        $current = $this_TimeValue_6.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getNullValueParserRuleCall_7()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getDateAndTimeValueParserRuleCall_7()); 
     }
-    this_NullValue_7=ruleNullValue
+    this_DateAndTimeValue_7=ruleDateAndTimeValue
     { 
-        $current = $this_NullValue_7.current; 
+        $current = $this_DateAndTimeValue_7.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getInexistentValueParserRuleCall_8()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getNullValueParserRuleCall_8()); 
     }
-    this_InexistentValue_8=ruleInexistentValue
+    this_NullValue_8=ruleNullValue
     { 
-        $current = $this_InexistentValue_8.current; 
+        $current = $this_NullValue_8.current; 
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_9()); 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getInexistentValueParserRuleCall_9()); 
     }
-    this_JavaConstantValue_9=ruleJavaConstantValue
+    this_InexistentValue_9=ruleInexistentValue
     { 
-        $current = $this_JavaConstantValue_9.current; 
+        $current = $this_InexistentValue_9.current; 
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_10()); 
+    }
+    this_JavaConstantValue_10=ruleJavaConstantValue
+    { 
+        $current = $this_JavaConstantValue_10.current; 
         afterParserOrEnumRuleCall();
     }
 )
@@ -5319,6 +5329,45 @@ ruleStringValue returns [EObject current=null]
        			"stringValue",
         		lv_stringValue_0_0, 
         		"de.gebit.integrity.DSL.STRING");
+	    }
+
+)
+)
+;
+
+
+
+
+
+// Entry rule entryRuleRegexValue
+entryRuleRegexValue returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getRegexValueRule()); }
+	 iv_ruleRegexValue=ruleRegexValue 
+	 { $current=$iv_ruleRegexValue.current; } 
+	 EOF 
+;
+
+// Rule RegexValue
+ruleRegexValue returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+		lv_regexValue_0_0=RULE_REGEX
+		{
+			newLeafNode(lv_regexValue_0_0, grammarAccess.getRegexValueAccess().getRegexValueREGEXTerminalRuleCall_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRegexValueRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"regexValue",
+        		lv_regexValue_0_0, 
+        		"de.gebit.integrity.DSL.REGEX");
 	    }
 
 )
@@ -6987,6 +7036,8 @@ RULE_INTEGER : '-'? ('0'..'9')+;
 RULE_DECIMAL : '-'? ('0'..'9')+ '.' ('0'..'9')+;
 
 RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))* '"'|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
+
+RULE_REGEX : '~' ('~~'|~(('~~'|'~')))* '~';
 
 RULE_ML_COMMENT : '/*' ~('*') ( options {greedy=false;} : . )*'*/';
 

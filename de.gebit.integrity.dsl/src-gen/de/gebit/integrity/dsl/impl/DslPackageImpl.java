@@ -52,6 +52,7 @@ import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterName;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
+import de.gebit.integrity.dsl.RegexValue;
 import de.gebit.integrity.dsl.ResultName;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Simple12HrsTimeValue;
@@ -556,6 +557,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass stringValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass regexValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -2804,6 +2812,28 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   @Override
+  public EClass getRegexValue()
+  {
+    return regexValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EAttribute getRegexValue_RegexValue()
+  {
+    return (EAttribute)regexValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getBooleanValue()
   {
     return booleanValueEClass;
@@ -3675,6 +3705,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     stringValueEClass = createEClass(STRING_VALUE);
     createEAttribute(stringValueEClass, STRING_VALUE__STRING_VALUE);
 
+    regexValueEClass = createEClass(REGEX_VALUE);
+    createEAttribute(regexValueEClass, REGEX_VALUE__REGEX_VALUE);
+
     booleanValueEClass = createEClass(BOOLEAN_VALUE);
     createEAttribute(booleanValueEClass, BOOLEAN_VALUE__BOOLEAN_VALUE);
 
@@ -3837,6 +3870,7 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     integerValueEClass.getESuperTypes().add(this.getStaticValue());
     decimalValueEClass.getESuperTypes().add(this.getStaticValue());
     stringValueEClass.getESuperTypes().add(this.getStaticValue());
+    regexValueEClass.getESuperTypes().add(this.getStaticValue());
     booleanValueEClass.getESuperTypes().add(this.getStaticValue());
     dateValueEClass.getESuperTypes().add(this.getStaticValue());
     isoDateValueEClass.getESuperTypes().add(this.getDateValue());
@@ -4103,6 +4137,9 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(stringValueEClass, StringValue.class, "StringValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getStringValue_StringValue(), ecorePackage.getEString(), "stringValue", null, 0, 1, StringValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(regexValueEClass, RegexValue.class, "RegexValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getRegexValue_RegexValue(), ecorePackage.getEString(), "regexValue", null, 0, 1, RegexValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(booleanValueEClass, BooleanValue.class, "BooleanValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBooleanValue_BooleanValue(), ecorePackage.getEString(), "booleanValue", null, 0, 1, BooleanValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -127,6 +127,7 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
       case DslPackage.INTEGER_VALUE: return createIntegerValue();
       case DslPackage.DECIMAL_VALUE: return createDecimalValue();
       case DslPackage.STRING_VALUE: return createStringValue();
+      case DslPackage.REGEX_VALUE: return createRegexValue();
       case DslPackage.BOOLEAN_VALUE: return createBooleanValue();
       case DslPackage.DATE_VALUE: return createDateValue();
       case DslPackage.ISO_DATE_VALUE: return createIsoDateValue();
@@ -917,6 +918,18 @@ public class DslFactoryImpl extends EFactoryImpl implements DslFactory
   {
     StringValueImpl stringValue = new StringValueImpl();
     return stringValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public RegexValue createRegexValue()
+  {
+    RegexValueImpl regexValue = new RegexValueImpl();
+    return regexValue;
   }
 
   /**

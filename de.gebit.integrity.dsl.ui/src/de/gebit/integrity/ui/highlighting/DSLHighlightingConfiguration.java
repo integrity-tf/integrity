@@ -87,9 +87,19 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String RESULT_STRING_ID = "resultstring";
 
 	/**
+	 * The ID for strings used as a test result.
+	 */
+	public static final String RESULT_REGEX_ID = "resultregex";
+
+	/**
 	 * The ID for strings used as a parameter.
 	 */
 	public static final String PARAMETER_STRING_ID = "parameterstring";
+
+	/**
+	 * The ID for strings used as a parameter.
+	 */
+	public static final String PARAMETER_REGEX_ID = "parameterregex";
 
 	/**
 	 * The ID for variables used as a test result.
@@ -177,10 +187,16 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public static final String NESTED_OBJECT_KEY_ID = "nestedobjectkey";
 
 	/**
+	 * The ID for regexes.
+	 */
+	public static final String REGEX_ID = "regex";
+
+	/**
 	 * Configures highlighting styles for the IDs.
 	 */
 	public void configure(IHighlightingConfigurationAcceptor anAcceptor) {
 		super.configure(anAcceptor);
+		anAcceptor.acceptDefaultHighlighting(REGEX_ID, "Regex", regexTextStyle());
 		anAcceptor.acceptDefaultHighlighting(VISIBLE_COMMENT_ID, "Visible Comments", visibleCommentTextStyle());
 		anAcceptor.acceptDefaultHighlighting(VISIBLE_TITLE_COMMENT_ID, "Title Comments",
 				visibleTitleCommentTextStyle());
@@ -204,6 +220,8 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_NUMBER_ID, "Numbers (Parameters)", parameterNumberTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_STRING_ID, "Strings (Test Result)", resultStringTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_STRING_ID, "Strings (Parameters)", parameterStringTextStyle());
+		anAcceptor.acceptDefaultHighlighting(RESULT_REGEX_ID, "Regex (Test Result)", resultRegexTextStyle());
+		anAcceptor.acceptDefaultHighlighting(PARAMETER_REGEX_ID, "Regex (Parameters)", parameterRegexTextStyle());
 		anAcceptor.acceptDefaultHighlighting(RESULT_DATE_TIME_ID, "Date/Time (Test Result)", resultDateTimeTextStyle());
 		anAcceptor.acceptDefaultHighlighting(PARAMETER_DATE_TIME_ID, "Date/Time (Parameters)",
 				parameterDateTimeTextStyle());
@@ -235,6 +253,18 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public TextStyle stringTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(0, 0, 0));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for regexes.
+	 * 
+	 * @return
+	 */
+	public TextStyle regexTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(32, 32, 32));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.ITALIC);
 		return tempTextStyle;
 	}
 
@@ -372,6 +402,30 @@ public class DSLHighlightingConfiguration extends DefaultHighlightingConfigurati
 	public TextStyle parameterStringTextStyle() {
 		TextStyle tempTextStyle = defaultTextStyle().copy();
 		tempTextStyle.setColor(new RGB(150, 0, 0));
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for regex used as test results.
+	 * 
+	 * @return
+	 */
+	public TextStyle resultRegexTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(60, 32, 255));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.ITALIC);
+		return tempTextStyle;
+	}
+
+	/**
+	 * Creates a text style to use for regex used as parameters.
+	 * 
+	 * @return
+	 */
+	public TextStyle parameterRegexTextStyle() {
+		TextStyle tempTextStyle = defaultTextStyle().copy();
+		tempTextStyle.setColor(new RGB(180, 32, 32));
+		tempTextStyle.setStyle(tempTextStyle.getStyle() | SWT.ITALIC);
 		return tempTextStyle;
 	}
 

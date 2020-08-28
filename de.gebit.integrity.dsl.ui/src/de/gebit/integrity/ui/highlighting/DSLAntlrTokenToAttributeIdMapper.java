@@ -33,6 +33,8 @@ public class DSLAntlrTokenToAttributeIdMapper extends DefaultAntlrTokenToAttribu
 			return DSLHighlightingConfiguration.NUMBER_ID;
 		} else if ("RULE_BOOLEAN_TRUE".equals(aTokenName) || "RULE_BOOLEAN_FALSE".equals(aTokenName)) {
 			return DSLHighlightingConfiguration.CONSTANT_VALUE_ID;
+		} else if ("RULE_REGEX".equals(aTokenName)) {
+			return DSLHighlightingConfiguration.REGEX_ID;
 		}
 
 		return super.calculateId(aTokenName, aTokenType);

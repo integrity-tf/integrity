@@ -230,6 +230,9 @@
     <genClasses ecoreClass="DSL.ecore#//StringValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//StringValue/stringValue"/>
     </genClasses>
+    <genClasses ecoreClass="DSL.ecore#//RegexValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//RegexValue/regexValue"/>
+    </genClasses>
     <genClasses ecoreClass="DSL.ecore#//BooleanValue">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DSL.ecore#//BooleanValue/booleanValue"/>
     </genClasses>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="28.08.20 20:01" isotimestamp="2020-08-28T20:01:35" duration="2.112">
+  <variables />
+  <suite id="0" name="integrity.basic.regex.stringAsPatternParameterTest" timestamp="28.08.20 20:01:35.0083">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="39" name="echoRegexTest" description="Echos the pattern of the given regular expression" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoRegex" timestamp="28.08.20 20:01:35.0084">
+        <results duration="0.257" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.257" description="Echos the pattern of the given regular expression" type="success">
+            <parameters>
+              <parameter name="regex" value="^this$" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="^this$" value="^this$" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="1.851" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

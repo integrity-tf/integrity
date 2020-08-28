@@ -118,4 +118,7 @@ packagedef integrity.fixtures.basic.noop with
 	calldef echoNonNullableStrings uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNonNullableStrings
 	testdef echoNonNullableStringsTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNonNullableStrings
 
+	calldef echoRegex uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoRegex
+	testdef echoRegexTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoRegex
+
 packageend

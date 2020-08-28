@@ -590,6 +590,15 @@ public interface DslFactory extends EFactory
   StringValue createStringValue();
 
   /**
+   * Returns a new object of class '<em>Regex Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Regex Value</em>'.
+   * @generated
+   */
+  RegexValue createRegexValue();
+
+  /**
    * Returns a new object of class '<em>Boolean Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

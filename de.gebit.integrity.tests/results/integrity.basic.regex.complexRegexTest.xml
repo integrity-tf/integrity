@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="28.08.20 20:01" isotimestamp="2020-08-28T20:01:35" duration="7.345">
+  <variables />
+  <suite id="0" name="integrity.basic.regex.complexRegexTest" timestamp="28.08.20 20:01:35.0142">
+    <setup />
+    <variables>
+      <variable name="hexColorPattern" value="[FORMATTED]~^#([[A-Fa-f0-9]{6}|[[A-Fa-f0-9]{3})$~" />
+    </variables>
+    <statements>
+      <tabletest id="1" line="49" name="echoStringTest" description="Echo the string '???'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="28.08.20 20:01:35.0143">
+        <parameters />
+        <results duration="5.026" successCount="3" failureCount="1" exceptionCount="0">
+          <result duration="0.309" description="Echo the string '#afafaf'" type="success">
+            <parameters>
+              <parameter name="string" value="#afafaf" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]~^#([[A-Fa-f0-9]{6}|[[A-Fa-f0-9]{3})$~" value="#afafaf" type="success" />
+            </comparisons>
+          </result>
+          <result duration="0.222" description="Echo the string '#123456'" type="success">
+            <parameters>
+              <parameter name="string" value="#123456" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]~^#([[A-Fa-f0-9]{6}|[[A-Fa-f0-9]{3})$~" value="#123456" type="success" />
+            </comparisons>
+          </result>
+          <result duration="0.239" description="Echo the string '#000'" type="success">
+            <parameters>
+              <parameter name="string" value="#000" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]~^#([[A-Fa-f0-9]{6}|[[A-Fa-f0-9]{3})$~" value="#000" type="success" />
+            </comparisons>
+          </result>
+          <result duration="0.204" description="Echo the string '#abcdex'" type="failure">
+            <parameters>
+              <parameter name="string" value="#abcdex" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]~^#([[A-Fa-f0-9]{6}|[[A-Fa-f0-9]{3})$~" value="#abcdex" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </tabletest>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="6.950" successCount="3" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

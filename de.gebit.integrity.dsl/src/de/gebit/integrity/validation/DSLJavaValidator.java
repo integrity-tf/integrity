@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -65,6 +66,7 @@ import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.Parameter;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
+import de.gebit.integrity.dsl.RegexValue;
 import de.gebit.integrity.dsl.Suite;
 import de.gebit.integrity.dsl.SuiteDefinition;
 import de.gebit.integrity.dsl.SuiteParameter;
@@ -80,6 +82,7 @@ import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperationCollection;
 import de.gebit.integrity.dsl.VariableDefinition;
 import de.gebit.integrity.dsl.VariantDefinition;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.RegexValueToPattern;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
 
@@ -279,6 +282,20 @@ public class DSLJavaValidator extends AbstractDSLJavaValidator {
 			DateUtil.convertDateAndTimeValue(aValue);
 		} catch (ParseException exc) {
 			error("The date and/or time entered is not valid!", null);
+		}
+	}
+
+	/**
+	 * Checks whether a given regex is valid.
+	 * 
+	 * @param aValue
+	 */
+	@Check
+	public void checkIfRegexIsValid(RegexValue aValue) {
+		try {
+			RegexValueToPattern.convert(aValue);
+		} catch (PatternSyntaxException exc) {
+			error("The regular expression entered is not valid!", null);
 		}
 	}
 

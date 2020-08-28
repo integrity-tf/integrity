@@ -204,7 +204,7 @@ ConstantValue:
 	StaticValue | Constant;
 	
 StaticValue:
-	StringValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue | InexistentValue | JavaConstantValue;
+	StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue | InexistentValue | JavaConstantValue;
 	
 IntegerValue:
 	integerValue=INTEGER;
@@ -214,6 +214,9 @@ DecimalValue:
 	
 StringValue:
 	stringValue=STRING;
+	
+RegexValue:
+	regexValue=REGEX;
 	
 BooleanValue:
 	booleanValue=(BOOLEAN_TRUE | BOOLEAN_FALSE);
@@ -327,6 +330,7 @@ terminal DECIMAL returns ecore::EBigDecimal: '-'? ('0'..'9')+ '.' ('0'..'9')+;
 terminal STRING: 
 			'"' ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'"') )* '"' |
 			"'" ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|"'") )* "'";
+terminal REGEX: '~' ( '~~' | !('~~'|'~') )* '~';
 terminal ML_COMMENT: '/*' !('*') -> '*/';
 terminal SL_COMMENT: '//' !('\n'|'\r')*;
 terminal SL_VISIBLE_COMMENT: '-- ' !('\n'|'\r')*;

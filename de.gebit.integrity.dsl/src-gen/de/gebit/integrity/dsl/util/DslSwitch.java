@@ -583,6 +583,17 @@ public class DslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case DslPackage.REGEX_VALUE:
+      {
+        RegexValue regexValue = (RegexValue)theEObject;
+        T result = caseRegexValue(regexValue);
+        if (result == null) result = caseStaticValue(regexValue);
+        if (result == null) result = caseValue(regexValue);
+        if (result == null) result = caseConstantValue(regexValue);
+        if (result == null) result = caseValueOrEnumValueOrOperation(regexValue);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case DslPackage.BOOLEAN_VALUE:
       {
         BooleanValue booleanValue = (BooleanValue)theEObject;
@@ -1904,6 +1915,22 @@ public class DslSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseStringValue(StringValue object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Regex Value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Regex Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseRegexValue(RegexValue object)
   {
     return null;
   }

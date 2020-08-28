@@ -390,6 +390,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createStringValueAdapter();
       }
       @Override
+      public Adapter caseRegexValue(RegexValue object)
+      {
+        return createRegexValueAdapter();
+      }
+      @Override
       public Adapter caseBooleanValue(BooleanValue object)
       {
         return createBooleanValueAdapter();
@@ -1507,6 +1512,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStringValueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.RegexValue <em>Regex Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.RegexValue
+   * @generated
+   */
+  public Adapter createRegexValueAdapter()
   {
     return null;
   }

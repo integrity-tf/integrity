@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="28.08.20 20:01" isotimestamp="2020-08-28T20:01:34" duration="4.202">
+  <variables />
+  <suite id="0" name="integrity.basic.regex.anchoredRegexTest" timestamp="28.08.20 20:01:34.0970">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="22" name="echoStringTest" description="Echo the string 'Echo this'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="28.08.20 20:01:34.0971">
+        <results duration="0.322" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.322" description="Echo the string 'Echo this'" type="failure">
+            <parameters>
+              <parameter name="string" value="Echo this" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="~^this~" value="Echo this" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="25" name="echoStringTest" description="Echo the string 'Echo this'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="28.08.20 20:01:34.0973">
+        <results duration="0.149" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.149" description="Echo the string 'Echo this'" type="success">
+            <parameters>
+              <parameter name="string" value="Echo this" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="~this$~" value="Echo this" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="3.903" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

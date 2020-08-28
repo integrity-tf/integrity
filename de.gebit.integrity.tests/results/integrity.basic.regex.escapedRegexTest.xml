@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="28.08.20 20:01" isotimestamp="2020-08-28T20:01:34" duration="7.406">
+  <variables />
+  <suite id="0" name="integrity.basic.regex.escapedRegexTest" timestamp="28.08.20 20:01:34.0901">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="62" name="echoStringTest" description="Echo the string '124532'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="28.08.20 20:01:34.0902">
+        <results duration="0.316" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.316" description="Echo the string '124532'" type="success">
+            <parameters>
+              <parameter name="string" value="124532" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="~^\d+$~" value="124532" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="65" name="echoStringTest" description="Echo the string '~124532'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="28.08.20 20:01:34.0904">
+        <results duration="0.205" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.205" description="Echo the string '~124532'" type="success">
+            <parameters>
+              <parameter name="string" value="~124532" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="~^~~\d+$~" value="~124532" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="3" line="68" name="echoStringTest" description="Echo the string '12453a'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="28.08.20 20:01:34.0907">
+        <results duration="0.186" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.186" description="Echo the string '12453a'" type="failure">
+            <parameters>
+              <parameter name="string" value="12453a" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="~^\d+$~" value="12453a" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="7.085" successCount="2" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

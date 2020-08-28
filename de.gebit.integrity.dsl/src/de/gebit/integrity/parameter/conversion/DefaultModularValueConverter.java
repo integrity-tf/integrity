@@ -80,6 +80,9 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumV
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.InexistentValueToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.InexistentValueToInexistentString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.NullValueToNull;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.RegexValueToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.RegexValueToPattern;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.RegexValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigDecimal;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBigInteger;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToBoolean;
@@ -92,6 +95,7 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.Str
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToLong;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToNumber;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToPattern;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToShort;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.strings.StringValueToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.BigDecimalToBigDecimal;
@@ -105,6 +109,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.identity.Formatt
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.FormattedStringToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.IntegerToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.LongToLong;
+import de.gebit.integrity.parameter.conversion.conversions.java.identity.PatternToPattern;
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.ShortToShort;
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.StringToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.identity.StringToString;
@@ -169,6 +174,7 @@ import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringTo
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToInteger;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToLong;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToNumber;
+import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToPattern;
 import de.gebit.integrity.parameter.conversion.conversions.java.strings.StringToShort;
 
 /**
@@ -214,6 +220,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(StringToCharacter.class);
 		addConversion(StringToNumber.class);
 		addConversion(StringToEnumConstant.class);
+		addConversion(StringToPattern.class);
 		addConversion(CharacterToString.class);
 		addConversion(CharacterToFormattedString.class);
 		addConversion(CharacterToBigInteger.class);
@@ -266,6 +273,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(IntegerToInteger.class);
 		addConversion(LongToLong.class);
 		addConversion(ShortToShort.class);
+		addConversion(PatternToPattern.class);
 
 		// numeric conversions, Integrity -> Java
 		addConversion(DecimalValueToBigDecimal.class);
@@ -302,6 +310,7 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(StringValueToCharacter.class);
 		addConversion(StringValueToNumber.class);
 		addConversion(StringValueToEnumConstant.class);
+		addConversion(StringValueToPattern.class);
 
 		// boolean conversions, Integrity -> Java
 		addConversion(BooleanValueToBoolean.class);
@@ -363,6 +372,9 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(EnumValueToFormattedString.class);
 		addConversion(InexistentValueToInexistentString.class);
 		addConversion(InexistentValueToFormattedString.class);
+		addConversion(RegexValueToString.class);
+		addConversion(RegexValueToFormattedString.class);
+		addConversion(RegexValueToPattern.class);
 
 		// java constants, Integrity -> Java
 		addConversion(JavaConstantToAnything.class);

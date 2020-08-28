@@ -303,6 +303,7 @@ public class DSLParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIntegerValueAccess().getIntegerValueAssignment(), "rule__IntegerValue__IntegerValueAssignment");
 					put(grammarAccess.getDecimalValueAccess().getDecimalValueAssignment(), "rule__DecimalValue__DecimalValueAssignment");
 					put(grammarAccess.getStringValueAccess().getStringValueAssignment(), "rule__StringValue__StringValueAssignment");
+					put(grammarAccess.getRegexValueAccess().getRegexValueAssignment(), "rule__RegexValue__RegexValueAssignment");
 					put(grammarAccess.getBooleanValueAccess().getBooleanValueAssignment(), "rule__BooleanValue__BooleanValueAssignment");
 					put(grammarAccess.getIsoDateValueAccess().getDateValueAssignment(), "rule__IsoDateValue__DateValueAssignment");
 					put(grammarAccess.getEuropeanDateValueAccess().getDateValueAssignment(), "rule__EuropeanDateValue__DateValueAssignment");

@@ -44,6 +44,7 @@ import de.gebit.integrity.dsl.OperationDefinition;
 import de.gebit.integrity.dsl.PackageDefinition;
 import de.gebit.integrity.dsl.ParameterTableHeader;
 import de.gebit.integrity.dsl.ParameterTableValue;
+import de.gebit.integrity.dsl.RegexValue;
 import de.gebit.integrity.dsl.ResultTableHeader;
 import de.gebit.integrity.dsl.Simple12HrsTimeValue;
 import de.gebit.integrity.dsl.Simple24HrsTimeValue;
@@ -223,6 +224,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.PARAMETER_TABLE_VALUE:
 				sequence_ParameterTableValue(context, (ParameterTableValue) semanticObject); 
+				return; 
+			case DslPackage.REGEX_VALUE:
+				sequence_RegexValue(context, (RegexValue) semanticObject); 
 				return; 
 			case DslPackage.RESULT_TABLE_HEADER:
 				sequence_ResultTableHeader(context, (ResultTableHeader) semanticObject); 
@@ -1103,6 +1107,28 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns RegexValue
+	 *     Value returns RegexValue
+	 *     ConstantValue returns RegexValue
+	 *     StaticValue returns RegexValue
+	 *     RegexValue returns RegexValue
+	 *
+	 * Constraint:
+	 *     regexValue=REGEX
+	 */
+	protected void sequence_RegexValue(ISerializationContext context, RegexValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, DslPackage.Literals.REGEX_VALUE__REGEX_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, DslPackage.Literals.REGEX_VALUE__REGEX_VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getRegexValueAccess().getRegexValueREGEXTerminalRuleCall_0(), semanticObject.getRegexValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     ResultTableHeader returns ResultTableHeader
 	 *
 	 * Constraint:
@@ -1434,8 +1460,8 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *             live='live' | 
 	 *             ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) (progressionMode='progressing' progressionFactor=TimeProgressionFactor?)?)
 	 *         ) 
-	 *         forks+=[ForkDefinition|QualifiedName]? 
-	 *         (masterFork='master'? forks+=[ForkDefinition|QualifiedName]?)*
+	 *         masterFork='master'? 
+	 *         (forks+=[ForkDefinition|QualifiedName]? masterFork='master'?)*
 	 *     )
 	 */
 	protected void sequence_TimeSet(ISerializationContext context, TimeSet semanticObject) {

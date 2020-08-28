@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import com.google.inject.Inject;
 
@@ -35,6 +36,7 @@ import de.gebit.integrity.dsl.InexistentValue;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NestedObject;
 import de.gebit.integrity.dsl.NullValue;
+import de.gebit.integrity.dsl.RegexValue;
 import de.gebit.integrity.dsl.TimeValue;
 import de.gebit.integrity.dsl.TypedNestedObject;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
@@ -47,6 +49,7 @@ import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.InexistentValueHandling;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.RegexValueToPattern;
 import de.gebit.integrity.parameter.resolving.ParameterResolver;
 import de.gebit.integrity.utils.DateUtil;
 import de.gebit.integrity.utils.IntegrityDSLUtil;
@@ -353,6 +356,12 @@ public class DefaultResultComparator implements ResultComparator {
 				// result to be a bean class/instance. But we only need to convert that to a map for comparison.
 				tempConvertedFixtureResult = valueConverter.convertValue(Map.class, tempConvertedFixtureResult, null);
 				tempConvertedExpectedResult = tempSingleExpectedResult;
+			} else if (tempSingleExpectedResult instanceof RegexValue) {
+				// If the expected result is a regex, perform a regular expression comparison. For this we need
+				// to convert the fixture result to a String, because that's what we can match the regex with.
+				tempConvertedFixtureResult
+						= valueConverter.convertValue(String.class, tempConvertedFixtureResult, null);
+				return performRegexCheck((String) tempConvertedFixtureResult, (RegexValue) tempSingleExpectedResult);
 			} else {
 				// no special bean-related cases apply: convert the expected result to match the given fixture result
 				tempConvertedExpectedResult
@@ -361,6 +370,23 @@ public class DefaultResultComparator implements ResultComparator {
 		}
 
 		return performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult, aSingleExpectedResult);
+	}
+
+	/**
+	 * Performs the regular expression based comparison between a fixture result and an expected regex. The pattern
+	 * provided must be "found" in the value (it does not have to match the entire value, except if the pattern is
+	 * anchored to the start and/or end).
+	 * 
+	 * @param aFixtureResult
+	 *            the fixture result as a String
+	 * @param anExpectedResult
+	 *            the expected result
+	 * @return {@link SimpleComparisonResult#EQUAL} (pattern found) or {@link SimpleComparisonResult#NOT_EQUAL} (pattern
+	 *         not found)
+	 */
+	protected ComparisonResult performRegexCheck(String aFixtureResult, RegexValue anExpectedResult) {
+		Pattern tempPattern = RegexValueToPattern.convert(anExpectedResult);
+		return SimpleComparisonResult.valueOf(tempPattern.matcher(aFixtureResult).find());
 	}
 
 	/**

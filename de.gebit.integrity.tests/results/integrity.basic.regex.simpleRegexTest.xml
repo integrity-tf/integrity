@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="28.08.20 20:01" isotimestamp="2020-08-28T20:01:34" duration="10.666">
+  <variables />
+  <suite id="0" name="integrity.basic.regex.simpleRegexTest" timestamp="28.08.20 20:01:34.0679">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="5" name="echoStringTest" description="Echo the string 'Echo this!'" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoString" timestamp="28.08.20 20:01:34.0682">
+        <results duration="2.290" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.290" description="Echo the string 'Echo this!'" type="success">
+            <parameters>
+              <parameter name="string" value="Echo this!" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="~this~" value="Echo this!" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="8.155" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

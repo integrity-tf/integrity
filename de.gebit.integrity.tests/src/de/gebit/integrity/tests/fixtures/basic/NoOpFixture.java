@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import de.gebit.integrity.exceptions.AbortExecutionException;
 import de.gebit.integrity.fixtures.FixtureMethod;
@@ -284,6 +285,12 @@ public class NoOpFixture {
 	public String[] echoNonNullableStrings(
 			@FixtureParameter(name = "strings", mandatory = true, nullable = false) String[] someStrings) {
 		return someStrings;
+	}
+
+	@FixtureMethod(description = "Echos the pattern of the given regular expression")
+	public String echoRegex(
+			@FixtureParameter(name = "regex", mandatory = true, nullable = false) Pattern aRegexPattern) {
+		return aRegexPattern.pattern();
 	}
 
 	public enum Enum {
