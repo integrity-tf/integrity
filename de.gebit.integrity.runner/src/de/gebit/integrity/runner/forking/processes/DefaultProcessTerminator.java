@@ -8,8 +8,10 @@
 package de.gebit.integrity.runner.forking.processes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.google.inject.Singleton;
 
@@ -103,17 +105,28 @@ public class DefaultProcessTerminator implements ProcessTerminator {
 					}
 
 					synchronized (processes) {
+						// Kill processes in reverse registration order. This is because we assume processes started
+						// later to potentially depend on processes starting first, hence killing them in reverse order
+						// may save us from "oops, that other process I depend on has just vanished" messages printed in
+						// the last seconds of life of a later-started process.
+						Collections.reverse(processes);
+
 						Iterator<Process> tempProcessIterator = processes.iterator();
 						while (tempProcessIterator.hasNext()) {
 							try {
 								Process tempProcess = tempProcessIterator.next();
 								tempProcess.destroy();
-								tempProcess.waitFor();
-								tempProcessIterator.remove();
+								if (!tempProcess.waitFor(10, TimeUnit.SECONDS)) {
+									tempProcess.destroyForcibly();
+									if (!tempProcess.waitFor(30, TimeUnit.SECONDS)) {
+										System.err.println("Failed to terminate a process on shutdown - "
+												+ "there may be lingering zombie processes after this test runner terminates");
+									}
+								}
 							} catch (InterruptedException exc) {
-								exc.printStackTrace();
-								return;
+								// ignored
 							}
+							tempProcessIterator.remove();
 						}
 					}
 
