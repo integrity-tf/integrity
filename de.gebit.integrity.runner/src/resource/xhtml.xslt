@@ -22,7 +22,7 @@
           </title>
           <style type="text/css">body { color: #000; background-color: #FFF;
 		font-family: Calibri, Arial, sans-serif; font-size:10pt; }
-		.value { font-family: Courier, Courier New, Lucida Console, monospace; }
+		.value { font-family: Courier, Courier New, Lucida Console, monospace; white-space: pre-wrap; }
 		.comparisondivider hr { border: 0; border-top: 1px dashed #000; height: 0px; }
 		.comparisondivider em { font-weight: bold; position: relative; top: -4px; left: 4px; }
 		.value .underline { text-decoration: underline; }
@@ -468,12 +468,14 @@ function getChildByName(node, childName) {
             <td>
               <xsl:value-of select="@name" />
             </td>
-            <td class="value">
-              <xsl:if test="@value">
-                <xsl:call-template name="processFormattedString">
-                  <xsl:with-param name="text" select="@value" />
-                </xsl:call-template>
-              </xsl:if>
+            <td>
+              <span class="value">
+                <xsl:if test="@value">
+                  <xsl:call-template name="processFormattedString">
+                    <xsl:with-param name="text" select="@value" />
+                  </xsl:call-template>
+                </xsl:if>
+              </span>
             </td>
           </tr>
         </xsl:for-each>
@@ -505,12 +507,14 @@ function getChildByName(node, childName) {
             <td>
               <xsl:value-of select="@target" />
             </td>
-            <td class="value">
-              <xsl:if test="@value">
-                <xsl:call-template name="processFormattedString">
-                  <xsl:with-param name="text" select="@value" />
-                </xsl:call-template>
-              </xsl:if>
+            <td>
+              <span class="value">
+                <xsl:if test="@value">
+                  <xsl:call-template name="processFormattedString">
+                    <xsl:with-param name="text" select="@value" />
+                  </xsl:call-template>
+                </xsl:if>
+              </span>
             </td>
           </tr>
         </xsl:for-each>
@@ -720,12 +724,14 @@ function getChildByName(node, childName) {
                   <td>
                     <xsl:value-of select="@name" />
                   </td>
-                  <td class="value">
-                    <xsl:if test="@value">
-                      <xsl:call-template name="processFormattedString">
-                        <xsl:with-param name="text" select="@value" />
-                      </xsl:call-template>
-                    </xsl:if>
+                  <td>
+                    <span class="value">
+                      <xsl:if test="@value">
+                        <xsl:call-template name="processFormattedString">
+                          <xsl:with-param name="text" select="@value" />
+                        </xsl:call-template>
+                      </xsl:if>
+                    </span>
                   </td>
                 </tr>
               </xsl:for-each>
@@ -759,12 +765,14 @@ function getChildByName(node, childName) {
                   <td>
                     <xsl:value-of select="@name" />
                   </td>
-                  <td class="value">
-                    <xsl:if test="@value">
-                      <xsl:call-template name="processFormattedString">
-                        <xsl:with-param name="text" select="@value" />
-                      </xsl:call-template>
-                    </xsl:if>
+                  <td>
+                  	<span class="value">
+                      <xsl:if test="@value">
+                        <xsl:call-template name="processFormattedString">
+                          <xsl:with-param name="text" select="@value" />
+                        </xsl:call-template>
+                      </xsl:if>
+                    </span>
                   </td>
                 </tr>
               </xsl:for-each>
@@ -921,12 +929,14 @@ function getChildByName(node, childName) {
               <td>
                 <xsl:value-of select="@name" />
               </td>
-              <td class="value">
-                <xsl:if test="@value">
-                  <xsl:call-template name="processFormattedString">
-                    <xsl:with-param name="text" select="@value" />
-                  </xsl:call-template>
-                </xsl:if>
+              <td>
+                <span class="value">
+                  <xsl:if test="@value">
+                    <xsl:call-template name="processFormattedString">
+                      <xsl:with-param name="text" select="@value" />
+                    </xsl:call-template>
+                  </xsl:if>
+                </span>
               </td>
             </tr>
           </table>
@@ -1086,12 +1096,14 @@ function getChildByName(node, childName) {
                   <td>
                     <xsl:value-of select="@name" />
                   </td>
-                  <td class="value">
-                    <xsl:if test="@value">
-                      <xsl:call-template name="processFormattedString">
-                        <xsl:with-param name="text" select="@value" />
-                      </xsl:call-template>
-                    </xsl:if>
+                  <td>
+                    <span class="value">
+                      <xsl:if test="@value">
+                        <xsl:call-template name="processFormattedString">
+                          <xsl:with-param name="text" select="@value" />
+                        </xsl:call-template>
+                      </xsl:if>
+                    </span>
                   </td>
                 </tr>
               </xsl:for-each>
@@ -1338,12 +1350,14 @@ function getChildByName(node, childName) {
                   <td>
                     <xsl:value-of select="@name" />
                   </td>
-                  <td class="value">
-                    <xsl:if test="@value">
-                      <xsl:call-template name="processFormattedString">
-                        <xsl:with-param name="text" select="@value" />
-                      </xsl:call-template>
-                    </xsl:if>
+                  <td>
+                    <span class="value">
+                      <xsl:if test="@value">
+                        <xsl:call-template name="processFormattedString">
+                          <xsl:with-param name="text" select="@value" />
+                        </xsl:call-template>
+                      </xsl:if>
+                    </span>
                   </td>
                 </tr>
               </xsl:for-each>

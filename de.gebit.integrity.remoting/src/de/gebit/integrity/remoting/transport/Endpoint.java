@@ -98,7 +98,8 @@ public class Endpoint {
 	/**
 	 * A map of message processors.
 	 */
-	private Map<Class<? extends AbstractMessage>, MessageProcessor<?>> messageProcessors = new HashMap<Class<? extends AbstractMessage>, MessageProcessor<?>>();
+	private Map<Class<? extends AbstractMessage>, MessageProcessor<?>> messageProcessors
+			= new HashMap<Class<? extends AbstractMessage>, MessageProcessor<?>>();
 
 	/**
 	 * The queue for outgoing messages. Is emptied by {@link #outputProcessor}.
@@ -297,8 +298,8 @@ public class Endpoint {
 					Input tempKryoInput = new Input(new InflaterInputStream(new ByteArrayInputStream(tempMessage)));
 
 					try {
-						AbstractMessage tempMessageObject = (AbstractMessage) tempKryo
-								.readClassAndObject(tempKryoInput);
+						AbstractMessage tempMessageObject
+								= (AbstractMessage) tempKryo.readClassAndObject(tempKryoInput);
 						if (tempMessageObject instanceof DisconnectMessage) {
 							// disconnect messages are handled directly in the endpoints
 							if (((DisconnectMessage) tempMessageObject).isConfirmation()) {
@@ -336,6 +337,8 @@ public class Endpoint {
 				if (!"socket closed".equals(exc.getMessage().toLowerCase())) {
 					exc.printStackTrace();
 				}
+			} catch (Throwable exc) {
+				exc.printStackTrace();
 			} finally {
 				closeInternal();
 				if (listener != null) {
