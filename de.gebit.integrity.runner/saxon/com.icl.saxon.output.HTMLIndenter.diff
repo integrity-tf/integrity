@@ -1,0 +1,13 @@
+diff --git a/HTMLIndenter.java b/HTMLIndenter.java
+index c37d4e7..1677659 100644
+--- a/HTMLIndenter.java
++++ b/HTMLIndenter.java
+@@ -109,7 +109,7 @@
+ 		} else {
+ 			int i = paramInt1;
+ 			for (int j = paramInt1; j < paramInt1 + paramInt2; j++) {
+-				if (paramArrayOfchar[j] == '\n' || (j - i > 120 && paramArrayOfchar[j] == ' ')) {
++				if (paramArrayOfchar[j] == '\n') {
+ 					this.sameLine = false;
+ 					super.characters(paramArrayOfchar, i, j - i);
+ 					indent();
