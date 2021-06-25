@@ -2,7 +2,7 @@
 <feature
       id="de.gebit.integrity.feature"
       label="Integrity Test Framework"
-      version="20.1.0.qualifier"
+      version="20.1.1.qualifier"
       provider-name="GEBIT Solutions GmbH">
 
    <description>
