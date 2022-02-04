@@ -32,6 +32,7 @@ import de.gebit.integrity.dsl.ConstantDefinition;
 import de.gebit.integrity.dsl.ConstantValue;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.InexistentValue;
+import de.gebit.integrity.dsl.RegexValue;
 import de.gebit.integrity.dsl.StandardOperation;
 import de.gebit.integrity.dsl.StringValue;
 import de.gebit.integrity.dsl.ValueOrEnumValueOrOperation;
@@ -397,6 +398,10 @@ public abstract class AbstractModularValueConverter implements ValueConverter {
 		if (aValue instanceof InexistentValue
 				&& aConversionContext.getInexistentValueHandlingPolicy() == InexistentValueHandling.KEEP_AS_IS) {
 			// In case of an Inexistent value, we may have to keep it as-is, if required by conversion context policy
+			return aValue;
+		} else if (aValue instanceof RegexValue
+				&& aConversionContext.getRegexValueHandlingPolicy() == RegexValueHandling.KEEP_AS_IS) {
+			// In case of a Regex value, we may have to keep it as-is, if required by conversion context policy
 			return aValue;
 		}
 

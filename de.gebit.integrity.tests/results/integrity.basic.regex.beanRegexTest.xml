@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="04.02.22 09:38" isotimestamp="2022-02-04T09:38:39" duration="21.070">
+  <variables />
+  <suite id="0" name="integrity.basic.regex.beanRegexTest" timestamp="04.02.22 09:38:39.0954">
+    <setup />
+    <variables />
+    <statements>
+      <comment id="1" line="75">This should succeed</comment>
+      <test id="2" line="76" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="04.02.22 09:38:39.0955">
+        <results duration="1.205" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="1.205" description="creates a bean with predefined values and returns it" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]firstParameter = ~^str.*$~[NL]}" value="[FORMATTED]{[NL][T]firstParameter = string[NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <comment id="3" line="80">This should fail</comment>
+      <test id="4" line="81" name="createSimpleBeanUntyped" description="creates a bean with predefined values and returns it" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createSimpleBeanUntyped" timestamp="04.02.22 09:38:39.0966">
+        <results duration="0.020" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.020" description="creates a bean with predefined values and returns it" type="failure">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T][UL][B]firstParameter = ~^foo.*$~[/B][/UL][NL]}" value="[FORMATTED]{[NL][T][UL][B]firstParameter = string[/B][/UL][NL|, ][T]secondParameter = 100[NL|, ][T]thirdParameter = {[NL][T][T]innerParameter = 1.99[NL][T]}[NL]}" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="20.533" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
