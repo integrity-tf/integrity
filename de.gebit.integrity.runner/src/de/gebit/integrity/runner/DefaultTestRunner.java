@@ -1915,8 +1915,8 @@ public class DefaultTestRunner implements TestRunner {
 		if (tempException == null && aTest.getCheckpoint() != null) {
 			// In case of checkpoint tests, execution has to be aborted if they fail. This is done by "throwing" an
 			// abort exception if there is any failed test result.
-			for (TestComparisonResult tempResult : tempComparisonMap.values()) {
-				if (tempResult instanceof TestComparisonFailureResult) {
+			for (Entry<String, TestComparisonResult> tempEntry : tempComparisonMap.entrySet()) {
+				if (tempEntry.getValue() instanceof TestComparisonFailureResult) {
 					String tempTestDescription = "<unknown>";
 					try {
 						tempTestDescription = testFormatter.testToHumanReadableString(aTest, null);
@@ -1925,8 +1925,29 @@ public class DefaultTestRunner implements TestRunner {
 						// ignored
 					}
 
-					tempException
-							= new AbortExecutionException("Checkpoint Test '" + tempTestDescription + "' has failed!");
+					String tempFailedComparison = "";
+					try {
+						tempFailedComparison = "'"
+								+ valueConverter
+										.convertValueToString(
+												(tempEntry.getValue().getExpectedValue() == null ? true
+														: tempEntry.getValue().getExpectedValue()),
+												false, null)
+								+ "' expected"
+								+ (tempEntry.getKey().equals(ParameterUtil.DEFAULT_PARAMETER_NAME) ? ""
+										: " for '" + tempEntry.getKey() + "'")
+								+ ", but got '"
+								+ valueConverter.convertValueToFormattedString(tempEntry.getValue().getActualValue(),
+										false,
+										new ConversionContext().withComparisonResult(tempEntry.getValue().getResult()))
+								+ "'!";
+					} catch (Throwable exc) {
+						tempFailedComparison
+								= "(unexpected exception during test result formatting: " + exc.getMessage() + ")";
+					}
+
+					tempException = new AbortExecutionException(
+							"Checkpoint Test '" + tempTestDescription + "' has failed: " + tempFailedComparison);
 					break;
 				}
 			}

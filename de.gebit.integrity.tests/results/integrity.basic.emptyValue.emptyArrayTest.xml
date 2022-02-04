@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="04.02.22 11:34" isotimestamp="2022-02-04T11:34:42" duration="18.693">
+  <variables />
+  <suite id="0" name="integrity.basic.emptyValue.emptyArrayTest" timestamp="04.02.22 11:34:42.0357">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="17" name="generateArrayWithElementsTest" description="Returns an array with 1 element(s)" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateArrayWithElements" timestamp="04.02.22 11:34:42.0362">
+        <results duration="2.320" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="2.320" description="Returns an array with 1 element(s)" type="failure">
+            <parameters>
+              <parameter name="numberOfElements" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED][[empty]" value="0" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="20" name="generateArrayWithElementsTest" description="Returns an array with 0 element(s)" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateArrayWithElements" timestamp="04.02.22 11:34:42.0374">
+        <results duration="0.244" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.244" description="Returns an array with 0 element(s)" type="success">
+            <parameters>
+              <parameter name="numberOfElements" value="0" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED][[empty]" value="" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="15.602" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

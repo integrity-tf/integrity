@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="04.02.22 12:01" isotimestamp="2022-02-04T12:01:31" duration="23.455">
+  <variables />
+  <suite id="0" name="integrity.basic.emptyValue.emptyListWrappedTest" timestamp="04.02.22 12:01:31.0663">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="28" name="generateWrappedListTest" description="Returns a list with 1 element(s) wrapped in a test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#generateWrappedList" timestamp="04.02.22 12:01:31.0665">
+        <results duration="0.258" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.258" description="Returns a list with 1 element(s) wrapped in a test bean" type="failure">
+            <parameters>
+              <parameter name="numberOfElements" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T][UL][B]plainListParameter = [[empty][/B][/UL][NL]}" value="[FORMATTED]{[NL][T]arrayParameter = null[NL|, ][T]lowerBoundParameterizedListParameter = null[NL|, ][T]parameterizedListParameter = null[NL|, ][T]plainCollectionParameter = null[NL|, ][T][UL][B]plainListParameter = 0[/B][/UL][NL|, ][T]setParameterWithInnerBean = null[NL]}" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="33" name="generateWrappedListTest" description="Returns a list with 0 element(s) wrapped in a test bean" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#generateWrappedList" timestamp="04.02.22 12:01:31.0678">
+        <results duration="0.458" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.458" description="Returns a list with 0 element(s) wrapped in a test bean" type="success">
+            <parameters>
+              <parameter name="numberOfElements" value="0" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]plainListParameter = [[empty][NL]}" value="[FORMATTED]{[NL][T]arrayParameter = null[NL|, ][T]lowerBoundParameterizedListParameter = null[NL|, ][T]parameterizedListParameter = null[NL|, ][T]plainCollectionParameter = null[NL|, ][T]plainListParameter = [NL|, ][T]setParameterWithInnerBean = null[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="22.943" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

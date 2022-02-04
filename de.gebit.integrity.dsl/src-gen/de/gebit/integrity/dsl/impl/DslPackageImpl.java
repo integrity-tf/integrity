@@ -17,6 +17,8 @@ import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslFactory;
 import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.Empty;
+import de.gebit.integrity.dsl.EmptyValue;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.EuropeanDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue;
@@ -710,6 +712,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass emptyValueEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass enumValueEClass = null;
 
   /**
@@ -781,6 +790,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   private EClass inexistentEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass emptyEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -3164,6 +3180,17 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
    * @generated
    */
   @Override
+  public EClass getEmptyValue()
+  {
+    return emptyValueEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getEnumValue()
   {
     return enumValueEClass;
@@ -3431,6 +3458,17 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
   public EClass getInexistent()
   {
     return inexistentEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EClass getEmpty()
+  {
+    return emptyEClass;
   }
 
   /**
@@ -3758,6 +3796,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     inexistentValueEClass = createEClass(INEXISTENT_VALUE);
 
+    emptyValueEClass = createEClass(EMPTY_VALUE);
+
     enumValueEClass = createEClass(ENUM_VALUE);
     createEReference(enumValueEClass, ENUM_VALUE__ENUM_VALUE);
 
@@ -3793,6 +3833,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     nullEClass = createEClass(NULL);
 
     inexistentEClass = createEClass(INEXISTENT);
+
+    emptyEClass = createEClass(EMPTY);
   }
 
   /**
@@ -3890,11 +3932,13 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     constantEClass.getESuperTypes().add(this.getConstantValue());
     nullValueEClass.getESuperTypes().add(this.getStaticValue());
     inexistentValueEClass.getESuperTypes().add(this.getStaticValue());
+    emptyValueEClass.getESuperTypes().add(this.getStaticValue());
     enumValueEClass.getESuperTypes().add(this.getValueOrEnumValueOrOperation());
     nestedObjectEClass.getESuperTypes().add(this.getValue());
     typedNestedObjectEClass.getESuperTypes().add(this.getValue());
     nullEClass.getESuperTypes().add(this.getNullValue());
     inexistentEClass.getESuperTypes().add(this.getInexistentValue());
+    emptyEClass.getESuperTypes().add(this.getEmptyValue());
 
     // Initialize classes and features; add operations and parameters
     initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4191,6 +4235,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
 
     initEClass(inexistentValueEClass, InexistentValue.class, "InexistentValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+    initEClass(emptyValueEClass, EmptyValue.class, "EmptyValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     initEClass(enumValueEClass, EnumValue.class, "EnumValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getEnumValue_EnumValue(), theTypesPackage.getJvmEnumerationLiteral(), null, "enumValue", null, 0, 1, EnumValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4226,6 +4272,8 @@ public class DslPackageImpl extends EPackageImpl implements DslPackage
     initEClass(nullEClass, Null.class, "Null", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(inexistentEClass, Inexistent.class, "Inexistent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(emptyEClass, Empty.class, "Empty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     // Create resource
     createResource(eNS_URI);

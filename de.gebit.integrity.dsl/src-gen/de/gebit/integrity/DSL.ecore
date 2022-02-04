@@ -339,6 +339,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NullValue" eSuperTypes="#//StaticValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="InexistentValue" eSuperTypes="#//StaticValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EmptyValue" eSuperTypes="#//StaticValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumValue" eSuperTypes="#//ValueOrEnumValueOrOperation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumValue" eType="ecore:EClass platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.ecore#//JvmEnumerationLiteral"/>
   </eClassifiers>
@@ -378,4 +379,5 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Null" eSuperTypes="#//NullValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="Inexistent" eSuperTypes="#//InexistentValue"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Empty" eSuperTypes="#//EmptyValue"/>
 </ecore:EPackage>

@@ -57,4 +57,10 @@ packagedef integrity.fixtures.basic.beans with
 	
 	testdef validateListOfMapsWithSingleEntry uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#validateListOfMapsWithSingleEntry
 
+	calldef generateWrappedList uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#generateWrappedList
+	testdef generateWrappedListTest uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#generateWrappedList
+	
+	calldef generateWrappedArray uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#generateWrappedArray
+	testdef generateWrappedArrayTest uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#generateWrappedArray
+
 packageend

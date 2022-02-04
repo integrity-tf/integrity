@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.gebit.integrity.comparator.ComparisonResult;
+import de.gebit.integrity.dsl.EmptyValue;
 import de.gebit.integrity.dsl.InexistentValue;
+import de.gebit.integrity.dsl.RegexValue;
 
 /**
  * A conversion context is a container for contextual information required to perform a value conversion.<br>
@@ -41,6 +43,16 @@ public class ConversionContext implements Cloneable {
 	 * The way in which {@link InexistentValue}s are to be treated.
 	 */
 	protected InexistentValueHandling inexistentValueHandlingPolicy = InexistentValueHandling.CONVERT;
+
+	/**
+	 * The way in which {@link RegexValue}s are to be treated.
+	 */
+	protected RegexValueHandling regexValueHandlingPolicy = RegexValueHandling.CONVERT;
+
+	/**
+	 * The way in which {@link EmptyValue}s are to be treated.
+	 */
+	protected EmptyValueHandling emptyValueHandlingPolicy = EmptyValueHandling.CONVERT;
 
 	/**
 	 * In case of a value being converted which belongs to a comparison that has been executed, the result of said
@@ -95,6 +107,28 @@ public class ConversionContext implements Cloneable {
 	}
 
 	/**
+	 * Enables a certain {@link RegexValueHandling} policy instead of the default.
+	 * 
+	 * @param aPolicy
+	 *            the policy to use
+	 */
+	public ConversionContext withRegexValueHandling(RegexValueHandling aPolicy) {
+		regexValueHandlingPolicy = aPolicy;
+		return this;
+	}
+
+	/**
+	 * Enables a certain {@link EmptyValueHandling} policy instead of the default.
+	 * 
+	 * @param aPolicy
+	 *            the policy to use
+	 */
+	public ConversionContext withEmptyValueHandling(EmptyValueHandling aPolicy) {
+		emptyValueHandlingPolicy = aPolicy;
+		return this;
+	}
+
+	/**
 	 * Adds the provided comparison result.
 	 * 
 	 * @param aComparisonResult
@@ -128,6 +162,14 @@ public class ConversionContext implements Cloneable {
 
 	public InexistentValueHandling getInexistentValueHandlingPolicy() {
 		return inexistentValueHandlingPolicy;
+	}
+
+	public RegexValueHandling getRegexValueHandlingPolicy() {
+		return regexValueHandlingPolicy;
+	}
+
+	public EmptyValueHandling getEmptyValueHandlingPolicy() {
+		return emptyValueHandlingPolicy;
 	}
 
 	public ComparisonResult getComparisonResult() {

@@ -7,8 +7,8 @@
 ','=72
 '-'=74
 '->'=59
-'.'=91
-'.*'=92
+'.'=92
+'.*'=93
 '..'=80
 '/'=78
 ':'=40
@@ -25,6 +25,7 @@
 'checkpoint'=61
 'concludedby'=50
 'constant'=56
+'empty'=89
 'forkdef'=37
 'gets'=47
 'import'=35
@@ -56,9 +57,9 @@
 'variable'=54
 'variantdef'=41
 'with'=33
-'{'=89
+'{'=90
 '|'=65
-'}'=90
+'}'=91
 RULE_ANY_OTHER=31
 RULE_BOOLEAN_FALSE=17
 RULE_BOOLEAN_TRUE=16
@@ -148,3 +149,4 @@ T__89=89
 T__90=90
 T__91=91
 T__92=92
+T__93=93

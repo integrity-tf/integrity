@@ -13,8 +13,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -291,6 +293,24 @@ public class NoOpFixture {
 	public String echoRegex(
 			@FixtureParameter(name = "regex", mandatory = true, nullable = false) Pattern aRegexPattern) {
 		return aRegexPattern.pattern();
+	}
+
+	@FixtureMethod(description = "Returns a list with $numberOfElements$ element(s)")
+	public List<String> generateListWithElements(@FixtureParameter(name = "numberOfElements") int aNumberOfElements) {
+		List<String> tempList = new ArrayList<String>();
+		for (int i = 0; i < aNumberOfElements; i++) {
+			tempList.add(Integer.toString(i));
+		}
+		return tempList;
+	}
+
+	@FixtureMethod(description = "Returns an array with $numberOfElements$ element(s)")
+	public String[] generateArrayWithElements(@FixtureParameter(name = "numberOfElements") int aNumberOfElements) {
+		List<String> tempList = new ArrayList<String>();
+		for (int i = 0; i < aNumberOfElements; i++) {
+			tempList.add(Integer.toString(i));
+		}
+		return tempList.toArray(new String[aNumberOfElements]);
 	}
 
 	public enum Enum {

@@ -50,6 +50,11 @@ public final class ParameterUtil {
 	public static final String INEXISTENT_VALUE = "[inexistent]";
 
 	/**
+	 * A fixed result "value" object indicating that a result value was an empty collection.
+	 */
+	public static final String EMPTY_VALUE = "[empty]";
+
+	/**
 	 * Returns a map of named result names to values acquired from a given named result container. This container is
 	 * assumed to be a simple Java Bean, with accessible accessor methods useable to retrieve the values of fields. The
 	 * field names are used as result names and thus keys in the map. Unreachable fields are ignored.

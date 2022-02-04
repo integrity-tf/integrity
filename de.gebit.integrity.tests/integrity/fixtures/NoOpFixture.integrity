@@ -120,5 +120,11 @@ packagedef integrity.fixtures.basic.noop with
 
 	calldef echoRegex uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoRegex
 	testdef echoRegexTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoRegex
+	
+	calldef generateListWithElements uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateListWithElements
+	testdef generateListWithElementsTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateListWithElements
+	
+	calldef generateArrayWithElements uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateArrayWithElements
+	testdef generateArrayWithElementsTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateArrayWithElements
 
 packageend

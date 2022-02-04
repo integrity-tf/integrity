@@ -123,4 +123,18 @@ public class Regex extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Performs a suite which does simple fixture calls and checks the resulting XML document.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testBeanRegexTest() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(new String[] { "integrity/suites/basic/regex/regex.integrity" },
+				"integrity.basic.regex.beanRegexTest", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

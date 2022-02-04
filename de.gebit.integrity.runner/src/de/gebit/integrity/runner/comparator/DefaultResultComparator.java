@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,7 @@ import de.gebit.integrity.comparator.MapComparisonResult;
 import de.gebit.integrity.comparator.SimpleComparisonResult;
 import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DateValue;
+import de.gebit.integrity.dsl.EmptyValue;
 import de.gebit.integrity.dsl.InexistentValue;
 import de.gebit.integrity.dsl.MethodReference;
 import de.gebit.integrity.dsl.NestedObject;
@@ -46,7 +48,9 @@ import de.gebit.integrity.dsl.VariableOrConstantEntity;
 import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
+import de.gebit.integrity.parameter.conversion.EmptyValueHandling;
 import de.gebit.integrity.parameter.conversion.InexistentValueHandling;
+import de.gebit.integrity.parameter.conversion.RegexValueHandling;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.RegexValueToPattern;
@@ -348,8 +352,11 @@ public class DefaultResultComparator implements ResultComparator {
 			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, tempConvertedFixtureResult, null);
 			// Keeping Inexistent values as they are (= the InexistentValue model class instance) is necessary so that
 			// we can check for them later in map comparison. Otherwise they would be converted to strings.
+			// The same must be done for regexes in order to be able to compare them correctly, and for empty values.
 			tempConvertedExpectedResult = valueConverter.convertValue(Map.class, tempNestedObject,
-					new ConversionContext().withInexistentValueHandling(InexistentValueHandling.KEEP_AS_IS));
+					new ConversionContext().withInexistentValueHandling(InexistentValueHandling.KEEP_AS_IS)
+							.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS)
+							.withEmptyValueHandling(EmptyValueHandling.KEEP_AS_IS));
 		} else {
 			if (tempSingleExpectedResult instanceof Map && !(tempConvertedFixtureResult instanceof Map)) {
 				// if the expected result is a map, and the fixture has NOT returned a map, we also assume the fixture
@@ -365,7 +372,9 @@ public class DefaultResultComparator implements ResultComparator {
 			} else {
 				// no special bean-related cases apply: convert the expected result to match the given fixture result
 				tempConvertedExpectedResult
-						= valueConverter.convertValue(aConversionTargetType, tempSingleExpectedResult, null);
+						= valueConverter.convertValue(aConversionTargetType, tempSingleExpectedResult,
+								new ConversionContext().withEmptyValueHandling(EmptyValueHandling.KEEP_AS_IS)
+										.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS));
 			}
 		}
 
@@ -418,7 +427,21 @@ public class DefaultResultComparator implements ResultComparator {
 			} else if (aConvertedResult instanceof Map && aConvertedExpectedResult instanceof Map) {
 				return performEqualityCheckForMaps((Map<?, ?>) aConvertedResult, (Map<?, ?>) aConvertedExpectedResult,
 						aRawExpectedResult);
+			} else if (aConvertedResult instanceof List) {
+				// Lists can be treated just like Arrays, so we internally make them into Arrays
+				return performEqualityCheck(
+						((List<?>) aConvertedResult).toArray(new Object[((List<?>) aConvertedResult).size()]),
+						aConvertedExpectedResult, aRawExpectedResult);
 			} else if (aConvertedResult.getClass().isArray()) {
+				// If an empty value is explicitly expected, test for that.
+				if (aConvertedExpectedResult instanceof EmptyValue) {
+					if (Array.getLength(aConvertedResult) > 0) {
+						return SimpleComparisonResult.NOT_EQUAL;
+					} else {
+						return SimpleComparisonResult.EQUAL;
+					}
+				}
+
 				if (aConvertedExpectedResult == null) {
 					// the fixture may still be returning an array that has to be unpacked
 					if (Array.getLength(aConvertedResult) != 1) {
@@ -461,6 +484,18 @@ public class DefaultResultComparator implements ResultComparator {
 						}
 						return performEqualityCheck(aConvertedResult, Array.get(aConvertedExpectedResult, 0),
 								aRawExpectedResult);
+					} else if (aConvertedExpectedResult instanceof RegexValue) {
+						// The converted result may be a Regex (due to RegexValueHandling.KEEP_AS_IS on conversion)
+						// in which case regex comparison rules apply. But the "converted result" must be a String
+						// in this case, as regexes cannot be compared to anything besides String.
+						try {
+							return performRegexCheck(
+									(String) valueConverter.convertValue(String.class, aConvertedResult, null),
+									(RegexValue) aConvertedExpectedResult);
+						} catch (UnresolvableVariableException | UnexecutableException exc) {
+							// This should be impossible to happen at this point
+							throw new RuntimeException(exc);
+						}
 					} else {
 						// If no special cases apply, perform standard equals comparison
 						return performEqualityCheckForObjects(aConvertedResult, aConvertedExpectedResult,
@@ -503,6 +538,22 @@ public class DefaultResultComparator implements ResultComparator {
 					// Inexistence of value confirmed -> prevent further comparison (which would fail)
 					continue;
 				}
+			} else if (tempReferenceValue instanceof EmptyValue) {
+				if (tempActualValue != null) {
+					if (tempActualValue instanceof Collection) {
+						if (((Collection<?>) tempActualValue).size() == 0) {
+							continue;
+						}
+					} else if (tempActualValue.getClass().isArray()) {
+						if (Array.getLength(tempActualValue) == 0) {
+							continue;
+						}
+					}
+				}
+				// If we arrive here, the value could not be confirmed to be something empty. Treat as failure.
+				tempSuccess = false;
+				tempCombinedFailedPaths.add(tempEntry.getKey().toString());
+				continue;
 			}
 
 			Object tempConvertedReferenceValue = tempReferenceValue;
@@ -560,11 +611,16 @@ public class DefaultResultComparator implements ResultComparator {
 
 				// Okay, not arrays. In this case we still have to ensure both values are of equal type first,
 				// since even though both outer values are maps, their inner values have not been necessarily converted
-				// to the same types.
+				// to the same types. But we must keep Regexes alive here, in order to be able to perform Regex
+				// comparison
+				// within maps.
 				try {
-					tempConvertedReferenceValue = (tempActualValue != null)
-							? valueConverter.convertValue(tempActualValue.getClass(), tempReferenceValue, null)
-							: tempReferenceValue;
+					tempConvertedReferenceValue
+							= (tempActualValue != null)
+									? valueConverter.convertValue(tempActualValue.getClass(), tempReferenceValue,
+											new ConversionContext()
+													.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS))
+									: tempReferenceValue;
 				} catch (UnresolvableVariableException exc) {
 					exc.printStackTrace();
 				} catch (UnexecutableException exc) {

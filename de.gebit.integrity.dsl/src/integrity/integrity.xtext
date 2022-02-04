@@ -204,7 +204,7 @@ ConstantValue:
 	StaticValue | Constant;
 	
 StaticValue:
-	StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue | InexistentValue | JavaConstantValue;
+	StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue | NullValue | InexistentValue | EmptyValue | JavaConstantValue;
 	
 IntegerValue:
 	integerValue=INTEGER;
@@ -277,6 +277,9 @@ NullValue:
 	
 InexistentValue:
 	{Inexistent} 'inexistent';
+	
+EmptyValue:
+	{Empty} 'empty';
 	
 EnumValue:
 	enumValue=[jvmTypes::JvmEnumerationLiteral|UPPERCASE_ID];
