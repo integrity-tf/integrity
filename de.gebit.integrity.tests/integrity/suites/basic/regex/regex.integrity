@@ -69,4 +69,19 @@ packagedef integrity.basic.regex with
 	
 	suiteend
 	
+	
+	suitedef beanRegexTest with
+		
+		-- This should succeed
+		test integrity.fixtures.basic.beans.createSimpleBeanUntyped = {
+				firstParameter: ~^str.*$~
+			}
+		
+		-- This should fail	
+		test integrity.fixtures.basic.beans.createSimpleBeanUntyped = {
+				firstParameter: ~^foo.*$~
+			}
+		
+	suiteend
+	
 packageend

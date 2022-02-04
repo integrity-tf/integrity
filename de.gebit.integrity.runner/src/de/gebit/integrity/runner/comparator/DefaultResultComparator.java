@@ -47,6 +47,7 @@ import de.gebit.integrity.fixtures.FixtureWrapper;
 import de.gebit.integrity.operations.UnexecutableException;
 import de.gebit.integrity.parameter.conversion.ConversionContext;
 import de.gebit.integrity.parameter.conversion.InexistentValueHandling;
+import de.gebit.integrity.parameter.conversion.RegexValueHandling;
 import de.gebit.integrity.parameter.conversion.UnresolvableVariableHandling;
 import de.gebit.integrity.parameter.conversion.ValueConverter;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.RegexValueToPattern;
@@ -348,8 +349,10 @@ public class DefaultResultComparator implements ResultComparator {
 			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, tempConvertedFixtureResult, null);
 			// Keeping Inexistent values as they are (= the InexistentValue model class instance) is necessary so that
 			// we can check for them later in map comparison. Otherwise they would be converted to strings.
+			// The same must be done for regexes in order to be able to compare them correctly.
 			tempConvertedExpectedResult = valueConverter.convertValue(Map.class, tempNestedObject,
-					new ConversionContext().withInexistentValueHandling(InexistentValueHandling.KEEP_AS_IS));
+					new ConversionContext().withInexistentValueHandling(InexistentValueHandling.KEEP_AS_IS)
+							.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS));
 		} else {
 			if (tempSingleExpectedResult instanceof Map && !(tempConvertedFixtureResult instanceof Map)) {
 				// if the expected result is a map, and the fixture has NOT returned a map, we also assume the fixture
@@ -461,6 +464,18 @@ public class DefaultResultComparator implements ResultComparator {
 						}
 						return performEqualityCheck(aConvertedResult, Array.get(aConvertedExpectedResult, 0),
 								aRawExpectedResult);
+					} else if (aConvertedExpectedResult instanceof RegexValue) {
+						// The converted result may be a Regex (due to RegexValueHandling.KEEP_AS_IS on conversion)
+						// in which case regex comparison rules apply. But the "converted result" must be a String
+						// in this case, as regexes cannot be compared to anything besides String.
+						try {
+							return performRegexCheck(
+									(String) valueConverter.convertValue(String.class, aConvertedResult, null),
+									(RegexValue) aConvertedExpectedResult);
+						} catch (UnresolvableVariableException | UnexecutableException exc) {
+							// This should be impossible to happen at this point
+							throw new RuntimeException(exc);
+						}
 					} else {
 						// If no special cases apply, perform standard equals comparison
 						return performEqualityCheckForObjects(aConvertedResult, aConvertedExpectedResult,
@@ -560,11 +575,16 @@ public class DefaultResultComparator implements ResultComparator {
 
 				// Okay, not arrays. In this case we still have to ensure both values are of equal type first,
 				// since even though both outer values are maps, their inner values have not been necessarily converted
-				// to the same types.
+				// to the same types. But we must keep Regexes alive here, in order to be able to perform Regex
+				// comparison
+				// within maps.
 				try {
-					tempConvertedReferenceValue = (tempActualValue != null)
-							? valueConverter.convertValue(tempActualValue.getClass(), tempReferenceValue, null)
-							: tempReferenceValue;
+					tempConvertedReferenceValue
+							= (tempActualValue != null)
+									? valueConverter.convertValue(tempActualValue.getClass(), tempReferenceValue,
+											new ConversionContext()
+													.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS))
+									: tempReferenceValue;
 				} catch (UnresolvableVariableException exc) {
 					exc.printStackTrace();
 				} catch (UnexecutableException exc) {
