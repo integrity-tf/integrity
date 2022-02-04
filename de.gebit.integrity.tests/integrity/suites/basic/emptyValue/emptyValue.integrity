@@ -1,0 +1,55 @@
+packagedef integrity.basic.emptyValue with
+
+	suitedef emptyListTest with
+		
+		// This should fail
+		test integrity.fixtures.basic.noop.generateListWithElementsTest numberOfElements: 1 = empty
+		
+		// This should succeed
+		test integrity.fixtures.basic.noop.generateListWithElementsTest numberOfElements: 0 = empty
+	
+	suiteend
+	
+	
+	suitedef emptyArrayTest with
+		
+		// This should fail
+		test integrity.fixtures.basic.noop.generateArrayWithElementsTest numberOfElements: 1 = empty
+		
+		// This should succeed
+		test integrity.fixtures.basic.noop.generateArrayWithElementsTest numberOfElements: 0 = empty
+	
+	suiteend
+	
+	
+	suitedef emptyListWrappedTest with
+		
+		// This should fail
+		test integrity.fixtures.basic.beans.generateWrappedListTest numberOfElements: 1 = {
+			plainListParameter: empty
+		}
+		
+		// This should succeed
+		test integrity.fixtures.basic.beans.generateWrappedListTest numberOfElements: 0 = {
+			plainListParameter: empty
+		}
+	
+	suiteend
+	
+	
+	suitedef emptyArrayWrappedTest with
+		
+		// This should fail
+		test integrity.fixtures.basic.beans.generateWrappedArrayTest numberOfElements: 1 = {
+			arrayParameter: empty
+		}
+		
+		// This should succeed
+		test integrity.fixtures.basic.beans.generateWrappedArrayTest numberOfElements: 0 = {
+			arrayParameter: empty
+		}
+	
+	suiteend
+	
+	
+packageend
