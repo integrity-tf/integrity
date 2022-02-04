@@ -495,6 +495,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
         return createInexistentValueAdapter();
       }
       @Override
+      public Adapter caseEmptyValue(EmptyValue object)
+      {
+        return createEmptyValueAdapter();
+      }
+      @Override
       public Adapter caseEnumValue(EnumValue object)
       {
         return createEnumValueAdapter();
@@ -548,6 +553,11 @@ public class DslAdapterFactory extends AdapterFactoryImpl
       public Adapter caseInexistent(Inexistent object)
       {
         return createInexistentAdapter();
+      }
+      @Override
+      public Adapter caseEmpty(Empty object)
+      {
+        return createEmptyAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -1832,6 +1842,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.EmptyValue <em>Empty Value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.EmptyValue
+   * @generated
+   */
+  public Adapter createEmptyValueAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.EnumValue <em>Enum Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1992,6 +2017,21 @@ public class DslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createInexistentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link de.gebit.integrity.dsl.Empty <em>Empty</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see de.gebit.integrity.dsl.Empty
+   * @generated
+   */
+  public Adapter createEmptyAdapter()
   {
     return null;
   }

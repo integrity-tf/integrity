@@ -15,6 +15,7 @@ import de.gebit.integrity.dsl.CustomOperation;
 import de.gebit.integrity.dsl.DecimalValue;
 import de.gebit.integrity.dsl.DocumentationComment;
 import de.gebit.integrity.dsl.DslPackage;
+import de.gebit.integrity.dsl.Empty;
 import de.gebit.integrity.dsl.EnumValue;
 import de.gebit.integrity.dsl.EuropeanDateAnd12HrsTimeValue;
 import de.gebit.integrity.dsl.EuropeanDateAnd24HrsTimeValue;
@@ -134,6 +135,9 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 				return; 
 			case DslPackage.DOCUMENTATION_COMMENT:
 				sequence_DocumentationComment(context, (DocumentationComment) semanticObject); 
+				return; 
+			case DslPackage.EMPTY:
+				sequence_EmptyValue(context, (Empty) semanticObject); 
 				return; 
 			case DslPackage.ENUM_VALUE:
 				sequence_EnumValue(context, (EnumValue) semanticObject); 
@@ -512,6 +516,22 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getDocumentationCommentAccess().getContentML_DOC_COMMENTTerminalRuleCall_0_0(), semanticObject.getContent());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     ValueOrEnumValueOrOperation returns Empty
+	 *     Value returns Empty
+	 *     ConstantValue returns Empty
+	 *     StaticValue returns Empty
+	 *     EmptyValue returns Empty
+	 *
+	 * Constraint:
+	 *     {Empty}
+	 */
+	protected void sequence_EmptyValue(ISerializationContext context, Empty semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -1460,8 +1480,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *             live='live' | 
 	 *             ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) (progressionMode='progressing' progressionFactor=TimeProgressionFactor?)?)
 	 *         ) 
-	 *         masterFork='master'? 
-	 *         (forks+=[ForkDefinition|QualifiedName]? masterFork='master'?)*
+	 *         (forks+=[ForkDefinition|QualifiedName] | masterFork='master')*
 	 *     )
 	 */
 	protected void sequence_TimeSet(ISerializationContext context, TimeSet semanticObject) {

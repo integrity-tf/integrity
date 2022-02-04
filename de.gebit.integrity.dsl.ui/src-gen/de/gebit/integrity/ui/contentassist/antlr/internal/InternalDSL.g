@@ -2382,6 +2382,34 @@ finally {
 
 
 
+// Entry rule entryRuleEmptyValue
+entryRuleEmptyValue 
+:
+{ before(grammarAccess.getEmptyValueRule()); }
+	 ruleEmptyValue
+{ after(grammarAccess.getEmptyValueRule()); } 
+	 EOF 
+;
+
+// Rule EmptyValue
+ruleEmptyValue
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getEmptyValueAccess().getGroup()); }
+(rule__EmptyValue__Group__0)
+{ after(grammarAccess.getEmptyValueAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleEnumValue
 entryRuleEnumValue 
 :
@@ -3519,9 +3547,15 @@ rule__StaticValue__Alternatives
 )
 
     |(
-{ before(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_10()); }
+{ before(grammarAccess.getStaticValueAccess().getEmptyValueParserRuleCall_10()); }
+	ruleEmptyValue
+{ after(grammarAccess.getStaticValueAccess().getEmptyValueParserRuleCall_10()); }
+)
+
+    |(
+{ before(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_11()); }
 	ruleJavaConstantValue
-{ after(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_10()); }
+{ after(grammarAccess.getStaticValueAccess().getJavaConstantValueParserRuleCall_11()); }
 )
 
 ;
@@ -14977,6 +15011,71 @@ rule__InexistentValue__Group__1__Impl
 	'inexistent' 
 
 { after(grammarAccess.getInexistentValueAccess().getInexistentKeyword_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__EmptyValue__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EmptyValue__Group__0__Impl
+	rule__EmptyValue__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EmptyValue__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEmptyValueAccess().getEmptyAction_0()); }
+(
+
+)
+{ after(grammarAccess.getEmptyValueAccess().getEmptyAction_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__EmptyValue__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__EmptyValue__Group__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__EmptyValue__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getEmptyValueAccess().getEmptyKeyword_1()); }
+
+	'empty' 
+
+{ after(grammarAccess.getEmptyValueAccess().getEmptyKeyword_1()); }
 )
 
 ;

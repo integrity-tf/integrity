@@ -2982,15 +2982,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDateAndTimeValueParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
 		private final RuleCall cNullValueParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		private final RuleCall cInexistentValueParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
-		private final RuleCall cJavaConstantValueParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cEmptyValueParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
+		private final RuleCall cJavaConstantValueParserRuleCall_11 = (RuleCall)cAlternatives.eContents().get(11);
 		
 		//StaticValue:
 		//	StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue |
-		//	NullValue | InexistentValue | JavaConstantValue;
+		//	NullValue | InexistentValue | EmptyValue | JavaConstantValue;
 		@Override public ParserRule getRule() { return rule; }
 
 		//StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue |
-		//NullValue | InexistentValue | JavaConstantValue
+		//NullValue | InexistentValue | EmptyValue | JavaConstantValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//StringValue
@@ -3023,8 +3024,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//InexistentValue
 		public RuleCall getInexistentValueParserRuleCall_9() { return cInexistentValueParserRuleCall_9; }
 
+		//EmptyValue
+		public RuleCall getEmptyValueParserRuleCall_10() { return cEmptyValueParserRuleCall_10; }
+
 		//JavaConstantValue
-		public RuleCall getJavaConstantValueParserRuleCall_10() { return cJavaConstantValueParserRuleCall_10; }
+		public RuleCall getJavaConstantValueParserRuleCall_11() { return cJavaConstantValueParserRuleCall_11; }
 	}
 
 	public class IntegerValueElements extends AbstractParserRuleElementFinder {
@@ -3559,6 +3563,26 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getInexistentKeyword_1() { return cInexistentKeyword_1; }
 	}
 
+	public class EmptyValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.EmptyValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cEmptyAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cEmptyKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		
+		//EmptyValue:
+		//	{Empty} 'empty';
+		@Override public ParserRule getRule() { return rule; }
+
+		//{Empty} 'empty'
+		public Group getGroup() { return cGroup; }
+
+		//{Empty}
+		public Action getEmptyAction_0() { return cEmptyAction_0; }
+
+		//'empty'
+		public Keyword getEmptyKeyword_1() { return cEmptyKeyword_1; }
+	}
+
 	public class EnumValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "de.gebit.integrity.DSL.EnumValue");
 		private final Assignment cEnumValueAssignment = (Assignment)rule.eContents().get(1);
@@ -4060,6 +4084,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	private final ConstantElements pConstant;
 	private final NullValueElements pNullValue;
 	private final InexistentValueElements pInexistentValue;
+	private final EmptyValueElements pEmptyValue;
 	private final EnumValueElements pEnumValue;
 	private final NestedObjectElements pNestedObject;
 	private final TypedNestedObjectElements pTypedNestedObject;
@@ -4192,6 +4217,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		this.pConstant = new ConstantElements();
 		this.pNullValue = new NullValueElements();
 		this.pInexistentValue = new InexistentValueElements();
+		this.pEmptyValue = new EmptyValueElements();
 		this.pEnumValue = new EnumValueElements();
 		this.pNestedObject = new NestedObjectElements();
 		this.pTypedNestedObject = new TypedNestedObjectElements();
@@ -4882,7 +4908,7 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StaticValue:
 	//	StringValue | RegexValue | IntegerValue | DecimalValue | BooleanValue | DateValue | TimeValue | DateAndTimeValue |
-	//	NullValue | InexistentValue | JavaConstantValue;
+	//	NullValue | InexistentValue | EmptyValue | JavaConstantValue;
 	public StaticValueElements getStaticValueAccess() {
 		return pStaticValue;
 	}
@@ -5129,6 +5155,16 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getInexistentValueRule() {
 		return getInexistentValueAccess().getRule();
+	}
+
+	//EmptyValue:
+	//	{Empty} 'empty';
+	public EmptyValueElements getEmptyValueAccess() {
+		return pEmptyValue;
+	}
+	
+	public ParserRule getEmptyValueRule() {
+		return getEmptyValueAccess().getRule();
 	}
 
 	//EnumValue:

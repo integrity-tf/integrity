@@ -779,6 +779,15 @@ public interface DslFactory extends EFactory
   InexistentValue createInexistentValue();
 
   /**
+   * Returns a new object of class '<em>Empty Value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Empty Value</em>'.
+   * @generated
+   */
+  EmptyValue createEmptyValue();
+
+  /**
    * Returns a new object of class '<em>Enum Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -876,6 +885,15 @@ public interface DslFactory extends EFactory
    * @generated
    */
   Inexistent createInexistent();
+
+  /**
+   * Returns a new object of class '<em>Empty</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Empty</em>'.
+   * @generated
+   */
+  Empty createEmpty();
 
   /**
    * Returns the package supported by this factory.
