@@ -212,4 +212,28 @@ public class BeanFixture {
 
 		return new SimpleArrayBean(tempList.toArray(new SimpleTestBean[0]));
 	}
+
+	@FixtureMethod(description = "Returns a list with $numberOfElements$ element(s) wrapped in a test bean")
+	public CollectionTestBean generateWrappedList(@FixtureParameter(name = "numberOfElements") int aNumberOfElements) {
+		List<String> tempList = new ArrayList<String>();
+		for (int i = 0; i < aNumberOfElements; i++) {
+			tempList.add(Integer.toString(i));
+		}
+
+		CollectionTestBean tempBean = new CollectionTestBean();
+		tempBean.setPlainListParameter(tempList);
+		return tempBean;
+	}
+
+	@FixtureMethod(description = "Returns an array with $numberOfElements$ element(s) wrapped in a test bean")
+	public CollectionTestBean generateWrappedArray(@FixtureParameter(name = "numberOfElements") int aNumberOfElements) {
+		List<String> tempList = new ArrayList<String>();
+		for (int i = 0; i < aNumberOfElements; i++) {
+			tempList.add(Integer.toString(i));
+		}
+
+		CollectionTestBean tempBean = new CollectionTestBean();
+		tempBean.setArrayParameter(tempList.toArray(new String[aNumberOfElements]));
+		return tempBean;
+	}
 }

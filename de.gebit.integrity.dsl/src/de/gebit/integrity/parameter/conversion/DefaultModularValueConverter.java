@@ -74,6 +74,8 @@ import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.Int
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToNumber;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToShort;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.numbers.IntegerValueToString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EmptyValueToEmptyString;
+import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EmptyValueToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToEnumConstant;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.integrity.other.EnumValueToString;
@@ -372,6 +374,8 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(EnumValueToFormattedString.class);
 		addConversion(InexistentValueToInexistentString.class);
 		addConversion(InexistentValueToFormattedString.class);
+		addConversion(EmptyValueToEmptyString.class);
+		addConversion(EmptyValueToFormattedString.class);
 		addConversion(RegexValueToString.class);
 		addConversion(RegexValueToFormattedString.class);
 		addConversion(RegexValueToPattern.class);

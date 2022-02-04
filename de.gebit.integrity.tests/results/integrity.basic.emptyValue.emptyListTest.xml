@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="04.02.22 11:34" isotimestamp="2022-02-04T11:34:42" duration="5.621">
+  <variables />
+  <suite id="0" name="integrity.basic.emptyValue.emptyListTest" timestamp="04.02.22 11:34:42.0524">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="6" name="generateListWithElementsTest" description="Returns a list with 1 element(s)" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateListWithElements" timestamp="04.02.22 11:34:42.0526">
+        <results duration="0.295" successCount="0" failureCount="1" exceptionCount="0">
+          <result duration="0.295" description="Returns a list with 1 element(s)" type="failure">
+            <parameters>
+              <parameter name="numberOfElements" value="1" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED][[empty]" value="0" type="failure" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+      <test id="2" line="9" name="generateListWithElementsTest" description="Returns a list with 0 element(s)" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateListWithElements" timestamp="04.02.22 11:34:42.0528">
+        <results duration="0.197" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.197" description="Returns a list with 0 element(s)" type="success">
+            <parameters>
+              <parameter name="numberOfElements" value="0" />
+            </parameters>
+            <comparisons>
+              <comparison expectedValue="[FORMATTED][[empty]" value="" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="5.170" successCount="1" failureCount="1" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
