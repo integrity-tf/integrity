@@ -39,7 +39,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * This works rather well in practice, although one sometimes needs to put some additional effort into the integration of new
 		// * syntactical elements, especially considering content assist and autoformatting.
-		// */ Model:
+		// */
+		//Model:
 		//	{Model} NL (imports+=Import NL)* statements+=Statement*;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -447,13 +448,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_8_1 = (RuleCall)cGroup_8.eContents().get(1);
 		
 		//ForkDefinition:
-		//	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
-		//	(('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
+		//	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ((
+		//	'uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
 		//	(parameters+=ForkParameter NL)*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
-		//(('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
+		//documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ((
+		//'uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
 		//(parameters+=ForkParameter NL)*
 		public Group getGroup() { return cGroup; }
 
@@ -826,8 +827,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//documentation=DocumentationComment? private='private'? singleRun='single-run'? inlined='inlined'? 'suitedef' NL
-		//name=QualifiedName NL ('gets' (parameters+=SuiteParameterDefinition NL)+)? ('returns' (return+=SuiteReturnDefinition
-		//NL)+)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL
+		//name=QualifiedName NL ('gets' (parameters+=SuiteParameterDefinition NL)+)? ('returns' (return+=SuiteReturnDefinition NL)+
+		//)? ('requires' NL (dependencies+=[SuiteDefinition|QualifiedName] NL)*)? ('concludedby' NL
 		//(finalizers+=[SuiteDefinition|QualifiedName] NL)*)? 'with' NL statements+=SuiteStatement* 'suiteend' NL
 		public Group getGroup() { return cGroup; }
 
@@ -1244,14 +1245,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNLParserRuleCall_7_1 = (RuleCall)cGroup_7.eContents().get(1);
 		
 		//ConstantDefinition:
-		//	documentation=DocumentationComment? private='private'? 'constant' NL name=ConstantEntity NL
-		//	((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) (parameterized='parameterized'
-		//	NL)?;
+		//	documentation=DocumentationComment? private='private'? 'constant' NL name=ConstantEntity NL (
+		//	(value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) (parameterized='parameterized' NL
+		//	)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//documentation=DocumentationComment? private='private'? 'constant' NL name=ConstantEntity NL
-		//((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) (parameterized='parameterized'
-		//NL)?
+		//documentation=DocumentationComment? private='private'? 'constant' NL name=ConstantEntity NL (
+		//(value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) (parameterized='parameterized' NL)?
 		public Group getGroup() { return cGroup; }
 
 		//documentation=DocumentationComment?
@@ -1613,8 +1613,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TableTest:
 		//	'tabletest' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
-		//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* '|' (defaultResultColumn='=' '|')? (NLFORCED
-		//	rows+=TableTestRow)+ NLFORCED;
+		//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* '|' (defaultResultColumn='=' '|')?
+		//	(NLFORCED rows+=TableTestRow)+ NLFORCED;
 		@Override public ParserRule getRule() { return rule; }
 
 		//'tabletest' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
@@ -1920,8 +1920,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//	(NL results+=NamedCallResult)* (NL '->' NL result=VariableVariable)? NL;
 		@Override public ParserRule getRule() { return rule; }
 
-		//'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] (NL parameters+=Parameter)* (NL
-		//results+=NamedCallResult)* (NL '->' NL result=VariableVariable)? NL
+		//'call' NL (multiplier=ExecutionMultiplier NL)? definition=[CallDefinition|QualifiedName] (NL parameters+=Parameter)*
+		//(NL results+=NamedCallResult)* (NL '->' NL result=VariableVariable)? NL
 		public Group getGroup() { return cGroup; }
 
 		//'call'
@@ -2077,13 +2077,13 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TimeSet:
 		//	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
-		//	(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL
-		//	((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
+		//	(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL (
+		//	(forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
-		//(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL
-		//((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?
+		//(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL (
+		//(forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?
 		public Group getGroup() { return cGroup; }
 
 		//'timeset'
@@ -2092,8 +2092,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		//NL
 		public RuleCall getNLParserRuleCall_1() { return cNLParserRuleCall_1; }
 
-		//(live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing' NL
-		//(progressionFactor=TimeProgressionFactor NL)?)?)
+		//(live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL (progressionMode='progressing'
+		//NL (progressionFactor=TimeProgressionFactor NL)?)?)
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//live='live' NL
@@ -2251,11 +2251,11 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//// In case of calculated values for time differences, those are assumed to be in msecs
-		//direction=('+' | '-') ((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation))
+		//	direction=('+' | '-') ((NL fixedValues+=TIMESPAN)+ | NL calculatedValue=(Variable | Operation))
 		public Group getGroup() { return cGroup; }
 
 		//// In case of calculated values for time differences, those are assumed to be in msecs
-		//direction=('+' | '-')
+		//	direction=('+' | '-')
 		public Assignment getDirectionAssignment_0() { return cDirectionAssignment_0; }
 
 		//('+' | '-')
@@ -4295,7 +4295,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * This works rather well in practice, although one sometimes needs to put some additional effort into the integration of new
 	// * syntactical elements, especially considering content assist and autoformatting.
-	// */ Model:
+	// */
+	//Model:
 	//	{Model} NL (imports+=Import NL)* statements+=Statement*;
 	public ModelElements getModelAccess() {
 		return pModel;
@@ -4428,8 +4429,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ForkDefinition:
-	//	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)?
-	//	(('uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
+	//	documentation=DocumentationComment? private='private'? 'forkdef' NL name=QualifiedName NL (description=STRING NL)? ((
+	//	'uses' NL forkerClass=JavaClassReference | 'based on' NL baseFork=[ForkDefinition|QualifiedName]) NL)?
 	//	(parameters+=ForkParameter NL)*;
 	public ForkDefinitionElements getForkDefinitionAccess() {
 		return pForkDefinition;
@@ -4555,9 +4556,9 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantDefinition:
-	//	documentation=DocumentationComment? private='private'? 'constant' NL name=ConstantEntity NL
-	//	((value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) (parameterized='parameterized'
-	//	NL)?;
+	//	documentation=DocumentationComment? private='private'? 'constant' NL name=ConstantEntity NL (
+	//	(value=ValueOrEnumValueOrOperationCollection NL)? (variantValues+=VariantValue NL)*) (parameterized='parameterized' NL
+	//	)?;
 	public ConstantDefinitionElements getConstantDefinitionAccess() {
 		return pConstantDefinition;
 	}
@@ -4629,8 +4630,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TableTest:
 	//	'tabletest' NL definition=[TestDefinition|QualifiedName] (NL parameters+=Parameter)* NLFORCED
-	//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* '|' (defaultResultColumn='=' '|')? (NLFORCED
-	//	rows+=TableTestRow)+ NLFORCED;
+	//	parameterHeaders+=ParameterTableHeader* resultHeaders+=ResultTableHeader* '|' (defaultResultColumn='=' '|')?
+	//	(NLFORCED rows+=TableTestRow)+ NLFORCED;
 	public TableTestElements getTableTestAccess() {
 		return pTableTest;
 	}
@@ -4732,8 +4733,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TimeSet:
 	//	'timeset' NL (live='live' NL | (startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) NL
-	//	(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL
-	//	((forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
+	//	(progressionMode='progressing' NL (progressionFactor=TimeProgressionFactor NL)?)?) ('on' NL (
+	//	(forks+=[ForkDefinition|QualifiedName] | masterFork='master') ','? NL)+)?;
 	public TimeSetElements getTimeSetAccess() {
 		return pTimeSet;
 	}
@@ -5459,8 +5460,8 @@ public class DSLGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal TIMESPAN:
-	//	'0'..'9'+ ('y' | 'year' | 'years' | 'mon' | 'month' | 'months' | 'd' | 'day' | 'days' | 'h' | 'hour' | 'hours' | 'm' |
-	//	'minute' | 'minutes' | 's' | 'second' | 'seconds' | 'ms' | 'millisecond' | 'milliseconds');
+	//	'0'..'9'+ ('y' | 'year' | 'years' | 'mon' | 'month' | 'months' | 'd' | 'day' | 'days' | 'h' | 'hour' | 'hours' | 'm'
+	//	| 'minute' | 'minutes' | 's' | 'second' | 'seconds' | 'ms' | 'millisecond' | 'milliseconds');
 	public TerminalRule getTIMESPANRule() {
 		return tTIMESPAN;
 	} 
