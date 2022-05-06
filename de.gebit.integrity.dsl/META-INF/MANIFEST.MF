@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="2.22.0";visibility:=reexport,
  org.antlr.runtime,
  org.objectweb.asm;bundle-version="[7.2.0,9.0.0)";resolution:=optional,
  org.eclipse.xtext.xbase.lib
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: de.gebit.integrity,
  de.gebit.integrity.annotation,
  de.gebit.integrity.classloading,
