@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - UI
-Bundle-Version: 21.0.0.qualifier
+Bundle-Version: 22.0.0.qualifier
 Bundle-SymbolicName: de.gebit.integrity.dsl.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext.ui.shared;bundle-version="2.25.0",
