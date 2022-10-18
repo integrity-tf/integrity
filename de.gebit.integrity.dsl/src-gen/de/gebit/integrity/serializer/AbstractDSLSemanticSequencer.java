@@ -340,6 +340,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	}
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ResultName returns ArbitraryParameterOrResultName
 	 *     ParameterName returns ArbitraryParameterOrResultName
@@ -347,6 +348,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (identifier=ID | stringIdentifier=STRING)
+	 * </pre>
 	 */
 	protected void sequence_ArbitraryParameterOrResultName(ISerializationContext context, ArbitraryParameterOrResultName semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -354,6 +356,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns BooleanValue
 	 *     Value returns BooleanValue
@@ -363,6 +366,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (booleanValue=BOOLEAN_TRUE | booleanValue=BOOLEAN_FALSE)
+	 * </pre>
 	 */
 	protected void sequence_BooleanValue(ISerializationContext context, BooleanValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -370,12 +374,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PackageStatement returns CallDefinition
 	 *     CallDefinition returns CallDefinition
 	 *
 	 * Constraint:
 	 *     (documentation=DocumentationComment? name=QualifiedName fixtureMethod=MethodReference)
+	 * </pre>
 	 */
 	protected void sequence_CallDefinition(ISerializationContext context, CallDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -383,6 +389,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteStatement returns Call
 	 *     SuiteStatementWithResult returns Call
@@ -396,6 +403,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         results+=NamedCallResult* 
 	 *         result=VariableVariable?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_Call(ISerializationContext context, Call semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -403,6 +411,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PackageStatement returns ConstantDefinition
 	 *     SuiteStatement returns ConstantDefinition
@@ -417,6 +426,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         variantValues+=VariantValue* 
 	 *         parameterized='parameterized'?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ConstantDefinition(ISerializationContext context, ConstantDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -424,12 +434,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ConstantEntity returns ConstantEntity
 	 *     VariableOrConstantEntity returns ConstantEntity
 	 *
 	 * Constraint:
 	 *     name=QualifiedName
+	 * </pre>
 	 */
 	protected void sequence_ConstantEntity(ISerializationContext context, ConstantEntity semanticObject) {
 		if (errorAcceptor != null) {
@@ -443,12 +455,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ConstantValue returns Constant
 	 *     Constant returns Constant
 	 *
 	 * Constraint:
 	 *     name=[ConstantEntity|QualifiedName]
+	 * </pre>
 	 */
 	protected void sequence_Constant(ISerializationContext context, Constant semanticObject) {
 		if (errorAcceptor != null) {
@@ -462,6 +476,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Operation returns CustomOperation
 	 *     CustomOperation returns CustomOperation
@@ -473,6 +488,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         definition=[OperationDefinition|QualifiedName] 
 	 *         postfixOperand=ValueOrEnumValueOrOperationCollection?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_CustomOperation(ISerializationContext context, CustomOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -480,6 +496,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns DecimalValue
 	 *     Value returns DecimalValue
@@ -489,6 +506,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     decimalValue=DECIMAL
+	 * </pre>
 	 */
 	protected void sequence_DecimalValue(ISerializationContext context, DecimalValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -502,11 +520,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     DocumentationComment returns DocumentationComment
 	 *
 	 * Constraint:
 	 *     content=ML_DOC_COMMENT
+	 * </pre>
 	 */
 	protected void sequence_DocumentationComment(ISerializationContext context, DocumentationComment semanticObject) {
 		if (errorAcceptor != null) {
@@ -520,6 +540,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns Empty
 	 *     Value returns Empty
@@ -529,6 +550,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     {Empty}
+	 * </pre>
 	 */
 	protected void sequence_EmptyValue(ISerializationContext context, Empty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -536,12 +558,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns EnumValue
 	 *     EnumValue returns EnumValue
 	 *
 	 * Constraint:
 	 *     enumValue=[JvmEnumerationLiteral|UPPERCASE_ID]
+	 * </pre>
 	 */
 	protected void sequence_EnumValue(ISerializationContext context, EnumValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -555,6 +579,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns EuropeanDateAnd12HrsTimeValue
 	 *     Value returns EuropeanDateAnd12HrsTimeValue
@@ -565,6 +590,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (dateValue=EURODATE timeValue=TWELVEHRSTIME)
+	 * </pre>
 	 */
 	protected void sequence_EuropeanDateAnd12HrsTimeValue(ISerializationContext context, EuropeanDateAnd12HrsTimeValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -581,6 +607,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns EuropeanDateAnd24HrsTimeValue
 	 *     Value returns EuropeanDateAnd24HrsTimeValue
@@ -591,6 +618,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (dateValue=EURODATE timeValue=TWENTYFOURHRSTIME)
+	 * </pre>
 	 */
 	protected void sequence_EuropeanDateAnd24HrsTimeValue(ISerializationContext context, EuropeanDateAnd24HrsTimeValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -607,6 +635,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns EuropeanDateValue
 	 *     Value returns EuropeanDateValue
@@ -617,6 +646,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     dateValue=EURODATE
+	 * </pre>
 	 */
 	protected void sequence_EuropeanDateValue(ISerializationContext context, EuropeanDateValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -630,11 +660,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ExecutionMultiplier returns ExecutionMultiplier
 	 *
 	 * Constraint:
 	 *     count=ConstantValue
+	 * </pre>
 	 */
 	protected void sequence_ExecutionMultiplier(ISerializationContext context, ExecutionMultiplier semanticObject) {
 		if (errorAcceptor != null) {
@@ -648,12 +680,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ParameterName returns FixedParameterName
 	 *     FixedParameterName returns FixedParameterName
 	 *
 	 * Constraint:
 	 *     annotation=[JvmAnnotationReference|ID]
+	 * </pre>
 	 */
 	protected void sequence_FixedParameterName(ISerializationContext context, FixedParameterName semanticObject) {
 		if (errorAcceptor != null) {
@@ -667,12 +701,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ResultName returns FixedResultName
 	 *     FixedResultName returns FixedResultName
 	 *
 	 * Constraint:
 	 *     field=[JvmField|ID]
+	 * </pre>
 	 */
 	protected void sequence_FixedResultName(ISerializationContext context, FixedResultName semanticObject) {
 		if (errorAcceptor != null) {
@@ -686,6 +722,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Statement returns ForkDefinition
 	 *     PackageStatement returns ForkDefinition
@@ -700,6 +737,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         (forkerClass=JavaClassReference | baseFork=[ForkDefinition|QualifiedName])? 
 	 *         parameters+=ForkParameter*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_ForkDefinition(ISerializationContext context, ForkDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -707,11 +745,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ForkParameter returns ForkParameter
 	 *
 	 * Constraint:
 	 *     (name=FixedParameterName value=ValueOrEnumValueOrOperation)
+	 * </pre>
 	 */
 	protected void sequence_ForkParameter(ISerializationContext context, ForkParameter semanticObject) {
 		if (errorAcceptor != null) {
@@ -728,11 +768,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Import returns Import
 	 *
 	 * Constraint:
 	 *     importedNamespace=QualifiedNameWithWildcard
+	 * </pre>
 	 */
 	protected void sequence_Import(ISerializationContext context, Import semanticObject) {
 		if (errorAcceptor != null) {
@@ -746,6 +788,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns Inexistent
 	 *     Value returns Inexistent
@@ -755,6 +798,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     {Inexistent}
+	 * </pre>
 	 */
 	protected void sequence_InexistentValue(ISerializationContext context, Inexistent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -762,6 +806,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns IntegerValue
 	 *     Value returns IntegerValue
@@ -771,6 +816,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     integerValue=INTEGER
+	 * </pre>
 	 */
 	protected void sequence_IntegerValue(ISerializationContext context, IntegerValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -784,6 +830,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns IsoDateAndTimeValue
 	 *     Value returns IsoDateAndTimeValue
@@ -794,6 +841,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (dateValue=ISODATE timeValue=ISOTIME)
+	 * </pre>
 	 */
 	protected void sequence_IsoDateAndTimeValue(ISerializationContext context, IsoDateAndTimeValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -810,6 +858,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns IsoDateValue
 	 *     Value returns IsoDateValue
@@ -820,6 +869,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     dateValue=ISODATE
+	 * </pre>
 	 */
 	protected void sequence_IsoDateValue(ISerializationContext context, IsoDateValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -833,6 +883,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns IsoTimeValue
 	 *     Value returns IsoTimeValue
@@ -843,6 +894,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     timeValue=ISOTIME
+	 * </pre>
 	 */
 	protected void sequence_IsoTimeValue(ISerializationContext context, IsoTimeValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -856,11 +908,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     JavaClassReference returns JavaClassReference
 	 *
 	 * Constraint:
 	 *     type=[JvmType|QualifiedJavaClassName]
+	 * </pre>
 	 */
 	protected void sequence_JavaClassReference(ISerializationContext context, JavaClassReference semanticObject) {
 		if (errorAcceptor != null) {
@@ -874,11 +928,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     JavaConstantReference returns JavaConstantReference
 	 *
 	 * Constraint:
 	 *     (type=[JvmType|QualifiedJavaClassName] constant=[JvmField|UPPERCASE_ID])
+	 * </pre>
 	 */
 	protected void sequence_JavaConstantReference(ISerializationContext context, JavaConstantReference semanticObject) {
 		if (errorAcceptor != null) {
@@ -895,6 +951,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns JavaConstantValue
 	 *     Value returns JavaConstantValue
@@ -904,6 +961,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     constant=JavaConstantReference
+	 * </pre>
 	 */
 	protected void sequence_JavaConstantValue(ISerializationContext context, JavaConstantValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -917,11 +975,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     KeyValuePair returns KeyValuePair
 	 *
 	 * Constraint:
 	 *     ((identifier=ID | stringIdentifier=STRING) value=ValueOrEnumValueOrOperationCollection)
+	 * </pre>
 	 */
 	protected void sequence_KeyValuePair(ISerializationContext context, KeyValuePair semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -929,11 +989,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     MethodReference returns MethodReference
 	 *
 	 * Constraint:
 	 *     (type=[JvmType|QualifiedJavaClassName] method=[JvmOperation|ID])
+	 * </pre>
 	 */
 	protected void sequence_MethodReference(ISerializationContext context, MethodReference semanticObject) {
 		if (errorAcceptor != null) {
@@ -950,11 +1012,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Model returns Model
 	 *
 	 * Constraint:
 	 *     (imports+=Import* statements+=Statement*)
+	 * </pre>
 	 */
 	protected void sequence_Model(ISerializationContext context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -962,11 +1026,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedCallResult returns NamedCallResult
 	 *
 	 * Constraint:
 	 *     (name=ResultName target=VariableVariable)
+	 * </pre>
 	 */
 	protected void sequence_NamedCallResult(ISerializationContext context, NamedCallResult semanticObject) {
 		if (errorAcceptor != null) {
@@ -983,11 +1049,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     NamedResult returns NamedResult
 	 *
 	 * Constraint:
 	 *     (name=ResultName value=ValueOrEnumValueOrOperationCollection)
+	 * </pre>
 	 */
 	protected void sequence_NamedResult(ISerializationContext context, NamedResult semanticObject) {
 		if (errorAcceptor != null) {
@@ -1004,6 +1072,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns NestedObject
 	 *     Value returns NestedObject
@@ -1011,6 +1080,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     attributes+=KeyValuePair+
+	 * </pre>
 	 */
 	protected void sequence_NestedObject(ISerializationContext context, NestedObject semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1018,6 +1088,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns Null
 	 *     Value returns Null
@@ -1027,6 +1098,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     {Null}
+	 * </pre>
 	 */
 	protected void sequence_NullValue(ISerializationContext context, Null semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1034,12 +1106,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PackageStatement returns OperationDefinition
 	 *     OperationDefinition returns OperationDefinition
 	 *
 	 * Constraint:
 	 *     (name=QualifiedName operationType=JavaClassReference)
+	 * </pre>
 	 */
 	protected void sequence_OperationDefinition(ISerializationContext context, OperationDefinition semanticObject) {
 		if (errorAcceptor != null) {
@@ -1056,12 +1130,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Statement returns PackageDefinition
 	 *     PackageDefinition returns PackageDefinition
 	 *
 	 * Constraint:
 	 *     (documentation=DocumentationComment? name=QualifiedName statements+=PackageStatement*)
+	 * </pre>
 	 */
 	protected void sequence_PackageDefinition(ISerializationContext context, PackageDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1069,11 +1145,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ParameterTableHeader returns ParameterTableHeader
 	 *
 	 * Constraint:
 	 *     name=ParameterName
+	 * </pre>
 	 */
 	protected void sequence_ParameterTableHeader(ISerializationContext context, ParameterTableHeader semanticObject) {
 		if (errorAcceptor != null) {
@@ -1087,11 +1165,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ParameterTableValue returns ParameterTableValue
 	 *
 	 * Constraint:
 	 *     value=ValueOrEnumValueOrOperationCollection
+	 * </pre>
 	 */
 	protected void sequence_ParameterTableValue(ISerializationContext context, ParameterTableValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -1105,11 +1185,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Parameter returns Parameter
 	 *
 	 * Constraint:
 	 *     (name=ParameterName value=ValueOrEnumValueOrOperationCollection)
+	 * </pre>
 	 */
 	protected void sequence_Parameter(ISerializationContext context, de.gebit.integrity.dsl.Parameter semanticObject) {
 		if (errorAcceptor != null) {
@@ -1126,6 +1208,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns RegexValue
 	 *     Value returns RegexValue
@@ -1135,6 +1218,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     regexValue=REGEX
+	 * </pre>
 	 */
 	protected void sequence_RegexValue(ISerializationContext context, RegexValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -1148,11 +1232,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ResultTableHeader returns ResultTableHeader
 	 *
 	 * Constraint:
 	 *     name=ResultName
+	 * </pre>
 	 */
 	protected void sequence_ResultTableHeader(ISerializationContext context, ResultTableHeader semanticObject) {
 		if (errorAcceptor != null) {
@@ -1166,6 +1252,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns Simple12HrsTimeValue
 	 *     Value returns Simple12HrsTimeValue
@@ -1176,6 +1263,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     timeValue=TWELVEHRSTIME
+	 * </pre>
 	 */
 	protected void sequence_Simple12HrsTimeValue(ISerializationContext context, Simple12HrsTimeValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -1189,6 +1277,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns Simple24HrsTimeValue
 	 *     Value returns Simple24HrsTimeValue
@@ -1199,6 +1288,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     timeValue=TWENTYFOURHRSTIME
+	 * </pre>
 	 */
 	protected void sequence_Simple24HrsTimeValue(ISerializationContext context, Simple24HrsTimeValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -1212,6 +1302,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Operation returns StandardOperation
 	 *     StandardOperation returns StandardOperation
@@ -1232,6 +1323,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *             moreOperands+=ValueOrEnumValueOrOperation
 	 *         )+
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_StandardOperation(ISerializationContext context, StandardOperation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1239,6 +1331,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns StringValue
 	 *     Value returns StringValue
@@ -1248,6 +1341,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     stringValue=STRING
+	 * </pre>
 	 */
 	protected void sequence_StringValue(ISerializationContext context, StringValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -1261,6 +1355,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PackageStatement returns SuiteDefinition
 	 *     SuiteDefinition returns SuiteDefinition
@@ -1278,6 +1373,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         finalizers+=[SuiteDefinition|QualifiedName]* 
 	 *         statements+=SuiteStatement*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_SuiteDefinition(ISerializationContext context, SuiteDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1285,11 +1381,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteParameterDefinition returns SuiteParameterDefinition
 	 *
 	 * Constraint:
 	 *     (name=VariableEntity default=ValueOrEnumValueOrOperationCollection?)
+	 * </pre>
 	 */
 	protected void sequence_SuiteParameterDefinition(ISerializationContext context, SuiteParameterDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1297,11 +1395,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteParameter returns SuiteParameter
 	 *
 	 * Constraint:
 	 *     (name=[VariableOrConstantEntity|QualifiedName] value=ValueOrEnumValueOrOperationCollection)
+	 * </pre>
 	 */
 	protected void sequence_SuiteParameter(ISerializationContext context, SuiteParameter semanticObject) {
 		if (errorAcceptor != null) {
@@ -1318,11 +1418,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteReturnDefinition returns SuiteReturnDefinition
 	 *
 	 * Constraint:
 	 *     name=VariableEntity
+	 * </pre>
 	 */
 	protected void sequence_SuiteReturnDefinition(ISerializationContext context, SuiteReturnDefinition semanticObject) {
 		if (errorAcceptor != null) {
@@ -1336,11 +1438,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteReturn returns SuiteReturn
 	 *
 	 * Constraint:
 	 *     (name=[SuiteReturnDefinition|QualifiedName] target=VariableVariable)
+	 * </pre>
 	 */
 	protected void sequence_SuiteReturn(ISerializationContext context, SuiteReturn semanticObject) {
 		if (errorAcceptor != null) {
@@ -1357,6 +1461,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteStatement returns Suite
 	 *     SuiteStatementWithResult returns Suite
@@ -1372,6 +1477,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         fork=[ForkDefinition|QualifiedName]? 
 	 *         variants+=[VariantDefinition|QualifiedName]*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_Suite(ISerializationContext context, Suite semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1379,11 +1485,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     TableTestRow returns TableTestRow
 	 *
 	 * Constraint:
 	 *     values+=ParameterTableValue+
+	 * </pre>
 	 */
 	protected void sequence_TableTestRow(ISerializationContext context, TableTestRow semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1391,6 +1499,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteStatement returns TableTest
 	 *     SuiteStatementWithResult returns TableTest
@@ -1405,6 +1514,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         defaultResultColumn='='? 
 	 *         rows+=TableTestRow+
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_TableTest(ISerializationContext context, TableTest semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1412,12 +1522,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PackageStatement returns TestDefinition
 	 *     TestDefinition returns TestDefinition
 	 *
 	 * Constraint:
 	 *     (documentation=DocumentationComment? name=QualifiedName fixtureMethod=MethodReference)
+	 * </pre>
 	 */
 	protected void sequence_TestDefinition(ISerializationContext context, TestDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1425,6 +1537,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteStatement returns Test
 	 *     SuiteStatementWithResult returns Test
@@ -1438,6 +1551,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *         results+=NamedResult* 
 	 *         result=ValueOrEnumValueOrOperationCollection?
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_Test(ISerializationContext context, Test semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1445,11 +1559,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     TimeDifference returns TimeDifference
 	 *
 	 * Constraint:
 	 *     ((direction='+' | direction='-') (fixedValues+=TIMESPAN+ | calculatedValue=Variable | calculatedValue=Operation))
+	 * </pre>
 	 */
 	protected void sequence_TimeDifference(ISerializationContext context, TimeDifference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1457,11 +1573,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     TimeProgressionFactor returns TimeProgressionFactor
 	 *
 	 * Constraint:
 	 *     (fixedValue=MULTIPLIER | calculatedValue=Variable | calculatedValue=Operation)
+	 * </pre>
 	 */
 	protected void sequence_TimeProgressionFactor(ISerializationContext context, TimeProgressionFactor semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1469,6 +1587,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteStatement returns TimeSet
 	 *     SuiteStatementWithResult returns TimeSet
@@ -1480,8 +1599,10 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *             live='live' | 
 	 *             ((startTime=ValueOrEnumValueOrOperation | diffTime=TimeDifference) (progressionMode='progressing' progressionFactor=TimeProgressionFactor?)?)
 	 *         ) 
-	 *         (forks+=[ForkDefinition|QualifiedName] | masterFork='master')*
+	 *         forks+=[ForkDefinition|QualifiedName]? 
+	 *         (masterFork='master'? forks+=[ForkDefinition|QualifiedName]?)*
 	 *     )
+	 * </pre>
 	 */
 	protected void sequence_TimeSet(ISerializationContext context, TimeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1489,6 +1610,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns TypedNestedObject
 	 *     Value returns TypedNestedObject
@@ -1496,6 +1618,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (type=JavaClassReference nestedObject=NestedObject)
+	 * </pre>
 	 */
 	protected void sequence_TypedNestedObject(ISerializationContext context, TypedNestedObject semanticObject) {
 		if (errorAcceptor != null) {
@@ -1512,6 +1635,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns USDateAnd12HrsTimeValue
 	 *     Value returns USDateAnd12HrsTimeValue
@@ -1522,6 +1646,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (dateValue=USDATE timeValue=TWELVEHRSTIME)
+	 * </pre>
 	 */
 	protected void sequence_USDateAnd12HrsTimeValue(ISerializationContext context, USDateAnd12HrsTimeValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -1538,6 +1663,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns USDateValue
 	 *     Value returns USDateValue
@@ -1548,6 +1674,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     dateValue=USDATE
+	 * </pre>
 	 */
 	protected void sequence_USDateValue(ISerializationContext context, USDateValue semanticObject) {
 		if (errorAcceptor != null) {
@@ -1561,11 +1688,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperationCollection returns ValueOrEnumValueOrOperationCollection
 	 *
 	 * Constraint:
 	 *     (value=ValueOrEnumValueOrOperation moreValues+=ValueOrEnumValueOrOperation*)
+	 * </pre>
 	 */
 	protected void sequence_ValueOrEnumValueOrOperationCollection(ISerializationContext context, ValueOrEnumValueOrOperationCollection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1573,12 +1702,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     SuiteStatement returns VariableAssignment
 	 *     VariableAssignment returns VariableAssignment
 	 *
 	 * Constraint:
 	 *     (value=ValueOrEnumValueOrOperationCollection target=VariableVariable)
+	 * </pre>
 	 */
 	protected void sequence_VariableAssignment(ISerializationContext context, VariableAssignment semanticObject) {
 		if (errorAcceptor != null) {
@@ -1595,6 +1726,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     PackageStatement returns VariableDefinition
 	 *     SuiteStatement returns VariableDefinition
@@ -1602,6 +1734,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (private='private'? name=VariableEntity initialValue=ValueOrEnumValueOrOperationCollection?)
+	 * </pre>
 	 */
 	protected void sequence_VariableDefinition(ISerializationContext context, VariableDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1609,12 +1742,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VariableEntity returns VariableEntity
 	 *     VariableOrConstantEntity returns VariableEntity
 	 *
 	 * Constraint:
 	 *     name=QualifiedName
+	 * </pre>
 	 */
 	protected void sequence_VariableEntity(ISerializationContext context, VariableEntity semanticObject) {
 		if (errorAcceptor != null) {
@@ -1628,11 +1763,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VariableVariable returns VariableVariable
 	 *
 	 * Constraint:
 	 *     name=[VariableEntity|QualifiedName]
+	 * </pre>
 	 */
 	protected void sequence_VariableVariable(ISerializationContext context, VariableVariable semanticObject) {
 		if (errorAcceptor != null) {
@@ -1646,6 +1783,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     ValueOrEnumValueOrOperation returns Variable
 	 *     Value returns Variable
@@ -1653,6 +1791,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (name=[VariableOrConstantEntity|QualifiedName] attribute=QualifiedName?)
+	 * </pre>
 	 */
 	protected void sequence_Variable(ISerializationContext context, Variable semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1660,6 +1799,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     Statement returns VariantDefinition
 	 *     PackageStatement returns VariantDefinition
@@ -1667,6 +1807,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     (documentation=DocumentationComment? name=QualifiedName description=STRING?)
+	 * </pre>
 	 */
 	protected void sequence_VariantDefinition(ISerializationContext context, VariantDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1674,11 +1815,13 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VariantValue returns VariantValue
 	 *
 	 * Constraint:
 	 *     (names+=[VariantDefinition|QualifiedName]+ value=ValueOrEnumValueOrOperationCollection)
+	 * </pre>
 	 */
 	protected void sequence_VariantValue(ISerializationContext context, VariantValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1686,12 +1829,14 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VisibleDivider returns VisibleDivider
 	 *     SuiteStatement returns VisibleDivider
 	 *
 	 * Constraint:
 	 *     content=DIVIDER
+	 * </pre>
 	 */
 	protected void sequence_VisibleDivider(ISerializationContext context, VisibleDivider semanticObject) {
 		if (errorAcceptor != null) {
@@ -1705,6 +1850,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VisibleComment returns VisibleMultiLineNormalComment
 	 *     VisibleMultiLineComment returns VisibleMultiLineNormalComment
@@ -1713,6 +1859,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     content=ML_VISIBLE_COMMENT
+	 * </pre>
 	 */
 	protected void sequence_VisibleMultiLineNormalComment(ISerializationContext context, VisibleMultiLineNormalComment semanticObject) {
 		if (errorAcceptor != null) {
@@ -1726,6 +1873,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VisibleComment returns VisibleMultiLineTitleComment
 	 *     VisibleMultiLineComment returns VisibleMultiLineTitleComment
@@ -1734,6 +1882,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     content=ML_VISIBLE_TITLE_COMMENT
+	 * </pre>
 	 */
 	protected void sequence_VisibleMultiLineTitleComment(ISerializationContext context, VisibleMultiLineTitleComment semanticObject) {
 		if (errorAcceptor != null) {
@@ -1747,6 +1896,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VisibleComment returns VisibleSingleLineNormalComment
 	 *     VisibleSingleLineComment returns VisibleSingleLineNormalComment
@@ -1755,6 +1905,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     content=SL_VISIBLE_COMMENT
+	 * </pre>
 	 */
 	protected void sequence_VisibleSingleLineNormalComment(ISerializationContext context, VisibleSingleLineNormalComment semanticObject) {
 		if (errorAcceptor != null) {
@@ -1768,6 +1919,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	
 	
 	/**
+	 * <pre>
 	 * Contexts:
 	 *     VisibleComment returns VisibleSingleLineTitleComment
 	 *     VisibleSingleLineComment returns VisibleSingleLineTitleComment
@@ -1776,6 +1928,7 @@ public abstract class AbstractDSLSemanticSequencer extends AbstractDelegatingSem
 	 *
 	 * Constraint:
 	 *     content=SL_VISIBLE_TITLE_COMMENT
+	 * </pre>
 	 */
 	protected void sequence_VisibleSingleLineTitleComment(ISerializationContext context, VisibleSingleLineTitleComment semanticObject) {
 		if (errorAcceptor != null) {

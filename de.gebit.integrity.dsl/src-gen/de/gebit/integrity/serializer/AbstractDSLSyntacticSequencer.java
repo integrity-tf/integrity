@@ -95,39 +95,49 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	}
 
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     '|'?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     name=ParameterName (ambiguity) (rule end)
+	 
+	 * </pre>
 	 */
 	protected void emit_ParameterTableHeader_VerticalLineKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     '|'?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     value=ValueOrEnumValueOrOperationCollection (ambiguity) (rule end)
+	 
+	 * </pre>
 	 */
 	protected void emit_ParameterTableValue_VerticalLineKeyword_2_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     '|'?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     name=ResultName '=' (ambiguity) (rule end)
+	 
+	 * </pre>
 	 */
 	protected void emit_ResultTableHeader_VerticalLineKeyword_3_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('concludedby' NL)?
 	 *
@@ -140,12 +150,15 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	 *     parameters+=SuiteParameterDefinition NL ('requires' NL)? (ambiguity) 'with' NL statements+=SuiteStatement
 	 *     return+=SuiteReturnDefinition NL ('requires' NL)? (ambiguity) 'with' NL 'suiteend' NL (rule end)
 	 *     return+=SuiteReturnDefinition NL ('requires' NL)? (ambiguity) 'with' NL statements+=SuiteStatement
+	 
+	 * </pre>
 	 */
 	protected void emit_SuiteDefinition___ConcludedbyKeyword_11_0_NLParserRuleCall_11_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ('requires' NL)?
 	 *
@@ -159,24 +172,30 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	 *     return+=SuiteReturnDefinition NL (ambiguity) 'concludedby' NL finalizers+=[SuiteDefinition|QualifiedName]
 	 *     return+=SuiteReturnDefinition NL (ambiguity) ('concludedby' NL)? 'with' NL 'suiteend' NL (rule end)
 	 *     return+=SuiteReturnDefinition NL (ambiguity) ('concludedby' NL)? 'with' NL statements+=SuiteStatement
+	 
+	 * </pre>
 	 */
 	protected void emit_SuiteDefinition___RequiresKeyword_10_0_NLParserRuleCall_10_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ','?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     variants+=[VariantDefinition|QualifiedName] (ambiguity) NL (rule end)
 	 *     variants+=[VariantDefinition|QualifiedName] (ambiguity) NL variants+=[VariantDefinition|QualifiedName]
+	 
+	 * </pre>
 	 */
 	protected void emit_Suite_CommaKeyword_9_2_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
 	/**
+	 * <pre>
 	 * Ambiguous syntax:
 	 *     ','?
 	 *
@@ -187,6 +206,8 @@ public abstract class AbstractDSLSyntacticSequencer extends AbstractSyntacticSeq
 	 *     masterFork='master' (ambiguity) NL (rule end)
 	 *     masterFork='master' (ambiguity) NL forks+=[ForkDefinition|QualifiedName]
 	 *     masterFork='master' (ambiguity) NL masterFork='master'
+	 
+	 * </pre>
 	 */
 	protected void emit_TimeSet_CommaKeyword_3_2_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
