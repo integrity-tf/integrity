@@ -4,17 +4,18 @@ Bundle-Name: Integrity Test Framework - Core
 Bundle-Version: 22.0.0.qualifier
 Bundle-SymbolicName: de.gebit.integrity.dsl;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext;bundle-version="2.25.0";visibility:=reexport,
- org.eclipse.xtext.common.types;bundle-version="2.25.0",
- org.eclipse.xtext.util;bundle-version="2.25.0",
- org.eclipse.emf.ecore;bundle-version="2.25.0",
- org.eclipse.emf.common;bundle-version="2.23.0",
- org.eclipse.xtext.generator;bundle-version="2.25.0";resolution:=optional,
- org.eclipse.emf.mwe2.launch;bundle-version="2.12.1";resolution:=optional,
+Require-Bundle: org.eclipse.xtext;bundle-version="2.27.0";visibility:=reexport,
+ org.eclipse.xtext.common.types;bundle-version="2.27.0",
+ org.eclipse.xtext.util;bundle-version="2.27.0",
+ org.eclipse.emf.ecore;bundle-version="2.27.0",
+ org.eclipse.emf.common;bundle-version="2.25.0",
+ org.eclipse.xtext.generator;bundle-version="2.27.0";resolution:=optional,
+ org.eclipse.emf.mwe2.launch;bundle-version="2.13.0";resolution:=optional,
  org.apache.commons.logging;bundle-version="1.1.1";resolution:=optional,
  org.antlr.runtime,
- org.objectweb.asm;bundle-version="[9.2.0,10.0.0)";resolution:=optional,
- org.eclipse.xtext.xbase.lib
+ org.objectweb.asm;bundle-version="[9.3.0,10.0.0)";resolution:=optional,
+ org.eclipse.xtext.xbase.lib,
+ org.aopalliance
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: de.gebit.integrity,
  de.gebit.integrity.annotation,

@@ -72,7 +72,6 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.common" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.ecore" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.ecore.xmi" } });
-		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.emf.mwe.utils" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.equinox.common" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.equinox.preferences" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.eclipse.text" } });
@@ -82,6 +81,8 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, new String[][] { new String[] { "org.jdom" }, new String[] { "org.jdom_jaxen" } });
 
 		addToList(tempEntryList, new String[][] { new String[] { "org.objectweb.asm" } });
+		
+		addToList(tempEntryList, new String[][] { new String[] { "org.aopalliance" } });
 
 		// convert the list to an array and return it
 		IClasspathEntry[] tempEntryArray = new IClasspathEntry[tempEntryList.size()];

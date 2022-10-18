@@ -4,12 +4,12 @@ Bundle-Name: Integrity Test Framework - UI
 Bundle-Version: 22.0.0.qualifier
 Bundle-SymbolicName: de.gebit.integrity.dsl.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.eclipse.xtext.ui.shared;bundle-version="2.25.0",
- org.eclipse.xtext.builder;bundle-version="2.25.0",
- org.eclipse.xtext.common.types.ui;bundle-version="2.25.0",
- org.eclipse.xtext.ui.codetemplates.ui;bundle-version="2.25.0",
- org.eclipse.xtext.ui;bundle-version="2.25.0",
- de.gebit.integrity.dsl;bundle-version="21.0.0",
+Require-Bundle: org.eclipse.xtext.ui.shared;bundle-version="2.27.0",
+ org.eclipse.xtext.builder;bundle-version="2.27.0",
+ org.eclipse.xtext.common.types.ui;bundle-version="2.27.0",
+ org.eclipse.xtext.ui.codetemplates.ui;bundle-version="2.27.0",
+ org.eclipse.xtext.ui;bundle-version="2.27.0",
+ de.gebit.integrity.dsl;bundle-version="22.0.0",
  org.eclipse.ui.editors,
  org.eclipse.ui,
  org.antlr.runtime,

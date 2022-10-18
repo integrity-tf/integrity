@@ -14,7 +14,7 @@
   	<isRelease>false</isRelease>
   	  
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tycho-version>2.7.0</tycho-version>
+    <tycho-version>2.7.4</tycho-version>
     <validateManifestVersions>true</validateManifestVersions>
     
     <main.basedir>${project.basedir}</main.basedir>
@@ -41,7 +41,7 @@
 			      <groupId>de.gebit.integrity</groupId>
 			      <artifactId>integrity-target</artifactId>
 			      <version>${project.version}</version>
-			      <classifier>2021-12</classifier>
+			      <classifier>2022-06</classifier>
 			    </artifact>
 			  </target>
 			  <ignoreTychoRepositories>true</ignoreTychoRepositories>
