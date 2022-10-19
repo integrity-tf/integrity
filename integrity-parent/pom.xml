@@ -27,6 +27,9 @@
 		    <artifactId>tycho-maven-plugin</artifactId>
 		    <extensions>true</extensions>
 		    <version>${tycho-version}</version>
+		    <configuration>
+		    	
+		    </configuration>
 		  </plugin>
 		  
 		  <plugin>
@@ -35,7 +38,7 @@
 		    <version>${tycho-version}</version>
 			<configuration>
 			  <resolver>p2</resolver>
-			  <pomDependencies>consider</pomDependencies>
+			  <pomDependencies>consider</pomDependencies>			  
 			  <target>
 			    <artifact>
 			      <groupId>de.gebit.integrity</groupId>
@@ -96,6 +99,8 @@
 			<artifactId>tycho-packaging-plugin</artifactId>
 			<version>${tycho-version}</version>
 			<configuration>
+				<!-- Necessary so our final POMs don't contain tons of dependencies which are managed manually -->
+				<skipPomGeneration>true</skipPomGeneration>
 				<strictVersions>${validateManifestVersions}</strictVersions>
 			</configuration>
 		  </plugin>
