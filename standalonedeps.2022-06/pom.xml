@@ -305,6 +305,13 @@
   	</dependency>
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
+  		<artifactId>org.osgi.service.prefs</artifactId>
+  		<version>1.1.2.202109301733</version>
+  		<scope>runtime</scope>
+  		<optional>true</optional>
+  	</dependency>
+  	<dependency>
+  		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>io.github.classgraph</artifactId>
   		<version>4.8.138.v20211212-1642</version>
   		<scope>runtime</scope>
