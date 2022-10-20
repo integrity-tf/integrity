@@ -277,13 +277,6 @@
   	</dependency>
   	<dependency>
   		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.xtend</artifactId>
-  		<version>2.2.0.v201605260315</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.xtend.lib</artifactId>
   		<version>2.27.0.v20220530-0353</version>
   		<scope>runtime</scope>
@@ -293,13 +286,6 @@
   		<groupId>p2.osgi.bundle</groupId>
   		<artifactId>org.eclipse.xtend.lib.macro</artifactId>
   		<version>2.27.0.v20220530-0353</version>
-  		<scope>runtime</scope>
-  		<optional>true</optional>
-  	</dependency>
-  	<dependency>
-  		<groupId>p2.osgi.bundle</groupId>
-  		<artifactId>org.eclipse.xtend.typesystem.emf</artifactId>
-  		<version>2.2.0.v201605260315</version>
   		<scope>runtime</scope>
   		<optional>true</optional>
   	</dependency>
