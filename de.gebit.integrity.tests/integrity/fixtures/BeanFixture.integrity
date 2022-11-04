@@ -62,5 +62,11 @@ packagedef integrity.fixtures.basic.beans with
 	
 	calldef generateWrappedArray uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#generateWrappedArray
 	testdef generateWrappedArrayTest uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#generateWrappedArray
+	
+	calldef createNestedListHashMap uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListHashMap
+	testdef createNestedListHashMapTest uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListHashMap
+	
+	calldef createNestedListWithMapsHashMap uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListWithMapsHashMap
+	testdef createNestedListWithMapsHashMapTest uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListWithMapsHashMap
 
 packageend
