@@ -69,5 +69,35 @@ public class NestedObjects extends IntegrityJUnitTest {
 				"integrity.basic.nestedobjects.nestedobjectsIncomplete", null);
 		assertDocumentMatchesReference(tempResult);
 	}
+	
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testNestedObjectWithListsNeedingConversion() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/nestedobjects.integrity" },
+				"integrity.basic.nestedobjects.nestedobjectsWithListsNeedingConversion", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+	
+	/**
+	 * Performs the test.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testNestedObjectWithListsOfMaps() throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/nestedobjects/nestedobjects.integrity" },
+				"integrity.basic.nestedobjects.nestedobjectsWithListsOfMaps", null);
+		assertDocumentMatchesReference(tempResult);
+	}
 
 }

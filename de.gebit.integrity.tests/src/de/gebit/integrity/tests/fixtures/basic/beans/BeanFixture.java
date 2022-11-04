@@ -9,6 +9,7 @@ package de.gebit.integrity.tests.fixtures.basic.beans;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -235,5 +236,30 @@ public class BeanFixture {
 		CollectionTestBean tempBean = new CollectionTestBean();
 		tempBean.setArrayParameter(tempList.toArray(new String[aNumberOfElements]));
 		return tempBean;
+	}
+	
+	@FixtureMethod(description = "Returns a key-value hashmap with a nested list")
+	public HashMap<String, Object> createNestedListHashMap() {
+		HashMap<String, Object> tempMap = new HashMap<>();
+		
+		tempMap.put("anArray", new int[] {1,2,3});
+		tempMap.put("aList", Arrays.asList(1,2,3));
+		
+		return tempMap;
+	}
+	
+	@FixtureMethod(description = "Returns a key-value hashmap with a nested list of hashmaps")
+	public HashMap<String, Object> createNestedListWithMapsHashMap() {
+		HashMap<String, Object> tempMap = new HashMap<>();
+		
+		HashMap<String, Object> tempInnerMap1 = new HashMap<>();
+		tempInnerMap1.put("anInnerKey", 1);
+		HashMap<String, Object> tempInnerMap2 = new HashMap<>();
+		tempInnerMap2.put("anInnerKey", 2);
+		
+		tempMap.put("anArray", new HashMap[] {tempInnerMap1, tempInnerMap2});
+		tempMap.put("aList", Arrays.asList(tempInnerMap1, tempInnerMap2));
+		
+		return tempMap;
 	}
 }

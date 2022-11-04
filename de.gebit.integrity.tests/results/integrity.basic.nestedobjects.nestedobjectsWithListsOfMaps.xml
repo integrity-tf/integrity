@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="04.11.22 21:05" isotimestamp="2022-11-04T21:05:15" duration="16.047">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.nestedobjectsWithListsOfMaps" timestamp="04.11.22 21:05:15.0051">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="106" name="createNestedListWithMapsHashMapTest" description="Returns a key-value hashmap with a nested list of hashmaps" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListWithMapsHashMap" timestamp="04.11.22 21:05:15.0056">
+        <results duration="0.542" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.542" description="Returns a key-value hashmap with a nested list of hashmaps" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]anArray = {[NL][T][T]anInnerKey = 1[NL][T]}, {[NL][T][T]anInnerKey = 2[NL][T]}[NL|, ][T]aList = {[NL][T][T]anInnerKey = 1[NL][T]}, {[NL][T][T]anInnerKey = 2[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]aList = {[NL][T][T]anInnerKey = 1[NL][T]}, {[NL][T][T]anInnerKey = 2[NL][T]}[NL|, ][T]anArray = {[NL][T][T]anInnerKey = 1[NL][T]}, {[NL][T][T]anInnerKey = 2[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="12.001" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
