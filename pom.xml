@@ -5,13 +5,13 @@
   <parent>
     <artifactId>integrity-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>22.0.1-SNAPSHOT</version>
+    <version>22.0.2-SNAPSHOT</version>
     <relativePath>integrity-parent/pom.xml</relativePath>
   </parent>
     
   <groupId>de.gebit.integrity</groupId>
   <artifactId>integrity-all</artifactId>
-  <version>22.0.1-SNAPSHOT</version>
+  <version>22.0.2-SNAPSHOT</version>
   <name>All Integrity Modules</name>
   
   <packaging>pom</packaging>
