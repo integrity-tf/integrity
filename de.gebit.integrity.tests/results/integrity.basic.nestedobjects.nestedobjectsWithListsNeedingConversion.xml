@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="04.11.22 20:38" isotimestamp="2022-11-04T20:38:43" duration="13.600">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.nestedobjectsWithListsNeedingConversion" timestamp="04.11.22 20:38:43.0980">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="96" name="createNestedListHashMapTest" description="Returns a key-value hashmap with a nested list" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListHashMap" timestamp="04.11.22 20:38:43.0985">
+        <results duration="0.232" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="0.232" description="Returns a key-value hashmap with a nested list" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]anArray = 1, 2, 3[NL|, ][T]aList = 1, 2, 3[NL]}" value="[FORMATTED]{[NL][T]aList = 1, 2, 3[NL|, ][T]anArray = 1, 2, 3[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="10.716" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

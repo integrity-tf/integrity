@@ -559,6 +559,15 @@ public class DefaultResultComparator implements ResultComparator {
 			Object tempConvertedReferenceValue = tempReferenceValue;
 			if (!(tempActualValue instanceof Map && tempReferenceValue instanceof Map)) {
 				// If the inner values aren't maps themselves, special handling is required.
+				
+				// Arrays and lists must be treated differently. Lists can be converted to arrays first, then we check
+				// for special array treatment.
+				if(tempActualValue != null && (tempActualValue instanceof List)) {
+					tempActualValue = ((List<?>) tempActualValue).toArray(new Object[((List<?>) tempActualValue).size()]);
+				}
+				if(tempReferenceValue != null && (tempReferenceValue instanceof List)) {
+					tempReferenceValue = ((List<?>) tempReferenceValue).toArray(new Object[((List<?>) tempReferenceValue).size()]);
+				}
 
 				// First see if they are arrays (maybe of maps, even). This stuff fixes issue #124!
 				if ((tempActualValue != null && tempActualValue.getClass().isArray())
@@ -586,8 +595,25 @@ public class DefaultResultComparator implements ResultComparator {
 						tempCombinedFailedPaths.add(tempEntry.getKey().toString());
 					} else {
 						for (int i = 0; i < Array.getLength(tempActualValue); i++) {
-							ComparisonResult tempInnerResult = performEqualityCheck(Array.get(tempActualValue, i),
-									Array.get(tempReferenceValue, i), aRawExpectedResult);
+							
+							// Each entry must be converted first (this fixes issue #262)
+							Object tempActualSingleValue = Array.get(tempActualValue, i);
+							Object tempReferenceSingleValue = Array.get(tempReferenceValue, i);
+							try {								
+								tempConvertedReferenceValue
+										= (tempActualSingleValue != null)
+												? valueConverter.convertValue(tempActualSingleValue.getClass(), tempReferenceSingleValue,
+														new ConversionContext()
+																.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS))
+												: tempReferenceSingleValue;
+							} catch (UnresolvableVariableException exc) {
+								exc.printStackTrace();
+							} catch (UnexecutableException exc) {
+								exc.printStackTrace();
+							}
+							
+							ComparisonResult tempInnerResult = performEqualityCheck(tempActualSingleValue,
+									tempConvertedReferenceValue, aRawExpectedResult);
 							if (!tempInnerResult.isSuccessful()) {
 								tempSuccess = false;
 

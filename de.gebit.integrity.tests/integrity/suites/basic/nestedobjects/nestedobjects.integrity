@@ -89,5 +89,33 @@ packagedef integrity.basic.nestedobjects with
 		}
 		
 	suiteend
+	
+	
+	suitedef nestedobjectsWithListsNeedingConversion with
+	
+		test integrity.fixtures.basic.beans.createNestedListHashMapTest = {
+			"anArray": 1,2,3
+			"aList": 1,2,3
+		}
+	
+	suiteend
+	
+	
+	suitedef nestedobjectsWithListsOfMaps with
+	
+		test integrity.fixtures.basic.beans.createNestedListWithMapsHashMapTest = {
+			"anArray": {
+				"anInnerKey": 1
+			}, {
+				"anInnerKey": 2
+			}
+			"aList": {
+				"anInnerKey": 1
+			}, {
+				"anInnerKey": 2
+			}
+		}
+	
+	suiteend
 
 packageend
