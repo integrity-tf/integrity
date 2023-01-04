@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Integrity Test Framework - Remoting
 Bundle-SymbolicName: de.gebit.integrity.remoting
-Bundle-Version: 20.2.3.qualifier
+Bundle-Version: 20.3.0.qualifier
 Export-Package: de.gebit.integrity.remoting,
  de.gebit.integrity.remoting.client,
  de.gebit.integrity.remoting.entities.setlist,
