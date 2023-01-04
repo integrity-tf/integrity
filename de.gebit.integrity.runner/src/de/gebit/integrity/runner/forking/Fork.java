@@ -93,7 +93,12 @@ public class Fork {
 	private FilteringStreamCopier stderrCopier;
 
 	/**
-	 * A flag remembering whether the fork has been started once.
+	 * A counter of startup attempts.
+	 */
+	private int startCount;
+
+	/**
+	 * Whether the fork was started. Is reset by cleaning up via {@link #cleanup()}.
 	 */
 	private boolean wasStarted;
 
@@ -244,8 +249,8 @@ public class Fork {
 	/**
 	 * The pattern to use for filtering.
 	 */
-	private static final Pattern FORK_HOST_AND_PORT_PATTERN = Pattern
-			.compile("Integrity Test Runner bound to ([^ :]+):(\\d+)");
+	private static final Pattern FORK_HOST_AND_PORT_PATTERN
+			= Pattern.compile("Integrity Test Runner bound to ([^ :]+):(\\d+)");
 
 	/**
 	 * The fork timesync timeout, in seconds.
@@ -292,7 +297,8 @@ public class Fork {
 	}
 
 	/**
-	 * Actually start the fork. May only be called once!
+	 * Actually start the fork. This can be run more than once in case of multiple fork startup attempts, but only if
+	 * the forked process has died and/or been killed properly before. This is ensured by calling cleanup().
 	 * 
 	 * @param aTimeSyncState
 	 *            time synchronization state info for this particular fork (will be provided just in case the forker or
@@ -303,12 +309,14 @@ public class Fork {
 	 */
 	public void start(TimeSyncState aTimeSyncState) throws ForkException {
 		if (wasStarted) {
-			throw new IllegalStateException("The fork has already been started. A fork can only be started once!");
+			throw new ForkException(
+					"Failed to create forked process - fork was already started up, and no cleanup has happened since");
 		}
+		wasStarted = true;
+		startCount++;
 
 		String tempFullyQualifiedForkName = IntegrityDSLUtil.getQualifiedForkName(definition);
 
-		wasStarted = true;
 		process = forker.fork(commandLineArguments, tempFullyQualifiedForkName, RandomNumberOperation.getSeed(),
 				aTimeSyncState);
 
@@ -323,13 +331,15 @@ public class Fork {
 
 		InputStream tempStdOut = process.getInputStream();
 		if (tempStdOut != null) {
-			stdoutCopier = new FilteringStreamCopier("\tFORK '" + definition.getName() + "': ",
+			stdoutCopier = new FilteringStreamCopier(
+					"\tFORK '" + definition.getName() + "'" + (startCount > 1 ? " try " + startCount : "") + ": ",
 					"Integrity - stdout copy: " + definition.getName(), tempStdOut, false, true);
 			stdoutCopier.start();
 		}
 		InputStream tempStdErr = process.getErrorStream();
 		if (tempStdErr != null) {
-			stderrCopier = new FilteringStreamCopier("\tFORK '" + definition.getName() + "': ",
+			stderrCopier = new FilteringStreamCopier(
+					"\tFORK '" + definition.getName() + "'" + (startCount > 1 ? " try " + startCount : "") + ": ",
 					"Integrity - stderr copy: " + definition.getName(), tempStdErr, true, false);
 			stderrCopier.start();
 		}
@@ -360,6 +370,25 @@ public class Fork {
 			processWatchdog.unregisterFork(this);
 			process = null;
 		}
+	}
+
+	/**
+	 * Cleans up internal state before reattempting another fork startup.
+	 * 
+	 * @throws InterruptedException
+	 */
+	public void cleanup() throws InterruptedException {
+		kill();
+
+		if (forkMonitor != null) {
+			forkMonitor.kill();
+			forkMonitor = null;
+		}
+
+		process = null;
+		stdoutCopier = null;
+		stderrCopier = null;
+		wasStarted = false;
 	}
 
 	public ForkDefinition getDefinition() {
@@ -428,8 +457,8 @@ public class Fork {
 		int tempPort = (stdoutCopier != null ? stdoutCopier.getForkPort() : getProcess().getPort());
 
 		synchronized (this) {
-			IntegrityRemotingClient tempClient = new IntegrityRemotingClient(tempHost, tempPort,
-					new ForkRemotingClientListener(), aClassLoader);
+			IntegrityRemotingClient tempClient
+					= new IntegrityRemotingClient(tempHost, tempPort, new ForkRemotingClientListener(), aClassLoader);
 
 			try {
 				wait(aTimeout);
@@ -650,8 +679,8 @@ public class Fork {
 		@Override
 		public void onForkResultSummaryRetrieval(Integer aSuccessCount, Integer aFailureCount,
 				Integer aTestExceptionCount, Integer aCallExceptionCount) {
-			lastResultSummary = new ForkResultSummary(aSuccessCount, aFailureCount, aTestExceptionCount,
-					aCallExceptionCount);
+			lastResultSummary
+					= new ForkResultSummary(aSuccessCount, aFailureCount, aTestExceptionCount, aCallExceptionCount);
 		}
 
 		@Override
