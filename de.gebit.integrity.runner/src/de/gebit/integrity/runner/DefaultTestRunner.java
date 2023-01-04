@@ -374,6 +374,32 @@ public class DefaultTestRunner implements TestRunner {
 	protected static final String MY_FORK_NAME = System.getProperty(Forker.SYSPARAM_FORK_NAME);
 
 	/**
+	 * The system property that allows to override the number of retries to attempt when starting forked processes.
+	 */
+	protected static final String FORK_STARTUP_RETRYCOUNT_PROPERTY = "integrity.fork.startup.retrycount";
+
+	/**
+	 * The default number of retries when starting forks. By default, use "fail fast" and abort test runs immediately.
+	 */
+	protected static final int FORK_STARTUP_RETRYCOUNT_DEFAULT = 1;
+
+	/**
+	 * The number of retries when starting forks.
+	 */
+	protected int getForkStartupRetryCount() {
+		return System.getProperty(FORK_STARTUP_RETRYCOUNT_PROPERTY) != null
+				? Integer.parseInt(System.getProperty(FORK_STARTUP_RETRYCOUNT_PROPERTY))
+				: getForkStartupRetryCountDefault();
+	}
+
+	/**
+	 * The default number of retries when starting forks.
+	 */
+	protected int getForkStartupRetryCountDefault() {
+		return FORK_STARTUP_RETRYCOUNT_DEFAULT;
+	}
+
+	/**
 	 * The system property that allows to override the timeout used when connecting to forks.
 	 */
 	protected static final String FORK_CONNECTION_TIMEOUT_PROPERTY = "integrity.fork.timeout.connect";
@@ -3064,6 +3090,7 @@ public class DefaultTestRunner implements TestRunner {
 	 *             if any problem arises during forking
 	 */
 	@SuppressWarnings("unchecked")
+	// SUPPRESS CHECKSTYLE MethodLength
 	protected Fork createFork(Suite aSuiteCall) throws ForkException {
 		final ForkDefinition tempForkDef = aSuiteCall.getFork();
 		Class<? extends Forker> tempForkerClass = DefaultForker.class;
@@ -3195,43 +3222,79 @@ public class DefaultTestRunner implements TestRunner {
 				});
 		injector.injectMembers(tempFork);
 
-		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
-				"Fork Process Start (" + tempForkDef.getName() + ")",
-				new TestRunnerPerformanceLogger.RunnableWithException<ForkException>() {
+		int tempForkStartupAttempt = 1;
+		while (tempForkStartupAttempt <= getForkStartupRetryCount()) {
+			System.out.println("Now starting process for fork '" + tempFork.getDefinition().getName() + "'"
+					+ (tempForkStartupAttempt > 1
+							? " (try " + tempForkStartupAttempt + " of " + getForkStartupRetryCount() + ")"
+							: "")
+					+ "...");
 
-					@Override
-					public void run() throws ForkException {
-						tempFork.start(forkTimeSyncStates.get(aSuiteCall.getFork()));
-					}
-				});
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+					"Fork Process Start (" + tempForkDef.getName() + ") try " + tempForkStartupAttempt,
+					new TestRunnerPerformanceLogger.RunnableWithException<ForkException>() {
 
-		final long tempTimeout = getForkConnectionTimeout();
-		final long tempStartTime = System.nanoTime();
+						@Override
+						public void run() throws ForkException {
+							tempFork.start(forkTimeSyncStates.get(aSuiteCall.getFork()));
+						}
+					});
 
-		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
-				"Fork Connect (" + tempForkDef.getName() + ")", new Runnable() {
+			final long tempTimeout = getForkConnectionTimeout();
+			final long tempStartTime = System.nanoTime();
 
-					@Override
-					public void run() {
-						while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
-							try {
-								if (!tempFork.isAlive()
-										|| tempFork.connect(getForkSingleConnectTimeout(), javaClassLoader)) {
-									break;
+			performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+					"Fork Connect (" + tempForkDef.getName() + ") try " + tempForkStartupAttempt, new Runnable() {
+
+						@Override
+						public void run() {
+							while (System.nanoTime() - tempStartTime < (tempTimeout * 1000 * 1000000)) {
+								try {
+									if (!tempFork.isAlive()
+											|| tempFork.connect(getForkSingleConnectTimeout(), javaClassLoader)) {
+										break;
+									}
+								} catch (IOException exc) {
+									// this is expected -> will simply retry
 								}
-							} catch (IOException exc) {
-								// this is expected -> will simply retry
-							}
 
-							try {
-								Thread.sleep(getForkConnectDelay());
-							} catch (InterruptedException exc) {
-								// ignored
+								try {
+									Thread.sleep(getForkConnectDelay());
+								} catch (InterruptedException exc) {
+									// ignored
+								}
 							}
 						}
-					}
 
-				});
+					});
+
+			if (tempFork.isAlive() && tempFork.isConnected()) {
+				break;
+			} else {
+				System.out.println("Process startup for fork '" + tempFork.getDefinition().getName() + "' "
+						+ (tempForkStartupAttempt > 1
+								? "(try " + tempForkStartupAttempt + " of " + getForkStartupRetryCount() + ")"
+								: "")
+						+ " has failed - the process has died during startup or no connection could be made in time!");
+				tempForkStartupAttempt++;
+				if (tempForkStartupAttempt <= getForkStartupRetryCount()) {
+					// Another attempt will be made. Cleanup the fork process to allow for a clean start.
+					performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
+							"Fork Cleanup (" + tempForkDef.getName() + ") for try " + tempForkStartupAttempt,
+							new Runnable() {
+
+								@Override
+								public void run() {
+									try {
+										tempFork.cleanup();
+									} catch (InterruptedException exc) {
+										exc.printStackTrace();
+									}
+								}
+							});
+				}
+			}
+		}
 
 		if (tempFork.isAlive() && tempFork.isConnected()) {
 			// Start off the fork with a full set of test scripts and the current setlist as well as all other init data
@@ -3317,6 +3380,7 @@ public class DefaultTestRunner implements TestRunner {
 			}
 		}
 
+		// If we drop down to this place, forking has failed. We want to kill the fork if it happens to be still alive.
 		performanceLogger.executeAndLog(TestRunnerPerformanceLogger.PERFORMANCE_LOG_CATEGORY_FORK,
 				"Fork Kill (" + tempForkDef.getName() + ")", new Runnable() {
 
@@ -3329,7 +3393,10 @@ public class DefaultTestRunner implements TestRunner {
 						}
 					}
 				});
-		throw new ForkException("Could not successfully establish a control connection to the fork.");
+
+		throw new ForkException(
+				"Could not successfully launch and connect to the fork '" + tempFork.getDefinition().getName() + "'"
+						+ (tempForkStartupAttempt > 2 ? " in " + (tempForkStartupAttempt - 1) + " attempts" : ""));
 	}
 
 	/**
