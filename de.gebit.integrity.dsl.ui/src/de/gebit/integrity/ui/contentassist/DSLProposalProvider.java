@@ -22,12 +22,12 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClassFile;
-import org.eclipse.jdt.internal.core.CompilationUnit;
 import org.eclipse.jface.internal.text.html.BrowserInformationControl;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
@@ -1522,8 +1522,8 @@ public class DSLProposalProvider extends AbstractDSLProposalProvider {
 	private IType resolveJDTTypeForJvmType(JvmType aType) throws JavaModelException {
 		IJavaElement tempSourceMethod = (IJavaElement) elementFinder.findElementFor(aType);
 
-		if (tempSourceMethod.getParent() instanceof CompilationUnit) {
-			CompilationUnit tempCompilationUnit = (CompilationUnit) tempSourceMethod.getParent();
+		if (tempSourceMethod.getParent() instanceof ICompilationUnit) {
+			ICompilationUnit tempCompilationUnit = (ICompilationUnit) tempSourceMethod.getParent();
 			return tempCompilationUnit.getTypes()[0];
 		} else if (tempSourceMethod.getParent() instanceof ClassFile) {
 			ClassFile tempClassFile = (ClassFile) tempSourceMethod.getParent();
