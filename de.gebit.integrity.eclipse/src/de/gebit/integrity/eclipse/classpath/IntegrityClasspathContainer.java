@@ -20,6 +20,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.osgi.service.datalocation.Location;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.VersionRange;
 
 import de.gebit.integrity.eclipse.Activator;
 
@@ -61,7 +62,9 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 
 		addToList(tempEntryList, new String[][] { new String[] { "javax.inject" } });
 		addToList(tempEntryList, new String[][] { new String[] { "com.google.inject" } });
-		addToList(tempEntryList, new String[][] { new String[] { "com.google.guava" } });
+		// Guava seems to have a breaking change in 31.x that leads to errors with xtext 2.30.x,
+		// hence the 31.x versions are excluded here
+		addToList(tempEntryList, new String[][] { new String[] { "com.google.guava:[0.0.0,31.0.0)" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.antlr.runtime" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.slf4j.log4j", "org.slf4j.api" },
 				new String[] { "org.apache.log4j" } });
@@ -135,13 +138,24 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 	}
 
 	private Bundle findBundle(String aSymbolicName) {
-		Bundle[] tempBundles = Platform.getBundles(aSymbolicName, null);
+		VersionRange tempVersionRange = null;
+		String tempBundleName = aSymbolicName;
+		if(aSymbolicName.contains(":")) {
+			tempVersionRange = VersionRange.valueOf(aSymbolicName.substring(aSymbolicName.indexOf(":") + 1));
+			tempBundleName = aSymbolicName.substring(0, aSymbolicName.indexOf(":"));
+		}		
+		
+		Bundle[] tempBundles = Platform.getBundles(tempBundleName, null);
 		if (tempBundles == null) {
 			return null;
 		}
 
 		Bundle tempBundleMatch = null;
-		for (Bundle tempBundleCandidate : Platform.getBundles(aSymbolicName, null)) {
+		for (Bundle tempBundleCandidate : Platform.getBundles(tempBundleName, null)) {
+			if(tempVersionRange != null && !tempVersionRange.includes(tempBundleCandidate.getVersion()) ) {
+				continue;
+			}
+			
 			if (tempBundleMatch != null) {
 				if (tempBundleMatch.getVersion().compareTo(tempBundleCandidate.getVersion()) < 0) {
 					// already-found matches' version is less than candidates' version
