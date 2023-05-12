@@ -609,8 +609,8 @@ public final class IntegrityDSLUtil {
 	 */
 	public static Map<ParameterTableHeader, List<ParameterTableValue>> getTableParameterValuesPerParameter(
 			TableTest aTableTest) {
-		Map<ParameterTableHeader, List<ParameterTableValue>> tempMap = new HashMap<>(
-				aTableTest.getParameterHeaders().size());
+		Map<ParameterTableHeader, List<ParameterTableValue>> tempMap
+				= new HashMap<>(aTableTest.getParameterHeaders().size());
 
 		for (ParameterTableHeader tempHeader : aTableTest.getParameterHeaders()) {
 			List<ParameterTableValue> tempValues = new ArrayList<>(aTableTest.getRows().size());
@@ -718,11 +718,25 @@ public final class IntegrityDSLUtil {
 	 */
 	public static Collection<ValueOrEnumValueOrOperation> getAllValuesFromCollection(
 			ValueOrEnumValueOrOperationCollection aValueCollection) {
-		Collection<ValueOrEnumValueOrOperation> tempResult = new ArrayList<>(
-				aValueCollection.getMoreValues().size() + 1);
+		Collection<ValueOrEnumValueOrOperation> tempResult
+				= new ArrayList<>(aValueCollection.getMoreValues().size() + 1);
 		tempResult.add(aValueCollection.getValue());
 		tempResult.addAll(aValueCollection.getMoreValues());
 		return tempResult;
+	}
+
+	/**
+	 * Gets a specific index position out of a {@link ValueOrEnumValueOrOperationCollection}.
+	 * 
+	 * @param aValueCollection
+	 *            the value collection
+	 * @param anIndex
+	 *            the index to get
+	 * @return the value
+	 */
+	public static ValueOrEnumValueOrOperation getSpecificValueFromCollection(
+			ValueOrEnumValueOrOperationCollection aValueCollection, int anIndex) {
+		return (anIndex == 0) ? aValueCollection.getValue() : aValueCollection.getMoreValues().get(anIndex - 1);
 	}
 
 	/**

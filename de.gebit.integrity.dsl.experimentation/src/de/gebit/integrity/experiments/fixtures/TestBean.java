@@ -1,6 +1,8 @@
 package de.gebit.integrity.experiments.fixtures;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class TestBean extends SuperTestBean {
@@ -68,12 +70,32 @@ public class TestBean extends SuperTestBean {
 		 */
 		private BigDecimal innerParameter;
 
+		private LocalTime localTime;
+
+		private LocalDate localDate;
+
 		public BigDecimal getInnerParameter() {
 			return innerParameter;
 		}
 
 		public void setInnerParameter(BigDecimal innerParameter) {
 			this.innerParameter = innerParameter;
+		}
+
+		public LocalTime getLocalTime() {
+			return localTime;
+		}
+
+		public void setLocalTime(LocalTime localTime) {
+			this.localTime = localTime;
+		}
+
+		public LocalDate getLocalDate() {
+			return localDate;
+		}
+
+		public void setLocalDate(LocalDate localDate) {
+			this.localDate = localDate;
 		}
 
 	}
