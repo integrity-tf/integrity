@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="12.05.23 09:51" isotimestamp="2023-05-12T09:51:18" duration="14.975">
+  <variables />
+  <suite id="0" name="integrity.basic.nestedobjects.datesInsideNestedObjects" timestamp="12.05.23 09:51:18.0682">
+    <setup />
+    <variables />
+    <statements>
+      <test id="1" line="8" name="createDateContainingTestBeanTest" description="Returns a bean with nested date/time info" fixture="de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createDateContainingTestBean" timestamp="12.05.23 09:51:18.0684">
+        <results duration="2.681" successCount="1" failureCount="0" exceptionCount="0">
+          <result duration="2.681" description="Returns a bean with nested date/time info" type="success">
+            <parameters />
+            <comparisons>
+              <comparison expectedValue="[FORMATTED]{[NL][T]singleParameter = {[NL][T][T]localDate = 1. Januar 2023[NL|, ][T][T]localTime = 18:00:00 MEZ[NL][T]}[NL|, ][T]collectionParameter = {[NL][T][T]localDate = 1. Januar 2023[NL|, ][T][T]localTime = 18:00:00 MEZ[NL][T]}, {[NL][T][T]date = 2. Februar 2022[NL][T]}[NL]}" value="[FORMATTED]{[NL][T]collectionParameter = {[NL][T][T]date = null[NL|, ][T][T]localDate = 2023-01-01[NL|, ][T][T]localTime = 18:00[NL][T]}, {[NL][T][T]date = 2. Februar 2022 19:30:30 MEZ[NL|, ][T][T]localDate = null[NL|, ][T][T]localTime = null[NL][T]}[NL|, ][T]singleParameter = {[NL][T][T]date = null[NL|, ][T][T]localDate = 2023-01-01[NL|, ][T][T]localTime = 18:00[NL][T]}[NL]}" type="success" />
+            </comparisons>
+          </result>
+        </results>
+      </test>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="13.590" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+

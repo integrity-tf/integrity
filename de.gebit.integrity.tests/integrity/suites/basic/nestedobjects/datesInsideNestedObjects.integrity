@@ -1,0 +1,24 @@
+import integrity.fixtures.basic.beans.*
+import integrity.fixtures.basic.noop.*
+
+packagedef integrity.basic.nestedobjects with
+
+	suitedef datesInsideNestedObjects with
+	
+		test createDateContainingTestBeanTest = {
+			singleParameter: {
+				localDate: 2023-01-01
+				localTime: 18:00:00
+			}
+			
+			collectionParameter: {
+				localDate: 2023-01-01
+				localTime: 18:00:00
+			},{
+				date: 2022-02-02
+			}
+		}
+		
+	suiteend
+
+packageend
