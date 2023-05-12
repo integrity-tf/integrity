@@ -69,4 +69,7 @@ packagedef integrity.fixtures.basic.beans with
 	calldef createNestedListWithMapsHashMap uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListWithMapsHashMap
 	testdef createNestedListWithMapsHashMapTest uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createNestedListWithMapsHashMap
 
+	calldef createDateContainingTestBean uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createDateContainingTestBean
+	testdef createDateContainingTestBeanTest uses de.gebit.integrity.tests.fixtures.basic.beans.BeanFixture#createDateContainingTestBean
+
 packageend
