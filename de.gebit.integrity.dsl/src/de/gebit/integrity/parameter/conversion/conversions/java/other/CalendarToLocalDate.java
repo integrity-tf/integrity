@@ -25,7 +25,7 @@ public class CalendarToLocalDate extends Conversion<Calendar, LocalDate> {
 	@Override
 	public LocalDate convert(Calendar aSource, Class<? extends LocalDate> aTargetType,
 			ConversionContext aConversionContext) throws ConversionFailedException {
-		return LocalDate.ofInstant(aSource.toInstant(), aSource.getTimeZone().toZoneId());
+		return aSource.toInstant().atZone(aSource.getTimeZone().toZoneId()).toLocalDate();
 	}
 
 }
