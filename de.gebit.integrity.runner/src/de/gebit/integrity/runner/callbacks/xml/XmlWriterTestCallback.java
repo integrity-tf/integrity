@@ -842,8 +842,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.SUITE_START, tempSuiteElement);
+			} else {
+				internalOnSuiteStart(tempSuiteElement);
 			}
-			internalOnSuiteStart(tempSuiteElement);
 		}
 	}
 
@@ -889,8 +890,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.SETUP_START, tempSetupElement);
+			} else {
+				internalOnSetupStart(tempSetupElement);
 			}
-			internalOnSetupStart(tempSetupElement);
 		}
 	}
 
@@ -921,8 +923,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.SETUP_FINISH, tempSuiteResultElement);
+			} else {
+				internalOnSetupFinish(tempSuiteResultElement);
 			}
-			internalOnSetupFinish(tempSuiteResultElement);
 		}
 	}
 
@@ -996,8 +999,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TEST_START, tempTestElement);
+			} else {
+				internalOnTestStart(tempTestElement);
 			}
-			internalOnTestStart(tempTestElement);
 		}
 	}
 
@@ -1077,8 +1081,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement);
+			} else {
+				internalOnTableTestStart(tempTestElement);
 			}
-			internalOnTableTestStart(tempTestElement);
 		}
 	}
 
@@ -1141,8 +1146,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				addConsoleOutput(tempResultCollectionElement);
 				sendElementsToMaster(TestRunnerCallbackMethods.TEST_FINISH, tempResultCollectionElement,
 						tempExtendedResultElement);
+			} else {
+				internalOnTestFinish(tempResultCollectionElement, tempExtendedResultElement);
 			}
-			internalOnTestFinish(tempResultCollectionElement, tempExtendedResultElement);
 		}
 	}
 
@@ -1311,9 +1317,10 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				addConsoleOutput(tempResultCollectionElement);
 				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_FINISH, tempResultCollectionElement,
 						tempExtendedResultElement, tempFinalizationResultElement);
+			} else {
+				internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement,
+						tempFinalizationResultElement);
 			}
-			internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement,
-					tempFinalizationResultElement);
 		}
 	}
 
@@ -1504,8 +1511,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.CALL_START, tempCallElement);
+			} else {
+				internalOnCallStart(tempCallElement);
 			}
-			internalOnCallStart(tempCallElement);
 		}
 	}
 
@@ -1574,8 +1582,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				addConsoleOutput(tempCallResultElement);
 				sendElementsToMaster(TestRunnerCallbackMethods.CALL_FINISH, tempCallResultElement,
 						tempExtendedResultElement);
+			} else {
+				internalOnCallFinish(tempCallResultElement, tempExtendedResultElement);
 			}
-			internalOnCallFinish(tempCallResultElement, tempExtendedResultElement);
 		}
 	}
 
@@ -1623,8 +1632,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TEAR_DOWN_START, tempTearDownElement);
+			} else {
+				internalOnTearDownStart(tempTearDownElement);
 			}
-			internalOnTearDownStart(tempTearDownElement);
 		}
 	}
 
@@ -1655,8 +1665,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TEAR_DOWN_FINISH, tempSuiteResultElement);
+			} else {
+				internalOnTearDownFinish(tempSuiteResultElement);
 			}
-			internalOnTearDownFinish(tempSuiteResultElement);
 		}
 	}
 
@@ -1686,8 +1697,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.SUITE_FINISH, tempSuiteResultElement);
+			} else {
+				internalOnSuiteFinish(tempSuiteResultElement);
 			}
-			internalOnSuiteFinish(tempSuiteResultElement);
 		}
 	}
 
@@ -1890,8 +1902,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.VARIABLE_ASSIGNMENT, tempVariableAssignmentElement);
+			} else {
+				internalOnVariableAssignment(tempVariableAssignmentElement);
 			}
-			internalOnVariableAssignment(tempVariableAssignmentElement);
 		}
 	}
 
@@ -1921,8 +1934,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.RETURN_ASSIGNMENT, tempVariableElement);
+			} else {
+				internalOnReturnVariableAssignment(tempVariableElement);
 			}
-			internalOnReturnVariableAssignment(tempVariableElement);
 		}
 	}
 
@@ -1970,8 +1984,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET_START, tempTimeSetElement);
+			} else {
+				internalOnTimeSetStart(tempTimeSetElement);
 			}
-			internalOnTimeSetStart(tempTimeSetElement);
 		}
 	}
 
@@ -2008,8 +2023,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.TIME_SET_FINISH,
 						tempNewElements.toArray(new Element[tempNewElements.size()]));
+			} else {
+				internalOnTimeSetFinish(tempTimeSetElement);
 			}
-			internalOnTimeSetFinish(tempTimeSetElement);
 		}
 	}
 
@@ -2094,8 +2110,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				} else {
 					sendElementsToMaster(TestRunnerCallbackMethods.VARIABLE_DEFINITION, tempVariableElement);
 				}
+			} else {
+				internalOnVariableDefinition(tempVariableElement, tempGlobalFlag);
 			}
-			internalOnVariableDefinition(tempVariableElement, tempGlobalFlag);
 		}
 	}
 
@@ -2267,8 +2284,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.VISIBLE_COMMENT, tempCommentElement);
+			} else {
+				internalOnVisibleComment(tempCommentElement);
 			}
-			internalOnVisibleComment(tempCommentElement);
 		}
 	}
 
@@ -2290,8 +2308,9 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		if (!isDryRun()) {
 			if (isFork()) {
 				sendElementsToMaster(TestRunnerCallbackMethods.VISIBLE_DIVIDER, tempCommentElement);
+			} else {
+				internalOnVisibleDivider(tempCommentElement);
 			}
-			internalOnVisibleDivider(tempCommentElement);
 		}
 	}
 

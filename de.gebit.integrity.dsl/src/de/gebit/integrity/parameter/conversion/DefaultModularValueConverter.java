@@ -136,10 +136,15 @@ import de.gebit.integrity.parameter.conversion.conversions.java.other.BooleanToF
 import de.gebit.integrity.parameter.conversion.conversions.java.other.BooleanToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToDate;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToFormattedString;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToInstant;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToLocalDate;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToLocalDateTime;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToLocalTime;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToSQLDate;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToSQLTime;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToTimestamp;
+import de.gebit.integrity.parameter.conversion.conversions.java.other.CalendarToZonedDateTime;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToCalendar;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToFormattedString;
 import de.gebit.integrity.parameter.conversion.conversions.java.other.DateToSQLDate;
@@ -239,6 +244,11 @@ public class DefaultModularValueConverter extends AbstractModularValueConverter 
 		addConversion(CalendarToSQLTime.class);
 		addConversion(CalendarToString.class);
 		addConversion(CalendarToFormattedString.class);
+		addConversion(CalendarToInstant.class);
+		addConversion(CalendarToLocalDate.class);
+		addConversion(CalendarToLocalDateTime.class);
+		addConversion(CalendarToLocalTime.class);
+		addConversion(CalendarToZonedDateTime.class);
 		addConversion(ObjectToString.class);
 		addConversion(ObjectToFormattedString.class);
 		addConversion(MapToBean.class);
