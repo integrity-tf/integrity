@@ -408,7 +408,7 @@ public class DefaultResultComparator implements ResultComparator {
 	 * @param aConvertedExpectedResult
 	 *            the expected result from the scripts, converted to the same type as the actual result
 	 * @param aRawExpectedResult
-	 *            the raw expected result object from the scripts
+	 *            the raw expected result object from the scripts (if determinable, null otherwise)
 	 * @return true if equal, false otherwise
 	 */
 	protected ComparisonResult performEqualityCheck(Object aConvertedResult, Object aConvertedExpectedResult,
@@ -524,9 +524,35 @@ public class DefaultResultComparator implements ResultComparator {
 		boolean tempSuccess = true;
 		Set<String> tempCombinedFailedPaths = new HashSet<String>();
 
+		NestedObject tempRawNestedObject = null;
+		if (aRawExpectedResult instanceof NestedObject) {
+			tempRawNestedObject = (NestedObject) aRawExpectedResult;
+		} else if (aRawExpectedResult instanceof TypedNestedObject) {
+			tempRawNestedObject = ((TypedNestedObject) aRawExpectedResult).getNestedObject();
+		} else {
+			Object tempCandidate;
+			try {
+				tempCandidate = parameterResolver.resolveSingleParameterValue(aRawExpectedResult,
+						UnresolvableVariableHandling.KEEP_UNRESOLVED);
+				if (tempCandidate instanceof NestedObject) {
+					tempRawNestedObject = (NestedObject) tempCandidate;
+				} else if (tempCandidate instanceof TypedNestedObject) {
+					tempRawNestedObject = ((TypedNestedObject) tempCandidate).getNestedObject();
+				}
+			} catch (InstantiationException | ClassNotFoundException | UnexecutableException exc) {
+				// skip this resolve
+			}
+		}
+
 		for (Entry<?, ?> tempEntry : ((Map<?, ?>) anExpectedResult).entrySet()) {
 			Object tempActualValue = ((Map<?, ?>) aResult).get(tempEntry.getKey());
 			Object tempReferenceValue = tempEntry.getValue();
+			// If possible, try to pull the original value out of the original nested object
+			ValueOrEnumValueOrOperationCollection tempRawReferenceValue
+					= (tempRawNestedObject != null) ? tempRawNestedObject.getAttributes().stream()
+							.filter((aPair) -> tempEntry.getKey()
+									.equals(IntegrityDSLUtil.getIdentifierFromKeyValuePair(aPair)))
+							.map((aPair) -> aPair.getValue()).findFirst().orElse(null) : null;
 
 			if (tempReferenceValue instanceof InexistentValue) {
 				if (tempActualValue != null || ((Map<?, ?>) aResult).containsKey(tempEntry.getKey())) {
@@ -559,14 +585,16 @@ public class DefaultResultComparator implements ResultComparator {
 			Object tempConvertedReferenceValue = tempReferenceValue;
 			if (!(tempActualValue instanceof Map && tempReferenceValue instanceof Map)) {
 				// If the inner values aren't maps themselves, special handling is required.
-				
+
 				// Arrays and lists must be treated differently. Lists can be converted to arrays first, then we check
 				// for special array treatment.
-				if(tempActualValue != null && (tempActualValue instanceof List)) {
-					tempActualValue = ((List<?>) tempActualValue).toArray(new Object[((List<?>) tempActualValue).size()]);
+				if (tempActualValue != null && (tempActualValue instanceof List)) {
+					tempActualValue
+							= ((List<?>) tempActualValue).toArray(new Object[((List<?>) tempActualValue).size()]);
 				}
-				if(tempReferenceValue != null && (tempReferenceValue instanceof List)) {
-					tempReferenceValue = ((List<?>) tempReferenceValue).toArray(new Object[((List<?>) tempReferenceValue).size()]);
+				if (tempReferenceValue != null && (tempReferenceValue instanceof List)) {
+					tempReferenceValue
+							= ((List<?>) tempReferenceValue).toArray(new Object[((List<?>) tempReferenceValue).size()]);
 				}
 
 				// First see if they are arrays (maybe of maps, even). This stuff fixes issue #124!
@@ -595,25 +623,28 @@ public class DefaultResultComparator implements ResultComparator {
 						tempCombinedFailedPaths.add(tempEntry.getKey().toString());
 					} else {
 						for (int i = 0; i < Array.getLength(tempActualValue); i++) {
-							
+
 							// Each entry must be converted first (this fixes issue #262)
 							Object tempActualSingleValue = Array.get(tempActualValue, i);
 							Object tempReferenceSingleValue = Array.get(tempReferenceValue, i);
-							try {								
-								tempConvertedReferenceValue
-										= (tempActualSingleValue != null)
-												? valueConverter.convertValue(tempActualSingleValue.getClass(), tempReferenceSingleValue,
-														new ConversionContext()
-																.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS))
-												: tempReferenceSingleValue;
+							try {
+								tempConvertedReferenceValue = (tempActualSingleValue != null)
+										? valueConverter.convertValue(tempActualSingleValue.getClass(),
+												tempReferenceSingleValue,
+												new ConversionContext()
+														.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS))
+										: tempReferenceSingleValue;
 							} catch (UnresolvableVariableException exc) {
 								exc.printStackTrace();
 							} catch (UnexecutableException exc) {
 								exc.printStackTrace();
 							}
-							
+
 							ComparisonResult tempInnerResult = performEqualityCheck(tempActualSingleValue,
-									tempConvertedReferenceValue, aRawExpectedResult);
+									tempConvertedReferenceValue,
+									tempRawReferenceValue != null
+											? IntegrityDSLUtil.getSpecificValueFromCollection(tempRawReferenceValue, i)
+											: null);
 							if (!tempInnerResult.isSuccessful()) {
 								tempSuccess = false;
 
@@ -655,9 +686,7 @@ public class DefaultResultComparator implements ResultComparator {
 			}
 
 			ComparisonResult tempInnerResult = performEqualityCheck(tempActualValue, tempConvertedReferenceValue,
-					(tempReferenceValue instanceof ValueOrEnumValueOrOperation)
-							? (ValueOrEnumValueOrOperation) tempReferenceValue
-							: null);
+					(tempRawReferenceValue != null) ? tempRawReferenceValue.getValue() : null);
 
 			if (!tempInnerResult.isSuccessful()) {
 				tempSuccess = false;
