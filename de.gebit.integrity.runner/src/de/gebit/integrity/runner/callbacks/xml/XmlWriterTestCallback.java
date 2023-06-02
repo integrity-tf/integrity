@@ -231,6 +231,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	protected boolean rootSuiteWasStarted;
 
 	/**
+	 * Table tests must collect results in an element, which is referenced here. Only valid and filled while a tabletest
+	 * is running!
+	 */
+	protected Element tableTestResultCollectionElement;
+
+	/**
 	 * This prefix is used to mark temporary attributes (these are to be stripped before elements are serialized for the
 	 * final result).
 	 */
@@ -1079,10 +1085,12 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 		}
 
 		if (!isDryRun()) {
+			tableTestResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
 			if (isFork()) {
-				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement);
+				sendElementsToMaster(TestRunnerCallbackMethods.TABLE_TEST_START, tempTestElement,
+						tableTestResultCollectionElement);
 			} else {
-				internalOnTableTestStart(tempTestElement);
+				internalOnTableTestStart(tempTestElement, tableTestResultCollectionElement);
 			}
 		}
 	}
@@ -1093,13 +1101,11 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 * @param aTestElement
 	 *            the a test element
 	 */
-	protected void internalOnTableTestStart(Element aTestElement) {
+	protected void internalOnTableTestStart(Element aTestElement, Element aResultCollectionElement) {
 		Element tempCollectionElement = stackPeek().getChild(STATEMENT_COLLECTION_ELEMENT);
 		tempCollectionElement.addContent(aTestElement);
 		stackPush(aTestElement);
-
-		Element tempResultCollectionElement = new Element(RESULT_COLLECTION_ELEMENT);
-		stackPush(tempResultCollectionElement);
+		stackPush(aResultCollectionElement);
 	}
 
 	/**
@@ -1257,8 +1263,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				exc.printStackTrace();
 			}
 
-			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), aTableTest, stackPeek(), aSubResult,
-					tempParameterMapForText, tempParameterMap);
+			onAnyKindOfSubTestFinish(aTableTest.getDefinition().getFixtureMethod(), aTableTest,
+					tableTestResultCollectionElement, aSubResult, tempParameterMapForText, tempParameterMap);
 		}
 	}
 
@@ -1272,19 +1278,20 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 	 */
 	@Override
 	public void onTableTestFinish(TableTest aTableTest, TestResult aResult) {
-		Element tempResultCollectionElement = stackPeek();
-		if (aResult.getExecutionTime() != null) {
-			setAttributeGuarded(tempResultCollectionElement, EXECUTION_DURATION_ATTRIBUTE,
-					nanoTimeToString(aResult.getExecutionTime()));
-		}
-		setAttributeGuarded(tempResultCollectionElement, SUCCESS_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestSuccessCount()));
-		setAttributeGuarded(tempResultCollectionElement, FAILURE_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestFailCount()));
-		setAttributeGuarded(tempResultCollectionElement, EXCEPTION_COUNT_ATTRIBUTE,
-				Integer.toString(aResult.getSubTestExceptionCount()));
-
 		if (!isDryRun()) {
+			Element tempResultCollectionElement = tableTestResultCollectionElement;
+
+			if (aResult.getExecutionTime() != null) {
+				setAttributeGuarded(tempResultCollectionElement, EXECUTION_DURATION_ATTRIBUTE,
+						nanoTimeToString(aResult.getExecutionTime()));
+			}
+			setAttributeGuarded(tempResultCollectionElement, SUCCESS_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestSuccessCount()));
+			setAttributeGuarded(tempResultCollectionElement, FAILURE_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestFailCount()));
+			setAttributeGuarded(tempResultCollectionElement, EXCEPTION_COUNT_ATTRIBUTE,
+					Integer.toString(aResult.getSubTestExceptionCount()));
+
 			TestSubResult tempFinalizationResult = aResult.getFinalizationTestResult();
 			Element tempFinalizationResultElement = null;
 			if (tempFinalizationResult != null) {
@@ -1321,6 +1328,8 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 				internalOnTableTestFinish(tempResultCollectionElement, tempExtendedResultElement,
 						tempFinalizationResultElement);
 			}
+
+			tableTestResultCollectionElement = null;
 		}
 	}
 
@@ -2435,7 +2444,7 @@ public class XmlWriterTestCallback extends AbstractTestRunnerCallback {
 			internalOnTestStart(tempFirstElement);
 			break;
 		case TABLE_TEST_START:
-			internalOnTableTestStart(tempFirstElement);
+			internalOnTableTestStart(tempFirstElement, (Element) someObjects[1]);
 			break;
 		case TEST_FINISH:
 			internalOnTestFinish(tempFirstElement, (Element) someObjects[1]);
