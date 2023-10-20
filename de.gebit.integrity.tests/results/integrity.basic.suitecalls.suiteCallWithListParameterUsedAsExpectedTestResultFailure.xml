@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<integrity name="Integrity JUnit Testing" timestamp="20.10.23 15:52" isotimestamp="2023-10-20T15:52:30" duration="2.048">
+  <variables />
+  <suite id="0" name="integrity.basic.suitecalls.suiteCallWithListParameterUsedAsExpectedTestResultFailure" timestamp="20.10.23 15:52:30.0650">
+    <setup />
+    <variables />
+    <statements>
+      <suite id="1" line="99" name="integrity.basic.suitecalls.suiteCallWithListParameterUsedAsExpectedTestResult1" timestamp="20.10.23 15:52:30.0650">
+        <setup />
+        <variables>
+          <variable name="param" value="0, 1, 2, 3, 4" />
+        </variables>
+        <statements>
+          <test id="2" line="103" name="generateArrayTest" description="Creates an array" fixture="de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateArray" timestamp="20.10.23 15:52:30.0651">
+            <results duration="0.018" successCount="1" failureCount="0" exceptionCount="0">
+              <result duration="0.018" description="Creates an array" type="success">
+                <parameters />
+                <comparisons>
+                  <comparison expectedValue="0, 1, 2, 3, 4" value="0, 1, 2, 3, 4" type="success" />
+                </comparisons>
+              </result>
+            </results>
+          </test>
+        </statements>
+        <returns />
+        <teardown />
+        <result duration="1.513" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+      </suite>
+    </statements>
+    <returns />
+    <teardown />
+    <result duration="1.910" successCount="1" failureCount="0" exceptionCount="0" testExceptionCount="0" callExceptionCount="0" />
+  </suite>
+</integrity>
+
