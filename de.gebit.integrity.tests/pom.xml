@@ -4,7 +4,7 @@
   <parent>
     <artifactId>integrity-parent</artifactId>
     <groupId>de.gebit.integrity</groupId>
-    <version>22.1.2-SNAPSHOT</version>
+    <version>22.1.3-SNAPSHOT</version>
     <relativePath>../integrity-parent/pom.xml</relativePath>
   </parent>
 
