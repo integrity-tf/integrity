@@ -285,9 +285,6 @@ public class DefaultResultComparator implements ResultComparator {
 	protected ComparisonResult convertAndPerformEqualityCheck(Object aSingleFixtureResult,
 			ValueOrEnumValueOrOperation aSingleExpectedResult, Class<?> aConversionTargetType)
 			throws UnresolvableVariableException, UnexecutableException {
-		Object tempConvertedExpectedResult;
-		Object tempConvertedFixtureResult = aSingleFixtureResult;
-
 		// First we need to sort out the case that the expected result is a variable or operation. If we don't resolve
 		// those, we may not find maps or nested objects or whatever hidden behind them.
 		Object tempSingleExpectedResult = aSingleExpectedResult;
@@ -313,6 +310,55 @@ public class DefaultResultComparator implements ResultComparator {
 			}
 		}
 
+		// It is possible that the resolution of the variable/operation above, or the optional resolution, has made
+		// an Array out of a seemingly-single result value. The following logic must then be run for each sub-element.
+		if (tempSingleExpectedResult != null && tempSingleExpectedResult.getClass().isArray()) {
+			final Object fixtureResult = aSingleFixtureResult; // it's probably not as single as we thought...
+			final Object expectedResult = tempSingleExpectedResult; // it's definitely not single!
+
+			// multiple result values were given -> fixture result must be an array of same size (or a List
+			// as an array equivalent)
+			if (!(((fixtureResult.getClass().isArray()
+					&& Array.getLength(fixtureResult) == Array.getLength(expectedResult))
+					|| ((fixtureResult instanceof List)
+							&& ((List<?>) fixtureResult).size() == Array.getLength(expectedResult))))) {
+				return SimpleComparisonResult.NOT_EQUAL;
+			}
+			// In case of a list, convert to array first so we have a single path to handle both
+			Object tempFixtureResultArray = fixtureResult;
+			if (fixtureResult instanceof List) {
+				tempFixtureResultArray = ((List<?>) fixtureResult).toArray();
+			}
+			// now compare all values
+			for (int i = 0; i < Array.getLength(tempFixtureResultArray); i++) {
+				final Object singleFixtureResult = Array.get(tempFixtureResultArray, i);
+				final Object singleExpectedResult = Array.get(expectedResult, i);
+				if (singleFixtureResult == null) {
+					// The fixture returned a null, we need to expect a null
+					if (!(singleExpectedResult instanceof NullValue)) {
+						return SimpleComparisonResult.NOT_EQUAL;
+					}
+				} else {
+					if (!convertAndPerformEqualityCheck(singleFixtureResult, singleExpectedResult,
+							aSingleExpectedResult, aConversionTargetType, tempExpectedResultIsEmptyOptional)
+									.isSuccessful()) {
+						return SimpleComparisonResult.NOT_EQUAL;
+					}
+				}
+			}
+			return SimpleComparisonResult.EQUAL;
+		} else {
+			return convertAndPerformEqualityCheck(aSingleFixtureResult, tempSingleExpectedResult, aSingleExpectedResult,
+					aConversionTargetType, tempExpectedResultIsEmptyOptional);
+		}
+	}
+
+	protected ComparisonResult convertAndPerformEqualityCheck(Object aSingleFixtureResult, Object aSingleExpectedResult,
+			ValueOrEnumValueOrOperation anOriginalSingleExpectedResult, Class<?> aConversionTargetType,
+			boolean anExpectedResultWasEmptyOptionalFlag) throws UnresolvableVariableException, UnexecutableException {
+		Object tempConvertedFixtureResult = aSingleFixtureResult;
+		Object tempConvertedExpectedResult;
+
 		// Now sort out cases in which Optional results have been provided by the fixture. In those cases, it may be
 		// the case that a non-existent result is actually expected by the test (via an Inexistent value), which means a
 		// successful comparison. Otherwise we will have to resolve the optional to some concrete value and continue
@@ -320,7 +366,7 @@ public class DefaultResultComparator implements ResultComparator {
 		// result is an Optional, too.
 		if (tempConvertedFixtureResult instanceof Optional) {
 			boolean tempWeExpectNoValue
-					= (tempExpectedResultIsEmptyOptional || (tempSingleExpectedResult instanceof InexistentValue));
+					= (anExpectedResultWasEmptyOptionalFlag || (aSingleExpectedResult instanceof InexistentValue));
 			if (((Optional<?>) tempConvertedFixtureResult).isPresent()) {
 				// If the Optional has a value, but we explicitly don't expect one, the comparison has already failed
 				if (tempWeExpectNoValue) {
@@ -336,17 +382,16 @@ public class DefaultResultComparator implements ResultComparator {
 			}
 		}
 
-		if (((tempSingleExpectedResult instanceof NestedObject)
-				|| (tempSingleExpectedResult instanceof TypedNestedObject))
+		if (((aSingleExpectedResult instanceof NestedObject) || (aSingleExpectedResult instanceof TypedNestedObject))
 				&& !(tempConvertedFixtureResult instanceof Map)) {
 			// if the expected result is a (typed) nested object, and the fixture has NOT returned a
 			// map, we assume the fixture result to be a bean class/instance. We'll convert both to maps
 			// for comparison!
 			NestedObject tempNestedObject;
-			if (tempSingleExpectedResult instanceof TypedNestedObject) {
-				tempNestedObject = ((TypedNestedObject) tempSingleExpectedResult).getNestedObject();
+			if (aSingleExpectedResult instanceof TypedNestedObject) {
+				tempNestedObject = ((TypedNestedObject) aSingleExpectedResult).getNestedObject();
 			} else {
-				tempNestedObject = (NestedObject) tempSingleExpectedResult;
+				tempNestedObject = (NestedObject) aSingleExpectedResult;
 			}
 
 			tempConvertedFixtureResult = valueConverter.convertValue(Map.class, tempConvertedFixtureResult, null);
@@ -358,27 +403,27 @@ public class DefaultResultComparator implements ResultComparator {
 							.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS)
 							.withEmptyValueHandling(EmptyValueHandling.KEEP_AS_IS));
 		} else {
-			if (tempSingleExpectedResult instanceof Map && !(tempConvertedFixtureResult instanceof Map)) {
+			if (aSingleExpectedResult instanceof Map && !(tempConvertedFixtureResult instanceof Map)) {
 				// if the expected result is a map, and the fixture has NOT returned a map, we also assume the fixture
 				// result to be a bean class/instance. But we only need to convert that to a map for comparison.
 				tempConvertedFixtureResult = valueConverter.convertValue(Map.class, tempConvertedFixtureResult, null);
-				tempConvertedExpectedResult = tempSingleExpectedResult;
-			} else if (tempSingleExpectedResult instanceof RegexValue) {
+				tempConvertedExpectedResult = aSingleExpectedResult;
+			} else if (aSingleExpectedResult instanceof RegexValue) {
 				// If the expected result is a regex, perform a regular expression comparison. For this we need
 				// to convert the fixture result to a String, because that's what we can match the regex with.
 				tempConvertedFixtureResult
 						= valueConverter.convertValue(String.class, tempConvertedFixtureResult, null);
-				return performRegexCheck((String) tempConvertedFixtureResult, (RegexValue) tempSingleExpectedResult);
+				return performRegexCheck((String) tempConvertedFixtureResult, (RegexValue) aSingleExpectedResult);
 			} else {
 				// no special bean-related cases apply: convert the expected result to match the given fixture result
-				tempConvertedExpectedResult
-						= valueConverter.convertValue(aConversionTargetType, tempSingleExpectedResult,
-								new ConversionContext().withEmptyValueHandling(EmptyValueHandling.KEEP_AS_IS)
-										.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS));
+				tempConvertedExpectedResult = valueConverter.convertValue(aConversionTargetType, aSingleExpectedResult,
+						new ConversionContext().withEmptyValueHandling(EmptyValueHandling.KEEP_AS_IS)
+								.withRegexValueHandling(RegexValueHandling.KEEP_AS_IS));
 			}
 		}
 
-		return performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult, aSingleExpectedResult);
+		return performEqualityCheck(tempConvertedFixtureResult, tempConvertedExpectedResult,
+				anOriginalSingleExpectedResult);
 	}
 
 	/**

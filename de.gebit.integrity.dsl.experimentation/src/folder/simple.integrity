@@ -68,22 +68,14 @@ packagedef mypackage with
 	 */
 	suitedef asuite gets testParameter anotherParameter returns aResult with
 		
-		tabletest echo 
-			| echo   | =    |
-			| "abc" | "abc" |
-			| "def" | "def" |
-			| "ghi" | "ghi"|
+		suite bsuite param: "aFirst", "aSecond"
 		
 	suiteend
 	
 	
-	suitedef bsuite with
+	suitedef bsuite gets param with
 		
-		test echo echo: "blah" = "blah"
-		
-		test echo echo: "blah" = "blah"
-		
-		test echo echo: "blah" = "blah"
+		test nullarraytest = param
 			
 	suiteend
 	

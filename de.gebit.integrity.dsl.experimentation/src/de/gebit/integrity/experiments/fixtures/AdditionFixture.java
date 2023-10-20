@@ -115,7 +115,8 @@ public class AdditionFixture implements FinalizationTestFixture {
 		}
 	}
 
-	@FixtureMethod(description = "echoes $echo$", i18nDescriptions = { @I18NDescription(locale = "de_DE", description = "Gibt $echo$ zurück") })
+	@FixtureMethod(description = "echoes $echo$", i18nDescriptions = {
+			@I18NDescription(locale = "de_DE", description = "Gibt $echo$ zurück") })
 	public Object returnValue(@FixtureParameter(name = "echo") Object anInput) {
 		// throw new RuntimeException("An exception!");
 		pause();
@@ -170,7 +171,7 @@ public class AdditionFixture implements FinalizationTestFixture {
 	@FixtureMethod(description = "this test always returns nulls")
 	public String[] returnNullArray(@FixtureParameter(name = "entries") Integer aNumberOfNulls) {
 		pause();
-		return new String[aNumberOfNulls];
+		return new String[] { "aFirst", "aSecond" };
 	}
 
 	@FixtureMethod(description = "This always throws an exception. We're so doomed!")
