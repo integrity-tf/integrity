@@ -112,6 +112,7 @@ packagedef integrity.fixtures.basic.noop with
 	calldef generateCharacter uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateCharacter
 	
 	calldef generateArray uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateArray
+	testdef generateArrayTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#generateArray
 	
 	calldef echoNonNullableString uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNonNullableString
 	testdef echoNonNullableStringTest uses de.gebit.integrity.tests.fixtures.basic.NoOpFixture#echoNonNullableString
