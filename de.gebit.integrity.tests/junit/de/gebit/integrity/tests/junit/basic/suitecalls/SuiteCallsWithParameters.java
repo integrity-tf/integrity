@@ -85,4 +85,36 @@ public class SuiteCallsWithParameters extends IntegrityJUnitTest {
 		assertDocumentMatchesReference(tempResult);
 	}
 
+	/**
+	 * Tests suite calls with parameters which contain lists of stuff and are forwarded.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testSuiteCallWithListParameterUsedAsExpectedTestResultSuccess()
+			throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/suitecalls/suiteCallsWithParameters.integrity" },
+				"integrity.basic.suitecalls.suiteCallWithListParameterUsedAsExpectedTestResultSuccess", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
+	/**
+	 * Tests suite calls with parameters which contain lists of stuff and are forwarded.
+	 * 
+	 * @throws ModelLoadException
+	 * @throws IOException
+	 * @throws JDOMException
+	 */
+	@Test
+	public void testSuiteCallWithListParameterUsedAsExpectedTestResultFailure()
+			throws ModelLoadException, IOException, JDOMException {
+		Document tempResult = executeIntegritySuite(
+				new String[] { "integrity/suites/basic/suitecalls/suiteCallsWithParameters.integrity" },
+				"integrity.basic.suitecalls.suiteCallWithListParameterUsedAsExpectedTestResultFailure", null);
+		assertDocumentMatchesReference(tempResult);
+	}
+
 }

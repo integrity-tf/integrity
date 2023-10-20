@@ -90,5 +90,18 @@ packagedef integrity.basic.suitecalls with
 		test integrity.fixtures.basic.noop.echoObjectTest echo: param = "foo", "bar"
 	suiteend
 	
+	
+	suitedef suiteCallWithListParameterUsedAsExpectedTestResultSuccess with
+		suite suiteCallWithListParameterUsedAsExpectedTestResult1 param: 0,1,2,3,4,5
+	suiteend
+	
+	suitedef suiteCallWithListParameterUsedAsExpectedTestResultFailure with
+		suite suiteCallWithListParameterUsedAsExpectedTestResult1 param: 0,1,2,3,4
+	suiteend
+	
+	suitedef suiteCallWithListParameterUsedAsExpectedTestResult1 gets param with
+		test integrity.fixtures.basic.noop.generateArrayTest = param
+	suiteend
+	
 
 packageend
