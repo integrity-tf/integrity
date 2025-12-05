@@ -325,9 +325,7 @@ public class SetListCallback extends AbstractTestRunnerCallback {
 				if (tempFinalizationResult instanceof TestExecutedSubResult) {
 					TestComparisonResult tempFinalizationComparisonResult
 							= tempFinalizationResult.getComparisonResults().get(ParameterUtil.DEFAULT_PARAMETER_NAME);
-					if (tempFinalizationComparisonResult.getResult().isSuccessful()) {
-						tempTestEntry.setAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_RESULT, true);
-					} else {
+                    if (!tempFinalizationComparisonResult.getResult().isSuccessful()) {
 						// In case of test failure, we expect a failure message to be placed in the actual value
 						tempTestEntry.setAttribute(SetListEntryAttributeKeys.FINALIZATION_TEST_RESULT,
 								(String) tempFinalizationComparisonResult.getActualValue());
