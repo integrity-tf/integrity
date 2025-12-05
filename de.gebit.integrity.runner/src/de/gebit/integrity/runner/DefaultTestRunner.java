@@ -2654,7 +2654,7 @@ public class DefaultTestRunner implements TestRunner {
 	protected void removeBreakpoint(int anEntryReference) {
 		// forward to forks
 		for (Entry<ForkDefinition, Fork> tempForkEntry : forkMap.entrySet()) {
-			tempForkEntry.getValue().getClient().createBreakpoint(anEntryReference);
+			tempForkEntry.getValue().getClient().deleteBreakpoint(anEntryReference);
 		}
 
 		// then perform for ourself
