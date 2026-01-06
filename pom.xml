@@ -38,7 +38,7 @@
   		  <!-- In some cases we need to purge stuff. -->
   		  <groupId>org.apache.maven.plugins</groupId>
 	      <artifactId>maven-dependency-plugin</artifactId>
-	      <version>2.7</version>
+	      <version>3.9.0</version>
 	      <configuration>
 	      	<includeGroupIds>de.gebit.integrity</includeGroupIds>
 	      	<actTransitively>false</actTransitively>

@@ -10,7 +10,7 @@
  */
 package de.gebit.integrity.ui.outline;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.StyledString;

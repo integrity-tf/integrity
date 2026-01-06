@@ -14,7 +14,7 @@
   	<isRelease>false</isRelease>
   	  
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <tycho-version>2.7.4</tycho-version>
+    <tycho-version>5.0.1</tycho-version>
     <validateManifestVersions>true</validateManifestVersions>
     
     <main.basedir>${project.basedir}</main.basedir>
@@ -44,7 +44,7 @@
 			      <groupId>de.gebit.integrity</groupId>
 			      <artifactId>integrity-target</artifactId>
 			      <version>${project.version}</version>
-			      <classifier>2022-06</classifier>
+			      <classifier>2025-12</classifier>
 			    </artifact>
 			  </target>
 			  <ignoreTychoRepositories>true</ignoreTychoRepositories>
@@ -116,10 +116,10 @@
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
-			<version>2.3.2</version>
+			<version>3.14.1</version>
 			<configuration>
-			  <source>11</source>
-			  <target>11</target>
+			  <source>21</source>
+			  <target>21</target>
 			  <encoding>ISO-8859-1</encoding>
 			</configuration>
 		</plugin>

@@ -97,15 +97,15 @@
 			 		<extraClasspathElement>
 			 			<groupId>com.esotericsoftware</groupId>
 			 			<artifactId>reflectasm</artifactId>
-			 			<version>1.11.3</version>
-			 			<systemPath>${basedir}/kryo/reflectasm-1.11.3.jar</systemPath>
+			 			<version>1.11.6</version>
+			 			<systemPath>${basedir}/kryo/reflectasm-1.11.6.jar</systemPath>
 			 		</extraClasspathElement>
-			 		<extraClasspathElement>
-			 			<groupId>org.ow2.asm</groupId>
-			 			<artifactId>asm</artifactId>
-			 			<version>5.0.4</version>
-			 			<systemPath>${basedir}/kryo/asm-5.0.4.jar</systemPath>
-			 		</extraClasspathElement>
+<!--			 		<extraClasspathElement>-->
+<!--			 			<groupId>org.ow2.asm</groupId>-->
+<!--			 			<artifactId>asm</artifactId>-->
+<!--			 			<version>5.0.4</version>-->
+<!--			 			<systemPath>${basedir}/kryo/asm-5.0.4.jar</systemPath>-->
+<!--			 		</extraClasspathElement>-->
 			 		<extraClasspathElement>
 			 			<groupId>com.esotericsoftware</groupId>
 			 			<artifactId>minlog</artifactId>

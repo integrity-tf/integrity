@@ -60,11 +60,10 @@ public class IntegrityClasspathContainer implements IClasspathContainer {
 		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.remoting" } });
 		addToList(tempEntryList, new String[][] { new String[] { "de.gebit.integrity.dsl" } });
 
-		addToList(tempEntryList, new String[][] { new String[] { "javax.inject" } });
+		addToList(tempEntryList, new String[][] { new String[] { "jakarta.inject.jakarta.inject-api" } });
 		addToList(tempEntryList, new String[][] { new String[] { "com.google.inject" } });
-		// Guava seems to have a breaking change in 31.x that leads to errors with xtext 2.30.x,
-		// hence the 31.x versions are excluded here
-		addToList(tempEntryList, new String[][] { new String[] { "com.google.guava:[0.0.0,31.0.0)" } });
+		addToList(tempEntryList, new String[][] { new String[] { "com.google.guava" } });
+		addToList(tempEntryList, new String[][] { new String[] { "com.google.guava.failureaccess" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.antlr.runtime" } });
 		addToList(tempEntryList, new String[][] { new String[] { "org.slf4j.log4j", "org.slf4j.api" },
 				new String[] { "org.apache.log4j" } });

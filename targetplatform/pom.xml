@@ -28,9 +28,9 @@
 		            <configuration>
 		                <artifacts>
 		                    <artifact>
-		                        <file>2022-06.target</file>
+		                        <file>2025-12.target</file>
 		                        <type>target</type>
-		                        <classifier>2022-06</classifier>
+		                        <classifier>2025-12</classifier>
 		                    </artifact>
 		                </artifacts>
 		            </configuration>
